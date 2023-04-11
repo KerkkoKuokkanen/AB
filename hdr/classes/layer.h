@@ -18,8 +18,8 @@ class Layer
 		SDL_Renderer *rend;
 		bool ySorted = false;
 		std::vector<Sprite*> sprites;
-		int layerNumber = 0;
 	public:
+		int layerNumber = 0;
 		Layer(SDL_Renderer *rend, bool ySorted, int layerNumber) {
 			Layer::rend = rend;
 			Layer:: ySorted = ySorted;
@@ -27,9 +27,6 @@ class Layer
 		};
 		void addSprite(Sprite *sprite) {
 			Layer::sprites.push_back(sprite);
-		};
-		void changeLayerNumber(int layerNumber) {
-			Layer::layerNumber = layerNumber;
 		};
 		void renderLayer() {
 			if (!ySorted)

@@ -11,7 +11,7 @@
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
 
-SDL_Rect	translateSprite(SDL_Rect dest);
+SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite);
 
 # include "classes/sprite.h"
 # include <vector>
@@ -40,15 +40,6 @@ typedef struct s_Keys
 	int w, a, s, d;
 	int click;
 }				t_Keys;
-
-typedef struct	s_GameState
-{
-	t_Screen screen;
-	t_Camera camera;
-	t_Keys keys;
-}				t_GameState;
-
-extern t_GameState gameState;
 
 int			figure_the_delay(clock_t start, clock_t end);
 void		init(t_wr *wr);

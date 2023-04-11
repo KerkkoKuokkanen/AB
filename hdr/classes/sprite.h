@@ -15,6 +15,7 @@ class Sprite
 		bool staticSprite = false;
 	public:
 		SDL_Rect dest = {0, 0, 0, 0};
+		int spritesLayer;
 		Sprite(SDL_Texture *sprite, SDL_Rect dest, SDL_Rect *srect, SDL_Point *point, const double angle, const int flip, bool staticSprite = false) {
 			Sprite::sprite = sprite;
 			Sprite::dest = dest;
@@ -26,10 +27,12 @@ class Sprite
 			else if (flip == FLIP_VERTICAL)
 				Sprite::flip = SDL_FLIP_VERTICAL;
 			Sprite::staticSprite = staticSprite;
+			spritesLayer = -1;
 		};
-		~Sprite() { delete this; }
+		~Sprite();
+		void RemoveFromRenderer();
 		void Render(SDL_Renderer *rend) {
-			SDL_Rect rect = translateSprite(dest);
+			SDL_Rect rect = translateSprite(dest, staticSprite);
 			SDL_RenderCopyEx(rend, sprite, srect, &rect, angle, point, flip);
 		};
 		void Move(Vector amount) {

@@ -1,6 +1,6 @@
 
 NAME = AB
-SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp
+SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools/renderer.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR = -I ./hdr -I ./hdr/classes

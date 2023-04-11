@@ -1,5 +1,6 @@
 
 #include "../hdr/ab.h"
+#include "../hdr/global.h"
 #include <string>
 #include <stdio.h>
 
@@ -20,6 +21,7 @@ int MainLoop(t_wr &wr)
 	SDL_Rect rect = {1000, 1000, 1000, 1000};
 	SDL_Texture *textureGun = get_texture(wr.rend, "real_gun.png");
 	Sprite gun(textureGun, rect, NULL, NULL, 0, FLIP_NONE, false);
+	gameState.render->AddSprite(&gun, 0);
 	clock_t start, end;
 
 	while (1)
@@ -27,9 +29,7 @@ int MainLoop(t_wr &wr)
 		start = clock();
 		eventPoller();
 		CameraMove();
-		SDL_RenderClear(wr.rend);
-		gun.Render(wr.rend);
-		SDL_RenderPresent(wr.rend);
+		gameState.render->RenderAll();
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));
 	}

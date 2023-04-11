@@ -1,5 +1,6 @@
 
 #include "../../hdr/ab.h"
+#include "../../hdr/global.h"
 
 SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 {
@@ -18,14 +19,18 @@ int	rounding(float value)
 	return (val);
 }
 
-SDL_Rect	translateSprite(SDL_Rect dest)
+SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite)
 {
-	dest.x -= gameState.camera.x;
-	dest.y -= gameState.camera.y;
+	float unit = gameState.screen.unit;
+	if (!staticSprite)
+	{
+		dest.x -= gameState.camera.x;
+		dest.y -= gameState.camera.y;
+	}
 	float xPos = gameState.screen.unit * (float)dest.x * gameState.screen.width;
 	float yPos = gameState.screen.unit * (float)dest.y * gameState.screen.height;
-	float width = gameState.screen.unit * (float)dest.w * gameState.screen.width;
-	float height = gameState.screen.unit * (float)dest.h * gameState.screen.height * gameState.screen.aspectRatio;
+	float width = unit * (float)dest.w * gameState.screen.width;
+	float height = unit * (float)dest.h * gameState.screen.height * gameState.screen.aspectRatio;
 
 	SDL_Rect ret;
 	ret.x = rounding(xPos);
@@ -54,6 +59,9 @@ void	init(t_wr *wr)
 	gameState.keys.s = 0;
 	gameState.keys.d = 0;
 	gameState.keys.click = 0;
+	static Renderer render(wr->rend);
+	render.CreateLayer(true);
+	gameState.render = &render;
 	//SDL_SetWindowFullscreen(wre->win, window_check_value);
 	//SDL_ShowCursor(SDL_DISABLE);
 }
