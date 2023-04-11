@@ -2,15 +2,57 @@
 #ifndef AB_H
 # define AB_H
 
-# include "../SDL2/SDL.h"
-# include <SDL2/SDL.h>
-/* # include <SDL2_image/SDL_image.h>
-# include <SDL2_mixer/SDL_mixer.h> */
+# define FRAME 17
 
-typedef struct s_wr
+# define FLIP_NONE 0
+# define FLIP_HORIZONTAL 1
+# define FLIP_VERTICAL 2
+
+# include "../SDL2/SDL.h"
+# include "classes/vector.h"
+
+SDL_Rect	translateSprite(SDL_Rect dest);
+
+# include "classes/sprite.h"
+# include <vector>
+
+typedef struct	s_wr
 {
 	SDL_Window *win;
 	SDL_Renderer *rend;
 }				t_wr;
+
+typedef struct s_Screen
+{
+	int width, height;
+	float unit;
+	float aspectRatio;
+}				t_Screen;
+
+typedef struct s_Camera
+{
+	int x, y;
+	float zoom;
+}				t_Camera;
+
+typedef struct s_Keys
+{
+	int w, a, s, d;
+	int click;
+}				t_Keys;
+
+typedef struct	s_GameState
+{
+	t_Screen screen;
+	t_Camera camera;
+	t_Keys keys;
+}				t_GameState;
+
+extern t_GameState gameState;
+
+int			figure_the_delay(clock_t start, clock_t end);
+void		init(t_wr *wr);
+SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath);
+void		eventPoller();
 
 #endif

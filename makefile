@@ -1,10 +1,10 @@
 
 NAME = AB
-SRCS =  srcs/main.cpp
+SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp
 
 OBJ = $(SRCS:.c=.o)
-HDR = -I ./hdr
-FLAGS = 
+HDR = -I ./hdr -I ./hdr/classes
+FLAGS = -std=c++11
 CGFLAGS = 
 INCLUDES	=	-I./frameworks/SDL2.framework/Versions/A/Headers \
 				-I./frameworks/SDL2_image.framework/Versions/A/Headers \

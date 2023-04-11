@@ -1,33 +1,45 @@
 
 #include "../hdr/ab.h"
+#include <string>
+#include <stdio.h>
 
-void init(t_wr *wr)
+t_GameState gameState;
+
+void CameraMove()
 {
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
-	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	Mix_AllocateChannels(26);
-	SDL_CreateWindowAndRenderer(1920, 1080, 0, &wr->win, &wr->rend);
-	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	//SDL_SetWindowFullscreen(wre->win, window_check_value);
-	//SDL_ShowCursor(SDL_DISABLE);
+	int xMove = gameState.keys.a - gameState.keys.d;
+	int yMove = gameState.keys.w - gameState.keys.s;
+
+	gameState.camera.x += xMove * 25;
+	gameState.camera.y += yMove * 25;
+}
+
+int MainLoop(t_wr &wr)
+{
+	SDL_Event evnt;
+	SDL_Rect rect = {1000, 1000, 1000, 1000};
+	SDL_Texture *textureGun = get_texture(wr.rend, "real_gun.png");
+	Sprite gun(textureGun, rect, NULL, NULL, 0, FLIP_NONE, false);
+	clock_t start, end;
+
+	while (1)
+	{
+		start = clock();
+		eventPoller();
+		CameraMove();
+		SDL_RenderClear(wr.rend);
+		gun.Render(wr.rend);
+		SDL_RenderPresent(wr.rend);
+		end = clock();
+		SDL_Delay(figure_the_delay(start, end));
+	}
+
+	return (0);
 }
 
 int main()
 {
-	SDL_Event evnt;
 	t_wr wr;
 	init(&wr);
-
-	while (1)
-	{
-		while (SDL_PollEvent(&evnt))
-		{
-			if (evnt.type == SDL_QUIT)
-				exit(0);
-		}
-		SDL_RenderClear(wr.rend);
-		SDL_RenderPresent(wr.rend);
-	}
-
-	return (0);
+	return (MainLoop(wr));
 }
