@@ -13,6 +13,18 @@ void CameraMove()
 
 	gameState.camera.x += xMove * 25;
 	gameState.camera.y += yMove * 25;
+	if (gameState.keys.wheel == 0)
+		return ;
+	if (gameState.keys.wheel > 0)
+	{
+		gameState.screen.unit *= 1.01f;
+		gameState.keys.wheel -= 1;
+	}
+	else if (gameState.keys.wheel < 0)
+	{
+		gameState.screen.unit *= 0.99f;
+		gameState.keys.wheel += 1;
+	}
 }
 
 int MainLoop(t_wr &wr)

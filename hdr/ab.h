@@ -39,6 +39,7 @@ typedef struct s_Keys
 {
 	int w, a, s, d;
 	int click;
+	int wheel;
 }				t_Keys;
 
 int			figure_the_delay(clock_t start, clock_t end);

@@ -19,6 +19,10 @@ void eventPoller()
 			case SDL_MOUSEBUTTONUP:
 				if (evnt.button.button == SDL_BUTTON_LEFT)
 					gameState.keys.click = 0;
+				break ;
+			case SDL_MOUSEWHEEL:
+				gameState.keys.wheel = evnt.wheel.y;
+				break ;
 			case SDL_KEYDOWN:
 				switch (evnt.key.keysym.scancode)
 				{
