@@ -21,16 +21,18 @@ int	rounding(float value)
 
 SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite)
 {
-	float unit = gameState.screen.unit;
+	float cx = 0.0f;
+	float cy = 0.0f;
+	float w = (float)gameState.screen.width, h = (float)gameState.screen.height;
 	if (!staticSprite)
 	{
-		dest.x -= gameState.camera.x;
-		dest.y -= gameState.camera.y;
+		cx = gameState.camera.x;
+		cy = gameState.camera.y;
 	}
-	float xPos = gameState.screen.unit * (float)dest.x * gameState.screen.width;
-	float yPos = gameState.screen.unit * (float)dest.y * gameState.screen.height;
-	float width = unit * (float)dest.w * gameState.screen.width;
-	float height = unit * (float)dest.h * gameState.screen.height * gameState.screen.aspectRatio;
+	float xPos = (gameState.screen.unit * ((float)dest.x - cx) * w) + gameState.screen.midPointX;
+	float yPos = (gameState.screen.unit * ((float)dest.y - cy) * h) + gameState.screen.midPointY;
+	float width = gameState.screen.unit* (float)dest.w * w;
+	float height = gameState.screen.unit * (float)dest.h * h * gameState.screen.aspectRatio;
 
 	SDL_Rect ret;
 	ret.x = rounding(xPos);
@@ -38,32 +40,6 @@ SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite)
 	ret.w = rounding(width);
 	ret.h = rounding(height);
 	return (ret);
-}
-
-void	init(t_wr *wr)
-{
-	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
-	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	Mix_AllocateChannels(26);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
-	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	gameState.screen.width = 1280;
-	gameState.screen.height = 720;
-	gameState.screen.aspectRatio = (float)gameState.screen.width / (float)gameState.screen.height;
-	gameState.screen.unit = 1.0f / 10000.0f;
-	gameState.camera.x = 0;
-	gameState.camera.y = 0;
-	gameState.camera.zoom = 0.0f;
-	gameState.keys.w = 0;
-	gameState.keys.a = 0;
-	gameState.keys.s = 0;
-	gameState.keys.d = 0;
-	gameState.keys.click = 0;
-	static Renderer render(wr->rend);
-	render.CreateLayer(true);
-	gameState.render = &render;
-	//SDL_SetWindowFullscreen(wre->win, window_check_value);
-	//SDL_ShowCursor(SDL_DISABLE);
 }
 
 int	figure_the_delay(clock_t start, clock_t end)
