@@ -23,15 +23,17 @@ SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite)
 {
 	float cx = 0.0f;
 	float cy = 0.0f;
-	float w = (float)gameState.screen.width, h = (float)gameState.screen.height;
+	float w = (float)gameState.screen.width;
+	float h = (float)gameState.screen.height;
 	if (!staticSprite)
 	{
 		cx = gameState.camera.x;
 		cy = gameState.camera.y;
 	}
+	//need to make this better so that every object gets the same pixel addition. No rounding to random pixels
 	float xPos = (gameState.screen.unit * ((float)dest.x - cx) * w) + gameState.screen.midPointX;
 	float yPos = (gameState.screen.unit * ((float)dest.y - cy) * h * gameState.screen.aspectRatio) + gameState.screen.midPointY;
-	float width = gameState.screen.unit* (float)dest.w * w;
+	float width = gameState.screen.unit* (float)dest.w * w; // need to put this else where. does not need to be changes constantly
 	float height = gameState.screen.unit * (float)dest.h * h * gameState.screen.aspectRatio;
 
 	SDL_Rect ret;
