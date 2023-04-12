@@ -24,10 +24,9 @@ void initScreen(int width, int height)
 	gameState.camera.x = 0;
 	gameState.camera.y = 0;
 	gameState.camera.zoom = 0.0f;
-	float xUni = 10000.0f / (float)width;
-	float yUni = 10000.0f / (float)height;
-	gameState.screen.xPixelUnit = rounding(xUni);
-	gameState.screen.yPixelUnit = rounding(yUni);
+	gameState.screen.unit = 1.0f / 10000.0f;
+	gameState.screen.xPixelUnit = 10000.0f / (float)width;
+	gameState.screen.yPixelUnit = 10000.0f / (float)height;
 }
 
 void	init(t_wr *wr)
@@ -37,8 +36,7 @@ void	init(t_wr *wr)
 	Mix_AllocateChannels(26);
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	gameState.screen.unit = 1.0f / 10000.0f;
-	initScreen(1280, 720);
+	initScreen(1200, 800);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(true);

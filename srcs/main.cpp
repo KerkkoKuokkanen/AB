@@ -12,10 +12,10 @@ void CameraMove()
 	{
 		int x = 0, y = 0;
 		SDL_GetMouseState(&x, &y);
-		int diffX = gameState.camera.clickTimePosX - x;
-		int diffY = gameState.camera.clickTimePosY - y;
-		gameState.camera.x += diffX * gameState.screen.xPixelUnit;
-		gameState.camera.y += diffY * gameState.screen.yPixelUnit;
+		float diffX = gameState.camera.clickTimePosX - x;
+		float diffY = gameState.camera.clickTimePosY - y;
+		gameState.camera.x += rounding(diffX * gameState.screen.xPixelUnit);
+		gameState.camera.y += rounding(diffY * gameState.screen.yPixelUnit);
 		gameState.camera.clickTimePosX = x;
 		gameState.camera.clickTimePosY = y;
 	}
@@ -31,6 +31,8 @@ void CameraMove()
 		gameState.screen.unit *= 0.975f;
 		gameState.keys.wheel += 1;
 	}
+	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
+	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
 }
 
 int MainLoop(t_wr &wr)

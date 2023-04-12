@@ -28,7 +28,7 @@ typedef struct s_Screen
 	float unit;
 	float aspectRatio;
 	int midPointX, midPointY;
-	int xPixelUnit, yPixelUnit;
+	float xPixelUnit, yPixelUnit;
 }				t_Screen;
 
 typedef struct s_Camera
