@@ -30,15 +30,15 @@ SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite)
 		cy = gameState.camera.y;
 	}
 	float xPos = (gameState.screen.unit * ((float)dest.x - cx) * w) + gameState.screen.midPointX;
-	float yPos = (gameState.screen.unit * ((float)dest.y - cy) * h) + gameState.screen.midPointY;
+	float yPos = (gameState.screen.unit * ((float)dest.y - cy) * h * gameState.screen.aspectRatio) + gameState.screen.midPointY;
 	float width = gameState.screen.unit* (float)dest.w * w;
 	float height = gameState.screen.unit * (float)dest.h * h * gameState.screen.aspectRatio;
 
 	SDL_Rect ret;
-	ret.x = rounding(xPos);
-	ret.y = rounding(yPos);
-	ret.w = rounding(width);
-	ret.h = rounding(height);
+	ret.x = (int)(xPos);
+	ret.y = (int)(yPos);
+	ret.w = (int)(width);
+	ret.h = (int)(height);
 	return (ret);
 }
 

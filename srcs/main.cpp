@@ -32,19 +32,20 @@ void CameraMove()
 		gameState.keys.wheel += 1;
 	}
 	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
-	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
+	gameState.screen.yPixelUnit = ((1.0f / gameState.screen.unit) / gameState.screen.height) / gameState.screen.aspectRatio;
 }
 
 int MainLoop(t_wr &wr)
 {
 	SDL_Event evnt;
-	SDL_Rect rect = {-500, -500, 1000, 1000};
-	SDL_Rect dect = {3000, 3000, 1000, 1000};
-	SDL_Texture *textureGun = get_texture(wr.rend, "real_gun.png");
+	SDL_Rect rect = {-500, -2000, 1000, 1000};
+	SDL_Rect dect = {2000, 2000, 1000, 1000};
+	SDL_Texture *textureGun = get_texture(wr.rend, "sprites/real_gun.png");
 	Sprite gun(textureGun, rect, NULL, NULL, 0, FLIP_NONE, false);
 	Sprite mun(textureGun, dect, NULL, NULL, 0, FLIP_NONE, false);
-	gameState.render->AddSprite(&gun, 0);
-	gameState.render->AddSprite(&mun, 0);
+	gameState.render->AddSprite(&gun, 2);
+	gameState.render->AddSprite(&mun, 2);
+	CreateGroundTest();
 	clock_t start, end;
 
 	while (1)
@@ -52,7 +53,10 @@ int MainLoop(t_wr &wr)
 		start = clock();
 		eventPoller();
 		CameraMove();
-		gameState.render->RenderAll();
+		SDL_SetRenderDrawColor(wr.rend, 51, 153, 51, 255);
+		SDL_RenderClear(wr.rend);
+		gameState.render->Render();
+		SDL_RenderPresent(wr.rend);
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));
 	}

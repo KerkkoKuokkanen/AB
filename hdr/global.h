@@ -4,6 +4,15 @@
 
 # include "ab.h"
 # include "classes/renderer.h"
+# include "classes/battleGround.h"
+
+typedef struct s_Battle
+{
+	BattleGround *ground;
+	int xDist;
+	int yDist;
+}				t_Battle;
+
 
 typedef struct	s_GameState
 {
@@ -11,6 +20,7 @@ typedef struct	s_GameState
 	t_Camera camera;
 	t_Keys keys;
 	Renderer *render;
+	t_Battle battle;
 }				t_GameState;
 
 extern t_GameState gameState;

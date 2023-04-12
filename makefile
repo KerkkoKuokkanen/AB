@@ -1,7 +1,7 @@
 
 NAME = AB
 SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools/renderer.cpp \
-		srcs/tools/init.cpp
+		srcs/tools/init.cpp srcs/battle/battleGround.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR = -I ./hdr -I ./hdr/classes

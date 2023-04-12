@@ -52,5 +52,6 @@ SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath);
 void		eventPoller();
 void		init(t_wr *wr);
 int			rounding(float value);
+void		CreateGroundTest();
 
 #endif
