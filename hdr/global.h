@@ -6,6 +6,8 @@
 # include "classes/renderer.h"
 # include "classes/battleGround.h"
 
+# define ALPHA_BLEND 80
+
 typedef struct s_Battle
 {
 	BattleGround *ground;

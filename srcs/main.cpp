@@ -53,9 +53,7 @@ int MainLoop(t_wr &wr)
 		start = clock();
 		eventPoller();
 		CameraMove();
-		SDL_RenderClear(wr.rend);
-		gameState.render->Render();
-		SDL_RenderPresent(wr.rend);
+		gameState.render->RenderAll();
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));
 	}

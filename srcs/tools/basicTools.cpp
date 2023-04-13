@@ -31,16 +31,12 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite)
 		cx = gameState.camera.x;
 		cy = gameState.camera.y;
 	}
-	float xPos = (float)(dest.x - cx) / gameState.screen.xPixelUnit + gameState.screen.midPointX;
-	float yPos = (float)(dest.y - cy) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY;
-	float width = (float)dest.w / gameState.screen.xPixelUnit;
-	float height = (float)dest.h / gameState.screen.yPixelUnit * gameState.screen.aspectRatio;
-
-	SDL_FRect ret;
-	ret.x = (xPos);
-	ret.y = (yPos);
-	ret.w = (width);
-	ret.h = (height);
+	SDL_FRect ret = {
+		(float)(dest.x - cx) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
+		(float)(dest.y - cy) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
+		(float)dest.w / gameState.screen.xPixelUnit,
+		(float)dest.h / gameState.screen.yPixelUnit * gameState.screen.aspectRatio
+	};
 	return (ret);
 }
 
