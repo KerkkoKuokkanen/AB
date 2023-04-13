@@ -11,7 +11,7 @@
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
 
-SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite);
+SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 
 # include "classes/sprite.h"
 # include <vector>

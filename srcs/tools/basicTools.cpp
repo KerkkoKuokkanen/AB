@@ -7,6 +7,7 @@ SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 	SDL_Surface	*surface = IMG_Load(filePath);
 	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
 	SDL_FreeSurface(surface);
+	SDL_SetTextureScaleMode(text, SDL_ScaleModeNearest);
 	return (text);
 }
 
@@ -19,10 +20,10 @@ int	rounding(float value)
 	return (val);
 }
 
-SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite)
+SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite)
 {
-	float cx = 0.0f;
-	float cy = 0.0f;
+	int cx = 0;
+	int cy = 0;
 	float w = (float)gameState.screen.width;
 	float h = (float)gameState.screen.height;
 	if (!staticSprite)
@@ -30,17 +31,16 @@ SDL_Rect	translateSprite(SDL_Rect dest, bool staticSprite)
 		cx = gameState.camera.x;
 		cy = gameState.camera.y;
 	}
-	//need to make this better so that every object gets the same pixel addition. No rounding to random pixels
-	float xPos = (gameState.screen.unit * ((float)dest.x - cx) * w) + gameState.screen.midPointX;
-	float yPos = (gameState.screen.unit * ((float)dest.y - cy) * h * gameState.screen.aspectRatio) + gameState.screen.midPointY;
-	float width = gameState.screen.unit* (float)dest.w * w; // need to put this else where. does not need to be changes constantly
-	float height = gameState.screen.unit * (float)dest.h * h * gameState.screen.aspectRatio;
+	float xPos = (float)(dest.x - cx) / gameState.screen.xPixelUnit + gameState.screen.midPointX;
+	float yPos = (float)(dest.y - cy) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY;
+	float width = (float)dest.w / gameState.screen.xPixelUnit;
+	float height = (float)dest.h / gameState.screen.yPixelUnit * gameState.screen.aspectRatio;
 
-	SDL_Rect ret;
-	ret.x = (int)(xPos);
-	ret.y = (int)(yPos);
-	ret.w = (int)(width);
-	ret.h = (int)(height);
+	SDL_FRect ret;
+	ret.x = (xPos);
+	ret.y = (yPos);
+	ret.w = (width);
+	ret.h = (height);
 	return (ret);
 }
 

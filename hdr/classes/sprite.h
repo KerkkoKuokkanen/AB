@@ -10,13 +10,13 @@ class Sprite
 		double angle = 0.0;
 		SDL_Rect *srect = NULL;
 		SDL_Texture *sprite = NULL;
-		SDL_Point *point = NULL;
+		SDL_FPoint *point = NULL;
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		bool staticSprite = false;
 	public:
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
-		Sprite(SDL_Texture *sprite, SDL_Rect dest, SDL_Rect *srect, SDL_Point *point, const double angle, const int flip, bool staticSprite = false) {
+		Sprite(SDL_Texture *sprite, SDL_Rect dest, SDL_Rect *srect, SDL_FPoint *point, const double angle, const int flip, bool staticSprite = false) {
 			Sprite::sprite = sprite;
 			Sprite::dest = dest;
 			Sprite::srect = srect;
@@ -32,8 +32,8 @@ class Sprite
 		~Sprite();
 		void RemoveFromRenderer();
 		void Render(SDL_Renderer *rend) {
-			SDL_Rect rect = translateSprite(dest, staticSprite);
-			SDL_RenderCopyEx(rend, sprite, srect, &rect, angle, point, flip);
+			SDL_FRect rect = translateSprite(dest, staticSprite);
+			SDL_RenderCopyExF(rend, sprite, srect, &rect, angle, NULL, flip);
 		};
 		void Move(Vector amount) {
 			int xMove = amount.x;
@@ -65,10 +65,10 @@ class Sprite
 				Sprite::flip = SDL_FLIP_NONE;
 		};
 		void setPortion(SDL_Rect srect) {Sprite::srect = &srect;};
-		void setPoint(SDL_Point point) {Sprite::point = &point;};
+		void setPoint(SDL_FPoint point) {Sprite::point = &point;};
 		void setStatic(bool staticSprite) {Sprite::staticSprite = staticSprite;};
 		void setWidthAndHeight(const int width, const int height) {dest.w = width; dest.h = height;};
-		void setAll(SDL_Rect *dest, SDL_Rect *srect, SDL_Point *point, const double *angle, const int flip){
+		void setAll(SDL_Rect *dest, SDL_Rect *srect, SDL_FPoint *point, const double *angle, const int flip){
 			if (dest != NULL)
 			{
 				Sprite::dest.x = dest->x;

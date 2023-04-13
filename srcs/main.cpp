@@ -15,7 +15,7 @@ void CameraMove()
 		float diffX = gameState.camera.clickTimePosX - x;
 		float diffY = gameState.camera.clickTimePosY - y;
 		gameState.camera.x += rounding(diffX * gameState.screen.xPixelUnit);
-		gameState.camera.y += rounding(diffY * gameState.screen.yPixelUnit);
+		gameState.camera.y += rounding(diffY * gameState.screen.yPixelUnit / gameState.screen.aspectRatio);
 		gameState.camera.clickTimePosX = x;
 		gameState.camera.clickTimePosY = y;
 	}
@@ -32,7 +32,7 @@ void CameraMove()
 		gameState.keys.wheel += 1;
 	}
 	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
-	gameState.screen.yPixelUnit = ((1.0f / gameState.screen.unit) / gameState.screen.height) / gameState.screen.aspectRatio;
+	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
 }
 
 int MainLoop(t_wr &wr)
@@ -53,7 +53,6 @@ int MainLoop(t_wr &wr)
 		start = clock();
 		eventPoller();
 		CameraMove();
-		SDL_SetRenderDrawColor(wr.rend, 51, 153, 51, 255);
 		SDL_RenderClear(wr.rend);
 		gameState.render->Render();
 		SDL_RenderPresent(wr.rend);

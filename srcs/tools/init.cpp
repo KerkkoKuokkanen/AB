@@ -26,7 +26,7 @@ void initScreen(int width, int height)
 	gameState.camera.zoom = 0.0f;
 	gameState.screen.unit = 1.0f / 10000.0f;
 	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
-	gameState.screen.yPixelUnit = ((1.0f / gameState.screen.unit) / gameState.screen.height) / gameState.screen.aspectRatio;
+	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
 }
 
 void	init(t_wr *wr)
