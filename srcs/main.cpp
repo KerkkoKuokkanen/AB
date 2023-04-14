@@ -39,7 +39,7 @@ int MainLoop(t_wr &wr)
 {
 	SDL_Event evnt;
 	SDL_Rect rect = {-500, -2000, 1000, 1000};
-	SDL_Rect dect = {2000, 2000, 1000, 1000};
+	SDL_Rect dect = {2000, -2000, 1000, 1000};
 	SDL_Texture *textureGun = get_texture(wr.rend, "sprites/real_gun.png");
 	Sprite gun(textureGun, rect, NULL, NULL, 0, FLIP_NONE, false);
 	Sprite mun(textureGun, dect, NULL, NULL, 0, FLIP_NONE, false);

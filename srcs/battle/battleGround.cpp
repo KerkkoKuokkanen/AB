@@ -6,8 +6,8 @@
 BattleGround::BattleGround(unsigned int layer, SDL_Renderer *rend)
 {
 	t_SpriteData add;
-	add.texture = get_texture(rend, "sprites/groundTiles.png");
-	add.srect = {0, 320 / 5 * 2, 512 / 8, 320 / 5};
+	add.texture = get_texture(rend, "sprites/Grass1_Color.png");
+	add.srect = {0, 0, 2048, 2048};
 	tiles.push_back(add);
 }
 

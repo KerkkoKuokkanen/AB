@@ -7,6 +7,7 @@
 # include "classes/battleGround.h"
 
 # define ALPHA_BLEND 80
+# define PI 3.14159
 
 typedef struct s_Battle
 {
