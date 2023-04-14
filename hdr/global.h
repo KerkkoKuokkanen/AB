@@ -14,6 +14,7 @@ typedef struct s_Battle
 	BattleGround *ground;
 	int xDist;
 	int yDist;
+	int defaultYAdd;
 }				t_Battle;
 
 

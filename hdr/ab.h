@@ -8,8 +8,13 @@
 # define FLIP_HORIZONTAL 1
 # define FLIP_VERTICAL 2
 
+# define LAYER_NO_SORT 0
+# define LAYER_YSORT 1
+# define LAYER_REVERSE_YSORT 2
+
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
+# include <iostream>
 
 SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 

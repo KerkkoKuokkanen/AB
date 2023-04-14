@@ -40,15 +40,16 @@ void	init(t_wr *wr)
 	initKeys();
 	static Renderer render(wr->rend);
 	static BattleGround battle(0, wr->rend);
-	render.CreateLayer(true);
-	render.CreateLayer(true);
-	render.CreateLayer(true);
-	render.CreateLayer(true);
-	render.CreateLayer(true);
+	render.CreateLayer(LAYER_REVERSE_YSORT);
+	render.CreateLayer(LAYER_YSORT);
+	render.CreateLayer(LAYER_YSORT);
+	render.CreateLayer(LAYER_YSORT);
+	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;
 	gameState.battle.ground = &battle;
-	gameState.battle.xDist = 1200;
-	gameState.battle.yDist = 1200;
+	gameState.battle.xDist = 6000;
+	gameState.battle.yDist = 6000;
+	gameState.battle.defaultYAdd = 1900;
 	//SDL_SetWindowFullscreen(wre->win, window_check_value);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

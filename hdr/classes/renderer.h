@@ -4,20 +4,29 @@
 
 # include "../ab.h"
 
+typedef struct s_Sort
+{
+	int layer;
+	int sortType;
+}				t_Sort;
+
 class Renderer
 {
 	private:
 		SDL_Renderer *rend;
 		std::vector<std::vector<Sprite*>> spriteLayers;
-		std::vector<int> ySortedLayers;
+		std::vector<t_Sort> sortedLayers;
 	public:
 		Renderer(SDL_Renderer *rend) { Renderer::rend = rend; };
-		int CreateLayer(bool ySorted) {
+		int CreateLayer(int sortType) {
 			std::vector<Sprite*> add;
 			spriteLayers.push_back(add);
 			int index = spriteLayers.size() - 1;
-			if (ySorted)
-				ySortedLayers.push_back(index);
+			if (sortType == LAYER_YSORT || sortType == LAYER_REVERSE_YSORT)
+			{
+				t_Sort s = {index, sortType};
+				sortedLayers.push_back(s);
+			}
 			return (index);
 		};
 		bool AddSprite(Sprite *sprite, int layerNumber) {
