@@ -7,7 +7,7 @@ SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 	SDL_Surface	*surface = IMG_Load(filePath);
 	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
 	SDL_FreeSurface(surface);
-	SDL_SetTextureScaleMode(text, SDL_ScaleModeNearest);
+	SDL_SetTextureScaleMode(text, SDL_ScaleModeLinear);
 	return (text);
 }
 
