@@ -55,6 +55,6 @@ void CreateGroundTest()
 {
 	t_GMU gmu = {0};
 	std::vector<t_GMU> tsts = {gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
-	std::vector<std::vector<t_GMU>> ts = {tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts};
+	std::vector<std::vector<t_GMU>> ts = {tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts};
 	gameState.battle.ground->CreateBattleGround(ts);
 }
