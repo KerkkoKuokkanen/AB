@@ -24,7 +24,7 @@ void initScreen(int width, int height)
 	gameState.camera.x = 0;
 	gameState.camera.y = 0;
 	gameState.camera.zoom = 0.0f;
-	gameState.screen.unit = 1.0f / 10000.0f;
+	gameState.screen.unit = 1.0f / 100000.0f;
 	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
 	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
 }
@@ -40,7 +40,7 @@ void	init(t_wr *wr)
 	initKeys();
 	static Renderer render(wr->rend);
 	static BattleGround battle(0, wr->rend);
-	render.CreateLayer(LAYER_REVERSE_YSORT);
+	render.CreateLayer(LAYER_NO_SORT);
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
@@ -50,6 +50,7 @@ void	init(t_wr *wr)
 	gameState.battle.xDist = 6000;
 	gameState.battle.yDist = 6000;
 	gameState.battle.defaultYAdd = 1900;
+	gameState.battle.yHeightAdd = 2400;
 	//SDL_SetWindowFullscreen(wre->win, window_check_value);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

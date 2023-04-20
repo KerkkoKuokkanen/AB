@@ -15,6 +15,7 @@ typedef struct s_Battle
 	int xDist;
 	int yDist;
 	int defaultYAdd;
+	int yHeightAdd;
 }				t_Battle;
 
 

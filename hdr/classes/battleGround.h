@@ -13,6 +13,7 @@ typedef struct s_SpriteConstructor
 typedef struct s_GroundMapUnit
 {
 	int tile;
+	int height;
 }				t_GMU;
 
 class BattleGround {
@@ -20,7 +21,8 @@ class BattleGround {
 		std::vector<t_SpriteData> tiles;
 		std::vector<Sprite> sprites;
 		unsigned int layer;
-		t_SpriteData *GetSprite();
+		t_SpriteData *GetSprite(int sprite);
+		void AddGroundSprite(int xStart, int yStart, bool everyOther, t_GMU &gmu, int i, int j);
 	public:
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
 		void CreateBattleGround(std::vector<std::vector<t_GMU>> &map);
