@@ -21,6 +21,14 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "classes/sprite.h"
 # include <vector>
 
+enum {
+	REGULAR_BLOCK,
+	FILLER_BLOCK,
+	TOP_CORNER_BLOCK,
+	TOP_LEFT_BLOCK,
+	TOP_RIGHT_BLOCK
+};
+
 typedef struct	s_wr
 {
 	SDL_Window *win;
