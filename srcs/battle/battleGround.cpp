@@ -6,13 +6,13 @@
 BattleGround::BattleGround(unsigned int layer, SDL_Renderer *rend)
 {
 	t_SpriteData add;
-	add.texture = get_texture(rend, "sprites/ground/isometric_block(16).png");
+	add.texture = get_texture(rend, "sprites/ground/ReguBlock/isometric_block(16).png");
 	add.srect = {3, 0, 500, 540};
 	tiles.push_back(add);
-	add.texture = get_texture(rend, "sprites/ground/isometric_block (25).png");
+	add.texture = get_texture(rend, "sprites/ground/ReguBlock/isometric_block (25).png");
 	add.srect = {3, 0, 500, 540};
 	tiles.push_back(add);
-	add.texture = get_texture(rend, "sprites/ground/isometric_block(16) hi.png");
+	add.texture = get_texture(rend, "sprites/ground/ReguBlock/isometric_block(16)Hi.png");
 	add.srect = {3, 0, 500, 540};
 	tiles.push_back(add);
 	BattleGround::layer = layer;
