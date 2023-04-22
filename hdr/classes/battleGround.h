@@ -21,7 +21,8 @@ class BattleGround {
 		std::vector<t_SpriteData> tiles;
 		std::vector<Sprite> sprites;
 		unsigned int layer;
-		t_SpriteData *GetSprite(int sprite);
+		void CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j, int xStart, int yStart, bool other);
+		int GetSprite(std::vector<std::vector<t_GMU>> &map, int i, int j, int iter, bool other);
 	public:
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
 		void CreateBattleGround(std::vector<std::vector<t_GMU>> &map);
