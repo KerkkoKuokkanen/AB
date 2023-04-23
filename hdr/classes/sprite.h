@@ -13,6 +13,7 @@ class Sprite
 		SDL_FPoint *point = NULL;
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		bool staticSprite = false;
+		Uint8 alpha = 255;
 	public:
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
@@ -33,7 +34,15 @@ class Sprite
 		void RemoveFromRenderer();
 		void Render(SDL_Renderer *rend) {
 			SDL_FRect rect = translateSprite(dest, staticSprite);
+			bool tt = false;
+			if (alpha != 255)
+			{
+				tt = true;
+				SDL_SetTextureAlphaMod(sprite, alpha);
+			}
 			SDL_RenderCopyExF(rend, sprite, srect, &rect, angle, NULL, flip);
+			if (tt)
+				SDL_SetTextureAlphaMod(sprite, 255);
 		};
 		void Move(Vector amount) {
 			int xMove = amount.x;
@@ -64,6 +73,8 @@ class Sprite
 			else
 				Sprite::flip = SDL_FLIP_NONE;
 		};
+		void AlphaMod(Uint8 alpha) {Sprite::alpha = alpha;};
+		void ClearAlphaMod() {Sprite::alpha = 255;};
 		void setPortion(SDL_Rect srect) {Sprite::srect = &srect;};
 		void setPoint(SDL_FPoint point) {Sprite::point = &point;};
 		void setStatic(bool staticSprite) {Sprite::staticSprite = staticSprite;};

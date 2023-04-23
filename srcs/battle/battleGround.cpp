@@ -71,6 +71,7 @@ int BattleGround::GetSprite(std::vector<std::vector<t_GMU>> &map, int i, int j, 
 void BattleGround::CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j, int xStart, int yStart, bool other)
 {
 	int xder = (other) ? gameState.battle.xDist / 2 : 0;
+	std::vector<Sprite> adder;
 	for (int iter = 0; iter <= map[i][j].height; iter++)
 	{
 		SDL_Rect dest = {
@@ -81,8 +82,62 @@ void BattleGround::CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j
 		};
 		int image = GetSprite(map, i, j, iter, other);
 		Sprite add(tiles[image].texture, dest, &tiles[image].srect, NULL, 0, FLIP_NONE);
-		sprites.push_back(add);
+		adder.push_back(add);
 	}
+	sprites.push_back(adder);
+}
+
+void BattleGround::ChangeUp()
+{
+	if (currentHeight == maxHeight)
+	{
+		printf("battleGround: height already max\n");
+		return ;
+	}
+	currentHeight += 1;
+	int currSprite = 0;
+	for (int i = 0; i < map.size(); i++)
+	{
+		for (int j = 0; j < map[i].size(); j++)
+		{
+			currSprite++;
+		}
+	}
+}
+
+void BattleGround::ChangeDown()
+{
+	if (currentHeight == 0)
+	{
+		printf("battleGround: height at zero\n");
+		return ;
+	}
+	currentHeight -= 1;
+	int currSprite = 0;
+	for (int i = 0; i < map.size(); i++)
+	{
+		for (int j = 0; j < map[i].size(); j++)
+		{
+			if (map[i][j].height > currentHeight)
+				sprites[currSprite][currentHeight + 1].AlphaMod(alpha);
+			currSprite++;
+		}
+	}
+}
+
+void BattleGround::ChangeMapHeight(bool down)
+{
+	if (map.size() == 0)
+	{
+		printf("battleGround: trying to change map with no size\n");
+		return ;
+	}
+	if (down)
+	{
+		ChangeDown();
+		return ;
+	}
+	ChangeUp();
 }
 
 void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
@@ -95,21 +150,28 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 	unsigned int height = map.size() * gameState.battle.defaultYAdd;
 	int xStart, yStart = -(height / 2);
 	bool everyOther = false;
+	maxHeight = map[0][0].height; minHeight = map[0][0].height;
 	for (int i = 0; i < map.size(); i++)
 	{
 		unsigned int width = map[i].size() * gameState.battle.xDist;
 		xStart = -(width / 2);
 		for (int j = 0; j < map[i].size(); j++)
 		{
+			maxHeight = (maxHeight < map[i][j].height) ? map[i][j].height : maxHeight;
+			minHeight = (minHeight > map[i][j].height) ? map[i][j].height : minHeight;
 			CreateTile(map, i, j, xStart, yStart, everyOther);
 		}
 		everyOther = (everyOther) ? false : true;
 	}
+	currentHeight = maxHeight;
 	for (int i = 0; i < sprites.size(); i++)
-		gameState.render->AddSprite(&sprites[i], layer);
+	{
+		for (int j = 0; j < sprites[i].size(); j++)
+			gameState.render->AddSprite(&sprites[i][j], layer);
+	}
 }
 
-void CreateGroundTest()
+void BattleGround::CreateMap()
 {
 	t_GMU gmu = { 0, 0 };
 	t_GMU one = { 0, 1 };
@@ -118,6 +180,7 @@ void CreateGroundTest()
 	std::vector<t_GMU> tst = {gmu, gmu, gmu, one, gmu, gmu, gmu, one, two, one, gmu};
 	std::vector<t_GMU> tststs = {gmu, gmu, one, one, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
 	std::vector<t_GMU> tstststs = {gmu, gmu, gmu, one, one, two, two, one, gmu, gmu, gmu};
-	std::vector<std::vector<t_GMU>> ts = {tsts, tsts, tsts, tsts, tsts, tst, tstststs, tstststs, tstststs, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tst};
-	gameState.battle.ground->CreateBattleGround(ts);
+	map.clear();
+	map = {tsts, tsts, tsts, tsts, tsts, tst, tstststs, tstststs, tstststs, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tst};
+	CreateBattleGround(map);
 }

@@ -37,14 +37,22 @@ void CameraMove()
 
 int MainLoop(t_wr &wr)
 {
-	CreateGroundTest();
+	gameState.battle.ground->CreateMap();
 	clock_t start, end;
+	int ss = 0;
 
 	while (1)
 	{
 		start = clock();
 		eventPoller();
 		CameraMove();
+		if (gameState.keys.s == 1 && ss == 0)
+		{
+			gameState.battle.ground->ChangeMapHeight(true);
+			ss = 1;
+		}
+		if (gameState.keys.s == 0)
+			ss = 0;
 		gameState.render->RenderAll();
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));

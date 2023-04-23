@@ -34,9 +34,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(1920, 1080, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1920, 1080);
+	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
 	static BattleGround battle(0, wr->rend);
@@ -51,6 +51,6 @@ void	init(t_wr *wr)
 	gameState.battle.yDist = 6000;
 	gameState.battle.defaultYAdd = 1850;
 	gameState.battle.yHeightAdd = 2300;
-	SDL_SetWindowFullscreen(wr->win, 1);
+//	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

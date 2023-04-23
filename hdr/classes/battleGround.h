@@ -19,13 +19,21 @@ typedef struct s_GroundMapUnit
 class BattleGround {
 	private:
 		std::vector<t_SpriteData> tiles;
-		std::vector<Sprite> sprites;
+		std::vector<std::vector<Sprite>> sprites;
 		unsigned int layer;
+		std::vector<std::vector<t_GMU>> map;
 		void CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j, int xStart, int yStart, bool other);
 		int GetSprite(std::vector<std::vector<t_GMU>> &map, int i, int j, int iter, bool other);
+		int maxHeight, minHeight;
+		int currentHeight;
+		Uint8 alpha = 40;
+		void ChangeUp();
+		void ChangeDown();
 	public:
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
 		void CreateBattleGround(std::vector<std::vector<t_GMU>> &map);
+		void CreateMap();
+		void ChangeMapHeight(bool down);
 };
 
 #endif
