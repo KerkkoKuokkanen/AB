@@ -20,6 +20,7 @@ class Sprite
 	public:
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
+		int orderLayer = 0;
 		Sprite(SDL_Texture *sprite, SDL_Rect dest, SDL_Rect *srect, SDL_FPoint *point, const double angle, const int flip, bool staticSprite = false) {
 			Sprite::sprite = sprite;
 			Sprite::dest = dest;

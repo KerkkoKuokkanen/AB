@@ -7,16 +7,19 @@
 class Character
 {
 	private:
-		Sprite *sprite;
 		std::vector<SDL_Texture*> textures;
 		int idleCounter = 0;
 		int currentTexture = 0;
 		int width, height;
+		bool ally = true;
 	public:
-		Character();
+		Sprite *sprite;
+		Character(bool allied = true);
 		void AddToRender();
 		void Update();
 		void DeleteCharacter();
+		int getWidth() {return (width);};
+		int getHeight() {return (height);};
 };
 
 #endif

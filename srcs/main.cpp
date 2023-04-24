@@ -62,7 +62,7 @@ int MainLoop(t_wr &wr)
 	clock_t start, end;
 	Character thief;
 	std::vector<Character> chars = {thief};
-	SDL_Point point = {0, 0};
+	SDL_Point point = {4, 7};
 	std::vector<SDL_Point> pnt = {point};
 	gameState.battle.ground->StartBattle(chars, pnt);
 

@@ -29,6 +29,7 @@ class BattleGround {
 		void ChangeUp();
 		void ChangeDown();
 		std::vector<t_Troop> characters;
+		void PlaceCharacter(SDL_Point &position, t_Troop &character);
 	public:
 		std::vector<std::vector<t_GMU>> map;
 		BattleGround(unsigned int layer, SDL_Renderer *rend);

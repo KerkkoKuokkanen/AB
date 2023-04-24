@@ -35,6 +35,7 @@ typedef struct s_GroundMapUnit
 {
 	int tile;
 	int height;
+	Character *character;
 }				t_GMU;
 
 typedef struct	s_wr

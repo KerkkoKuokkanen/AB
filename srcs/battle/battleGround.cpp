@@ -82,10 +82,7 @@ void BattleGround::CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j
 		};
 		int image = GetSprite(map, i, j, iter, other);
 		Sprite add(tiles[image].texture, dest, &tiles[image].srect, NULL, 0, FLIP_NONE);
-		if (i == 5)
-		{
-			add.ColorMod(255, 107, 107);
-		}
+		add.orderLayer = i * 2;
 		adder.push_back(add);
 	}
 	sprites.push_back(adder);
@@ -102,7 +99,11 @@ void BattleGround::ChangeUp()
 		for (int j = 0; j < map[i].size(); j++)
 		{
 			if (map[i][j].height >= currentHeight)
+			{
 				sprites[currSprite][currentHeight].ClearAlphaMod();
+				if (map[i][j].character != NULL)
+					map[i][j].character->sprite->ClearAlphaMod();
+			}
 			currSprite++;
 		}
 	}
@@ -119,7 +120,11 @@ void BattleGround::ChangeDown()
 		for (int j = 0; j < map[i].size(); j++)
 		{
 			if (map[i][j].height > currentHeight)
+			{
 				sprites[currSprite][currentHeight + 1].AlphaMod(alpha);
+				if (map[i][j].character != NULL)
+					map[i][j].character->sprite->AlphaMod(alpha);
+			}
 			currSprite++;
 		}
 	}
@@ -173,9 +178,9 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 
 void BattleGround::CreateMap()
 {
-	t_GMU gmu = { 0, 0 };
-	t_GMU one = { 0, 1 };
-	t_GMU two = { 0, 2 };
+	t_GMU gmu = { 0, 0, NULL };
+	t_GMU one = { 0, 1, NULL };
+	t_GMU two = { 0, 2, NULL };
 	std::vector<t_GMU> tsts = {gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
 	std::vector<t_GMU> tst = {gmu, gmu, gmu, one, gmu, gmu, gmu, one, two, one, gmu};
 	std::vector<t_GMU> tststs = {gmu, gmu, one, one, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
@@ -183,6 +188,24 @@ void BattleGround::CreateMap()
 	map.clear();
 	map = {tsts, tsts, tsts, tsts, tsts, tst, tstststs, tstststs, tstststs, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tst};
 	CreateBattleGround(map);
+}
+
+void BattleGround::PlaceCharacter(SDL_Point &position, t_Troop &character)
+{
+	if (position.x < 0 || position.y < 0 || position.y >= map.size() || position.x >= map[position.y].size())
+	{
+		printf("Battleground: position out of bounds\n");
+		return ;
+	}
+	int index = position.y * map[0].size() + position.x;
+	SDL_Rect location = sprites[index][sprites[index].size() - 1].dest;
+	Vector place((float)location.x, (float)location.y);
+	int height = character.character->getHeight();
+	place.y = place.y - (float)height + (float)gameState.battle.yDist / 2.0f - 450;
+	character.character->sprite->Position(place);
+	character.pos = position;
+	character.character->sprite->orderLayer = position.y * 2 + 1;
+	map[position.y][position.x].character = character.character;
 }
 
 void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos)
@@ -200,6 +223,7 @@ void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<S
 		add.pos = mapPos[i];
 		BattleGround::characters.push_back(add);
 		BattleGround::characters[i].character->AddToRender();
+		PlaceCharacter(mapPos[i], BattleGround::characters[i]);
 	}
 }
 

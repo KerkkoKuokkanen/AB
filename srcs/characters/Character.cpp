@@ -1,7 +1,7 @@
 
 #include "../../hdr/global.h"
 
-Character::Character()
+Character::Character(bool allied)
 {
 	textures.push_back(gameState.textures.thiefIdle1);
 	textures.push_back(gameState.textures.thiefIdle2);
@@ -9,6 +9,8 @@ Character::Character()
 	sprite = new Sprite(gameState.textures.thiefIdle1, dest, NULL, NULL, 0, FLIP_NONE);
 	width = 5800;
 	height = 7500;
+	if (!allied)
+		ally = false;
 }
 
 void Character::DeleteCharacter()
@@ -19,7 +21,7 @@ void Character::DeleteCharacter()
 
 void Character::AddToRender()
 {
-	gameState.render->AddSprite(sprite, 1);
+	gameState.render->AddSprite(sprite, 0);
 }
 
 void Character::Update()

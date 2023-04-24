@@ -4,6 +4,10 @@
 #include "../../hdr/global.h"
 
 bool compareObjects(const Sprite *obj1, const Sprite *obj2) {
+	if (obj1->orderLayer < obj2->orderLayer)
+		return true;
+	else if (obj1->orderLayer > obj2->orderLayer)
+		return false;
 	if (std::abs(obj1->dest.y - obj2->dest.y) < 0.01f)
 		return obj1->dest.x < obj2->dest.x;
 	else
@@ -11,6 +15,10 @@ bool compareObjects(const Sprite *obj1, const Sprite *obj2) {
 }
 
 bool compareObjectsReverse(const Sprite *obj1, const Sprite *obj2) {
+	if (obj1->orderLayer < obj2->orderLayer)
+		return true;
+	else if (obj1->orderLayer > obj2->orderLayer)
+		return false;
 	if (std::abs(obj1->dest.y - obj2->dest.y) < 0.01f)
 		return obj1->dest.x > obj2->dest.x;
 	else
