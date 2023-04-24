@@ -51,6 +51,8 @@ void	init(t_wr *wr)
 	gameState.battle.yDist = 6000;
 	gameState.battle.defaultYAdd = 1850;
 	gameState.battle.yHeightAdd = 2300;
+	gameState.textures.thiefIdle1 = get_texture(wr->rend, "sprites/characters/hood_idle1.png");
+	gameState.textures.thiefIdle2 = get_texture(wr->rend, "sprites/characters/hood_idle2.png");
 //	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

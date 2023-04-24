@@ -82,6 +82,10 @@ void BattleGround::CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j
 		};
 		int image = GetSprite(map, i, j, iter, other);
 		Sprite add(tiles[image].texture, dest, &tiles[image].srect, NULL, 0, FLIP_NONE);
+		if (i == 5)
+		{
+			add.ColorMod(255, 107, 107);
+		}
 		adder.push_back(add);
 	}
 	sprites.push_back(adder);
@@ -90,16 +94,15 @@ void BattleGround::CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j
 void BattleGround::ChangeUp()
 {
 	if (currentHeight == maxHeight)
-	{
-		printf("battleGround: height already max\n");
 		return ;
-	}
 	currentHeight += 1;
 	int currSprite = 0;
 	for (int i = 0; i < map.size(); i++)
 	{
 		for (int j = 0; j < map[i].size(); j++)
 		{
+			if (map[i][j].height >= currentHeight)
+				sprites[currSprite][currentHeight].ClearAlphaMod();
 			currSprite++;
 		}
 	}
@@ -108,10 +111,7 @@ void BattleGround::ChangeUp()
 void BattleGround::ChangeDown()
 {
 	if (currentHeight == 0)
-	{
-		printf("battleGround: height at zero\n");
 		return ;
-	}
 	currentHeight -= 1;
 	int currSprite = 0;
 	for (int i = 0; i < map.size(); i++)
@@ -183,4 +183,30 @@ void BattleGround::CreateMap()
 	map.clear();
 	map = {tsts, tsts, tsts, tsts, tsts, tst, tstststs, tstststs, tstststs, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tsts, tst};
 	CreateBattleGround(map);
+}
+
+void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos)
+{
+	CreateMap();
+	if (characters.size() != mapPos.size())
+	{
+		printf("BattleGround: size does not match\n");
+		return ;
+	}
+	for (int i = 0; i < characters.size(); i++)
+	{
+		t_Troop add;
+		add.character = &characters[i];
+		add.pos = mapPos[i];
+		BattleGround::characters.push_back(add);
+		BattleGround::characters[i].character->AddToRender();
+	}
+}
+
+void BattleGround::Update()
+{
+	for (int i = 0; i < characters.size(); i++)
+	{
+		characters[i].character->Update();
+	}
 }

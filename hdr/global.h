@@ -18,6 +18,11 @@ typedef struct s_Battle
 	int yHeightAdd;
 }				t_Battle;
 
+typedef struct s_Textures
+{
+	SDL_Texture *thiefIdle1;
+	SDL_Texture *thiefIdle2;
+}				t_Textures;
 
 typedef struct	s_GameState
 {
@@ -26,6 +31,7 @@ typedef struct	s_GameState
 	t_Keys keys;
 	Renderer *render;
 	t_Battle battle;
+	t_Textures textures;
 }				t_GameState;
 
 extern t_GameState gameState;

@@ -20,6 +20,7 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 
 # include "classes/sprite.h"
 # include <vector>
+# include "classes/character.h"
 
 enum {
 	REGULAR_BLOCK,
@@ -29,6 +30,12 @@ enum {
 	TOP_RIGHT_BLOCK,
 	TOP_REGULAR_BLOCK
 };
+
+typedef struct s_GroundMapUnit
+{
+	int tile;
+	int height;
+}				t_GMU;
 
 typedef struct	s_wr
 {

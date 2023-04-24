@@ -14,6 +14,9 @@ class Sprite
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		bool staticSprite = false;
 		Uint8 alpha = 255;
+		Uint8 red = 0;
+		Uint8 green = 0;
+		Uint8 blue = 0;
 	public:
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
@@ -40,9 +43,17 @@ class Sprite
 				tt = true;
 				SDL_SetTextureAlphaMod(sprite, alpha);
 			}
+			bool col = false;
+			if (red != 0 || blue != 0 || green != 0)
+			{
+				col = true;
+				SDL_SetTextureColorMod(sprite, red, green, blue);
+			}
 			SDL_RenderCopyExF(rend, sprite, srect, &rect, angle, NULL, flip);
 			if (tt)
 				SDL_SetTextureAlphaMod(sprite, 255);
+			if (col)
+				SDL_SetTextureColorMod(sprite, 255, 255, 255);
 		};
 		void Move(Vector amount) {
 			int xMove = amount.x;
@@ -75,7 +86,10 @@ class Sprite
 		};
 		void AlphaMod(Uint8 alpha) {Sprite::alpha = alpha;};
 		void ClearAlphaMod() {Sprite::alpha = 255;};
+		void ColorMod(Uint8 r, Uint8 g, Uint8 b) {red = r; green = g; blue = b;};
+		void ClearColorMod() {red = 0; green = 0; blue = 0;};
 		void setPortion(SDL_Rect srect) {Sprite::srect = &srect;};
+		void setTexture(SDL_Texture *texture) {sprite = texture;};
 		void setPoint(SDL_FPoint point) {Sprite::point = &point;};
 		void setStatic(bool staticSprite) {Sprite::staticSprite = staticSprite;};
 		void setWidthAndHeight(const int width, const int height) {dest.w = width; dest.h = height;};

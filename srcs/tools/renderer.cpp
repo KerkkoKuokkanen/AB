@@ -30,16 +30,7 @@ int layerSorted(std::vector<t_Sort> &sortedLayers, int layer)
 void Renderer::RenderAll()
 {
 	SDL_RenderClear(rend);
-	for (int i = 0; i < spriteLayers.size(); i++)
-	{
-		int sort = layerSorted(sortedLayers, i);
-		if (sort == LAYER_YSORT)
-			std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjects);
-		else if (sort == LAYER_REVERSE_YSORT)
-			std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjectsReverse);
-		for (int j = 0; j < spriteLayers[i].size(); j++)
-			spriteLayers[i][j]->Render(rend);
-	}
+	Render();
 	SDL_RenderPresent(rend);
 }
 

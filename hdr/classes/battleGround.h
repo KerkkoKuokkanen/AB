@@ -10,18 +10,17 @@ typedef struct s_SpriteConstructor
 	SDL_Rect	srect;
 }				t_SpriteData;
 
-typedef struct s_GroundMapUnit
+typedef struct s_Troop
 {
-	int tile;
-	int height;
-}				t_GMU;
+	Character *character;
+	SDL_Point pos;
+}				t_Troop;
 
 class BattleGround {
 	private:
 		std::vector<t_SpriteData> tiles;
 		std::vector<std::vector<Sprite>> sprites;
 		unsigned int layer;
-		std::vector<std::vector<t_GMU>> map;
 		void CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j, int xStart, int yStart, bool other);
 		int GetSprite(std::vector<std::vector<t_GMU>> &map, int i, int j, int iter, bool other);
 		int maxHeight, minHeight;
@@ -29,11 +28,15 @@ class BattleGround {
 		Uint8 alpha = 40;
 		void ChangeUp();
 		void ChangeDown();
+		std::vector<t_Troop> characters;
 	public:
+		std::vector<std::vector<t_GMU>> map;
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
 		void CreateBattleGround(std::vector<std::vector<t_GMU>> &map);
 		void CreateMap();
 		void ChangeMapHeight(bool down);
+		void StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos);
+		void Update();
 };
 
 #endif
