@@ -1,8 +1,6 @@
 
 #include "../../hdr/global.h"
 
-//512, 320
-
 BattleGround::BattleGround(unsigned int layer, SDL_Renderer *rend)
 {
 	t_SpriteData add;
@@ -101,6 +99,7 @@ void BattleGround::ChangeUp()
 			if (map[i][j].height >= currentHeight)
 			{
 				sprites[currSprite][currentHeight].ClearAlphaMod();
+				map[i][j].active = true;
 				if (map[i][j].character != NULL)
 					map[i][j].character->sprite->ClearAlphaMod();
 			}
@@ -122,6 +121,7 @@ void BattleGround::ChangeDown()
 			if (map[i][j].height > currentHeight)
 			{
 				sprites[currSprite][currentHeight + 1].AlphaMod(alpha);
+				map[i][j].active = false;
 				if (map[i][j].character != NULL)
 					map[i][j].character->sprite->AlphaMod(alpha);
 			}
@@ -178,9 +178,9 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 
 void BattleGround::CreateMap()
 {
-	t_GMU gmu = { 0, 0, NULL };
-	t_GMU one = { 0, 1, NULL };
-	t_GMU two = { 0, 2, NULL };
+	t_GMU gmu = { 0, 0, NULL, true, false };
+	t_GMU one = { 0, 1, NULL, true, false };
+	t_GMU two = { 0, 2, NULL, true, false };
 	std::vector<t_GMU> tsts = {gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
 	std::vector<t_GMU> tst = {gmu, gmu, gmu, one, gmu, gmu, gmu, one, two, one, gmu};
 	std::vector<t_GMU> tststs = {gmu, gmu, one, one, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
@@ -202,10 +202,11 @@ void BattleGround::PlaceCharacter(SDL_Point &position, t_Troop &character)
 	Vector place((float)location.x, (float)location.y);
 	int height = character.character->getHeight();
 	place.y = place.y - (float)height + (float)gameState.battle.yDist / 2.0f - 450;
-	character.character->sprite->Position(place);
+	character.character->Position(place);
 	character.pos = position;
 	character.character->sprite->orderLayer = position.y * 2 + 1;
 	map[position.y][position.x].character = character.character;
+	map[position.y][position.x].character->setCoord(position);
 }
 
 void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos)
@@ -221,10 +222,23 @@ void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<S
 		t_Troop add;
 		add.character = &characters[i];
 		add.pos = mapPos[i];
+		add.clicked = false;
 		BattleGround::characters.push_back(add);
 		BattleGround::characters[i].character->AddToRender();
 		PlaceCharacter(mapPos[i], BattleGround::characters[i]);
 	}
+}
+
+void BattleGround::SetTextureOnHover(int i)
+{
+	SDL_Point pos = characters[i].character->getCoord();
+	int index = pos.y * map[0].size() + pos.x;
+	if (characters[i].character->hover == false || map[pos.y][pos.x].active == false)
+	{
+		sprites[index][sprites[index].size() - 1].ClearColorMod();
+		return ;
+	}
+	sprites[index][sprites[index].size() - 1].ColorMod(107, 255, 122);
 }
 
 void BattleGround::Update()
@@ -232,5 +246,17 @@ void BattleGround::Update()
 	for (int i = 0; i < characters.size(); i++)
 	{
 		characters[i].character->Update();
+		SetTextureOnHover(i);
+		if (characters[i].character->clicked && !characters[i].clicked)
+		{
+			characters[i].clicked = true;
+			SetMovables(characters[i].character);
+		}
+		else if (!characters[i].character->clicked && characters[i].clicked)
+		{
+			characters[i].clicked = false;
+			ClearMovables();
+		}
 	}
+	MovingUpdate();
 }

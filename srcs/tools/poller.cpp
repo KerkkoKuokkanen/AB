@@ -15,6 +15,8 @@ void eventPoller()
 			case SDL_MOUSEBUTTONDOWN:
 				if (evnt.button.button == SDL_BUTTON_LEFT)
 					gameState.keys.click = 1;
+				else if (evnt.button.button == SDL_BUTTON_RIGHT)
+					gameState.keys.rightClick = 1;
 				else if (evnt.button.button == SDL_BUTTON_MIDDLE)
 				{
 					SDL_GetMouseState(&gameState.camera.clickTimePosX, &gameState.camera.clickTimePosY);
@@ -24,6 +26,8 @@ void eventPoller()
 			case SDL_MOUSEBUTTONUP:
 				if (evnt.button.button == SDL_BUTTON_LEFT)
 					gameState.keys.click = 0;
+				else if (evnt.button.button == SDL_BUTTON_RIGHT)
+					gameState.keys.rightClick = 0;
 				else if (evnt.button.button == SDL_BUTTON_MIDDLE)
 					gameState.keys.middleMouse = 0;
 				break ;

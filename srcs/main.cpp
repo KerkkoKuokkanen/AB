@@ -56,13 +56,23 @@ void KeyCheck()
 		ww = 0;
 }
 
+void GetMouseXY()
+{
+	int x = 0, y = 0;
+	SDL_GetMouseState(&x, &y);
+	x = (int)((float)(x - gameState.screen.midPointX) * gameState.screen.xPixelUnit) + gameState.camera.x;
+	y = (int)((float)(y - gameState.screen.midPointY) * gameState.screen.yPixelUnit / gameState.screen.aspectRatio) + gameState.camera.y;
+	gameState.keys.mouseX = x;
+	gameState.keys.mouseY = y;
+}
+
 int MainLoop(t_wr &wr)
 {
 	//gameState.battle.ground->CreateMap();
 	clock_t start, end;
 	Character thief;
 	std::vector<Character> chars = {thief};
-	SDL_Point point = {4, 7};
+	SDL_Point point = {8, 6};
 	std::vector<SDL_Point> pnt = {point};
 	gameState.battle.ground->StartBattle(chars, pnt);
 
@@ -72,6 +82,7 @@ int MainLoop(t_wr &wr)
 		eventPoller();
 		CameraMove();
 		KeyCheck();
+		GetMouseXY();
 		gameState.battle.ground->Update();
 		gameState.render->RenderAll();
 		end = clock();

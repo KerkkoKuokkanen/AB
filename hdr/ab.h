@@ -36,6 +36,8 @@ typedef struct s_GroundMapUnit
 	int tile;
 	int height;
 	Character *character;
+	bool active;
+	bool highlited;
 }				t_GMU;
 
 typedef struct	s_wr
@@ -64,8 +66,11 @@ typedef struct s_Keys
 {
 	int w, a, s, d;
 	int click;
+	int rightClick;
 	int middleMouse;
 	int wheel;
+	int mouseX;
+	int mouseY;
 }				t_Keys;
 
 int			figure_the_delay(clock_t start, clock_t end);
@@ -75,5 +80,6 @@ void		eventPoller();
 void		init(t_wr *wr);
 int			rounding(float value);
 void		CreateGroundTest();
+bool		pointCheck(SDL_Point &point, SDL_Rect &hitBox);
 
 #endif

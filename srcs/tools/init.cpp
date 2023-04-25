@@ -9,6 +9,7 @@ void initKeys()
 	gameState.keys.s = 0;
 	gameState.keys.d = 0;
 	gameState.keys.click = 0;
+	gameState.keys.rightClick = 0;
 	gameState.keys.middleMouse = 0;
 	gameState.camera.clickTimePosX = 0;
 	gameState.camera.clickTimePosY = 0;
@@ -34,9 +35,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(2560, 1600);
+	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
 	static BattleGround battle(0, wr->rend);
@@ -53,6 +54,6 @@ void	init(t_wr *wr)
 	gameState.battle.yHeightAdd = 2300;
 	gameState.textures.thiefIdle1 = get_texture(wr->rend, "sprites/characters/hood_idle1.png");
 	gameState.textures.thiefIdle2 = get_texture(wr->rend, "sprites/characters/hood_idle2.png");
-	SDL_SetWindowFullscreen(wr->win, 1);
+//	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

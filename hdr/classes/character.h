@@ -12,6 +12,8 @@ class Character
 		int currentTexture = 0;
 		int width, height;
 		bool ally = true;
+		SDL_Point coord = {0, 0};
+		SDL_Rect clickBox = {0, 0, 0, 0};
 	public:
 		Sprite *sprite;
 		Character(bool allied = true);
@@ -20,6 +22,14 @@ class Character
 		void DeleteCharacter();
 		int getWidth() {return (width);};
 		int getHeight() {return (height);};
+		void setCoord(SDL_Point &coord);
+		SDL_Point &getCoord();
+		void Position(Vector to);
+		void Move(Vector amount);
+		bool hover = false;
+		bool clicked = false;
+		bool turn = true;
+		int moves = 8;
 };
 
 #endif

@@ -40,6 +40,15 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite)
 	return (ret);
 }
 
+bool pointCheck(SDL_Point &point, SDL_Rect &hitBox)
+{
+	if (point.x >= hitBox.x && point.x <= (hitBox.x + hitBox.w) &&
+		point.y >= hitBox.y && point.y <= (hitBox.y + hitBox.h)) {
+		return (true);
+	}
+	return (false);
+}
+
 int	figure_the_delay(clock_t start, clock_t end)
 {
 	double	time;
