@@ -19,6 +19,9 @@ typedef struct s_Troop
 
 class BattleGround {
 	private:
+		std::vector<Sprite*> moveIndicators;
+		std::vector<Sprite*> moveLines;
+		void MoveInit(SDL_Renderer *rend);
 		std::vector<t_SpriteData> tiles;
 		std::vector<std::vector<Sprite>> sprites;
 		unsigned int layer;
@@ -31,11 +34,17 @@ class BattleGround {
 		void ChangeDown();
 		std::vector<t_Troop> characters;
 		void PlaceCharacter(SDL_Point &position, t_Troop &character);
-		void SetTextureOnHover(int i);
-		void MovingUpdate();
 		void SetMovables(Character *character);
 		void ClearMovables();
 		void IterMapMovables(SDL_Point pos, int moves, int cMoves);
+		void ColorFade(Sprite *sprite, float fadeIter);
+		bool BlockMouseHover(SDL_Point &position);
+		void IterBlocks();
+		bool MarkBlock(SDL_Point position);
+		void CheckMarkedBlocks(std::vector<SDL_Point> &marked);
+		void PlaceMarker();
+		void MarkerControl(SDL_Point cPos, SDL_Point mPos);
+		void ResetIndicators();
 	public:
 		std::vector<std::vector<t_GMU>> map;
 		BattleGround(unsigned int layer, SDL_Renderer *rend);

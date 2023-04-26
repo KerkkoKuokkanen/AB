@@ -23,6 +23,7 @@ BattleGround::BattleGround(unsigned int layer, SDL_Renderer *rend)
 	add.srect = {0, 0, 496, 540};
 	tiles.push_back(add);
 	BattleGround::layer = layer;
+	MoveInit(rend);
 }
 
 static int HLeft(std::vector<std::vector<t_GMU>> &map, int i, int j, bool other)
@@ -178,9 +179,9 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 
 void BattleGround::CreateMap()
 {
-	t_GMU gmu = { 0, 0, NULL, true, false };
-	t_GMU one = { 0, 1, NULL, true, false };
-	t_GMU two = { 0, 2, NULL, true, false };
+	t_GMU gmu = { 0, 0, NULL, true, false, false };
+	t_GMU one = { 0, 1, NULL, true, false, false };
+	t_GMU two = { 0, 2, NULL, true, false, false };
 	std::vector<t_GMU> tsts = {gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
 	std::vector<t_GMU> tst = {gmu, gmu, gmu, one, gmu, gmu, gmu, one, two, one, gmu};
 	std::vector<t_GMU> tststs = {gmu, gmu, one, one, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
@@ -229,24 +230,11 @@ void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<S
 	}
 }
 
-void BattleGround::SetTextureOnHover(int i)
-{
-	SDL_Point pos = characters[i].character->getCoord();
-	int index = pos.y * map[0].size() + pos.x;
-	if (characters[i].character->hover == false || map[pos.y][pos.x].active == false)
-	{
-		sprites[index][sprites[index].size() - 1].ClearColorMod();
-		return ;
-	}
-	sprites[index][sprites[index].size() - 1].ColorMod(107, 255, 122);
-}
-
 void BattleGround::Update()
 {
 	for (int i = 0; i < characters.size(); i++)
 	{
 		characters[i].character->Update();
-		SetTextureOnHover(i);
 		if (characters[i].character->clicked && !characters[i].clicked)
 		{
 			characters[i].clicked = true;
@@ -258,5 +246,5 @@ void BattleGround::Update()
 			ClearMovables();
 		}
 	}
-	MovingUpdate();
+	IterBlocks();
 }

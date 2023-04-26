@@ -17,6 +17,7 @@ class Sprite
 		Uint8 red = 0;
 		Uint8 green = 0;
 		Uint8 blue = 0;
+		bool active = true;
 	public:
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
@@ -35,8 +36,13 @@ class Sprite
 			spritesLayer = -1;
 		};
 		~Sprite();
+		void Activate() {active = true;};
+		void Deactivate() {active = false;};
+		bool getStatus() {return (active);};
 		void RemoveFromRenderer();
 		void Render(SDL_Renderer *rend) {
+			if (!active)
+				return ;
 			SDL_FRect rect = translateSprite(dest, staticSprite);
 			bool tt = false;
 			if (alpha != 255)

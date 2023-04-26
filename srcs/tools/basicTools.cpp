@@ -49,6 +49,25 @@ bool pointCheck(SDL_Point &point, SDL_Rect &hitBox)
 	return (false);
 }
 
+bool CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target)
+{
+	SDL_Point vec1 = {left.x - up.x, left.y - up.y};
+	SDL_Point vec2 = {down.x - left.x, down.y - left.y};
+	SDL_Point vec3 = {right.x - down.x, right.y - down.y};
+	SDL_Point vec4 = {up.x - right.x, up.y - right.y};
+	SDL_Point vp1 = {target.x - up.x, target.y - up.y};
+	SDL_Point vp2 = {target.x - left.x, target.y - left.y};
+	SDL_Point vp3 = {target.x - down.x, target.y - down.y};
+	SDL_Point vp4 = {target.x - right.x, target.y - right.y};
+	float cross1 = vec1.x * vp1.y - vec1.y * vp1.x;
+	float cross2 = vec2.x * vp2.y - vec2.y * vp2.x;
+	float cross3 = vec3.x * vp3.y - vec3.y * vp3.x;
+	float cross4 = vec4.x * vp4.y - vec4.y * vp4.x;
+	if (cross1 * cross2 > 0.0f && cross1 * cross3 > 0.0f && cross1 * cross4 > 0.0f)
+		return (true);
+	return (false);
+}
+
 int	figure_the_delay(clock_t start, clock_t end)
 {
 	double	time;

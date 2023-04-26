@@ -66,6 +66,14 @@ void GetMouseXY()
 	gameState.keys.mouseY = y;
 }
 
+void Utility()
+{
+	eventPoller();
+	CameraMove();
+	KeyCheck();
+	GetMouseXY();
+}
+
 int MainLoop(t_wr &wr)
 {
 	//gameState.battle.ground->CreateMap();
@@ -79,16 +87,12 @@ int MainLoop(t_wr &wr)
 	while (1)
 	{
 		start = clock();
-		eventPoller();
-		CameraMove();
-		KeyCheck();
-		GetMouseXY();
+		Utility();
 		gameState.battle.ground->Update();
 		gameState.render->RenderAll();
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));
 	}
-
 	return (0);
 }
 
@@ -96,5 +100,6 @@ int main()
 {
 	t_wr wr;
 	init(&wr);
-	return (MainLoop(wr));
+	MainLoop(wr);
+	return (0);
 }

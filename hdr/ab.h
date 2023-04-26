@@ -38,6 +38,7 @@ typedef struct s_GroundMapUnit
 	Character *character;
 	bool active;
 	bool highlited;
+	bool marked;
 }				t_GMU;
 
 typedef struct	s_wr
@@ -81,5 +82,6 @@ void		init(t_wr *wr);
 int			rounding(float value);
 void		CreateGroundTest();
 bool		pointCheck(SDL_Point &point, SDL_Rect &hitBox);
+bool		CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target);
 
 #endif

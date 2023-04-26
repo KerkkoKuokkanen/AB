@@ -40,13 +40,13 @@ void	init(t_wr *wr)
 	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
-	static BattleGround battle(0, wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT);
-	render.CreateLayer(LAYER_YSORT);
+	render.CreateLayer(LAYER_NO_SORT);
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;
+	static BattleGround battle(0, wr->rend);
 	gameState.battle.ground = &battle;
 	gameState.battle.xDist = 6000;
 	gameState.battle.yDist = 6000;
