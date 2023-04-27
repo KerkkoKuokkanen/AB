@@ -34,7 +34,7 @@ void Character::Update()
 		currentTexture = (currentTexture == 0) ? 1 : 0;
 		sprite->setTexture(textures[currentTexture]);
 	}
-	if (gameState.keys.rightClick == 1)
+	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
 		clicked = false;
 	idleCounter++;
 }

@@ -19,6 +19,8 @@ typedef struct s_Troop
 
 class BattleGround {
 	private:
+		SDL_Texture *moveInd;
+		SDL_Texture *lineInd;
 		std::vector<std::vector<int>> toolMap;	//remember to clear
 		std::vector<Sprite*> moveIndicators;
 		std::vector<Sprite*> moveLines;
@@ -48,6 +50,9 @@ class BattleGround {
 		void PlaceMarker();
 		void MarkerControl(SDL_Point cPos, SDL_Point mPos);
 		void ResetIndicators();
+		std::vector<SDL_Point> FindPath(SDL_Point cPos, SDL_Point tPos);
+		void TakeMarkerAndPlaceIt(SDL_Point pos);
+		void CreateNewIndicator();
 	public:
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);

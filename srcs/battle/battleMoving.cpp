@@ -5,6 +5,8 @@ void BattleGround::MoveInit(SDL_Renderer *rend)
 {
 	static SDL_Texture *point = get_texture(rend, "sprites/ground/pointIdicator.png");
 	static SDL_Texture *line = get_texture(rend, "sprites/ground/line.png");
+	moveInd = point;
+	lineInd = line;
 	SDL_Rect tempDest = {0, 0, 5000, 250};
 	SDL_Rect indDest = {-5000, 0, 1000, 1000};
 	Sprite sPoint(point, indDest, NULL, NULL, 0, FLIP_NONE);
@@ -18,6 +20,15 @@ void BattleGround::MoveInit(SDL_Renderer *rend)
 		moveIndicators[i]->Deactivate();
 		moveLines[i]->Deactivate();
 	}
+}
+
+void BattleGround::CreateNewIndicator()
+{
+	SDL_Rect tempDest = {0, 0, 1000, 1000};
+	Sprite point(moveInd, tempDest, NULL, NULL, 0, FLIP_NONE);
+	moveIndicators.push_back(new Sprite(point));
+	gameState.render->AddSprite(moveIndicators[moveIndicators.size() - 1], layer + 1);
+	moveIndicators[moveIndicators.size() - 1]->Deactivate();
 }
 
 bool BattleGround::BlockMouseHover(SDL_Point &position)
@@ -59,18 +70,39 @@ void BattleGround::ResetIndicators()
 		moveLines[i]->Deactivate();
 }
 
-void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
+void BattleGround::TakeMarkerAndPlaceIt(SDL_Point pos)
 {
-	if (cPos.x == mPos.x && cPos.y == mPos.y)
-	{
-		ResetIndicators();
-		return ;
-	}
-	int index = mPos.y * map[0].size() + mPos.x;
+	int index = pos.y * map[0].size() + pos.x;
 	SDL_Rect dest = sprites[index][sprites[index].size() - 1].dest;
 	Vector place((float)(dest.x + 2400), (float)(dest.y + 1000));
-	moveIndicators[0]->Position(place);
-	moveIndicators[0]->Activate();
+	int i = 0;
+	while (i < moveIndicators.size())
+	{
+		if (moveIndicators[i]->getStatus() == false)
+			break ;
+		i++;
+	}
+	if (i == moveIndicators.size())
+	{
+		CreateNewIndicator();
+		i = moveIndicators.size() - 1;
+	}
+	moveIndicators[i]->Position(place);
+	moveIndicators[i]->Activate();
+}
+
+void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
+{
+	ResetIndicators();
+	std::vector<SDL_Point> positions = FindPath(cPos, mPos);
+	if (positions.size() <= 1)
+	{
+		positions.clear();
+		return ;
+	}
+	for (int i = 0; i < positions.size(); i++)
+		TakeMarkerAndPlaceIt(positions[i]);
+	positions.clear();
 }
 
 void BattleGround::PlaceMarker()

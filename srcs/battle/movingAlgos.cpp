@@ -13,6 +13,57 @@ void BattleGround::ClearMovables()
 	}
 }
 
+std::vector<SDL_Point> BattleGround::FindPath(SDL_Point cPos, SDL_Point tPos)
+{
+	SDL_Point currPos = tPos;
+	std::vector<SDL_Point> ret;
+	ret.push_back(tPos);
+	int sizeModder = map[0].size() - 1;
+	while (currPos.x != cPos.x || currPos.y != cPos.y)
+	{
+		int modder = (currPos.y % 2 == 0) ? (-1) : 1;
+		int minMoves = toolMap[currPos.y][currPos.x];
+		SDL_Point savedPos = {TOOL_MAP_SIGN, TOOL_MAP_SIGN};
+		if (currPos.y > 0)
+		{
+			if (minMoves > toolMap[currPos.y - 1][currPos.x])
+			{
+				savedPos = {currPos.x, currPos.y - 1};
+				minMoves = toolMap[currPos.y - 1][currPos.x];
+			}
+		}
+		if (currPos.y < (map.size() - 1))
+		{
+			if (minMoves > toolMap[currPos.y + 1][currPos.x])
+			{
+				savedPos = {currPos.x, currPos.y + 1};
+				minMoves = toolMap[currPos.y + 1][currPos.x];
+			}
+		}
+		if (currPos.y > 0 && (currPos.x + modder) >= 0 && (currPos.x + modder) <= sizeModder)
+		{
+			if (minMoves > toolMap[currPos.y - 1][currPos.x + modder])
+			{
+				savedPos = {currPos.x + modder, currPos.y - 1};
+				minMoves = toolMap[currPos.y - 1][currPos.x + modder];
+			}
+		}
+		if (currPos.y < (map.size() - 1) && (currPos.x + modder) >= 0 && (currPos.x + modder) <= sizeModder)
+		{
+			if (minMoves > toolMap[currPos.y + 1][currPos.x + modder])
+			{
+				savedPos = {currPos.x + modder, currPos.y + 1};
+				minMoves = toolMap[currPos.y + 1][currPos.x + modder];
+			}
+		}
+		ret.push_back(savedPos);
+		currPos = savedPos;
+		if (minMoves == TOOL_MAP_SIGN)
+			break ;
+	}
+	return (ret);
+}
+
 void BattleGround::SetMovables(Character *character)
 {
 	for (int i = 0; i < toolMap.size(); i++)
@@ -21,6 +72,7 @@ void BattleGround::SetMovables(Character *character)
 			toolMap[i][j] = TOOL_MAP_SIGN;
 	}
 	SDL_Point pos = character->getCoord();
+	toolMap[pos.y][pos.x] = 0;
 	map[pos.y][pos.x].highlited = true;
 	IterMapMovables(pos, 0, character->moves);
 }
@@ -70,7 +122,7 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
 			}
 		}
 	}
-	if (pos.y > 0 && pos.x > 0 && pos.x < sizeModder && map[pos.y - 1][pos.x + modder].blocked == false)
+	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && map[pos.y - 1][pos.x + modder].blocked == false)
 	{
 		int plus = 2;
 		if (map[pos.y - 1][pos.x + modder].height > currHeight)
@@ -89,7 +141,7 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
 			}
 		}
 	}
-	if (pos.y < (map.size() - 1) && pos.x > 0 && pos.x < sizeModder && map[pos.y + 1][pos.x + modder].blocked == false)
+	if (pos.y < (map.size() - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && map[pos.y + 1][pos.x + modder].blocked == false)
 	{
 		int plus = 2;
 		if (map[pos.y + 1][pos.x + modder].height > currHeight)
