@@ -100,7 +100,8 @@ void BattleGround::ChangeUp()
 			if (map[i][j].height >= currentHeight)
 			{
 				sprites[currSprite][currentHeight].ClearAlphaMod();
-				map[i][j].active = true;
+				if ((sprites[currSprite].size() - 1) <= currentHeight)
+					map[i][j].active = true;
 				if (map[i][j].character != NULL)
 					map[i][j].character->sprite->ClearAlphaMod();
 			}

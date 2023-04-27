@@ -38,10 +38,10 @@ bool BattleGround::BlockMouseHover(SDL_Point &position)
 	int index = position.y * map[0].size() + position.x;
 	SDL_Rect dest = sprites[index][sprites[index].size() - 1].dest;
 	SDL_Point target = {gameState.keys.mouseX, gameState.keys.mouseY};
-	SDL_Point up = {dest.x + (gameState.battle.xDist / 2), dest.y};
-	SDL_Point left = {dest.x - 80, dest.y + 1500};
-	SDL_Point down = {up.x, dest.y + 3300};
-	SDL_Point right = {dest.x + gameState.battle.xDist + 100, left.y};
+	SDL_Point up = {dest.x + (gameState.battle.xDist / 2), dest.y - 250};
+	SDL_Point left = {dest.x - 500, dest.y + 1700};
+	SDL_Point down = {up.x, dest.y + 4000};
+	SDL_Point right = {dest.x + gameState.battle.xDist + 350, left.y};
 	return (CheckInsideShape(up, left, down, right, target));
 }
 
