@@ -38,8 +38,11 @@ bool BattleGround::MarkBlock(SDL_Point position)
 {
 	int index = position.y * map[0].size() + position.x;
 	if (!map[position.y][position.x].active)
+	{
+		map[position.y][position.x].marked = false;
 		return (false);
-	if (BlockMouseHover(position))
+	}
+	if (BlockMouseHover(position) && !HoverOverCheck(position))
 	{
 		map[position.y][position.x].marked = true;
 		return (true);
@@ -78,6 +81,11 @@ void BattleGround::PlaceMarker()
 	{
 		for (int j = 0; j < map[0].size(); j++)
 		{
+			if (map[i][j].character != NULL && map[i][j].marked && gameState.keys.click == 1)
+			{
+				map[i][j].character->clicked = true;
+				SetMovables(map[i][j].character);
+			}
 			if (map[i][j].character != NULL && map[i][j].character->clicked)
 			{
 				SDL_Point pos = {j, i};
@@ -163,92 +171,4 @@ void BattleGround::ColorFade(Sprite *sprite, float fadeIter)
 	float b = 122 - 113.0f;
 	float fadeMulti = cos(fadeIter) / 2.0f + 0.5f;
 	sprite->ColorMod(104 + (int)(r * fadeMulti), 196 + (int)(g * fadeMulti), 113 + (int)(b * fadeMulti));
-}
-
-void BattleGround::ClearMovables()
-{
-	for (int i = 0; i < map.size(); i++)
-	{
-		for (int j = 0; j < map[i].size(); j++)
-		{
-			if (map[i][j].highlited)
-				map[i][j].highlited = false;
-		}
-	}
-}
-
-void BattleGround::SetMovables(Character *character)
-{
-	SDL_Point pos = character->getCoord();
-	map[pos.y][pos.x].highlited = true;
-	IterMapMovables(pos, 0, character->moves);
-}
-
-void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
-{
-	if (moves >= cMoves)
-		return ;
-	int currHeight = map[pos.y][pos.x].height;
-	int modder = (pos.y % 2 == 0) ? (-1) : 1;
-	int sizeModder = map[0].size() - 1;
-	if (pos.y > 0)
-	{
-		int plus = 2;
-		if (map[pos.y - 1][pos.x].height > currHeight)
-			plus = 2 + (map[pos.y - 1][pos.x].height - currHeight);
-		else if (map[pos.y - 1][pos.x].height < currHeight)
-			plus = 1;
-		int temp = moves + plus;
-		if (temp <= cMoves)
-		{
-			map[pos.y - 1][pos.x].highlited = true;
-			SDL_Point location = {pos.x, pos.y - 1};
-			IterMapMovables(location, temp, cMoves);
-		}
-	}
-	if (pos.y < (map.size() - 1))
-	{
-		int plus = 2;
-		if (map[pos.y + 1][pos.x].height > currHeight)
-			plus = 2 + (map[pos.y + 1][pos.x].height - currHeight);
-		else if (map[pos.y + 1][pos.x].height < currHeight)
-			plus = 1;
-		int temp = moves + plus;
-		if (temp <= cMoves)
-		{
-			map[pos.y + 1][pos.x].highlited = true;
-			SDL_Point location = {pos.x, pos.y + 1};
-			IterMapMovables(location, temp, cMoves);
-		}
-	}
-	if (pos.y > 0 && pos.x > 0 && pos.x < sizeModder)
-	{
-		int plus = 2;
-		if (map[pos.y - 1][pos.x + modder].height > currHeight)
-			plus = 2 + (map[pos.y - 1][pos.x + modder].height - currHeight);
-		else if (map[pos.y - 1][pos.x + modder].height < currHeight)
-			plus = 1;
-		int temp = moves + plus;
-		if (temp <= cMoves)
-		{
-			map[pos.y - 1][pos.x + modder].highlited = true;
-			SDL_Point location = {pos.x + modder, pos.y - 1};
-			IterMapMovables(location, temp, cMoves);
-		}
-	}
-	if (pos.y < (map.size() - 1) && pos.x > 0 && pos.x < sizeModder)
-	{
-		int plus = 2;
-		if (map[pos.y + 1][pos.x + modder].height > currHeight)
-			plus = 2 + (map[pos.y + 1][pos.x + modder].height - currHeight);
-		else if (map[pos.y + 1][pos.x + modder].height < currHeight)
-			plus = 1;
-		int temp = moves + plus;
-		if (temp <= cMoves)
-		{
-			map[pos.y + 1][pos.x + modder].highlited = true;
-			SDL_Point location = {pos.x + modder, pos.y + 1};
-			IterMapMovables(location, temp, cMoves);
-		}
-	}
 }

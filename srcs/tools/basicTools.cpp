@@ -49,6 +49,14 @@ bool pointCheck(SDL_Point &point, SDL_Rect &hitBox)
 	return (false);
 }
 
+bool boxCheck(SDL_Rect box1, SDL_Rect box2)
+{
+	if (box1.x < (box2.x + box2.w) && (box1.x + box1.w) > box2.x &&
+		box1.y < (box2.y + box2.h) && (box1.y + box1.h) > box2.y)
+		return (true);
+	return (false);
+}
+
 bool CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target)
 {
 	SDL_Point vec1 = {left.x - up.x, left.y - up.y};
@@ -72,7 +80,6 @@ int	figure_the_delay(clock_t start, clock_t end)
 {
 	double	time;
 	int		ret;
-
 	time = 0.0;
 	time += (double)(end - start) / CLOCKS_PER_SEC;
 	ret = FRAME - (int)(time * 1000);

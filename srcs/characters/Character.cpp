@@ -34,10 +34,6 @@ void Character::Update()
 		currentTexture = (currentTexture == 0) ? 1 : 0;
 		sprite->setTexture(textures[currentTexture]);
 	}
-	SDL_Point point = {gameState.keys.mouseX, gameState.keys.mouseY};
-	hover = pointCheck(point, clickBox);
-	if (hover && gameState.keys.click == 1)
-		clicked = true;
 	if (gameState.keys.rightClick == 1)
 		clicked = false;
 	idleCounter++;

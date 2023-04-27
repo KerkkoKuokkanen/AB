@@ -12,6 +12,8 @@
 # define LAYER_YSORT 1
 # define LAYER_REVERSE_YSORT 2
 
+# define TOOL_MAP_SIGN 9933
+
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
 # include <iostream>
@@ -39,6 +41,7 @@ typedef struct s_GroundMapUnit
 	bool active;
 	bool highlited;
 	bool marked;
+	bool blocked;
 }				t_GMU;
 
 typedef struct	s_wr
@@ -83,5 +86,6 @@ int			rounding(float value);
 void		CreateGroundTest();
 bool		pointCheck(SDL_Point &point, SDL_Rect &hitBox);
 bool		CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target);
+bool		boxCheck(SDL_Rect box1, SDL_Rect box2);
 
 #endif

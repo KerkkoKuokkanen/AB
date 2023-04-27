@@ -159,14 +159,17 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 	maxHeight = map[0][0].height; minHeight = map[0][0].height;
 	for (int i = 0; i < map.size(); i++)
 	{
+		std::vector<int> adder;
 		unsigned int width = map[i].size() * gameState.battle.xDist;
 		xStart = -(width / 2);
 		for (int j = 0; j < map[i].size(); j++)
 		{
+			adder.push_back(-1);
 			maxHeight = (maxHeight < map[i][j].height) ? map[i][j].height : maxHeight;
 			minHeight = (minHeight > map[i][j].height) ? map[i][j].height : minHeight;
 			CreateTile(map, i, j, xStart, yStart, everyOther);
 		}
+		toolMap.push_back(adder);
 		everyOther = (everyOther) ? false : true;
 	}
 	currentHeight = maxHeight;
@@ -179,9 +182,9 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 
 void BattleGround::CreateMap()
 {
-	t_GMU gmu = { 0, 0, NULL, true, false, false };
-	t_GMU one = { 0, 1, NULL, true, false, false };
-	t_GMU two = { 0, 2, NULL, true, false, false };
+	t_GMU gmu = { 0, 0, NULL, true, false, false, false };
+	t_GMU one = { 0, 1, NULL, true, false, false, false };
+	t_GMU two = { 0, 2, NULL, true, false, false, false };
 	std::vector<t_GMU> tsts = {gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
 	std::vector<t_GMU> tst = {gmu, gmu, gmu, one, gmu, gmu, gmu, one, two, one, gmu};
 	std::vector<t_GMU> tststs = {gmu, gmu, one, one, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
