@@ -56,7 +56,7 @@ class Sprite
 				col = true;
 				SDL_SetTextureColorMod(sprite, red, green, blue);
 			}
-			SDL_RenderCopyExF(rend, sprite, srect, &rect, angle, NULL, flip);
+			SDL_RenderCopyExF(rend, sprite, srect, &rect, angle, point, flip);
 			if (tt)
 				SDL_SetTextureAlphaMod(sprite, 255);
 			if (col)
@@ -100,6 +100,7 @@ class Sprite
 		void setPoint(SDL_FPoint point) {Sprite::point = &point;};
 		void setStatic(bool staticSprite) {Sprite::staticSprite = staticSprite;};
 		void setWidthAndHeight(const int width, const int height) {dest.w = width; dest.h = height;};
+		void setWidth(int width) {Sprite::dest.w = width;};
 		void setAll(SDL_Rect *dest, SDL_Rect *srect, SDL_FPoint *point, const double *angle, const int flip){
 			if (dest != NULL)
 			{

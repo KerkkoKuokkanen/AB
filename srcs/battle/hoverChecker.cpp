@@ -11,7 +11,7 @@ bool BattleGround::CheckOverPositions(std::vector<SDL_Point> &positions, SDL_Poi
 	{
 		int index = positions[i].y * map[0].size() + positions[i].x;
 		SDL_Rect dest = sprites[index][sprites[index].size() - 1].dest;
-		SDL_Rect target = {dest.x - 500, dest.y + 1700, gameState.battle.xDist + 350, 100000};
+		SDL_Rect target = {dest.x - 100, dest.y + 1700, gameState.battle.xDist + 100, 100000};
 		SDL_Point mouse = {gameState.keys.mouseX, gameState.keys.mouseY};
 		if (pointCheck(mouse, target) || BlockMouseHover(positions[i]))
 			return (true);

@@ -52,7 +52,10 @@ class BattleGround {
 		void ResetIndicators();
 		std::vector<SDL_Point> FindPath(SDL_Point cPos, SDL_Point tPos);
 		void TakeMarkerAndPlaceIt(SDL_Point pos);
+		void TakeLineAndPlaceIt(SDL_Point startPos, SDL_Point endPos);
 		void CreateNewIndicator();
+		void CreateNewLine();
+		int findLine();
 	public:
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);

@@ -41,7 +41,7 @@ void	init(t_wr *wr)
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT);
-	render.CreateLayer(LAYER_NO_SORT);
+	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);

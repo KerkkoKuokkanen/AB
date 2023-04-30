@@ -11,6 +11,20 @@ SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 	return (text);
 }
 
+float	vectorAngle(Vector v1, Vector v2)
+{
+	float	a, b, c;
+	a = v1.x * v2.x + v1.y * v2.y;
+	b = sqrt(v1.x * v1.x + v1.y * v1.y);
+	c = sqrt(v2.x * v2.x + v2.y * v2.y);
+	return (acos(a / (b * c)));
+}
+
+int	degree(float angle)
+{
+	return ((angle * 180.0f) / PI);
+}
+
 int	rounding(float value)
 {
 	int val = static_cast<int>(value);

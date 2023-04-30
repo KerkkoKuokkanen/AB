@@ -18,6 +18,7 @@ void BattleGround::MoveInit(SDL_Renderer *rend)
 		gameState.render->AddSprite(moveIndicators[i], layer + 1);
 		gameState.render->AddSprite(moveLines[i], layer + 1);
 		moveIndicators[i]->Deactivate();
+		moveIndicators[i]->orderLayer = 1;
 		moveLines[i]->Deactivate();
 	}
 }
@@ -29,6 +30,7 @@ void BattleGround::CreateNewIndicator()
 	moveIndicators.push_back(new Sprite(point));
 	gameState.render->AddSprite(moveIndicators[moveIndicators.size() - 1], layer + 1);
 	moveIndicators[moveIndicators.size() - 1]->Deactivate();
+	moveIndicators[moveIndicators.size() - 1]->orderLayer = 1;
 }
 
 bool BattleGround::BlockMouseHover(SDL_Point &position)
@@ -101,7 +103,13 @@ void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 		return ;
 	}
 	for (int i = 0; i < positions.size(); i++)
+	{
+		int index = positions[i].y * map[0].size() + positions[i].x;
+		sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
 		TakeMarkerAndPlaceIt(positions[i]);
+		if (i != 0)
+			TakeLineAndPlaceIt(positions[i - 1], positions[i]);
+	}
 	positions.clear();
 }
 
@@ -191,7 +199,7 @@ void BattleGround::IterBlocks()
 	CheckMarkedBlocks(markedBlocks);
 	PlaceMarker();
 	markedBlocks.clear();
-	fadeIter += 0.1f;
+	fadeIter += 0.06f;
 	if (fadeIter >= 44.0f)
 		fadeIter = 0.0f;
 }
