@@ -39,27 +39,28 @@ Vector BattleGround::ParabolaPosition(Vector pos, Vector highPoint, float unit, 
 	return (Vector(x, a * (x - h) * (x - h) + k));
 }
 
-void BattleGround::MoveCharacter()
+Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float unit, Vector highPoint, SDL_Point curr, SDL_Point next)
 {
-	if (movedCharacter.character == NULL)
-		return ;
-	SDL_Point curr = movedCharacter.path[movedCharacter.index];
-	SDL_Point next = movedCharacter.path[movedCharacter.index + 1];
-	Vector ogPos = GetCharacterCoord(curr, movedCharacter.character);
-	Vector newPos = GetCharacterCoord(next, movedCharacter.character);
-	float highValue = (ogPos.y < newPos.y) ? ogPos.y : newPos.y;
-	Vector highPoint(ogPos.x + (newPos.x - ogPos.x) / 2.0f, highValue - 1250.0f);
 	Vector place(0, 0);
-	float unit = (newPos.x - ogPos.x) / 28.0f;
 	if (movedCharacter.iterator < 14)
+	{
+		int index = curr.y * map[0].size() + curr.x;
+		sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
 		place = ParabolaPosition(ogPos, highPoint, unit, ogPos.x);
+	}
 	else
 	{
+		int index = next.y * map[0].size() + next.x;
+		sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
 		if (movedCharacter.iterator >= 15)
 			movedCharacter.character->sprite->orderLayer = next.y * 2 + 1;
 		place = ParabolaPosition(newPos, highPoint, unit, ogPos.x);
 	}
-	movedCharacter.character->Position(place);
+	return (place);
+}
+
+void BattleGround::MangeIterator(Vector newPos)
+{
 	if (movedCharacter.iterator == 28)
 	{
 		movedCharacter.iterator = 0;
@@ -74,4 +75,20 @@ void BattleGround::MoveCharacter()
 		return ;
 	}
 	movedCharacter.iterator += 1;
+}
+
+void BattleGround::MoveCharacter()
+{
+	if (movedCharacter.character == NULL)
+		return ;
+	SDL_Point curr = movedCharacter.path[movedCharacter.index];
+	SDL_Point next = movedCharacter.path[movedCharacter.index + 1];
+	Vector ogPos = GetCharacterCoord(curr, movedCharacter.character);
+	Vector newPos = GetCharacterCoord(next, movedCharacter.character);
+	float highValue = (ogPos.y < newPos.y) ? ogPos.y : newPos.y;
+	Vector highPoint(ogPos.x + (newPos.x - ogPos.x) / 2.0f, highValue - 1250.0f);
+	float unit = (newPos.x - ogPos.x) / 28.0f;
+	Vector place = GetPlaceWithIterator(ogPos, newPos, unit, highPoint, curr, next);
+	movedCharacter.character->Position(place);
+	MangeIterator(newPos);
 }

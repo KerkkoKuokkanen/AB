@@ -69,6 +69,8 @@ class BattleGround {
 		Vector GetCharacterCoord(SDL_Point pos, Character *character);
 		void FigureOrderingLayer(SDL_Point curr, SDL_Point next);
 		Vector ParabolaPosition(Vector pos, Vector highPoint, float unit, float ogX);
+		Vector GetPlaceWithIterator(Vector ogPos, Vector newPos, float unit, Vector highPoint, SDL_Point curr, SDL_Point next);
+		void MangeIterator(Vector newPos);
 	public:
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
