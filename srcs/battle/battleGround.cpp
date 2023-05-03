@@ -195,7 +195,7 @@ void BattleGround::CreateMap()
 	CreateBattleGround(map);
 }
 
-void BattleGround::PlaceCharacter(SDL_Point &position, t_Troop &character)
+void BattleGround::PlaceCharacter(SDL_Point &position, Character *character)
 {
 	if (position.x < 0 || position.y < 0 || position.y >= map.size() || position.x >= map[position.y].size())
 	{
@@ -205,12 +205,11 @@ void BattleGround::PlaceCharacter(SDL_Point &position, t_Troop &character)
 	int index = position.y * map[0].size() + position.x;
 	SDL_Rect location = sprites[index][sprites[index].size() - 1].dest;
 	Vector place((float)location.x, (float)location.y);
-	int height = character.character->getHeight();
+	int height = character->getHeight();
 	place.y = place.y - (float)height + (float)gameState.battle.yDist / 2.0f - 450;
-	character.character->Position(place);
-	character.pos = position;
-	character.character->sprite->orderLayer = position.y * 2 + 1;
-	map[position.y][position.x].character = character.character;
+	character->Position(place);
+	character->sprite->orderLayer = position.y * 2 + 1;
+	map[position.y][position.x].character = character;
 	map[position.y][position.x].character->setCoord(position);
 }
 
@@ -226,11 +225,10 @@ void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<S
 	{
 		t_Troop add;
 		add.character = &characters[i];
-		add.pos = mapPos[i];
 		add.clicked = false;
 		BattleGround::characters.push_back(add);
 		BattleGround::characters[i].character->AddToRender();
-		PlaceCharacter(mapPos[i], BattleGround::characters[i]);
+		PlaceCharacter(mapPos[i], BattleGround::characters[i].character);
 	}
 }
 
@@ -251,4 +249,5 @@ void BattleGround::Update()
 		}
 	}
 	IterBlocks();
+	MoveCharacter();
 }

@@ -14,13 +14,21 @@ typedef struct s_Troop
 {
 	Character *character;
 	bool clicked;
-	SDL_Point pos;
 }				t_Troop;
+
+typedef struct s_Mover
+{
+	Character *character;
+	std::vector<SDL_Point> path;
+	int index;
+	int iterator;
+}				t_Mover;
 
 class BattleGround {
 	private:
 		SDL_Texture *moveInd;
 		SDL_Texture *lineInd;
+		t_Mover movedCharacter = {NULL, {}, 0, 0};
 		std::vector<std::vector<int>> toolMap;	//remember to clear
 		std::vector<Sprite*> moveIndicators;
 		std::vector<Sprite*> moveLines;
@@ -36,7 +44,7 @@ class BattleGround {
 		void ChangeUp();
 		void ChangeDown();
 		std::vector<t_Troop> characters;	//remember to clear
-		void PlaceCharacter(SDL_Point &position, t_Troop &character);
+		void PlaceCharacter(SDL_Point &position, Character *character);
 		void SetMovables(Character *character);
 		void ClearMovables();
 		void IterMapMovables(SDL_Point pos, int moves, int cMoves);
@@ -56,6 +64,11 @@ class BattleGround {
 		void CreateNewIndicator();
 		void CreateNewLine();
 		int findLine();
+		void setMoved(std::vector<SDL_Point> &path);
+		void MoveCharacter();
+		Vector GetCharacterCoord(SDL_Point pos, Character *character);
+		void FigureOrderingLayer(SDL_Point curr, SDL_Point next);
+		Vector ParabolaPosition(Vector pos, Vector highPoint, float unit, float ogX);
 	public:
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);

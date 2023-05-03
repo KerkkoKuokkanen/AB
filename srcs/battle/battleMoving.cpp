@@ -95,6 +95,8 @@ void BattleGround::TakeMarkerAndPlaceIt(SDL_Point pos)
 
 void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 {
+	if (map[cPos.y][cPos.x].character->turn == false)
+		return ;
 	ResetIndicators();
 	std::vector<SDL_Point> positions = FindPath(cPos, mPos);
 	if (positions.size() <= 1)
@@ -110,6 +112,7 @@ void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 		if (i != 0)
 			TakeLineAndPlaceIt(positions[i - 1], positions[i]);
 	}
+	setMoved(positions);
 	positions.clear();
 }
 

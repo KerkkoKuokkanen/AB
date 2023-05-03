@@ -29,6 +29,7 @@ class Character
 		bool hover = false;
 		bool clicked = false;
 		bool turn = true;
+		bool moving = false;
 		int moves = 10;
 };
 
