@@ -45,6 +45,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.skeleIdle1 = get_texture(rend, "sprites/characters/skele.png");
 	gameState.textures.skeleIdle2 = get_texture(rend, "sprites/characters/skele2.png");
 	gameState.textures.dust = get_texture(rend, "sprites/effects/dust.png");
+	gameState.textures.turnOrder[0] = get_texture(rend, "sprites/env/turnOrder.png");
+	gameState.textures.turnOrder[1] = get_texture(rend, "sprites/env/turnOrderBackGround.png");
 }
 
 void	init(t_wr *wr)
@@ -57,9 +59,9 @@ void	init(t_wr *wr)
 	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
-	render.CreateLayer(LAYER_REVERSE_YSORT);
-	render.CreateLayer(LAYER_YSORT);
-	render.CreateLayer(LAYER_NO_SORT);
+	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
+	render.CreateLayer(LAYER_YSORT); //battleground layer
+	render.CreateLayer(LAYER_NO_SORT); //turnorder layer
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;

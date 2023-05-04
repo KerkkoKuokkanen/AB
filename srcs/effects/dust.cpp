@@ -1,9 +1,6 @@
 
 #include "../../hdr/global.h"
 
-//x' = x cos θ − y sin θ
-//y' = x sin θ + y cos θ
-
 Dust::Dust(SDL_Point position, Vector direction)
 {
 	int dustAmount = rand() % 5 + 20;

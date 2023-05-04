@@ -60,7 +60,7 @@ bool BattleGround::MovingLeft(SDL_Point curr, SDL_Point next)
 
 void BattleGround::AddDust(SDL_Point curr, SDL_Point next)
 {
-	if (movedCharacter.iterator != 1)
+	if (movedCharacter.iterator != 4)
 		return ;
 	Mix_SetPanning(0, MIX_MAX_VOLUME, MIX_MAX_VOLUME);
 	PlaySound(gameState.audio.TFootStep[rand() % 3], THIEF_STEP_CHANNEL, 0);

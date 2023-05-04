@@ -13,7 +13,10 @@
 # define LAYER_REVERSE_YSORT 2
 
 # define TOOL_MAP_SIGN 9933
-# define DUST_LAYER 2
+
+//layer defines
+# define DUST_LAYER 1
+# define TURN_ORDER_LAYER 2
 
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
@@ -25,6 +28,7 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include <vector>
 # include "classes/character.h"
 # include "classes/dust.h"
+# include "classes/turnOrder.h"
 
 enum {
 	THIEF,

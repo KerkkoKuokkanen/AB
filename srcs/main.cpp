@@ -92,9 +92,7 @@ void TempInitBattle()
 void ObjUpdate()
 {
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
-	{
 		gameState.updateObjs.dusts[i]->Update();
-	}
 }
 
 int MainLoop(t_wr &wr)

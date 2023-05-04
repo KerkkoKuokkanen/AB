@@ -32,6 +32,7 @@ class Character
 		bool moving = false;
 		int moves = 10;
 		bool ally = true;
+		int speed = 1;
 };
 
 #endif

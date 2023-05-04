@@ -98,6 +98,7 @@ class Sprite
 		void ClearColorMod() {red = 0; green = 0; blue = 0;};
 		void setPortion(SDL_Rect srect) {Sprite::srect = &srect;};
 		void setTexture(SDL_Texture *texture) {sprite = texture;};
+		SDL_Texture *getTexture() {return (sprite);};
 		void setPoint(SDL_FPoint point) {Sprite::point = &point;};
 		void setStatic(bool staticSprite) {Sprite::staticSprite = staticSprite;};
 		void setWidthAndHeight(const int width, const int height) {dest.w = width; dest.h = height;};
