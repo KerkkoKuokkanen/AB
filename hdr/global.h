@@ -9,6 +9,8 @@
 # define ALPHA_BLEND 80
 # define PI 3.14159
 
+# define THIEF_STEP_CHANNEL 2
+
 typedef struct s_Battle
 {
 	BattleGround *ground;
@@ -22,7 +24,20 @@ typedef struct s_Textures
 {
 	SDL_Texture *thiefIdle1;
 	SDL_Texture *thiefIdle2;
+	SDL_Texture *skeleIdle1;
+	SDL_Texture *skeleIdle2;
+	SDL_Texture *dust;
 }				t_Textures;
+
+typedef struct s_Audio
+{
+	Mix_Chunk *TFootStep[3];
+}				t_Audio;
+
+typedef struct s_Updates
+{
+	std::vector<Dust*> dusts;
+}				t_Updates;
 
 typedef struct	s_GameState
 {
@@ -32,6 +47,8 @@ typedef struct	s_GameState
 	Renderer *render;
 	t_Battle battle;
 	t_Textures textures;
+	t_Updates updateObjs;
+	t_Audio audio;
 }				t_GameState;
 
 extern t_GameState gameState;

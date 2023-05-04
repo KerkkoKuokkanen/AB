@@ -8,7 +8,7 @@ void BattleGround::ClearMovables()
 		for (int j = 0; j < map[i].size(); j++)
 		{
 			if (map[i][j].highlited)
-				map[i][j].highlited = false;
+				map[i][j].highlited = 0;
 		}
 	}
 }
@@ -71,13 +71,14 @@ void BattleGround::SetMovables(Character *character)
 		for (int j = 0; j < toolMap[i].size(); j++)
 			toolMap[i][j] = TOOL_MAP_SIGN;
 	}
+	int highLightSign = (character->ally) ? 1 : 2;
 	SDL_Point pos = character->getCoord();
 	toolMap[pos.y][pos.x] = 0;
-	map[pos.y][pos.x].highlited = true;
-	IterMapMovables(pos, 0, character->moves);
+	map[pos.y][pos.x].highlited = highLightSign;
+	IterMapMovables(pos, 0, character->moves, highLightSign);
 }
 
-void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
+void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign)
 {
 	if (moves >= cMoves)
 		return ;
@@ -97,9 +98,9 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
 			if (toolMap[pos.y - 1][pos.x] > temp)
 			{
 				toolMap[pos.y - 1][pos.x] = temp;
-				map[pos.y - 1][pos.x].highlited = true;
+				map[pos.y - 1][pos.x].highlited = highLightSign;
 				SDL_Point location = {pos.x, pos.y - 1};
-				IterMapMovables(location, temp, cMoves);
+				IterMapMovables(location, temp, cMoves, highLightSign);
 			}
 		}
 	}
@@ -116,9 +117,9 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
 			if (toolMap[pos.y + 1][pos.x] > temp)
 			{
 				toolMap[pos.y + 1][pos.x] = temp;
-				map[pos.y + 1][pos.x].highlited = true;
+				map[pos.y + 1][pos.x].highlited = highLightSign;
 				SDL_Point location = {pos.x, pos.y + 1};
-				IterMapMovables(location, temp, cMoves);
+				IterMapMovables(location, temp, cMoves, highLightSign);
 			}
 		}
 	}
@@ -135,9 +136,9 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
 			if (toolMap[pos.y - 1][pos.x + modder] > temp)
 			{
 				toolMap[pos.y - 1][pos.x + modder] = temp;
-				map[pos.y - 1][pos.x + modder].highlited = true;
+				map[pos.y - 1][pos.x + modder].highlited = highLightSign;
 				SDL_Point location = {pos.x + modder, pos.y - 1};
-				IterMapMovables(location, temp, cMoves);
+				IterMapMovables(location, temp, cMoves, highLightSign);
 			}
 		}
 	}
@@ -154,9 +155,9 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves)
 			if (toolMap[pos.y + 1][pos.x + modder] > temp)
 			{
 				toolMap[pos.y + 1][pos.x + modder] = temp;
-				map[pos.y + 1][pos.x + modder].highlited = true;
+				map[pos.y + 1][pos.x + modder].highlited = highLightSign;
 				SDL_Point location = {pos.x + modder, pos.y + 1};
-				IterMapMovables(location, temp, cMoves);
+				IterMapMovables(location, temp, cMoves, highLightSign);
 			}
 		}
 	}

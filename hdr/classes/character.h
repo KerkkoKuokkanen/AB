@@ -11,12 +11,12 @@ class Character
 		int idleCounter = 0;
 		int currentTexture = 0;
 		int width, height;
-		bool ally = true;
 		SDL_Point coord = {0, 0};
-		SDL_Rect clickBox = {0, 0, 0, 0};
+		void CreateCharacterType(int skin);
 	public:
+		int cSing;
 		Sprite *sprite;
-		Character(bool allied = true);
+		Character(int skin, bool allied = true);
 		void AddToRender();
 		void Update();
 		void DeleteCharacter();
@@ -31,6 +31,7 @@ class Character
 		bool turn = true;
 		bool moving = false;
 		int moves = 10;
+		bool ally = true;
 };
 
 #endif

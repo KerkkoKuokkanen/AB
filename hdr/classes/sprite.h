@@ -36,6 +36,7 @@ class Sprite
 			spritesLayer = -1;
 		};
 		~Sprite();
+		void Destroy() {delete this;};
 		void Activate() {active = true;};
 		void Deactivate() {active = false;};
 		bool getStatus() {return (active);};

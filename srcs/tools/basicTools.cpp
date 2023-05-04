@@ -90,6 +90,22 @@ bool CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point ri
 	return (false);
 }
 
+void CreateDust(SDL_Point position, Vector direction)
+{
+	gameState.updateObjs.dusts.push_back(new Dust(position, direction));
+}
+
+void PlaySound(Mix_Chunk *clip, int channel, int loops)
+{
+	Mix_PlayChannel(channel, clip, loops);
+}
+
+float	float_rand()
+{
+	float	scale = ((double)rand() / (double)(RAND_MAX));
+	return (scale);
+}
+
 int	figure_the_delay(clock_t start, clock_t end)
 {
 	double	time;

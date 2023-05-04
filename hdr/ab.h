@@ -13,6 +13,7 @@
 # define LAYER_REVERSE_YSORT 2
 
 # define TOOL_MAP_SIGN 9933
+# define DUST_LAYER 2
 
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
@@ -23,6 +24,12 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "classes/sprite.h"
 # include <vector>
 # include "classes/character.h"
+# include "classes/dust.h"
+
+enum {
+	THIEF,
+	SKELE
+};
 
 enum {
 	REGULAR_BLOCK,
@@ -37,9 +44,9 @@ typedef struct s_GroundMapUnit
 {
 	int tile;
 	int height;
+	int highlited;
 	Character *character;
 	bool active;
-	bool highlited;
 	bool marked;
 	bool blocked;
 }				t_GMU;
@@ -89,5 +96,8 @@ bool		CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point r
 bool		boxCheck(SDL_Rect box1, SDL_Rect box2);
 float		vectorAngle(Vector v1, Vector v2);
 int			degree(float angle);
+float		float_rand();
+void		CreateDust(SDL_Point position, Vector direction);
+void		PlaySound(Mix_Chunk *clip, int channel, int loops);
 
 #endif

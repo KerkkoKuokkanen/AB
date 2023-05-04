@@ -74,21 +74,39 @@ void Utility()
 	GetMouseXY();
 }
 
+void TempInitBattle()
+{
+	Character thief(THIEF);
+	Character thief2(THIEF);
+	Character skele(SKELE, false);
+	Character skele2(SKELE, false);
+	static std::vector<Character> chars = {thief, thief2, skele, skele2};
+	SDL_Point point = {8, 6};
+	SDL_Point point2 = {3, 12};
+	SDL_Point point3 = {9, 2};
+	SDL_Point point4 = {8, 14};
+	static std::vector<SDL_Point> pnt = {point, point2, point3, point4};
+	gameState.battle.ground->StartBattle(chars, pnt);
+}
+
+void ObjUpdate()
+{
+	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
+	{
+		gameState.updateObjs.dusts[i]->Update();
+	}
+}
+
 int MainLoop(t_wr &wr)
 {
-	//gameState.battle.ground->CreateMap();
 	clock_t start, end;
-	Character thief;
-	std::vector<Character> chars = {thief};
-	SDL_Point point = {8, 6};
-	std::vector<SDL_Point> pnt = {point};
-	gameState.battle.ground->StartBattle(chars, pnt);
-
+	TempInitBattle();
 	while (1)
 	{
 		start = clock();
 		Utility();
 		gameState.battle.ground->Update();
+		ObjUpdate();
 		gameState.render->RenderAll();
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));

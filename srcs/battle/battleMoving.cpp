@@ -47,6 +47,16 @@ bool BattleGround::BlockMouseHover(SDL_Point &position)
 	return (CheckInsideShape(up, left, down, right, target));
 }
 
+bool BattleGround::NoOneMoving()
+{
+	for (int i = 0; i < characters.size(); i++)
+	{
+		if (characters[i].character->moving)
+			return (false);
+	}
+	return (true);
+}
+
 bool BattleGround::MarkBlock(SDL_Point position)
 {
 	int index = position.y * map[0].size() + position.x;
@@ -55,7 +65,7 @@ bool BattleGround::MarkBlock(SDL_Point position)
 		map[position.y][position.x].marked = false;
 		return (false);
 	}
-	if (BlockMouseHover(position) && !HoverOverCheck(position))
+	if (BlockMouseHover(position) && !HoverOverCheck(position) && NoOneMoving())
 	{
 		map[position.y][position.x].marked = true;
 		return (true);
@@ -95,7 +105,7 @@ void BattleGround::TakeMarkerAndPlaceIt(SDL_Point pos)
 
 void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 {
-	if (map[cPos.y][cPos.x].character->turn == false)
+	if (map[cPos.y][cPos.x].character->turn == false || map[cPos.y][cPos.x].character->ally == false)
 		return ;
 	ResetIndicators();
 	std::vector<SDL_Point> positions = FindPath(cPos, mPos);
@@ -116,6 +126,16 @@ void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 	positions.clear();
 }
 
+bool BattleGround::NoOtherCharacters()
+{
+	for (int i = 0; i < characters.size(); i++)
+	{
+		if (characters[i].character->clicked)
+			return (false);
+	}
+	return (true);
+}
+
 void BattleGround::PlaceMarker()
 {
 	SDL_Point *marked = NULL;
@@ -126,6 +146,11 @@ void BattleGround::PlaceMarker()
 		{
 			if (map[i][j].character != NULL && map[i][j].marked && gameState.keys.click == 1)
 			{
+				if (NoOtherCharacters() == false)
+				{
+					for (int k = 0; k < characters.size(); k++)
+						characters[k].character->clicked = false;
+				}
 				map[i][j].character->clicked = true;
 				SetMovables(map[i][j].character);
 			}
@@ -156,7 +181,10 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 		if (map[marked[0].y][marked[0].x].character == NULL || map[marked[0].y][marked[0].x].highlited)
 			return ;
 		int index = marked[0].y * map[0].size() + marked[0].x;
-		sprites[index][sprites[index].size() - 1].ColorMod(120, 255, 100);
+		if (map[marked[0].y][marked[0].x].character->ally)
+			sprites[index][sprites[index].size() - 1].ColorMod(120, 255, 100);
+		else
+			sprites[index][sprites[index].size() - 1].ColorMod(255, 69, 56);
 		return ;
 	}
 	SDL_Point block = marked[0];
@@ -176,7 +204,10 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 	if (map[block.y][block.x].character == NULL || map[block.y][block.x].highlited)
 		return ;
 	int index = block.y * map[0].size() + block.x;
-	sprites[index][sprites[index].size() - 1].ColorMod(120, 255, 100);
+	if (map[block.y][block.x].character->ally)
+		sprites[index][sprites[index].size() - 1].ColorMod(120, 255, 100);
+	else
+		sprites[index][sprites[index].size() - 1].ColorMod(255, 69, 56);
 }
 
 void BattleGround::IterBlocks()
@@ -192,10 +223,10 @@ void BattleGround::IterBlocks()
 			SDL_Point pos = {j, i};
 			if (MarkBlock(pos))
 				markedBlocks.push_back(pos);
-			if (map[i][j].highlited)
+			if (map[i][j].highlited != 0)
 			{
 				int index = i * map[0].size() + j;
-				ColorFade(&sprites[index][sprites[index].size() - 1], fadeIter);
+				ColorFade(&sprites[index][sprites[index].size() - 1], fadeIter, map[i][j].highlited);
 			}
 		}
 	}
@@ -207,11 +238,20 @@ void BattleGround::IterBlocks()
 		fadeIter = 0.0f;
 }
 
-void BattleGround::ColorFade(Sprite *sprite, float fadeIter)
+void BattleGround::ColorFade(Sprite *sprite, float fadeIter, int sign)
 {
-	float r = 107.0f - 104.0f;
-	float g = 255.0f - 196.0f;
-	float b = 122 - 113.0f;
+	if (sign == 1)
+	{
+		float r = 107.0f - 104.0f;
+		float g = 255.0f - 196.0f;
+		float b = 122 - 113.0f;
+		float fadeMulti = cos(fadeIter) / 2.0f + 0.5f;
+		sprite->ColorMod(104 + (int)(r * fadeMulti), 196 + (int)(g * fadeMulti), 113 + (int)(b * fadeMulti));
+		return ;
+	}
+	float r = 255.0f - 184.0f;
+	float g = 106.0f - 83.0f;
+	float b = 106.0f - 83.0f;
 	float fadeMulti = cos(fadeIter) / 2.0f + 0.5f;
-	sprite->ColorMod(104 + (int)(r * fadeMulti), 196 + (int)(g * fadeMulti), 113 + (int)(b * fadeMulti));
+	sprite->ColorMod(184 + (int)(r * fadeMulti), 83 + (int)(g * fadeMulti), 83 + (int)(b * fadeMulti));
 }

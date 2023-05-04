@@ -1,16 +1,31 @@
 
 #include "../../hdr/global.h"
 
-Character::Character(bool allied)
+void Character::CreateCharacterType(int skin)
 {
-	textures.push_back(gameState.textures.thiefIdle1);
-	textures.push_back(gameState.textures.thiefIdle2);
+	cSing = skin;
 	SDL_Rect dest = {-3000, -450, 5800, 7500};
-	sprite = new Sprite(gameState.textures.thiefIdle1, dest, NULL, NULL, 0, FLIP_NONE);
+	SDL_Rect skele = {-3000, -450, 6500, 6500};
+	switch (skin)
+	{
+		case 0:
+			textures.push_back(gameState.textures.thiefIdle1);
+			textures.push_back(gameState.textures.thiefIdle2);
+			sprite = new Sprite(gameState.textures.thiefIdle1, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		case 1:
+			textures.push_back(gameState.textures.skeleIdle1);
+			textures.push_back(gameState.textures.skeleIdle2);
+			sprite = new Sprite(gameState.textures.skeleIdle1, skele, NULL, NULL, 0, FLIP_NONE);
+			break ;
+	}
+}
+
+Character::Character(int skin, bool allied)
+{
+	CreateCharacterType(skin);
 	width = 5800;
 	height = 7500;
-	clickBox.w = 3600;
-	clickBox.h = 6500;
 	if (!allied)
 		ally = false;
 }
@@ -57,8 +72,6 @@ void Character::Position(Vector to)
 		x += 1;
 	if (to.y - y >= 0.5f)
 		y += 1;
-	clickBox.x = x + 1100;
-	clickBox.y = y + 1050;
 };
 
 void Character::Move(Vector amount)
@@ -69,6 +82,4 @@ void Character::Move(Vector amount)
 		x += 1;
 	if (amount.y - y >= 0.5f)
 		y += 1;
-	clickBox.x += x;
-	clickBox.y += y;
 };

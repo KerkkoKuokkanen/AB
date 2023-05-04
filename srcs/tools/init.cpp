@@ -30,6 +30,23 @@ void initScreen(int width, int height)
 	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
 }
 
+void getAudio()
+{
+	Mix_Volume(THIEF_STEP_CHANNEL, 16);
+	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
+	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
+	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
+}
+
+void getTextures(SDL_Renderer *rend)
+{
+	gameState.textures.thiefIdle1 = get_texture(rend, "sprites/characters/hood_idle1.png");
+	gameState.textures.thiefIdle2 = get_texture(rend, "sprites/characters/hood_idle2.png");
+	gameState.textures.skeleIdle1 = get_texture(rend, "sprites/characters/skele.png");
+	gameState.textures.skeleIdle2 = get_texture(rend, "sprites/characters/skele2.png");
+	gameState.textures.dust = get_texture(rend, "sprites/effects/dust.png");
+}
+
 void	init(t_wr *wr)
 {
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
@@ -42,7 +59,7 @@ void	init(t_wr *wr)
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT);
 	render.CreateLayer(LAYER_YSORT);
-	render.CreateLayer(LAYER_YSORT);
+	render.CreateLayer(LAYER_NO_SORT);
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;
@@ -52,8 +69,8 @@ void	init(t_wr *wr)
 	gameState.battle.yDist = 6000;
 	gameState.battle.defaultYAdd = 1850;
 	gameState.battle.yHeightAdd = 2300;
-	gameState.textures.thiefIdle1 = get_texture(wr->rend, "sprites/characters/hood_idle1.png");
-	gameState.textures.thiefIdle2 = get_texture(wr->rend, "sprites/characters/hood_idle2.png");
+	getTextures(wr->rend);
+	getAudio();
 //	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

@@ -183,9 +183,9 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 
 void BattleGround::CreateMap()
 {
-	t_GMU gmu = { 0, 0, NULL, true, false, false, false };
-	t_GMU one = { 0, 1, NULL, true, false, false, false };
-	t_GMU two = { 0, 2, NULL, true, false, false, false };
+	t_GMU gmu = { 0, 0, 0, NULL, true, false, false };
+	t_GMU one = { 0, 1, 0, NULL, true, false, false };
+	t_GMU two = { 0, 2, 0, NULL, true, false, false };
 	std::vector<t_GMU> tsts = {gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
 	std::vector<t_GMU> tst = {gmu, gmu, gmu, one, gmu, gmu, gmu, one, two, one, gmu};
 	std::vector<t_GMU> tststs = {gmu, gmu, one, one, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
@@ -204,12 +204,11 @@ void BattleGround::PlaceCharacter(SDL_Point &position, Character *character)
 	}
 	int index = position.y * map[0].size() + position.x;
 	SDL_Rect location = sprites[index][sprites[index].size() - 1].dest;
-	Vector place((float)location.x, (float)location.y);
-	int height = character->getHeight();
-	place.y = place.y - (float)height + (float)gameState.battle.yDist / 2.0f - 450;
+	Vector place = GetCharacterCoord(position, character);
 	character->Position(place);
 	character->sprite->orderLayer = position.y * 2 + 1;
 	map[position.y][position.x].character = character;
+	map[position.y][position.x].blocked = true;
 	map[position.y][position.x].character->setCoord(position);
 }
 

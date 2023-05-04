@@ -12,7 +12,9 @@ void BattleGround::setMoved(std::vector<SDL_Point> &path)
 	movedCharacter.index = 0;
 	movedCharacter.iterator = 0;
 	movedCharacter.character->clicked = false;
+	movedCharacter.character->moving = true;
 	movedCharacter.character->sprite->ClearAlphaMod();
+	map[movedCharacter.path[0].y][movedCharacter.path[0].x].blocked = false;
 	map[movedCharacter.path[0].y][movedCharacter.path[0].x].character = NULL;
 }
 
@@ -23,8 +25,16 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 	int index = pos.y * map[0].size() + pos.x;
 	SDL_Rect location = sprites[index][sprites[index].size() - 1].dest;
 	Vector place((float)location.x, (float)location.y);
-	int height = character->getHeight();
-	place.y = place.y - (float)height + (float)gameState.battle.yDist / 2.0f - 450;
+	switch (character->cSing)
+	{
+		case 0:
+			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f - 450;
+			break ;
+		case 1:
+			place.x -= 500.0f;
+			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f + 650;
+			break ;
+	}
 	return (place);
 }
 
@@ -39,19 +49,64 @@ Vector BattleGround::ParabolaPosition(Vector pos, Vector highPoint, float unit, 
 	return (Vector(x, a * (x - h) * (x - h) + k));
 }
 
+bool BattleGround::MovingLeft(SDL_Point curr, SDL_Point next)
+{
+	if (next.x < curr.x)
+		return (true);
+	if (curr.y % 2 != 0 && next.x == curr.x)
+		return true;
+	return (false);
+}
+
+void BattleGround::AddDust(SDL_Point curr, SDL_Point next)
+{
+	if (movedCharacter.iterator != 1)
+		return ;
+	Mix_SetPanning(0, MIX_MAX_VOLUME, MIX_MAX_VOLUME);
+	PlaySound(gameState.audio.TFootStep[rand() % 3], THIEF_STEP_CHANNEL, 0);
+	int index = curr.y * map[0].size() + curr.x;
+	SDL_Rect dest = sprites[index][sprites[index].size() - 1].dest;
+	SDL_Point pos = {dest.x + 2500, dest.y + 1500};
+	if (MovingLeft(curr, next))
+	{
+		Vector dir(1.0f, 0.0f);
+		CreateDust(pos, dir);
+		return ;
+	}
+	Vector dir(-1.0f, 0.0f);
+	CreateDust(pos, dir);
+}
+
 Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float unit, Vector highPoint, SDL_Point curr, SDL_Point next)
 {
 	Vector place(0, 0);
+	float angle = (movedCharacter.iterator < 14) ? 7.0f : 0.0f;
+	float sign = 1.0f;
+	if (MovingLeft(curr, next))
+	{
+		sign = (-1.0f);
+		angle = (movedCharacter.iterator < 14) ? -7.0f : 0.0f;
+	}
 	if (movedCharacter.iterator < 14)
 	{
+		angle = angle - ((0.538f * (float)movedCharacter.iterator) * sign);
+		movedCharacter.character->sprite->setAngle(angle);
 		int index = curr.y * map[0].size() + curr.x;
-		sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
+		if (movedCharacter.character->ally)
+			sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
+		else
+			sprites[index][sprites[index].size() - 1].ColorMod(255, 181, 181);
 		place = ParabolaPosition(ogPos, highPoint, unit, ogPos.x);
 	}
 	else
 	{
+		angle = angle - ((0.538f * ((float)movedCharacter.iterator - 14.0f)) * sign);
+		movedCharacter.character->sprite->setAngle(angle);
 		int index = next.y * map[0].size() + next.x;
-		sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
+		if (movedCharacter.character->ally)
+			sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
+		else
+			sprites[index][sprites[index].size() - 1].ColorMod(255, 181, 181);
 		if (movedCharacter.iterator >= 15)
 			movedCharacter.character->sprite->orderLayer = next.y * 2 + 1;
 		place = ParabolaPosition(newPos, highPoint, unit, ogPos.x);
@@ -68,6 +123,8 @@ void BattleGround::MangeIterator(Vector newPos)
 		if ((movedCharacter.index + 1) >= movedCharacter.path.size())
 		{
 			PlaceCharacter(movedCharacter.path[movedCharacter.path.size() - 1], movedCharacter.character);
+			movedCharacter.character->sprite->setAngle(0.0f);
+			movedCharacter.character->moving = false;
 			movedCharacter.character = NULL;
 			return ;
 		}
@@ -83,6 +140,7 @@ void BattleGround::MoveCharacter()
 		return ;
 	SDL_Point curr = movedCharacter.path[movedCharacter.index];
 	SDL_Point next = movedCharacter.path[movedCharacter.index + 1];
+	AddDust(curr, next);
 	Vector ogPos = GetCharacterCoord(curr, movedCharacter.character);
 	Vector newPos = GetCharacterCoord(next, movedCharacter.character);
 	float highValue = (ogPos.y < newPos.y) ? ogPos.y : newPos.y;
