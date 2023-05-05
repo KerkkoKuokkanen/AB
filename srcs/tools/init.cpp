@@ -61,7 +61,7 @@ void	init(t_wr *wr)
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
 	render.CreateLayer(LAYER_YSORT); //battleground layer
-	render.CreateLayer(LAYER_NO_SORT); //turnorder layer
+	render.CreateLayer(LAYER_YSORT); //turnorder layer
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;
@@ -71,6 +71,7 @@ void	init(t_wr *wr)
 	gameState.battle.yDist = 6000;
 	gameState.battle.defaultYAdd = 1850;
 	gameState.battle.yHeightAdd = 2300;
+	gameState.updateObjs.turnOrder = NULL;
 	getTextures(wr->rend);
 	getAudio();
 //	SDL_SetWindowFullscreen(wr->win, 1);

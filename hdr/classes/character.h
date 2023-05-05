@@ -4,6 +4,11 @@
 
 # include "../ab.h"
 
+typedef struct s_Stats
+{
+	int speed;
+}				t_Stats;
+
 class Character
 {
 	private:
@@ -32,7 +37,7 @@ class Character
 		bool moving = false;
 		int moves = 10;
 		bool ally = true;
-		int speed = 1;
+		t_Stats stats = {1};
 };
 
 #endif

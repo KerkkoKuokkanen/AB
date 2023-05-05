@@ -18,6 +18,7 @@ class Sprite
 		Uint8 green = 0;
 		Uint8 blue = 0;
 		bool active = true;
+		bool translated = true;
 	public:
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
@@ -40,11 +41,16 @@ class Sprite
 		void Activate() {active = true;};
 		void Deactivate() {active = false;};
 		bool getStatus() {return (active);};
+		void setTranslation(bool set) {translated = set;};
 		void RemoveFromRenderer();
 		void Render(SDL_Renderer *rend) {
 			if (!active)
 				return ;
-			SDL_FRect rect = translateSprite(dest, staticSprite);
+			SDL_FRect rect;
+			if (translated)
+				rect = translateSprite(dest, staticSprite);
+			else
+				rect = {(float)dest.x, (float)dest.y, (float)dest.w, (float)dest.h};
 			bool tt = false;
 			if (alpha != 255)
 			{

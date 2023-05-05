@@ -3,7 +3,8 @@ NAME = AB
 SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools/renderer.cpp \
 		srcs/tools/init.cpp srcs/battle/battleGround.cpp srcs/battle/battleMoving.cpp \
 		srcs/battle/movingAlgos.cpp srcs/battle/hoverChecker.cpp srcs/battle/moveLine.cpp \
-		srcs/battle/moveCharacter.cpp srcs/characters/Character.cpp srcs/effects/dust.cpp
+		srcs/battle/moveCharacter.cpp srcs/characters/Character.cpp srcs/effects/dust.cpp \
+		srcs/battle/turn/turnOrder.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR = -I ./hdr -I ./hdr/classes
