@@ -13,6 +13,7 @@
 # define LAYER_REVERSE_YSORT 2
 
 # define TOOL_MAP_SIGN 9933
+# define TURN_SIGN -999898
 
 //layer defines
 # define DUST_LAYER 1
@@ -86,6 +87,7 @@ typedef struct s_Keys
 	int wheel;
 	int mouseX;
 	int mouseY;
+	int space;
 }				t_Keys;
 
 int			figure_the_delay(clock_t start, clock_t end);

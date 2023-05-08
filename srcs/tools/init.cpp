@@ -8,6 +8,7 @@ void initKeys()
 	gameState.keys.a = 0;
 	gameState.keys.s = 0;
 	gameState.keys.d = 0;
+	gameState.keys.space = 0;
 	gameState.keys.click = 0;
 	gameState.keys.rightClick = 0;
 	gameState.keys.middleMouse = 0;

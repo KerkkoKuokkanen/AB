@@ -109,6 +109,8 @@ class Sprite
 		void setStatic(bool staticSprite) {Sprite::staticSprite = staticSprite;};
 		void setWidthAndHeight(const int width, const int height) {dest.w = width; dest.h = height;};
 		void setWidth(int width) {Sprite::dest.w = width;};
+		void setHeight(int height) {Sprite::dest.h = height;};
+		void setDest(SDL_Rect dest) {Sprite::dest = dest;};
 		void setAll(SDL_Rect *dest, SDL_Rect *srect, SDL_FPoint *point, const double *angle, const int flip){
 			if (dest != NULL)
 			{
