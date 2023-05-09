@@ -24,14 +24,18 @@ class TurnOrder
 		void CreateSRect(SDL_Rect *srect, int cSing);
 		SDL_Rect CreateDest(int cSing);
 		void StartTurn();
-		int posCount = 8;
+		int posCount = 9;
+		bool turnStartActive = false;
 		bool turnChange = false;
+		int rightEdge, leftEdge;
 		void ChangeTurn();
+		void UpdateStartTurn();
+		void RightEdgeManage(t_Indicator &indicator);
 	public:
 		TurnOrder(std::vector<Character> &characters);
 		void Update();
 		void Destroy();
-		void ActivateTurnChange() {turnChange = true;};
+		void ActivateTurnChange();
 };
 
 #endif

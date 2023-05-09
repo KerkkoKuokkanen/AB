@@ -33,7 +33,7 @@ class Character
 		void Move(Vector amount);
 		bool hover = false;
 		bool clicked = false;
-		bool turn = true;
+		bool turn = false;
 		bool moving = false;
 		int moves = 10;
 		bool ally = true;
