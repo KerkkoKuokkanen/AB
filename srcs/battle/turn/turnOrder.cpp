@@ -75,7 +75,7 @@ void TurnOrder::ActivateTurnChange()
 		k++;
 	}
 	target = indicators[hold].indicator->dest.x - posDiff;
-	wait = 18;
+	wait = 25;
 }
 
 void TurnOrder::CreateIndicators()
@@ -186,7 +186,7 @@ bool TurnOrder::RightEdgeManage(t_Indicator &indicator)
 void TurnOrder::UpdateStartTurn()
 {
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
-	float unit = 700.0f / ((float)gameState.screen.width / 2.5f);
+	float unit = 600.0f / ((float)gameState.screen.width / 2.5f);
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		int target = CreateDest(indicators[i].character->cSing).x + (posDiff * i);
@@ -200,7 +200,7 @@ void TurnOrder::UpdateStartTurn()
 			return ;
 		}
 		float len = indicators[i].x - (float)target;
-		indicators[i].x -= (float)gameState.screen.width / (750.0f - (unit * len));
+		indicators[i].x -= (float)gameState.screen.width / (650.0f - (unit * len));
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
 		SideManage(indicators[i]);
 	}
@@ -227,7 +227,7 @@ void TurnOrder::ChangeTurn()
 			turnChange = false;
 			break ;
 		}
-		indicators[i].x -= (float)gameState.screen.width / 800.0f;
+		indicators[i].x -= (float)gameState.screen.width / 600.0f;
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
 		SideManage(indicators[i]);
 		i++; k++;
@@ -320,13 +320,14 @@ void TurnOrder::MouseScroll()
 	if (index == (-1))
 		return ;
 	int dir = (gameState.keys.wheel < 0) ? gameState.keys.wheel / gameState.keys.wheel * (-1) : gameState.keys.wheel / gameState.keys.wheel;
-	dir = dir * 5;
+	int unit = rounding((float)gameState.screen.width / 250.0f);
+	dir = dir * unit;
 	int pos = CreateDest(indicators[index].character->cSing).x;
 	if (dir > 0)
 	{
 		if (indicators[index].indicator->dest.x >= pos)
 			return ;
-		if (pos - indicators[index].indicator->dest.x < 5)
+		if (pos - indicators[index].indicator->dest.x < unit)
 			dir = pos - indicators[index].indicator->dest.x;
 	}
 	int dos = CreateDest(indicators[indicators.size() - 1].character->cSing).x;
@@ -334,7 +335,7 @@ void TurnOrder::MouseScroll()
 	{
 		if (indicators[indicators.size() - 1].indicator->dest.x <= dos)
 			return ;
-		if (indicators[indicators.size() - 1].indicator->dest.x - dos < 5)
+		if (indicators[indicators.size() - 1].indicator->dest.x - dos < unit)
 			dir = (indicators[indicators.size() - 1].indicator->dest.x - dos) * (-1);
 	}
 	for (int i = 0; i < indicators.size(); i++)
