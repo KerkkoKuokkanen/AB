@@ -48,6 +48,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.dust = get_texture(rend, "sprites/effects/dust.png");
 	gameState.textures.turnOrder[0] = get_texture(rend, "sprites/env/turnOrder.png");
 	gameState.textures.turnOrder[1] = get_texture(rend, "sprites/env/turnOrderBackGround.png");
+	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/indicator.png");
 }
 
 void	init(t_wr *wr)
@@ -55,9 +56,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(2560, 1600);
+	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
@@ -66,15 +67,18 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;
-	static BattleGround battle(0, wr->rend);
+	static BattleGround battle(BATTLEGROUND_LAYER, wr->rend);
 	gameState.battle.ground = &battle;
 	gameState.battle.xDist = 6000;
 	gameState.battle.yDist = 6000;
 	gameState.battle.defaultYAdd = 1850;
 	gameState.battle.yHeightAdd = 2300;
 	gameState.updateObjs.turnOrder = NULL;
+	gameState.updateObjs.fadeIter = 0.0f;
 	getTextures(wr->rend);
 	getAudio();
-	SDL_SetWindowFullscreen(wr->win, 1);
+	static TurnIndicator ind;
+	gameState.updateObjs.indicator = &ind;
+	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

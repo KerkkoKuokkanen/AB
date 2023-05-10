@@ -59,20 +59,23 @@ void TurnOrder::ActivateTurnChange()
 	if (turnChange || turnStartActive)
 		return ;
 	turnChange = true;
-	bool active = false;
-	for (int i = 0; i < indicators.size(); i++)
+	gameState.updateObjs.indicator->Deactivate();
+	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	int index = findTheFirstActive();
+	int hold = index;
+	int k = 0;
+	while (index < indicators.size())
 	{
-		if (indicators[i].active)
-			active = true;
-		if (active && indicators[i].active == false)
-		{
-			SDL_Rect dest = indicators[i].indicator->dest;
-			dest.x += rounding(((float)gameState.screen.width / 23.2f)) * 9;
-			indicators[i].indicator->setDest(dest);
-			indicators[i].active = true;
-			return ;
-		}
+		SDL_Rect dest = CreateDest(indicators[index].character->cSing);
+		dest.x += k * posDiff;
+		indicators[index].x = dest.x;
+		indicators[index].indicator->Position(Vector(dest.x, dest.y));
+		SideManage(indicators[index]);
+		index++;
+		k++;
 	}
+	target = indicators[hold].indicator->dest.x - posDiff;
+	wait = 18;
 }
 
 void TurnOrder::CreateIndicators()
@@ -98,7 +101,7 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 	SDL_Rect dest = {
 		rounding((float)gameState.screen.width - ((float)gameState.screen.width / 10.0f * 7.3f)),
 		0 - rounding(((float)gameState.screen.height / 25.0f)),
-		rounding((float)gameState.screen.width / 10.0f * 4.4f),
+		rounding((float)gameState.screen.width / 10.0f * 4.41f),
 		rounding((float)gameState.screen.height / 6.0f)
 	};
 	banner = new Sprite(gameState.textures.turnOrder[0], dest, NULL, NULL, 0, FLIP_NONE, true);
@@ -112,6 +115,12 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 	gameState.updateObjs.turnOrder = this;
 	leftEdge = rounding((float)gameState.screen.width - ((float)gameState.screen.width / 10.0f * 7.5f));
 	rightEdge = leftEdge + rounding((float)gameState.screen.width / 10.0f * 4.44f);
+	clickBoxArea = {
+		dest.x + rounding((float)gameState.screen.width / 13.9f),
+		dest.y + rounding((float)gameState.screen.height / 16.0f),
+		dest.w - rounding((float)gameState.screen.width / 10.0f),
+		dest.h - rounding((float)gameState.screen.height / 9.5f)
+	};
 	CreateIndicators();
 	StartTurn(); // this is temporarily here
 }
@@ -121,7 +130,7 @@ void TurnOrder::StartTurn()
 	turnStartActive = true;
 	std::sort(indicators.begin(), indicators.end(), compareObjects);
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
-	for (int i = 0; i < indicators.size() && i < posCount; i++)
+	for (int i = 0; i < indicators.size(); i++)
 	{
 		Vector place(
 			(float)(indicators[i].indicator->dest.x + (posDiff * i)) + (float)gameState.screen.width / 2.5f,
@@ -135,15 +144,31 @@ void TurnOrder::StartTurn()
 	}
 }
 
-void TurnOrder::RightEdgeManage(t_Indicator &indicator)
+void TurnOrder::SideManage(t_Indicator &indicator)
+{
+	if (!LeftEdgeManage(indicator) && !RightEdgeManage(indicator))
+		indicator.indicator->ClearAlphaMod();
+}
+
+bool TurnOrder::LeftEdgeManage(t_Indicator &indicator)
+{
+	int point = rounding((float)gameState.screen.width / 3.5f);
+	if (indicator.indicator->dest.x <= point)
+	{
+		indicator.indicator->AlphaMod(0);
+		return (true);
+	}
+	return (false);
+}
+
+bool TurnOrder::RightEdgeManage(t_Indicator &indicator)
 {
 	SDL_Rect dest = indicator.indicator->dest;
 	if (dest.x >= rightEdge)
 	{
 		indicator.indicator->AlphaMod(0);
-		return ;
+		return (true);
 	}
-	indicator.indicator->ClearAlphaMod();
 	float unit = (float)indicator.srect->w / (float)indicator.indicator->dest.w;
 	int max = CreateDest(indicator.character->cSing).w;
 	int len = rightEdge - dest.x;
@@ -151,17 +176,18 @@ void TurnOrder::RightEdgeManage(t_Indicator &indicator)
 	{
 		indicator.indicator->dest.w = max;
 		CreateSRect(indicator.srect, indicator.character->cSing);
-		return ;
+		return (false);
 	}
 	indicator.indicator->dest.w = len;
 	indicator.srect->w = (int)(unit * (float)len);
+	return (false);
 }
 
 void TurnOrder::UpdateStartTurn()
 {
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
-	float unit = 4000.0f / ((float)gameState.screen.width / 2.5f);
-	for (int i = 0; i < indicators.size() && i < posCount; i++)
+	float unit = 700.0f / ((float)gameState.screen.width / 2.5f);
+	for (int i = 0; i < indicators.size(); i++)
 	{
 		int target = CreateDest(indicators[i].character->cSing).x + (posDiff * i);
 		SDL_Rect dest = indicators[i].indicator->dest;
@@ -170,37 +196,152 @@ void TurnOrder::UpdateStartTurn()
 		if (dest.x <= target)
 		{
 			turnStartActive = false;
+			gameState.updateObjs.indicator->SetCharacter(indicators[i].character);
 			return ;
 		}
 		float len = indicators[i].x - (float)target;
-		indicators[i].x -= (float)gameState.screen.width / (4050.0f - (unit * len));
+		indicators[i].x -= (float)gameState.screen.width / (750.0f - (unit * len));
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
-		RightEdgeManage(indicators[i]);
+		SideManage(indicators[i]);
 	}
 }
 
 void TurnOrder::ChangeTurn()
 {
-	int i = 0, k = 0;
-	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
-	while (indicators[i].active == false && i < indicators.size())
-		i++;
-	while (indicators[i].active == true && i < indicators.size())
+	if (wait > 0)
 	{
-		int target = CreateDest(indicators[i].character->cSing).x + (posDiff * (k - 1));
+		wait--;
+		return ;
+	}
+	int i = findTheFirstActive(), k = 0;
+	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	bool atEnd = false;
+	while (i < indicators.size())
+	{
 		SDL_Rect dest = indicators[i].indicator->dest;
 		if ((int)indicators[i].x == TURN_SIGN)
 			indicators[i].x = (float)dest.x;
 		if (dest.x <= target && k == 0)
 		{
+			atEnd = true;
 			turnChange = false;
-			indicators[i].active = false;
 			break ;
 		}
-		indicators[i].x -= (float)gameState.screen.width / 5000.0f;
+		indicators[i].x -= (float)gameState.screen.width / 800.0f;
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
-		RightEdgeManage(indicators[i]);
+		SideManage(indicators[i]);
 		i++; k++;
+	}
+	if (!atEnd)
+		return ;
+	for (int j = 0; j < indicators.size(); j++)
+	{
+		if (indicators[j].active)
+		{
+			indicators[j].active = false;
+			if (j + 1 < indicators.size())
+				gameState.updateObjs.indicator->SetCharacter(indicators[j + 1].character);
+			else
+				gameState.updateObjs.indicator->SetCharacter(NULL);
+			return ;
+		}
+	}
+}
+
+void TurnOrder::ResetClicks()
+{
+	for (int i = 0; i < indicators.size(); i++)
+		indicators[i].character->clicked = false;
+}
+
+void TurnOrder::CheckClickBox()
+{
+	if (gameState.keys.middleMouse == 1)
+	{
+		insideBox = false;
+		return ;
+	}
+	SDL_Point pos = {0, 0};
+	SDL_GetMouseState(&pos.x, &pos.y);
+	insideBox = pointCheck(pos, clickBoxArea);
+	if (!insideBox || turnChange || turnStartActive)
+		return ;
+	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	SDL_Rect box = {
+		0,
+		clickBoxArea.y,
+		posDiff,
+		clickBoxArea.h
+	};
+	for (int i = 0; i < indicators.size(); i++)
+	{
+		box.x = indicators[i].indicator->dest.x;
+		if (pointCheck(pos, box))
+		{
+			SDL_Point place = gameState.updateObjs.indicator->FindCharacter(indicators[i].character);
+			if (!gameState.battle.ground->map[place.y][place.x].highlited)
+			{
+				if (indicators[i].character->ally)
+					gameState.battle.ground->HighLightBlock(place, 120, 255, 100);
+				else
+					gameState.battle.ground->HighLightBlock(place, 255, 69, 56);
+			}
+			if (gameState.keys.click == 1)
+			{
+				ResetClicks();
+				indicators[i].character->clicked = true;
+			}
+			return ;
+		}
+	}
+}
+
+int TurnOrder::findTheFirstActive()
+{
+	int ret = (-1);
+	for (int i = 0; i < indicators.size(); i++)
+	{
+		if (indicators[i].active)
+		{
+			ret = i;
+			break ;
+		}
+	}
+	return (ret);
+}
+
+void TurnOrder::MouseScroll()
+{
+	if (turnChange || turnStartActive || !insideBox)
+		return ;
+	if (gameState.keys.wheel == 0)
+		return ;
+	int index = findTheFirstActive();
+	if (index == (-1))
+		return ;
+	int dir = (gameState.keys.wheel < 0) ? gameState.keys.wheel / gameState.keys.wheel * (-1) : gameState.keys.wheel / gameState.keys.wheel;
+	dir = dir * 5;
+	int pos = CreateDest(indicators[index].character->cSing).x;
+	if (dir > 0)
+	{
+		if (indicators[index].indicator->dest.x >= pos)
+			return ;
+		if (pos - indicators[index].indicator->dest.x < 5)
+			dir = pos - indicators[index].indicator->dest.x;
+	}
+	int dos = CreateDest(indicators[indicators.size() - 1].character->cSing).x;
+	if (dir < 0)
+	{
+		if (indicators[indicators.size() - 1].indicator->dest.x <= dos)
+			return ;
+		if (indicators[indicators.size() - 1].indicator->dest.x - dos < 5)
+			dir = (indicators[indicators.size() - 1].indicator->dest.x - dos) * (-1);
+	}
+	for (int i = 0; i < indicators.size(); i++)
+	{
+		indicators[i].indicator->dest.x += dir;
+		indicators[i].x += dir;
+		SideManage(indicators[i]);
 	}
 }
 
@@ -214,18 +355,20 @@ void TurnOrder::Update()
 			indicators[i].indicator->Deactivate();
 		else
 		{
-			if (!active)
+			if (!active && !turnChange)
 			{
 				indicators[i].character->turn = true;
 				active = true;
 			}
 			indicators[i].indicator->Activate();
 		}
-		if (turnStartActive)
-			UpdateStartTurn();
-		if (turnChange)
-			ChangeTurn();
 	}
+	if (turnStartActive)
+		UpdateStartTurn();
+	if (turnChange)
+		ChangeTurn();
+	CheckClickBox();
+	MouseScroll();
 }
 
 void TurnOrder::Destroy()

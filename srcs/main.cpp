@@ -6,8 +6,18 @@
 
 t_GameState gameState;
 
+void ManageMouseWheel()
+{
+	if (gameState.keys.wheel > 0)
+		gameState.keys.wheel -= 1;
+	else if (gameState.keys.wheel < 0)
+		gameState.keys.wheel += 1;
+}
+
 void CameraMove()
 {
+	if (gameState.updateObjs.turnOrder->insideBox)
+		return ;
 	if (gameState.keys.middleMouse == 1)
 	{
 		int x = 0, y = 0;
@@ -22,15 +32,9 @@ void CameraMove()
 	if (gameState.keys.wheel == 0)
 		return ;
 	if (gameState.keys.wheel > 0)
-	{
 		gameState.screen.unit *= 1.025f;
-		gameState.keys.wheel -= 1;
-	}
 	else if (gameState.keys.wheel < 0)
-	{
 		gameState.screen.unit *= 0.975f;
-		gameState.keys.wheel += 1;
-	}
 	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
 	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
 }
@@ -106,8 +110,13 @@ void ObjUpdate()
 {
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
 		gameState.updateObjs.dusts[i]->Update();
+	if (gameState.updateObjs.indicator != NULL)
+		gameState.updateObjs.indicator->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
+	gameState.updateObjs.fadeIter += 0.06f;
+	if (gameState.updateObjs.fadeIter >= 44.0f)
+		gameState.updateObjs.fadeIter = 0.0f;
 }
 
 int MainLoop(t_wr &wr)
@@ -123,6 +132,7 @@ int MainLoop(t_wr &wr)
 			gameState.updateObjs.turnOrder->ActivateTurnChange();
 		ObjUpdate();
 		gameState.render->RenderAll();
+		ManageMouseWheel();
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));
 	}

@@ -28,6 +28,7 @@ typedef struct s_Textures
 	SDL_Texture *skeleIdle2;
 	SDL_Texture *dust;
 	SDL_Texture *turnOrder[2];
+	SDL_Texture *turnIndicator;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -39,6 +40,8 @@ typedef struct s_Updates
 {
 	std::vector<Dust*> dusts;
 	TurnOrder *turnOrder;
+	TurnIndicator *indicator;
+	float fadeIter;
 }				t_Updates;
 
 typedef struct	s_GameState

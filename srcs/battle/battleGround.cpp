@@ -231,8 +231,29 @@ void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<S
 	}
 }
 
+SDL_Rect BattleGround::getTileDest(SDL_Point pos)
+{
+	int index = pos.y * map[0].size() + pos.x;
+	SDL_Rect ret = sprites[index][sprites[index].size() - 1].dest;
+	return (ret);
+}
+
+void BattleGround::HighLightBlock(SDL_Point pos, Uint8 r, Uint8 g, Uint8 b)
+{
+	int index = pos.y * map[0].size() + pos.x;
+	sprites[index][sprites[index].size() - 1].ColorMod(r, g, b);
+}
+
 void BattleGround::Update()
 {
+	for (int i = 0; i < characters.size(); i++)
+	{
+		if (!characters[i].character->clicked && characters[i].clicked)
+		{
+			characters[i].clicked = false;
+			ClearMovables();
+		}
+	}
 	for (int i = 0; i < characters.size(); i++)
 	{
 		characters[i].character->Update();
@@ -240,11 +261,6 @@ void BattleGround::Update()
 		{
 			characters[i].clicked = true;
 			SetMovables(characters[i].character);
-		}
-		else if (!characters[i].character->clicked && characters[i].clicked)
-		{
-			characters[i].clicked = false;
-			ClearMovables();
 		}
 	}
 	IterBlocks();

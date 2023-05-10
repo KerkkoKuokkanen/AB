@@ -16,6 +16,7 @@
 # define TURN_SIGN -999898
 
 //layer defines
+# define BATTLEGROUND_LAYER 0
 # define DUST_LAYER 1
 # define TURN_ORDER_LAYER 2
 
@@ -30,6 +31,7 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "classes/character.h"
 # include "classes/dust.h"
 # include "classes/turnOrder.h"
+# include "classes/turnIndicator.h"
 
 enum {
 	THIEF,

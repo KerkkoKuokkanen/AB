@@ -138,6 +138,11 @@ bool BattleGround::NoOtherCharacters()
 
 void BattleGround::PlaceMarker()
 {
+	if (gameState.updateObjs.turnOrder->insideBox)
+	{
+		ResetIndicators();
+		return ;
+	}
 	SDL_Point *marked = NULL;
 	SDL_Point *characterBlock = NULL;
 	for (int i = 0; i < map.size(); i++)
@@ -176,6 +181,8 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 {
 	if (marked.size() == 0)
 		return ;
+	if (gameState.updateObjs.turnOrder->insideBox)
+		return ;
 	if (marked.size() == 1)
 	{
 		if (map[marked[0].y][marked[0].x].character == NULL || map[marked[0].y][marked[0].x].highlited)
@@ -213,7 +220,6 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 void BattleGround::IterBlocks()
 {
 	std::vector<SDL_Point> markedBlocks;
-	static float fadeIter = 0.0f;
 	for (int i = 0; i < map.size(); i++)
 	{
 		for (int j = 0; j < map[0].size(); j++)
@@ -226,32 +232,29 @@ void BattleGround::IterBlocks()
 			if (map[i][j].highlited != 0)
 			{
 				int index = i * map[0].size() + j;
-				ColorFade(&sprites[index][sprites[index].size() - 1], fadeIter, map[i][j].highlited);
+				ColorFade(&sprites[index][sprites[index].size() - 1], map[i][j].highlited);
 			}
 		}
 	}
 	CheckMarkedBlocks(markedBlocks);
 	PlaceMarker();
 	markedBlocks.clear();
-	fadeIter += 0.06f;
-	if (fadeIter >= 44.0f)
-		fadeIter = 0.0f;
 }
 
-void BattleGround::ColorFade(Sprite *sprite, float fadeIter, int sign)
+void BattleGround::ColorFade(Sprite *sprite, int sign)
 {
 	if (sign == 1)
 	{
 		float r = 107.0f - 104.0f;
 		float g = 255.0f - 196.0f;
 		float b = 122 - 113.0f;
-		float fadeMulti = cos(fadeIter) / 2.0f + 0.5f;
+		float fadeMulti = cos(gameState.updateObjs.fadeIter) / 2.0f + 0.5f;
 		sprite->ColorMod(104 + (int)(r * fadeMulti), 196 + (int)(g * fadeMulti), 113 + (int)(b * fadeMulti));
 		return ;
 	}
 	float r = 255.0f - 184.0f;
 	float g = 106.0f - 83.0f;
 	float b = 106.0f - 83.0f;
-	float fadeMulti = cos(fadeIter) / 2.0f + 0.5f;
+	float fadeMulti = cos(gameState.updateObjs.fadeIter) / 2.0f + 0.5f;
 	sprite->ColorMod(184 + (int)(r * fadeMulti), 83 + (int)(g * fadeMulti), 83 + (int)(b * fadeMulti));
 }
