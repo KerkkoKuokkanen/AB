@@ -244,6 +244,33 @@ void BattleGround::HighLightBlock(SDL_Point pos, Uint8 r, Uint8 g, Uint8 b)
 	sprites[index][sprites[index].size() - 1].ColorMod(r, g, b);
 }
 
+void BattleGround::RemoveCharacter(Character *character)
+{
+	for (int i = 0; i < map.size(); i++)
+	{
+		for (int j = 0; j < map[0].size(); j++)
+		{
+			if (map[i][j].character != NULL)
+			{
+				if (map[i][j].character == character)
+				{
+					map[i][j].character = NULL;
+					break ;
+				}
+			}
+		}
+	}
+	for (int i = 0; i < characters.size(); i++)
+	{
+		if (characters[i].character == character)
+		{
+			characters.erase(characters.begin() + i);
+			break ;
+		}
+	}
+	ClearMovables();
+}
+
 void BattleGround::Update()
 {
 	for (int i = 0; i < characters.size(); i++)
@@ -252,6 +279,7 @@ void BattleGround::Update()
 		{
 			characters[i].clicked = false;
 			ClearMovables();
+			break ;
 		}
 	}
 	for (int i = 0; i < characters.size(); i++)

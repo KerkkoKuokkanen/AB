@@ -49,6 +49,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.turnOrder[0] = get_texture(rend, "sprites/env/turnOrder.png");
 	gameState.textures.turnOrder[1] = get_texture(rend, "sprites/env/turnOrderBackGround.png");
 	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/indicator.png");
+	gameState.textures.KillParticle[0] = get_texture(rend, "sprites/env/killPart1.png");
+	gameState.textures.KillParticle[1] = get_texture(rend, "sprites/env/killPart2.png");
 }
 
 void	init(t_wr *wr)
@@ -79,6 +81,8 @@ void	init(t_wr *wr)
 	getAudio();
 	static TurnIndicator ind;
 	gameState.updateObjs.indicator = &ind;
+	static Kill killer;
+	gameState.updateObjs.killer = &killer;
 	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

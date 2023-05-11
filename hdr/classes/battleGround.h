@@ -72,9 +72,9 @@ class BattleGround {
 		Vector GetPlaceWithIterator(Vector ogPos, Vector newPos, float unit, Vector highPoint, SDL_Point curr, SDL_Point next);
 		void MangeIterator(Vector newPos);
 		bool NoOtherCharacters();
-		bool NoOneMoving();
 		bool MovingLeft(SDL_Point curr, SDL_Point next);
 		void AddDust(SDL_Point curr, SDL_Point next);
+		void CheckBlocked(int i, int j);
 	public:
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
@@ -84,6 +84,7 @@ class BattleGround {
 		void ChangeMapHeight(bool down);
 		void StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos);
 		void HighLightBlock(SDL_Point pos, Uint8 r, Uint8 g, Uint8 b);
+		void RemoveCharacter(Character *character);
 		void Update();
 };
 

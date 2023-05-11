@@ -32,6 +32,7 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "classes/dust.h"
 # include "classes/turnOrder.h"
 # include "classes/turnIndicator.h"
+# include "classes/kill.h"
 
 enum {
 	THIEF,

@@ -13,6 +13,7 @@ class TurnIndicator
 		SDL_Point FindCharacter(Character *character);
 		void SetCharacter(Character *character);
 		void Deactivate() {chosen = NULL;};
+		Character *getChosen() {return (chosen);};
 };
 
 #endif

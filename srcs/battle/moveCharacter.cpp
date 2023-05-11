@@ -123,6 +123,7 @@ void BattleGround::MangeIterator(Vector newPos)
 		if ((movedCharacter.index + 1) >= movedCharacter.path.size())
 		{
 			PlaceCharacter(movedCharacter.path[movedCharacter.path.size() - 1], movedCharacter.character);
+			map[movedCharacter.path[movedCharacter.path.size() - 1].y][movedCharacter.path[movedCharacter.path.size() - 1].x].highlited = 0;
 			movedCharacter.character->sprite->setAngle(0.0f);
 			movedCharacter.character->moving = false;
 			movedCharacter.character = NULL;
@@ -138,6 +139,11 @@ void BattleGround::MoveCharacter()
 {
 	if (movedCharacter.character == NULL)
 		return ;
+	if (movedCharacter.character->killed)
+	{
+		movedCharacter.character = NULL;
+		return ;
+	}
 	SDL_Point curr = movedCharacter.path[movedCharacter.index];
 	SDL_Point next = movedCharacter.path[movedCharacter.index + 1];
 	AddDust(curr, next);

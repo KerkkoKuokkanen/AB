@@ -47,16 +47,6 @@ bool BattleGround::BlockMouseHover(SDL_Point &position)
 	return (CheckInsideShape(up, left, down, right, target));
 }
 
-bool BattleGround::NoOneMoving()
-{
-	for (int i = 0; i < characters.size(); i++)
-	{
-		if (characters[i].character->moving)
-			return (false);
-	}
-	return (true);
-}
-
 bool BattleGround::MarkBlock(SDL_Point position)
 {
 	int index = position.y * map[0].size() + position.x;
@@ -65,7 +55,15 @@ bool BattleGround::MarkBlock(SDL_Point position)
 		map[position.y][position.x].marked = false;
 		return (false);
 	}
-	if (BlockMouseHover(position) && !HoverOverCheck(position) && NoOneMoving())
+	if (map[position.y][position.x].character != NULL)
+	{
+		if (map[position.y][position.x].character->killed)
+		{
+			map[position.y][position.x].marked = false;
+			return (false);
+		}
+	}
+	if (BlockMouseHover(position) && !HoverOverCheck(position))
 	{
 		map[position.y][position.x].marked = true;
 		return (true);
@@ -106,7 +104,10 @@ void BattleGround::TakeMarkerAndPlaceIt(SDL_Point pos)
 void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 {
 	if (map[cPos.y][cPos.x].character->turn == false || map[cPos.y][cPos.x].character->ally == false)
+	{
+		ResetIndicators();
 		return ;
+	}
 	ResetIndicators();
 	std::vector<SDL_Point> positions = FindPath(cPos, mPos);
 	if (positions.size() <= 1)
@@ -159,7 +160,7 @@ void BattleGround::PlaceMarker()
 				map[i][j].character->clicked = true;
 				SetMovables(map[i][j].character);
 			}
-			if (map[i][j].character != NULL && map[i][j].character->clicked)
+			if (map[i][j].character != NULL && map[i][j].character->clicked && !map[i][j].character->killed)
 			{
 				SDL_Point pos = {j, i};
 				characterBlock = &pos;
@@ -217,6 +218,13 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 		sprites[index][sprites[index].size() - 1].ColorMod(255, 69, 56);
 }
 
+void BattleGround::CheckBlocked(int i, int j)
+{
+	map[i][j].blocked = false;
+	if (map[i][j].character != NULL)
+		map[i][j].blocked = true;
+}
+
 void BattleGround::IterBlocks()
 {
 	std::vector<SDL_Point> markedBlocks;
@@ -234,6 +242,7 @@ void BattleGround::IterBlocks()
 				int index = i * map[0].size() + j;
 				ColorFade(&sprites[index][sprites[index].size() - 1], map[i][j].highlited);
 			}
+			CheckBlocked(i, j);
 		}
 	}
 	CheckMarkedBlocks(markedBlocks);

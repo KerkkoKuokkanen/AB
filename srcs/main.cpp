@@ -114,6 +114,8 @@ void ObjUpdate()
 		gameState.updateObjs.indicator->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
+	if (gameState.updateObjs.killer != NULL)
+		gameState.updateObjs.killer->Update();
 	gameState.updateObjs.fadeIter += 0.06f;
 	if (gameState.updateObjs.fadeIter >= 44.0f)
 		gameState.updateObjs.fadeIter = 0.0f;
@@ -123,6 +125,7 @@ int MainLoop(t_wr &wr)
 {
 	clock_t start, end;
 	TempInitBattle();
+	bool killed = false;
 	while (1)
 	{
 		start = clock();

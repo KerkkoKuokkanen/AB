@@ -43,6 +43,11 @@ void Character::AddToRender()
 
 void Character::Update()
 {
+	if (killed)
+	{
+		clicked = false;
+		return ;
+	}
 	if (idleCounter == 50)
 	{
 		idleCounter = 0;
@@ -83,3 +88,9 @@ void Character::Move(Vector amount)
 	if (amount.y - y >= 0.5f)
 		y += 1;
 };
+
+void Character::Destroy()
+{
+	delete sprite;
+	textures.clear();
+}

@@ -22,6 +22,7 @@ class Character
 		int cSing;
 		Sprite *sprite;
 		Character(int skin, bool allied = true);
+		void Destroy();
 		void AddToRender();
 		void Update();
 		void DeleteCharacter();
@@ -37,6 +38,7 @@ class Character
 		bool moving = false;
 		int moves = 10;
 		bool ally = true;
+		bool killed = false;
 		t_Stats stats = {1};
 };
 
