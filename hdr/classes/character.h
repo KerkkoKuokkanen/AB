@@ -14,11 +14,11 @@ class Character
 	private:
 		std::vector<SDL_Texture*> textures;
 		int idleCounter = 0;
-		int currentTexture = 0;
 		int width, height;
 		SDL_Point coord = {0, 0};
 		void CreateCharacterType(int skin);
 	public:
+		int currentTexture = 0;
 		int cSing;
 		Sprite *sprite;
 		Character(int skin, bool allied = true);

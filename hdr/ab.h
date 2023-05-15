@@ -18,7 +18,8 @@
 //layer defines
 # define BATTLEGROUND_LAYER 0
 # define DUST_LAYER 1
-# define TURN_ORDER_LAYER 2
+# define PARTICLE_LAYER 2
+# define TURN_ORDER_LAYER 3
 
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
@@ -33,6 +34,8 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "classes/turnOrder.h"
 # include "classes/turnIndicator.h"
 # include "classes/kill.h"
+# include "classes/particle.h"
+# include "classes/particleManager.h"
 
 enum {
 	THIEF,
@@ -47,6 +50,12 @@ enum {
 	TOP_RIGHT_BLOCK,
 	TOP_REGULAR_BLOCK
 };
+
+typedef struct s_TextAndSur
+{
+	SDL_Texture *text;
+	SDL_Surface *sur;
+}				t_TextAndSur;
 
 typedef struct s_GroundMapUnit
 {
@@ -93,20 +102,21 @@ typedef struct s_Keys
 	int space;
 }				t_Keys;
 
-int			figure_the_delay(clock_t start, clock_t end);
-void		init(t_wr *wr);
-SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath);
-void		eventPoller();
-void		init(t_wr *wr);
-int			rounding(float value);
-void		CreateGroundTest();
-bool		pointCheck(SDL_Point &point, SDL_Rect &hitBox);
-bool		CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target);
-bool		boxCheck(SDL_Rect box1, SDL_Rect box2);
-float		vectorAngle(Vector v1, Vector v2);
-int			degree(float angle);
-float		float_rand();
-void		CreateDust(SDL_Point position, Vector direction);
-void		PlaySound(Mix_Chunk *clip, int channel, int loops);
+int				figure_the_delay(clock_t start, clock_t end);
+void			init(t_wr *wr);
+SDL_Texture		*get_texture(SDL_Renderer *rend, const char *filePath);
+t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath);
+void			eventPoller();
+void			init(t_wr *wr);
+int				rounding(float value);
+void			CreateGroundTest();
+bool			pointCheck(SDL_Point &point, SDL_Rect &hitBox);
+bool			CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target);
+bool			boxCheck(SDL_Rect box1, SDL_Rect box2);
+float			vectorAngle(Vector v1, Vector v2);
+int				degree(float angle);
+float			float_rand();
+void			CreateDust(SDL_Point position, Vector direction);
+void			PlaySound(Mix_Chunk *clip, int channel, int loops);
 
 #endif

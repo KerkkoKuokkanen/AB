@@ -110,12 +110,11 @@ void ObjUpdate()
 {
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
 		gameState.updateObjs.dusts[i]->Update();
-	if (gameState.updateObjs.indicator != NULL)
-		gameState.updateObjs.indicator->Update();
+	gameState.updateObjs.indicator->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
-	if (gameState.updateObjs.killer != NULL)
-		gameState.updateObjs.killer->Update();
+	gameState.updateObjs.killer->Update();
+	gameState.updateObjs.partManager->Update();
 	gameState.updateObjs.fadeIter += 0.06f;
 	if (gameState.updateObjs.fadeIter >= 44.0f)
 		gameState.updateObjs.fadeIter = 0.0f;

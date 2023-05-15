@@ -41,16 +41,25 @@ void getAudio()
 
 void getTextures(SDL_Renderer *rend)
 {
-	gameState.textures.thiefIdle1 = get_texture(rend, "sprites/characters/hood_idle1.png");
-	gameState.textures.thiefIdle2 = get_texture(rend, "sprites/characters/hood_idle2.png");
-	gameState.textures.skeleIdle1 = get_texture(rend, "sprites/characters/skele.png");
-	gameState.textures.skeleIdle2 = get_texture(rend, "sprites/characters/skele2.png");
+	t_TextAndSur use;
+	use = get_texture_and_surface(rend, "sprites/characters/hood_idle1.png");
+	gameState.textures.thiefIdle1 = use.text;
+	gameState.surfaces.thiefIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/hood_idle2.png");
+	gameState.textures.thiefIdle2 = use.text;
+	gameState.surfaces.thiefIdle2 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/skele.png");
+	gameState.textures.skeleIdle1 = use.text;
+	gameState.surfaces.skeleIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/skele2.png");
+	gameState.textures.skeleIdle2 = use.text;
+	gameState.surfaces.skeleIdle2 = use.sur;
 	gameState.textures.dust = get_texture(rend, "sprites/effects/dust.png");
 	gameState.textures.turnOrder[0] = get_texture(rend, "sprites/env/turnOrder.png");
 	gameState.textures.turnOrder[1] = get_texture(rend, "sprites/env/turnOrderBackGround.png");
 	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/indicator.png");
-	gameState.textures.KillParticle[0] = get_texture(rend, "sprites/env/killPart1.png");
-	gameState.textures.KillParticle[1] = get_texture(rend, "sprites/env/killPart2.png");
+	gameState.textures.KillParticle[0] = get_texture(rend, "sprites/env/part.png");
+	gameState.textures.KillParticle[1] = get_texture(rend, "sprites/env/killPart1.png");
 }
 
 void	init(t_wr *wr)
@@ -65,8 +74,8 @@ void	init(t_wr *wr)
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
 	render.CreateLayer(LAYER_YSORT); //battleground layer
+	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_YSORT); //turnorder layer
-	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;
 	static BattleGround battle(BATTLEGROUND_LAYER, wr->rend);
@@ -83,6 +92,8 @@ void	init(t_wr *wr)
 	gameState.updateObjs.indicator = &ind;
 	static Kill killer;
 	gameState.updateObjs.killer = &killer;
+	static ParticleManager parts;
+	gameState.updateObjs.partManager = &parts;
 	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

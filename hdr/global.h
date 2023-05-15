@@ -20,6 +20,14 @@ typedef struct s_Battle
 	int yHeightAdd;
 }				t_Battle;
 
+typedef struct s_Surfaces
+{
+	SDL_Surface *thiefIdle1;
+	SDL_Surface *thiefIdle2;
+	SDL_Surface *skeleIdle1;
+	SDL_Surface *skeleIdle2;
+}				t_Surfaces;
+
 typedef struct s_Textures
 {
 	SDL_Texture *thiefIdle1;
@@ -43,6 +51,7 @@ typedef struct s_Updates
 	TurnOrder *turnOrder;
 	TurnIndicator *indicator;
 	Kill *killer;
+	ParticleManager *partManager;
 	float fadeIter;
 }				t_Updates;
 
@@ -54,6 +63,7 @@ typedef struct	s_GameState
 	Renderer *render;
 	t_Battle battle;
 	t_Textures textures;
+	t_Surfaces surfaces;
 	t_Updates updateObjs;
 	t_Audio audio;
 }				t_GameState;

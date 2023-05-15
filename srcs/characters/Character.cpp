@@ -48,6 +48,10 @@ void Character::Update()
 		clicked = false;
 		return ;
 	}
+	if (clicked)
+	{
+		gameState.updateObjs.killer->AddCharacterToKill(this);
+	}
 	if (idleCounter == 50)
 	{
 		idleCounter = 0;

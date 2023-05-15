@@ -4,7 +4,7 @@
 
 # include "../ab.h"
 
-# define KILL_TIME 120
+# define KILL_TIME 60
 
 typedef struct s_kill
 {
@@ -19,6 +19,11 @@ class Kill
 		SDL_Texture *killPart1;
 		SDL_Texture *killPart2;
 		void RemoveCharacter(Character *character);
+		void KillColorFade(t_kill *killed);
+		void CreateParticles(Character *character);
+		SDL_Surface *getSurface(Character *character);
+		Vector getDirection(Vector generalDir);
+		float getSpeed(Vector dir, Vector genDir);
 	public:
 		Kill();
 		void AddCharacterToKill(Character *character);

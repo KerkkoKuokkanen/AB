@@ -11,6 +11,15 @@ SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 	return (text);
 }
 
+t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath)
+{
+	SDL_Surface	*surface = IMG_Load(filePath);
+	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
+	SDL_SetTextureScaleMode(text, SDL_ScaleModeLinear);
+	t_TextAndSur ret = {text, surface};
+	return (ret);
+}
+
 float	vectorAngle(Vector v1, Vector v2)
 {
 	float	a, b, c;
