@@ -74,6 +74,6 @@ void Particle::Update()
 		return ;
 	}
 	sprite->Move(Vector(dir.x * speed, dir.y * speed));
-	speed /= 1.01f;
+	speed /= 1.015f;
 	life--;
 }

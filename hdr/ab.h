@@ -36,6 +36,8 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "classes/kill.h"
 # include "classes/particle.h"
 # include "classes/particleManager.h"
+# include "classes/bar.h"
+# include "classes/battleUI.h"
 
 enum {
 	THIEF,

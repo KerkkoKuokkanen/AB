@@ -43,7 +43,6 @@ class BattleGround {
 		Uint8 alpha = 35;
 		void ChangeUp();
 		void ChangeDown();
-		std::vector<t_Troop> characters;	//remember to clear
 		void PlaceCharacter(SDL_Point &position, Character *character);
 		void SetMovables(Character *character);
 		void ClearMovables();
@@ -76,6 +75,7 @@ class BattleGround {
 		void AddDust(SDL_Point curr, SDL_Point next);
 		void CheckBlocked(int i, int j);
 	public:
+		std::vector<t_Troop> characters;	//remember to clear
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
 		SDL_Rect getTileDest(SDL_Point pos);

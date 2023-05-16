@@ -60,6 +60,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/indicator.png");
 	gameState.textures.KillParticle[0] = get_texture(rend, "sprites/env/part.png");
 	gameState.textures.KillParticle[1] = get_texture(rend, "sprites/env/killPart1.png");
+	gameState.textures.bar[0] = get_texture(rend, "sprites/UI/bar.png");
+	gameState.textures.bar[1] = get_texture(rend, "sprites/UI/barBackGround.png");
+	gameState.textures.barFiller = get_texture(rend, "sprites/UI/everyColor.png");
 }
 
 void	init(t_wr *wr)

@@ -7,6 +7,10 @@
 typedef struct s_Stats
 {
 	int speed;
+	int maxHealth;
+	int health;
+	int maxArmor;
+	int armor;
 }				t_Stats;
 
 class Character
@@ -39,7 +43,7 @@ class Character
 		int moves = 10;
 		bool ally = true;
 		bool killed = false;
-		t_Stats stats = {1};
+		t_Stats stats = {1, 100, 100, 50, 50};
 };
 
 #endif

@@ -42,14 +42,18 @@ SDL_Surface *Kill::getSurface(Character *character)
 
 Vector Kill::getDirection(Vector generalDir)
 {
-	int randAssigner = rand() % 3;
+	int randAssigner = rand() % 12;
 	float angle = 0.0f;
-	if (randAssigner == 0)
-		angle = float_rand() * (PI / 4.0f);
-	if (randAssigner == 1)
-		angle = float_rand() * (PI / 6.0f);
-	if (randAssigner == 2)
+	if (randAssigner < 4)
 		angle = float_rand() * (PI / 8.0f);
+	else if (randAssigner < 6)
+		angle = float_rand() * (PI / 6.0f);
+	else if (randAssigner < 8)
+		angle = float_rand() * (PI / 4.0f);
+	else if (randAssigner < 10)
+		angle = float_rand() * PI;
+	else
+		angle = float_rand() * PI * 2.0f;
 	angle = (rand() % 2 == 0) ? angle : angle * (-1.0f);
 	float x = generalDir.x * cos(angle) - generalDir.y * sin(angle);
 	float y = generalDir.x * sin(angle) + generalDir.y * cos(angle);
@@ -59,11 +63,12 @@ Vector Kill::getDirection(Vector generalDir)
 float Kill::getSpeed(Vector dir, Vector genDir)
 {
 	float angle = vectorAngle(dir, genDir);
-	float speed = rand() % 40 + 10;
+	float speedUnit = (float)gameState.screen.width / 400.0f;
+	float speed = (rand() % ((int)speedUnit * 20)) + speedUnit * 5.0f;
 	if (angle > 0.78)
 		return (speed);
-	float unit = 120.0f / 0.78f;
-	speed += 120.0f - unit * angle;
+	float unit = (speedUnit * 60.0f) / 0.78f;
+	speed += (speedUnit * 60.0f) - (unit * angle);
 	return (speed);
 }
 

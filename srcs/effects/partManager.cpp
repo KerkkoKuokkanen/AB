@@ -4,7 +4,7 @@
 ParticleManager::ParticleManager()
 {
 	int i = 0;
-	while (i < 350) // partcile reserve amount
+	while (i < 5000) // partcile reserve amount
 	{
 		Particle *part = new Particle;
 		part->init();

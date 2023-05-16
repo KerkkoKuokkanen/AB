@@ -38,6 +38,8 @@ typedef struct s_Textures
 	SDL_Texture *turnOrder[2];
 	SDL_Texture *turnIndicator;
 	SDL_Texture *KillParticle[2];
+	SDL_Texture *bar[2];
+	SDL_Texture *barFiller;
 }				t_Textures;
 
 typedef struct s_Audio
