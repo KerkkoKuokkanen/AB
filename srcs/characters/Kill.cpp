@@ -87,20 +87,16 @@ void Kill::CreateParticles(Character *character)
 	{
 		for (int x = 0; x < sur->w; x++)
 		{
-			Uint32 pixel = pixels[(y * sur->w) + x];
-			Uint8 r, g, b, a;
-			SDL_GetRGBA(pixel, sur->format, &r, &g, &b, &a);
-			if (a != 0)
+			if (pixels[(y * sur->w) + x] == 0)
+				continue ;
+			counter++;
+			if (counter >= PART_DIST)
 			{
-				counter++;
-				if (counter >= PART_DIST)
-				{
-					float xP = (float)dest.x + (wUnit * (float)x);
-					float yP = (float)dest.y + (hUnit * (float)y);
-					Vector dir = getDirection(generalDir);
-					gameState.updateObjs.partManager->CreateParticle(dir, Vector(xP, yP), getSpeed(dir, generalDir));
-					counter = 0;
-				}
+				float xP = (float)dest.x + (wUnit * (float)x);
+				float yP = (float)dest.y + (hUnit * (float)y);
+				Vector dir = getDirection(generalDir);
+				gameState.updateObjs.partManager->CreateParticle(dir, Vector(xP, yP), getSpeed(dir, generalDir));
+				counter = 0;
 			}
 		}
 	}
@@ -114,22 +110,28 @@ void Kill::Update()
 		return ;
 	}
 	killing = true;
+	bool visited = false;
 	for (int i = 0; i < kills.size(); i++)
 	{
 		KillColorFade(&kills[i]);
 		kills[i].timer--;
-		if (kills[i].timer <= 0)
+		if (kills[i].timer <= 0 && !visited)
 		{
+			visited = true;
 			CreateParticles(kills[i].character);
 			RemoveCharacter(kills[i].character);
 			kills.erase(kills.begin() + i);
-			i--;
 		}
 	}
 }
 
 void Kill::AddCharacterToKill(Character *character)
 {
+	for (int i = 0; i < kills.size(); i++)
+	{
+		if (character == kills[i].character)
+			return ;
+	}
 	t_kill kill = {character, KILL_TIME};
 	character->killed = true;
 	kills.push_back(kill);

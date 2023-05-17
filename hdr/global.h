@@ -54,6 +54,7 @@ typedef struct s_Updates
 	TurnIndicator *indicator;
 	Kill *killer;
 	ParticleManager *partManager;
+	CharacterUI *UI;
 	float fadeIter;
 }				t_Updates;
 

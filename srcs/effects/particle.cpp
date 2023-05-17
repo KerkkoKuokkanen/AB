@@ -62,15 +62,14 @@ void Particle::Activate()
 void Particle::Deactivate()
 {
 	sprite->Deactivate();
-	active = false;
 }
 
 void Particle::Update()
 {
 	if (life <= 0)
 	{
-		sprite->Deactivate();
 		active = false;
+		sprite->Deactivate();
 		return ;
 	}
 	sprite->Move(Vector(dir.x * speed, dir.y * speed));

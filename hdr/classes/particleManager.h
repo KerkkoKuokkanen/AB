@@ -10,11 +10,9 @@ class ParticleManager
 {
 	private:
 		std::vector<Particle*> particles;
-		void AddPartcile();
 		void ManageColorChange(Particle *part);
 		void ManageAlphaChange(Particle *part);
 	public:
-		ParticleManager();
 		void Update();
 		void CreateParticle(Vector dir, Vector place, float speed);
 };

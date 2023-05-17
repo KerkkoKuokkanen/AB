@@ -11,6 +11,15 @@ SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 	return (text);
 }
 
+SDL_Texture	*get_texture_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode)
+{
+	SDL_Surface	*surface = IMG_Load(filePath);
+	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
+	SDL_FreeSurface(surface);
+	SDL_SetTextureScaleMode(text, scaleMode);
+	return (text);
+}
+
 t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath)
 {
 	SDL_Surface	*surface = IMG_Load(filePath);

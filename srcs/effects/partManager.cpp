@@ -1,19 +1,6 @@
 
 #include "../../hdr/global.h"
 
-ParticleManager::ParticleManager()
-{
-	int i = 0;
-	while (i < 5000) // partcile reserve amount
-	{
-		Particle *part = new Particle;
-		part->init();
-		part->active = false;
-		particles.push_back(part);
-		i++;
-	}
-}
-
 void ParticleManager::ManageColorChange(Particle *part)
 {
 	if (part->life > PART_LIFE)
@@ -41,41 +28,31 @@ void ParticleManager::Update()
 {
 	for (int i = 0; i < particles.size(); i++)
 	{
-		if (particles[i]->active)
+		if (particles[i]->active == true)
 		{
 			ManageAlphaChange(particles[i]);
 			ManageColorChange(particles[i]);
 			particles[i]->Update();
 		}
 		else
-			particles[i]->Deactivate();
+		{
+			delete particles[i]->sprite;
+			delete particles[i];
+			particles.erase(particles.begin() + i);
+		}
 	}
-}
-
-void ParticleManager::AddPartcile()
-{
-	Particle *part = new Particle;
-	part->init();
-	part->active = false;
-	particles.push_back(part);
 }
 
 void ParticleManager::CreateParticle(Vector dir, Vector place, float speed)
 {
-	int i = 0;
-	while (i < particles.size())
-	{
-		if (particles[i]->active == false)
-			break ;
-		i++;
-	}
-	if (i == particles.size())
-		AddPartcile();
-	particles[i]->Activate();
-	particles[i]->setPosition(place);
-	particles[i]->setDirection(dir);
-	particles[i]->setLifeTime(PART_LIFE + rand() % 80);
-	particles[i]->setSpeed(speed);
-	particles[i]->sprite->ColorMod(2, 2, 2);
-	particles[i]->sprite->ClearAlphaMod();
+	Particle *part = new Particle;
+	part->init();
+	part->Activate();
+	part->setPosition(place);
+	part->setDirection(dir);
+	part->setLifeTime(PART_LIFE + rand() % 80);
+	part->setSpeed(speed);
+	part->sprite->ColorMod(2, 2, 2);
+	part->sprite->ClearAlphaMod();
+	particles.push_back(part);
 }

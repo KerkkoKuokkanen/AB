@@ -8,10 +8,13 @@ class CharacterUI
 {
 	private:
 		std::vector<Character*> characters;
+		Bar *health;
+		Bar *armor;
 	public:
 		bool active = false;
 		CharacterUI();
 		void Update();
+		void Destroy();
 };
 
 #endif

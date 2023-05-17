@@ -60,8 +60,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/indicator.png");
 	gameState.textures.KillParticle[0] = get_texture(rend, "sprites/env/part.png");
 	gameState.textures.KillParticle[1] = get_texture(rend, "sprites/env/killPart1.png");
-	gameState.textures.bar[0] = get_texture(rend, "sprites/UI/bar.png");
-	gameState.textures.bar[1] = get_texture(rend, "sprites/UI/barBackGround.png");
+	gameState.textures.bar[0] = get_texture_with_scale_mode(rend, "sprites/UI/bar.png", SDL_ScaleModeNearest);
+	gameState.textures.bar[1] = get_texture_with_scale_mode(rend, "sprites/UI/barBackGround.png", SDL_ScaleModeNearest);
 	gameState.textures.barFiller = get_texture(rend, "sprites/UI/everyColor.png");
 }
 
@@ -70,9 +70,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
@@ -97,6 +97,8 @@ void	init(t_wr *wr)
 	gameState.updateObjs.killer = &killer;
 	static ParticleManager parts;
 	gameState.updateObjs.partManager = &parts;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	static CharacterUI bars;
+	gameState.updateObjs.UI = &bars;
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

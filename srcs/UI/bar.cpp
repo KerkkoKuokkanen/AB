@@ -20,10 +20,10 @@ Bar::Bar(SDL_Rect dest)
 void Bar::Update(int max, int curr, Uint8 r, Uint8 g, Uint8 b)
 {
 	SDL_Rect dest = {
-		bar->dest.x + (int)((float)bar->dest.x / 10.0f),
-		bar->dest.y + (int)((float)bar->dest.y / 10.0f),
-		bar->dest.w - (int)((float)bar->dest.w / 10.0f),
-		bar->dest.h - (int)((float)bar->dest.h / 10.0f)
+		bar->dest.x + rounding((float)gameState.screen.width / 90.0f),
+		bar->dest.y + rounding((float)gameState.screen.height / 80.0f),
+		bar->dest.w - rounding((float)bar->dest.w / 29.0f),
+		bar->dest.h - rounding((float)bar->dest.h / 2.0f)
 	};
 	filler->dest = dest;
 	filler->ColorMod(r, g, b);

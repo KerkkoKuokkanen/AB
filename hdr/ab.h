@@ -108,6 +108,7 @@ int				figure_the_delay(clock_t start, clock_t end);
 void			init(t_wr *wr);
 SDL_Texture		*get_texture(SDL_Renderer *rend, const char *filePath);
 t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath);
+SDL_Texture		*get_texture_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode);
 void			eventPoller();
 void			init(t_wr *wr);
 int				rounding(float value);
