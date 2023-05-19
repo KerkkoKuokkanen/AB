@@ -15,6 +15,12 @@
 # define TOOL_MAP_SIGN 9933
 # define TURN_SIGN -999898
 
+//mouse states
+# define NO_CLICK 0
+# define INITIAL_CLICK 1
+# define HOLD_CLICK 2
+# define RELEASE_CLICK 3
+
 //layer defines
 # define BATTLEGROUND_LAYER 0
 # define DUST_LAYER 1
@@ -121,5 +127,7 @@ int				degree(float angle);
 float			float_rand();
 void			CreateDust(SDL_Point position, Vector direction);
 void			PlaySound(Mix_Chunk *clip, int channel, int loops);
+void			Utility();
+void			ObjUpdate();
 
 #endif

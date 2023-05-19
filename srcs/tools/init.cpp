@@ -89,6 +89,7 @@ void	init(t_wr *wr)
 	gameState.battle.yHeightAdd = 2300;
 	gameState.updateObjs.turnOrder = NULL;
 	gameState.updateObjs.fadeIter = 0.0f;
+	gameState.updateObjs.overMenu = false;
 	getTextures(wr->rend);
 	getAudio();
 	static TurnIndicator ind;

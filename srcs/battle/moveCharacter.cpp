@@ -3,7 +3,7 @@
 
 void BattleGround::setMoved(std::vector<SDL_Point> &path)
 {
-	if (gameState.keys.click != 1)
+	if (gameState.keys.click != RELEASE_CLICK)
 		return ;
 	movedCharacter.path.clear();
 	for (int i = path.size() - 1; i >= 0; i--)

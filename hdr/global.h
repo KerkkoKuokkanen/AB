@@ -56,6 +56,7 @@ typedef struct s_Updates
 	ParticleManager *partManager;
 	CharacterUI *UI;
 	float fadeIter;
+	bool overMenu;
 }				t_Updates;
 
 typedef struct	s_GameState
