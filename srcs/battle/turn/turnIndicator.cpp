@@ -8,6 +8,8 @@ TurnIndicator::TurnIndicator()
 
 void TurnIndicator::Update()
 {
+	static int p = 0;
+	p++;
 	if (chosen == NULL)
 		return ;
 	if (!chosen->ally)

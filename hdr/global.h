@@ -40,6 +40,7 @@ typedef struct s_Textures
 	SDL_Texture *KillParticle[2];
 	SDL_Texture *bar[2];
 	SDL_Texture *barFiller;
+	SDL_Texture *thiefAbilites[1];
 }				t_Textures;
 
 typedef struct s_Audio

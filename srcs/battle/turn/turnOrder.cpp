@@ -68,6 +68,11 @@ void TurnOrder::ActivateTurnChange()
 {
 	if (turnChange || turnStartActive || killActive || !NoOneMoving())
 		return ;
+	for (int i = 0; i < indicators.size() - 1; i++)
+	{
+		if (indicators[i].character->killed)
+			return ;
+	}
 	turnChange = true;
 	ResetClicks();
 	gameState.updateObjs.indicator->Deactivate();
@@ -207,7 +212,6 @@ void TurnOrder::UpdateStartTurn()
 		if (dest.x <= target)
 		{
 			turnStartActive = false;
-			gameState.updateObjs.indicator->SetCharacter(indicators[i].character);
 			return ;
 		}
 		float len = indicators[i].x - (float)target;
@@ -251,10 +255,6 @@ void TurnOrder::ChangeTurn()
 		if (indicators[j].active)
 		{
 			indicators[j].active = false;
-			if (j + 1 < indicators.size())
-				gameState.updateObjs.indicator->SetCharacter(indicators[j + 1].character);
-			else
-				gameState.updateObjs.indicator->SetCharacter(NULL);
 			return ;
 		}
 	}
@@ -276,7 +276,7 @@ void TurnOrder::CheckClickBox()
 	SDL_Point pos = {0, 0};
 	SDL_GetMouseState(&pos.x, &pos.y);
 	insideBox = pointCheck(pos, clickBoxArea);
-	if (!insideBox || turnChange || turnStartActive)
+	if (!insideBox || stuffHappening)
 		return ;
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
 	SDL_Rect box = {
@@ -326,7 +326,7 @@ int TurnOrder::findTheFirstActive()
 
 void TurnOrder::MouseScroll()
 {
-	if (turnChange || turnStartActive || !insideBox || killActive)
+	if (stuffHappening)
 		return ;
 	if (gameState.keys.wheel == 0)
 		return ;
@@ -376,12 +376,10 @@ void TurnOrder::RemoveCharacter(Character *character)
 	{
 		if (indicators[i].character == character)
 		{
-			if (i == 0)
+			if (indicators[i].character->turn)
 			{
 				if (target == TARGET_SIGN)
 					target = indicators[i].indicator->dest.x;
-				if (i + 1 != indicators.size())
-					gameState.updateObjs.indicator->SetCharacter(indicators[i + 1].character);
 			}
 			delete indicators[i].indicator;
 			free(indicators[i].srect);
@@ -442,9 +440,29 @@ void TurnOrder::KillMoveUpdate()
 	}
 }
 
+void TurnOrder::SetStuffHappening()
+{
+	if (turnChange || turnStartActive || killActive || !NoOneMoving())
+	{
+		stuffHappening = true;
+		return ;
+	}
+	for (int i = 0; i < indicators.size() - 1; i++)
+	{
+		if (indicators[i].character->killed)
+		{
+			stuffHappening = true;
+			return ;
+		}
+	}
+	stuffHappening = false;
+}
+
 void TurnOrder::Update()
 {
 	bool active = false;
+	SetStuffHappening();
+	gameState.updateObjs.indicator->Deactivate();
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		indicators[i].character->turn = false;
@@ -452,10 +470,12 @@ void TurnOrder::Update()
 			indicators[i].indicator->Deactivate();
 		else
 		{
-			if (!active && !turnChange)
+			if (!active && !turnChange && !killActive)
 			{
 				indicators[i].character->turn = true;
 				active = true;
+				if (!stuffHappening)
+					gameState.updateObjs.indicator->SetCharacter(indicators[i].character);
 			}
 			indicators[i].indicator->Activate();
 		}

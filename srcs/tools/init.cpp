@@ -63,6 +63,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.bar[0] = get_texture_with_scale_mode(rend, "sprites/UI/bar.png", SDL_ScaleModeNearest);
 	gameState.textures.bar[1] = get_texture_with_scale_mode(rend, "sprites/UI/barBackGround.png", SDL_ScaleModeNearest);
 	gameState.textures.barFiller = get_texture(rend, "sprites/UI/everyColor.png");
+	gameState.textures.thiefAbilites[0] = get_texture(rend, "sprites/UI/abilites/daggerThrow.png");
 }
 
 void	init(t_wr *wr)

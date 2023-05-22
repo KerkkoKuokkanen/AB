@@ -28,6 +28,7 @@ void TempInitBattle()
 	SDL_Point point10 = {3, 3};
 	static std::vector<SDL_Point> pnt = {point, point2, point3, point4, point5, point6, point7, point8, point9, point10};
 	gameState.battle.ground->StartBattle(chars, pnt);
+	gameState.updateObjs.UI->SetCharacters(chars);
 	new TurnOrder(chars);
 }
 
@@ -36,7 +37,7 @@ int MainLoop(t_wr &wr)
 	clock_t start, end;
 	TempInitBattle();
 	bool killed = false;
-	while (1)
+	while (true)
 	{
 		start = clock();
 		Utility();

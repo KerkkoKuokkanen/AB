@@ -147,6 +147,7 @@ void Kill::RemoveCharacter(Character *character)
 			gameState.updateObjs.indicator->Deactivate();
 	}
 	gameState.updateObjs.turnOrder->RemoveCharacter(character);
+	gameState.updateObjs.UI->RemoveCharacter(character);
 	character->Destroy();
 	//delete character; may need to be used later
 }

@@ -150,7 +150,8 @@ void BattleGround::PlaceMarker()
 	{
 		for (int j = 0; j < map[0].size(); j++)
 		{
-			if (map[i][j].character != NULL && map[i][j].marked && gameState.keys.click == RELEASE_CLICK)
+			if (map[i][j].character != NULL && map[i][j].marked && gameState.keys.click == RELEASE_CLICK
+														&& !gameState.updateObjs.turnOrder->stuffHappening)
 			{
 				if (NoOtherCharacters() == false)
 				{
@@ -183,6 +184,8 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 	if (marked.size() == 0)
 		return ;
 	if (gameState.updateObjs.overMenu)
+		return ;
+	if (gameState.updateObjs.turnOrder->stuffHappening)
 		return ;
 	if (marked.size() == 1)
 	{

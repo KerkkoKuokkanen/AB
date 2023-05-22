@@ -27,6 +27,11 @@
 # define PARTICLE_LAYER 2
 # define TURN_ORDER_LAYER 3
 
+enum {
+	TURN_DONE,
+	DAGGER_THROW
+};
+
 # include "../SDL2/SDL.h"
 # include "classes/vector.h"
 # include <iostream>
@@ -43,6 +48,7 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "classes/particle.h"
 # include "classes/particleManager.h"
 # include "classes/bar.h"
+# include "classes/button.h"
 # include "classes/battleUI.h"
 
 enum {
