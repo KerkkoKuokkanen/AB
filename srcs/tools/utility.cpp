@@ -85,6 +85,8 @@ void GetMouseXY()
 {
 	int x = 0, y = 0;
 	SDL_GetMouseState(&x, &y);
+	gameState.keys.staticMouseX = x;
+	gameState.keys.staticMouseY = y;
 	x = (int)((float)(x - gameState.screen.midPointX) * gameState.screen.xPixelUnit) + gameState.camera.x;
 	y = (int)((float)(y - gameState.screen.midPointY) * gameState.screen.yPixelUnit / gameState.screen.aspectRatio) + gameState.camera.y;
 	gameState.keys.mouseX = x;

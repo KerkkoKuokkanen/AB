@@ -17,14 +17,29 @@ CharacterUI::CharacterUI()
 	};
 	health = new Bar(dest1);
 	armor = new Bar(dest2);
+	SDL_Rect but = {
+		rounding((float)gameState.screen.width / 1.455f),
+		rounding((float)gameState.screen.height / 1.153f),
+		rounding((float)gameState.screen.width / 33.0f),
+		rounding((float)gameState.screen.width / 33.0f)
+	};
 	for (int i = 0; i < BUTTON_RESERVE; i++)
 	{
-		buttons[i].button = new Button(gameState.textures.thiefAbilites[0], dest1, dest1);
+		buttons[i].button = new Button(gameState.textures.turnDone, but, but);
 		buttons[i].button->Deactivate();
 		buttons[i].buttonSign = 0;
 		buttons[i].used = false;
+		if (i == 0)
+			buttons[i].used = true;
 	}
 	active = true; // change later when something else than only battle
+}
+
+void CharacterUI::GetAbilities()
+{
+	if (activeCharacter == NULL)
+		return ;
+	
 }
 
 void CharacterUI::getActive()
@@ -66,6 +81,19 @@ void CharacterUI::getActive()
 	}
 }
 
+void CharacterUI::HandleButtonAction(int value, int buttonIndex)
+{
+	if (value == NO_CONTACT)
+		return ;
+	switch (buttons[buttonIndex].buttonSign)
+	{
+		case 0:
+			if (value == BUTTON_PRESS)
+				gameState.updateObjs.turnOrder->ActivateTurnChange();
+			break ;
+	}
+}
+
 void CharacterUI::Update()
 {
 	getActive();
@@ -75,6 +103,11 @@ void CharacterUI::Update()
 	int a = activeCharacter->stats.armor, arm = activeCharacter->stats.maxArmor;
 	health->Update(h, heal, 99, 10, 9);
 	armor->Update(a, arm, 64, 64, 64);
+	for (int i = 0; i < BUTTON_RESERVE; i++)
+	{
+		if (buttons[i].used)
+			HandleButtonAction(buttons[i].button->Update(), i);
+	}
 }
 
 void CharacterUI::SetCharacters(std::vector<Character> &characters)

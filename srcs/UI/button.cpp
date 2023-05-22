@@ -9,16 +9,22 @@ Button::Button(SDL_Texture *button, SDL_Rect dest, SDL_Rect clickBox)
 	Button::clickBox = clickBox;
 }
 
-bool Button::Update()
+int Button::Update()
 {
 	if (!active)
-		return (false);
-	SDL_Point point = {gameState.keys.mouseX, gameState.keys.mouseY};
+		return (NO_CONTACT);
+	SDL_Point point = {gameState.keys.staticMouseX, gameState.keys.staticMouseY};
 	bool ret = pointCheck(point, clickBox);
-	sprite->ClearAlphaMod();
+	sprite->ClearColorMod();
 	if (ret)
-		sprite->AlphaMod(125);
+	{
+		sprite->ColorMod(180, 180, 180);
+		if (gameState.keys.click == HOLD_CLICK)
+			sprite->ColorMod(140, 140, 140);
+	}
 	if (ret && gameState.keys.click == RELEASE_CLICK)
-		return (true);
-	return (false);
+		return (BUTTON_PRESS);
+	if (ret)
+		return (BUTTON_HOVER);
+	return (NO_CONTACT);
 }

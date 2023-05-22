@@ -41,6 +41,7 @@ typedef struct s_Textures
 	SDL_Texture *bar[2];
 	SDL_Texture *barFiller;
 	SDL_Texture *thiefAbilites[1];
+	SDL_Texture *turnDone;
 }				t_Textures;
 
 typedef struct s_Audio

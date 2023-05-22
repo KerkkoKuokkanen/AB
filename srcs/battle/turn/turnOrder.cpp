@@ -273,8 +273,7 @@ void TurnOrder::CheckClickBox()
 		insideBox = false;
 		return ;
 	}
-	SDL_Point pos = {0, 0};
-	SDL_GetMouseState(&pos.x, &pos.y);
+	SDL_Point pos = {gameState.keys.staticMouseX, gameState.keys.staticMouseY};
 	insideBox = pointCheck(pos, clickBoxArea);
 	if (!insideBox || stuffHappening)
 		return ;
@@ -329,6 +328,8 @@ void TurnOrder::MouseScroll()
 	if (stuffHappening)
 		return ;
 	if (gameState.keys.wheel == 0)
+		return ;
+	if (!insideBox)
 		return ;
 	int index = findTheFirstActive();
 	if (index == (-1))

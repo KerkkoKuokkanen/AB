@@ -113,6 +113,8 @@ typedef struct s_Keys
 	int wheel;
 	int mouseX;
 	int mouseY;
+	int staticMouseX;
+	int staticMouseY;
 	int space;
 }				t_Keys;
 

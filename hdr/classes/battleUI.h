@@ -23,7 +23,11 @@ class CharacterUI
 		Bar *armor;
 		bool turnActive = true;
 		void getActive();
+		void GetAbilities();
+		int GetButtonIndex();
+		void HandleButtonAction(int value, int buttonIndex);
 	public:
+		bool hoverOver = false;
 		bool active = false;
 		CharacterUI();
 		void SetCharacters(std::vector<Character> &characters);

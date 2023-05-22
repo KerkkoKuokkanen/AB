@@ -4,6 +4,10 @@
 
 # include "../ab.h"
 
+# define BUTTON_HOVER 1
+# define BUTTON_PRESS 2
+# define NO_CONTACT 0
+
 class Button
 {
 	private:
@@ -18,7 +22,7 @@ class Button
 		void Destroy() {sprite->Destroy();};
 		void Deactivate() {sprite->Deactivate(); active = false;};
 		void Activate() {sprite->Activate(); active = true;};
-		bool Update();
+		int Update();
 };
 
 #endif
