@@ -33,23 +33,23 @@ enum {
 };
 
 # include "../SDL2/SDL.h"
-# include "classes/vector.h"
+# include "tools/vector.h"
 # include <iostream>
 
 SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 
-# include "classes/sprite.h"
+# include "render/sprite.h"
 # include <vector>
-# include "classes/character.h"
-# include "classes/dust.h"
-# include "classes/turnOrder.h"
-# include "classes/turnIndicator.h"
-# include "classes/kill.h"
-# include "classes/particle.h"
-# include "classes/particleManager.h"
-# include "classes/bar.h"
-# include "classes/button.h"
-# include "classes/battleUI.h"
+# include "battleClasses/character.h"
+# include "particle/dust.h"
+# include "battleClasses/turnOrder.h"
+# include "battleClasses/turnIndicator.h"
+# include "battleClasses/kill.h"
+# include "particle/particle.h"
+# include "particle/particleManager.h"
+# include "UI/bar.h"
+# include "UI/button.h"
+# include "UI/battleUI.h"
 
 enum {
 	THIEF,

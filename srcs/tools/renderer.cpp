@@ -1,6 +1,4 @@
 
-#include "../../hdr/ab.h"
-#include "../../hdr/classes/renderer.h"
 #include "../../hdr/global.h"
 
 bool compareObjects(const Sprite *obj1, const Sprite *obj2) {

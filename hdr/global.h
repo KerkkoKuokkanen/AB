@@ -3,8 +3,8 @@
 # define GLOBAL_H
 
 # include "ab.h"
-# include "classes/renderer.h"
-# include "classes/battleGround.h"
+# include "render/renderer.h"
+# include "battleClasses/battleGround.h"
 
 # define ALPHA_BLEND 80
 # define PI 3.14159
