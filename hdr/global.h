@@ -26,6 +26,7 @@ typedef struct s_Surfaces
 	SDL_Surface *thiefIdle2;
 	SDL_Surface *skeleIdle1;
 	SDL_Surface *skeleIdle2;
+	SDL_Surface *energy;
 }				t_Surfaces;
 
 typedef struct s_Textures
@@ -42,6 +43,7 @@ typedef struct s_Textures
 	SDL_Texture *barFiller;
 	SDL_Texture *thiefAbilites[1];
 	SDL_Texture *turnDone;
+	SDL_Texture *energy[2];
 }				t_Textures;
 
 typedef struct s_Audio

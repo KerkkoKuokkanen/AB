@@ -48,7 +48,12 @@ class Sprite
 				return ;
 			SDL_FRect rect;
 			if (translated)
-				rect = translateSprite(dest, staticSprite);
+			{
+				if (!staticSprite)
+					rect = translateSprite(dest);
+				else
+					rect = staitcTranslateSprite(dest);
+			}
 			else
 				rect = {(float)dest.x, (float)dest.y, (float)dest.w, (float)dest.h};
 			bool tt = false;

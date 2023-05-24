@@ -52,24 +52,39 @@ int	rounding(float value)
 	return (val);
 }
 
-SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite)
+SDL_FRect	staitcTranslateSprite(SDL_Rect dest)
 {
-	int cx = 0;
-	int cy = 0;
-	float w = (float)gameState.screen.width;
-	float h = (float)gameState.screen.height;
-	if (!staticSprite)
-	{
-		cx = gameState.camera.x;
-		cy = gameState.camera.y;
-	}
+	float xUnit = gameState.screen.xStaticUnit;
+	float yUnit = gameState.screen.yStaticUnit;
 	SDL_FRect ret = {
-		(float)(dest.x - cx) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
-		(float)(dest.y - cy) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
+		(float)dest.x / xUnit + (float)gameState.screen.midPointX,
+		(float)dest.y / yUnit + (float)gameState.screen.midPointY,
+		(float)dest.w / xUnit,
+		(float)dest.h / yUnit * ASPECT_MULTI
+	};
+	return (ret);
+}
+
+SDL_FRect	translateSprite(SDL_Rect dest)
+{
+	SDL_FRect ret = {
+		(float)(dest.x - gameState.camera.x) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
+		(float)(dest.y - gameState.camera.y) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
 		(float)dest.w / gameState.screen.xPixelUnit,
 		(float)dest.h / gameState.screen.yPixelUnit * gameState.screen.aspectRatio
 	};
 	return (ret);
+}
+
+bool modPointCheck(SDL_Point &point, SDL_Rect &hitBox)
+{
+	SDL_Rect hb = hitBox;
+	hb.h = rounding((float)hb.h * gameState.screen.aspectRatio);
+	if (point.x >= hb.x && point.x <= (hb.x + hb.w) &&
+		point.y >= hb.y && point.y <= (hb.y + hb.h)) {
+		return (true);
+	}
+	return (false);
 }
 
 bool pointCheck(SDL_Point &point, SDL_Rect &hitBox)

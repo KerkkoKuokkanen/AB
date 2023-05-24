@@ -3,6 +3,7 @@
 # define AB_H
 
 # define FRAME 17
+# define ASPECT_MULTI 1.777f
 
 # define FLIP_NONE 0
 # define FLIP_HORIZONTAL 1
@@ -36,7 +37,8 @@ enum {
 # include "tools/vector.h"
 # include <iostream>
 
-SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
+SDL_FRect	translateSprite(SDL_Rect dest);
+SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 
 # include "render/sprite.h"
 # include <vector>
@@ -49,6 +51,7 @@ SDL_FRect	translateSprite(SDL_Rect dest, bool staticSprite);
 # include "particle/particleManager.h"
 # include "UI/bar.h"
 # include "UI/button.h"
+# include "UI/energy.h"
 # include "UI/battleUI.h"
 
 enum {
@@ -95,6 +98,7 @@ typedef struct s_Screen
 	float aspectRatio;
 	int midPointX, midPointY;
 	float xPixelUnit, yPixelUnit;
+	float xStaticUnit, yStaticUnit;
 }				t_Screen;
 
 typedef struct s_Camera
@@ -115,6 +119,8 @@ typedef struct s_Keys
 	int mouseY;
 	int staticMouseX;
 	int staticMouseY;
+	int smX;
+	int smY;
 	int space;
 }				t_Keys;
 
@@ -128,6 +134,7 @@ void			init(t_wr *wr);
 int				rounding(float value);
 void			CreateGroundTest();
 bool			pointCheck(SDL_Point &point, SDL_Rect &hitBox);
+bool			modPointCheck(SDL_Point &point, SDL_Rect &hitBox);
 bool			CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target);
 bool			boxCheck(SDL_Rect box1, SDL_Rect box2);
 float			vectorAngle(Vector v1, Vector v2);

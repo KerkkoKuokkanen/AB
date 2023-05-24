@@ -5,6 +5,7 @@
 # include "../ab.h"
 
 # define BUTTON_RESERVE 30
+# define ENERGYS 12
 
 typedef struct t_Buttons
 {
@@ -19,6 +20,7 @@ class CharacterUI
 		std::vector<Character*> characters;
 		Character *activeCharacter = NULL;
 		t_Buttons buttons[BUTTON_RESERVE];
+		Energy *energys[ENERGYS];
 		Bar *health;
 		Bar *armor;
 		bool turnActive = true;
@@ -26,6 +28,7 @@ class CharacterUI
 		void GetAbilities();
 		int GetButtonIndex();
 		void HandleButtonAction(int value, int buttonIndex);
+		void DeactivateUI();
 	public:
 		bool hoverOver = false;
 		bool active = false;

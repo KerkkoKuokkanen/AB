@@ -14,6 +14,12 @@ void initKeys()
 	gameState.keys.middleMouse = 0;
 	gameState.camera.clickTimePosX = 0;
 	gameState.camera.clickTimePosY = 0;
+	gameState.keys.smX = 0;
+	gameState.keys.smY = 0;
+	gameState.keys.staticMouseX = 0;
+	gameState.keys.staticMouseY = 0;
+	gameState.keys.mouseX = 0;
+	gameState.keys.mouseY = 0;
 }
 
 void initScreen(int width, int height)
@@ -29,6 +35,8 @@ void initScreen(int width, int height)
 	gameState.screen.unit = 1.0f / 100000.0f;
 	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
 	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
+	gameState.screen.xStaticUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
+	gameState.screen.yStaticUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
 }
 
 void getAudio()
@@ -65,6 +73,10 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.barFiller = get_texture(rend, "sprites/UI/everyColor.png");
 	gameState.textures.turnDone = get_texture(rend, "sprites/UI/button.png");
 	gameState.textures.thiefAbilites[0] = get_texture(rend, "sprites/UI/abilities/daggerThrow.png");
+	gameState.textures.energy[0] = get_texture(rend, "sprites/UI/energyStand.png");
+	use = get_texture_and_surface(rend, "sprites/UI/energy.png");
+	gameState.textures.energy[1] = use.text;
+	gameState.surfaces.energy = use.sur;
 }
 
 void	init(t_wr *wr)
@@ -72,9 +84,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
@@ -102,6 +114,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.partManager = &parts;
 	static CharacterUI bars;
 	gameState.updateObjs.UI = &bars;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

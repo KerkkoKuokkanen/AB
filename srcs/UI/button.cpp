@@ -4,9 +4,9 @@
 Button::Button(SDL_Texture *button, SDL_Rect dest, SDL_Rect clickBox)
 {
 	sprite = new Sprite(button, dest, NULL, NULL, 0, FLIP_NONE, true);
-	sprite->setTranslation(false);
 	gameState.render->AddSprite(sprite, TURN_ORDER_LAYER);
-	Button::clickBox = clickBox;
+	SDL_FRect box = staitcTranslateSprite(clickBox);
+	Button::clickBox = {(int)box.x, (int)box.y, (int)box.w, (int)box.h};
 }
 
 int Button::Update()

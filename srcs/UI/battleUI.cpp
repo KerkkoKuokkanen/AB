@@ -3,26 +3,11 @@
 
 CharacterUI::CharacterUI()
 {
-	SDL_Rect dest1 = {
-		rounding((float)gameState.screen.width / 3.725f),
-		gameState.screen.height - rounding((float)gameState.screen.height / 10.0f) + rounding((float)gameState.screen.height / 22.0f),
-		rounding((float)gameState.screen.width / 2.2f),
-		rounding((float)gameState.screen.height / 20.0f)
-	};
-	SDL_Rect dest2 = {
-		rounding((float)gameState.screen.width / 3.725f),
-		gameState.screen.height - rounding((float)gameState.screen.height / 7.5f) + rounding((float)gameState.screen.height / 22.0f),
-		rounding((float)gameState.screen.width / 2.2f),
-		rounding((float)gameState.screen.height / 20.0f)
-	};
+	SDL_Rect dest1 = {-25000, 44000, 50000, 3200};
+	SDL_Rect dest2 = {-25000, 40500, 50000, 3200};
 	health = new Bar(dest1);
 	armor = new Bar(dest2);
-	SDL_Rect but = {
-		rounding((float)gameState.screen.width / 1.455f),
-		rounding((float)gameState.screen.height / 1.153f),
-		rounding((float)gameState.screen.width / 33.0f),
-		rounding((float)gameState.screen.width / 33.0f)
-	};
+	SDL_Rect but = {21270, 35800, 3300, 3300};
 	for (int i = 0; i < BUTTON_RESERVE; i++)
 	{
 		buttons[i].button = new Button(gameState.textures.turnDone, but, but);
@@ -32,6 +17,13 @@ CharacterUI::CharacterUI()
 		if (i == 0)
 			buttons[i].used = true;
 	}
+	Vector pos(-24500.0f, 36000.0f);
+	float diff = 2100.0f;
+	for (int i = 0; i < ENERGYS; i++)
+	{
+		energys[i] = new Energy;
+		energys[i]->Position(Vector(pos.x + (diff * i), pos.y));
+	}
 	active = true; // change later when something else than only battle
 }
 
@@ -39,7 +31,16 @@ void CharacterUI::GetAbilities()
 {
 	if (activeCharacter == NULL)
 		return ;
-	
+}
+
+void CharacterUI::DeactivateUI()
+{
+	health->Deactivate();
+	armor->Deactivate();
+	for (int i = 0; i< BUTTON_RESERVE; i++)
+		buttons[i].button->Deactivate();
+	for (int i = 0; i < ENERGYS; i++)
+		energys[i]->Deactivate();
 }
 
 void CharacterUI::getActive()
@@ -62,21 +63,24 @@ void CharacterUI::getActive()
 	{
 		health->Activate();
 		armor->Activate();
+		activeCharacter = characters[index];
 		for (int i = 0; i < BUTTON_RESERVE; i++)
 		{
 			if (buttons[i].used)
 				buttons[i].button->Activate();
 		}
+		for (int i = 0; i < ENERGYS; i++)
+		{
+			energys[i]->Activate();
+			if (i >= activeCharacter->moves)
+				energys[i]->Used();
+		}
 		turnActive = true;
-		activeCharacter = characters[index];
 		return ;
 	}
 	if (!outCome && turnActive)
 	{
-		health->Deactivate();
-		armor->Deactivate();
-		for (int i = 0; i< BUTTON_RESERVE; i++)
-			buttons[i].button->Deactivate();
+		DeactivateUI();
 		turnActive = false;
 	}
 }
@@ -129,10 +133,7 @@ void CharacterUI::RemoveCharacter(Character *character)
 	if (character == activeCharacter)
 	{
 		activeCharacter = NULL;
-		health->Deactivate();
-		armor->Deactivate();
-		for (int i = 0; i< BUTTON_RESERVE; i++)
-			buttons[i].button->Deactivate();
+		DeactivateUI();
 		turnActive = false;
 	}
 }
