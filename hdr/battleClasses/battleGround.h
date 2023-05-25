@@ -86,6 +86,7 @@ class BattleGround {
 		void HighLightBlock(SDL_Point pos, Uint8 r, Uint8 g, Uint8 b);
 		void ResetBlockColor(SDL_Point pos);
 		void RemoveCharacter(Character *character);
+		Sprite *GetSprite(SDL_Point pos);
 		void Update();
 };
 

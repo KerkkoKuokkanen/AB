@@ -52,6 +52,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/bar.h"
 # include "UI/button.h"
 # include "UI/energy.h"
+# include "battleClasses/groundColoring.h"
 # include "UI/battleUI.h"
 
 enum {

@@ -250,6 +250,12 @@ void BattleGround::ResetBlockColor(SDL_Point pos)
 	sprites[index][sprites[index].size() - 1].ClearColorMod();
 }
 
+Sprite *BattleGround::GetSprite(SDL_Point pos)
+{
+	int index = pos.y * map[0].size() + pos.x;
+	return(&sprites[index][sprites[index].size() - 1]);
+}
+
 void BattleGround::RemoveCharacter(Character *character)
 {
 	for (int i = 0; i < map.size(); i++)
