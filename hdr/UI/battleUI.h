@@ -27,10 +27,11 @@ class CharacterUI
 		void getActive();
 		void GetAbilities();
 		int GetButtonIndex();
+		void CreateButton(SDL_Rect place, SDL_Texture *text, int sign);
 		void HandleButtonAction(int value, int buttonIndex);
 		void DeactivateUI();
 	public:
-		bool hoverOver = false;
+		bool overCharacterUI = false;
 		bool active = false;
 		CharacterUI();
 		void SetCharacters(std::vector<Character> &characters);

@@ -9,6 +9,12 @@ Button::Button(SDL_Texture *button, SDL_Rect dest, SDL_Rect clickBox)
 	Button::clickBox = {(int)box.x, (int)box.y, (int)box.w, (int)box.h};
 }
 
+void Button::SetClickBox(SDL_Rect clickBox)
+{
+	SDL_FRect box = staitcTranslateSprite(clickBox);
+	Button::clickBox = {(int)box.x, (int)box.y, (int)box.w, (int)box.h};
+}
+
 int Button::Update()
 {
 	if (!active)

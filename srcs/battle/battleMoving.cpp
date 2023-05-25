@@ -63,7 +63,7 @@ bool BattleGround::MarkBlock(SDL_Point position)
 			return (false);
 		}
 	}
-	if (BlockMouseHover(position) && !HoverOverCheck(position))
+	if (BlockMouseHover(position) && !HoverOverCheck(position) && !gameState.updateObjs.hover.overAnything)
 	{
 		map[position.y][position.x].marked = true;
 		return (true);
@@ -139,7 +139,7 @@ bool BattleGround::NoOtherCharacters()
 
 void BattleGround::PlaceMarker()
 {
-	if (gameState.updateObjs.overMenu)
+	if (gameState.updateObjs.hover.overAnything)
 	{
 		ResetIndicators();
 		return ;
@@ -183,7 +183,7 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 {
 	if (marked.size() == 0)
 		return ;
-	if (gameState.updateObjs.overMenu)
+	if (gameState.updateObjs.hover.overAnything)
 		return ;
 	if (gameState.updateObjs.turnOrder->stuffHappening)
 		return ;

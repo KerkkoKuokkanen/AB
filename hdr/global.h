@@ -51,6 +51,14 @@ typedef struct s_Audio
 	Mix_Chunk *TFootStep[3];
 }				t_Audio;
 
+typedef struct s_MouseOver
+{
+	bool overAnything;
+	bool overTurnOrder;
+	bool overMenu;
+	bool overCharacterUI;
+}				t_MouseOver;
+
 typedef struct s_Updates
 {
 	std::vector<Dust*> dusts;
@@ -60,7 +68,7 @@ typedef struct s_Updates
 	ParticleManager *partManager;
 	CharacterUI *UI;
 	float fadeIter;
-	bool overMenu;
+	t_MouseOver hover;
 }				t_Updates;
 
 typedef struct	s_GameState

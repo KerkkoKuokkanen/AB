@@ -28,7 +28,7 @@ void ManageMouseClick()
 		gameState.keys.click = RELEASE_CLICK;
 		return ;
 	}
-	if (clickState == 2 && gameState.keys.click == RELEASE_CLICK)
+	if (clickState == 2)
 	{
 		gameState.keys.click = NO_CLICK;
 		clickState = 0;
@@ -95,9 +95,32 @@ void GetMouseXY()
 	gameState.keys.mouseY = y;
 }
 
+void CheckOverMenu()
+{
+	static int middle = 0;
+	gameState.updateObjs.hover.overAnything = false;
+	gameState.updateObjs.hover.overCharacterUI = false;
+	gameState.updateObjs.hover.overMenu = false;
+	gameState.updateObjs.hover.overTurnOrder = false;
+	if (gameState.updateObjs.turnOrder != NULL && gameState.updateObjs.turnOrder->insideBox)
+		gameState.updateObjs.hover.overTurnOrder = true;
+	if (gameState.updateObjs.UI != NULL && gameState.updateObjs.UI->overCharacterUI)
+		gameState.updateObjs.hover.overCharacterUI = true;
+	if (gameState.updateObjs.hover.overTurnOrder ||
+		gameState.updateObjs.hover.overMenu ||
+		gameState.updateObjs.hover.overCharacterUI ||
+		middle != 0)
+		gameState.updateObjs.hover.overAnything = true;
+	if (gameState.keys.middleMouse != 0 && middle == 0)
+		middle = 1;
+	if (gameState.keys.middleMouse == 0)
+		middle = 0;
+}
+
 void Utility()
 {
 	eventPoller();
+	CheckOverMenu();
 	ManageMouseClick();
 	CameraMove();
 	KeyCheck();
@@ -107,9 +130,6 @@ void Utility()
 
 void ObjUpdate()
 {
-	gameState.updateObjs.overMenu = false;
-	if (gameState.updateObjs.turnOrder->insideBox)
-		gameState.updateObjs.overMenu = true;
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
 		gameState.updateObjs.dusts[i]->Update();
 	gameState.updateObjs.indicator->Update();

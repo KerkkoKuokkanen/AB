@@ -27,14 +27,59 @@ CharacterUI::CharacterUI()
 	active = true; // change later when something else than only battle
 }
 
+int CharacterUI::GetButtonIndex()
+{
+	int ret = 0;
+	for (int i = 0; i < BUTTON_RESERVE; i++)
+	{
+		if (!buttons[i].used)
+		{
+			ret = i;
+			break ;
+		}
+	}
+	return (ret);
+}
+
+void CharacterUI::CreateButton(SDL_Rect dest, SDL_Texture *text, int sign)
+{
+	int index = GetButtonIndex();
+	buttons[index].buttonSign = sign;
+	buttons[index].used = true;
+	buttons[index].button->SetTexture(text);
+	buttons[index].button->SetDest(dest);
+	buttons[index].button->SetClickBox(dest);
+}
+
 void CharacterUI::GetAbilities()
 {
 	if (activeCharacter == NULL)
 		return ;
+	Vector pos(-24500.0f, 36000.0f);
+	SDL_Rect dest = {21270, 35800, 3300, 3300};
+	int diff = 2900;
+	for (int i = 0; i < activeCharacter->abilities.size(); i++)
+	{
+		if (activeCharacter->abilities[i].y != 1)
+			continue ;
+		dest.x = 21270 - (diff * (7 - i));
+		if (i >= 7)
+		{
+			dest.x = 21270 - (diff * (14 - i));
+			dest.y = 31100;
+		}
+		switch (activeCharacter->abilities[i].x)
+		{
+			case DAGGER_THROW:
+				CreateButton(dest, gameState.textures.thiefAbilites[0], DAGGER_THROW);
+				break ;
+		}
+	}
 }
 
 void CharacterUI::DeactivateUI()
 {
+	overCharacterUI = false;
 	health->Deactivate();
 	armor->Deactivate();
 	for (int i = 0; i< BUTTON_RESERVE; i++)
@@ -64,6 +109,7 @@ void CharacterUI::getActive()
 		health->Activate();
 		armor->Activate();
 		activeCharacter = characters[index];
+		GetAbilities();
 		for (int i = 0; i < BUTTON_RESERVE; i++)
 		{
 			if (buttons[i].used)
@@ -89,6 +135,7 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 {
 	if (value == NO_CONTACT)
 		return ;
+	overCharacterUI = true;
 	switch (buttons[buttonIndex].buttonSign)
 	{
 		case 0:
@@ -100,6 +147,7 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 
 void CharacterUI::Update()
 {
+	overCharacterUI = false;
 	getActive();
 	if (!turnActive)
 		return ;
@@ -110,7 +158,11 @@ void CharacterUI::Update()
 	for (int i = 0; i < BUTTON_RESERVE; i++)
 	{
 		if (buttons[i].used)
-			HandleButtonAction(buttons[i].button->Update(), i);
+		{
+			buttons[i].button->ClearColor();
+			if (!overCharacterUI)
+				HandleButtonAction(buttons[i].button->Update(), i);
+		}
 	}
 }
 

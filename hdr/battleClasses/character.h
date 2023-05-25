@@ -44,7 +44,7 @@ class Character
 		bool ally = true;
 		bool killed = false;
 		t_Stats stats = {1, 100, 100, 50, 50};
-		std::vector<SDL_Point> abilities = {{DAGGER_THROW, 1}};
+		std::vector<SDL_Point> abilities = {{DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}};
 };
 
 #endif

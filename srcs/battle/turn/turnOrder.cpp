@@ -268,7 +268,7 @@ void TurnOrder::ResetClicks()
 
 void TurnOrder::CheckClickBox()
 {
-	if (gameState.keys.middleMouse == 1 || killActive)
+	if (gameState.keys.middleMouse == 1 || killActive || gameState.updateObjs.hover.overMenu)
 	{
 		insideBox = false;
 		return ;
