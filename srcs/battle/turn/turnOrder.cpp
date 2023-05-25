@@ -441,6 +441,24 @@ void TurnOrder::KillMoveUpdate()
 	}
 }
 
+void TurnOrder::SetStuffWithoudMove()
+{
+	if (turnChange || turnStartActive || killActive)
+	{
+		stuffWithOutMove = true;
+		return ;
+	}
+	for (int i = 0; i < indicators.size() - 1; i++)
+	{
+		if (indicators[i].character->killed)
+		{
+			stuffWithOutMove = true;
+			return ;
+		}
+	}
+	stuffWithOutMove = false;
+}
+
 void TurnOrder::SetStuffHappening()
 {
 	if (turnChange || turnStartActive || killActive || !NoOneMoving())
@@ -463,6 +481,7 @@ void TurnOrder::Update()
 {
 	bool active = false;
 	SetStuffHappening();
+	SetStuffWithoudMove();
 	gameState.updateObjs.indicator->Deactivate();
 	for (int i = 0; i < indicators.size(); i++)
 	{

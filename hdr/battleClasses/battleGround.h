@@ -84,6 +84,7 @@ class BattleGround {
 		void ChangeMapHeight(bool down);
 		void StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos);
 		void HighLightBlock(SDL_Point pos, Uint8 r, Uint8 g, Uint8 b);
+		void ResetBlockColor(SDL_Point pos);
 		void RemoveCharacter(Character *character);
 		void Update();
 };

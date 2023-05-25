@@ -244,6 +244,12 @@ void BattleGround::HighLightBlock(SDL_Point pos, Uint8 r, Uint8 g, Uint8 b)
 	sprites[index][sprites[index].size() - 1].ColorMod(r, g, b);
 }
 
+void BattleGround::ResetBlockColor(SDL_Point pos)
+{
+	int index = pos.y * map[0].size() + pos.x;
+	sprites[index][sprites[index].size() - 1].ClearColorMod();
+}
+
 void BattleGround::RemoveCharacter(Character *character)
 {
 	for (int i = 0; i < map.size(); i++)

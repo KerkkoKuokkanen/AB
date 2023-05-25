@@ -102,14 +102,19 @@ void CharacterUI::getActive()
 			break ;
 		}
 	}
-	if (gameState.updateObjs.turnOrder->stuffHappening)
+	if (gameState.updateObjs.turnOrder->stuffWithOutMove)
 		outCome = false;
 	if (outCome && !turnActive)
 	{
 		health->Activate();
 		armor->Activate();
-		activeCharacter = characters[index];
-		GetAbilities();
+		if (activeCharacter != characters[index])
+		{
+			activeCharacter = characters[index];
+			for (int i = 1; i < BUTTON_RESERVE; i++)
+				buttons[i].used = false;
+			GetAbilities();
+		}
 		for (int i = 0; i < BUTTON_RESERVE; i++)
 		{
 			if (buttons[i].used)
@@ -155,7 +160,7 @@ void CharacterUI::Update()
 	int a = activeCharacter->stats.armor, arm = activeCharacter->stats.maxArmor;
 	health->Update(h, heal, 99, 10, 9);
 	armor->Update(a, arm, 64, 64, 64);
-	for (int i = 0; i < BUTTON_RESERVE; i++)
+	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{
 		if (buttons[i].used)
 		{

@@ -44,9 +44,11 @@ class TurnOrder
 		void KillMoveUpdate();
 		bool NoOneMoving();
 		void SetStuffHappening();
+		void SetStuffWithoudMove();
 		int wait = 0;
 	public:
 		bool stuffHappening = true;
+		bool stuffWithOutMove = true;
 		bool insideBox = false;
 		TurnOrder(std::vector<Character> &characters);
 		void Update();
