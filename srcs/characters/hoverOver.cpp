@@ -112,6 +112,16 @@ void UpdateHoveredCharacter()
 	}
 }
 
+bool AnyOneClicked()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		if (gameState.battle.ground->characters[i].character->clicked)
+			return (true);
+	}
+	return (false);
+}
+
 void ManageTextureHovering()
 {
 	gameState.updateObjs.hover.overCharacter = false;
@@ -120,6 +130,8 @@ void ManageTextureHovering()
 		gameState.updateObjs.hover.overMenu ||
 		gameState.updateObjs.hover.overTurnOrder ||
 		gameState.keys.middleMouse != 0)
+		return ;
+	if (AnyOneClicked())
 		return ;
 	Character *chosen = HoveringOver();
 	gameState.updateObjs.chosen = chosen;

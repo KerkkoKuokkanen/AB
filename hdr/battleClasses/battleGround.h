@@ -4,6 +4,8 @@
 
 # include "../ab.h"
 
+# define ALPHA 35
+
 typedef struct s_SpriteConstructor
 {
 	SDL_Texture *texture;

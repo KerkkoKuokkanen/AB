@@ -52,6 +52,9 @@ void eventPoller()
 					case SDL_SCANCODE_SPACE:
 						gameState.keys.space = 1;
 						break ;
+					case SDL_SCANCODE_LSHIFT:
+						gameState.keys.shift = 1;
+						break ;
 					default:
 						break ;
 				}
@@ -73,6 +76,9 @@ void eventPoller()
 						break ;
 					case SDL_SCANCODE_SPACE:
 						gameState.keys.space = 0;
+						break ;
+					case SDL_SCANCODE_LSHIFT:
+						gameState.keys.shift = 0;
 						break ;
 					default:
 						break ;

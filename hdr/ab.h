@@ -125,6 +125,7 @@ typedef struct s_Keys
 	int smX;
 	int smY;
 	int space;
+	int shift;
 }				t_Keys;
 
 int				figure_the_delay(clock_t start, clock_t end);
