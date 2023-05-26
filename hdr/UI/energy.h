@@ -6,10 +6,9 @@
 
 class Energy
 {
-	private:
+	public:
 		Sprite *stand;
 		Sprite *energy;
-	public:
 		Energy();
 		void Position(Vector place);
 		void Used();

@@ -139,7 +139,7 @@ bool BattleGround::NoOtherCharacters()
 
 void BattleGround::PlaceMarker()
 {
-	if (gameState.updateObjs.hover.overAnything)
+	if (gameState.updateObjs.hover.overAnything || gameState.updateObjs.abilityManager->abilityActive)
 	{
 		ResetIndicators();
 		return ;

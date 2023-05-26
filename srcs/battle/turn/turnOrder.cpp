@@ -128,7 +128,7 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 	backGround->setTranslation(false);
 	gameState.render->AddSprite(backGround, TURN_ORDER_LAYER);
 	gameState.render->AddSprite(banner, TURN_ORDER_LAYER);
-	gameState.updateObjs.turnOrder = this;
+	gameState.updateObjs.turnOrder = this; //remember to implement a working singleton here
 	leftEdge = rounding((float)gameState.screen.width - ((float)gameState.screen.width / 10.0f * 7.5f));
 	rightEdge = leftEdge + rounding((float)gameState.screen.width / 10.0f * 4.44f);
 	clickBoxArea = {
@@ -274,7 +274,9 @@ void TurnOrder::CheckClickBox()
 		return ;
 	}
 	SDL_Point pos = {gameState.keys.staticMouseX, gameState.keys.staticMouseY};
-	insideBox = pointCheck(pos, clickBoxArea);
+	insideBox = MenuHoverCheck(gameState.surfaces.turnOrder[0], banner->dest, gameState.keys.staticMouseX, gameState.keys.staticMouseY);
+	if (!insideBox)
+		insideBox = MenuHoverCheck(gameState.surfaces.turnOrder[1], backGround->dest, gameState.keys.staticMouseX, gameState.keys.staticMouseY);
 	if (!insideBox || stuffHappening)
 		return ;
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
@@ -302,6 +304,7 @@ void TurnOrder::CheckClickBox()
 			if (gameState.keys.click == RELEASE_CLICK)
 			{
 				ResetClicks();
+				gameState.updateObjs.abilityManager->ClearAbilities();
 				indicators[i].character->clicked = true;
 			}
 			return ;

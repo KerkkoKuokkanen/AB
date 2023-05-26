@@ -109,6 +109,7 @@ void CheckOverMenu()
 	if (gameState.updateObjs.hover.overTurnOrder ||
 		gameState.updateObjs.hover.overMenu ||
 		gameState.updateObjs.hover.overCharacterUI ||
+		gameState.updateObjs.hover.overCharacter ||
 		middle != 0)
 		gameState.updateObjs.hover.overAnything = true;
 	if (gameState.keys.middleMouse != 0 && middle == 0)
@@ -120,12 +121,13 @@ void CheckOverMenu()
 void Utility()
 {
 	eventPoller();
-	CheckOverMenu();
 	ManageMouseClick();
 	CameraMove();
 	KeyCheck();
 	GetMouseXY();
 	ManageMouseWheel();
+	ManageTextureHovering();
+	CheckOverMenu();
 }
 
 void ObjUpdate()
@@ -134,11 +136,18 @@ void ObjUpdate()
 		gameState.updateObjs.dusts[i]->Update();
 	gameState.updateObjs.indicator->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
+	{
+		UpdateHoveredCharacter();
 		gameState.updateObjs.turnOrder->Update();
+	}
 	gameState.updateObjs.killer->Update();
 	gameState.updateObjs.partManager->Update();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
+	if (gameState.updateObjs.abilityManager != NULL)
+		gameState.updateObjs.abilityManager->Update();
+	if (gameState.updateObjs.groundColoring != NULL)
+		gameState.updateObjs.groundColoring->Update();
 	gameState.updateObjs.fadeIter += 0.06f;
 	if (gameState.updateObjs.fadeIter >= 44.0f)
 		gameState.updateObjs.fadeIter = 0.0f;

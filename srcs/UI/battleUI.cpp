@@ -147,6 +147,13 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			if (value == BUTTON_PRESS)
 				gameState.updateObjs.turnOrder->ActivateTurnChange();
 			break ;
+		case DAGGER_THROW:
+			if (value == BUTTON_PRESS)
+			{
+				gameState.updateObjs.abilityManager->ClearAbilities();
+				gameState.updateObjs.abilityManager->SetAbility(new DaggerThrow(activeCharacter), DAGGER_THROW);
+			}
+			break ;
 	}
 }
 
@@ -158,8 +165,9 @@ void CharacterUI::Update()
 		return ;
 	int h = activeCharacter->stats.health, heal = activeCharacter->stats.maxHealth;
 	int a = activeCharacter->stats.armor, arm = activeCharacter->stats.maxArmor;
-	health->Update(h, heal, 99, 10, 9);
-	armor->Update(a, arm, 64, 64, 64);
+	health->Update(heal, h, 99, 10, 9);
+	armor->Update(arm, a, 64, 64, 64);
+	CheckIfMouseOver();
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{
 		if (buttons[i].used)
@@ -204,3 +212,55 @@ void CharacterUI::Destroy()
 	delete armor;
 }
 
+void CharacterUI::CheckIfMouseOver()
+{
+	const SDL_Rect temp1 = {-25000, 44000, 50000, 3200};
+	const SDL_Rect temp2 = {-25000, 40500, 50000, 3200};
+	const SDL_FRect hold1 = staitcTranslateSprite(temp1);
+	const SDL_FRect hold2 = staitcTranslateSprite(temp2);
+	const SDL_Rect dest1 = {(int)hold1.x, (int)hold1.y, (int)hold1.w, (int)hold1.h};
+	const SDL_Rect dest2 = {(int)hold2.x, (int)hold2.y, (int)hold2.w, (int)hold2.h};
+	int x = gameState.keys.staticMouseX, y = gameState.keys.staticMouseY;
+	if (MenuHoverCheck(gameState.surfaces.bar[0], dest1, x, y))
+	{
+		overCharacterUI = true;
+		return ;
+	}
+	if (MenuHoverCheck(gameState.surfaces.bar[0], dest2, x, y))
+	{
+		overCharacterUI = true;
+		return ;
+	}
+	if (MenuHoverCheck(gameState.surfaces.bar[1], dest1, x, y))
+	{
+		overCharacterUI = true;
+		return ;
+	}
+	if (MenuHoverCheck(gameState.surfaces.bar[1], dest2, x, y))
+	{
+		overCharacterUI = true;
+		return ;
+	}
+	for (int i = 0; i < ENERGYS; i++)
+	{
+		const SDL_Rect tmp1 = energys[i]->stand->dest;
+		const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+		const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+		if (MenuHoverCheck(gameState.surfaces.energy[0], dst1, x, y))
+		{
+			overCharacterUI = true;
+			return ;
+		}
+		if (energys[i]->energy->getStatus())
+		{
+			const SDL_Rect tmp2 = energys[i]->energy->dest;
+			const SDL_FRect hld2 = staitcTranslateSprite(tmp2);
+			const SDL_Rect dst2 = {(int)hld2.x, (int)hld2.y, (int)hld2.w, (int)hld2.h};
+			if (MenuHoverCheck(gameState.surfaces.energy[1], dst2, x, y))
+			{
+				overCharacterUI = true;
+				return ;
+			}
+		}
+	}
+}

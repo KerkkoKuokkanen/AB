@@ -6,7 +6,9 @@ SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools
 		srcs/battle/moveCharacter.cpp srcs/characters/Character.cpp srcs/effects/dust.cpp \
 		srcs/battle/turn/turnOrder.cpp srcs/battle/turn/turnIndicator.cpp srcs/characters/Kill.cpp \
 		srcs/effects/particle.cpp srcs/effects/partManager.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp \
-		srcs/tools/utility.cpp srcs/UI/button.cpp srcs/UI/energy.cpp srcs/abilities/groundColoring.cpp
+		srcs/tools/utility.cpp srcs/UI/button.cpp srcs/UI/energy.cpp srcs/abilities/groundColoring.cpp \
+		srcs/abilities/daggerThrow.cpp srcs/abilities/abilityManager.cpp srcs/tools/mapTools.cpp \
+		srcs/characters/hoverOver.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

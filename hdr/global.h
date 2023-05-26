@@ -26,7 +26,9 @@ typedef struct s_Surfaces
 	SDL_Surface *thiefIdle2;
 	SDL_Surface *skeleIdle1;
 	SDL_Surface *skeleIdle2;
-	SDL_Surface *energy;
+	SDL_Surface *energy[2];
+	SDL_Surface *turnOrder[2];
+	SDL_Surface *bar[2];
 }				t_Surfaces;
 
 typedef struct s_Textures
@@ -57,6 +59,7 @@ typedef struct s_MouseOver
 	bool overTurnOrder;
 	bool overMenu;
 	bool overCharacterUI;
+	bool overCharacter;
 }				t_MouseOver;
 
 typedef struct s_Updates
@@ -67,8 +70,11 @@ typedef struct s_Updates
 	Kill *killer;
 	ParticleManager *partManager;
 	CharacterUI *UI;
+	GroundColoring *groundColoring;
+	AbilityManager *abilityManager;
 	float fadeIter;
 	t_MouseOver hover;
+	Character *chosen;
 }				t_Updates;
 
 typedef struct	s_GameState

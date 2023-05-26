@@ -24,6 +24,8 @@ void initKeys()
 	gameState.updateObjs.hover.overCharacterUI = false;
 	gameState.updateObjs.hover.overMenu = false;
 	gameState.updateObjs.hover.overTurnOrder = false;
+	gameState.updateObjs.hover.overCharacter = false;
+	gameState.updateObjs.chosen = NULL;
 }
 
 void initScreen(int width, int height)
@@ -67,20 +69,30 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.skeleIdle2 = use.text;
 	gameState.surfaces.skeleIdle2 = use.sur;
 	gameState.textures.dust = get_texture(rend, "sprites/effects/dust.png");
-	gameState.textures.turnOrder[0] = get_texture(rend, "sprites/env/turnOrder.png");
-	gameState.textures.turnOrder[1] = get_texture(rend, "sprites/env/turnOrderBackGround.png");
+	use = get_texture_and_surface(rend, "sprites/env/turnOrder.png");
+	gameState.textures.turnOrder[0] = use.text;
+	gameState.surfaces.turnOrder[0] = use.sur;
+	use = get_texture_and_surface(rend, "sprites/env/turnOrderBackGround.png");
+	gameState.textures.turnOrder[1] = use.text;
+	gameState.surfaces.turnOrder[1] = use.sur;
 	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/indicator.png");
 	gameState.textures.KillParticle[0] = get_texture(rend, "sprites/env/part.png");
 	gameState.textures.KillParticle[1] = get_texture(rend, "sprites/env/killPart1.png");
-	gameState.textures.bar[0] = get_texture_with_scale_mode(rend, "sprites/UI/bar.png", SDL_ScaleModeNearest);
-	gameState.textures.bar[1] = get_texture_with_scale_mode(rend, "sprites/UI/barBackGround.png", SDL_ScaleModeNearest);
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/UI/bar.png", SDL_ScaleModeNearest);
+	gameState.textures.bar[0] = use.text;
+	gameState.surfaces.bar[0] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/UI/barBackGround.png", SDL_ScaleModeNearest);
+	gameState.textures.bar[1] = use.text;
+	gameState.surfaces.bar[1] = use.sur;
 	gameState.textures.barFiller = get_texture(rend, "sprites/UI/everyColor.png");
 	gameState.textures.turnDone = get_texture(rend, "sprites/UI/button.png");
 	gameState.textures.thiefAbilites[0] = get_texture(rend, "sprites/UI/abilities/daggerThrow.png");
-	gameState.textures.energy[0] = get_texture(rend, "sprites/UI/energyStand.png");
+	use = get_texture_and_surface(rend, "sprites/UI/energyStand.png");
+	gameState.textures.energy[0] = use.text;
+	gameState.surfaces.energy[0] = use.sur;
 	use = get_texture_and_surface(rend, "sprites/UI/energy.png");
 	gameState.textures.energy[1] = use.text;
-	gameState.surfaces.energy = use.sur;
+	gameState.surfaces.energy[1] = use.sur;
 }
 
 void	init(t_wr *wr)
@@ -117,6 +129,10 @@ void	init(t_wr *wr)
 	gameState.updateObjs.partManager = &parts;
 	static CharacterUI bars;
 	gameState.updateObjs.UI = &bars;
+	static GroundColoring groundColoring;
+	gameState.updateObjs.groundColoring = &groundColoring;
+	static AbilityManager abilityManager;
+	gameState.updateObjs.abilityManager = &abilityManager;
 	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

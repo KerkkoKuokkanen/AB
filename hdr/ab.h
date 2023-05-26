@@ -53,6 +53,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/button.h"
 # include "UI/energy.h"
 # include "battleClasses/groundColoring.h"
+# include "abilities/daggerThrow.h"
+# include "abilities/abilityManager.h"
 # include "UI/battleUI.h"
 
 enum {
@@ -130,6 +132,7 @@ void			init(t_wr *wr);
 SDL_Texture		*get_texture(SDL_Renderer *rend, const char *filePath);
 t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath);
 SDL_Texture		*get_texture_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode);
+t_TextAndSur	get_texture_and_surface_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode);
 void			eventPoller();
 void			init(t_wr *wr);
 int				rounding(float value);
@@ -145,5 +148,10 @@ void			CreateDust(SDL_Point position, Vector direction);
 void			PlaySound(Mix_Chunk *clip, int channel, int loops);
 void			Utility();
 void			ObjUpdate();
+void			findMovables(int **map, int moves, SDL_Point start);
+Character		*HoveringOver();
+void			ManageTextureHovering();
+bool			MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse);
+void			UpdateHoveredCharacter();
 
 #endif

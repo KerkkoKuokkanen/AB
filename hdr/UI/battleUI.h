@@ -30,6 +30,7 @@ class CharacterUI
 		void CreateButton(SDL_Rect place, SDL_Texture *text, int sign);
 		void HandleButtonAction(int value, int buttonIndex);
 		void DeactivateUI();
+		void CheckIfMouseOver();
 	public:
 		bool overCharacterUI = false;
 		bool active = false;
