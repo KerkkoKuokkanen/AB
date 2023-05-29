@@ -72,6 +72,7 @@ typedef struct s_Updates
 	CharacterUI *UI;
 	GroundColoring *groundColoring;
 	AbilityManager *abilityManager;
+	DamageCreator *createDamage;
 	float fadeIter;
 	t_MouseOver hover;
 	Character *chosen;

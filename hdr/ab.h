@@ -53,6 +53,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/button.h"
 # include "UI/energy.h"
 # include "battleClasses/groundColoring.h"
+# include "abilities/damageCreator.h"
 # include "abilities/daggerThrow.h"
 # include "abilities/abilityManager.h"
 # include "UI/battleUI.h"

@@ -13,7 +13,9 @@ class DaggerThrow
 		int range = 13;
 		void GetInactivePositions();
 		void MarkPosition(SDL_Point pos, int sign);
+		void OverEnemy(Character *enemy);
 	public:
+		bool thrown = false;
 		int cost = 3;
 		DaggerThrow(Character *character);
 		void Update();

@@ -134,6 +134,8 @@ void	init(t_wr *wr)
 	gameState.updateObjs.groundColoring = &groundColoring;
 	static AbilityManager abilityManager;
 	gameState.updateObjs.abilityManager = &abilityManager;
+	static DamageCreator createDamage;
+	gameState.updateObjs.createDamage = &createDamage;
 	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

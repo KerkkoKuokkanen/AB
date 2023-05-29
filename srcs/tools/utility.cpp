@@ -140,14 +140,16 @@ void ObjUpdate()
 		UpdateHoveredCharacter();
 		gameState.updateObjs.turnOrder->Update();
 	}
-	gameState.updateObjs.killer->Update();
-	gameState.updateObjs.partManager->Update();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
 	if (gameState.updateObjs.abilityManager != NULL)
 		gameState.updateObjs.abilityManager->Update();
 	if (gameState.updateObjs.groundColoring != NULL)
 		gameState.updateObjs.groundColoring->Update();
+	if (gameState.updateObjs.createDamage != NULL)
+		gameState.updateObjs.createDamage->Update();
+	gameState.updateObjs.killer->Update();
+	gameState.updateObjs.partManager->Update();
 	gameState.updateObjs.fadeIter += 0.06f;
 	if (gameState.updateObjs.fadeIter >= 44.0f)
 		gameState.updateObjs.fadeIter = 0.0f;

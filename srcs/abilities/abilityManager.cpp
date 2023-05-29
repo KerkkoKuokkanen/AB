@@ -23,6 +23,8 @@ void AbilityManager::Update()
 	{
 		abilityActive = true;
 		daggerThrow->Update();
+		if (daggerThrow->thrown)
+			ClearAbilities();
 	}
 }
 

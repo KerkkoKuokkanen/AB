@@ -151,6 +151,7 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			if (value == BUTTON_PRESS)
 			{
 				gameState.updateObjs.abilityManager->ClearAbilities();
+				gameState.updateObjs.turnOrder->ResetClicks();
 				gameState.updateObjs.abilityManager->SetAbility(new DaggerThrow(activeCharacter), DAGGER_THROW);
 			}
 			break ;

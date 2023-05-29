@@ -36,7 +36,6 @@ class TurnOrder
 		bool RightEdgeManage(t_Indicator &indicator);
 		bool LeftEdgeManage(t_Indicator &indicator);
 		void SideManage(t_Indicator &indicator);
-		void ResetClicks();
 		int target = TARGET_SIGN;
 		SDL_Rect clickBoxArea = {0, 0, 0, 0};
 		void MouseScroll();
@@ -51,6 +50,7 @@ class TurnOrder
 		bool stuffWithOutMove = true;
 		bool insideBox = false;
 		TurnOrder(std::vector<Character> &characters);
+		void ResetClicks();
 		void Update();
 		void Destroy();
 		void ActivateTurnChange();

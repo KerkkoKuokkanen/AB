@@ -21,6 +21,14 @@ SDL_Point getPositionOfCharacter(Character *character)
 	return (position);
 }
 
+void DaggerThrow::OverEnemy(Character *enemy)
+{
+	if (gameState.keys.click != RELEASE_CLICK)
+		return ;
+	gameState.updateObjs.createDamage->CreateDamage(enemy, 5, 5, Vector(1.0f, 0.0f));
+	thrown = true;
+}
+
 void DaggerThrow::Update()
 {
 	Color purp = {255, 69, 56}, colorH(245, 147, 66), colorL(204, 126, 61);
@@ -35,7 +43,10 @@ void DaggerThrow::Update()
 			if (gameState.battle.ground->map[i][j].character != NULL
 				&& (gameState.battle.ground->map[i][j].marked || gameState.battle.ground->map[i][j].character->hover)
 				&& gameState.battle.ground->map[i][j].character->ally == false)
+			{
 				gameState.updateObjs.groundColoring->SetColoredPosition(pos, purp, purp);
+				OverEnemy(gameState.battle.ground->map[i][j].character);
+			}
 			else
 				gameState.updateObjs.groundColoring->SetColoredPosition(pos, colorH, colorL);
 		}
