@@ -14,7 +14,7 @@ void AbilityManager::SetAbility(void *ability, int type)
 void AbilityManager::Update()
 {
 	abilityActive = false;
-	if (gameState.updateObjs.turnOrder->stuffHappening || gameState.keys.rightClick != 0)
+	if (gameState.updateObjs.turnOrder->stuffWithOutMove || !gameState.updateObjs.turnOrder->NoOneMoving() || gameState.keys.rightClick != 0)
 	{
 		ClearAbilities();
 		return ;

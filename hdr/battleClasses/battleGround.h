@@ -67,7 +67,6 @@ class BattleGround {
 		int findLine();
 		void setMoved(std::vector<SDL_Point> &path);
 		void MoveCharacter();
-		Vector GetCharacterCoord(SDL_Point pos, Character *character);
 		void FigureOrderingLayer(SDL_Point curr, SDL_Point next);
 		Vector ParabolaPosition(Vector pos, Vector highPoint, float unit, float ogX);
 		Vector GetPlaceWithIterator(Vector ogPos, Vector newPos, float unit, Vector highPoint, SDL_Point curr, SDL_Point next);
@@ -89,6 +88,7 @@ class BattleGround {
 		void ResetBlockColor(SDL_Point pos);
 		void RemoveCharacter(Character *character);
 		Sprite *GetSprite(SDL_Point pos);
+		Vector GetCharacterCoord(SDL_Point pos, Character *character);
 		void Update();
 };
 

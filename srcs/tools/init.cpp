@@ -49,9 +49,13 @@ void initScreen(int width, int height)
 void getAudio()
 {
 	Mix_Volume(THIEF_STEP_CHANNEL, 16);
+	Mix_Volume(DAGGER_THROW0, 20);
+	Mix_Volume(DAGGER_THROW1, 30);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
+	gameState.audio.daggerThrow[0] = Mix_LoadWAV("audio/abilities/dagger1.wav");
+	gameState.audio.daggerThrow[1] = Mix_LoadWAV("audio/abilities/dagger2.wav");
 }
 
 void getTextures(SDL_Renderer *rend)

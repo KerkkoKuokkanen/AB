@@ -24,6 +24,37 @@ void ParticleManager::ManageAlphaChange(Particle *part)
 	part->sprite->AlphaMod(alpha);
 }
 
+void ParticleManager::ManageModColor(t_Particle *part)
+{
+	float r = (float)part->sr - (float)part->r;
+	float g = (float)part->sg - (float)part->g;
+	float b = (float)part->sb - (float)part->b;
+	float rUnit = r / (float)part->total;
+	float gUnit = g / (float)part->total;
+	float bUnit = b / (float)part->total;
+	Uint8 red = (int)part->r + (int)(r * rUnit);
+	Uint8 green = (int)part->g + (int)(g * gUnit);
+	Uint8 blue = (int)part->b + (int)(b * bUnit);
+	part->part->sprite->ColorMod(red, green, blue);
+}
+
+void ParticleManager::ManageModAlpha(t_Particle *part)
+{
+	if (part->lifeTime > part->total / 3)
+		return ;
+	float max = (float)part->total / 3.0f;
+	float unit = 255.0f / max;
+	int alpha = (Uint8)(unit * (max - (float)part->lifeTime));
+	Uint8 use = (alpha > 255) ? 255 : (Uint8)alpha;
+	part->part->sprite->AlphaMod(use);
+}
+
+void ParticleManager::ManageYAdd(t_Particle *part)
+{
+	part->dir.y += part->yAdd;
+	part->part->setDirection(Vector(part->dir.x, part->dir.y));
+}
+
 void ParticleManager::Update()
 {
 	for (int i = 0; i < particles.size(); i++)
@@ -41,6 +72,45 @@ void ParticleManager::Update()
 			particles.erase(particles.begin() + i);
 		}
 	}
+	for (int i = 0; i < modParts.size(); i++)
+	{
+		if (modParts[i].part->active == true)
+		{
+			ManageModColor(&modParts[i]);
+			ManageModAlpha(&modParts[i]);
+			ManageYAdd(&modParts[i]);
+			modParts[i].part->Update();
+			modParts[i].lifeTime -= 1;
+		}
+		else
+		{
+			delete modParts[i].part->sprite;
+			delete modParts[i].part;
+			modParts.erase(modParts.begin() + i);
+		}
+	}
+}
+
+void ParticleManager::CreateModParticle(Vector dir, Vector place, float speed, Color start, Color end,
+															int life, float drag, float yAdd)
+{
+	t_Particle particle;
+	particle.part = new Particle;
+	particle.part->init();
+	particle.part->Activate();
+	particle.part->setPosition(place);
+	particle.part->setDirection(dir);
+	particle.part->setLifeTime(life);
+	particle.part->setSpeed(speed);
+	particle.part->SetDrag(drag);
+	particle.part->sprite->ColorMod(start.r, start.g, start.b);
+	particle.part->sprite->ClearAlphaMod();
+	particle.r = end.r; particle.g = end.g; particle.b = end.b;
+	particle.sr = start.r; particle.sg = start.g; particle.sb = start.b;
+	particle.lifeTime = life; particle.total = life;
+	particle.yAdd = yAdd;
+	particle.dir.x = dir.x; particle.dir.y = dir.y;
+	modParts.push_back(particle);
 }
 
 void ParticleManager::CreateParticle(Vector dir, Vector place, float speed)

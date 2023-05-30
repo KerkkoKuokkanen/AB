@@ -136,6 +136,16 @@ void CharacterUI::getActive()
 	}
 }
 
+bool CharacterUI::NoOneKilled()
+{
+	for (int i = 0; i < characters.size(); i++)
+	{
+		if (characters[i]->killed)
+			return (false);
+	}
+	return (true);
+}
+
 void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 {
 	if (value == NO_CONTACT)

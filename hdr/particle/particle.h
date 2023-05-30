@@ -15,6 +15,7 @@ class Particle
 		SDL_FPoint pos = {0.0f, 0.0f};
 		float speed = 0.0f;
 		int gravity = 0;
+		float drag = 1.015f;
 	public:
 		bool active = false;
 		int ogLife = 0;
@@ -29,6 +30,7 @@ class Particle
 		void setScale(float scale);
 		void setTexture(SDL_Texture *text);
 		void Activate();
+		void SetDrag(float drag);
 		void Deactivate();
 		void Update();
 };

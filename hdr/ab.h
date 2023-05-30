@@ -35,6 +35,7 @@ enum {
 
 # include "../SDL2/SDL.h"
 # include "tools/vector.h"
+# include "tools/color.h"
 # include <iostream>
 
 SDL_FRect	translateSprite(SDL_Rect dest);
@@ -155,5 +156,7 @@ Character		*HoveringOver();
 void			ManageTextureHovering();
 bool			MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse);
 void			UpdateHoveredCharacter();
+SDL_Surface		*getSurface(Character *character);
+Vector			getDirection(Vector generalDir);
 
 #endif

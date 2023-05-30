@@ -41,7 +41,6 @@ class TurnOrder
 		void MouseScroll();
 		int findTheFirstActive();
 		void KillMoveUpdate();
-		bool NoOneMoving();
 		void SetStuffHappening();
 		void SetStuffWithoudMove();
 		int wait = 0;
@@ -51,6 +50,7 @@ class TurnOrder
 		bool insideBox = false;
 		TurnOrder(std::vector<Character> &characters);
 		void ResetClicks();
+		bool NoOneMoving();
 		void Update();
 		void Destroy();
 		void ActivateTurnChange();

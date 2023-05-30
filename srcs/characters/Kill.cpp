@@ -21,45 +21,6 @@ void Kill::KillColorFade(t_kill *killed)
 	killed->character->sprite->ColorMod(value, value, value);
 }
 
-SDL_Surface *Kill::getSurface(Character *character)
-{
-	int text = character->currentTexture;
-	switch (character->cSing)
-	{
-		case 0:
-			if (text == 0)
-				return (gameState.surfaces.thiefIdle1);
-			else
-				return (gameState.surfaces.thiefIdle2);
-		case 1:
-			if (text == 0)
-				return (gameState.surfaces.skeleIdle1);
-			else
-				return (gameState.surfaces.skeleIdle2);
-	}
-	return (NULL);
-}
-
-Vector Kill::getDirection(Vector generalDir)
-{
-	int randAssigner = rand() % 12;
-	float angle = 0.0f;
-	if (randAssigner < 4)
-		angle = float_rand() * (PI / 8.0f);
-	else if (randAssigner < 6)
-		angle = float_rand() * (PI / 6.0f);
-	else if (randAssigner < 8)
-		angle = float_rand() * (PI / 4.0f);
-	else if (randAssigner < 10)
-		angle = float_rand() * PI;
-	else
-		angle = float_rand() * PI * 2.0f;
-	angle = (rand() % 2 == 0) ? angle : angle * (-1.0f);
-	float x = generalDir.x * cos(angle) - generalDir.y * sin(angle);
-	float y = generalDir.x * sin(angle) + generalDir.y * cos(angle);
-	return (Vector(x, y));
-}
-
 float Kill::getSpeed(Vector dir, Vector genDir)
 {
 	float angle = vectorAngle(dir, genDir);

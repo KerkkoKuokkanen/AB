@@ -34,6 +34,7 @@ class CharacterUI
 	public:
 		bool overCharacterUI = false;
 		bool active = false;
+		bool NoOneKilled();
 		CharacterUI();
 		void SetCharacters(std::vector<Character> &characters);
 		void Update();

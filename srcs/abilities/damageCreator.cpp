@@ -10,13 +10,18 @@
 
 #define DAMAGE_DONE 30
 
-//255, 80, 60
+#define PARTICLE_DISTANCE 1200
 
-void DamageCreator::CreateDamage(Character *character, int armorDamage, int healthDamage, Vector partDir)
+void DamageCreator::CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> sounds)
 {
 	if (character == NULL)
 		return ;
-	t_Damage add = {character, armorDamage, healthDamage, partDir, 0, character->sprite->dest};
+	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	Vector place = gameState.battle.ground->GetCharacterCoord(pos, character);
+	SDL_Rect dest = {rounding(place.x), rounding(place.y), character->sprite->dest.w, character->sprite->dest.h};
+	t_Damage add = {character, armorDamage, healthDamage, partDir, 0, dest, startColor.r, startColor.g, startColor.b};
+	for (int i = 0; i < sounds.size(); i++)
+		PlaySound(sounds[i].sound, sounds[i].channel, sounds[i].loops);
 	character->stats.health -= healthDamage;
 	character->stats.armor -= armorDamage;
 	damages.push_back(add);
@@ -59,11 +64,77 @@ void DamageCreator::MoveManage(Character *character, int time, Vector direction,
 	}
 	if (time <= (MOVE_OUT + MOVE_IN))
 	{
-		float amount = 250.0f / (MOVE_OUT + 1.0f - (time - MOVE_OUT));
+		float divider = (MOVE_OUT + 1.0f - (time - MOVE_OUT));
+		if (divider == 0)
+			divider = 1.0f;
+		float amount = 250.0f / divider;
 		character->sprite->Move(Vector(-dir.x * amount, -dir.y * amount));
 		return ;
 	}
 	character->sprite->Position(Vector(dest.x, dest.y));
+}
+
+float DamageCreator::GetSpeed(Vector dir, Vector genDir)
+{
+	float angle = vectorAngle(dir, genDir);
+	float speedUnit = (float)gameState.screen.width / 400.0f;
+	float speed = (rand() % ((int)speedUnit * 60)) + speedUnit * 10.0f;
+	if (angle > 0.78)
+		return (speed);
+	float unit = (speedUnit * 60.0f) / 0.78f;
+	speed += (speedUnit * 60.0f) - (unit * angle);
+	return (speed);
+}
+
+int DamageCreator::GetLifeTime()
+{
+	int life = 40;
+	life += rand() % 30;
+	return (life);
+}
+
+float DamageCreator::GetDrag()
+{
+	float drag = 1.015f;
+	float add = float_rand() / 18.0f;
+	return (drag + add);
+}
+
+float DamageCreator::GetYAdd()
+{
+	return (float_rand() / 100.0f);
+}
+
+void DamageCreator::CreateParticles(Character *character, Vector partDir, Color start)
+{
+	SDL_Surface *sur = getSurface(character);
+	if (sur == NULL)
+		return ;
+	float wUnit = (float)character->sprite->dest.w / (float)sur->w;
+	float hUnit = (float)character->sprite->dest.h / (float)sur->h;
+	int counterGoal = PARTICLE_DISTANCE;
+	int counter = counterGoal;
+	Uint32 *pixels = (Uint32*)sur->pixels;
+	SDL_Rect dest = character->sprite->dest;
+	Color end(0, 0, 0);
+	for (int y = 0; y < sur->h; y++)
+	{
+		for (int x = 0; x < sur->w; x++)
+		{
+			if (pixels[(y * sur->w) + x] == 0)
+				continue ;
+			counter++;
+			if (counter >= counterGoal)
+			{
+				float xP = (float)dest.x + (wUnit * (float)x);
+				float yP = (float)dest.y + (hUnit * (float)y);
+				Vector dir = getDirection(partDir);
+				gameState.updateObjs.partManager->CreateModParticle(dir, Vector(xP, yP), GetSpeed(dir, partDir),
+													start, end, GetLifeTime(), GetDrag(), GetYAdd());
+				counter = 0;
+			}
+		}
+	}
 }
 
 void DamageCreator::Update()
@@ -72,6 +143,8 @@ void DamageCreator::Update()
 	{
 		ColorManage(damages[i].character, damages[i].time);
 		MoveManage(damages[i].character, damages[i].time, damages[i].partDir, damages[i].ogPos);
+		if (damages[i].time == 0)
+			CreateParticles(damages[i].character, damages[i].partDir, Color(damages[i].r, damages[i].g, damages[i].b));
 		if (damages[i].time >= DAMAGE_DONE)
 		{
 			damages.erase(damages.begin() + i);

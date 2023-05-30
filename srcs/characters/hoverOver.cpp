@@ -1,25 +1,6 @@
 
 #include "../../hdr/global.h"
 
-SDL_Surface *getSurface(Character *character)
-{
-	int text = character->currentTexture;
-	switch (character->cSing)
-	{
-		case 0:
-			if (text == 0)
-				return (gameState.surfaces.thiefIdle1);
-			else
-				return (gameState.surfaces.thiefIdle2);
-		case 1:
-			if (text == 0)
-				return (gameState.surfaces.skeleIdle1);
-			else
-				return (gameState.surfaces.skeleIdle2);
-	}
-	return (NULL);
-}
-
 bool MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse)
 {
 	if (sur == NULL)
@@ -126,6 +107,8 @@ void ManageTextureHovering()
 {
 	gameState.updateObjs.hover.overCharacter = false;
 	gameState.updateObjs.chosen = NULL;
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+		gameState.battle.ground->characters[i].character->hover = false;
 	if (gameState.updateObjs.hover.overCharacterUI ||
 		gameState.updateObjs.hover.overMenu ||
 		gameState.updateObjs.hover.overTurnOrder ||
@@ -134,11 +117,11 @@ void ManageTextureHovering()
 	if (AnyOneClicked())
 		return ;
 	Character *chosen = HoveringOver();
-	gameState.updateObjs.chosen = chosen;
 	if (chosen == NULL)
 		return ;
 	if (chosen->killed)
 		return ;
+	gameState.updateObjs.chosen = chosen;
 	gameState.updateObjs.hover.overCharacter = true;
 	chosen->hover = true;
 }

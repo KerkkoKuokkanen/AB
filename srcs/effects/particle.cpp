@@ -59,6 +59,11 @@ void Particle::Activate()
 	active = true;
 }
 
+void Particle::SetDrag(float drag)
+{
+	Particle::drag = drag;
+}
+
 void Particle::Deactivate()
 {
 	sprite->Deactivate();
@@ -73,6 +78,6 @@ void Particle::Update()
 		return ;
 	}
 	sprite->Move(Vector(dir.x * speed, dir.y * speed));
-	speed /= 1.015f;
+	speed /= drag;
 	life--;
 }

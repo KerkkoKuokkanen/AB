@@ -25,7 +25,10 @@ void DaggerThrow::OverEnemy(Character *enemy)
 {
 	if (gameState.keys.click != RELEASE_CLICK)
 		return ;
-	gameState.updateObjs.createDamage->CreateDamage(enemy, 5, 5, Vector(1.0f, 0.0f));
+	t_Sound add2 = {gameState.audio.daggerThrow[0], DAGGER_THROW0, 0};
+	t_Sound add3 = {gameState.audio.daggerThrow[1], DAGGER_THROW1, 0};
+	std::vector<t_Sound> sounds = {add2, add3};
+	gameState.updateObjs.createDamage->CreateDamage(enemy, Color(255, 0, 0), 5, 5, Vector(1.0f, 0.0f), sounds);
 	thrown = true;
 }
 

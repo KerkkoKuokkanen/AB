@@ -10,6 +10,8 @@
 # define PI 3.14159
 
 # define THIEF_STEP_CHANNEL 2
+# define DAGGER_THROW0 3
+# define DAGGER_THROW1 4
 
 typedef struct s_Battle
 {
@@ -51,6 +53,7 @@ typedef struct s_Textures
 typedef struct s_Audio
 {
 	Mix_Chunk *TFootStep[3];
+	Mix_Chunk *daggerThrow[2];
 }				t_Audio;
 
 typedef struct s_MouseOver
