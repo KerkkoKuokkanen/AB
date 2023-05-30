@@ -20,6 +20,7 @@ typedef struct s_Damage
 	int time;
 	SDL_Rect ogPos;
 	Uint8 r, g, b;
+	bool partDone;
 }				t_Damage;
 
 class DamageCreator

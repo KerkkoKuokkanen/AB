@@ -19,7 +19,7 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
 	Vector place = gameState.battle.ground->GetCharacterCoord(pos, character);
 	SDL_Rect dest = {rounding(place.x), rounding(place.y), character->sprite->dest.w, character->sprite->dest.h};
-	t_Damage add = {character, armorDamage, healthDamage, partDir, 0, dest, startColor.r, startColor.g, startColor.b};
+	t_Damage add = {character, armorDamage, healthDamage, partDir, 0, dest, startColor.r, startColor.g, startColor.b, false};
 	for (int i = 0; i < sounds.size(); i++)
 		PlaySound(sounds[i].sound, sounds[i].channel, sounds[i].loops);
 	character->stats.health -= healthDamage;
@@ -139,12 +139,17 @@ void DamageCreator::CreateParticles(Character *character, Vector partDir, Color 
 
 void DamageCreator::Update()
 {
+	bool visited = false;
 	for (int i = 0; i < damages.size(); i++)
 	{
 		ColorManage(damages[i].character, damages[i].time);
 		MoveManage(damages[i].character, damages[i].time, damages[i].partDir, damages[i].ogPos);
-		if (damages[i].time == 0)
+		if (!damages[i].partDone && !visited)
+		{
+			visited = true;
+			damages[i].partDone = true;
 			CreateParticles(damages[i].character, damages[i].partDir, Color(damages[i].r, damages[i].g, damages[i].b));
+		}
 		if (damages[i].time >= DAMAGE_DONE)
 		{
 			damages.erase(damages.begin() + i);
