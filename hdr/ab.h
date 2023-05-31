@@ -150,6 +150,7 @@ bool			modPointCheck(SDL_Point &point, SDL_Rect &hitBox);
 bool			CheckInsideShape(SDL_Point up, SDL_Point left, SDL_Point down, SDL_Point right, SDL_Point target);
 bool			boxCheck(SDL_Rect box1, SDL_Rect box2);
 float			vectorAngle(Vector v1, Vector v2);
+void 			vectorRotate(Vector &vec, float angle);
 int				degree(float angle);
 float			float_rand();
 void			CreateDust(SDL_Point position, Vector direction);

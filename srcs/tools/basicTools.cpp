@@ -47,6 +47,14 @@ float	vectorAngle(Vector v1, Vector v2)
 	return (acos(a / (b * c)));
 }
 
+void vectorRotate(Vector &vec, float angle)
+{
+	float x = vec.x * cos(angle) - vec.y * sin(angle);
+	float y = vec.x * sin(angle) + vec.y * cos(angle);
+	vec.x = x;
+	vec.y = y;
+}
+
 int	degree(float angle)
 {
 	return ((angle * 180.0f) / PI);

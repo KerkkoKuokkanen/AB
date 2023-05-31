@@ -21,6 +21,7 @@ class Dagger
 		Vector GetDirection();
 		bool targetFound = false;
 		float speed = 1500.0f;
+		void CreateParticles();
 	public:
 		Sprite *sprite;
 		bool remove = false;
