@@ -28,7 +28,7 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 	switch (character->cSing)
 	{
 		case 0:
-			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f - 450;
+			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f - 500;
 			break ;
 		case 1:
 			place.x -= 500.0f;

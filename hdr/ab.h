@@ -26,7 +26,8 @@
 # define BATTLEGROUND_LAYER 0
 # define DUST_LAYER 1
 # define PARTICLE_LAYER 2
-# define TURN_ORDER_LAYER 3
+# define OBJECT_LAYER 3
+# define TURN_ORDER_LAYER 4
 
 enum {
 	TURN_DONE,
@@ -54,6 +55,10 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/button.h"
 # include "UI/energy.h"
 # include "battleClasses/groundColoring.h"
+# include "animation/animationManager.h"
+# include "animation/daggerThrowAnim.h"
+# include "abilities/objects/dagger.h"
+# include "abilities/objectManager.h"
 # include "abilities/damageCreator.h"
 # include "abilities/daggerThrow.h"
 # include "abilities/abilityManager.h"

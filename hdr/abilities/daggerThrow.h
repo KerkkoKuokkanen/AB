@@ -14,6 +14,7 @@ class DaggerThrow
 		void GetInactivePositions();
 		void MarkPosition(SDL_Point pos, int sign);
 		void OverEnemy(Character *enemy);
+		Vector GetDirection(Character *enemy);
 	public:
 		bool thrown = false;
 		int cost = 3;

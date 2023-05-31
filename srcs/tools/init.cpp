@@ -98,6 +98,8 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/UI/energy.png");
 	gameState.textures.energy[1] = use.text;
 	gameState.surfaces.energy[1] = use.sur;
+	gameState.textures.weaponObjs[DAGGER_OBJ] = get_texture(rend, "sprites/weapon/dagger.png");
+	gameState.textures.thiefDaggerThrow = get_texture(rend, "sprites/characters/hood_throw.png");
 }
 
 void	init(t_wr *wr)
@@ -113,6 +115,7 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
 	render.CreateLayer(LAYER_YSORT); //battleground layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
+	render.CreateLayer(LAYER_NO_SORT); //object layer
 	render.CreateLayer(LAYER_YSORT); //turnorder layer
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;
@@ -140,6 +143,10 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilityManager = &abilityManager;
 	static DamageCreator createDamage;
 	gameState.updateObjs.createDamage = &createDamage;
+	static ObjectManager objectManager;
+	gameState.updateObjs.objectManager = &objectManager;
+	static AnimationManager animationManager;
+	gameState.updateObjs.animationManager = &animationManager;
 	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

@@ -37,6 +37,7 @@ typedef struct s_Textures
 {
 	SDL_Texture *thiefIdle1;
 	SDL_Texture *thiefIdle2;
+	SDL_Texture *thiefDaggerThrow;
 	SDL_Texture *skeleIdle1;
 	SDL_Texture *skeleIdle2;
 	SDL_Texture *dust;
@@ -48,6 +49,7 @@ typedef struct s_Textures
 	SDL_Texture *thiefAbilites[1];
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
+	SDL_Texture *weaponObjs[1];
 }				t_Textures;
 
 typedef struct s_Audio
@@ -75,6 +77,8 @@ typedef struct s_Updates
 	CharacterUI *UI;
 	GroundColoring *groundColoring;
 	AbilityManager *abilityManager;
+	ObjectManager *objectManager;
+	AnimationManager *animationManager;
 	DamageCreator *createDamage;
 	float fadeIter;
 	t_MouseOver hover;

@@ -1,0 +1,32 @@
+
+#ifndef DAGGER_H
+# define DAGGER_H
+
+# include "../../ab.h"
+
+class Dagger
+{
+	private:
+		Character *character;
+		Character *enemy;
+		SDL_FPoint direction;
+		SDL_FPoint target;
+		int lifeTime = 120;
+		bool left = false;
+		bool down = false;
+		bool missing = false;
+		SDL_FPoint GetTarget(int hitChance, Character *enemy);
+		void CreateDamage();
+		bool TargetMet();
+		Vector GetDirection();
+		bool targetFound = false;
+		float speed = 1500.0f;
+	public:
+		Sprite *sprite;
+		bool remove = false;
+		Dagger(Character *start, Character *end, int hitChance);
+		void Update();
+		void Destroy();
+};
+
+#endif

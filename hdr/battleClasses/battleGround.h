@@ -45,7 +45,6 @@ class BattleGround {
 		Uint8 alpha = 35;
 		void ChangeUp();
 		void ChangeDown();
-		void PlaceCharacter(SDL_Point &position, Character *character);
 		void SetMovables(Character *character);
 		void ClearMovables();
 		void IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign);
@@ -89,6 +88,7 @@ class BattleGround {
 		void RemoveCharacter(Character *character);
 		Sprite *GetSprite(SDL_Point pos);
 		Vector GetCharacterCoord(SDL_Point pos, Character *character);
+		void PlaceCharacter(SDL_Point &position, Character *character);
 		void Update();
 };
 

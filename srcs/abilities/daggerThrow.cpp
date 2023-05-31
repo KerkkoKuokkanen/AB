@@ -21,14 +21,23 @@ SDL_Point getPositionOfCharacter(Character *character)
 	return (position);
 }
 
+Vector DaggerThrow::GetDirection(Character *enemy)
+{
+	SDL_Rect cDest = character->sprite->dest;
+	SDL_Rect eDest = enemy->sprite->dest;
+	Vector toEnemy(cDest.x - eDest.x, cDest.y - eDest.y);
+	float angle = vectorAngle(Vector(0.0f, 1.0f), toEnemy);
+	float sign = (cDest.x <= eDest.x) ? 1.0f : -1.0f;
+	if (angle < PI / 2)
+		return(Vector(0.5 * sign, -0.5f));
+	return (Vector(0.5f * sign, 0.5f));
+}
+
 void DaggerThrow::OverEnemy(Character *enemy)
 {
 	if (gameState.keys.click != RELEASE_CLICK)
 		return ;
-	t_Sound add2 = {gameState.audio.daggerThrow[0], DAGGER_THROW0, 0};
-	t_Sound add3 = {gameState.audio.daggerThrow[1], DAGGER_THROW1, 0};
-	std::vector<t_Sound> sounds = {add2, add3};
-	gameState.updateObjs.createDamage->CreateDamage(enemy, Color(255, 0, 0), 5, 5, Vector(1.0f, 0.0f), sounds);
+	gameState.updateObjs.animationManager->SetAnimation(new DaggerThrowAnim(character, enemy), DAGGER_THROW_ANIMATION);
 	thrown = true;
 }
 

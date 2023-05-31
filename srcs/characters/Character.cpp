@@ -50,14 +50,16 @@ void Character::Update()
 	}
 	if (stats.health <= 0)
 		gameState.updateObjs.killer->AddCharacterToKill(this);
+	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
+		clicked = false;
+	if (animationActive)
+		return ;
 	if (idleCounter == 50)
 	{
 		idleCounter = 0;
 		currentTexture = (currentTexture == 0) ? 1 : 0;
 		sprite->setTexture(textures[currentTexture]);
 	}
-	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
-		clicked = false;
 	idleCounter++;
 }
 

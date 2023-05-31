@@ -21,6 +21,7 @@ class Character
 		int width, height;
 		SDL_Point coord = {0, 0};
 		void CreateCharacterType(int skin);
+		bool animationActive = false;
 	public:
 		int currentTexture = 0;
 		int cSing;
@@ -33,6 +34,7 @@ class Character
 		int getWidth() {return (width);};
 		int getHeight() {return (height);};
 		void setCoord(SDL_Point &coord);
+		void setAnimationActive(bool set) {animationActive = set;};
 		SDL_Point &getCoord();
 		void Position(Vector to);
 		void Move(Vector amount);

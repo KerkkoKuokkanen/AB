@@ -10,7 +10,7 @@
 
 #define DAMAGE_DONE 30
 
-#define PARTICLE_DISTANCE 1200
+#define PARTICLE_DISTANCE 3200
 
 void DamageCreator::CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> sounds)
 {
@@ -19,7 +19,7 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
 	Vector place = gameState.battle.ground->GetCharacterCoord(pos, character);
 	SDL_Rect dest = {rounding(place.x), rounding(place.y), character->sprite->dest.w, character->sprite->dest.h};
-	t_Damage add = {character, armorDamage, healthDamage, partDir, 0, dest, startColor.r, startColor.g, startColor.b, false};
+	t_Damage add = {character, armorDamage, healthDamage, partDir.Normalized(), 0, dest, startColor.r, startColor.g, startColor.b, false};
 	for (int i = 0; i < sounds.size(); i++)
 		PlaySound(sounds[i].sound, sounds[i].channel, sounds[i].loops);
 	character->stats.health -= healthDamage;
