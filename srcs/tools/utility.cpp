@@ -1,6 +1,8 @@
 
 #include "../../hdr/global.h"
 
+#define CAMERA_ARROW_MOVE_AMOUNT 10.0f
+
 void ManageMouseWheel()
 {
 	if (gameState.keys.wheel > 0)
@@ -33,6 +35,14 @@ void ManageMouseClick()
 		gameState.keys.click = NO_CLICK;
 		clickState = 0;
 	}
+}
+
+void CameraWithArrows()
+{
+	int xAxis = gameState.keys.right - gameState.keys.left;
+	int yAxis = gameState.keys.down - gameState.keys.up;
+	gameState.camera.x += rounding(((float)xAxis * CAMERA_ARROW_MOVE_AMOUNT) * gameState.screen.xPixelUnit);
+	gameState.camera.y += rounding(((float)yAxis * CAMERA_ARROW_MOVE_AMOUNT) * gameState.screen.yPixelUnit / gameState.screen.aspectRatio);
 }
 
 void CameraMove()
@@ -123,6 +133,7 @@ void Utility()
 	eventPoller();
 	ManageMouseClick();
 	CameraMove();
+	CameraWithArrows();
 	KeyCheck();
 	GetMouseXY();
 	ManageMouseWheel();

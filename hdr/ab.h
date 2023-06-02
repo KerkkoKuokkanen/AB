@@ -121,6 +121,7 @@ typedef struct s_Camera
 typedef struct s_Keys
 {
 	int w, a, s, d;
+	int left, right, up, down;
 	int click;
 	int rightClick;
 	int middleMouse;

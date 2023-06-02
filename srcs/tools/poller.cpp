@@ -55,6 +55,18 @@ void eventPoller()
 					case SDL_SCANCODE_LSHIFT:
 						gameState.keys.shift = 1;
 						break ;
+					case SDL_SCANCODE_LEFT:
+						gameState.keys.left = 1;
+						break ;
+					case SDL_SCANCODE_RIGHT:
+						gameState.keys.right = 1;
+						break ;
+					case SDL_SCANCODE_UP:
+						gameState.keys.up = 1;
+						break ;
+					case SDL_SCANCODE_DOWN:
+						gameState.keys.down = 1;
+						break ;
 					default:
 						break ;
 				}
@@ -79,6 +91,18 @@ void eventPoller()
 						break ;
 					case SDL_SCANCODE_LSHIFT:
 						gameState.keys.shift = 0;
+						break ;
+					case SDL_SCANCODE_LEFT:
+						gameState.keys.left = 0;
+						break ;
+					case SDL_SCANCODE_RIGHT:
+						gameState.keys.right = 0;
+						break ;
+					case SDL_SCANCODE_UP:
+						gameState.keys.up = 0;
+						break ;
+					case SDL_SCANCODE_DOWN:
+						gameState.keys.down = 0;
 						break ;
 					default:
 						break ;

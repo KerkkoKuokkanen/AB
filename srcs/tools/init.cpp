@@ -8,6 +8,10 @@ void initKeys()
 	gameState.keys.a = 0;
 	gameState.keys.s = 0;
 	gameState.keys.d = 0;
+	gameState.keys.left = 0;
+	gameState.keys.right = 0;
+	gameState.keys.up = 0;
+	gameState.keys.down = 0;
 	gameState.keys.shift = 0;
 	gameState.keys.space = 0;
 	gameState.keys.click = 0;
@@ -107,9 +111,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
@@ -147,6 +151,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.objectManager = &objectManager;
 	static AnimationManager animationManager;
 	gameState.updateObjs.animationManager = &animationManager;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

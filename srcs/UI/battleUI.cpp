@@ -176,7 +176,7 @@ void CharacterUI::Update()
 		return ;
 	int h = activeCharacter->stats.health, heal = activeCharacter->stats.maxHealth;
 	int a = activeCharacter->stats.armor, arm = activeCharacter->stats.maxArmor;
-	health->Update(heal, h, 99, 10, 9);
+	health->Update(heal, 50, 99, 10, 9);
 	armor->Update(arm, a, 64, 64, 64);
 	CheckIfMouseOver();
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)

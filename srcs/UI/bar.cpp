@@ -1,11 +1,13 @@
 
 #include "../../hdr/global.h"
 
+#define BAR_SOURCE_WIDTH 800.0f
+
 Bar::Bar(SDL_Rect dest)
 {
 	bar = new Sprite(gameState.textures.bar[0], dest, NULL, NULL, 0, FLIP_NONE, true);
 	backGround = new Sprite(gameState.textures.bar[1], dest, NULL, NULL, 0, FLIP_NONE, true);
-	filler = new Sprite(gameState.textures.barFiller, dest, NULL, NULL, 0, FLIP_NONE, true);
+	filler = new Sprite(gameState.textures.barFiller, dest, &sRect, NULL, 0, FLIP_NONE, true);
 	bar->orderLayer = 3;
 	backGround->orderLayer = 1;
 	filler->orderLayer = 2;
@@ -23,6 +25,8 @@ void Bar::Update(int max, int curr, Uint8 r, Uint8 g, Uint8 b)
 		return ;
 	}
 	float unit = (float)bar->dest.w / (float)max;
+	float sUnit = BAR_SOURCE_WIDTH / (float)max;
+	sRect.w = rounding(sUnit * (float)curr);
 	filler->dest.w = rounding(unit * (float)curr);
 }
 
