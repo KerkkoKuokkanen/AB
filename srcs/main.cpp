@@ -37,7 +37,6 @@ int MainLoop(t_wr &wr)
 {
 	clock_t start, end;
 	TempInitBattle();
-	bool killed = false;
 	while (true)
 	{
 		start = clock();

@@ -20,7 +20,7 @@ class Dagger
 		bool TargetMet();
 		Vector GetDirection();
 		bool targetFound = false;
-		float speed = 1500.0f;
+		float speed = 1800.0f;
 		void CreateParticles();
 	public:
 		Sprite *sprite;

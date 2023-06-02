@@ -63,7 +63,7 @@ void BattleGround::AddDust(SDL_Point curr, SDL_Point next)
 	if (movedCharacter.iterator != 4)
 		return ;
 	Mix_SetPanning(0, MIX_MAX_VOLUME, MIX_MAX_VOLUME);
-	PlaySound(gameState.audio.TFootStep[rand() % 3], THIEF_STEP_CHANNEL, 0);
+	PlaySound(gameState.audio.TFootStep[rand() % 3], Channels::THIEF_STEP_CHANNEL, 0);
 	int index = curr.y * map[0].size() + curr.x;
 	SDL_Rect dest = sprites[index][sprites[index].size() - 1].dest;
 	SDL_Point pos = {dest.x + 2500, dest.y + 1500};

@@ -30,6 +30,7 @@ void DaggerThrowAnim::MoveBack()
 	if (!thrown)
 	{
 		thrown = true;
+		PlaySound(gameState.audio.throwAnim, Channels::DAGGER_THROW_ANIM, 0);
 		gameState.updateObjs.objectManager->AddObject(new Dagger(character, enemy, 80), DAGGER_OBJ);
 		character->sprite->setTexture(gameState.textures.thiefDaggerThrow);
 		character->sprite->Move(Vector(550.0f, 380.0f));

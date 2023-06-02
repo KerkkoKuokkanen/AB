@@ -52,14 +52,18 @@ void initScreen(int width, int height)
 
 void getAudio()
 {
-	Mix_Volume(THIEF_STEP_CHANNEL, 16);
-	Mix_Volume(DAGGER_THROW0, 20);
-	Mix_Volume(DAGGER_THROW1, 30);
+	Mix_Volume(Channels::THIEF_STEP_CHANNEL, 16);
+	Mix_Volume(Channels::DAGGER_THROW0, 15);
+	Mix_Volume(Channels::DAGGER_THROW1, 25);
+	Mix_Volume(Channels::MISSED_THROW, 85);
+	Mix_Volume(Channels::DAGGER_THROW_ANIM, 30);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
 	gameState.audio.daggerThrow[0] = Mix_LoadWAV("audio/abilities/dagger1.wav");
 	gameState.audio.daggerThrow[1] = Mix_LoadWAV("audio/abilities/dagger2.wav");
+	gameState.audio.missedThrow = Mix_LoadWAV("audio/abilities/miss.wav");
+	gameState.audio.throwAnim = Mix_LoadWAV("audio/abilities/throw.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -111,9 +115,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(2560, 1600);
+	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
@@ -151,6 +155,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.objectManager = &objectManager;
 	static AnimationManager animationManager;
 	gameState.updateObjs.animationManager = &animationManager;
-	SDL_SetWindowFullscreen(wr->win, 1);
+	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

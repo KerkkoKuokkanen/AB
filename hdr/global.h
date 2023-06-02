@@ -9,9 +9,18 @@
 # define ALPHA_BLEND 80
 # define PI 3.14159
 
-# define THIEF_STEP_CHANNEL 2
-# define DAGGER_THROW0 3
-# define DAGGER_THROW1 4
+namespace Channels
+{
+	enum {
+		DEFAULT_CHANNEL,
+		FIRST_CHANNEL,
+		THIEF_STEP_CHANNEL,
+		DAGGER_THROW0,
+		DAGGER_THROW1,
+		MISSED_THROW,
+		DAGGER_THROW_ANIM
+	};
+}
 
 typedef struct s_Battle
 {
@@ -56,6 +65,8 @@ typedef struct s_Audio
 {
 	Mix_Chunk *TFootStep[3];
 	Mix_Chunk *daggerThrow[2];
+	Mix_Chunk *missedThrow;
+	Mix_Chunk *throwAnim;
 }				t_Audio;
 
 typedef struct s_MouseOver

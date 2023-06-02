@@ -69,8 +69,8 @@ Vector Dagger::GetDirection()
 
 void Dagger::CreateDamage()
 {
-	t_Sound add2 = {gameState.audio.daggerThrow[0], DAGGER_THROW0, 0};
-	t_Sound add3 = {gameState.audio.daggerThrow[1], DAGGER_THROW1, 0};
+	t_Sound add2 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
+	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 	std::vector<t_Sound> sounds = {add2, add3};
 	gameState.updateObjs.createDamage->CreateDamage(enemy, Color(255, 0, 0), 5, 5, GetDirection(), sounds);
 }
@@ -107,6 +107,7 @@ void Dagger::Update()
 			return ;
 		}
 		SDL_Point pos = {sprite->dest.x + sprite->dest.w / 2, sprite->dest.y + sprite->dest.h / 2};
+		PlaySound(gameState.audio.missedThrow, Channels::MISSED_THROW, 0);
 		CreateDust(pos, Vector(direction.x, direction.y));
 	}
 	CreateParticles();
