@@ -8,6 +8,7 @@ Energy::Energy()
 	energy = new Sprite(gameState.textures.energy[1], dest, NULL, NULL, 0, FLIP_NONE, true);
 	stand->Deactivate();
 	energy->Deactivate();
+	energy->ColorMod(190, 190, 190);
 	gameState.render->AddSprite(stand, TURN_ORDER_LAYER);
 	gameState.render->AddSprite(energy, TURN_ORDER_LAYER);
 }

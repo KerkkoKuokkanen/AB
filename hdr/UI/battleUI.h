@@ -12,6 +12,7 @@ typedef struct t_Buttons
 	Button *button;
 	int buttonSign;
 	bool used;
+	int energyCost;
 }				t_Buttons;
 
 class CharacterUI
@@ -27,10 +28,11 @@ class CharacterUI
 		void getActive();
 		void GetAbilities();
 		int GetButtonIndex();
-		void CreateButton(SDL_Rect place, SDL_Texture *text, int sign);
+		void CreateButton(SDL_Rect place, SDL_Texture *text, int sign, int cost);
 		void HandleButtonAction(int value, int buttonIndex);
 		void DeactivateUI();
 		void CheckIfMouseOver();
+		void ShowEnergy(int cost);
 	public:
 		bool overCharacterUI = false;
 		bool active = false;

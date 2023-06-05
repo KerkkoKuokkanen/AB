@@ -13,11 +13,17 @@ typedef struct s_Stats
 	int armor;
 }				t_Stats;
 
+typedef struct s_Abilities
+{
+	int type;
+	int cost;
+	bool active;
+}				t_Abilities;
+
 class Character
 {
 	private:
 		std::vector<SDL_Texture*> textures;
-		int idleCounter = 0;
 		int width, height;
 		SDL_Point coord = {0, 0};
 		void CreateCharacterType(int skin);
@@ -46,7 +52,9 @@ class Character
 		bool ally = true;
 		bool killed = false;
 		t_Stats stats = {1, 100, 100, 50, 50};
-		std::vector<SDL_Point> abilities = {{DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}, {DAGGER_THROW, 1}};
+		std::vector<t_Abilities> abilities = {{DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true},
+												{DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true},
+												{DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}};
 };
 
 #endif

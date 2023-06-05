@@ -164,6 +164,9 @@ void ObjUpdate()
 	gameState.updateObjs.killer->Update();
 	gameState.updateObjs.partManager->Update();
 	gameState.updateObjs.fadeIter += 0.06f;
+	gameState.updateObjs.characterAnimIter += 1;
 	if (gameState.updateObjs.fadeIter >= 44.0f)
 		gameState.updateObjs.fadeIter = 0.0f;
+	if (gameState.updateObjs.characterAnimIter > 50)
+		gameState.updateObjs.characterAnimIter = 0;
 }

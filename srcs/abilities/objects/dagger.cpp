@@ -22,10 +22,10 @@ Dagger::Dagger(Character *start, Character *end, int hitChance)
 {
 	character = start;
 	enemy = end;
-	SDL_Rect dest = {start->sprite->dest.x + start->sprite->dest.w / 2 + 600, start->sprite->dest.y + start->sprite->dest.h / 2 - 1600, 1500, 1900};
+	SDL_Rect dest = {start->sprite->dest.x + start->sprite->dest.w / 2 + 600, start->sprite->dest.y + start->sprite->dest.h / 2 - 1600, 1300, 1600};
 	sprite = new Sprite(gameState.textures.weaponObjs[DAGGER_OBJ], dest, NULL, NULL, 0, FLIP_NONE);
 	target = GetTarget(hitChance, end);
-	SDL_FPoint pos = {(float)dest.x + 750.0f, (float)dest.y + 950.0f};
+	SDL_FPoint pos = {(float)dest.x + 650.0f, (float)dest.y + 800.0f};
 	Vector dir = Vector(pos.x - target.x, pos.y - target.y).Normalized();
 	direction = {dir.x, dir.y};
 	float angle = vectorAngle(Vector(0.0f, 1.0f), dir);

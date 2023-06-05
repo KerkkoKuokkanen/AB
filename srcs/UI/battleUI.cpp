@@ -14,6 +14,7 @@ CharacterUI::CharacterUI()
 		buttons[i].button->Deactivate();
 		buttons[i].buttonSign = 0;
 		buttons[i].used = false;
+		buttons[i].energyCost = 0;
 		if (i == 0)
 			buttons[i].used = true;
 	}
@@ -41,7 +42,7 @@ int CharacterUI::GetButtonIndex()
 	return (ret);
 }
 
-void CharacterUI::CreateButton(SDL_Rect dest, SDL_Texture *text, int sign)
+void CharacterUI::CreateButton(SDL_Rect dest, SDL_Texture *text, int sign, int cost)
 {
 	int index = GetButtonIndex();
 	buttons[index].buttonSign = sign;
@@ -49,6 +50,7 @@ void CharacterUI::CreateButton(SDL_Rect dest, SDL_Texture *text, int sign)
 	buttons[index].button->SetTexture(text);
 	buttons[index].button->SetDest(dest);
 	buttons[index].button->SetClickBox(dest);
+	buttons[index].energyCost = cost;
 }
 
 void CharacterUI::GetAbilities()
@@ -60,7 +62,7 @@ void CharacterUI::GetAbilities()
 	int diff = 2900;
 	for (int i = 0; i < activeCharacter->abilities.size(); i++)
 	{
-		if (activeCharacter->abilities[i].y != 1)
+		if (activeCharacter->abilities[i].active == false)
 			continue ;
 		dest.x = 21270 - (diff * (7 - i));
 		if (i >= 7)
@@ -68,10 +70,10 @@ void CharacterUI::GetAbilities()
 			dest.x = 21270 - (diff * (14 - i));
 			dest.y = 31100;
 		}
-		switch (activeCharacter->abilities[i].x)
+		switch (activeCharacter->abilities[i].type)
 		{
 			case DAGGER_THROW:
-				CreateButton(dest, gameState.textures.thiefAbilites[0], DAGGER_THROW);
+				CreateButton(dest, gameState.textures.thiefAbilites[0], DAGGER_THROW, activeCharacter->abilities[i].cost);
 				break ;
 		}
 	}
@@ -146,11 +148,26 @@ bool CharacterUI::NoOneKilled()
 	return (true);
 }
 
+void CharacterUI::ShowEnergy(int cost)
+{
+	if (cost == 0)
+		return ;
+	if (cost > activeCharacter->moves)
+		return ;
+	int start = activeCharacter->moves - 1;
+	for (int i = 0; i < cost; i++)
+	{
+		energys[start]->energy->ClearColorMod();
+		start--;
+	}
+}
+
 void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 {
 	if (value == NO_CONTACT)
 		return ;
 	overCharacterUI = true;
+	ShowEnergy(buttons[buttonIndex].energyCost);
 	switch (buttons[buttonIndex].buttonSign)
 	{
 		case 0:
@@ -176,9 +193,11 @@ void CharacterUI::Update()
 		return ;
 	int h = activeCharacter->stats.health, heal = activeCharacter->stats.maxHealth;
 	int a = activeCharacter->stats.armor, arm = activeCharacter->stats.maxArmor;
-	health->Update(heal, 50, 99, 10, 9);
+	health->Update(heal, h, 99, 10, 9);
 	armor->Update(arm, a, 64, 64, 64);
 	CheckIfMouseOver();
+	for (int i = 0; i < ENERGYS && !gameState.updateObjs.abilityManager->abilityActive; i++)
+		energys[i]->energy->ColorMod(190, 190, 190);
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{
 		if (buttons[i].used)

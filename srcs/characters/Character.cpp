@@ -54,13 +54,11 @@ void Character::Update()
 		clicked = false;
 	if (animationActive)
 		return ;
-	if (idleCounter == 50)
+	if (gameState.updateObjs.characterAnimIter == 50)
 	{
-		idleCounter = 0;
 		currentTexture = (currentTexture == 0) ? 1 : 0;
 		sprite->setTexture(textures[currentTexture]);
 	}
-	idleCounter++;
 }
 
 void Character::setCoord(SDL_Point &coord)

@@ -92,6 +92,7 @@ typedef struct s_Updates
 	AnimationManager *animationManager;
 	DamageCreator *createDamage;
 	float fadeIter;
+	int characterAnimIter;
 	t_MouseOver hover;
 	Character *chosen;
 }				t_Updates;
