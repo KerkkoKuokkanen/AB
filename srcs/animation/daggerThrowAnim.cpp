@@ -16,12 +16,16 @@ DaggerThrowAnim::DaggerThrowAnim(Character *character, Character *enemy)
 	};
 	Vector dir = Vector(ePoint.x -  cPoint.x, ePoint.y - cPoint.y).Normalized();
 	direction = {dir.x, dir.y};
+	if (direction.y < 0.0f)
+		return ;
+	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	character->sprite->orderLayer = (pos.y + 1);
 }
 
 void DaggerThrowAnim::MoveToEnemy()
 {
 	int duration = DAGGER_THROW_ANIMATION_TIME / 2;
-	float speed = (100.0f / ((float)(counter - duration + 1))) + 50.0f;
+	float speed = (100.0f / ((float)(counter - duration + 1))) + 80.0f;
 	character->sprite->Move(Vector(direction.x * speed, direction.y * speed));
 }
 
@@ -37,7 +41,7 @@ void DaggerThrowAnim::MoveBack()
 	}
 	int duration = DAGGER_THROW_ANIMATION_TIME / 2;
 	int time = counter;
-	float speed = (100.0f / (float)time) + 50.0f;
+	float speed = (100.0f / (float)time) + 80.0f;
 	character->sprite->Move(Vector(-direction.x * speed, -direction.y * speed));
 }
 
@@ -47,6 +51,7 @@ void DaggerThrowAnim::AnimationDone()
 	gameState.battle.ground->PlaceCharacter(pos, character);
 	character->sprite->setTexture(gameState.textures.thiefIdle1);
 	character->setAnimationActive(false);
+	character->sprite->orderLayer = pos.y;
 }
 
 void DaggerThrowAnim::Update()

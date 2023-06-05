@@ -12,6 +12,7 @@
 # define LAYER_NO_SORT 0
 # define LAYER_YSORT 1
 # define LAYER_REVERSE_YSORT 2
+# define LAYER_DEPTH_SORT 3
 
 # define TOOL_MAP_SIGN 9933
 # define TURN_SIGN -999898

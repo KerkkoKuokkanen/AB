@@ -120,7 +120,7 @@ void	init(t_wr *wr)
 	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
-	render.CreateLayer(LAYER_REVERSE_YSORT); //battleground layer
+	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
 	render.CreateLayer(LAYER_YSORT); //battleground layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer

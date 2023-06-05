@@ -5,6 +5,7 @@
 # include "../ab.h"
 
 # define ALPHA 35
+# define BATTLE_DEPTH_UNIT 16
 
 typedef struct s_SpriteConstructor
 {

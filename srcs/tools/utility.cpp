@@ -146,11 +146,9 @@ void ObjUpdate()
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
 		gameState.updateObjs.dusts[i]->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
-	{
-		UpdateHoveredCharacter();
 		gameState.updateObjs.turnOrder->Update();
-	}
 	gameState.updateObjs.indicator->Update();
+	UpdateHoveredCharacter();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
 	if (gameState.updateObjs.abilityManager != NULL)

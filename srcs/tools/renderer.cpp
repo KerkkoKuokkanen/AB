@@ -23,6 +23,14 @@ bool compareObjectsReverse(const Sprite *obj1, const Sprite *obj2) {
 		return obj1->dest.y < obj2->dest.y;
 }
 
+bool compareObjectsDepth(const Sprite *obj1, const Sprite *obj2) {
+	if (obj1->orderLayer < obj2->orderLayer)
+		return true;
+	else if (obj1->orderLayer > obj2->orderLayer)
+		return false;
+	return (obj1->z < obj2->z);
+}
+
 int layerSorted(std::vector<t_Sort> &sortedLayers, int layer)
 {
 	for (int i = 0; i < sortedLayers.size(); i++)
@@ -31,6 +39,11 @@ int layerSorted(std::vector<t_Sort> &sortedLayers, int layer)
 			return (sortedLayers[i].sortType);
 	}
 	return (0);
+}
+
+Renderer::Renderer(SDL_Renderer *rend)
+{
+	Renderer::rend = rend;
 }
 
 void Renderer::RenderAll()
@@ -44,12 +57,15 @@ void Renderer::Render()
 {
 	for (int i = 0; i < spriteLayers.size(); i++)
 	{
-		if (int sort = layerSorted(sortedLayers, i) != 0)
+		int sort = layerSorted(sortedLayers, i);
+		if (sort != 0)
 		{
 			if (sort == LAYER_YSORT)
 				std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjects);
 			else if (sort == LAYER_REVERSE_YSORT)
 				std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjectsReverse);
+			else if (sort == LAYER_DEPTH_SORT)
+				std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjectsDepth);
 		}
 		for (int j = 0; j < spriteLayers[i].size(); j++)
 			spriteLayers[i][j]->Render(rend);

@@ -19,7 +19,7 @@ void TempInitBattle()
 	SDL_Point point = {8, 6};
 	SDL_Point point2 = {3, 12};
 	SDL_Point point3 = {9, 2};
-	SDL_Point point4 = {8, 14};
+	SDL_Point point4 = {8, 10};
 	SDL_Point point5 = {7, 6};
 	SDL_Point point6 = {2, 12};
 	SDL_Point point7 = {9, 5};

@@ -108,7 +108,10 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 		else
 			sprites[index][sprites[index].size() - 1].ColorMod(255, 181, 181);
 		if (movedCharacter.iterator >= 15)
-			movedCharacter.character->sprite->orderLayer = next.y * 2 + 1;
+		{
+			movedCharacter.character->sprite->orderLayer = next.y;
+			movedCharacter.character->sprite->setDepth(map[next.y][next.x].height * BATTLE_DEPTH_UNIT + 8);
+		}
 		place = ParabolaPosition(newPos, highPoint, unit, ogPos.x);
 	}
 	return (place);

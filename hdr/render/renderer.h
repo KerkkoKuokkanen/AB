@@ -17,12 +17,12 @@ class Renderer
 		std::vector<std::vector<Sprite*>> spriteLayers;
 		std::vector<t_Sort> sortedLayers;
 	public:
-		Renderer(SDL_Renderer *rend) { Renderer::rend = rend; };
+		Renderer(SDL_Renderer *rend);
 		int CreateLayer(int sortType) {
 			std::vector<Sprite*> add;
 			spriteLayers.push_back(add);
 			int index = spriteLayers.size() - 1;
-			if (sortType == LAYER_YSORT || sortType == LAYER_REVERSE_YSORT)
+			if (sortType == LAYER_YSORT || sortType == LAYER_REVERSE_YSORT || sortType == LAYER_DEPTH_SORT)
 			{
 				t_Sort s = {index, sortType};
 				sortedLayers.push_back(s);

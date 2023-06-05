@@ -81,7 +81,8 @@ void BattleGround::CreateTile(std::vector<std::vector<t_GMU>> &map, int i, int j
 		};
 		int image = GetSprite(map, i, j, iter, other);
 		Sprite add(tiles[image].texture, dest, &tiles[image].srect, NULL, 0, FLIP_NONE);
-		add.orderLayer = i * 2;
+		add.orderLayer = i;
+		add.setDepth(BATTLE_DEPTH_UNIT * iter);
 		adder.push_back(add);
 	}
 	sprites.push_back(adder);
@@ -206,7 +207,8 @@ void BattleGround::PlaceCharacter(SDL_Point &position, Character *character)
 	SDL_Rect location = sprites[index][sprites[index].size() - 1].dest;
 	Vector place = GetCharacterCoord(position, character);
 	character->Position(place);
-	character->sprite->orderLayer = position.y * 2 + 1;
+	character->sprite->orderLayer = position.y;
+	character->sprite->setDepth(map[position.y][position.x].height * BATTLE_DEPTH_UNIT + 8);
 	map[position.y][position.x].character = character;
 	map[position.y][position.x].blocked = true;
 	map[position.y][position.x].character->setCoord(position);

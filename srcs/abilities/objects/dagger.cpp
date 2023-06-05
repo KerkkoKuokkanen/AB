@@ -77,7 +77,7 @@ void Dagger::CreateDamage()
 
 void Dagger::CreateParticles()
 {
-	int iter = rand() % 3 + 4;
+	int iter = 2;
 	Vector place((float)(sprite->dest.x + sprite->dest.w / 2), (float)(sprite->dest.y + sprite->dest.h / 2));
 	place.x += direction.x * 400.0f;
 	place.y += direction.y * 400.0f;
