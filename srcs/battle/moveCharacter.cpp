@@ -9,6 +9,7 @@ void BattleGround::setMoved(std::vector<SDL_Point> &path)
 	for (int i = path.size() - 1; i >= 0; i--)
 		movedCharacter.path.push_back(path[i]);
 	movedCharacter.character = map[movedCharacter.path[0].y][movedCharacter.path[0].x].character;
+	gameState.updateObjs.UI->UseEnergy(toolMap[path[0].y][path[0].x]);
 	movedCharacter.index = 0;
 	movedCharacter.iterator = 0;
 	movedCharacter.character->clicked = false;

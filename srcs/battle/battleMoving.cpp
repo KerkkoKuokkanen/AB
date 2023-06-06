@@ -103,6 +103,7 @@ void BattleGround::TakeMarkerAndPlaceIt(SDL_Point pos)
 
 void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 {
+	markingPath = false;
 	ResetIndicators();
 	if (map[cPos.y][cPos.x].character->turn == false || map[cPos.y][cPos.x].character->ally == false)
 		return ;
@@ -120,8 +121,10 @@ void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 		if (i != 0)
 			TakeLineAndPlaceIt(positions[i - 1], positions[i]);
 	}
+	gameState.updateObjs.UI->ShowEnergy(toolMap[positions[0].y][positions[0].x]);
 	setMoved(positions);
 	positions.clear();
+	markingPath = true;
 }
 
 bool BattleGround::NoOtherCharacters()

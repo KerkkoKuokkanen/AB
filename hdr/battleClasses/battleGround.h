@@ -91,6 +91,7 @@ class BattleGround {
 		Vector GetCharacterCoord(SDL_Point pos, Character *character);
 		void PlaceCharacter(SDL_Point &position, Character *character);
 		void Update();
+		bool markingPath = false;
 };
 
 #endif

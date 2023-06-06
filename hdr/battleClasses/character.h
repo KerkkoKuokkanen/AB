@@ -48,7 +48,7 @@ class Character
 		bool clicked = false;
 		bool turn = false;
 		bool moving = false;
-		int moves = 10;
+		int moves = 1;
 		bool ally = true;
 		bool killed = false;
 		t_Stats stats = {1, 100, 100, 50, 50};

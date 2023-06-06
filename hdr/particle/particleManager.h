@@ -30,7 +30,7 @@ class ParticleManager
 	public:
 		void Update();
 		void CreateParticle(Vector dir, Vector place, float speed);
-		void CreateModParticle(Vector dir, Vector place, float speed, Color start, Color end, int life, float drag, float yAdd = 0.0f);
+		void CreateModParticle(Vector dir, Vector place, float speed, Color start, Color end, int life, float drag, bool staticSprite, float yAdd = 0.0f);
 };
 
 #endif

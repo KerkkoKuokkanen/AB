@@ -139,6 +139,7 @@ void Utility()
 	ManageMouseWheel();
 	ManageTextureHovering();
 	CheckOverMenu();
+	gameState.updateObjs.UI->ClearEnergys();
 }
 
 void ObjUpdate()

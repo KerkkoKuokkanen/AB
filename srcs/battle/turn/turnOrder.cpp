@@ -68,11 +68,16 @@ void TurnOrder::ActivateTurnChange()
 {
 	if (turnChange || turnStartActive || killActive || !NoOneMoving())
 		return ;
-	for (int i = 0; i < indicators.size() - 1; i++)
+	bool visited = false;
+	for (int i = 0; i < indicators.size(); i++)
 	{
+		if (indicators[i].active)
+			visited = true;
 		if (indicators[i].character->killed)
 			return ;
 	}
+	if (!visited)
+		return ;
 	turnChange = true;
 	ResetClicks();
 	gameState.updateObjs.indicator->Deactivate();
@@ -145,18 +150,25 @@ void TurnOrder::StartTurn()
 {
 	turnStartActive = true;
 	std::sort(indicators.begin(), indicators.end(), compareObjects);
+	for (int i = 0; i < indicators.size(); i++)
+	{
+		indicators[i].character->moves += 9;
+		if (indicators[i].character->moves > 12)
+			indicators[i].character->moves = 12;
+	}
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
 	for (int i = 0; i < indicators.size(); i++)
 	{
+		indicators[i].indicator->dest = CreateDest(indicators[i].character->cSing);
 		Vector place(
 			(float)(indicators[i].indicator->dest.x + (posDiff * i)) + (float)gameState.screen.width / 2.5f,
 			(float)(indicators[i].indicator->dest.y)
 		);
-		indicators[i].indicator->dest = CreateDest(indicators[i].character->cSing);
 		CreateSRect(indicators[i].srect, indicators[i].character->cSing);
 		indicators[i].indicator->Activate();
 		indicators[i].indicator->Position(place);
 		indicators[i].active = true;
+		indicators[i].x = TURN_SIGN;
 	}
 }
 
@@ -475,6 +487,7 @@ void TurnOrder::SetStuffHappening()
 void TurnOrder::Update()
 {
 	bool active = false;
+	bool visited = false;
 	SetStuffHappening();
 	SetStuffWithoudMove();
 	gameState.updateObjs.indicator->Deactivate();
@@ -485,7 +498,8 @@ void TurnOrder::Update()
 			indicators[i].indicator->Deactivate();
 		else
 		{
-			if (!active && !turnChange)
+			visited = true;
+			if (!active && !turnChange && !turnStartActive)
 			{
 				indicators[i].character->turn = true;
 				active = true;
@@ -495,6 +509,8 @@ void TurnOrder::Update()
 			indicators[i].indicator->Activate();
 		}
 	}
+	if (!visited)
+		StartTurn();
 	if (turnStartActive)
 		UpdateStartTurn();
 	if (turnChange)

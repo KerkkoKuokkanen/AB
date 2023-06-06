@@ -17,8 +17,8 @@ class DaggerThrow
 		Vector GetDirection(Character *enemy);
 	public:
 		bool thrown = false;
-		int cost = 3;
-		DaggerThrow(Character *character);
+		int cost;
+		DaggerThrow(Character *character, int cost);
 		void Update();
 		void Destroy();
 

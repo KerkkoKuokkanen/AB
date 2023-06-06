@@ -32,16 +32,18 @@ class CharacterUI
 		void HandleButtonAction(int value, int buttonIndex);
 		void DeactivateUI();
 		void CheckIfMouseOver();
-		void ShowEnergy(int cost);
 	public:
 		bool overCharacterUI = false;
 		bool active = false;
 		bool NoOneKilled();
+		void UseEnergy(int cost);
+		void ShowEnergy(int cost);
 		CharacterUI();
 		void SetCharacters(std::vector<Character> &characters);
 		void Update();
 		void Destroy();
 		void RemoveCharacter(Character *character);
+		void ClearEnergys();
 };
 
 #endif

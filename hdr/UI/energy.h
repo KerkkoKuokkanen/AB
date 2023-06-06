@@ -6,12 +6,14 @@
 
 class Energy
 {
+	private:
+		SDL_Surface *sur;
 	public:
 		Sprite *stand;
 		Sprite *energy;
 		Energy();
 		void Position(Vector place);
-		void Used();
+		void Used(bool particles = false);
 		void TakeBack();
 		void Activate();
 		void Deactivate();

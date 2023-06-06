@@ -89,7 +89,7 @@ void Dagger::CreateParticles()
 		float speed = (float)(rand() % 80 + 90);
 		Vector dir(direction.x, direction.y);
 		vectorRotate(dir, angle);
-		gameState.updateObjs.partManager->CreateModParticle(dir, place, speed, Color(200, 200, 200), Color(200, 200, 200), lifeTime, 1.1);
+		gameState.updateObjs.partManager->CreateModParticle(dir, place, speed, Color(200, 200, 200), Color(200, 200, 200), lifeTime, 1.1, false);
 	}
 }
 

@@ -24,7 +24,10 @@ void AbilityManager::Update()
 		abilityActive = true;
 		daggerThrow->Update();
 		if (daggerThrow->thrown)
+		{
+			gameState.updateObjs.UI->UseEnergy(daggerThrow->cost);
 			ClearAbilities();
+		}
 	}
 }
 

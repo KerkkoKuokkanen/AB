@@ -92,7 +92,7 @@ void ParticleManager::Update()
 }
 
 void ParticleManager::CreateModParticle(Vector dir, Vector place, float speed, Color start, Color end,
-															int life, float drag, float yAdd)
+															int life, float drag, bool staitcSprite, float yAdd)
 {
 	t_Particle particle;
 	particle.part = new Particle;
@@ -105,6 +105,8 @@ void ParticleManager::CreateModParticle(Vector dir, Vector place, float speed, C
 	particle.part->SetDrag(drag);
 	particle.part->sprite->ColorMod(start.r, start.g, start.b);
 	particle.part->sprite->ClearAlphaMod();
+	if (staitcSprite)
+		particle.part->sprite->setStatic(true);
 	particle.r = end.r; particle.g = end.g; particle.b = end.b;
 	particle.sr = start.r; particle.sg = start.g; particle.sb = start.b;
 	particle.lifeTime = life; particle.total = life;

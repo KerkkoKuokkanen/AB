@@ -130,7 +130,7 @@ void DamageCreator::CreateParticles(Character *character, Vector partDir, Color 
 				float yP = (float)dest.y + (hUnit * (float)y);
 				Vector dir = getDirection(partDir);
 				gameState.updateObjs.partManager->CreateModParticle(dir, Vector(xP, yP), GetSpeed(dir, partDir),
-													start, end, GetLifeTime(), GetDrag(), GetYAdd());
+													start, end, GetLifeTime(), GetDrag(), false, GetYAdd());
 				counter = 0;
 			}
 		}

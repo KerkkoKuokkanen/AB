@@ -104,8 +104,9 @@ void DaggerThrow::GetInactivePositions()
 	MarkPosition(pos, TOOL_MAP_SIGN);
 }
 
-DaggerThrow::DaggerThrow(Character *character)
+DaggerThrow::DaggerThrow(Character *character, int cost)
 {
+	DaggerThrow::cost = cost;
 	DaggerThrow::character = character;
 	position = getPositionOfCharacter(character);
 	map = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());

@@ -92,7 +92,6 @@ void CharacterUI::DeactivateUI()
 
 void CharacterUI::getActive()
 {
-	bool visited = false;
 	bool outCome = false;
 	int index = 0;
 	for (int i = 0; i < characters.size() - 1; i++)
@@ -162,6 +161,19 @@ void CharacterUI::ShowEnergy(int cost)
 	}
 }
 
+void CharacterUI::UseEnergy(int cost)
+{
+	if (cost == 0 || cost > activeCharacter->moves)
+		return ;
+	int start = activeCharacter->moves - 1;
+	for (int i = 0; i < cost; i++)
+	{
+		energys[start]->Used(true);
+		start--;
+	}
+	activeCharacter->moves -= cost;
+}
+
 void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 {
 	if (value == NO_CONTACT)
@@ -175,14 +187,22 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 				gameState.updateObjs.turnOrder->ActivateTurnChange();
 			break ;
 		case DAGGER_THROW:
-			if (value == BUTTON_PRESS)
+			if (value == BUTTON_PRESS && buttons[buttonIndex].energyCost <= activeCharacter->moves)
 			{
 				gameState.updateObjs.abilityManager->ClearAbilities();
 				gameState.updateObjs.turnOrder->ResetClicks();
-				gameState.updateObjs.abilityManager->SetAbility(new DaggerThrow(activeCharacter), DAGGER_THROW);
+				gameState.updateObjs.abilityManager->SetAbility(new DaggerThrow(activeCharacter, buttons[buttonIndex].energyCost), DAGGER_THROW);
 			}
 			break ;
 	}
+}
+
+void CharacterUI::ClearEnergys()
+{
+	if (gameState.updateObjs.abilityManager->abilityActive)
+		return ;
+	for (int i = 0; i < ENERGYS; i++)
+		energys[i]->energy->ColorMod(190, 190, 190);
 }
 
 void CharacterUI::Update()
@@ -196,8 +216,6 @@ void CharacterUI::Update()
 	health->Update(heal, h, 99, 10, 9);
 	armor->Update(arm, a, 64, 64, 64);
 	CheckIfMouseOver();
-	for (int i = 0; i < ENERGYS && !gameState.updateObjs.abilityManager->abilityActive; i++)
-		energys[i]->energy->ColorMod(190, 190, 190);
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{
 		if (buttons[i].used)
