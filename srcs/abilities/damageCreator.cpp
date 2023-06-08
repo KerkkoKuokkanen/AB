@@ -25,6 +25,7 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 	character->stats.health -= healthDamage;
 	character->stats.armor -= armorDamage;
 	damages.push_back(add);
+	SetScreenShake(300, 6);
 }
 
 void DamageCreator::ColorManage(Character *character, int time)

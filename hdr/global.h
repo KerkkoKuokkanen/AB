@@ -74,6 +74,7 @@ typedef struct s_Audio
 typedef struct s_MouseOver
 {
 	bool overAnything;
+	bool overAnythingButCharacter;
 	bool overTurnOrder;
 	bool overMenu;
 	bool overCharacterUI;
@@ -100,6 +101,14 @@ typedef struct s_Updates
 	Character *chosen;
 }				t_Updates;
 
+typedef struct	s_ScreenShake
+{
+	int xShake;
+	int yShake;
+	int shakeCounter;
+	int shakeVolume;
+}				t_ScreenShake;
+
 typedef struct	s_GameState
 {
 	t_Screen screen;
@@ -111,6 +120,7 @@ typedef struct	s_GameState
 	t_Surfaces surfaces;
 	t_Updates updateObjs;
 	t_Audio audio;
+	t_ScreenShake screenShake;
 }				t_GameState;
 
 extern t_GameState gameState;

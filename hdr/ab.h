@@ -168,5 +168,7 @@ bool			MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse);
 void			UpdateHoveredCharacter();
 SDL_Surface		*getSurface(Character *character);
 Vector			getDirection(Vector generalDir);
+void			SetScreenShake(int volume, int time);
+void			ShakeTheScreen();
 
 #endif

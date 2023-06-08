@@ -112,6 +112,7 @@ void CheckOverMenu()
 	gameState.updateObjs.hover.overCharacterUI = false;
 	gameState.updateObjs.hover.overMenu = false;
 	gameState.updateObjs.hover.overTurnOrder = false;
+	gameState.updateObjs.hover.overAnythingButCharacter = false;
 	if (gameState.updateObjs.turnOrder != NULL && gameState.updateObjs.turnOrder->insideBox)
 		gameState.updateObjs.hover.overTurnOrder = true;
 	if (gameState.updateObjs.UI != NULL && gameState.updateObjs.UI->overCharacterUI)
@@ -122,6 +123,11 @@ void CheckOverMenu()
 		gameState.updateObjs.hover.overCharacter ||
 		middle != 0)
 		gameState.updateObjs.hover.overAnything = true;
+	if (gameState.updateObjs.hover.overTurnOrder ||
+		gameState.updateObjs.hover.overMenu ||
+		gameState.updateObjs.hover.overCharacterUI ||
+		middle != 0)
+		gameState.updateObjs.hover.overAnythingButCharacter = true;
 	if (gameState.keys.middleMouse != 0 && middle == 0)
 		middle = 1;
 	if (gameState.keys.middleMouse == 0)
@@ -139,6 +145,7 @@ void Utility()
 	ManageMouseWheel();
 	ManageTextureHovering();
 	CheckOverMenu();
+	ShakeTheScreen();
 	gameState.updateObjs.UI->ClearEnergys();
 }
 

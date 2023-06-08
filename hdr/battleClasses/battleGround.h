@@ -51,7 +51,6 @@ class BattleGround {
 		void IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign);
 		void ColorFade(Sprite *sprite, int sign);
 		bool BlockMouseHover(SDL_Point &position);
-		bool HoverOverCheck(SDL_Point ogPos);
 		bool CheckOverPositions(std::vector<SDL_Point> &positions, SDL_Point og);
 		void IterBlocks();
 		bool MarkBlock(SDL_Point position);
@@ -79,6 +78,7 @@ class BattleGround {
 		std::vector<t_Troop> characters;	//remember to clear
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
+		bool HoverOverCheck(SDL_Point ogPos);
 		SDL_Rect getTileDest(SDL_Point pos);
 		void CreateBattleGround(std::vector<std::vector<t_GMU>> &map);
 		void CreateMap();

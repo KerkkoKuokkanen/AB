@@ -19,6 +19,27 @@ Object::Object(int type, SDL_Point position, bool fadeOnMouseOver)
 
 void Object::CheckMouseHover()
 {
+	if (gameState.battle.ground->HoverOverCheck(pos) || gameState.updateObjs.hover.overAnythingButCharacter)
+	{
+		overCounter = 0;
+		return ;
+	}
+	if (gameState.updateObjs.hover.overCharacter)
+	{
+		SDL_Point position;
+		if (gameState.updateObjs.chosen != NULL)
+			position = gameState.updateObjs.indicator->FindCharacter(gameState.updateObjs.chosen);
+		else
+		{
+			overCounter = 0;
+			return ;
+		}
+		if (position.y > pos.y)
+		{
+			overCounter = 0;
+			return ;
+		}
+	}
 	if (MenuHoverCheck(sur, sprite->dest, gameState.keys.mouseX, gameState.keys.mouseY))
 	{
 		if (overCounter < 10)

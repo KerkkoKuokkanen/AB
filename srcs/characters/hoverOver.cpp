@@ -61,7 +61,8 @@ Character *HoveringOver()
 		if (CheckIfHoveringOver(gameState.battle.ground->characters[i].character))
 		{
 			SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(gameState.battle.ground->characters[i].character);
-			if (pos.y > max && gameState.battle.ground->map[pos.y][pos.x].active)
+			if (pos.y > max && gameState.battle.ground->map[pos.y][pos.x].active &&
+				gameState.battle.ground->HoverOverCheck(pos) == false)
 			{
 				max = pos.y;
 				character = gameState.battle.ground->characters[i].character;

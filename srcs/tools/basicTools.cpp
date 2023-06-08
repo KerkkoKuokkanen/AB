@@ -85,8 +85,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest)
 SDL_FRect	translateSprite(SDL_Rect dest)
 {
 	SDL_FRect ret = {
-		(float)(dest.x - gameState.camera.x) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
-		(float)(dest.y - gameState.camera.y) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
+		(float)(dest.x - gameState.camera.x + gameState.screenShake.xShake) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
+		(float)(dest.y - gameState.camera.y + gameState.screenShake.yShake) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
 		(float)dest.w / gameState.screen.xPixelUnit,
 		(float)dest.h / gameState.screen.yPixelUnit * gameState.screen.aspectRatio
 	};

@@ -10,7 +10,7 @@ SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools
 		srcs/abilities/daggerThrow.cpp srcs/abilities/abilityManager.cpp srcs/tools/mapTools.cpp \
 		srcs/characters/hoverOver.cpp srcs/abilities/damageCreator.cpp srcs/abilities/objectManager.cpp \
 		srcs/abilities/objects/dagger.cpp srcs/animation/animationManager.cpp srcs/animation/daggerThrowAnim.cpp \
-		srcs/objects/object.cpp
+		srcs/objects/object.cpp srcs/tools/screenShaker.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

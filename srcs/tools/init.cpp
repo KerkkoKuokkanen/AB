@@ -31,6 +31,10 @@ void initKeys()
 	gameState.updateObjs.hover.overTurnOrder = false;
 	gameState.updateObjs.hover.overCharacter = false;
 	gameState.updateObjs.chosen = NULL;
+	gameState.screenShake.shakeCounter = 0;
+	gameState.screenShake.xShake = 0;
+	gameState.screenShake.yShake = 0;
+	gameState.screenShake.shakeVolume = 0;
 }
 
 void initScreen(int width, int height)
@@ -127,6 +131,7 @@ void getTextures(SDL_Renderer *rend)
 
 void	init(t_wr *wr)
 {
+	srand((unsigned int)clock() + time(0));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
