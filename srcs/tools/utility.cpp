@@ -144,6 +144,8 @@ void Utility()
 
 void ObjUpdate()
 {
+	if (gameState.updateObjs.objUpdate != NULL)
+		gameState.updateObjs.objUpdate->Update();
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
 		gameState.updateObjs.dusts[i]->Update();
 	if (gameState.updateObjs.turnOrder != NULL)

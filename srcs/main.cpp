@@ -12,10 +12,8 @@ void TempInitBattle()
 	Character thief3(THIEF);
 	Character thief4(THIEF);
 	Character skele3(SKELE, false);
-	Character skele4(SKELE, false);
-	Character skele5(SKELE, false);
 	Character skele6(SKELE, false);
-	static std::vector<Character> chars = {thief, thief2, skele, skele2, thief3, thief4, skele3, skele4, skele5, skele6};
+	static std::vector<Character> chars = {thief, thief2, skele, skele2, thief3, thief4, skele3, skele6};
 	SDL_Point point = {8, 6};
 	SDL_Point point2 = {3, 12};
 	SDL_Point point3 = {9, 2};
@@ -23,10 +21,8 @@ void TempInitBattle()
 	SDL_Point point5 = {7, 6};
 	SDL_Point point6 = {2, 12};
 	SDL_Point point7 = {9, 5};
-	SDL_Point point8 = {1, 1};
-	SDL_Point point9 = {1, 0};
 	SDL_Point point10 = {3, 3};
-	static std::vector<SDL_Point> pnt = {point, point2, point3, point4, point5, point6, point7, point8, point9, point10};
+	static std::vector<SDL_Point> pnt = {point, point2, point3, point4, point5, point6, point7, point10};
 	gameState.battle.ground->StartBattle(chars, pnt);
 	gameState.updateObjs.UI->SetCharacters(chars);
 	new TurnOrder(chars);
@@ -37,6 +33,11 @@ int MainLoop(t_wr &wr)
 {
 	clock_t start, end;
 	TempInitBattle();
+	Object aree(ObjectSigns::SMALL_TREE, {1, 4});
+	Object bree(ObjectSigns::TREE, {3, 8});
+	Object cree(ObjectSigns::BUSH, {1, 10});
+	Object dree(ObjectSigns::STUMP, {5, 14});
+	Object gree(ObjectSigns::DEAD_TREE, {5, 7});
 	while (true)
 	{
 		start = clock();

@@ -108,6 +108,21 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.energy[1] = use.sur;
 	gameState.textures.weaponObjs[DAGGER_OBJ] = get_texture(rend, "sprites/weapon/dagger.png");
 	gameState.textures.thiefDaggerThrow = get_texture(rend, "sprites/characters/hood_throw.png");
+	use = get_texture_and_surface(rend, "sprites/ground/objects/bush.png");
+	gameState.textures.trees[0] = use.text;
+	gameState.surfaces.trees[0] = use.sur;
+	use = get_texture_and_surface(rend, "sprites/ground/objects/deadTree.png");
+	gameState.textures.trees[1] = use.text;
+	gameState.surfaces.trees[1] = use.sur;
+	use = get_texture_and_surface(rend, "sprites/ground/objects/smallTree.png");
+	gameState.textures.trees[2] = use.text;
+	gameState.surfaces.trees[2] = use.sur;
+	use = get_texture_and_surface(rend, "sprites/ground/objects/stump.png");
+	gameState.textures.trees[3] = use.text;
+	gameState.surfaces.trees[3] = use.sur;
+	use = get_texture_and_surface(rend, "sprites/ground/objects/Tree.png");
+	gameState.textures.trees[4] = use.text;
+	gameState.surfaces.trees[4] = use.sur;
 }
 
 void	init(t_wr *wr)
@@ -121,7 +136,7 @@ void	init(t_wr *wr)
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
-	render.CreateLayer(LAYER_YSORT); //battleground layer
+	render.CreateLayer(LAYER_YSORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
 	render.CreateLayer(LAYER_YSORT); //turnorder layer
@@ -156,6 +171,8 @@ void	init(t_wr *wr)
 	gameState.updateObjs.objectManager = &objectManager;
 	static AnimationManager animationManager;
 	gameState.updateObjs.animationManager = &animationManager;
+	static OBJ_Update objUpdate;
+	gameState.updateObjs.objUpdate = &objUpdate;
 	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

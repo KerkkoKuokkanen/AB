@@ -40,6 +40,7 @@ typedef struct s_Surfaces
 	SDL_Surface *energy[2];
 	SDL_Surface *turnOrder[2];
 	SDL_Surface *bar[2];
+	SDL_Surface *trees[5];
 }				t_Surfaces;
 
 typedef struct s_Textures
@@ -59,6 +60,7 @@ typedef struct s_Textures
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];
+	SDL_Texture *trees[5];
 }				t_Textures;
 
 typedef struct s_Audio
@@ -91,6 +93,7 @@ typedef struct s_Updates
 	ObjectManager *objectManager;
 	AnimationManager *animationManager;
 	DamageCreator *createDamage;
+	OBJ_Update *objUpdate;
 	float fadeIter;
 	int characterAnimIter;
 	t_MouseOver hover;

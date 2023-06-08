@@ -40,6 +40,12 @@ enum {
 # include "tools/color.h"
 # include <iostream>
 
+typedef struct s_TextAndSur
+{
+	SDL_Texture *text;
+	SDL_Surface *sur;
+}				t_TextAndSur;
+
 SDL_FRect	translateSprite(SDL_Rect dest);
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 
@@ -55,6 +61,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/bar.h"
 # include "UI/button.h"
 # include "UI/energy.h"
+# include "objects/object.h"
+# include "objects/objUpdate.h"
 # include "battleClasses/groundColoring.h"
 # include "animation/animationManager.h"
 # include "animation/daggerThrowAnim.h"
@@ -78,12 +86,6 @@ enum {
 	TOP_RIGHT_BLOCK,
 	TOP_REGULAR_BLOCK
 };
-
-typedef struct s_TextAndSur
-{
-	SDL_Texture *text;
-	SDL_Surface *sur;
-}				t_TextAndSur;
 
 typedef struct s_GroundMapUnit
 {
