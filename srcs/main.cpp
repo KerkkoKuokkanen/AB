@@ -33,7 +33,7 @@ int MainLoop(t_wr &wr)
 {
 	clock_t start, end;
 	TempInitBattle();
-	Object aree(ObjectSigns::SMALL_TREE, {1, 4});
+	Object nree(ObjectSigns::TREE, {0, 0});
 	Object bree(ObjectSigns::TREE, {3, 8});
 	Object cree(ObjectSigns::BUSH, {1, 10});
 	Object dree(ObjectSigns::STUMP, {5, 14});

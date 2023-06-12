@@ -23,11 +23,13 @@ class Object
 		Sprite *sprite;
 		SDL_Surface *sur;
 		SDL_Rect getRect(int type, SDL_Point position);
+		int getObjSize(int type);
 		t_TextAndSur getTextureAndSurface(int type);
 		void CheckMouseHover();
 		bool fadeOnMouseOver;
 		int overCounter;
 	public:
+		int size;
 		Object(int type, SDL_Point position, bool fadeOnMouseOver = true);
 		void Update();
 };

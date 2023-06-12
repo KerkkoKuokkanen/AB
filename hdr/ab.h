@@ -96,6 +96,7 @@ typedef struct s_GroundMapUnit
 	bool active;
 	bool marked;
 	bool blocked;
+	int objSize;
 }				t_GMU;
 
 typedef struct	s_wr

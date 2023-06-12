@@ -245,7 +245,7 @@ void BattleGround::IterBlocks()
 				int index = i * map[0].size() + j;
 				ColorFade(&sprites[index][sprites[index].size() - 1], map[i][j].highlited);
 			}
-			CheckBlocked(i, j);
+			//CheckBlocked(i, j);
 		}
 	}
 	CheckMarkedBlocks(markedBlocks);

@@ -4,12 +4,16 @@
 Object::Object(int type, SDL_Point position, bool fadeOnMouseOver)
 {
 	SDL_Rect dest = getRect(type, position);
+	int objSize = getObjSize(type);
 	pos = position;
 	t_TextAndSur use = getTextureAndSurface(type);
 	sur = use.sur;
 	sprite = new Sprite(use.text, dest, NULL, NULL, 0, FLIP_NONE);
 	gameState.render->AddSprite(sprite, BATTLEGROUND_LAYER);
 	int height = gameState.battle.ground->map[position.y][position.x].height;
+	gameState.battle.ground->map[position.y][position.x].blocked = true;
+	gameState.battle.ground->map[position.y][position.x].objSize = objSize;
+	size = objSize;
 	sprite->orderLayer = (position.y + 1);
 	sprite->setDepth(height * BATTLE_DEPTH_UNIT + 4);
 	Object::fadeOnMouseOver = fadeOnMouseOver;
@@ -84,6 +88,32 @@ t_TextAndSur Object::getTextureAndSurface(int type)
 		case ObjectSigns::TREE:
 			ret.text = gameState.textures.trees[4];
 			ret.sur = gameState.surfaces.trees[4];
+			break ;
+		default :
+			break ;
+	}
+	return (ret);
+}
+
+int Object::getObjSize(int type)
+{
+	int ret = 0;
+	switch (type)
+	{
+		case ObjectSigns::BUSH:
+			ret = 1;
+			break ;
+		case ObjectSigns::DEAD_TREE:
+			ret = 2;
+			break ;
+		case ObjectSigns::SMALL_TREE:
+			ret = 1;
+			break ;
+		case ObjectSigns::STUMP:
+			ret = 1;
+			break ;
+		case ObjectSigns::TREE:
+			ret = 2;
 			break ;
 		default :
 			break ;
