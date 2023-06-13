@@ -195,6 +195,58 @@ float	float_rand()
 	return (scale);
 }
 
+t_GMU *getMapTopRight(SDL_Point pos)
+{
+	if (pos.y <= 0)
+		return (NULL);
+	int modder = (pos.y % 2 == 0) ? 0 : 1;
+	if (pos.x + modder >= gameState.battle.ground->map.size())
+		return (NULL);
+	return (&gameState.battle.ground->map[pos.y - 1][pos.x + modder]);
+}
+
+t_GMU *getMapTopLeft(SDL_Point pos)
+{
+	if (pos.y <= 0)
+		return (NULL);
+	int modder = (pos.y % 2 == 0) ? -1 : 0;
+	if (pos.x + modder < 0)
+		return (NULL);
+	return (&gameState.battle.ground->map[pos.y - 1][pos.x + modder]);
+}
+
+t_GMU *getMapDownRight(SDL_Point pos)
+{
+	if (pos.y + 1 >= gameState.battle.ground->map.size())
+		return (NULL);
+	int modder = (pos.y % 2 == 0) ? 0 : 1;
+	if (pos.x + modder >= gameState.battle.ground->map.size())
+		return (NULL);
+	return (&gameState.battle.ground->map[pos.y + 1][pos.x + modder]);
+}
+
+t_GMU *getMapDownLeft(SDL_Point pos)
+{
+	if (pos.y + 1 >= gameState.battle.ground->map.size())
+		return (NULL);
+	int modder = (pos.y % 2 == 0) ? -1 : 0;
+	if (pos.x + modder < 0)
+		return (NULL);
+	return (&gameState.battle.ground->map[pos.y + 1][pos.x + modder]);
+}
+
+int getXToRight(SDL_Point pos)
+{
+	int modder = (pos.y % 2 == 0) ? 0 : 1;
+	return (modder);
+}
+
+int getXToLeft(SDL_Point pos)
+{
+	int modder = (pos.y % 2 == 0) ? -1 : 0;
+	return (modder);
+}
+
 int	figure_the_delay(clock_t start, clock_t end)
 {
 	double	time;

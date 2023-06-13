@@ -61,6 +61,7 @@ typedef struct s_Textures
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];
 	SDL_Texture *trees[5];
+	SDL_Texture *blocks[2];
 }				t_Textures;
 
 typedef struct s_Audio

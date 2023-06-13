@@ -127,6 +127,8 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/ground/objects/Tree.png");
 	gameState.textures.trees[4] = use.text;
 	gameState.surfaces.trees[4] = use.sur;
+	gameState.textures.blocks[0] = get_texture(rend, "sprites/env/fullBlock.png");
+	gameState.textures.blocks[1] = get_texture(rend, "sprites/env/halfBlock.png");
 }
 
 void	init(t_wr *wr)

@@ -172,4 +172,12 @@ Vector			getDirection(Vector generalDir);
 void			SetScreenShake(int volume, int time);
 void			ShakeTheScreen();
 
+t_GMU *getMapTopRight(SDL_Point pos);
+t_GMU *getMapTopLeft(SDL_Point pos);
+t_GMU *getMapDownRight(SDL_Point pos);
+t_GMU *getMapDownLeft(SDL_Point pos);
+
+int getXToRight(SDL_Point pos);
+int getXToLeft(SDL_Point pos);
+
 #endif
