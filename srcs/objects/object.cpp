@@ -4,7 +4,7 @@
 Object::Object(int type, SDL_Point position, bool fadeOnMouseOver)
 {
 	SDL_Rect dest = getRect(type, position);
-	int objSize = getObjSize(type);
+	size = getObjSize(type);
 	pos = position;
 	t_TextAndSur use = getTextureAndSurface(type);
 	sur = use.sur;
@@ -12,8 +12,7 @@ Object::Object(int type, SDL_Point position, bool fadeOnMouseOver)
 	gameState.render->AddSprite(sprite, BATTLEGROUND_LAYER);
 	int height = gameState.battle.ground->map[position.y][position.x].height;
 	gameState.battle.ground->map[position.y][position.x].blocked = true;
-	gameState.battle.ground->map[position.y][position.x].objSize = objSize;
-	size = objSize;
+	gameState.battle.ground->map[position.y][position.x].obj = this;
 	sprite->orderLayer = (position.y + 1);
 	sprite->setDepth(height * BATTLE_DEPTH_UNIT + 4);
 	Object::fadeOnMouseOver = fadeOnMouseOver;

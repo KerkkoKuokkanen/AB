@@ -39,6 +39,8 @@ int MainLoop(t_wr &wr)
 	Object dree(ObjectSigns::STUMP, {5, 14});
 	Object gree(ObjectSigns::DEAD_TREE, {5, 7});
 	Object lree(ObjectSigns::DEAD_TREE, {4, 5});
+	Object p1ree(ObjectSigns::DEAD_TREE, {2, 0});
+	Object p2ree(ObjectSigns::DEAD_TREE, {2, 2});
 	while (true)
 	{
 		start = clock();
