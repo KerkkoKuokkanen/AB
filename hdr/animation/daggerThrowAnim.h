@@ -17,9 +17,10 @@ class DaggerThrowAnim
 		void MoveBack();
 		void AnimationDone();
 		bool thrown = false;
+		int chance;
 	public:
 		bool active = true;
-		DaggerThrowAnim(Character *character, Character *enemy);
+		DaggerThrowAnim(Character *character, Character *enemy, int chance = 80);
 		void Update();
 };
 

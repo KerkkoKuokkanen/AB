@@ -41,6 +41,11 @@ void DaggerThrow::OverEnemy(Character *enemy)
 	thrown = true;
 }
 
+void DaggerThrow::EnemyCover(Character *enemy)
+{
+
+}
+
 void DaggerThrow::Update()
 {
 	Color purp = {255, 69, 56}, colorH(245, 147, 66), colorL(204, 126, 61);
@@ -57,6 +62,7 @@ void DaggerThrow::Update()
 				&& gameState.battle.ground->map[i][j].character->ally == false)
 			{
 				gameState.updateObjs.groundColoring->SetColoredPosition(pos, purp, purp);
+				EnemyCover(gameState.battle.ground->map[i][j].character);
 				OverEnemy(gameState.battle.ground->map[i][j].character);
 			}
 			else
