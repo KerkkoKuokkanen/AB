@@ -90,12 +90,13 @@ typedef struct s_Updates
 	Kill *killer;
 	ParticleManager *partManager;
 	CharacterUI *UI;
-	GroundColoring *groundColoring;
-	AbilityManager *abilityManager;
+	/* AbilityManager *abilityManager;
 	ObjectManager *objectManager;
 	AnimationManager *animationManager;
-	DamageCreator *createDamage;
+	DamageCreator *createDamage; */
 	OBJ_Update *objUpdate;
+	ObjectManager *objectManager;
+	Abilities *abilities;
 	float fadeIter;
 	int characterAnimIter;
 	t_MouseOver hover;

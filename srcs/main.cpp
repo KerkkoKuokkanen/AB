@@ -26,7 +26,7 @@ void TempInitBattle()
 	gameState.battle.ground->StartBattle(chars, pnt);
 	gameState.updateObjs.UI->SetCharacters(chars);
 	new TurnOrder(chars);
-	gameState.updateObjs.groundColoring->SetMap();
+	gameState.updateObjs.abilities->SetMap();
 }
 
 int MainLoop(t_wr &wr)

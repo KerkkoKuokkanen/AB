@@ -43,7 +43,7 @@ void DaggerThrow::OverEnemy(Character *enemy)
 
 void DaggerThrow::EnemyCover(Character *enemy)
 {
-
+	
 }
 
 void DaggerThrow::Update()

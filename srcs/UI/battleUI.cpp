@@ -62,8 +62,6 @@ void CharacterUI::GetAbilities()
 	int diff = 2900;
 	for (int i = 0; i < activeCharacter->abilities.size(); i++)
 	{
-		if (activeCharacter->abilities[i].active == false)
-			continue ;
 		dest.x = 21270 - (diff * (7 - i));
 		if (i >= 7)
 		{
@@ -174,12 +172,21 @@ void CharacterUI::UseEnergy(int cost)
 	activeCharacter->moves -= cost;
 }
 
+t_Ability *CharacterUI::GetCharacterAbility(int type)
+{
+	for (int i = 0; i < activeCharacter->abilities.size(); i++)
+	{
+		if (activeCharacter->abilities[i].type == type)
+			return (&activeCharacter->abilities[i]);
+	}
+	return (NULL);
+}
+
 void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 {
 	if (value == NO_CONTACT)
 		return ;
 	overCharacterUI = true;
-	ShowEnergy(buttons[buttonIndex].energyCost);
 	switch (buttons[buttonIndex].buttonSign)
 	{
 		case 0:
@@ -189,9 +196,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case DAGGER_THROW:
 			if (value == BUTTON_PRESS && buttons[buttonIndex].energyCost <= activeCharacter->moves)
 			{
-				gameState.updateObjs.abilityManager->ClearAbilities();
+				gameState.updateObjs.abilities->Clear();
 				gameState.updateObjs.turnOrder->ResetClicks();
-				gameState.updateObjs.abilityManager->SetAbility(new DaggerThrow(activeCharacter, buttons[buttonIndex].energyCost), DAGGER_THROW);
+				gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(DAGGER_THROW), activeCharacter);
 			}
 			break ;
 	}
@@ -199,7 +206,7 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 
 void CharacterUI::ClearEnergys()
 {
-	if (gameState.updateObjs.abilityManager->abilityActive)
+	if (gameState.updateObjs.abilities->active)
 		return ;
 	for (int i = 0; i < ENERGYS; i++)
 		energys[i]->energy->ColorMod(190, 190, 190);

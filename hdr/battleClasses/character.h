@@ -13,13 +13,6 @@ typedef struct s_Stats
 	int armor;
 }				t_Stats;
 
-typedef struct s_Abilities
-{
-	int type;
-	int cost;
-	bool active;
-}				t_Abilities;
-
 class Character
 {
 	private:
@@ -52,9 +45,7 @@ class Character
 		bool ally = true;
 		bool killed = false;
 		t_Stats stats = {1, 100, 100, 50, 50};
-		std::vector<t_Abilities> abilities = {{DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true},
-												{DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true},
-												{DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}, {DAGGER_THROW, 3, true}};
+		std::vector<t_Ability> abilities = {{DAGGER_THROW, 3, NULL}, {DAGGER_THROW, 3, NULL}};
 };
 
 #endif

@@ -161,7 +161,9 @@ void ObjUpdate()
 	UpdateHoveredCharacter();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
-	if (gameState.updateObjs.abilityManager != NULL)
+	if (gameState.updateObjs.abilities != NULL)
+		gameState.updateObjs.abilities->Upadte();
+	/* if (gameState.updateObjs.abilityManager != NULL)
 		gameState.updateObjs.abilityManager->Update();
 	if (gameState.updateObjs.animationManager != NULL)
 		gameState.updateObjs.animationManager->Update();
@@ -170,7 +172,7 @@ void ObjUpdate()
 	if (gameState.updateObjs.groundColoring != NULL)
 		gameState.updateObjs.groundColoring->Update();
 	if (gameState.updateObjs.createDamage != NULL)
-		gameState.updateObjs.createDamage->Update();
+		gameState.updateObjs.createDamage->Update(); */
 	gameState.updateObjs.killer->Update();
 	gameState.updateObjs.partManager->Update();
 	gameState.updateObjs.fadeIter += 0.06f;

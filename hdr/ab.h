@@ -46,6 +46,14 @@ typedef struct s_TextAndSur
 	SDL_Surface *sur;
 }				t_TextAndSur;
 
+typedef struct s_Ability
+{
+	int type;
+	int cost;
+	void *stats;
+}				t_Ability;
+
+
 SDL_FRect	translateSprite(SDL_Rect dest);
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 
@@ -71,6 +79,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "abilities/damageCreator.h"
 # include "abilities/daggerThrow.h"
 # include "abilities/abilityManager.h"
+# include "ability/selector.h"
+# include "ability/abilities.h"
 # include "UI/battleUI.h"
 
 enum {
@@ -163,6 +173,7 @@ void			PlaySound(Mix_Chunk *clip, int channel, int loops);
 void			Utility();
 void			ObjUpdate();
 void			findMovables(int **map, int moves, SDL_Point start);
+void			findMovablesStatic(int **map, int moves, SDL_Point start);
 Character		*HoveringOver();
 void			ManageTextureHovering();
 bool			MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse);

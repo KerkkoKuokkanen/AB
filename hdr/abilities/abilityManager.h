@@ -11,6 +11,7 @@ class AbilityManager
 	public:
 		bool abilityActive = false;
 		void SetAbility(void *ability, int type);
+		void ActivateAbility(t_Ability *ability);
 		void Update();
 		void ClearAbilities();
 };

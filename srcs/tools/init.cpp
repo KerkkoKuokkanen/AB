@@ -168,16 +168,16 @@ void	init(t_wr *wr)
 	gameState.updateObjs.partManager = &parts;
 	static CharacterUI bars;
 	gameState.updateObjs.UI = &bars;
-	static GroundColoring groundColoring;
-	gameState.updateObjs.groundColoring = &groundColoring;
-	static AbilityManager abilityManager;
+	/* static AbilityManager abilityManager;
 	gameState.updateObjs.abilityManager = &abilityManager;
 	static DamageCreator createDamage;
-	gameState.updateObjs.createDamage = &createDamage;
+	gameState.updateObjs.createDamage = &createDamage; */
 	static ObjectManager objectManager;
 	gameState.updateObjs.objectManager = &objectManager;
-	static AnimationManager animationManager;
-	gameState.updateObjs.animationManager = &animationManager;
+	/* static AnimationManager animationManager;
+	gameState.updateObjs.animationManager = &animationManager; */
+	static Abilities abilities;
+	gameState.updateObjs.abilities = &abilities;
 	static OBJ_Update objUpdate;
 	gameState.updateObjs.objUpdate = &objUpdate;
 	//SDL_SetWindowFullscreen(wr->win, 1);

@@ -85,11 +85,11 @@ void UpdateHoveredCharacter()
 		else
 			gameState.battle.ground->HighLightBlock(position, 255, 69, 56);
 		}
-	if (gameState.keys.click == RELEASE_CLICK && !gameState.updateObjs.abilityManager->abilityActive)
+	if (gameState.keys.click == RELEASE_CLICK && !gameState.updateObjs.abilities->active)
 	{
 		for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
 			gameState.battle.ground->characters[i].character->clicked = false;
-		gameState.updateObjs.abilityManager->ClearAbilities();
+		gameState.updateObjs.abilities->Clear();
 		chosen->clicked = true;
 	}
 }

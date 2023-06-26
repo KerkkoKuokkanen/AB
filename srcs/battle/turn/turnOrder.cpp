@@ -316,7 +316,7 @@ void TurnOrder::CheckClickBox()
 			if (gameState.keys.click == RELEASE_CLICK)
 			{
 				ResetClicks();
-				gameState.updateObjs.abilityManager->ClearAbilities();
+				gameState.updateObjs.abilities->Clear();
 				indicators[i].character->clicked = true;
 			}
 			return ;

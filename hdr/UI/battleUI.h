@@ -32,6 +32,7 @@ class CharacterUI
 		void HandleButtonAction(int value, int buttonIndex);
 		void DeactivateUI();
 		void CheckIfMouseOver();
+		t_Ability *GetCharacterAbility(int type);
 	public:
 		bool overCharacterUI = false;
 		bool active = false;
