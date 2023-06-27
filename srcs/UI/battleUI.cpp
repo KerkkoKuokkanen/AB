@@ -189,6 +189,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 	overCharacterUI = true;
 	if (gameState.updateObjs.abilities->active)
 		return ;
+	if (buttons[buttonIndex].energyCost != 0 && buttons[buttonIndex].energyCost < activeCharacter->moves)
+		ShowEnergy(buttons[buttonIndex].energyCost);
 	switch (buttons[buttonIndex].buttonSign)
 	{
 		case 0:
