@@ -55,26 +55,6 @@ bool Dagger::TargetMet()
 	return (false);
 }
 
-Vector Dagger::GetDirection()
-{
-	SDL_Rect cDest = character->sprite->dest;
-	SDL_Rect eDest = enemy->sprite->dest;
-	Vector toEnemy(cDest.x - eDest.x, cDest.y - eDest.y);
-	float angle = vectorAngle(Vector(0.0f, 1.0f), toEnemy);
-	float sign = (cDest.x <= eDest.x) ? 1.0f : -1.0f;
-	if (angle < PI / 2)
-		return(Vector(0.5 * sign, -0.5f));
-	return (Vector(0.5f * sign, 0.5f));
-}
-
-void Dagger::CreateDamage()
-{
-	t_Sound add2 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
-	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
-	std::vector<t_Sound> sounds = {add2, add3};
-	gameState.updateObjs.createDamage->CreateDamage(enemy, Color(255, 0, 0), 5, 5, GetDirection(), sounds);
-}
-
 void Dagger::CreateParticles()
 {
 	int iter = 2;
@@ -103,7 +83,7 @@ void Dagger::Update()
 		targetFound = true;
 		if (!missing)
 		{
-			CreateDamage();
+			createDamage = true;
 			return ;
 		}
 		SDL_Point pos = {sprite->dest.x + sprite->dest.w / 2, sprite->dest.y + sprite->dest.h / 2};

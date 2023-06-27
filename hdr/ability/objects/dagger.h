@@ -18,13 +18,13 @@ class Dagger
 		SDL_FPoint GetTarget(int hitChance, Character *enemy);
 		void CreateDamage();
 		bool TargetMet();
-		Vector GetDirection();
 		bool targetFound = false;
 		float speed = 1800.0f;
 		void CreateParticles();
 	public:
 		Sprite *sprite;
 		bool remove = false;
+		bool createDamage = false;
 		Dagger(Character *start, Character *end, int hitChance);
 		void Update();
 		void Destroy();

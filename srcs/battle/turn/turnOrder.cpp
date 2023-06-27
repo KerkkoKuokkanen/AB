@@ -313,10 +313,9 @@ void TurnOrder::CheckClickBox()
 				else
 					gameState.battle.ground->HighLightBlock(place, 255, 69, 56);
 			}
-			if (gameState.keys.click == RELEASE_CLICK)
+			if (gameState.keys.click == RELEASE_CLICK && !gameState.updateObjs.abilities->active)
 			{
 				ResetClicks();
-				gameState.updateObjs.abilities->Clear();
 				indicators[i].character->clicked = true;
 			}
 			return ;

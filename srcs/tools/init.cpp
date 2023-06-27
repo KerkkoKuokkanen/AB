@@ -168,14 +168,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.partManager = &parts;
 	static CharacterUI bars;
 	gameState.updateObjs.UI = &bars;
-	/* static AbilityManager abilityManager;
-	gameState.updateObjs.abilityManager = &abilityManager;
-	static DamageCreator createDamage;
-	gameState.updateObjs.createDamage = &createDamage; */
-	static ObjectManager objectManager;
-	gameState.updateObjs.objectManager = &objectManager;
-	/* static AnimationManager animationManager;
-	gameState.updateObjs.animationManager = &animationManager; */
 	static Abilities abilities;
 	gameState.updateObjs.abilities = &abilities;
 	static OBJ_Update objUpdate;

@@ -7,14 +7,14 @@ SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools
 		srcs/battle/turn/turnOrder.cpp srcs/battle/turn/turnIndicator.cpp srcs/characters/Kill.cpp \
 		srcs/effects/particle.cpp srcs/effects/partManager.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp \
 		srcs/tools/utility.cpp srcs/UI/button.cpp srcs/UI/energy.cpp srcs/ability/groundColoring.cpp \
-		srcs/tools/mapTools.cpp \
-		srcs/characters/hoverOver.cpp \
+		srcs/tools/mapTools.cpp srcs/ability/animation/daggerThrowAnim.cpp \
+		srcs/characters/hoverOver.cpp srcs/ability/objects/dagger.cpp srcs/ability/damageCreator.cpp \
 		srcs/objects/object.cpp srcs/tools/screenShaker.cpp srcs/ability/abilities.cpp \
 		srcs/ability/Selector.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \
-		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/animation -I ./hdr/objects -I ./hdr/ability
+		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability
 FLAGS = -std=c++11
 CGFLAGS = 
 INCLUDES	=	-I./frameworks/SDL2.framework/Versions/A/Headers \

@@ -2,7 +2,7 @@
 #ifndef DAGGER_THROW_ANIM_H
 # define DAGGER_THROW_ANIM_H
 
-# include "../ab.h"
+# include "../../ab.h"
 
 # define DAGGER_THROW_ANIMATION_TIME 14
 
@@ -17,10 +17,10 @@ class DaggerThrowAnim
 		void MoveBack();
 		void AnimationDone();
 		bool thrown = false;
-		int chance;
 	public:
 		bool active = true;
-		DaggerThrowAnim(Character *character, Character *enemy, int chance = 80);
+		bool timeForAbility = false;
+		DaggerThrowAnim(Character *character, Character *enemy);
 		void Update();
 };
 

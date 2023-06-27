@@ -187,6 +187,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 	if (value == NO_CONTACT)
 		return ;
 	overCharacterUI = true;
+	if (gameState.updateObjs.abilities->active)
+		return ;
 	switch (buttons[buttonIndex].buttonSign)
 	{
 		case 0:

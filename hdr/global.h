@@ -95,7 +95,6 @@ typedef struct s_Updates
 	AnimationManager *animationManager;
 	DamageCreator *createDamage; */
 	OBJ_Update *objUpdate;
-	ObjectManager *objectManager;
 	Abilities *abilities;
 	float fadeIter;
 	int characterAnimIter;

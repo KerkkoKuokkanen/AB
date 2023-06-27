@@ -47,6 +47,7 @@ Selector::Selector(SDL_Point start, int dist, int cleared, bool trees, GroundCol
 
 Character *Selector::Update()
 {
+	Character *ret = NULL;
 	Color purp = {255, 69, 56}, colorH(245, 147, 66), colorL(204, 126, 61);
 	groundColoring->ClearMap();
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
@@ -61,14 +62,13 @@ Character *Selector::Update()
 				&& gameState.battle.ground->map[i][j].character->ally == false)
 			{
 				groundColoring->SetColoredPosition(pos, purp, purp);
-				if (gameState.keys.click == RELEASE_CLICK)
-					return (gameState.battle.ground->map[i][j].character);
+				ret = gameState.battle.ground->map[i][j].character;
 			}
 			else
 				groundColoring->SetColoredPosition(pos, colorH, colorL);
 		}
 	}
-	return (NULL);
+	return (ret);
 }
 
 void Selector::Destroy()

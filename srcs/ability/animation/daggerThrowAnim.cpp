@@ -1,9 +1,8 @@
 
-#include "../../hdr/global.h"
+#include "../../../hdr/global.h"
 
-DaggerThrowAnim::DaggerThrowAnim(Character *character, Character *enemy, int chance)
+DaggerThrowAnim::DaggerThrowAnim(Character *character, Character *enemy)
 {
-	DaggerThrowAnim::chance = chance;
 	DaggerThrowAnim::character = character;
 	DaggerThrowAnim::enemy = enemy;
 	character->setAnimationActive(true);
@@ -36,8 +35,8 @@ void DaggerThrowAnim::MoveBack()
 	{
 		thrown = true;
 		PlaySound(gameState.audio.throwAnim, Channels::DAGGER_THROW_ANIM, 0);
-		gameState.updateObjs.objectManager->AddObject(new Dagger(character, enemy, chance), DAGGER_OBJ);
 		character->sprite->setTexture(gameState.textures.thiefDaggerThrow);
+		timeForAbility = true;
 		character->sprite->Move(Vector(550.0f, 380.0f));
 	}
 	int duration = DAGGER_THROW_ANIMATION_TIME / 2;
@@ -57,6 +56,7 @@ void DaggerThrowAnim::AnimationDone()
 
 void DaggerThrowAnim::Update()
 {
+	timeForAbility = false;
 	if (counter <= 0)
 	{
 		active = false;
