@@ -238,13 +238,13 @@ t_GMU *getMapDownLeft(SDL_Point pos)
 int getXToRight(SDL_Point pos)
 {
 	int modder = (pos.y % 2 == 0) ? 0 : 1;
-	return (modder);
+	return (pos.x + modder);
 }
 
 int getXToLeft(SDL_Point pos)
 {
 	int modder = (pos.y % 2 == 0) ? -1 : 0;
-	return (modder);
+	return (pos.x + modder);
 }
 
 int	figure_the_delay(clock_t start, clock_t end)

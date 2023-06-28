@@ -15,7 +15,7 @@ class Dagger
 		bool left = false;
 		bool down = false;
 		bool missing = false;
-		SDL_FPoint GetTarget(int hitChance, Character *enemy);
+		SDL_FPoint GetTarget(bool goingToHit, Character *enemy);
 		void CreateDamage();
 		bool TargetMet();
 		bool targetFound = false;
@@ -25,7 +25,7 @@ class Dagger
 		Sprite *sprite;
 		bool remove = false;
 		bool createDamage = false;
-		Dagger(Character *start, Character *end, int hitChance);
+		Dagger(Character *start, Character *end, bool goingToHit);
 		void Update();
 		void Destroy();
 };

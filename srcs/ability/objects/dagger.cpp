@@ -1,12 +1,12 @@
 
 #include "../../../hdr/global.h"
 
-SDL_FPoint Dagger::GetTarget(int hitChance, Character *enemy)
+SDL_FPoint Dagger::GetTarget(bool goingToHit, Character *enemy)
 {
-	int hit = rand() % 101;
+	int hit = rand() % 100;
 	SDL_Rect dest = enemy->sprite->dest;
 	SDL_FPoint target = {(float)(dest.x + (dest.w / 2)), (float)(dest.y + (dest.h / 2))};
-	if (hit <= hitChance)
+	if (goingToHit)
 		return (target);
 	missing = true;
 	int xRand = rand() % 3500 + 1000;
@@ -18,13 +18,13 @@ SDL_FPoint Dagger::GetTarget(int hitChance, Character *enemy)
 	return (target);
 }
 
-Dagger::Dagger(Character *start, Character *end, int hitChance)
+Dagger::Dagger(Character *start, Character *end, bool gointToHit)
 {
 	character = start;
 	enemy = end;
 	SDL_Rect dest = {start->sprite->dest.x + start->sprite->dest.w / 2 + 600, start->sprite->dest.y + start->sprite->dest.h / 2 - 1600, 1300, 1600};
 	sprite = new Sprite(gameState.textures.weaponObjs[DAGGER_OBJ], dest, NULL, NULL, 0, FLIP_NONE);
-	target = GetTarget(hitChance, end);
+	target = GetTarget(gointToHit, end);
 	SDL_FPoint pos = {(float)dest.x + 650.0f, (float)dest.y + 800.0f};
 	Vector dir = Vector(pos.x - target.x, pos.y - target.y).Normalized();
 	direction = {dir.x, dir.y};

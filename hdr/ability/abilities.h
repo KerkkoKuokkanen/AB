@@ -20,11 +20,14 @@ enum {
 	DAGGER_OBJ
 };
 
+# define HALF_BLOCK_CHANCE_REDUCE_AMOUNT 1.6f
+
 class Abilities
 {
 	private:
 		std::vector<t_Animation> animations;
 		std::vector<t_Object> objects;
+		Sprite *block = NULL;
 		t_Ability *ability = NULL;
 		Character *character = NULL;
 		Character *target = NULL;
@@ -32,6 +35,8 @@ class Abilities
 		GroundColoring groundColoring;
 		DamageCreator damageCreator;
 		bool inMotion = false;
+		bool blocks = false;
+		int chance = 0;
 		void SetSelector(t_Ability *ability, Character *character);
 		void ActivateAbility(t_Ability *ability, Character *character, Character *target);
 		void AnimationUpdater();
@@ -42,6 +47,15 @@ class Abilities
 		void AbilityStatus();
 		Vector GetDirection();
 		void CreateDamage();
+		void SetBlockSpriteAndChance(SDL_Point pos);
+		void SetBlockSprite(SDL_Point pos, int size);
+		void SetUpBlock(Character *target);
+		int CheckBlock(Character *target);
+		void GetChance(Character *target);
+		void ChanceFromStats(Character *target);
+		void BlockUpdate();
+		void RangedTargetCheck();
+		Character *FindBlocker();
 	public:
 		bool active = false;
 		void SetAbility(t_Ability *ability, Character *character);

@@ -20,7 +20,7 @@ void Selector::ClearPositionOutOfRange(int cleared, SDL_Point start)
 	free(temp);
 }
 
-Selector::Selector(SDL_Point start, int dist, int cleared, bool trees, GroundColoring *coloring)
+Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *coloring)
 {
 	groundColoring = coloring;
 	map = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());
@@ -48,7 +48,7 @@ Selector::Selector(SDL_Point start, int dist, int cleared, bool trees, GroundCol
 Character *Selector::Update()
 {
 	Character *ret = NULL;
-	Color purp = {255, 69, 56}, colorH(245, 147, 66), colorL(204, 126, 61);
+	Color purp = {84, 15, 20}, colorH(245, 147, 66), colorL(204, 126, 61);
 	groundColoring->ClearMap();
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
 	{

@@ -19,17 +19,22 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 	switch(ability->type)
 	{
 		case DAGGER_THROW:
-			selector = new Selector(pos, 13, 2, false, &groundColoring);
+			selector = new Selector(pos, 13, 2, &groundColoring);
 			break ;
 	}
 }
 
 void Abilities::SetAbility(t_Ability *ability, Character *character)
 {
+	if (inMotion)
+		return ;
+	Clear();
 	Abilities::ability = ability;
 	Abilities::character = character;
 	SetSelector(ability, character);
 	active = true;
+	chance = ability->baseChance;
+	blocks = true;
 }
 
 void Abilities::ActivateAbility(t_Ability *ability, Character *character, Character *target)
@@ -43,20 +48,41 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character, Charac
 	}
 }
 
+void Abilities::BlockUpdate()
+{
+	if (block == NULL)
+		return ;
+	float fadeMulti = cos(gameState.updateObjs.fadeIter) / 2.0f + 0.5f;
+	Uint8 add = (Uint8)(60.0f * fadeMulti);
+	block->ColorMod(195 + add, 195 + add, 195 + add);
+}
+
 void Abilities::Upadte()
 {
 	if (selector != NULL)
 	{
+		chance = ability->baseChance;
 		gameState.updateObjs.UI->ShowEnergy(ability->cost);
 		Character *ret = selector->Update();
-		if (ret != NULL && gameState.keys.click == RELEASE_CLICK)
+		if (ret != NULL)
 		{
-			gameState.updateObjs.UI->UseEnergy(ability->cost);
-			target = ret;
-			ActivateAbility(ability, character, ret);
-			ClearMap();
+			GetChance(ret);
+			if (gameState.keys.click == RELEASE_CLICK)
+			{
+				gameState.updateObjs.UI->UseEnergy(ability->cost);
+				target = ret;
+				ActivateAbility(ability, character, ret);
+				ClearMap();
+			}
+		}
+		else
+		{
+			if (block != NULL)
+				delete block;
+			block = NULL;
 		}
 	}
+	BlockUpdate();
 	AnimationUpdater();
 	ObjectUpdater();
 	damageCreator.Update();
@@ -74,7 +100,10 @@ void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
 			DaggerThrowAnim *used = (DaggerThrowAnim*)animation.animation;
 			used->Update();
 			if (used->timeForAbility)
-				objects.push_back({new Dagger(character, target, 80), DAGGER_OBJ});
+			{
+				RangedTargetCheck();
+				objects.push_back({new Dagger(character, target, (bool)chance), DAGGER_OBJ});
+			}
 			if (!used->active)
 				animations.erase(animations.begin() + index);
 			break ;
@@ -135,6 +164,9 @@ void Abilities::ClearMap()
 	if (selector != NULL)
 		delete selector;
 	selector = NULL;
+	if (block != NULL)
+		delete block;
+	block = NULL;
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	if (!inMotion)
@@ -148,9 +180,14 @@ void Abilities::Clear()
 	if (selector != NULL)
 		delete selector;
 	selector = NULL;
+	if (block != NULL)
+		delete block;
+	block = NULL;
 	active = false;
 	target = NULL;
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	inMotion = false;
+	chance = 0;
+	blocks = false;
 }

@@ -50,6 +50,7 @@ typedef struct s_Ability
 {
 	int type;
 	int cost;
+	int baseChance;
 	void *stats;
 }				t_Ability;
 
