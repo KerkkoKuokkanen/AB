@@ -24,6 +24,7 @@ class CharacterMover
 		void SmoothMover();
 		SDL_Rect ogPos;
 		bool positioned = false;
+		SDL_Point position;
 	public:
 		CharacterMover(Character *character, Vector direction, int firstTime, int secondTime, float speed, bool linear = true);
 		int Update();
