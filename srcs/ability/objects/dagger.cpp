@@ -30,13 +30,8 @@ Dagger::Dagger(Character *start, Character *end, bool gointToHit)
 	direction = {dir.x, dir.y};
 	float angle = vectorAngle(Vector(0.0f, 1.0f), dir);
 	if (pos.x > target.x)
-	{
 		angle = -angle;
-		left = true;
-	}
 	sprite->setAngle(degree(angle));
-	if (pos.y < target.y)
-		down = true;
 	gameState.render->AddSprite(sprite, OBJECT_LAYER);
 }
 
@@ -44,13 +39,8 @@ bool Dagger::TargetMet()
 {
 	SDL_Point position = {sprite->dest.x + sprite->dest.w / 2, sprite->dest.y + sprite->dest.h / 2};
 	SDL_Point targ = {(int)target.x, (int)target.y};
-	if (left && down && ((position.x <= target.x && position.y >= target.y) || pointCheck(targ, sprite->dest)))
-		return (true);
-	if (left && !down && ((position.x <= target.x && position.y <= target.y) || pointCheck(targ, sprite->dest)))
-		return (true);
-	if (!left && down && ((position.x >= target.x && position.y >= target.y) || pointCheck(targ, sprite->dest)))
-		return (true);
-	if (!left && !down && ((position.x >= target.x && position.y <= target.y) || pointCheck(targ, sprite->dest)))
+	float mag = Vector((float)position.x - (float)targ.x, (float)position.y - (float)targ.y).Magnitude();
+	if (mag < 1000.0f)
 		return (true);
 	return (false);
 }
@@ -77,7 +67,7 @@ void Dagger::Update()
 {
 	if (targetFound)
 		return;
-	if (TargetMet())
+	if (TargetMet() || destroyCounter <= 0)
 	{
 		remove = true;
 		targetFound = true;
@@ -93,6 +83,7 @@ void Dagger::Update()
 	CreateParticles();
 	sprite->Move(Vector(-direction.x * speed, -direction.y * speed));
 	speed /= 1.02f;
+	destroyCounter--;
 }
 
 void Dagger::Destroy()

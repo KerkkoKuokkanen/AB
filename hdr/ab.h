@@ -73,6 +73,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "objects/object.h"
 # include "objects/objUpdate.h"
 # include "battleClasses/groundColoring.h"
+# include "ability/characterMover.h"
 # include "ability/animation/daggerThrowAnim.h"
 # include "ability/objects/dagger.h"
 # include "ability/damageCreator.h"

@@ -154,7 +154,7 @@ void Abilities::RangedTargetCheck()
 	Character *ret = FindBlocker();
 	if (ret == NULL)
 	{
-		if (rand() % 100 < chance)
+		if ((rand() % 100) < chance)
 			chance = 1;
 		else
 			chance = 0;

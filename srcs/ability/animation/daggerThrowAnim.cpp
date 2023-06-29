@@ -39,7 +39,6 @@ void DaggerThrowAnim::MoveBack()
 		timeForAbility = true;
 		character->sprite->Move(Vector(550.0f, 380.0f));
 	}
-	int duration = DAGGER_THROW_ANIMATION_TIME / 2;
 	int time = counter;
 	float speed = (100.0f / (float)time) + 80.0f;
 	character->sprite->Move(Vector(-direction.x * speed, -direction.y * speed));

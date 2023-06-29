@@ -7,7 +7,7 @@ SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools
 		srcs/battle/turn/turnOrder.cpp srcs/battle/turn/turnIndicator.cpp srcs/characters/Kill.cpp \
 		srcs/effects/particle.cpp srcs/effects/partManager.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp \
 		srcs/tools/utility.cpp srcs/UI/button.cpp srcs/UI/energy.cpp srcs/ability/groundColoring.cpp \
-		srcs/tools/mapTools.cpp srcs/ability/animation/daggerThrowAnim.cpp \
+		srcs/tools/mapTools.cpp srcs/ability/animation/daggerThrowAnim.cpp srcs/ability/characterMover.cpp\
 		srcs/characters/hoverOver.cpp srcs/ability/objects/dagger.cpp srcs/ability/damageCreator.cpp \
 		srcs/objects/object.cpp srcs/tools/screenShaker.cpp srcs/ability/abilities.cpp \
 		srcs/ability/Selector.cpp srcs/ability/chanceChecks.cpp

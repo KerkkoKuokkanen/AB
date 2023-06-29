@@ -11,9 +11,7 @@ class Dagger
 		Character *enemy;
 		SDL_FPoint direction;
 		SDL_FPoint target;
-		int lifeTime = 120;
-		bool left = false;
-		bool down = false;
+		int destroyCounter = 100;
 		bool missing = false;
 		SDL_FPoint GetTarget(bool goingToHit, Character *enemy);
 		void CreateDamage();

@@ -26,6 +26,9 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 	character->stats.armor -= armorDamage;
 	damages.push_back(add);
 	SetScreenShake(300, 6);
+	if (partDir.y < 0.0f)
+		return ;
+	character->sprite->orderLayer = (pos.y + 1);
 }
 
 void DamageCreator::ColorManage(Character *character, int time)
@@ -73,6 +76,8 @@ void DamageCreator::MoveManage(Character *character, int time, Vector direction,
 		return ;
 	}
 	character->sprite->Position(Vector(dest.x, dest.y));
+	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	character->sprite->orderLayer = pos.y;
 }
 
 float DamageCreator::GetSpeed(Vector dir, Vector genDir)
