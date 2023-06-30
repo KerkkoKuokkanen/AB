@@ -10,11 +10,13 @@ SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools
 		srcs/tools/mapTools.cpp srcs/ability/animation/daggerThrowAnim.cpp srcs/ability/characterMover.cpp\
 		srcs/characters/hoverOver.cpp srcs/ability/objects/dagger.cpp srcs/ability/damageCreator.cpp \
 		srcs/objects/object.cpp srcs/tools/screenShaker.cpp srcs/ability/abilities.cpp \
-		srcs/ability/Selector.cpp srcs/ability/chanceChecks.cpp
+		srcs/ability/selectors/Selector.cpp srcs/ability/chanceChecks.cpp srcs/ability/selectors/SelectorForTiles.cpp \
+		srcs/ability/damager.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \
-		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability
+		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability \
+		-I ./hdr/abilities/selectors/
 FLAGS = -std=c++11
 CGFLAGS = 
 INCLUDES	=	-I./frameworks/SDL2.framework/Versions/A/Headers \

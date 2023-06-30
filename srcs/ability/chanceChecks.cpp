@@ -25,75 +25,7 @@ static bool CheckIfOnTheRight(SDL_Point og, SDL_Point compare)
 	return (false);
 }
 
-void Abilities::SetBlockSprite(SDL_Point pos, int size)
-{
-	if (block != NULL)
-		return ;
-	Sprite *tile = gameState.battle.ground->GetSprite(pos);
-	SDL_Rect dest = {tile->dest.x + 1340, tile->dest.y - 2300, 3150, 3150};
-	block = new Sprite(gameState.textures.blocks[size], dest, NULL, NULL, 0, FLIP_NONE);
-	gameState.render->AddSprite(block, DUST_LAYER);
-}
-
-void Abilities::SetBlockSpriteAndChance(SDL_Point pos)
-{
-	Character *character = NULL;
-	Object *obj = NULL;
-	if (gameState.battle.ground->map[pos.y][pos.x].obj != NULL)
-		obj = gameState.battle.ground->map[pos.y][pos.x].obj;
-	if (gameState.battle.ground->map[pos.y][pos.x].character != NULL)
-		character = gameState.battle.ground->map[pos.y][pos.x].character;
-	int size = 0;
-	if (obj != NULL)
-	{
-		if (obj->size == 2)
-			chance = 5;
-		else if (obj->size == 1)
-		{
-			size = 1;
-			chance = rounding((float)chance / HALF_BLOCK_CHANCE_REDUCE_AMOUNT);
-		}
-	}
-	else
-	{
-		size = 1;
-		chance = rounding((float)chance / HALF_BLOCK_CHANCE_REDUCE_AMOUNT);
-		chance = rounding((float)chance / 4.0f);
-	}
-	SetBlockSprite(pos, size);
-}
-
-void Abilities::SetUpBlock(Character *target)
-{
-	int ret = CheckBlock(target);
-	if (ret == 0)
-	{
-		if (block != NULL)
-			delete block;
-		block = NULL;
-		return ;
-	}
-	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
-	SDL_Point pos = {0, 0};
-	switch (ret)
-	{
-		case 1:
-			pos = {getXToLeft(tPos), tPos.y - 1};
-			break ;
-		case 2:
-			pos = {getXToLeft(tPos), tPos.y + 1};
-			break ;
-		case 3:
-			pos = {getXToRight(tPos), tPos.y + 1};
-			break ;
-		case 4:
-			pos = {getXToRight(tPos), tPos.y - 1};
-			break ;
-	}
-	SetBlockSpriteAndChance(pos);
-}
-
-void Abilities::ChanceFromStats(Character *target)
+int RangedChance(Character *character, Character *target)
 {
 	SDL_Point cPos = gameState.updateObjs.indicator->FindCharacter(character);
 	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
@@ -102,87 +34,118 @@ void Abilities::ChanceFromStats(Character *target)
 		height = 3;
 	if (height < -3)
 		height = -3;
-	chance += 5 * height;
-	return ;
+	return (5 * height);
 }
 
-void Abilities::GetChance(Character *target)
+SDL_Point BlockPosition(SDL_Point cPos, SDL_Point tPos)
 {
-	if (chance >= 200)
-		return ;
-	ChanceFromStats(target);
-	if (blocks)
-		SetUpBlock(target);
-	if (chance > 95)
-		chance = 95;
-}
-
-Character *Abilities::FindBlocker()
-{
-	Character *ret = NULL;
-	int square = CheckBlock(target);
-	SDL_Point pos = {0, 0};
-	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
-	switch (square)
+	int ret = CheckIfBlock(cPos, tPos);
+	if (ret == 0)
+		return {-1, -1};
+	SDL_Point pos = tPos;
+	switch (ret)
 	{
-		case 0:
-			return (NULL);
 		case 1:
-			pos = {getXToLeft(tPos), tPos.y - 1};
+			pos.x = getXToLeft(tPos); pos.y -= 1;
 			break ;
 		case 2:
-			pos = {getXToLeft(tPos), tPos.y + 1};
+			pos.x = getXToLeft(tPos); pos.y += 1;
 			break ;
 		case 3:
-			pos = {getXToRight(tPos), tPos.y + 1};
+			pos.x = getXToRight(tPos); pos.y += 1;
 			break ;
 		case 4:
-			pos = {getXToRight(tPos), tPos.y - 1};
+			pos.x = getXToRight(tPos); pos.y -= 1;
 			break ;
 	}
-	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
-		return (ret);
-	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
-		return (ret);
-	if (gameState.battle.ground->map[pos.y][pos.x].character != NULL)
-		ret = gameState.battle.ground->map[pos.y][pos.x].character;
+	return (pos);
+}
+
+void ChanceFromBlockers(int &chance, Character *character, Character *target)
+{
+	SDL_Point cPos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
+	SDL_Point pos = BlockPosition(cPos, tPos);
+	if (pos.x == (-1))
+		return ;
+	if (gameState.battle.ground->map[pos.y][pos.x].obj == NULL)
+	{
+		chance = rounding((float)chance / HALF_BLOCK_CHANCE_REDUCE_AMOUNT);
+		chance = rounding((float)chance / 4.0f);
+		return ;
+	}
+	if (gameState.battle.ground->map[pos.y][pos.x].obj->size == 2)
+	{
+		chance = 5;
+		return ;
+	}
+	chance = rounding((float)chance / HALF_BLOCK_CHANCE_REDUCE_AMOUNT);
+}
+
+int GetChance(Character *character, Character *target, t_Ability *ability)
+{
+	if (ability == NULL)
+		return (0);
+	if (ability->baseChance >= 200)
+		return (200);
+	int ret = ability->baseChance;
+	switch (ability->type)
+	{
+		case DAGGER_THROW:
+			ret += RangedChance(character, target);
+			ChanceFromBlockers(ret, character, target);
+			break ;
+	}
+	if (ret > 95)
+		ret = 95;
+	if (ret < 5)
+		ret = 5;
 	return (ret);
 }
 
-void Abilities::RangedTargetCheck()
+Character *BasicCheck(Character *target, int &chance)
 {
-	Character *ret = FindBlocker();
+	if ((rand() % 100) < chance)
+		chance = 1;
+	else
+		chance = 0;
+	return (target);
+}
+
+Character *RangedCheck(Character *character, Character *target, int &chance)
+{
+	SDL_Point cPos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
+	SDL_Point pos = BlockPosition(cPos, tPos);
+	if (pos.x == (-1))
+		return (BasicCheck(target, chance));
+	Character *ret = gameState.battle.ground->map[pos.y][pos.x].character;
 	if (ret == NULL)
-	{
-		if ((rand() % 100) < chance)
-			chance = 1;
-		else
-			chance = 0;
-		return ;
-	}
+		return (BasicCheck(target, chance));
 	int hit = rand() % 100;
+	int glit = rounding(chance * 3.0f + chance);
 	if (hit < chance)
 	{
 		chance = 1;
-		return ;
+		return (target);
 	}
-	if (hit < rounding(chance * 3.0f + chance))
+	if (hit < glit)
 	{
-		target = ret;
 		chance = 1;
-		return ;
+		return (ret);
 	}
 	chance = 0;
+	return (target);
 }
 
-int Abilities::CheckBlock(Character *target)
+int CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos)
 {
-	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(target);
+	SDL_Point pos = targetPos;
 	t_GMU *topLeft = getMapTopLeft(pos);
 	t_GMU *topRight = getMapTopRight(pos);
 	t_GMU *downLeft = getMapDownLeft(pos);
 	t_GMU *downRight = getMapDownRight(pos);
-	SDL_Point pPos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point pPos = characterPos;
 	SDL_Point tPos = {getXToLeft(pos), pos.y - 1};
 	if (topLeft != NULL)
 	{

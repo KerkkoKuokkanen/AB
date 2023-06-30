@@ -1,7 +1,7 @@
 
-#include "../../hdr/global.h"
+#include "../../../hdr/global.h"
 
-void Selector::ClearPositionOutOfRange(int cleared, SDL_Point start)
+void TileSelector::ClearPositionOutOfRange(int cleared, SDL_Point start)
 {
 	int **temp = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
@@ -20,13 +20,28 @@ void Selector::ClearPositionOutOfRange(int cleared, SDL_Point start)
 	free(temp);
 }
 
-Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *coloring)
+void TileSelector::IncludePoint(SDL_Point pos, int mark)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return ;
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return ;
+	map[pos.y][pos.x] = mark;
+}
+
+TileSelector::TileSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch)
 {
 	groundColoring = coloring;
 	map = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
 		map[i] = (int *)malloc(sizeof(int) * gameState.battle.ground->map[0].size());
-	findMovables(map, dist, start);
+	if (dist > 0)
+	{
+		if (staticSearch)
+			findMovablesStatic(map, dist, start);
+		else
+			findMovables(map, dist, start);
+	}
 	if (cleared > 0)
 		ClearPositionOutOfRange(cleared, start);
 	Color colorH(245, 147, 66);
@@ -45,9 +60,9 @@ Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *color
 	groundColoring->active = true;
 }
 
-Character *Selector::Update()
+SDL_Point TileSelector::Update()
 {
-	Character *ret = NULL;
+	SDL_Point ret = {-1, -1};
 	Color purp = {84, 15, 20}, colorH(245, 147, 66), colorL(204, 126, 61);
 	groundColoring->ClearMap();
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
@@ -57,12 +72,11 @@ Character *Selector::Update()
 			if (map[i][j] == TOOL_MAP_SIGN)
 				continue ;
 			SDL_Point pos = {j, i};
-			if (gameState.battle.ground->map[i][j].character != NULL
-				&& (gameState.battle.ground->map[i][j].marked || gameState.battle.ground->map[i][j].character->hover)
-				&& gameState.battle.ground->map[i][j].character->ally == false)
+			if (gameState.battle.ground->map[i][j].marked ||
+				(gameState.battle.ground->map[i][j].character != NULL && gameState.battle.ground->map[i][j].character->hover))
 			{
+				ret = pos;
 				groundColoring->SetColoredPosition(pos, purp, purp);
-				ret = gameState.battle.ground->map[i][j].character;
 			}
 			else
 				groundColoring->SetColoredPosition(pos, colorH, colorL);
@@ -71,7 +85,7 @@ Character *Selector::Update()
 	return (ret);
 }
 
-void Selector::Destroy()
+void TileSelector::Destroy()
 {
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
 		free(map[i]);

@@ -56,7 +56,7 @@ typedef struct s_Textures
 	SDL_Texture *KillParticle[2];
 	SDL_Texture *bar[2];
 	SDL_Texture *barFiller;
-	SDL_Texture *thiefAbilites[1];
+	SDL_Texture *thiefAbilites[2];
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];
@@ -90,10 +90,6 @@ typedef struct s_Updates
 	Kill *killer;
 	ParticleManager *partManager;
 	CharacterUI *UI;
-	/* AbilityManager *abilityManager;
-	ObjectManager *objectManager;
-	AnimationManager *animationManager;
-	DamageCreator *createDamage; */
 	OBJ_Update *objUpdate;
 	Abilities *abilities;
 	float fadeIter;

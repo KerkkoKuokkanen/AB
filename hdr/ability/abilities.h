@@ -22,40 +22,41 @@ enum {
 
 # define HALF_BLOCK_CHANCE_REDUCE_AMOUNT 1.6f
 
+// Class that is responsible for transfering the data and initiating all the different
+// phases of abilities. Not ment to hold any info about abilitites them selves, just responsible for
+// launching them into the game and transfering data between the phases of the abilities
+
 class Abilities
 {
 	private:
+		GroundColoring groundColoring;
+
 		std::vector<t_Animation> animations;
 		std::vector<t_Object> objects;
-		Sprite *block = NULL;
+
 		t_Ability *ability = NULL;
 		Character *character = NULL;
 		Character *target = NULL;
+		SDL_Point targetPoint = {0, 0};
+
 		Selector *selector = NULL;
-		GroundColoring groundColoring;
-		DamageCreator damageCreator;
+		TileSelector *tileSelector = NULL;
+		Damager damager;
+
 		bool inMotion = false;
-		bool blocks = false;
-		int chance = 0;
 		void SetSelector(t_Ability *ability, Character *character);
-		void ActivateAbility(t_Ability *ability, Character *character, Character *target);
+		void ActivateAbility(t_Ability *ability, Character *character);
 		void AnimationUpdater();
 		void UpdateSpecificAnimation(t_Animation &animation, int index);
 		void ObjectUpdater();
 		void UpdateSpecificObject(t_Object &object, int index);
 		void ClearMap();
 		void AbilityStatus();
-		Vector GetDirection();
 		void CreateDamage();
-		void SetBlockSpriteAndChance(SDL_Point pos);
-		void SetBlockSprite(SDL_Point pos, int size);
-		void SetUpBlock(Character *target);
-		int CheckBlock(Character *target);
-		void GetChance(Character *target);
-		void ChanceFromStats(Character *target);
-		void BlockUpdate();
-		void RangedTargetCheck();
-		Character *FindBlocker();
+		void UpdateSelector();
+		void SelectorWithCharacters();
+		void SelectorWithSquares();
+
 	public:
 		bool active = false;
 		void SetAbility(t_Ability *ability, Character *character);

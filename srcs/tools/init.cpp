@@ -104,6 +104,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.barFiller = get_texture(rend, "sprites/UI/everyColor.png");
 	gameState.textures.turnDone = get_texture(rend, "sprites/UI/button.png");
 	gameState.textures.thiefAbilites[0] = get_texture(rend, "sprites/UI/abilities/daggerThrow.png");
+	gameState.textures.thiefAbilites[1] = get_texture(rend, "sprites/UI/abilities/smokeBomb.png");
 	use = get_texture_and_surface(rend, "sprites/UI/energyStand.png");
 	gameState.textures.energy[0] = use.text;
 	gameState.surfaces.energy[0] = use.sur;

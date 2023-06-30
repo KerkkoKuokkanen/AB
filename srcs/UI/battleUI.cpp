@@ -73,6 +73,9 @@ void CharacterUI::GetAbilities()
 			case DAGGER_THROW:
 				CreateButton(dest, gameState.textures.thiefAbilites[0], DAGGER_THROW, activeCharacter->abilities[i].cost);
 				break ;
+			case SMOKE_BOMB:
+				CreateButton(dest, gameState.textures.thiefAbilites[1], SMOKE_BOMB, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }
@@ -180,32 +183,6 @@ t_Ability *CharacterUI::GetCharacterAbility(int type)
 			return (&activeCharacter->abilities[i]);
 	}
 	return (NULL);
-}
-
-void CharacterUI::HandleButtonAction(int value, int buttonIndex)
-{
-	if (value == NO_CONTACT)
-		return ;
-	overCharacterUI = true;
-	if (gameState.updateObjs.abilities->active)
-		return ;
-	if (buttons[buttonIndex].energyCost != 0 && buttons[buttonIndex].energyCost < activeCharacter->moves)
-		ShowEnergy(buttons[buttonIndex].energyCost);
-	switch (buttons[buttonIndex].buttonSign)
-	{
-		case 0:
-			if (value == BUTTON_PRESS)
-				gameState.updateObjs.turnOrder->ActivateTurnChange();
-			break ;
-		case DAGGER_THROW:
-			if (value == BUTTON_PRESS && buttons[buttonIndex].energyCost <= activeCharacter->moves)
-			{
-				gameState.updateObjs.abilities->Clear();
-				gameState.updateObjs.turnOrder->ResetClicks();
-				gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(DAGGER_THROW), activeCharacter);
-			}
-			break ;
-	}
 }
 
 void CharacterUI::ClearEnergys()
@@ -321,5 +298,39 @@ void CharacterUI::CheckIfMouseOver()
 				return ;
 			}
 		}
+	}
+}
+
+void CharacterUI::HandleButtonAction(int value, int buttonIndex)
+{
+	if (value == NO_CONTACT)
+		return ;
+	overCharacterUI = true;
+	if (gameState.updateObjs.abilities->active)
+		return ;
+	if (buttons[buttonIndex].energyCost != 0 && buttons[buttonIndex].energyCost < activeCharacter->moves)
+		ShowEnergy(buttons[buttonIndex].energyCost);
+	switch (buttons[buttonIndex].buttonSign)
+	{
+		case 0:
+			if (value == BUTTON_PRESS)
+				gameState.updateObjs.turnOrder->ActivateTurnChange();
+			break ;
+		case DAGGER_THROW:
+			if (value == BUTTON_PRESS && buttons[buttonIndex].energyCost <= activeCharacter->moves)
+			{
+				gameState.updateObjs.abilities->Clear();
+				gameState.updateObjs.turnOrder->ResetClicks();
+				gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(DAGGER_THROW), activeCharacter);
+			}
+			break ;
+		case SMOKE_BOMB:
+			if (value == BUTTON_PRESS && buttons[buttonIndex].energyCost <= activeCharacter->moves)
+			{
+				gameState.updateObjs.abilities->Clear();
+				gameState.updateObjs.turnOrder->ResetClicks();
+				gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SMOKE_BOMB), activeCharacter);
+			}
+			break ;
 	}
 }
