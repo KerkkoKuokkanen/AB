@@ -45,6 +45,7 @@ class TurnOrder
 		void SetStuffWithoudMove();
 		int wait = 0;
 	public:
+		int turnCount = 0;
 		bool stuffHappening = true;
 		bool stuffWithOutMove = true;
 		bool insideBox = false;

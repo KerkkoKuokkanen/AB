@@ -130,6 +130,11 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.trees[4] = use.sur;
 	gameState.textures.blocks[0] = get_texture(rend, "sprites/env/fullBlock.png");
 	gameState.textures.blocks[1] = get_texture(rend, "sprites/env/halfBlock.png");
+	gameState.textures.thiefSmokeThrow[0] = get_texture(rend, "sprites/characters/hood_smoke.png");
+	gameState.textures.thiefSmokeThrow[1] = get_texture(rend, "sprites/effects/hood_smoke_trail.png");
+	gameState.textures.smokes[0] = get_texture(rend, "sprites/env/smoke1.png");
+	gameState.textures.smokes[1] = get_texture(rend, "sprites/env/smoke2.png");
+	gameState.textures.smokes[2] = get_texture(rend, "sprites/env/littleSmoke.png");
 }
 
 void	init(t_wr *wr)

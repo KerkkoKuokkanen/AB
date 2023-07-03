@@ -148,6 +148,7 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 
 void TurnOrder::StartTurn()
 {
+	turnCount += 1;
 	turnStartActive = true;
 	std::sort(indicators.begin(), indicators.end(), compareObjects);
 	for (int i = 0; i < indicators.size(); i++)

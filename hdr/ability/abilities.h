@@ -42,6 +42,7 @@ class Abilities
 		Selector *selector = NULL;
 		TileSelector *tileSelector = NULL;
 		Damager damager;
+		EffectUpdater effectUpdater;
 
 		bool inMotion = false;
 		void SetSelector(t_Ability *ability, Character *character);

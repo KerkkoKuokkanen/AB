@@ -35,6 +35,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case DAGGER_THROW:
 			animations.push_back({new DaggerThrowAnim(character, target), DAGGER_THROW});
 			break ;
+		case SMOKE_BOMB:
+			animations.push_back({new SmokeBombAnim(character, targetPoint), SMOKE_BOMB});
+			break ;
 	}
 }
 
@@ -59,9 +62,9 @@ void Abilities::SelectorWithSquares()
 {
 	gameState.updateObjs.UI->ShowEnergy(ability->cost);
 	SDL_Point ret = tileSelector->Update();
-	Character *blockChar = gameState.battle.ground->map[ret.y][ret.x].character;
 	if (ret.x != (-1) && ret.y != (-1))
 	{
+		Character *blockChar = gameState.battle.ground->map[ret.y][ret.x].character;
 		if (gameState.keys.click == RELEASE_CLICK)
 		{
 			gameState.updateObjs.UI->UseEnergy(ability->cost);
@@ -86,6 +89,7 @@ void Abilities::Upadte()
 	UpdateSelector();
 	AnimationUpdater();
 	ObjectUpdater();
+	effectUpdater.Update();
 	damager.Update();
 	groundColoring.Update();
 	if (gameState.keys.rightClick == INITIAL_CLICK)
@@ -98,6 +102,7 @@ void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
 	switch (animation.type)
 	{
 		case DAGGER_THROW:
+		{
 			DaggerThrowAnim *used = (DaggerThrowAnim*)animation.animation;
 			used->Update();
 			if (used->timeForAbility)
@@ -110,6 +115,20 @@ void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
 			if (!used->active)
 				animations.erase(animations.begin() + index);
 			break ;
+		}
+		case SMOKE_BOMB:
+		{
+			SmokeBombAnim *use = (SmokeBombAnim*)animation.animation;
+			use->Update();
+			if (!use->active)
+			{
+				use->Destroy();
+				animations.erase(animations.begin() + index);
+			}
+			if (use->timeForAbility)
+				effectUpdater.SetEffect(2, targetPoint, *ability);
+			break ;
+		}
 	}
 }
 

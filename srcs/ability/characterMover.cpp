@@ -12,10 +12,6 @@ CharacterMover::CharacterMover(Character *character, Vector direction, int first
 	ogPos = character->sprite->dest;
 	totalCopy = totalTime;
 	CharacterMover::speed = speed;
-	if (dir.y < 0.0f)
-		return ;
-	position = gameState.updateObjs.indicator->FindCharacter(character);
-	character->sprite->orderLayer = position.y + 1;
 }
 
 void CharacterMover::LinearMover()
@@ -55,7 +51,6 @@ int CharacterMover::Update()
 		{
 			positioned = true;
 			character->sprite->Position(Vector((float)ogPos.x, (float)ogPos.y));
-			character->sprite->orderLayer = position.y;
 		}
 		return (ANIMATION_DONE);
 	}
