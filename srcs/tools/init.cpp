@@ -132,9 +132,16 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.blocks[1] = get_texture(rend, "sprites/env/halfBlock.png");
 	gameState.textures.thiefSmokeThrow[0] = get_texture(rend, "sprites/characters/hood_smoke.png");
 	gameState.textures.thiefSmokeThrow[1] = get_texture(rend, "sprites/effects/hood_smoke_trail.png");
-	gameState.textures.smokes[0] = get_texture(rend, "sprites/env/smoke1.png");
-	gameState.textures.smokes[1] = get_texture(rend, "sprites/env/smoke2.png");
-	gameState.textures.smokes[2] = get_texture(rend, "sprites/env/littleSmoke.png");
+	gameState.textures.smokes[0] = get_texture(rend, "sprites/env/smoke1-1.png");
+	gameState.textures.smokes[1] = get_texture(rend, "sprites/env/smoke1-2.png");
+	gameState.textures.smokes[2] = get_texture(rend, "sprites/env/smoke2-1.png");
+	gameState.textures.smokes[3] = get_texture(rend, "sprites/env/smoke2-2.png");
+	gameState.textures.stands.thiefIdle1Stand = get_texture(rend, "sprites/characters/hood_idle1_stand.png");
+	gameState.textures.stands.thiefIdle2Stand = get_texture(rend, "sprites/characters/hood_idle2_stand.png");
+	gameState.textures.stands.thiefDaggerThrowStand = get_texture(rend, "sprites/characters/hood_throw_stand.png");
+	gameState.textures.stands.thiefSmokeThrowStand = get_texture(rend, "sprites/characters/hood_smoke_stand.png");
+	gameState.textures.stands.skeleIdle1Stand = get_texture(rend, "sprites/characters/skele_stand.png");
+	gameState.textures.stands.skeleIdle2Stand = get_texture(rend, "sprites/characters/skele2_stand.png");
 }
 
 void	init(t_wr *wr)
@@ -143,9 +150,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(8);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -178,6 +185,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static OBJ_Update objUpdate;
 	gameState.updateObjs.objUpdate = &objUpdate;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

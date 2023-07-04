@@ -104,7 +104,10 @@ void BattleGround::ChangeUp()
 				if ((sprites[currSprite].size() - 1) <= currentHeight)
 				{
 					if (map[i][j].character != NULL)
+					{
 						map[i][j].character->sprite->ClearAlphaMod();
+						map[i][j].character->stand->ClearAlphaMod();
+					}
 					map[i][j].active = true;
 				}
 			}
@@ -128,7 +131,10 @@ void BattleGround::ChangeDown()
 				sprites[currSprite][currentHeight + 1].AlphaMod(alpha);
 				map[i][j].active = false;
 				if (map[i][j].character != NULL)
+				{
 					map[i][j].character->sprite->AlphaMod(alpha);
+					map[i][j].character->stand->AlphaMod(alpha);
+				}
 			}
 			currSprite++;
 		}
@@ -210,7 +216,9 @@ void BattleGround::PlaceCharacter(SDL_Point &position, Character *character)
 	Vector place = GetCharacterCoord(position, character);
 	character->Position(place);
 	character->sprite->orderLayer = position.y;
+	character->stand->orderLayer = position.y;
 	character->sprite->setDepth(map[position.y][position.x].height * BATTLE_DEPTH_UNIT + 8);
+	character->stand->setDepth(map[position.y][position.x].height * BATTLE_DEPTH_UNIT + 7);
 	map[position.y][position.x].character = character;
 	map[position.y][position.x].blocked = true;
 	map[position.y][position.x].character->setCoord(position);

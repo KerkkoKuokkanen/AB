@@ -20,7 +20,7 @@ class Sprite
 		bool active = true;
 		bool translated = true;
 	public:
-		int z = 0;
+		float z = 0.0f;
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
 		int orderLayer = 0;
@@ -111,7 +111,7 @@ class Sprite
 		void setPortion(SDL_Rect srect) {Sprite::srect = &srect;};
 		void setTexture(SDL_Texture *texture) {sprite = texture;};
 		SDL_Texture *getTexture() {return (sprite);};
-		void setDepth(int z) {Sprite::z = z;};
+		void setDepth(float z) {Sprite::z = z;};
 		void setPoint(SDL_FPoint point) {Sprite::point = &point;};
 		void setStatic(bool staticSprite) {Sprite::staticSprite = staticSprite;};
 		void setWidthAndHeight(const int width, const int height) {dest.w = width; dest.h = height;};

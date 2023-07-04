@@ -15,6 +15,7 @@ void BattleGround::setMoved(std::vector<SDL_Point> &path)
 	movedCharacter.character->clicked = false;
 	movedCharacter.character->moving = true;
 	movedCharacter.character->sprite->ClearAlphaMod();
+	movedCharacter.character->stand->ClearAlphaMod();
 	map[movedCharacter.path[0].y][movedCharacter.path[0].x].blocked = false;
 	map[movedCharacter.path[0].y][movedCharacter.path[0].x].character = NULL;
 }
@@ -92,6 +93,7 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 	{
 		angle = angle - ((0.538f * (float)movedCharacter.iterator) * sign);
 		movedCharacter.character->sprite->setAngle(angle);
+		movedCharacter.character->stand->setAngle(angle);
 		int index = curr.y * map[0].size() + curr.x;
 		if (movedCharacter.character->ally)
 			sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
@@ -103,6 +105,7 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 	{
 		angle = angle - ((0.538f * ((float)movedCharacter.iterator - 14.0f)) * sign);
 		movedCharacter.character->sprite->setAngle(angle);
+		movedCharacter.character->stand->setAngle(angle);
 		int index = next.y * map[0].size() + next.x;
 		if (movedCharacter.character->ally)
 			sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
@@ -111,7 +114,9 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 		if (movedCharacter.iterator >= 15)
 		{
 			movedCharacter.character->sprite->orderLayer = next.y;
+			movedCharacter.character->stand->orderLayer = next.y;
 			movedCharacter.character->sprite->setDepth(map[next.y][next.x].height * BATTLE_DEPTH_UNIT + 8);
+			movedCharacter.character->stand->setDepth(map[next.y][next.x].height * BATTLE_DEPTH_UNIT + 7);
 		}
 		place = ParabolaPosition(newPos, highPoint, unit, ogPos.x);
 	}
@@ -129,6 +134,7 @@ void BattleGround::MangeIterator(Vector newPos)
 			PlaceCharacter(movedCharacter.path[movedCharacter.path.size() - 1], movedCharacter.character);
 			map[movedCharacter.path[movedCharacter.path.size() - 1].y][movedCharacter.path[movedCharacter.path.size() - 1].x].highlited = 0;
 			movedCharacter.character->sprite->setAngle(0.0f);
+			movedCharacter.character->stand->setAngle(0.0f);
 			movedCharacter.character->moving = false;
 			movedCharacter.character = NULL;
 			return ;

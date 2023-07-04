@@ -17,6 +17,7 @@ class Character
 {
 	private:
 		std::vector<SDL_Texture*> textures;
+		std::vector<SDL_Texture*> stands;
 		int width, height;
 		SDL_Point coord = {0, 0};
 		void CreateCharacterType(int skin);
@@ -25,6 +26,7 @@ class Character
 		int currentTexture = 0;
 		int cSing;
 		Sprite *sprite;
+		Sprite *stand;
 		Character(int skin, bool allied = true);
 		void Destroy();
 		void AddToRender();

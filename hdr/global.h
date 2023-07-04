@@ -43,8 +43,19 @@ typedef struct s_Surfaces
 	SDL_Surface *trees[5];
 }				t_Surfaces;
 
+typedef struct s_Stands
+{
+	SDL_Texture *thiefIdle1Stand;
+	SDL_Texture *thiefIdle2Stand;
+	SDL_Texture *thiefDaggerThrowStand;
+	SDL_Texture *thiefSmokeThrowStand;
+	SDL_Texture *skeleIdle1Stand;
+	SDL_Texture *skeleIdle2Stand;
+}				t_Stands;
+
 typedef struct s_Textures
 {
+	t_Stands stands;
 	SDL_Texture *thiefIdle1;
 	SDL_Texture *thiefIdle2;
 	SDL_Texture *thiefDaggerThrow;
@@ -63,7 +74,7 @@ typedef struct s_Textures
 	SDL_Texture *weaponObjs[1];
 	SDL_Texture *trees[5];
 	SDL_Texture *blocks[2];
-	SDL_Texture *smokes[3];
+	SDL_Texture *smokes[4];
 }				t_Textures;
 
 typedef struct s_Audio
