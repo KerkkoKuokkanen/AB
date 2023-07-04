@@ -1,6 +1,16 @@
 
 #include "../../hdr/global.h"
 
+t_AbilityEffect *EffectUpdater::CheckForEffectAlready(int type, SDL_Point pos)
+{
+	for (int i = 0; i < effects.size(); i++)
+	{
+		if (effects[i].ability.type == type && effects[i].pos.x == pos.x && effects[i].pos.y == pos.y)
+			return (&effects[i]);
+	}
+	return (NULL);
+}
+
 void EffectUpdater::CreateEffect(t_AbilityEffect &add)
 {
 	switch (add.ability.type)
@@ -13,6 +23,13 @@ void EffectUpdater::CreateEffect(t_AbilityEffect &add)
 
 void EffectUpdater::SetEffect(int duration, SDL_Point pos, t_Ability ability)
 {
+	t_AbilityEffect *check = CheckForEffectAlready(ability.type, pos);
+	if (check != NULL)
+	{
+		check->duration = duration;
+		check->time = 0;
+		return ;
+	}
 	t_AbilityEffect add;
 	add.duration = duration;
 	add.time = 0;

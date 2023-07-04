@@ -22,6 +22,7 @@ class EffectUpdater
 		void UpdateEffect(t_AbilityEffect &effect);
 		void CheckTurnCounter();
 		void DeleteEffect(void *effect, int type);
+		t_AbilityEffect *CheckForEffectAlready(int type, SDL_Point pos);
 	public:
 		void SetEffect(int duration, SDL_Point pos, t_Ability ability);
 		void Update();

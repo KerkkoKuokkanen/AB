@@ -53,6 +53,29 @@ void Character::AddToRender()
 	gameState.render->AddSprite(stand, BATTLEGROUND_LAYER);
 }
 
+void Character::ShiftChecker()
+{
+	if (!moving)
+	{
+		SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(this);
+		if (gameState.battle.ground->map[pos.y][pos.x].active)
+		{
+			if (gameState.keys.shift != 0)
+			{
+				active = false;
+					sprite->AlphaMod(35);
+				stand->AlphaMod(35);
+			}
+			else
+			{
+				active = true;
+				sprite->ClearAlphaMod();
+				stand->ClearAlphaMod();
+			}
+		}
+	}
+}
+
 void Character::Update()
 {
 	if (killed)
@@ -64,6 +87,7 @@ void Character::Update()
 		gameState.updateObjs.killer->AddCharacterToKill(this);
 	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
 		clicked = false;
+	ShiftChecker();
 	if (animationActive)
 		return ;
 	if (gameState.updateObjs.characterAnimIter == 50)

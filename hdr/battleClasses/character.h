@@ -21,6 +21,7 @@ class Character
 		int width, height;
 		SDL_Point coord = {0, 0};
 		void CreateCharacterType(int skin);
+		void ShiftChecker();
 		bool animationActive = false;
 	public:
 		int currentTexture = 0;
@@ -39,6 +40,7 @@ class Character
 		SDL_Point &getCoord();
 		void Position(Vector to);
 		void Move(Vector amount);
+		bool active = true;
 		bool hover = false;
 		bool clicked = false;
 		bool turn = false;
