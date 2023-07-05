@@ -27,8 +27,8 @@ static bool CheckIfOnTheRight(SDL_Point og, SDL_Point compare)
 
 int RangedChance(Character *character, Character *target)
 {
-	SDL_Point cPos = gameState.updateObjs.indicator->FindCharacter(character);
-	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
+	SDL_Point cPos = character->position;
+	SDL_Point tPos = target->position;
 	int height = gameState.battle.ground->map[cPos.y][cPos.x].height - gameState.battle.ground->map[tPos.y][tPos.x].height;
 	if (height > 3)
 		height = 3;
@@ -63,8 +63,8 @@ SDL_Point BlockPosition(SDL_Point cPos, SDL_Point tPos)
 
 void ChanceFromBlockers(int &chance, Character *character, Character *target)
 {
-	SDL_Point cPos = gameState.updateObjs.indicator->FindCharacter(character);
-	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
+	SDL_Point cPos = character->position;
+	SDL_Point tPos = target->position;
 	SDL_Point pos = BlockPosition(cPos, tPos);
 	if (pos.x == (-1))
 		return ;
@@ -114,8 +114,8 @@ Character *BasicCheck(Character *target, int &chance)
 
 Character *RangedCheck(Character *character, Character *target, int &chance)
 {
-	SDL_Point cPos = gameState.updateObjs.indicator->FindCharacter(character);
-	SDL_Point tPos = gameState.updateObjs.indicator->FindCharacter(target);
+	SDL_Point cPos = character->position;
+	SDL_Point tPos = target->position;
 	SDL_Point pos = BlockPosition(cPos, tPos);
 	if (pos.x == (-1))
 		return (BasicCheck(target, chance));

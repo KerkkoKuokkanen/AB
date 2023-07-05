@@ -3,7 +3,7 @@
 
 void ParticleManager::ManageColorChange(Particle *part)
 {
-	if (part->life > PART_LIFE)
+	if (part->life < PART_LIFE)
 		return ;
 	int iter = part->ogLife - part->life;
 	if (iter >= PART_LIFE)
@@ -32,19 +32,19 @@ void ParticleManager::ManageModColor(t_Particle *part)
 	float rUnit = r / (float)part->total;
 	float gUnit = g / (float)part->total;
 	float bUnit = b / (float)part->total;
-	Uint8 red = (int)part->r + (int)(r * rUnit);
-	Uint8 green = (int)part->g + (int)(g * gUnit);
-	Uint8 blue = (int)part->b + (int)(b * bUnit);
+	Uint8 red = (int)part->r + (int)(rUnit * part->lifeTime);
+	Uint8 green = (int)part->g + (int)(gUnit * part->lifeTime);
+	Uint8 blue = (int)part->b + (int)(bUnit * part->lifeTime);
 	part->part->sprite->ColorMod(red, green, blue);
 }
 
 void ParticleManager::ManageModAlpha(t_Particle *part)
 {
-	if (part->lifeTime > part->total / 3)
-		return ;
 	float max = (float)part->total / 3.0f;
+	if (part->lifeTime > max)
+		return ;
 	float unit = 255.0f / max;
-	int alpha = (Uint8)(unit * (max - (float)part->lifeTime));
+	int alpha = (Uint8)(unit * (max - (max - (float)part->lifeTime)));
 	Uint8 use = (alpha > 255) ? 255 : (Uint8)alpha;
 	part->part->sprite->AlphaMod(use);
 }

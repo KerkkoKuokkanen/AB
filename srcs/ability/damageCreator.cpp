@@ -16,7 +16,7 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 {
 	if (character == NULL)
 		return ;
-	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point pos = character->position;
 	Vector place = gameState.battle.ground->GetCharacterCoord(pos, character);
 	SDL_Rect dest = {rounding(place.x), rounding(place.y), character->sprite->dest.w, character->sprite->dest.h};
 	t_Damage add = {character, armorDamage, healthDamage, partDir.Normalized(), 0, dest, startColor.r, startColor.g, startColor.b, false};
@@ -76,7 +76,7 @@ void DamageCreator::MoveManage(Character *character, int time, Vector direction,
 		return ;
 	}
 	character->sprite->Position(Vector(dest.x, dest.y));
-	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point pos = character->position;
 	character->sprite->orderLayer = pos.y;
 }
 

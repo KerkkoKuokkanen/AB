@@ -53,11 +53,18 @@ void Character::AddToRender()
 	gameState.render->AddSprite(stand, BATTLEGROUND_LAYER);
 }
 
+void Character::FindPosition()
+{
+	if (!moving)
+		position = gameState.updateObjs.indicator->FindCharacter(this);
+}
+
 void Character::ShiftChecker()
 {
 	if (!moving)
 	{
-		SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(this);
+		FindPosition();
+		SDL_Point pos = position;
 		if (gameState.battle.ground->map[pos.y][pos.x].active)
 		{
 			if (gameState.keys.shift != 0)

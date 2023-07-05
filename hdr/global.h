@@ -18,7 +18,8 @@ namespace Channels
 		DAGGER_THROW0,
 		DAGGER_THROW1,
 		MISSED_THROW,
-		DAGGER_THROW_ANIM
+		DAGGER_THROW_ANIM,
+		SMOKE_BOMB
 	};
 }
 
@@ -75,6 +76,7 @@ typedef struct s_Textures
 	SDL_Texture *trees[5];
 	SDL_Texture *blocks[2];
 	SDL_Texture *smokes[4];
+	SDL_Texture *smokeBomb;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -83,6 +85,7 @@ typedef struct s_Audio
 	Mix_Chunk *daggerThrow[2];
 	Mix_Chunk *missedThrow;
 	Mix_Chunk *throwAnim;
+	Mix_Chunk *smokeBomb;
 }				t_Audio;
 
 typedef struct s_MouseOver

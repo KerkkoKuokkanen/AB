@@ -26,6 +26,7 @@ void EffectUpdater::SetEffect(int duration, SDL_Point pos, t_Ability ability)
 	t_AbilityEffect *check = CheckForEffectAlready(ability.type, pos);
 	if (check != NULL)
 	{
+		CreateParticlesForSmokeEffect(pos);
 		check->duration = duration;
 		check->time = 0;
 		return ;

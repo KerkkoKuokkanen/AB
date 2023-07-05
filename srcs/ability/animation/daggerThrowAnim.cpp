@@ -18,7 +18,7 @@ DaggerThrowAnim::DaggerThrowAnim(Character *character, Character *enemy)
 	direction = {dir.x, dir.y};
 	if (direction.y < 0.0f)
 		return ;
-	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point pos = character->position;
 	character->sprite->orderLayer = (pos.y + 1);
 }
 
@@ -46,7 +46,7 @@ void DaggerThrowAnim::MoveBack()
 
 void DaggerThrowAnim::AnimationDone()
 {
-	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point pos = character->position;
 	gameState.battle.ground->PlaceCharacter(pos, character);
 	character->sprite->setTexture(gameState.textures.thiefIdle1);
 	character->setAnimationActive(false);

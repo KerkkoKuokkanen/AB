@@ -12,7 +12,7 @@ SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools
 		srcs/objects/object.cpp srcs/tools/screenShaker.cpp srcs/ability/abilities.cpp \
 		srcs/ability/selectors/Selector.cpp srcs/ability/chanceChecks.cpp srcs/ability/selectors/SelectorForTiles.cpp \
 		srcs/ability/damager.cpp srcs/ability/animation/smokeBombAnim.cpp srcs/ability/effectUpdater.cpp \
-		srcs/ability/objects/smokeEffect.cpp
+		srcs/ability/objects/smokeEffect.cpp srcs/ability/objects/smokeBomb.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

@@ -306,7 +306,7 @@ void TurnOrder::CheckClickBox()
 		box.x = indicators[i].indicator->dest.x;
 		if (pointCheck(pos, box))
 		{
-			SDL_Point place = gameState.updateObjs.indicator->FindCharacter(indicators[i].character);
+			SDL_Point place = indicators[i].character->position;
 			if (!gameState.battle.ground->map[place.y][place.x].highlited)
 			{
 				if (indicators[i].character->ally)

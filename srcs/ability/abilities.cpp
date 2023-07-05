@@ -3,7 +3,7 @@
 
 void Abilities::SetSelector(t_Ability *ability, Character *character)
 {
-	SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point pos = character->position;
 	switch(ability->type)
 	{
 		case DAGGER_THROW:
@@ -51,7 +51,7 @@ void Abilities::SelectorWithCharacters()
 		{
 			gameState.updateObjs.UI->UseEnergy(ability->cost);
 			target = ret;
-			targetPoint = gameState.updateObjs.indicator->FindCharacter(ret);
+			targetPoint = ret->position;
 			ActivateAbility(ability, character);
 			ClearMap();
 		}
@@ -109,7 +109,7 @@ void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
 			{
 				int chance = GetChance(character, target, ability);
 				Character *ret = RangedCheck(character, target, chance);
-				targetPoint = gameState.updateObjs.indicator->FindCharacter(ret);
+				targetPoint = ret->position;
 				objects.push_back({new Dagger(character, ret, chance), DAGGER_OBJ});
 			}
 			if (!used->active)
@@ -126,7 +126,7 @@ void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
 				animations.erase(animations.begin() + index);
 			}
 			if (use->timeForAbility)
-				effectUpdater.SetEffect(2, targetPoint, *ability);
+				objects.push_back({new SmokeBomb(character->position, targetPoint), SMOKE_OBJ});
 			break ;
 		}
 	}
@@ -151,6 +151,7 @@ void Abilities::UpdateSpecificObject(t_Object &object, int index)
 	switch (object.type)
 	{
 		case DAGGER_OBJ:
+		{
 			Dagger *used = (Dagger*)object.object;
 			used->Update();
 			if (used->remove)
@@ -158,8 +159,24 @@ void Abilities::UpdateSpecificObject(t_Object &object, int index)
 				if (used->createDamage)
 					CreateDamage();
 				used->Destroy();
+				delete used;
 				objects.erase(objects.begin() + index);
 			}
+			break ;
+		}
+		case SMOKE_OBJ:
+		{
+			SmokeBomb *used = (SmokeBomb*)object.object;
+			used->Update();
+			if (used->setEffect)
+				effectUpdater.SetEffect(2, targetPoint, *ability);
+			if (used->destroy)
+			{
+				delete used;
+				objects.erase(objects.begin() + index);
+			}
+			break ;
+		}
 	}
 }
 

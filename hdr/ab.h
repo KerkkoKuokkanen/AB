@@ -78,6 +78,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/animation/smokeBombAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
 # include "ability/objects/smokeEffect.h"
+# include "ability/objects/smokeBomb.h"
 # include "ability/objects/dagger.h"
 # include "ability/damageCreator.h"
 # include "ability/effectUpdater.h"
@@ -181,6 +182,7 @@ void			findMovablesStatic(int **map, int moves, SDL_Point start);
 Character		*HoveringOver();
 void			ManageTextureHovering();
 bool			MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse);
+void			CreateParticlesForSmokeEffect(SDL_Point pos);
 void			UpdateHoveredCharacter();
 SDL_Surface		*getSurface(Character *character);
 Vector			getDirection(Vector generalDir);

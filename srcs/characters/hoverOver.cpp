@@ -60,9 +60,9 @@ Character *HoveringOver()
 		gameState.battle.ground->characters[i].character->hover = false;
 		if (CheckIfHoveringOver(gameState.battle.ground->characters[i].character))
 		{
-			SDL_Point pos = gameState.updateObjs.indicator->FindCharacter(gameState.battle.ground->characters[i].character);
+			SDL_Point pos = gameState.battle.ground->characters[i].character->position;
 			if (pos.y > max && gameState.battle.ground->map[pos.y][pos.x].active && gameState.battle.ground->characters[i].character->active &&
-				gameState.battle.ground->HoverOverCheck(pos) == false)
+				gameState.battle.ground->HoverOverCheck(pos) == false && gameState.battle.ground->characters[i].character->moving == false)
 			{
 				max = pos.y;
 				character = gameState.battle.ground->characters[i].character;
@@ -77,7 +77,7 @@ void UpdateHoveredCharacter()
 	Character *chosen = gameState.updateObjs.chosen;
 	if (chosen == NULL)
 		return ;
-	SDL_Point position = gameState.updateObjs.indicator->FindCharacter(chosen);
+	SDL_Point position = chosen->position;
 	if (!gameState.battle.ground->map[position.y][position.x].highlited)
 	{
 		if (chosen->ally)

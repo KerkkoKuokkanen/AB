@@ -17,7 +17,8 @@ typedef struct s_Object
 }				t_Object;
 
 enum {
-	DAGGER_OBJ
+	DAGGER_OBJ,
+	SMOKE_OBJ
 };
 
 # define HALF_BLOCK_CHANCE_REDUCE_AMOUNT 1.6f

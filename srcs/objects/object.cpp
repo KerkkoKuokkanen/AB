@@ -14,7 +14,7 @@ Object::Object(int type, SDL_Point position, bool fadeOnMouseOver)
 	gameState.battle.ground->map[position.y][position.x].blocked = true;
 	gameState.battle.ground->map[position.y][position.x].obj = this;
 	sprite->orderLayer = (position.y + 1);
-	sprite->setDepth(height * BATTLE_DEPTH_UNIT + 4);
+	sprite->setDepth(height * BATTLE_DEPTH_UNIT + 2);
 	Object::fadeOnMouseOver = fadeOnMouseOver;
 	overCounter = 0;
 	gameState.updateObjs.objUpdate->AddObject(this);
@@ -31,7 +31,7 @@ void Object::CheckMouseHover()
 	{
 		SDL_Point position;
 		if (gameState.updateObjs.chosen != NULL)
-			position = gameState.updateObjs.indicator->FindCharacter(gameState.updateObjs.chosen);
+			position = gameState.updateObjs.chosen->position;
 		else
 		{
 			overCounter = 0;

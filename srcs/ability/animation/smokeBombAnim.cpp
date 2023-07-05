@@ -6,14 +6,14 @@ SmokeBombAnim::SmokeBombAnim(Character *character, SDL_Point pos)
 	SmokeBombAnim::character = character;
 	SmokeBombAnim::pos = pos;
 	character->setAnimationActive(true);
-	SDL_Point cPos = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point cPos = character->position;
 	SDL_Rect cDest = gameState.battle.ground->GetSprite(cPos)->dest;
 	SDL_Rect sDest = gameState.battle.ground->GetSprite(pos)->dest;
 	Vector dir(sDest.x - cDest.x, sDest.y - cDest.y);
 	mover = new CharacterMover(character, dir, 9, 9, 80.0f, true);
 	if (dir.y < 0.0f)
 		return ;
-	SDL_Point position = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point position = character->position;
 	character->sprite->orderLayer = position.y + 1;
 }
 
@@ -23,7 +23,7 @@ void SmokeBombAnim::SetThrowText()
 	character->sprite->Move(Vector(550.0f, 550.0f));
 	trail = new Sprite(gameState.textures.thiefSmokeThrow[1], character->sprite->dest, NULL, NULL, 0, FLIP_NONE);
 	gameState.render->AddSprite(trail, BATTLEGROUND_LAYER);
-	SDL_Point position = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point position = character->position;
 	trail->orderLayer = position.y;
 	trail->setDepth(character->sprite->z - 1);
 }
@@ -66,7 +66,7 @@ void SmokeBombAnim::Update()
 
 void SmokeBombAnim::AnimationDone()
 {
-	SDL_Point position = gameState.updateObjs.indicator->FindCharacter(character);
+	SDL_Point position = character->position;
 	character->sprite->orderLayer = position.y;
 	character->setAnimationActive(false);
 	active = false;
