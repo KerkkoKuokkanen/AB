@@ -17,9 +17,11 @@ namespace Channels
 		THIEF_STEP_CHANNEL,
 		DAGGER_THROW0,
 		DAGGER_THROW1,
-		MISSED_THROW,
+		WHIFF,
 		DAGGER_THROW_ANIM,
-		SMOKE_BOMB
+		SMOKE_THROW,
+		SMOKE_BOMB,
+		DAGGER_SLASH
 	};
 }
 
@@ -42,14 +44,13 @@ typedef struct s_Surfaces
 	SDL_Surface *turnOrder[2];
 	SDL_Surface *bar[2];
 	SDL_Surface *trees[5];
+	SDL_Surface *slashTrail;
 }				t_Surfaces;
 
 typedef struct s_Stands
 {
 	SDL_Texture *thiefIdle1Stand;
 	SDL_Texture *thiefIdle2Stand;
-	SDL_Texture *thiefDaggerThrowStand;
-	SDL_Texture *thiefSmokeThrowStand;
 	SDL_Texture *skeleIdle1Stand;
 	SDL_Texture *skeleIdle2Stand;
 }				t_Stands;
@@ -61,6 +62,7 @@ typedef struct s_Textures
 	SDL_Texture *thiefIdle2;
 	SDL_Texture *thiefDaggerThrow;
 	SDL_Texture *thiefSmokeThrow[2];
+	SDL_Texture *thiefSlash[2];
 	SDL_Texture *skeleIdle1;
 	SDL_Texture *skeleIdle2;
 	SDL_Texture *dust;
@@ -69,7 +71,7 @@ typedef struct s_Textures
 	SDL_Texture *KillParticle[2];
 	SDL_Texture *bar[2];
 	SDL_Texture *barFiller;
-	SDL_Texture *thiefAbilites[2];
+	SDL_Texture *thiefAbilites[3];
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];
@@ -83,9 +85,11 @@ typedef struct s_Audio
 {
 	Mix_Chunk *TFootStep[3];
 	Mix_Chunk *daggerThrow[2];
-	Mix_Chunk *missedThrow;
 	Mix_Chunk *throwAnim;
 	Mix_Chunk *smokeBomb;
+	Mix_Chunk *smokeThrow;
+	Mix_Chunk *daggerSlash;
+	Mix_Chunk *whiff;
 }				t_Audio;
 
 typedef struct s_MouseOver

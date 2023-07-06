@@ -19,6 +19,7 @@ SmokeBombAnim::SmokeBombAnim(Character *character, SDL_Point pos)
 
 void SmokeBombAnim::SetThrowText()
 {
+	PlaySound(gameState.audio.smokeThrow, Channels::SMOKE_THROW, 0);
 	character->sprite->setTexture(gameState.textures.thiefSmokeThrow[0]);
 	character->sprite->Move(Vector(550.0f, 550.0f));
 	trail = new Sprite(gameState.textures.thiefSmokeThrow[1], character->sprite->dest, NULL, NULL, 0, FLIP_NONE);

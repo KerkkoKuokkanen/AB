@@ -77,7 +77,7 @@ void Dagger::Update()
 			return ;
 		}
 		SDL_Point pos = {sprite->dest.x + sprite->dest.w / 2, sprite->dest.y + sprite->dest.h / 2};
-		PlaySound(gameState.audio.missedThrow, Channels::MISSED_THROW, 0);
+		PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
 		CreateDust(pos, Vector(direction.x, direction.y));
 	}
 	CreateParticles();

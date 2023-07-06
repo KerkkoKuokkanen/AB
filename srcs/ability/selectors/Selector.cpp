@@ -64,6 +64,8 @@ Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *color
 
 void Selector::SetBlockSprite(SDL_Point pos)
 {
+	if (!trees)
+		return ;
 	Character *character = NULL;
 	Object *obj = NULL;
 	if (gameState.battle.ground->map[pos.y][pos.x].obj != NULL)
@@ -77,7 +79,16 @@ void Selector::SetBlockSprite(SDL_Point pos)
 			size = 1;
 	}
 	else
+	{
+		if (character == gameState.battle.ground->map[position.y][position.x].character)
+		{
+			if (block != NULL)
+				delete block;
+			block = NULL;
+			return ;
+		}
 		size = 1;
+	}
 	Sprite *tile = gameState.battle.ground->GetSprite(pos);
 	SDL_Rect dest = {tile->dest.x + 1340, tile->dest.y - 2300, 3150, 3150};
 	if (block != NULL)

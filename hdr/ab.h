@@ -33,7 +33,8 @@
 enum {
 	TURN_DONE,
 	DAGGER_THROW,
-	SMOKE_BOMB
+	SMOKE_BOMB,
+	DAGGER_SLASH
 };
 
 # include "../SDL2/SDL.h"
@@ -75,6 +76,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "objects/objUpdate.h"
 # include "battleClasses/groundColoring.h"
 # include "ability/characterMover.h"
+# include "ability/animation/daggerSlashAnim.h"
 # include "ability/animation/smokeBombAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
 # include "ability/objects/smokeEffect.h"
@@ -199,6 +201,7 @@ int getXToLeft(SDL_Point pos);
 
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);
+bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);
 Character	*RangedCheck(Character *character, Character *target, int &chance);
 
 #endif

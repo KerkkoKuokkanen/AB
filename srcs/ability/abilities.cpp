@@ -9,6 +9,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case DAGGER_THROW:
 			selector = new Selector(pos, 13, 2, &groundColoring, false, true); // have to chance these hardCoded numbers later
 			break ;
+		case DAGGER_SLASH:
+			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			break ;
 		case SMOKE_BOMB:
 			tileSelector = new TileSelector(pos, 7, 0, &groundColoring);
 			tileSelector->IncludePoint(pos);
@@ -18,6 +21,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 
 void Abilities::SetAbility(t_Ability *ability, Character *character)
 {
+	gameState.updateObjs.turnOrder->ResetClicks();
 	if (inMotion)
 		return ;
 	Clear();
@@ -37,6 +41,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case SMOKE_BOMB:
 			animations.push_back({new SmokeBombAnim(character, targetPoint), SMOKE_BOMB});
+			break ;
+		case DAGGER_SLASH:
+			animations.push_back({new DaggerSlashAnim(character, targetPoint), DAGGER_SLASH});
 			break ;
 	}
 }
@@ -113,7 +120,10 @@ void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
 				objects.push_back({new Dagger(character, ret, chance), DAGGER_OBJ});
 			}
 			if (!used->active)
+			{
+				delete used;
 				animations.erase(animations.begin() + index);
+			}
 			break ;
 		}
 		case SMOKE_BOMB:
@@ -122,11 +132,29 @@ void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
 			use->Update();
 			if (!use->active)
 			{
-				use->Destroy();
+				delete use;
 				animations.erase(animations.begin() + index);
 			}
 			if (use->timeForAbility)
 				objects.push_back({new SmokeBomb(character->position, targetPoint), SMOKE_OBJ});
+			break ;
+		}
+		case DAGGER_SLASH:
+		{
+			DaggerSlashAnim *use = (DaggerSlashAnim*)animation.animation;
+			use->Update();
+			if (use->createDamage)
+			{
+				if (MeleeCheck(character, target, ability))
+					CreateDamage();
+				else
+					PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
+			}
+			if (use->done)
+			{
+				delete use;
+				animations.erase(animations.begin() + index);
+			}
 			break ;
 		}
 	}
@@ -158,7 +186,6 @@ void Abilities::UpdateSpecificObject(t_Object &object, int index)
 			{
 				if (used->createDamage)
 					CreateDamage();
-				used->Destroy();
 				delete used;
 				objects.erase(objects.begin() + index);
 			}

@@ -51,7 +51,7 @@ class Character
 		bool ally = true;
 		bool killed = false;
 		t_Stats stats = {1, 100, 100, 50, 50};
-		std::vector<t_Ability> abilities = {{DAGGER_THROW, 0, 80, NULL}, {SMOKE_BOMB, 0, 200, NULL}};
+		std::vector<t_Ability> abilities = {{DAGGER_THROW, 0, 80, NULL}, {SMOKE_BOMB, 0, 200, NULL}, {DAGGER_SLASH, 0, 80, NULL}};
 };
 
 #endif

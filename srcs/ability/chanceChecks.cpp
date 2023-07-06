@@ -95,6 +95,9 @@ int GetChance(Character *character, Character *target, t_Ability *ability)
 			ret += RangedChance(character, target);
 			ChanceFromBlockers(ret, character, target);
 			break ;
+		case DAGGER_SLASH:
+			ret += RangedChance(character, target);
+			break ;
 	}
 	if (ret > 95)
 		ret = 95;
@@ -110,6 +113,14 @@ Character *BasicCheck(Character *target, int &chance)
 	else
 		chance = 0;
 	return (target);
+}
+
+bool MeleeCheck(Character *character, Character *target, t_Ability *ability)
+{
+	int chance = GetChance(character, target, ability);
+	if (rand() % 100 < chance)
+		return (true);
+	return (false);
 }
 
 Character *RangedCheck(Character *character, Character *target, int &chance)

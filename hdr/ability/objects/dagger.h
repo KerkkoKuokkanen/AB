@@ -24,6 +24,7 @@ class Dagger
 		bool remove = false;
 		bool createDamage = false;
 		Dagger(Character *start, Character *end, bool goingToHit);
+		~Dagger() {Destroy();};
 		void Update();
 		void Destroy();
 };

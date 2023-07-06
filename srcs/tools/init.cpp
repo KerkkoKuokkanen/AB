@@ -59,17 +59,21 @@ void getAudio()
 	Mix_Volume(Channels::THIEF_STEP_CHANNEL, 16);
 	Mix_Volume(Channels::DAGGER_THROW0, 15);
 	Mix_Volume(Channels::DAGGER_THROW1, 25);
-	Mix_Volume(Channels::MISSED_THROW, 128);
+	Mix_Volume(Channels::WHIFF, 70);
 	Mix_Volume(Channels::DAGGER_THROW_ANIM, 30);
+	Mix_Volume(Channels::SMOKE_THROW, 30);
 	Mix_Volume(Channels::SMOKE_BOMB, 38);
+	Mix_Volume(Channels::DAGGER_SLASH, 30);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
 	gameState.audio.daggerThrow[0] = Mix_LoadWAV("audio/abilities/dagger1.wav");
 	gameState.audio.daggerThrow[1] = Mix_LoadWAV("audio/abilities/dagger2.wav");
-	gameState.audio.missedThrow = Mix_LoadWAV("audio/abilities/miss.wav");
 	gameState.audio.throwAnim = Mix_LoadWAV("audio/abilities/throw.wav");
 	gameState.audio.smokeBomb = Mix_LoadWAV("audio/abilities/smoke.wav");
+	gameState.audio.smokeThrow = Mix_LoadWAV("audio/abilities/throw1.wav");
+	gameState.audio.daggerSlash = Mix_LoadWAV("audio/abilities/slash.wav");
+	gameState.audio.whiff = Mix_LoadWAV("audio/effects/whiff.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -140,11 +144,14 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.smokes[3] = get_texture(rend, "sprites/env/smoke2-2.png");
 	gameState.textures.stands.thiefIdle1Stand = get_texture(rend, "sprites/characters/hood_idle1_stand.png");
 	gameState.textures.stands.thiefIdle2Stand = get_texture(rend, "sprites/characters/hood_idle2_stand.png");
-	gameState.textures.stands.thiefDaggerThrowStand = get_texture(rend, "sprites/characters/hood_throw_stand.png");
-	gameState.textures.stands.thiefSmokeThrowStand = get_texture(rend, "sprites/characters/hood_smoke_stand.png");
 	gameState.textures.stands.skeleIdle1Stand = get_texture(rend, "sprites/characters/skele_stand.png");
 	gameState.textures.stands.skeleIdle2Stand = get_texture(rend, "sprites/characters/skele2_stand.png");
 	gameState.textures.smokeBomb = get_texture(rend, "sprites/weapon/smokeBomb.png");
+	gameState.textures.thiefSlash[0] = get_texture(rend, "sprites/characters/hood_slash.png");
+	use = get_texture_and_surface(rend, "sprites/effects/hood_slash_trail.png");
+	gameState.textures.thiefSlash[1] = use.text;
+	gameState.surfaces.slashTrail = use.sur;
+	gameState.textures.thiefAbilites[2] = get_texture(rend, "sprites/UI/abilities/daggerSlash.png");
 }
 
 void	init(t_wr *wr)
@@ -152,7 +159,7 @@ void	init(t_wr *wr)
 	srand((unsigned int)clock() + time(0));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	Mix_AllocateChannels(8);
+	Mix_AllocateChannels(20);
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	initScreen(1280, 720);

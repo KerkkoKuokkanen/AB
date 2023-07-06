@@ -20,6 +20,7 @@ class SmokeBombAnim
 		bool active = true;
 		bool timeForAbility = false;
 		SmokeBombAnim(Character *character, SDL_Point pos);
+		~SmokeBombAnim() {Destroy();};
 		void Update();
 		void Destroy();
 };
