@@ -29,7 +29,7 @@ void TileSelector::IncludePoint(SDL_Point pos, int mark)
 	map[pos.y][pos.x] = mark;
 }
 
-TileSelector::TileSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch)
+TileSelector::TileSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool blockers, bool staticSearch)
 {
 	groundColoring = coloring;
 	map = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());
@@ -50,6 +50,8 @@ TileSelector::TileSelector(SDL_Point start, int dist, int cleared, GroundColorin
 	{
 		for (int j = 0; j < gameState.battle.ground->map[0].size(); j++)
 		{
+			if (blockers && map[i][j] != TOOL_MAP_SIGN && gameState.battle.ground->map[i][j].blocked)
+				map[i][j] = TOOL_MAP_SIGN;
 			if (map[i][j] != TOOL_MAP_SIGN)
 			{
 				SDL_Point pos = {j, i};

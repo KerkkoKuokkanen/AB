@@ -29,12 +29,16 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 	Vector place((float)location.x, (float)location.y);
 	switch (character->cSing)
 	{
-		case 0:
+		case THIEF:
 			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f - 500;
 			break ;
-		case 1:
+		case SKELE:
 			place.x -= 500.0f;
 			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f + 650;
+			break ;
+		case PYRO:
+			place.x -= 500.0f;
+			place.y -= 5350.0f;
 			break ;
 	}
 	return (place);

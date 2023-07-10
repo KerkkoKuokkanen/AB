@@ -146,16 +146,21 @@ SDL_Surface *getSurface(Character *character)
 	int text = character->currentTexture;
 	switch (character->cSing)
 	{
-		case 0:
+		case THIEF:
 			if (text == 0)
 				return (gameState.surfaces.thiefIdle1);
 			else
 				return (gameState.surfaces.thiefIdle2);
-		case 1:
+		case SKELE:
 			if (text == 0)
 				return (gameState.surfaces.skeleIdle1);
 			else
 				return (gameState.surfaces.skeleIdle2);
+		case PYRO:
+			if (text == 0)
+				return (gameState.surfaces.pyroIdle1);
+			else
+				return (gameState.surfaces.pyroIdle2);
 	}
 	return (NULL);
 }

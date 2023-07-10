@@ -34,7 +34,8 @@ enum {
 	TURN_DONE,
 	DAGGER_THROW,
 	SMOKE_BOMB,
-	DAGGER_SLASH
+	DAGGER_SLASH,
+	FLAME_PORT
 };
 
 # include "../SDL2/SDL.h"
@@ -76,6 +77,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "objects/objUpdate.h"
 # include "battleClasses/groundColoring.h"
 # include "ability/characterMover.h"
+# include "ability/animation/flamePortAnim.h"
 # include "ability/animation/daggerSlashAnim.h"
 # include "ability/animation/smokeBombAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
@@ -92,7 +94,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 
 enum {
 	THIEF,
-	SKELE
+	SKELE,
+	PYRO
 };
 
 enum {

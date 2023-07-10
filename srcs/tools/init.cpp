@@ -152,6 +152,14 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.thiefSlash[1] = use.text;
 	gameState.surfaces.slashTrail = use.sur;
 	gameState.textures.thiefAbilites[2] = get_texture(rend, "sprites/UI/abilities/daggerSlash.png");
+	use = get_texture_and_surface(rend, "sprites/characters/pyro_idle1.png");
+	gameState.textures.chars.pyroIdle1 = use.text;
+	gameState.surfaces.pyroIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/pyro_idle2.png");
+	gameState.textures.chars.pyroIdle2 = use.text;
+	gameState.surfaces.pyroIdle2 = use.sur;
+	gameState.textures.stands.pyroStand = get_texture(rend, "sprites/characters/pyro_idle1_stand.png");
+	gameState.textures.pyroAbilities[0] = get_texture(rend, "sprites/UI/abilities/flamePort.png");
 }
 
 void	init(t_wr *wr)
@@ -166,7 +174,7 @@ void	init(t_wr *wr)
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
-	render.CreateLayer(LAYER_YSORT); //dust layer
+	render.CreateLayer(LAYER_NO_SORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
 	render.CreateLayer(LAYER_YSORT); //turnorder layer

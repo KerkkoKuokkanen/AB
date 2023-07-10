@@ -49,9 +49,10 @@ class Abilities
 		void SetSelector(t_Ability *ability, Character *character);
 		void ActivateAbility(t_Ability *ability, Character *character);
 		void AnimationUpdater();
-		void UpdateSpecificAnimation(t_Animation &animation, int index);
+		void UpdateThiefAnimation(t_Animation &animation, int index);
 		void ObjectUpdater();
-		void UpdateSpecificObject(t_Object &object, int index);
+		void UpdateThiefObject(t_Object &object, int index);
+		void UpdatePyroAnimation(t_Animation &animation, int index);
 		void ClearMap();
 		void AbilityStatus();
 		void CreateDamage();

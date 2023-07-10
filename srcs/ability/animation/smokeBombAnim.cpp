@@ -11,6 +11,8 @@ SmokeBombAnim::SmokeBombAnim(Character *character, SDL_Point pos)
 	SDL_Rect sDest = gameState.battle.ground->GetSprite(pos)->dest;
 	Vector dir(sDest.x - cDest.x, sDest.y - cDest.y);
 	mover = new CharacterMover(character, dir, 9, 9, 80.0f, true);
+	if (character->position.y == pos.y && character->position.x == pos.x)
+		return ;
 	if (dir.y < 0.0f)
 		return ;
 	SDL_Point position = character->position;

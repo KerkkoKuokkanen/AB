@@ -13,8 +13,11 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
 		case SMOKE_BOMB:
-			tileSelector = new TileSelector(pos, 7, 0, &groundColoring);
+			tileSelector = new TileSelector(pos, 7, 0, &groundColoring, false);
 			tileSelector->IncludePoint(pos);
+			break ;
+		case FLAME_PORT:
+			tileSelector = new TileSelector(pos, 15, 0, &groundColoring, true);
 			break ;
 	}
 }
@@ -44,6 +47,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case DAGGER_SLASH:
 			animations.push_back({new DaggerSlashAnim(character, targetPoint), DAGGER_SLASH});
+			break ;
+		case FLAME_PORT:
+			animations.push_back({new FlamePort(character, targetPoint), FLAME_PORT});
 			break ;
 	}
 }
@@ -104,67 +110,19 @@ void Abilities::Upadte()
 	AbilityStatus();
 }
 
-void Abilities::UpdateSpecificAnimation(t_Animation &animation, int index)
-{
-	switch (animation.type)
-	{
-		case DAGGER_THROW:
-		{
-			DaggerThrowAnim *used = (DaggerThrowAnim*)animation.animation;
-			used->Update();
-			if (used->timeForAbility)
-			{
-				int chance = GetChance(character, target, ability);
-				Character *ret = RangedCheck(character, target, chance);
-				targetPoint = ret->position;
-				objects.push_back({new Dagger(character, ret, chance), DAGGER_OBJ});
-			}
-			if (!used->active)
-			{
-				delete used;
-				animations.erase(animations.begin() + index);
-			}
-			break ;
-		}
-		case SMOKE_BOMB:
-		{
-			SmokeBombAnim *use = (SmokeBombAnim*)animation.animation;
-			use->Update();
-			if (!use->active)
-			{
-				delete use;
-				animations.erase(animations.begin() + index);
-			}
-			if (use->timeForAbility)
-				objects.push_back({new SmokeBomb(character->position, targetPoint), SMOKE_OBJ});
-			break ;
-		}
-		case DAGGER_SLASH:
-		{
-			DaggerSlashAnim *use = (DaggerSlashAnim*)animation.animation;
-			use->Update();
-			if (use->createDamage)
-			{
-				if (MeleeCheck(character, target, ability))
-					CreateDamage();
-				else
-					PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
-			}
-			if (use->done)
-			{
-				delete use;
-				animations.erase(animations.begin() + index);
-			}
-			break ;
-		}
-	}
-}
-
 void Abilities::AnimationUpdater()
 {
 	for (int i = 0; i < animations.size(); i++)
 	{
-		UpdateSpecificAnimation(animations[i], i);
+		switch (character->cSing)
+		{
+			case THIEF:
+				UpdateThiefAnimation(animations[i], i);
+				break ;
+			case PYRO:
+				UpdatePyroAnimation(animations[i], i);
+				break ;
+		}
 	}
 }
 
@@ -174,44 +132,16 @@ void Abilities::CreateDamage()
 	damager.AddDamage(ability, character, used);
 }
 
-void Abilities::UpdateSpecificObject(t_Object &object, int index)
-{
-	switch (object.type)
-	{
-		case DAGGER_OBJ:
-		{
-			Dagger *used = (Dagger*)object.object;
-			used->Update();
-			if (used->remove)
-			{
-				if (used->createDamage)
-					CreateDamage();
-				delete used;
-				objects.erase(objects.begin() + index);
-			}
-			break ;
-		}
-		case SMOKE_OBJ:
-		{
-			SmokeBomb *used = (SmokeBomb*)object.object;
-			used->Update();
-			if (used->setEffect)
-				effectUpdater.SetEffect(2, targetPoint, *ability);
-			if (used->destroy)
-			{
-				delete used;
-				objects.erase(objects.begin() + index);
-			}
-			break ;
-		}
-	}
-}
-
 void Abilities::ObjectUpdater()
 {
 	for (int i = 0; i < objects.size(); i++)
 	{
-		UpdateSpecificObject(objects[i], i);
+		switch (character->cSing)
+		{
+			case THIEF:
+				UpdateThiefObject(objects[i], i);
+				break ;
+		}
 	}
 }
 

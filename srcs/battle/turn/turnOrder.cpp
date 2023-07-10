@@ -15,17 +15,23 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 {
 	switch (cSing)
 	{
-		case 0:
+		case THIEF:
 			srect->x = 150;
 			srect->y = 100;
 			srect->w = 700;
 			srect->h = 350;
 			break ;
-		case 1:
+		case SKELE:
 			srect->x = 350;
 			srect->y = 0;
 			srect->w = 350;
 			srect->h = 300;
+			break ;
+		case PYRO:
+			srect->x = 280;
+			srect->y = 65;
+			srect->w = 320;
+			srect->h = 363;
 			break ;
 	}
 }
@@ -35,7 +41,7 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 	SDL_Rect dest = {0, 0, 0, 0};
 	switch (cSing)
 	{
-		case 0:
+		case THIEF:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 33.0f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),
@@ -43,13 +49,22 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 				rounding(((float)gameState.screen.height / 17.0f))
 			};
 			break ;
-		case 1:
+		case SKELE:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 33.0f))),
 				0 + rounding(((float)gameState.screen.height / 60.0f)),
 				rounding(((float)gameState.screen.width / 22.0f)),
 				rounding(((float)gameState.screen.height / 16.0f))
 			};
+			break ;
+		case PYRO:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 33.0f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
 	}
 	return (dest);
 }

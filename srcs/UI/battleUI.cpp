@@ -79,6 +79,9 @@ void CharacterUI::GetAbilities()
 			case DAGGER_SLASH:
 				CreateButton(dest, gameState.textures.thiefAbilites[2], DAGGER_SLASH, activeCharacter->abilities[i].cost);
 				break ;
+			case FLAME_PORT:
+				CreateButton(dest, gameState.textures.pyroAbilities[0], FLAME_PORT, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }
@@ -330,6 +333,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case DAGGER_SLASH:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(DAGGER_SLASH), activeCharacter);
+			break ;
+		case FLAME_PORT:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_PORT), activeCharacter);
 			break ;
 	}
 }
