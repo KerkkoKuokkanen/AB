@@ -57,7 +57,7 @@ void FlamePort::CreateParticles(int y, int yTarg)
 				Vector dir(0.0f, 1.0f);
 				vectorRotate(dir, float_rand() * PI * 2.0f);
 				dir = dir.Normalized();
-				t_FlamePortPart add = {{dx, dy}, {dir.x, dir.y}, FLAME_PORT_PART_START_SPEED, 0.0f, false,
+				t_FlamePortPart add = {{dx - 100.0f, dy - 100.0f}, {dir.x, dir.y}, FLAME_PORT_PART_START_SPEED, 0.0f, false,
 					new Sprite(gameState.textures.KillParticle[0], {0, 0, 220, 220}, NULL, NULL, 0, FLIP_NONE)};
 				add.sprite->Position(Vector(xP, yP));
 				Color used = getFlamePartColor();
@@ -141,8 +141,6 @@ void FlamePort::StartLastPhase()
 		return ;
 	lastPhaseStarted = true;
 	gameState.battle.ground->PlaceCharacter(target, character);
-	character->sprite->AlphaMod(0);
-	character->stand->AlphaMod(0);
 	character->sprite->ClearColorMod();
 	SDL_Point pos = character->position;
 	gameState.battle.ground->map[pos.y][pos.x].character = NULL;
@@ -165,7 +163,7 @@ void FlamePort::UpdateLastPhase()
 		return ;
 	}
 	character->sprite->AlphaMod(alpha);
-	alpha += 10;
+	alpha += 6;
 	if (alpha > 255)
 		alpha = 255;
 }
@@ -173,6 +171,12 @@ void FlamePort::UpdateLastPhase()
 void FlamePort::Update()
 {
 	ChangeColor();
+	if (counter > FLAME_PORT_COLOR_CHANGE_TIME)
+	{
+		character->sprite->AlphaMod(0);
+		character->stand->AlphaMod(0);
+		UpdateParticles();
+	}
 	if (lastPhase)
 	{
 		StartLastPhase();
@@ -182,12 +186,6 @@ void FlamePort::Update()
 	{
 		for (int i = 0; i < particles.size(); i++)
 			particles[i].sprite->Activate();
-	}
-	if (counter > FLAME_PORT_COLOR_CHANGE_TIME)
-	{
-		character->sprite->AlphaMod(0);
-		character->stand->AlphaMod(0);
-		UpdateParticles();
 	}
 	if (counter >= FLAME_PORT_COLOR_CHANGE_TIME - 4 && counter < FLAME_PORT_COLOR_CHANGE_TIME)
 	{
