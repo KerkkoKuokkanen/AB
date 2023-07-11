@@ -24,7 +24,8 @@ namespace Channels
 		DAGGER_SLASH,
 		FLAME_PORT1,
 		FLAME_PORT2,
-		FLAME_PORT3
+		FLAME_PORT3,
+		TURN_START
 	};
 }
 
@@ -106,6 +107,7 @@ typedef struct s_Audio
 	Mix_Chunk *smokeThrow;
 	Mix_Chunk *daggerSlash;
 	Mix_Chunk *whiff;
+	Mix_Chunk *turnStart;
 }				t_Audio;
 
 typedef struct s_MouseOver

@@ -163,6 +163,7 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 
 void TurnOrder::StartTurn()
 {
+	PlaySound(gameState.audio.turnStart, Channels::TURN_START, 0);
 	turnCount += 1;
 	turnStartActive = true;
 	std::sort(indicators.begin(), indicators.end(), compareObjects);
