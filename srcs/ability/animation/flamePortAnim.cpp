@@ -13,6 +13,7 @@ static Color getFlamePartColor()
 
 FlamePort::FlamePort(Character *character, SDL_Point target)
 {
+	PlaySound(gameState.audio.flamePort[0], Channels::FLAME_PORT1, 0);
 	FlamePort::character = character;
 	FlamePort::target = target;
 	character->setAnimationActive(true);
@@ -139,6 +140,7 @@ void FlamePort::StartLastPhase()
 {
 	if (lastPhaseStarted)
 		return ;
+	PlaySound(gameState.audio.flamePort[2], Channels::FLAME_PORT3, 0);
 	lastPhaseStarted = true;
 	gameState.battle.ground->PlaceCharacter(target, character);
 	character->sprite->ClearColorMod();
@@ -184,9 +186,12 @@ void FlamePort::Update()
 	}
 	if (counter == FLAME_PORT_COLOR_CHANGE_TIME)
 	{
+		SetScreenShake(300, 6);
 		for (int i = 0; i < particles.size(); i++)
 			particles[i].sprite->Activate();
 	}
+	if (counter == 35)
+		PlaySound(gameState.audio.flamePort[1], Channels::FLAME_PORT2, 0);
 	if (counter >= FLAME_PORT_COLOR_CHANGE_TIME - 4 && counter < FLAME_PORT_COLOR_CHANGE_TIME)
 	{
 		SDL_Surface *sur = getSurface(character);

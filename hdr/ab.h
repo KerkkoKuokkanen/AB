@@ -24,11 +24,14 @@
 # define RELEASE_CLICK 3
 
 //layer defines
-# define BATTLEGROUND_LAYER 0
-# define DUST_LAYER 1
-# define PARTICLE_LAYER 2
-# define OBJECT_LAYER 3
-# define TURN_ORDER_LAYER 4
+enum {
+	BATTLEGROUND_LAYER,
+	DUST_LAYER,
+	PARTICLE_LAYER,
+	OBJECT_LAYER,
+	MISS_LAYER,
+	TURN_ORDER_LAYER
+};
 
 enum {
 	TURN_DONE,
@@ -89,6 +92,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/Damager.h"
 # include "ability/selectors/selector.h"
 # include "ability/selectors/selectorForTiles.h"
+# include "ability/miss.h"
 # include "ability/abilities.h"
 # include "UI/battleUI.h"
 
@@ -193,6 +197,7 @@ SDL_Surface		*getSurface(Character *character);
 Vector			getDirection(Vector generalDir);
 void			SetScreenShake(int volume, int time);
 void			ShakeTheScreen();
+MISS			*createBasicMISS(SDL_Point start, SDL_Point target, bool sound);
 
 t_GMU *getMapTopRight(SDL_Point pos);
 t_GMU *getMapTopLeft(SDL_Point pos);

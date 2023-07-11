@@ -97,6 +97,20 @@ void Abilities::UpdateSelector()
 		SelectorWithSquares();
 }
 
+void Abilities::UpdateMisses()
+{
+	for (int i = 0; i < misses.size(); i++)
+	{
+		misses[i]->Update();
+		if (misses[i]->done)
+		{
+			delete misses[i];
+			misses.erase(misses.begin() + i);
+			i--;
+		}
+	}
+}
+
 void Abilities::Upadte()
 {
 	UpdateSelector();
@@ -105,6 +119,7 @@ void Abilities::Upadte()
 	effectUpdater.Update();
 	damager.Update();
 	groundColoring.Update();
+	UpdateMisses();
 	if (gameState.keys.rightClick == INITIAL_CLICK)
 		ClearMap();
 	AbilityStatus();

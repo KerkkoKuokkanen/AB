@@ -64,6 +64,9 @@ void getAudio()
 	Mix_Volume(Channels::SMOKE_THROW, 30);
 	Mix_Volume(Channels::SMOKE_BOMB, 38);
 	Mix_Volume(Channels::DAGGER_SLASH, 30);
+	Mix_Volume(Channels::FLAME_PORT1, 12);
+	Mix_Volume(Channels::FLAME_PORT2, 58);
+	Mix_Volume(Channels::FLAME_PORT3, 11);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -74,6 +77,9 @@ void getAudio()
 	gameState.audio.smokeThrow = Mix_LoadWAV("audio/abilities/throw1.wav");
 	gameState.audio.daggerSlash = Mix_LoadWAV("audio/abilities/slash.wav");
 	gameState.audio.whiff = Mix_LoadWAV("audio/effects/whiff.wav");
+	gameState.audio.flamePort[0] = Mix_LoadWAV("audio/abilities/flamePort2.wav");
+	gameState.audio.flamePort[1] = Mix_LoadWAV("audio/abilities/flamePort3.wav");
+	gameState.audio.flamePort[2] = Mix_LoadWAV("audio/abilities/flamePort1.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -160,6 +166,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.pyroIdle2 = use.sur;
 	gameState.textures.stands.pyroStand = get_texture(rend, "sprites/characters/pyro_idle1_stand.png");
 	gameState.textures.pyroAbilities[0] = get_texture(rend, "sprites/UI/abilities/flamePort.png");
+	gameState.textures.MISS = get_texture(rend, "sprites/UI/miss.png");
 }
 
 void	init(t_wr *wr)
@@ -177,6 +184,7 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_NO_SORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
+	render.CreateLayer(LAYER_NO_SORT); //miss layer
 	render.CreateLayer(LAYER_YSORT); //turnorder layer
 	render.CreateLayer(LAYER_YSORT);
 	gameState.render = &render;

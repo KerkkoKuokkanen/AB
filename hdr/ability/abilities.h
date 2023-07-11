@@ -34,6 +34,7 @@ class Abilities
 
 		std::vector<t_Animation> animations;
 		std::vector<t_Object> objects;
+		std::vector<MISS*> misses;
 
 		t_Ability *ability = NULL;
 		Character *character = NULL;
@@ -59,6 +60,7 @@ class Abilities
 		void UpdateSelector();
 		void SelectorWithCharacters();
 		void SelectorWithSquares();
+		void UpdateMisses();
 
 	public:
 		bool active = false;
