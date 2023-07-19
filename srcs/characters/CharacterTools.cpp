@@ -11,7 +11,7 @@ void Character::AssignAbilities()
 		case SKELE:
 			break ;
 		case PYRO:
-			abilities = {{FLAME_PORT, 0, 200, NULL}};
+			abilities = {{FLAME_PORT, 0, 200, NULL}, {FLAME_SLASH, 0, 80, NULL}};
 			break ;
 	}
 }

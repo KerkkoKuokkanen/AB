@@ -82,6 +82,9 @@ void CharacterUI::GetAbilities()
 			case FLAME_PORT:
 				CreateButton(dest, gameState.textures.pyroAbilities[0], FLAME_PORT, activeCharacter->abilities[i].cost);
 				break ;
+			case FLAME_SLASH:
+				CreateButton(dest, gameState.textures.pyroAbilities[1], FLAME_SLASH, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }
@@ -336,6 +339,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case FLAME_PORT:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_PORT), activeCharacter);
+			break ;
+		case FLAME_SLASH:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_SLASH), activeCharacter);
 			break ;
 	}
 }

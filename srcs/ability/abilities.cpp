@@ -19,6 +19,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case FLAME_PORT:
 			tileSelector = new TileSelector(pos, 15, 0, &groundColoring, true);
 			break ;
+		case FLAME_SLASH:
+			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			break ;
 	}
 }
 
@@ -50,6 +53,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case FLAME_PORT:
 			animations.push_back({new FlamePort(character, targetPoint), FLAME_PORT});
+			break ;
+		case FLAME_SLASH:
+			animations.push_back({new FlameSlash(character, targetPoint), FLAME_SLASH});
 			break ;
 	}
 }

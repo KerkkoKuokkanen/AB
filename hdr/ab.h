@@ -38,7 +38,8 @@ enum {
 	DAGGER_THROW,
 	SMOKE_BOMB,
 	DAGGER_SLASH,
-	FLAME_PORT
+	FLAME_PORT,
+	FLAME_SLASH
 };
 
 # include "../SDL2/SDL.h"
@@ -84,6 +85,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/animation/daggerSlashAnim.h"
 # include "ability/animation/smokeBombAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
+# include "ability/animation/flameSlash.h"
 # include "ability/objects/smokeEffect.h"
 # include "ability/objects/smokeBomb.h"
 # include "ability/objects/dagger.h"
