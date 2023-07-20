@@ -69,6 +69,7 @@ void getAudio()
 	Mix_Volume(Channels::FLAME_PORT3, 11);
 	Mix_Volume(Channels::TURN_START, 45);
 	Mix_Volume(Channels::FLAME_SLASH, 30);
+	Mix_Volume(Channels::SELECT, 35);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -84,6 +85,7 @@ void getAudio()
 	gameState.audio.flamePort[2] = Mix_LoadWAV("audio/abilities/flamePort1.wav");
 	gameState.audio.turnStart = Mix_LoadWAV("audio/effects/turnChange.wav");
 	gameState.audio.flameSlash = Mix_LoadWAV("audio/abilities/fireAttack.wav");
+	gameState.audio.select = Mix_LoadWAV("audio/effects/select.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -174,6 +176,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.flameSlash[0] = get_texture(rend, "sprites/characters/pyroFlameSlash.png");
 	gameState.textures.chars.flameSlash[1] = get_texture(rend, "sprites/effects/flameSlashEffect.png");
 	gameState.textures.pyroAbilities[1] = get_texture(rend, "sprites/UI/abilities/flameSlash.png");
+	gameState.textures.pyroAbilities[2] = get_texture(rend, "sprites/UI/abilities/fireBlast.png");
+	gameState.textures.marker = get_texture(rend, "sprites/UI/marker.png");
 }
 
 void	init(t_wr *wr)

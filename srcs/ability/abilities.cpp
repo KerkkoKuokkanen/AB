@@ -22,6 +22,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case FLAME_SLASH:
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
+		case FLAME_BLAST:
+			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, false, 2);
+			break ;
 	}
 }
 
@@ -95,12 +98,27 @@ void Abilities::SelectorWithSquares()
 	}
 }
 
+void Abilities::MultiSelectorWithCharacter()
+{
+	gameState.updateObjs.UI->ShowEnergy(ability->cost);
+	multiSelector->Update();
+	if (!multiSelector->done)
+		return ;
+	gameState.updateObjs.UI->UseEnergy(ability->cost);
+	targPoints.clear();
+	targPoints = multiSelector->GetPositions();
+	ActivateAbility(ability, character);
+	ClearMap();
+}
+
 void Abilities::UpdateSelector()
 {
 	if (selector != NULL)
 		SelectorWithCharacters();
 	else if (tileSelector != NULL)
 		SelectorWithSquares();
+	else if (multiSelector != NULL)
+		MultiSelectorWithCharacter();
 }
 
 void Abilities::UpdateMisses()
@@ -182,6 +200,9 @@ void Abilities::ClearMap()
 	if (tileSelector != NULL)
 		delete tileSelector;
 	tileSelector = NULL;
+	if (multiSelector != NULL)
+		delete multiSelector;
+	multiSelector = NULL;
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	if (!inMotion)

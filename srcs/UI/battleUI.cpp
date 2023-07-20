@@ -85,6 +85,9 @@ void CharacterUI::GetAbilities()
 			case FLAME_SLASH:
 				CreateButton(dest, gameState.textures.pyroAbilities[1], FLAME_SLASH, activeCharacter->abilities[i].cost);
 				break ;
+			case FLAME_BLAST:
+				CreateButton(dest, gameState.textures.pyroAbilities[2], FLAME_BLAST, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }
@@ -342,6 +345,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case FLAME_SLASH:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_SLASH), activeCharacter);
+			break ;
+		case FLAME_BLAST:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_BLAST), activeCharacter);
 			break ;
 	}
 }

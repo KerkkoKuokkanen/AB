@@ -39,7 +39,8 @@ enum {
 	SMOKE_BOMB,
 	DAGGER_SLASH,
 	FLAME_PORT,
-	FLAME_SLASH
+	FLAME_SLASH,
+	FLAME_BLAST
 };
 
 # include "../SDL2/SDL.h"
@@ -74,6 +75,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "battleClasses/kill.h"
 # include "particle/particle.h"
 # include "particle/particleManager.h"
+# include "UI/marker.h"
 # include "UI/bar.h"
 # include "UI/button.h"
 # include "UI/energy.h"
@@ -94,6 +96,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/Damager.h"
 # include "ability/selectors/selector.h"
 # include "ability/selectors/selectorForTiles.h"
+# include "ability/selectors/multiSelector.h"
 # include "ability/miss.h"
 # include "ability/abilities.h"
 # include "UI/battleUI.h"

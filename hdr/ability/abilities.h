@@ -40,9 +40,11 @@ class Abilities
 		Character *character = NULL;
 		Character *target = NULL;
 		SDL_Point targetPoint = {0, 0};
+		std::vector<SDL_Point> targPoints;
 
 		Selector *selector = NULL;
 		TileSelector *tileSelector = NULL;
+		MultiSelector *multiSelector = NULL;
 		Damager damager;
 		EffectUpdater effectUpdater;
 
@@ -60,6 +62,7 @@ class Abilities
 		void UpdateSelector();
 		void SelectorWithCharacters();
 		void SelectorWithSquares();
+		void MultiSelectorWithCharacter();
 		void UpdateMisses();
 
 	public:

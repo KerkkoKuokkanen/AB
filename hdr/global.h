@@ -26,7 +26,8 @@ namespace Channels
 		FLAME_PORT2,
 		FLAME_PORT3,
 		TURN_START,
-		FLAME_SLASH
+		FLAME_SLASH,
+		SELECT
 	};
 }
 
@@ -52,7 +53,6 @@ typedef struct s_Surfaces
 	SDL_Surface *bar[2];
 	SDL_Surface *trees[5];
 	SDL_Surface *slashTrail;
-	SDL_Surface *flameSlash;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -89,7 +89,7 @@ typedef struct s_Textures
 	SDL_Texture *bar[2];
 	SDL_Texture *barFiller;
 	SDL_Texture *thiefAbilites[3];
-	SDL_Texture *pyroAbilities[2];
+	SDL_Texture *pyroAbilities[3];
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];
@@ -98,6 +98,7 @@ typedef struct s_Textures
 	SDL_Texture *smokes[4];
 	SDL_Texture *smokeBomb;
 	SDL_Texture *MISS;
+	SDL_Texture *marker;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -112,6 +113,7 @@ typedef struct s_Audio
 	Mix_Chunk *whiff;
 	Mix_Chunk *turnStart;
 	Mix_Chunk *flameSlash;
+	Mix_Chunk *select;
 }				t_Audio;
 
 typedef struct s_MouseOver
