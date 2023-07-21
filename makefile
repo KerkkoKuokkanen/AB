@@ -15,7 +15,9 @@ SRCS =  srcs/main.cpp srcs/tools/basicTools.cpp srcs/tools/poller.cpp srcs/tools
 		srcs/ability/objects/smokeEffect.cpp srcs/ability/objects/smokeBomb.cpp srcs/ability/animation/daggerSlashAnim.cpp \
 		srcs/characters/CharacterTools.cpp srcs/ability/animation/flamePortAnim.cpp srcs/ability/switches/thiefUpdates.cpp \
 		srcs/ability/switches/pyroUpdates.cpp srcs/ability/miss.cpp srcs/ability/animation/flameSlashAnim.cpp \
-		srcs/ability/selectors/multiSelector.cpp srcs/ability/selectors/Markers.cpp
+		srcs/ability/selectors/multiSelector.cpp srcs/ability/selectors/Markers.cpp srcs/ability/objects/fireBall.cpp \
+		srcs/ability/animation/flameBlast.cpp
+
 
 OBJ = $(SRCS:.c=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

@@ -95,6 +95,10 @@ int GetChance(Character *character, Character *target, t_Ability *ability)
 			ret += RangedChance(character, target);
 			ChanceFromBlockers(ret, character, target);
 			break ;
+		case FLAME_BLAST:
+			ret += RangedChance(character, target);
+			ChanceFromBlockers(ret, character, target);
+			break ;
 		case DAGGER_SLASH:
 			ret += RangedChance(character, target);
 			break ;

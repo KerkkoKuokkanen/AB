@@ -178,6 +178,11 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.pyroAbilities[1] = get_texture(rend, "sprites/UI/abilities/flameSlash.png");
 	gameState.textures.pyroAbilities[2] = get_texture(rend, "sprites/UI/abilities/fireBlast.png");
 	gameState.textures.marker = get_texture(rend, "sprites/UI/marker.png");
+	gameState.textures.attacks.fireBall[0] = get_texture(rend, "sprites/attacks/flameBallBlast1.png");
+	gameState.textures.attacks.fireBall[1] = get_texture(rend, "sprites/attacks/flameBallBlast2.png");
+	gameState.textures.attacks.fireBallExplosion = get_texture(rend, "sprites/attacks/flameBallExplosion.png");
+	gameState.textures.attacks.fireBallAura = get_texture(rend, "sprites/effects/pyro_blast_effect.png");
+	gameState.textures.chars.pyroFlameBlast = get_texture(rend, "sprites/characters/pyro_blast.png");
 }
 
 void	init(t_wr *wr)

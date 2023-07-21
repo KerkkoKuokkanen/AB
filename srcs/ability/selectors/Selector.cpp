@@ -99,7 +99,17 @@ void Selector::SetBlockSprite(SDL_Point pos)
 		block = NULL;
 	}
 	block = new Sprite(gameState.textures.blocks[size], dest, NULL, NULL, 0, FLIP_NONE);
-	gameState.render->AddSprite(block, DUST_LAYER);
+	if (obj != NULL)
+	{
+		block->orderLayer = obj->sprite->orderLayer;
+		block->z = obj->sprite->z + 0.1f;
+	}
+	else
+	{
+		block->orderLayer = character->sprite->orderLayer;
+		block->z = character->sprite->z + 0.1f;
+	}
+	gameState.render->AddSprite(block, BATTLEGROUND_LAYER);
 }
 
 void Selector::SetBlock(SDL_Point target)

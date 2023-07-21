@@ -23,7 +23,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
 		case FLAME_BLAST:
-			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, false, 2);
+			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, true, 2);
 			break ;
 	}
 }
@@ -59,6 +59,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case FLAME_SLASH:
 			animations.push_back({new FlameSlash(character, targetPoint), FLAME_SLASH});
+			break ;
+		case FLAME_BLAST:
+			animations.push_back({new FlameBlast(character, targPoints, ability), FLAME_BLAST});
 			break ;
 	}
 }

@@ -34,5 +34,17 @@ void Abilities::UpdatePyroAnimation(t_Animation &animation, int index)
 			}
 			break ;
 		}
+		case FLAME_BLAST:
+		{
+			FlameBlast *use = (FlameBlast*)animation.animation;
+			use->Update();
+			std::vector<t_HitReturn> ret = use->GetTargets();
+			if (use->destroy)
+			{
+				delete use;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }

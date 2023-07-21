@@ -69,11 +69,20 @@ typedef struct s_CharacterTexts
 	SDL_Texture *pyroIdle1;
 	SDL_Texture *pyroIdle2;
 	SDL_Texture *flameSlash[2];
+	SDL_Texture *pyroFlameBlast;
 }				t_CharacterTexts;
+
+typedef struct s_AttackTextures
+{
+	SDL_Texture *fireBall[2];
+	SDL_Texture *fireBallExplosion;
+	SDL_Texture *fireBallAura;
+}				t_AttackTextures;
 
 typedef struct s_Textures
 {
 	t_Stands stands;
+	t_AttackTextures attacks;
 	t_CharacterTexts chars;
 	SDL_Texture *thiefIdle1;
 	SDL_Texture *thiefIdle2;

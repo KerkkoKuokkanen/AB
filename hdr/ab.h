@@ -62,6 +62,11 @@ typedef struct s_Ability
 	void *stats;
 }				t_Ability;
 
+typedef struct s_HitReturn
+{
+	SDL_Point target;
+	bool missing;
+}				t_HitReturn;
 
 SDL_FRect	translateSprite(SDL_Rect dest);
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
@@ -83,6 +88,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "objects/objUpdate.h"
 # include "battleClasses/groundColoring.h"
 # include "ability/characterMover.h"
+# include "ability/objects/fireBall.h"
+# include "ability/animation/flameBlast.h"
 # include "ability/animation/flamePortAnim.h"
 # include "ability/animation/daggerSlashAnim.h"
 # include "ability/animation/smokeBombAnim.h"

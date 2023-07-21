@@ -20,7 +20,6 @@ class Object
 {
 	private:
 		SDL_Point pos;
-		Sprite *sprite;
 		SDL_Surface *sur;
 		SDL_Rect getRect(int type, SDL_Point position);
 		int getObjSize(int type);
@@ -30,6 +29,7 @@ class Object
 		int overCounter;
 	public:
 		int size;
+		Sprite *sprite;
 		Object(int type, SDL_Point position, bool fadeOnMouseOver = true);
 		void Update();
 };
