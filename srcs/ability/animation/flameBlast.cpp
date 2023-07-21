@@ -25,9 +25,9 @@ void FlameBlast::UpdateAura()
 		return ;
 	}
 	if (counter % 3 == 0 && counter != 0)
-		alpha -= 35;
+		alpha -= 45;
 	else
-		alpha += 20;
+		alpha += 25;
 	if (alpha > 200)
 		alpha = 200;
 	aura->AlphaMod(alpha);

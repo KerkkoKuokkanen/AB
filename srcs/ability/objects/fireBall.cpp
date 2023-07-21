@@ -1,6 +1,6 @@
 
 #include "../../../hdr/global.h"
-#define MISSING_MINIMUM_DIST 1600.0f
+#define MISSING_MINIMUM_DIST 3000.0f
 #define FIRE_BALL_SPEED 390.0f
 
 void FireBall::GetMissingGoal(SDL_Point target)
@@ -8,7 +8,7 @@ void FireBall::GetMissingGoal(SDL_Point target)
 	SDL_Rect dest = gameState.battle.ground->map[target.y][target.x].character->sprite->dest;
 	SDL_Point mid = {dest.x + (dest.w / 2), dest.y + (dest.h / 2)};
 	float angle = float_rand() * (PI * 2.0f);
-	float dist = (float)(rand() % 2000) + MISSING_MINIMUM_DIST;
+	float dist = (float)(rand() % 6000) + MISSING_MINIMUM_DIST;
 	Vector dir(0.0f, 1.0f);
 	vectorRotate(dir, angle);
 	dir.x *= dist;
