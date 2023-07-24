@@ -27,7 +27,10 @@ namespace Channels
 		FLAME_PORT3,
 		TURN_START,
 		FLAME_SLASH,
-		SELECT
+		SELECT,
+		FLAME_BLAST_EXPLOSION,
+		FLAME_BLAST_CHARGE,
+		FLAME_BLAST_LAUNCH
 	};
 }
 
@@ -123,6 +126,7 @@ typedef struct s_Audio
 	Mix_Chunk *turnStart;
 	Mix_Chunk *flameSlash;
 	Mix_Chunk *select;
+	Mix_Chunk *flameBlast[3];
 }				t_Audio;
 
 typedef struct s_MouseOver

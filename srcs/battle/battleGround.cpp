@@ -278,6 +278,7 @@ void BattleGround::RemoveCharacter(Character *character)
 			{
 				if (map[i][j].character == character)
 				{
+					map[i][j].blocked = false;
 					map[i][j].character = NULL;
 					break ;
 				}

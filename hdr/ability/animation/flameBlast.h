@@ -22,10 +22,16 @@ class FlameBlast
 		Sprite *aura = NULL;
 		Character *character;
 		t_Ability *ability;
+		CharacterMover *mover = NULL;
 		void UpdateAura();
 		void CreateFireBall();
 		bool CheckIfDone();
 		void UpdateFireBalls();
+		Vector getDirection(bool bigDir);
+		void CreateParticles();
+		Color getColor();
+		int GetPartAmount();
+		void UpdateMover();
 		int counter = 0;
 		int amount;
 		int alpha = 0;

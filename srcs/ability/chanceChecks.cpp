@@ -135,7 +135,7 @@ Character *RangedCheck(Character *character, Character *target, int &chance)
 	if (pos.x == (-1))
 		return (BasicCheck(target, chance));
 	Character *ret = gameState.battle.ground->map[pos.y][pos.x].character;
-	if (ret == NULL)
+	if (ret == NULL || ret == character)
 		return (BasicCheck(target, chance));
 	int hit = rand() % 100;
 	int glit = rounding(chance * 3.0f + chance);

@@ -10,12 +10,17 @@ class FireBall
 		SDL_Point goal;
 		SDL_FPoint direction;
 		Sprite *sprite;
+		Character *character;
 		int counter = 0;
 		void GetGoal(SDL_Point target, bool missing);
 		void GetMissingGoal(SDL_Point target);
 		void RotateDirection();
 		void MoveFireBall();
 		bool AtTarget();
+		void ChangeTexture();
+		void TurnToParticles();
+		Color getColor();
+		bool firstText = true;
 		bool missing;
 	public:
 		bool destroy = false;

@@ -152,6 +152,20 @@ void Abilities::Upadte()
 	AbilityStatus();
 }
 
+void Abilities::HandleDamageVector(std::vector<t_HitReturn> &ret)
+{
+	for (int i = 0; i < ret.size(); i++)
+	{
+		if (ret[i].missing)
+			misses.push_back(createBasicMISS(character->position, ret[i].target, true));
+		else
+		{
+			std::vector<SDL_Point> add = {ret[i].target};
+			damager.AddDamage(ability, character, add);
+		}
+	}
+}
+
 void Abilities::AnimationUpdater()
 {
 	for (int i = 0; i < animations.size(); i++)

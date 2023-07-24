@@ -39,6 +39,7 @@ void Abilities::UpdatePyroAnimation(t_Animation &animation, int index)
 			FlameBlast *use = (FlameBlast*)animation.animation;
 			use->Update();
 			std::vector<t_HitReturn> ret = use->GetTargets();
+			HandleDamageVector(ret);
 			if (use->destroy)
 			{
 				delete use;

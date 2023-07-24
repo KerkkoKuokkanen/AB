@@ -70,6 +70,9 @@ void getAudio()
 	Mix_Volume(Channels::TURN_START, 45);
 	Mix_Volume(Channels::FLAME_SLASH, 30);
 	Mix_Volume(Channels::SELECT, 35);
+	Mix_Volume(Channels::FLAME_BLAST_EXPLOSION, 30);
+	Mix_Volume(Channels::FLAME_BLAST_CHARGE, 18);
+	Mix_Volume(Channels::FLAME_BLAST_LAUNCH, 17);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -86,6 +89,9 @@ void getAudio()
 	gameState.audio.turnStart = Mix_LoadWAV("audio/effects/turnChange.wav");
 	gameState.audio.flameSlash = Mix_LoadWAV("audio/abilities/fireAttack.wav");
 	gameState.audio.select = Mix_LoadWAV("audio/effects/select.wav");
+	gameState.audio.flameBlast[0] = Mix_LoadWAV("audio/abilities/Explosion1.wav");
+	gameState.audio.flameBlast[1] = Mix_LoadWAV("audio/abilities/explosionCharge.wav");
+	gameState.audio.flameBlast[2] = Mix_LoadWAV("audio/abilities/explosionLaunch.wav");
 }
 
 void getTextures(SDL_Renderer *rend)

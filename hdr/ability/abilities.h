@@ -64,6 +64,7 @@ class Abilities
 		void SelectorWithSquares();
 		void MultiSelectorWithCharacter();
 		void UpdateMisses();
+		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 
 	public:
 		bool active = false;
