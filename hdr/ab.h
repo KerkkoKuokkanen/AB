@@ -80,6 +80,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "battleClasses/kill.h"
 # include "particle/particle.h"
 # include "particle/particleManager.h"
+# include "UI/number.h"
 # include "UI/marker.h"
 # include "UI/bar.h"
 # include "UI/button.h"

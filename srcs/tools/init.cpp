@@ -189,6 +189,17 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.fireBallExplosion = get_texture(rend, "sprites/attacks/flameBallExplosion.png");
 	gameState.textures.attacks.fireBallAura = get_texture(rend, "sprites/effects/pyro_blast_effect.png");
 	gameState.textures.chars.pyroFlameBlast = get_texture(rend, "sprites/characters/pyro_blast.png");
+	gameState.textures.ascii.whiteNumbers[0] = get_texture(rend, "sprites/UI/numbers/w0.png");
+	gameState.textures.ascii.whiteNumbers[1] = get_texture(rend, "sprites/UI/numbers/w1.png");
+	gameState.textures.ascii.whiteNumbers[2] = get_texture(rend, "sprites/UI/numbers/w2.png");
+	gameState.textures.ascii.whiteNumbers[3] = get_texture(rend, "sprites/UI/numbers/w3.png");
+	gameState.textures.ascii.whiteNumbers[4] = get_texture(rend, "sprites/UI/numbers/w4.png");
+	gameState.textures.ascii.whiteNumbers[5] = get_texture(rend, "sprites/UI/numbers/w5.png");
+	gameState.textures.ascii.whiteNumbers[6] = get_texture(rend, "sprites/UI/numbers/w6.png");
+	gameState.textures.ascii.whiteNumbers[7] = get_texture(rend, "sprites/UI/numbers/w7.png");
+	gameState.textures.ascii.whiteNumbers[8] = get_texture(rend, "sprites/UI/numbers/w8.png");
+	gameState.textures.ascii.whiteNumbers[9] = get_texture(rend, "sprites/UI/numbers/w9.png");
+	gameState.textures.ascii.slash = get_texture(rend, "sprites/UI/slash.png");
 }
 
 void	init(t_wr *wr)

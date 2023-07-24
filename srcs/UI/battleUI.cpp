@@ -254,8 +254,6 @@ void CharacterUI::RemoveCharacter(Character *character)
 void CharacterUI::Destroy()
 {
 	characters.clear();
-	health->Destroy();
-	armor->Destroy();
 	delete health;
 	delete armor;
 }
