@@ -208,9 +208,9 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(20);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -244,6 +244,8 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static OBJ_Update objUpdate;
 	gameState.updateObjs.objUpdate = &objUpdate;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	static Info info;
+	gameState.updateObjs.info = &info;
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

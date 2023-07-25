@@ -24,6 +24,10 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 		PlaySound(sounds[i].sound, sounds[i].channel, sounds[i].loops);
 	character->stats.health -= healthDamage;
 	character->stats.armor -= armorDamage;
+	if (character->stats.health < 0)
+		character->stats.health = 0;
+	if (character->stats.armor < 0)
+		character->stats.armor = 0;
 	damages.push_back(add);
 	SetScreenShake(300, 6);
 	if (partDir.y < 0.0f)

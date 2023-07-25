@@ -156,6 +156,7 @@ typedef struct s_Updates
 	CharacterUI *UI;
 	OBJ_Update *objUpdate;
 	Abilities *abilities;
+	Info *info;
 	float fadeIter;
 	int characterAnimIter;
 	t_MouseOver hover;

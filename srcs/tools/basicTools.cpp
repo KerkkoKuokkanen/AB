@@ -69,6 +69,33 @@ int	rounding(float value)
 	return (val);
 }
 
+Vector GetCharacterTopMid(Character *character)
+{
+	SDL_Surface *sur = getSurface(character);
+	Uint32 *pixels = (Uint32*)sur->pixels;
+	float x = character->sprite->dest.x + (character->sprite->dest.w / 2);
+	int yStop = 0;
+	bool broke = false;
+	for (int i = 0; i < sur->h; i++)
+	{
+		for (int j = 0; j < sur->w; j++)
+		{
+			if (pixels[(i * sur->w) + j] == 0)
+				continue ;
+			broke = true;
+			yStop = i;
+			break ;
+		}
+		if (broke)
+			break ;
+	}
+	if (!broke)
+		return (Vector(x, (float)character->sprite->dest.y));
+	float hUnit = (float)character->sprite->dest.h / (float)sur->h;
+	float y = (float)character->sprite->dest.y + (hUnit * (float)yStop);
+	return (Vector(x, y));
+}
+
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest)
 {
 	float xUnit = gameState.screen.xStaticUnit;

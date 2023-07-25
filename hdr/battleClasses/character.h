@@ -6,6 +6,7 @@
 
 typedef struct s_Stats
 {
+	int baseDamage;
 	int speed;
 	int maxHealth;
 	int health;
@@ -51,7 +52,7 @@ class Character
 		int moves = 1;
 		bool ally = true;
 		bool killed = false;
-		t_Stats stats = {1, 100, 100, 50, 50};
+		t_Stats stats = {5, 1, 100, 100, 50, 50};
 		std::vector<t_Ability> abilities;
 };
 

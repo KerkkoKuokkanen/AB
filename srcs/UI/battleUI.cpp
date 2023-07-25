@@ -5,9 +5,9 @@ CharacterUI::CharacterUI()
 {
 	SDL_Rect dest1 = {-25000, 44000, 50000, 3200};
 	SDL_Rect dest2 = {-25000, 40500, 50000, 3200};
-	health = new Bar(dest1);
-	armor = new Bar(dest2);
-	SDL_Rect but = {21270, 35800, 3300, 3300};
+	health = new Bar(dest1, true);
+	armor = new Bar(dest2, true);
+	SDL_Rect but = {21800, 35500, 3500, 3500};
 	for (int i = 0; i < BUTTON_RESERVE; i++)
 	{
 		buttons[i].button = new Button(gameState.textures.turnDone, but, but);
@@ -18,8 +18,8 @@ CharacterUI::CharacterUI()
 		if (i == 0)
 			buttons[i].used = true;
 	}
-	Vector pos(-24500.0f, 36000.0f);
-	float diff = 2100.0f;
+	Vector pos(-25200.0f, 35800.0f);
+	float diff = 2110.0f;
 	for (int i = 0; i < ENERGYS; i++)
 	{
 		energys[i] = new Energy;
@@ -57,16 +57,15 @@ void CharacterUI::GetAbilities()
 {
 	if (activeCharacter == NULL)
 		return ;
-	Vector pos(-24500.0f, 36000.0f);
-	SDL_Rect dest = {21270, 35800, 3300, 3300};
-	int diff = 2900;
+	SDL_Rect dest = {21800, 35500, 3500, 3500};
+	int diff = 3075;
 	for (int i = 0; i < activeCharacter->abilities.size(); i++)
 	{
-		dest.x = 21270 - (diff * (7 - i));
+		dest.x = 21800 - (diff * (7 - i));
 		if (i >= 7)
 		{
-			dest.x = 21270 - (diff * (14 - i));
-			dest.y = 31100;
+			dest.x = 21800 - (diff * (14 - i));
+			dest.y = 30500;
 		}
 		switch (activeCharacter->abilities[i].type)
 		{
@@ -213,8 +212,8 @@ void CharacterUI::Update()
 		return ;
 	int h = activeCharacter->stats.health, heal = activeCharacter->stats.maxHealth;
 	int a = activeCharacter->stats.armor, arm = activeCharacter->stats.maxArmor;
-	health->Update(heal, h, 99, 10, 9);
-	armor->Update(arm, a, 64, 64, 64);
+	health->Update(activeCharacter, true);
+	armor->Update(activeCharacter, false);
 	CheckIfMouseOver();
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{

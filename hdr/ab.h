@@ -30,6 +30,7 @@ enum {
 	PARTICLE_LAYER,
 	OBJECT_LAYER,
 	MISS_LAYER,
+	INFO_LAYER,
 	TURN_ORDER_LAYER
 };
 
@@ -87,6 +88,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/energy.h"
 # include "objects/object.h"
 # include "objects/objUpdate.h"
+# include "info/hoverBars.h"
+# include "info/info.h"
 # include "battleClasses/groundColoring.h"
 # include "ability/characterMover.h"
 # include "ability/objects/fireBall.h"
@@ -211,6 +214,7 @@ Vector			getDirection(Vector generalDir);
 void			SetScreenShake(int volume, int time);
 void			ShakeTheScreen();
 MISS			*createBasicMISS(SDL_Point start, SDL_Point target, bool sound);
+Vector			GetCharacterTopMid(Character *character);
 
 t_GMU *getMapTopRight(SDL_Point pos);
 t_GMU *getMapTopLeft(SDL_Point pos);

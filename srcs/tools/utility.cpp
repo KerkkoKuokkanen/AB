@@ -159,6 +159,8 @@ void ObjUpdate()
 		gameState.updateObjs.turnOrder->Update();
 	gameState.updateObjs.indicator->Update();
 	UpdateHoveredCharacter();
+	if (gameState.updateObjs.info != NULL)
+		gameState.updateObjs.info->Update();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
 	if (gameState.updateObjs.abilities != NULL)

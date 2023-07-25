@@ -5,14 +5,14 @@
 
 Energy::Energy()
 {
-	SDL_Rect dest = {0, 0, 2600, 3900};
+	SDL_Rect dest = {0, 0, 2600, 4100};
 	stand = new Sprite(gameState.textures.energy[0], dest, NULL, NULL, 0, FLIP_NONE, true);
 	energy = new Sprite(gameState.textures.energy[1], dest, NULL, NULL, 0, FLIP_NONE, true);
 	stand->Deactivate();
 	energy->Deactivate();
 	energy->ColorMod(190, 190, 190);
-	gameState.render->AddSprite(stand, TURN_ORDER_LAYER);
-	gameState.render->AddSprite(energy, TURN_ORDER_LAYER);
+	gameState.render->AddSprite(stand, INFO_LAYER);
+	gameState.render->AddSprite(energy, INFO_LAYER);
 	sur = gameState.surfaces.energy[1];
 }
 
