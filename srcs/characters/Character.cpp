@@ -102,6 +102,11 @@ void Character::Destroy()
 {
 	delete sprite;
 	delete stand;
+	for (int i = 0; i < abilities.size(); i++)
+	{
+		if (abilities[i].stats != NULL)
+			free(abilities[i].stats);
+	}
 	textures.clear();
 	stands.clear();
 }

@@ -60,6 +60,7 @@ typedef struct s_Ability
 	int type;
 	int cost;
 	int baseChance;
+	int statType;
 	void *stats;
 }				t_Ability;
 
@@ -74,6 +75,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 
 # include "render/sprite.h"
 # include <vector>
+# include "statStructs.h"
 # include "battleClasses/character.h"
 # include "particle/dust.h"
 # include "battleClasses/turnOrder.h"

@@ -44,6 +44,8 @@ void Kill::CreateParticles(Character *character)
 	Uint32 *pixels = (Uint32*)sur->pixels;
 	SDL_Rect dest = character->sprite->dest;
 	Vector generalDir(1.0f, 0.0f);
+	if (character->ally)
+		generalDir.x = (-1.0f);
 	for (int y = 0; y < sur->h; y++)
 	{
 		for (int x = 0; x < sur->w; x++)
