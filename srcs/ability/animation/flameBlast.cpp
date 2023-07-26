@@ -51,11 +51,25 @@ bool FlameBlast::CheckIfDone()
 	return (false);
 }
 
+void FlameBlast::IncrementIterator()
+{
+	iterator++;
+	while (iterator < amount)
+	{
+		Character *ret = gameState.battle.ground->map[targets[iterator].y][targets[iterator].x].character;
+		if (ret != NULL && !ret->killed)
+			return ;
+		iterator++;
+	}
+}
+
 void FlameBlast::CreateFireBall()
 {
 	counter = 0;
 	alpha = 0;
 	Character *targ = gameState.battle.ground->map[targets[iterator].y][targets[iterator].x].character;
+	if (targ == NULL)
+		return ;
 	int chance = GetChance(character, targ, ability);
 	Character *hitTarg = RangedCheck(character, targ, chance);
 	Character *used = hitTarg;
@@ -169,7 +183,7 @@ void FlameBlast::Update()
 	{
 		CreateFireBall();
 		SetScreenShake(250, 6);
-		iterator++;
+		IncrementIterator();
 		if (iterator >= amount)
 			character->sprite->setTexture(gameState.textures.chars.pyroIdle1);
 		mover = new CharacterMover(character, Vector(-0.5f, -0.5f), 6, 6, 200.0f);

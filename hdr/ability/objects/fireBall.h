@@ -19,6 +19,7 @@ class FireBall
 		bool AtTarget();
 		void ChangeTexture();
 		void TurnToParticles();
+		void CheckIfTargetKilled();
 		Color getColor();
 		bool firstText = true;
 		bool missing;

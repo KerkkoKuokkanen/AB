@@ -70,6 +70,9 @@ void ChanceFromBlockers(int &chance, Character *character, Character *target)
 		return ;
 	if (gameState.battle.ground->map[pos.y][pos.x].obj == NULL)
 	{
+		if (gameState.battle.ground->map[pos.y][pos.x].character == character
+			|| gameState.battle.ground->map[pos.y][pos.x].character->killed)
+			return ;
 		chance = rounding((float)chance / HALF_BLOCK_CHANCE_REDUCE_AMOUNT);
 		chance = rounding((float)chance / 4.0f);
 		return ;

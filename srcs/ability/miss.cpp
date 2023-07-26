@@ -3,12 +3,16 @@
 
 MISS *createBasicMISS(SDL_Point start, SDL_Point target, bool sound)
 {
+	Character *targ = gameState.battle.ground->map[target.y][target.x].character;
+	if (targ == NULL)
+		return NULL;
+	if (targ->killed)
+		return (NULL);
 	bool left = false;
 	SDL_Rect dest1 = gameState.battle.ground->getTileDest(start);
 	SDL_Rect dest2 = gameState.battle.ground->getTileDest(target);
 	if (dest1.x > dest2.x)
 		left = true;
-	Character *targ = gameState.battle.ground->map[target.y][target.x].character;
 	Vector place((float)(dest2.x + 3000), (float)(dest2.y + 1700.0f));
 	if (targ != NULL)
 	{
@@ -23,7 +27,7 @@ MISS::MISS(Vector place, bool sound, bool left)
 {
 	if (sound)
 		PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
-	SDL_Rect dest = {0, 0, 2300, 1300};
+	SDL_Rect dest = {0, 0, 2200, 1100};
 	miss = new Sprite(gameState.textures.MISS, dest, NULL, NULL, 0, FLIP_NONE);
 	miss->Position(place);
 	gameState.render->AddSprite(miss, MISS_LAYER);
@@ -57,9 +61,9 @@ void MISS::ScaleMiss()
 		return ;
 	SDL_Rect dest = miss->dest;
 	dest.w += 30;
-	dest.h += 30;
+	dest.h += 20;
 	dest.x -= 15;
-	dest.y -= 15;
+	dest.y -= 10;
 	miss->dest = dest;
 }
 

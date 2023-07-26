@@ -157,7 +157,11 @@ void Abilities::HandleDamageVector(std::vector<t_HitReturn> &ret)
 	for (int i = 0; i < ret.size(); i++)
 	{
 		if (ret[i].missing)
-			misses.push_back(createBasicMISS(character->position, ret[i].target, true));
+		{
+			MISS *add = createBasicMISS(character->position, ret[i].target, true);
+			if (add != NULL)
+				misses.push_back(add);
+		}
 		else
 		{
 			std::vector<SDL_Point> add = {ret[i].target};

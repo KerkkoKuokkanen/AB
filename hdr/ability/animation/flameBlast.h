@@ -28,6 +28,7 @@ class FlameBlast
 		bool CheckIfDone();
 		void UpdateFireBalls();
 		Vector getDirection(bool bigDir);
+		void IncrementIterator();
 		void CreateParticles();
 		Color getColor();
 		int GetPartAmount();

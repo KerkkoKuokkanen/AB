@@ -159,12 +159,12 @@ void ObjUpdate()
 		gameState.updateObjs.turnOrder->Update();
 	gameState.updateObjs.indicator->Update();
 	UpdateHoveredCharacter();
-	if (gameState.updateObjs.info != NULL)
-		gameState.updateObjs.info->Update();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
 	if (gameState.updateObjs.abilities != NULL)
 		gameState.updateObjs.abilities->Upadte();
+	if (gameState.updateObjs.info != NULL)
+		gameState.updateObjs.info->Update();
 	gameState.updateObjs.killer->Update();
 	gameState.updateObjs.partManager->Update();
 	gameState.updateObjs.fadeIter += 0.06f;

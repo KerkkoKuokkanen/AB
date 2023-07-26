@@ -22,14 +22,19 @@ class Bar
 		void SetNumber();
 		void ModBars(Character *target, bool health);
 		void ManageReduce();
+		void GetScala();
+		int swDiff = 0;
+		int destDiff = 0;
 		bool numbers;
 		bool healthDown = false;
 		bool staticSprite;
 		bool colorSet = false;
-		Character *target = NULL;
+		int healthDownTimer = 14;
 	public:
+		Character *target = NULL;
 		Bar(SDL_Rect dest, bool numbers, bool staticSprite = true);
 		~Bar() {Destroy();};
+		void ChangeToSmallBar();
 		void SetColor(Uint8 r, Uint8 g, Uint8 b);
 		void Position(SDL_Point place);
 		void Update(Character *target, bool health);

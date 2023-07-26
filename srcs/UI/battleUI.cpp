@@ -210,8 +210,6 @@ void CharacterUI::Update()
 	getActive();
 	if (!turnActive)
 		return ;
-	int h = activeCharacter->stats.health, heal = activeCharacter->stats.maxHealth;
-	int a = activeCharacter->stats.armor, arm = activeCharacter->stats.maxArmor;
 	health->Update(activeCharacter, true);
 	armor->Update(activeCharacter, false);
 	CheckIfMouseOver();

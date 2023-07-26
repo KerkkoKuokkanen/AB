@@ -16,6 +16,7 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 {
 	if (character == NULL)
 		return ;
+	character->damaged = true;
 	SDL_Point pos = character->position;
 	Vector place = gameState.battle.ground->GetCharacterCoord(pos, character);
 	SDL_Rect dest = {rounding(place.x), rounding(place.y), character->sprite->dest.w, character->sprite->dest.h};

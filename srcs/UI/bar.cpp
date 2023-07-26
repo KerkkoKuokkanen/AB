@@ -29,6 +29,22 @@ Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 	gameState.render->AddSprite(slash, INFO_LAYER);
 }
 
+void Bar::ChangeToSmallBar()
+{
+	bar->setTexture(gameState.textures.sBar[0]);
+	backGround->setTexture(gameState.textures.sBar[1]);
+	filler->setTexture(gameState.textures.sBar[2]);
+	reduce->setTexture(gameState.textures.sBar[2]);
+	sRect = {0, 0, 300, 50};
+	rSRect = {0, 0, 300, 50};
+}
+
+void Bar::GetScala()
+{
+	swDiff = rSRect.w - sRect.w;
+	destDiff = reduce->dest.w - filler->dest.w;
+}
+
 void Bar::SetBar(int max, int curr)
 {
 	float unit = (float)bar->dest.w / (float)max;
@@ -50,6 +66,8 @@ void Bar::SetBar(int max, int curr)
 		rSRect.w = sRect.w;
 		reduce->dest.w = filler->dest.w;
 	}
+	else
+		GetScala();
 }
 
 void Bar::Position(SDL_Point place)
@@ -119,7 +137,7 @@ void Bar::ModBars(Character *target, bool health)
 	else
 	{
 		if (!colorSet)
-			filler->ColorMod(82, 82, 82);
+			filler->ColorMod(66, 63, 82);
 		curr = target->stats.armor;
 		max = target->stats.maxArmor;
 	}
@@ -139,10 +157,15 @@ void Bar::ManageReduce()
 		return ;
 	if (reduce->dest.w <= filler->dest.w)
 		return ;
-	float unit = (float)bar->dest.w / (float)currMax;
-	float sUnit = BAR_SOURCE_WIDTH / (float)currMax;
-	rSRect.w -= rounding(sUnit * 0.85f);
-	reduce->dest.w -= rounding(unit * 0.85f);
+	if (healthDownTimer > 0)
+	{
+		healthDownTimer--;
+		return ;
+	}
+	float sRectUnit = (float)swDiff / 30.0f;
+	float destUnit = (float)destDiff / 30.0f;
+	rSRect.w -= rounding(sRectUnit);
+	reduce->dest.w -= rounding(destUnit);
 	if (reduce->dest.w < filler->dest.w)
 	{
 		reduce->dest.w = filler->dest.w;
@@ -156,6 +179,7 @@ void Bar::Update(Character *target, bool health)
 		healthDown = true;
 	else
 	{
+		healthDownTimer = 10;
 		healthDown = false;
 		Bar::target = target;
 	}
