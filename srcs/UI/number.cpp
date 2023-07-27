@@ -3,6 +3,8 @@
 
 Number::Number(int number, int size, int layer, int orderingLayer, bool staticSprite, int numberType)
 {
+	Number::size = size;
+	Number::number = number;
 	SDL_Rect dest = {0, 0, size, size};
 	int offset = rounding((float)size + (float)size * 0.1f);
 	std::string digits = std::to_string(number);
@@ -11,7 +13,11 @@ Number::Number(int number, int size, int layer, int orderingLayer, bool staticSp
 	{
 		int num = digit - '0';
 		dest.x = offset * iterator;
-		Sprite *sprite = new Sprite(gameState.textures.ascii.whiteNumbers[num], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+		Sprite *sprite = NULL;
+		if (numberType == NumberType::WHITE)
+			sprite = new Sprite(gameState.textures.ascii.whiteNumbers[num], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+		else if (numberType == NumberType::NORMAL)
+			sprite = new Sprite(gameState.textures.ascii.normalNumbers[num], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 		gameState.render->AddSprite(sprite, layer);
 		sprite->orderLayer = orderingLayer;
 		nums.push_back(sprite);
@@ -81,6 +87,7 @@ void Number::Resize(int size)
 {
 	if (nums.size() == 0)
 		return ;
+	Number::size = size;
 	int ogOffset = rounding((float)nums[0]->dest.w + (float)nums[0]->dest.w * 0.1f);
 	int newOffset = rounding((float)size + (float)size * 0.1f);
 	int diff = newOffset - ogOffset;

@@ -1,5 +1,5 @@
 
-#include "../../hdr/global.h"
+#include "../../../hdr/global.h"
 
 #define BLACK_TIME 7
 #define RED_TIME 9

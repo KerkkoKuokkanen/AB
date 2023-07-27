@@ -2,7 +2,7 @@
 #ifndef DAMAGE_CREATOR_H
 # define DAMAGE_CREATOR_H
 
-# include "../ab.h"
+# include "../../ab.h"
 
 typedef struct s_Sound
 {

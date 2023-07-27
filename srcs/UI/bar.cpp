@@ -162,8 +162,8 @@ void Bar::ManageReduce()
 		healthDownTimer--;
 		return ;
 	}
-	float sRectUnit = (float)swDiff / 30.0f;
-	float destUnit = (float)destDiff / 30.0f;
+	float sRectUnit = (float)swDiff / 35.0f;
+	float destUnit = (float)destDiff / 35.0f;
 	rSRect.w -= rounding(sRectUnit);
 	reduce->dest.w -= rounding(destUnit);
 	if (reduce->dest.w < filler->dest.w)
@@ -179,7 +179,7 @@ void Bar::Update(Character *target, bool health)
 		healthDown = true;
 	else
 	{
-		healthDownTimer = 10;
+		healthDownTimer = 18;
 		healthDown = false;
 		Bar::target = target;
 	}

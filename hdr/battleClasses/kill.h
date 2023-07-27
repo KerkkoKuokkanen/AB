@@ -4,7 +4,7 @@
 
 # include "../ab.h"
 
-# define KILL_TIME 60
+# define KILL_TIME 90
 
 typedef struct s_kill
 {

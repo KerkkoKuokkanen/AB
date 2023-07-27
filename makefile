@@ -3,12 +3,12 @@ NAME = AB
 SRCS =	srcs/*.cpp srcs/ability/*.cpp srcs/ability/animation/*.cpp srcs/ability/objects/*.cpp \
 		srcs/ability/selectors/*.cpp srcs/ability/switches/*.cpp srcs/battle/*.cpp \
 		srcs/battle/turn/*.cpp srcs/characters/*.cpp srcs/effects/*.cpp srcs/objects/*.cpp \
-		srcs/tools/*.cpp srcs/UI/*.cpp srcs/info/*.cpp
+		srcs/tools/*.cpp srcs/UI/*.cpp srcs/info/*.cpp srcs/ability/damages/*.cpp
 
 OBJ = $(SRCS:.c=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \
 		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability \
-		-I ./hdr/abilities/selectors/ -I ./hdr/info/
+		-I ./hdr/abilities/selectors/ -I ./hdr/info/ -I ./hdr/ability/damages/
 
 FLAGS = -std=c++11
 CGFLAGS = 

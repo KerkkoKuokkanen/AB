@@ -15,16 +15,37 @@ HoverBars::HoverBars()
 	health->SetColor(101, 97, 135);
 }
 
-void HoverBars::PlaceBars()
+SDL_Point HoverBars::GetHealthPosition()
 {
 	Vector topMid = GetCharacterTopMid(target);
 	topMid.y -= 1000.0f;
 	int diff = THE_HOVER_BAR_WIDTH / 2;
 	topMid.x -= (float)diff;
 	SDL_Point place = {rounding(topMid.x), rounding(topMid.y)};
+	return (place);
+}
+
+void HoverBars::PlaceBars(SDL_Point place)
+{
 	health->Position(place);
 	place.y -= HOW_MUCH_THE_BAR_NEEDS_TO_BE_ON_TOP;
 	armor->Position(place);
+}
+
+void HoverBars::CreateStatuses(SDL_Point place)
+{
+	if (statuses != NULL)
+		delete statuses;
+	Vector pos((float)place.x, (float)(place.y - HOW_MUCH_THE_BAR_NEEDS_TO_BE_ON_TOP - 900.0f));
+	statuses = new Statuses(target, 800, 400, false);
+	statuses->Postion(pos);
+}
+
+void HoverBars::ManageStatuses()
+{
+	if (target == NULL)
+		return ;
+	statuses->Update();
 }
 
 void HoverBars::Update(Character *target)
@@ -34,6 +55,9 @@ void HoverBars::Update(Character *target)
 		HoverBars::target = NULL;
 		health->Deactivate();
 		armor->Deactivate();
+		if (statuses != NULL)
+			delete statuses;
+		statuses = NULL;
 		return ;
 	}
 	health->Activate();
@@ -41,8 +65,11 @@ void HoverBars::Update(Character *target)
 	if (HoverBars::target != target)
 	{
 		HoverBars::target = target;
-		PlaceBars();
+		SDL_Point place = GetHealthPosition();
+		PlaceBars(place);
+		CreateStatuses(place);
 	}
+	ManageStatuses();
 	health->Update(target, false);
 	armor->Update(target, true);
 }

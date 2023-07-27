@@ -1,8 +1,8 @@
 
-#include "../../hdr/global.h"
+#include "../../../hdr/global.h"
 #define HOW_MUCH_THE_BAR_NEEDS_TO_BE_ON_TOP -220
 #define THE_HOVER_BAR_WIDTH 3200
-#define THE_BAR_LIFETIME 58
+#define THE_BAR_LIFETIME 88
 
 Vector Damager::GetDirection(Character *character, Character *target)
 {
@@ -66,6 +66,7 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 		t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 		std::vector<t_Sound> sounds = {add2, add3};
 		damageCreator.CreateDamage(targ, Color(255, 0, 0), 10, 10, GetDirection(character, targ), sounds);
+		statuses.push_back(new AddStatus(character, targ, StatusSigns::BURN));
 	}
 }
 
@@ -87,8 +88,23 @@ void Damager::UpdateBars()
 	}
 }
 
+void Damager::UpdateStatuses()
+{
+	for (int i = 0; i < statuses.size(); i++)
+	{
+		statuses[i]->Update();
+		if (statuses[i]->done)
+		{
+			delete statuses[i];
+			statuses.erase(statuses.begin() + i);
+			i--;
+		}
+	}
+}
+
 void Damager::Update()
 {
 	damageCreator.Update();
+	UpdateStatuses();
 	UpdateBars();
 }

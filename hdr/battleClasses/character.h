@@ -54,6 +54,7 @@ class Character
 		bool killed = false;
 		bool damaged = false;
 		t_Stats stats = {5, 1, 100, 100, 50, 50};
+		t_StatusEffects statuses = {};
 		std::vector<t_Ability> abilities;
 };
 

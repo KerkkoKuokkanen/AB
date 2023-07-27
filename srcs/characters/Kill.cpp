@@ -13,6 +13,8 @@ Kill::Kill()
 
 void Kill::KillColorFade(t_kill *killed)
 {
+	if (killed->timer > 60)
+		return ;
 	float unit = 255.0f / 40.0f;
 	int time = killed->timer - 20;
 	int value = rounding(unit * (float)time);

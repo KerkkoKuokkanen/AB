@@ -9,8 +9,12 @@ class HoverBars
 	private:
 		Bar *health = NULL;
 		Bar *armor = NULL;
+		Statuses *statuses = NULL;
 		Character *target = NULL;
-		void PlaceBars();
+		SDL_Point GetHealthPosition();
+		void PlaceBars(SDL_Point place);
+		void ManageStatuses();
+		void CreateStatuses(SDL_Point place);
 	public:
 		HoverBars();
 		~HoverBars() {Destroy();};

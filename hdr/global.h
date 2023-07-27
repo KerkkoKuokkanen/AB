@@ -82,9 +82,15 @@ typedef struct s_AttackTextures
 	SDL_Texture *fireBallAura;
 }				t_AttackTextures;
 
+typedef struct s_StatusSprites
+{
+	SDL_Texture *burns[2];
+}				t_StatusSprites;
+
 typedef struct s_Ascii
 {
 	SDL_Texture *whiteNumbers[10];
+	SDL_Texture *normalNumbers[10];
 	SDL_Texture *slash;
 }				t_Ascii;
 
@@ -94,6 +100,7 @@ typedef struct s_Textures
 	t_AttackTextures attacks;
 	t_CharacterTexts chars;
 	t_Ascii ascii;
+	t_StatusSprites statuses;
 	SDL_Texture *thiefIdle1;
 	SDL_Texture *thiefIdle2;
 	SDL_Texture *thiefDaggerThrow;

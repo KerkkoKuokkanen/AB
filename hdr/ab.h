@@ -29,6 +29,7 @@ enum {
 	DUST_LAYER,
 	PARTICLE_LAYER,
 	OBJECT_LAYER,
+	STATUS_LAYER,
 	MISS_LAYER,
 	INFO_LAYER,
 	TURN_ORDER_LAYER
@@ -85,6 +86,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "particle/particleManager.h"
 # include "UI/number.h"
 # include "UI/marker.h"
+# include "UI/statuses.h"
 # include "UI/bar.h"
 # include "UI/button.h"
 # include "UI/energy.h"
@@ -93,6 +95,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "info/hoverBars.h"
 # include "info/info.h"
 # include "battleClasses/groundColoring.h"
+# include "ability/damages/addStatus.h"
 # include "ability/characterMover.h"
 # include "ability/objects/fireBall.h"
 # include "ability/animation/flameBlast.h"
@@ -104,9 +107,9 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/objects/smokeEffect.h"
 # include "ability/objects/smokeBomb.h"
 # include "ability/objects/dagger.h"
-# include "ability/damageCreator.h"
+# include "ability/damages/damageCreator.h"
 # include "ability/effectUpdater.h"
-# include "ability/Damager.h"
+# include "ability/damages/Damager.h"
 # include "ability/selectors/selector.h"
 # include "ability/selectors/selectorForTiles.h"
 # include "ability/selectors/multiSelector.h"

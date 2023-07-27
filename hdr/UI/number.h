@@ -16,6 +16,9 @@ namespace NumberType
 
 class Number
 {
+	private:
+		int size = 0;
+		int number = 0;
 	public:
 		std::vector<Sprite*> nums;
 		Number(int number, int size, int layer, int orderingLayer, bool staticSprite, int numberType);
@@ -23,6 +26,8 @@ class Number
 		void Deactivate();
 		void Activate();
 		int getFullWidth();
+		int getSize() {return(size);};
+		int getNumber() {return(number);};
 		void ColorMod(Uint8 r, Uint8 g, Uint8 b);
 		void AlphaMod(Uint8 alpha);
 		void Resize(int size);

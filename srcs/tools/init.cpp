@@ -199,10 +199,22 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.ascii.whiteNumbers[7] = get_texture(rend, "sprites/UI/numbers/w7.png");
 	gameState.textures.ascii.whiteNumbers[8] = get_texture(rend, "sprites/UI/numbers/w8.png");
 	gameState.textures.ascii.whiteNumbers[9] = get_texture(rend, "sprites/UI/numbers/w9.png");
+	gameState.textures.ascii.normalNumbers[0] = get_texture(rend, "sprites/UI/numbers/n0.png");
+	gameState.textures.ascii.normalNumbers[1] = get_texture(rend, "sprites/UI/numbers/n1.png");
+	gameState.textures.ascii.normalNumbers[2] = get_texture(rend, "sprites/UI/numbers/n2.png");
+	gameState.textures.ascii.normalNumbers[3] = get_texture(rend, "sprites/UI/numbers/n3.png");
+	gameState.textures.ascii.normalNumbers[4] = get_texture(rend, "sprites/UI/numbers/n4.png");
+	gameState.textures.ascii.normalNumbers[5] = get_texture(rend, "sprites/UI/numbers/n5.png");
+	gameState.textures.ascii.normalNumbers[6] = get_texture(rend, "sprites/UI/numbers/n6.png");
+	gameState.textures.ascii.normalNumbers[7] = get_texture(rend, "sprites/UI/numbers/n7.png");
+	gameState.textures.ascii.normalNumbers[8] = get_texture(rend, "sprites/UI/numbers/n8.png");
+	gameState.textures.ascii.normalNumbers[9] = get_texture(rend, "sprites/UI/numbers/n9.png");
 	gameState.textures.ascii.slash = get_texture(rend, "sprites/UI/slash.png");
 	gameState.textures.sBar[0] = get_texture(rend, "sprites/UI/smallBar/sBar.png");
 	gameState.textures.sBar[1] = get_texture(rend, "sprites/UI/smallBar/sBarBackGround.png");
 	gameState.textures.sBar[2] = get_texture(rend, "sprites/UI/smallBar/sBarFiller.png");
+	gameState.textures.statuses.burns[0] = get_texture(rend, "sprites/attacks/burn.png");
+	gameState.textures.statuses.burns[1] = get_texture(rend, "sprites/attacks/whiteBurn.png");
 }
 
 void	init(t_wr *wr)
@@ -211,15 +223,16 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(20);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
 	render.CreateLayer(LAYER_NO_SORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
+	render.CreateLayer(LAYER_YSORT);
 	render.CreateLayer(LAYER_NO_SORT); //miss layer
 	render.CreateLayer(LAYER_YSORT); //turnorder layer
 	render.CreateLayer(LAYER_YSORT);
@@ -249,6 +262,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.objUpdate = &objUpdate;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }
