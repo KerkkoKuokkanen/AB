@@ -14,7 +14,7 @@ void Statuses::CreateStatuses()
 	if (character->statuses.burns.size() > 0)
 	{
 		t_NumberAndSprite add;
-		add.sprite = new Sprite(gameState.textures.statuses.burns[0], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+		add.sprite = new Sprite(gameState.textures.statuses.burns[2], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 		gameState.render->AddSprite(add.sprite, INFO_LAYER);
 		int num = (int)character->statuses.burns.size();
 		if (num > 0)
@@ -75,7 +75,7 @@ void Statuses::Postion(Vector place)
 		if (statuses[i].images.number == NULL)
 			continue ;
 		float x = (float)statuses[i].images.sprite->dest.x;
-		statuses[i].images.number->Position(Vector(x, place.y + ((float)size * 0.1f)));
+		statuses[i].images.number->Position(Vector(x, place.y));
 	}
 }
 
@@ -88,8 +88,29 @@ void Statuses::RePosition()
 	Postion(Vector((float)dest.x, (float)dest.y));
 }
 
+void Statuses::ManageNumbers()
+{
+	if (gameState.screen.unit < 0.00002f)
+	{
+		for (int i = 0; i < statuses.size(); i++)
+		{
+			if (statuses[i].images.number != NULL)
+				statuses[i].images.number->Deactivate();
+		}
+	}
+	else
+	{
+		for (int i = 0; i < statuses.size(); i++)
+		{
+			if (statuses[i].images.number != NULL)
+				statuses[i].images.number->Activate();
+		}
+	}
+}
+
 void Statuses::Update()
 {
+	ManageNumbers();
 	CheckIfNewStatuses();
 	CheckIfNeedToCreateStatuses();
 }
@@ -112,7 +133,7 @@ void Statuses::CreateFrestStatus(int statusSign)
 	{
 		case StatusSigns::BURN:
 		{
-			add.sprite = new Sprite(gameState.textures.statuses.burns[0], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite = new Sprite(gameState.textures.statuses.burns[2], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 			gameState.render->AddSprite(add.sprite, INFO_LAYER);
 			int num = (int)character->statuses.burns.size();
 			if (num > 0)

@@ -33,6 +33,7 @@ class Statuses
 		void ChangeAmount(int &index, int amount, int num);
 		void CreateFrestStatus(int statusSign);
 		void RePosition();
+		void ManageNumbers();
 	public:
 		Statuses(Character *character, int size, int numberSize, bool staticSprite, bool vertical = false);
 		~Statuses() {Destroy();};

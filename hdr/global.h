@@ -84,7 +84,7 @@ typedef struct s_AttackTextures
 
 typedef struct s_StatusSprites
 {
-	SDL_Texture *burns[2];
+	SDL_Texture *burns[3];
 }				t_StatusSprites;
 
 typedef struct s_Ascii

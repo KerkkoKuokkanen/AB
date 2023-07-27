@@ -36,8 +36,8 @@ void HoverBars::CreateStatuses(SDL_Point place)
 {
 	if (statuses != NULL)
 		delete statuses;
-	Vector pos((float)place.x, (float)(place.y - HOW_MUCH_THE_BAR_NEEDS_TO_BE_ON_TOP - 900.0f));
-	statuses = new Statuses(target, 800, 400, false);
+	Vector pos((float)place.x, (float)(place.y - HOW_MUCH_THE_BAR_NEEDS_TO_BE_ON_TOP - 740.0f));
+	statuses = new Statuses(target, 640, 310, false);
 	statuses->Postion(pos);
 }
 
