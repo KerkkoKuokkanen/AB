@@ -22,7 +22,7 @@ class Renderer
 			std::vector<Sprite*> add;
 			spriteLayers.push_back(add);
 			int index = spriteLayers.size() - 1;
-			if (sortType == LAYER_YSORT || sortType == LAYER_REVERSE_YSORT || sortType == LAYER_DEPTH_SORT)
+			if (sortType == LAYER_YSORT || sortType == LAYER_REVERSE_YSORT || sortType == LAYER_DEPTH_SORT || sortType == LAYER_ORDER_SORT)
 			{
 				t_Sort s = {index, sortType};
 				sortedLayers.push_back(s);

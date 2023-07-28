@@ -55,6 +55,8 @@ Character *HoveringOver()
 {
 	int max = (-1);
 	Character *character = NULL;
+	if (gameState.updateObjs.turnOrder->turnStartActive || gameState.updateObjs.turnOrder->turnChange)
+		return (character);
 	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
 	{
 		gameState.battle.ground->characters[i].character->hover = false;

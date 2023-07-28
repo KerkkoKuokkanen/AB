@@ -9,6 +9,7 @@ class Info
 	private:
 		Character *hovered;
 		HoverBars *hoverBars;
+		Counter *counter;
 		void FindHoveredCharacter();
 	public:
 		Info();

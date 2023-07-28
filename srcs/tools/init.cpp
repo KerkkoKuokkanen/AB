@@ -73,6 +73,7 @@ void getAudio()
 	Mix_Volume(Channels::FLAME_BLAST_EXPLOSION, 30);
 	Mix_Volume(Channels::FLAME_BLAST_CHARGE, 18);
 	Mix_Volume(Channels::FLAME_BLAST_LAUNCH, 17);
+	Mix_Volume(Channels::DEBUFF, 105);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -92,6 +93,7 @@ void getAudio()
 	gameState.audio.flameBlast[0] = Mix_LoadWAV("audio/abilities/Explosion1.wav");
 	gameState.audio.flameBlast[1] = Mix_LoadWAV("audio/abilities/explosionCharge.wav");
 	gameState.audio.flameBlast[2] = Mix_LoadWAV("audio/abilities/explosionLaunch.wav");
+	gameState.audio.debuff = Mix_LoadWAV("audio/effects/debuff.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -216,6 +218,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.statuses.burns[0] = get_texture(rend, "sprites/attacks/burn.png");
 	gameState.textures.statuses.burns[1] = get_texture(rend, "sprites/attacks/whiteBurn.png");
 	gameState.textures.statuses.burns[2] = get_texture(rend, "sprites/attacks/burn2.png");
+	gameState.textures.counter = get_texture(rend, "sprites/env/counter.png");
 }
 
 void	init(t_wr *wr)
@@ -223,7 +226,7 @@ void	init(t_wr *wr)
 	srand((unsigned int)clock() + time(0));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	Mix_AllocateChannels(20);
+	Mix_AllocateChannels(30);
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	initScreen(1280, 720);
@@ -233,10 +236,11 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_NO_SORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
-	render.CreateLayer(LAYER_YSORT);
+	render.CreateLayer(LAYER_ORDER_SORT); //info layer
 	render.CreateLayer(LAYER_NO_SORT); //miss layer
-	render.CreateLayer(LAYER_YSORT); //turnorder layer
-	render.CreateLayer(LAYER_YSORT);
+	render.CreateLayer(LAYER_ORDER_SORT); //status layer
+	render.CreateLayer(LAYER_ORDER_SORT); //turn order layer
+	render.CreateLayer(LAYER_ORDER_SORT); //counter layer
 	gameState.render = &render;
 	static BattleGround battle(BATTLEGROUND_LAYER, wr->rend);
 	gameState.battle.ground = &battle;

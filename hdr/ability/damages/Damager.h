@@ -8,6 +8,7 @@ typedef struct s_Bars
 {
 	Bar *health;
 	Bar *armor;
+	Statuses *statusBar;
 	Character *target;
 	int timer;
 }				t_Bars;

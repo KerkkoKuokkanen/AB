@@ -190,3 +190,21 @@ int CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos)
 	}
 	return (0);
 }
+
+bool StatusApply(t_Ability *ability, Character *character, Character *target)
+{
+	if (ability == NULL)
+		return (false);
+	int chance = 0;
+	switch (ability->statType)
+	{
+		case StatStructs::ATTACK_AND_DEBUFF:
+			t_AttackWithDebuff *used = (t_AttackWithDebuff*)ability->stats;
+			chance = used->debuffChance;
+			break ;
+	}
+	int hit = rand() % 100;
+	if (hit < chance)
+		return (true);
+	return (false);
+}

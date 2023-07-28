@@ -148,7 +148,7 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 	backGround->setTranslation(false);
 	gameState.render->AddSprite(backGround, TURN_ORDER_LAYER);
 	gameState.render->AddSprite(banner, TURN_ORDER_LAYER);
-	gameState.updateObjs.turnOrder = this; //remember to implement a working singleton here
+	gameState.updateObjs.turnOrder = this;
 	leftEdge = rounding((float)gameState.screen.width - ((float)gameState.screen.width / 10.0f * 7.5f));
 	rightEdge = leftEdge + rounding((float)gameState.screen.width / 10.0f * 4.44f);
 	clickBoxArea = {

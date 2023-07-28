@@ -7,6 +7,7 @@ void AddStatutsToTarget(Character *target, Character *character, int statusSign,
 {
 	if (amount <= 0)
 		return ;
+	PlaySound(gameState.audio.debuff, Channels::DEBUFF, 0);
 	switch (statusSign)
 	{
 		case StatusSigns::BURN:
@@ -130,9 +131,11 @@ void AddStatus::Update()
 	}
 	MoveEffect();
 	ScaleSprite();
-	if (counter > 80 || atTarget() || target == NULL || target->killed)
+	bool atTarg = atTarget();
+	if (counter > 80 || atTarg || target == NULL || target->killed)
 	{
-		AddStatutsToTarget(target, character, statusSign, amount);
+		if (counter > 80 || atTarg)
+			AddStatutsToTarget(target, character, statusSign, amount);
 		done = true;
 	}
 	counter++;

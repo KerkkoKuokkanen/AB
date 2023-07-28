@@ -29,7 +29,7 @@ int Number::getFullWidth()
 {
 	if (nums.size() == 0)
 		return (0);
-	int offset = rounding((float)nums[0]->dest.w + (float)nums[0]->dest.w * 0.1f);
+	int offset = rounding((float)nums[0]->dest.w + (float)nums[0]->dest.w * 0.05f);
 	return (offset * (int)nums.size());
 }
 
@@ -69,7 +69,7 @@ void Number::Position(Vector place)
 {
 	if (nums.size() == 0)
 		return ;
-	int offset = rounding((float)nums[0]->dest.w + (float)nums[0]->dest.w * 0.1f);
+	int offset = rounding((float)nums[0]->dest.w + (float)nums[0]->dest.w * 0.05f);
 	for (int i = 0; i < nums.size(); i++)
 	{
 		Vector pos(place.x + (float)(offset * i), place.y);
@@ -88,8 +88,8 @@ void Number::Resize(int size)
 	if (nums.size() == 0)
 		return ;
 	Number::size = size;
-	int ogOffset = rounding((float)nums[0]->dest.w + (float)nums[0]->dest.w * 0.1f);
-	int newOffset = rounding((float)size + (float)size * 0.1f);
+	int ogOffset = rounding((float)nums[0]->dest.w + (float)nums[0]->dest.w * 0.05f);
+	int newOffset = rounding((float)size + (float)size * 0.05f);
 	int diff = newOffset - ogOffset;
 	for (int i = 0; i < nums.size(); i++)
 	{

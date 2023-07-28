@@ -14,6 +14,7 @@ bool NoOneClicked()
 Info::Info()
 {
 	hoverBars = new HoverBars;
+	counter = new Counter;
 	hovered = NULL;
 }
 
@@ -50,9 +51,11 @@ void Info::Update()
 {
 	FindHoveredCharacter();
 	hoverBars->Update(hovered);
+	counter->Update();
 }
 
 void Info::Destroy()
 {
 	delete hoverBars;
+	delete counter;
 }

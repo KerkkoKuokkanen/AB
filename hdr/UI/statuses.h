@@ -16,11 +16,20 @@ typedef struct t_StatSpriteStruct
 	int statusType;
 }				t_StatSpriteStruct;
 
+typedef struct s_Pulser
+{
+	Sprite *sprite;
+	int timer;
+	int statusSign;
+}				t_Pulser;
+
 class Statuses
 {
 	private:
 		Character *character = NULL;
+		SDL_FPoint position = {0.0f, 0.0f};
 		std::vector<t_StatSpriteStruct> statuses;
+		std::vector<t_Pulser> pulsers = {};
 		bool vertical;
 		bool staticSprite;
 		int size;
@@ -34,6 +43,10 @@ class Statuses
 		void CreateFrestStatus(int statusSign);
 		void RePosition();
 		void ManageNumbers();
+		void ManagePulsers();
+		void CreatePulser(int statusSign);
+		void PositionPulsers();
+		SDL_Rect GetRightRect(int statusSign);
 	public:
 		Statuses(Character *character, int size, int numberSize, bool staticSprite, bool vertical = false);
 		~Statuses() {Destroy();};

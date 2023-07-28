@@ -30,7 +30,8 @@ namespace Channels
 		SELECT,
 		FLAME_BLAST_EXPLOSION,
 		FLAME_BLAST_CHARGE,
-		FLAME_BLAST_LAUNCH
+		FLAME_BLAST_LAUNCH,
+		DEBUFF
 	};
 }
 
@@ -126,6 +127,7 @@ typedef struct s_Textures
 	SDL_Texture *smokeBomb;
 	SDL_Texture *MISS;
 	SDL_Texture *marker;
+	SDL_Texture *counter;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -142,6 +144,7 @@ typedef struct s_Audio
 	Mix_Chunk *flameSlash;
 	Mix_Chunk *select;
 	Mix_Chunk *flameBlast[3];
+	Mix_Chunk *debuff;
 }				t_Audio;
 
 typedef struct s_MouseOver

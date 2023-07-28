@@ -24,8 +24,10 @@ void Damager::PositionBars(Character *target, t_Bars &bars)
 	topMid.x -= (float)diff;
 	SDL_Point place = {rounding(topMid.x), rounding(topMid.y)};
 	bars.health->Position(place);
-	place.y -= HOW_MUCH_THE_BAR_NEEDS_TO_BE_ON_TOP;
+	place.y = place.y - HOW_MUCH_THE_BAR_NEEDS_TO_BE_ON_TOP;
 	bars.armor->Position(place);
+	Vector pos((float)place.x, (float)(place.y - 740.0f));
+	bars.statusBar->Postion(pos);
 }
 
 void Damager::CreateBars(Character *target)
@@ -48,9 +50,11 @@ void Damager::CreateBars(Character *target)
 	add.armor->ChangeToSmallBar();
 	add.armor->SetColor(201, 14, 14);
 	add.health->SetColor(101, 97, 135);
+	add.statusBar = new Statuses(target, 640, 310, false);
 	PositionBars(target, add);
 	add.armor->Update(target, true);
 	add.health->Update(target, false);
+	add.statusBar->Update();
 	bars.push_back(add);
 }
 
@@ -65,8 +69,9 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 		t_Sound add2 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
 		t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 		std::vector<t_Sound> sounds = {add2, add3};
-		damageCreator.CreateDamage(targ, Color(255, 0, 0), 10, 10, GetDirection(character, targ), sounds);
-		statuses.push_back(new AddStatus(character, targ, StatusSigns::BURN));
+		damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
+		if (StatusApply(ability, character, targ))
+			statuses.push_back(new AddStatus(character, targ, StatusSigns::BURN));
 	}
 }
 
@@ -77,10 +82,12 @@ void Damager::UpdateBars()
 		bars[i].timer -= 1;
 		bars[i].armor->Update(bars[i].target, true);
 		bars[i].health->Update(bars[i].target, false);
+		bars[i].statusBar->Update();
 		if (bars[i].timer <= 0)
 		{
 			delete bars[i].health;
 			delete bars[i].armor;
+			delete bars[i].statusBar;
 			bars[i].target->damaged = false;
 			bars.erase(bars.begin() + i);
 			i--;

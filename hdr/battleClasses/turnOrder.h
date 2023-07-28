@@ -27,9 +27,7 @@ class TurnOrder
 		void CreateSRect(SDL_Rect *srect, int cSing);
 		SDL_Rect CreateDest(int cSing);
 		void StartTurn();
-		bool turnChange = false;
 		bool killActive = false;
-		bool turnStartActive = false;
 		int rightEdge, leftEdge;
 		void ChangeTurn();
 		void UpdateStartTurn();
@@ -46,6 +44,8 @@ class TurnOrder
 		int wait = 0;
 	public:
 		int turnCount = 0;
+		bool turnStartActive = false;
+		bool turnChange = false;
 		bool stuffHappening = true;
 		bool stuffWithOutMove = true;
 		bool insideBox = false;

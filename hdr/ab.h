@@ -13,6 +13,7 @@
 # define LAYER_YSORT 1
 # define LAYER_REVERSE_YSORT 2
 # define LAYER_DEPTH_SORT 3
+# define LAYER_ORDER_SORT 4
 
 # define TOOL_MAP_SIGN 9933
 # define TURN_SIGN -999898
@@ -29,10 +30,11 @@ enum {
 	DUST_LAYER,
 	PARTICLE_LAYER,
 	OBJECT_LAYER,
-	STATUS_LAYER,
-	MISS_LAYER,
 	INFO_LAYER,
-	TURN_ORDER_LAYER
+	MISS_LAYER,
+	STATUS_LAYER,
+	TURN_ORDER_LAYER,
+	COUNTER_LAYER
 };
 
 enum {
@@ -92,6 +94,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/energy.h"
 # include "objects/object.h"
 # include "objects/objUpdate.h"
+# include "info/counter.h"
 # include "info/hoverBars.h"
 # include "info/info.h"
 # include "battleClasses/groundColoring.h"
@@ -229,6 +232,7 @@ t_GMU *getMapDownLeft(SDL_Point pos);
 int getXToRight(SDL_Point pos);
 int getXToLeft(SDL_Point pos);
 
+bool		StatusApply(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);
 bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);

@@ -31,6 +31,12 @@ bool compareObjectsDepth(const Sprite *obj1, const Sprite *obj2) {
 	return (obj1->z < obj2->z);
 }
 
+bool compareObjectsOrder(const Sprite *obj1, const Sprite *obj2) {
+	if (obj1->orderLayer < obj2->orderLayer)
+		return true;
+	return false;
+}
+
 int layerSorted(std::vector<t_Sort> &sortedLayers, int layer)
 {
 	for (int i = 0; i < sortedLayers.size(); i++)
@@ -66,6 +72,8 @@ void Renderer::Render()
 				std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjectsReverse);
 			else if (sort == LAYER_DEPTH_SORT)
 				std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjectsDepth);
+			else if (sort == LAYER_ORDER_SORT)
+				std::sort(spriteLayers[i].begin(), spriteLayers[i].end(), compareObjectsOrder);
 		}
 		for (int j = 0; j < spriteLayers[i].size(); j++)
 			spriteLayers[i][j]->Render(rend);
