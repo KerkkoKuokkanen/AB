@@ -45,7 +45,7 @@ void AddStatus::CreateNumber()
 
 void AddStatus::PositionStatus(Character *character, Character *target)
 {
-	Vector place = GetCharacterTopMid(target);
+	Vector place((float)(target->sprite->dest.x + target->topMid.x), (float)(target->sprite->dest.y + target->topMid.y));
 	place.y -= 500.0f;
 	if (character->sprite->dest.x > target->sprite->dest.x)
 		place.x -= 4500.0f;

@@ -12,7 +12,7 @@
 
 #define PARTICLE_DISTANCE 3200
 
-void DamageCreator::CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> sounds)
+void DamageCreator::CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds)
 {
 	if (character == NULL)
 		return ;

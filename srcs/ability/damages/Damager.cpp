@@ -18,7 +18,7 @@ Vector Damager::GetDirection(Character *character, Character *target)
 
 void Damager::PositionBars(Character *target, t_Bars &bars)
 {
-	Vector topMid = GetCharacterTopMid(target);
+	Vector topMid((float)(target->sprite->dest.x + target->topMid.x), (float)(target->sprite->dest.y + target->topMid.y));
 	topMid.y -= 1000.0f;
 	int diff = THE_HOVER_BAR_WIDTH / 2;
 	topMid.x -= (float)diff;

@@ -5,6 +5,10 @@ Character::Character(int skin, bool allied)
 {
 	CreateCharacterType(skin);
 	AssignAbilities();
+	Vector top = GetCharacterTopMid(this);
+	top.x = top.x - (float)sprite->dest.x;
+	top.y = top.y - (float)sprite->dest.y;
+	topMid = {rounding(top.x), rounding(top.y)};
 	width = 5800;
 	height = 7500;
 	if (!allied)

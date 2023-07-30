@@ -26,6 +26,7 @@ class Character
 		void ShiftChecker();
 		bool animationActive = false;
 	public:
+		SDL_Point topMid = {0, 0};
 		int currentTexture = 0;
 		int cSing;
 		SDL_Point position = {0, 0};

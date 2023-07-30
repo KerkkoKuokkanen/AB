@@ -36,7 +36,7 @@ class DamageCreator
 		float GetDrag();
 		float GetYAdd();
 	public:
-		void CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> sounds = {});
+		void CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds);
 		void Update();
 };
 
