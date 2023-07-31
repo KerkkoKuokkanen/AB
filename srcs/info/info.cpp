@@ -52,6 +52,7 @@ void Info::Update()
 	FindHoveredCharacter();
 	hoverBars->Update(hovered);
 	counter->Update();
+	overInfo = counter->insideBox;
 }
 
 void Info::Destroy()

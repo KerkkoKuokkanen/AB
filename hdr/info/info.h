@@ -12,6 +12,7 @@ class Info
 		Counter *counter;
 		void FindHoveredCharacter();
 	public:
+		bool overInfo = false;
 		Info();
 		~Info() {Destroy();};
 		void Update();

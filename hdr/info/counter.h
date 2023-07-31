@@ -19,7 +19,9 @@ class Counter
 		void ManageEnemies();
 		void ManageTurn();
 		void ManageAllies();
+		void CheckClickBox();
 	public:
+		bool insideBox = false;
 		Counter();
 		~Counter() {Destroy();};
 		void Update();

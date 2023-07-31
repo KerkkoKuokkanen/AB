@@ -218,7 +218,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.statuses.burns[0] = get_texture(rend, "sprites/attacks/burn.png");
 	gameState.textures.statuses.burns[1] = get_texture(rend, "sprites/attacks/whiteBurn.png");
 	gameState.textures.statuses.burns[2] = get_texture(rend, "sprites/attacks/burn2.png");
-	gameState.textures.counter = get_texture(rend, "sprites/env/counter.png");
+	use = get_texture_and_surface(rend, "sprites/env/counter.png");
+	gameState.textures.counter = use.text;
+	gameState.surfaces.counter = use.sur;
 }
 
 void	init(t_wr *wr)

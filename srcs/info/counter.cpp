@@ -96,11 +96,19 @@ void Counter::ManageEnemies()
 	PositionNumber(enemies, ENEMY_X);
 }
 
+void Counter::CheckClickBox()
+{
+	const SDL_FRect hold = staitcTranslateSprite(sprite->dest);
+	const SDL_Rect dest = {(int)hold.x, (int)hold.y, (int)hold.w, (int)hold.h};
+	insideBox = MenuHoverCheck(gameState.surfaces.counter, dest, gameState.keys.staticMouseX, gameState.keys.staticMouseY);
+}
+
 void Counter::Update()
 {
 	ManageTurn();
 	ManageAllies();
 	ManageEnemies();
+	CheckClickBox();
 }
 
 void Counter::Destroy()

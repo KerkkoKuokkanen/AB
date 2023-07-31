@@ -57,6 +57,7 @@ typedef struct s_Surfaces
 	SDL_Surface *bar[2];
 	SDL_Surface *trees[5];
 	SDL_Surface *slashTrail;
+	SDL_Surface *counter;
 }				t_Surfaces;
 
 typedef struct s_Stands

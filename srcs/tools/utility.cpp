@@ -115,6 +115,8 @@ void CheckOverMenu()
 	gameState.updateObjs.hover.overAnythingButCharacter = false;
 	if (gameState.updateObjs.turnOrder != NULL && gameState.updateObjs.turnOrder->insideBox)
 		gameState.updateObjs.hover.overTurnOrder = true;
+	if (gameState.updateObjs.info != NULL && gameState.updateObjs.info->overInfo)
+		gameState.updateObjs.hover.overTurnOrder = true;
 	if (gameState.updateObjs.UI != NULL && gameState.updateObjs.UI->overCharacterUI)
 		gameState.updateObjs.hover.overCharacterUI = true;
 	if (gameState.updateObjs.hover.overTurnOrder ||
@@ -158,7 +160,6 @@ void ObjUpdate()
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
 	gameState.updateObjs.indicator->Update();
-	UpdateHoveredCharacter();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
 	if (gameState.updateObjs.abilities != NULL)
@@ -173,4 +174,5 @@ void ObjUpdate()
 		gameState.updateObjs.fadeIter = 0.0f;
 	if (gameState.updateObjs.characterAnimIter > 50)
 		gameState.updateObjs.characterAnimIter = 0;
+	UpdateHoveredCharacter();
 }
