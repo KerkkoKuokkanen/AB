@@ -11,6 +11,20 @@ void ManageMouseWheel()
 		gameState.keys.wheel += 1;
 }
 
+void FilterMode()
+{
+	static int shiftPress = 0;
+	if (shiftPress == 0 && gameState.keys.shift != 0)
+	{
+		shiftPress = 1;
+		gameState.modes.filterMode += 1;
+	}
+	if (shiftPress == 1 && gameState.keys.shift == 0)
+		shiftPress = 0;
+	if (gameState.modes.filterMode > 2)
+		gameState.modes.filterMode = 0;
+}
+
 void ManageMouseClick()
 {
 	static int clickState = 0;
@@ -139,6 +153,7 @@ void CheckOverMenu()
 void Utility()
 {
 	eventPoller();
+	FilterMode();
 	ManageMouseClick();
 	CameraMove();
 	CameraWithArrows();

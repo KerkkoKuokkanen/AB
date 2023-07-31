@@ -10,7 +10,10 @@ class Info
 		Character *hovered;
 		HoverBars *hoverBars;
 		Counter *counter;
+		FilterModeBars *filterMode = NULL;
 		void FindHoveredCharacter();
+		void ManageFilterMode();
+		bool KilledOrDamaged();
 	public:
 		bool overInfo = false;
 		Info();

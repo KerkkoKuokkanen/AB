@@ -187,6 +187,7 @@ typedef struct	s_GameState
 {
 	t_Screen screen;
 	t_Camera camera;
+	t_Modes modes;
 	t_Keys keys;
 	Renderer *render;
 	t_Battle battle;

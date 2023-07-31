@@ -35,6 +35,7 @@ void initKeys()
 	gameState.screenShake.xShake = 0;
 	gameState.screenShake.yShake = 0;
 	gameState.screenShake.shakeVolume = 0;
+	gameState.modes.filterMode = 0;
 }
 
 void initScreen(int width, int height)

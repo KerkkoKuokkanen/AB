@@ -47,9 +47,42 @@ void Info::FindHoveredCharacter()
 	hovered = NULL;
 }
 
+bool Info::KilledOrDamaged()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		Character *targ = gameState.battle.ground->characters[i].character;
+		if (targ != NULL)
+		{
+			if (targ->killed || targ->damaged || targ->moving)
+				return (true);
+		}
+	}
+	return (false);
+}
+
+void Info::ManageFilterMode()
+{
+	if (gameState.modes.filterMode != 2 || gameState.updateObjs.abilities->active || KilledOrDamaged() ||
+		gameState.updateObjs.turnOrder->turnChange || gameState.updateObjs.turnOrder->turnStartActive)
+	{
+		if (filterMode != NULL)
+		{
+			delete filterMode;
+			filterMode = NULL;
+		}
+		return ;
+	}
+	if (gameState.modes.filterMode == 2 && filterMode == NULL)
+		filterMode = new FilterModeBars;
+	if (filterMode != NULL)
+		filterMode->Update();
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
+	ManageFilterMode();
 	hoverBars->Update(hovered);
 	counter->Update();
 	overInfo = counter->insideBox;

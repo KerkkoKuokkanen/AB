@@ -95,6 +95,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "objects/object.h"
 # include "objects/objUpdate.h"
 # include "info/counter.h"
+# include "info/filterModeBars.h"
 # include "info/hoverBars.h"
 # include "info/info.h"
 # include "battleClasses/groundColoring.h"
@@ -163,6 +164,11 @@ typedef struct s_Screen
 	float xStaticUnit, yStaticUnit;
 }				t_Screen;
 
+typedef struct s_Modes
+{
+	int filterMode;
+}				t_Modes;
+
 typedef struct s_Camera
 {
 	int x, y;
@@ -186,6 +192,7 @@ typedef struct s_Keys
 	int smY;
 	int space;
 	int shift;
+	int control;
 }				t_Keys;
 
 int				figure_the_delay(clock_t start, clock_t end);

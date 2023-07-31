@@ -61,7 +61,7 @@ void Object::Update()
 		CheckMouseHover();
 	if (gameState.battle.ground->map[pos.y][pos.x].active == false)
 		sprite->AlphaMod(35);
-	if (gameState.keys.shift != 0)
+	if (gameState.modes.filterMode == 1 || gameState.keys.control != 0)
 		sprite->AlphaMod(35);
 }
 

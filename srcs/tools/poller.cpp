@@ -67,6 +67,9 @@ void eventPoller()
 					case SDL_SCANCODE_DOWN:
 						gameState.keys.down = 1;
 						break ;
+					case SDL_SCANCODE_LCTRL:
+						gameState.keys.control = 1;
+						break ;
 					default:
 						break ;
 				}
@@ -103,6 +106,9 @@ void eventPoller()
 						break ;
 					case SDL_SCANCODE_DOWN:
 						gameState.keys.down = 0;
+						break ;
+					case SDL_SCANCODE_LCTRL:
+						gameState.keys.control = 0;
 						break ;
 					default:
 						break ;
