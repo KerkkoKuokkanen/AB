@@ -112,7 +112,6 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 {
 	if (moves >= cMoves)
 		return ;
-	int currHeight = gameState.battle.ground->map[pos.y][pos.x].height;
 	int modder = (pos.y % 2 == 0) ? (-1) : 1;
 	int sizeModder = gameState.battle.ground->map[0].size() - 1;
 	if (pos.y > 0)
@@ -125,7 +124,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			{
 				toolMap[pos.y - 1][pos.x] = temp;
 				SDL_Point location = {pos.x, pos.y - 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				IterMapMovablesStatic(location, temp, cMoves, toolMap);
 			}
 		}
 	}
@@ -139,7 +138,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			{
 				toolMap[pos.y + 1][pos.x] = temp;
 				SDL_Point location = {pos.x, pos.y + 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				IterMapMovablesStatic(location, temp, cMoves, toolMap);
 			}
 		}
 	}
@@ -153,7 +152,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			{
 				toolMap[pos.y - 1][pos.x + modder] = temp;
 				SDL_Point location = {pos.x + modder, pos.y - 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				IterMapMovablesStatic(location, temp, cMoves, toolMap);
 			}
 		}
 	}
@@ -167,7 +166,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			{
 				toolMap[pos.y + 1][pos.x + modder] = temp;
 				SDL_Point location = {pos.x + modder, pos.y + 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				IterMapMovablesStatic(location, temp, cMoves, toolMap);
 			}
 		}
 	}

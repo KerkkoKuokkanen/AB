@@ -77,7 +77,7 @@ Character *HoveringOver()
 void UpdateHoveredCharacter()
 {
 	Character *chosen = gameState.updateObjs.chosen;
-	if (chosen == NULL || gameState.updateObjs.turnOrder->insideBox)
+	if (chosen == NULL || gameState.updateObjs.turnOrder->insideBox || gameState.updateObjs.abilities->active)
 		return ;
 	SDL_Point position = chosen->position;
 	if (!gameState.battle.ground->map[position.y][position.x].highlited)

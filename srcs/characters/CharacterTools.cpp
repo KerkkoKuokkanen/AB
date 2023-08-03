@@ -16,6 +16,10 @@ static void AssingDefaultPyroStats(std::vector<t_Ability> &stats)
 	stat1->critChance = 2;
 	stat1->damage = 60;
 	stat1->debuffChance = 75;
+	stats[3].stats = (void*)malloc(sizeof(t_AttackStruct));
+	t_AttackStruct *stat2 = (t_AttackStruct*)stats[3].stats;
+	stat2->critChance = 4;
+	stat2->damage = 130;
 }
 
 static void AssingDefaultThiefStats(std::vector<t_Ability> &stats)
@@ -48,7 +52,8 @@ void Character::AssignAbilities()
 		case PYRO:
 			abilities = {{FLAME_PORT, 0, 200, StatStructs::FLAME_PORT, NULL},
 						{FLAME_SLASH, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{FLAME_BLAST, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL}};
+						{FLAME_BLAST, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
+						{INCINERATE, 0, 100, StatStructs::ATTACK_STRUCT, NULL}};
 			AssingDefaultPyroStats(abilities);
 			break ;
 	}

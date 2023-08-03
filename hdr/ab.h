@@ -44,7 +44,8 @@ enum {
 	DAGGER_SLASH,
 	FLAME_PORT,
 	FLAME_SLASH,
-	FLAME_BLAST
+	FLAME_BLAST,
+	INCINERATE
 };
 
 # include "../SDL2/SDL.h"
@@ -102,6 +103,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/damages/addStatus.h"
 # include "ability/characterMover.h"
 # include "ability/objects/fireBall.h"
+# include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"
 # include "ability/animation/flamePortAnim.h"
 # include "ability/animation/daggerSlashAnim.h"
@@ -114,6 +116,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/damages/damageCreator.h"
 # include "ability/effectUpdater.h"
 # include "ability/damages/Damager.h"
+# include "ability/selectors/allSelector.h"
 # include "ability/selectors/selector.h"
 # include "ability/selectors/selectorForTiles.h"
 # include "ability/selectors/multiSelector.h"

@@ -25,6 +25,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case FLAME_BLAST:
 			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, true, 2);
 			break ;
+		case INCINERATE:
+			allSelector = new AllSelector(pos, 6, 0, &groundColoring, true, StatusSigns::BURN);
+			break ;
 	}
 }
 
@@ -114,6 +117,20 @@ void Abilities::MultiSelectorWithCharacter()
 	ClearMap();
 }
 
+void Abilities::AllSelectorUpdate()
+{
+	gameState.updateObjs.UI->ShowEnergy(ability->cost);
+	allSelector->Update();
+	if (allSelector->done)
+	{
+		targPoints.clear();
+		targPoints = allSelector->getTargets();
+		delete allSelector;
+		allSelector = NULL;
+		ClearMap();
+	}
+}
+
 void Abilities::UpdateSelector()
 {
 	if (selector != NULL)
@@ -122,6 +139,8 @@ void Abilities::UpdateSelector()
 		SelectorWithSquares();
 	else if (multiSelector != NULL)
 		MultiSelectorWithCharacter();
+	else if (allSelector != NULL)
+		AllSelectorUpdate();
 }
 
 void Abilities::UpdateMisses()
@@ -224,6 +243,9 @@ void Abilities::ClearMap()
 	if (multiSelector != NULL)
 		delete multiSelector;
 	multiSelector = NULL;
+	if (allSelector != NULL)
+		delete allSelector;
+	allSelector = NULL;
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	if (!inMotion)
@@ -240,6 +262,12 @@ void Abilities::Clear()
 	if (tileSelector != NULL)
 		delete tileSelector;
 	tileSelector = NULL;
+	if (multiSelector != NULL)
+		delete multiSelector;
+	multiSelector = NULL;
+	if (allSelector != NULL)
+		delete allSelector;
+	allSelector = NULL;
 	active = false;
 	target = NULL;
 	groundColoring.ClearMap();

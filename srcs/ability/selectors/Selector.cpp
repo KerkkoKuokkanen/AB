@@ -172,7 +172,7 @@ Character *Selector::Update()
 {
 	Character *ret = NULL;
 	bool visited = false;
-	Color purp = {84, 15, 20}, colorH(245, 147, 66), colorL(204, 126, 61);
+	Color colorH(245, 147, 66), colorL(204, 126, 61);
 	groundColoring->ClearMap();
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
 	{

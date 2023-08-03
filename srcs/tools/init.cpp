@@ -222,6 +222,13 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/env/counter.png");
 	gameState.textures.counter = use.text;
 	gameState.surfaces.counter = use.sur;
+	gameState.textures.pyroAbilities[3] = get_texture(rend, "sprites/UI/abilities/Immolate.png");
+	gameState.textures.attacks.incExplosion = gameState.textures.attacks.fireBallExplosion;
+	gameState.textures.attacks.incinerate[0] = get_texture(rend, "sprites/attacks/flameBall.png");
+	gameState.textures.attacks.incinerate[1] = get_texture(rend, "sprites/attacks/flameBallAura.png");
+	gameState.textures.chars.pyroAttack[0] = get_texture(rend, "sprites/characters/pyro_attack.png");
+	gameState.textures.chars.pyroAttack[1] = get_texture(rend, "sprites/characters/pyro_attack2.png");
+	gameState.textures.chars.pyroAttackParts = get_texture(rend, "sprites/character/pyro_attack2_kipin.png");
 }
 
 void	init(t_wr *wr)

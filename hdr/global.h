@@ -75,6 +75,8 @@ typedef struct s_CharacterTexts
 	SDL_Texture *pyroIdle2;
 	SDL_Texture *flameSlash[2];
 	SDL_Texture *pyroFlameBlast;
+	SDL_Texture *pyroAttack[2];
+	SDL_Texture *pyroAttackParts;
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -82,6 +84,8 @@ typedef struct s_AttackTextures
 	SDL_Texture *fireBall[2];
 	SDL_Texture *fireBallExplosion;
 	SDL_Texture *fireBallAura;
+	SDL_Texture *incinerate[2];
+	SDL_Texture *incExplosion;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -96,6 +100,11 @@ typedef struct s_Ascii
 	SDL_Texture *slash;
 }				t_Ascii;
 
+typedef struct s_ButtonTextures
+{
+	SDL_Texture *incinerate;
+}				t_ButtonTextures;
+
 typedef struct s_Textures
 {
 	t_Stands stands;
@@ -103,6 +112,7 @@ typedef struct s_Textures
 	t_CharacterTexts chars;
 	t_Ascii ascii;
 	t_StatusSprites statuses;
+	t_ButtonTextures buttonTextures;
 	SDL_Texture *thiefIdle1;
 	SDL_Texture *thiefIdle2;
 	SDL_Texture *thiefDaggerThrow;
@@ -118,7 +128,7 @@ typedef struct s_Textures
 	SDL_Texture *barFiller;
 	SDL_Texture *sBar[3];
 	SDL_Texture *thiefAbilites[3];
-	SDL_Texture *pyroAbilities[3];
+	SDL_Texture *pyroAbilities[4];
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];

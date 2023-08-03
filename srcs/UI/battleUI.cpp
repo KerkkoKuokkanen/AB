@@ -87,6 +87,9 @@ void CharacterUI::GetAbilities()
 			case FLAME_BLAST:
 				CreateButton(dest, gameState.textures.pyroAbilities[2], FLAME_BLAST, activeCharacter->abilities[i].cost);
 				break ;
+			case INCINERATE:
+				CreateButton(dest, gameState.textures.pyroAbilities[3], INCINERATE, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }
@@ -343,6 +346,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case FLAME_BLAST:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_BLAST), activeCharacter);
+			break ;
+		case INCINERATE:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(INCINERATE), activeCharacter);
 			break ;
 	}
 }

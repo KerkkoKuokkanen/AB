@@ -45,6 +45,7 @@ class Abilities
 		Selector *selector = NULL;
 		TileSelector *tileSelector = NULL;
 		MultiSelector *multiSelector = NULL;
+		AllSelector *allSelector = NULL;
 		Damager damager;
 		EffectUpdater effectUpdater;
 
@@ -63,6 +64,7 @@ class Abilities
 		void SelectorWithCharacters();
 		void SelectorWithSquares();
 		void MultiSelectorWithCharacter();
+		void AllSelectorUpdate();
 		void UpdateMisses();
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 
