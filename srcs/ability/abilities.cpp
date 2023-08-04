@@ -66,6 +66,10 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case FLAME_BLAST:
 			animations.push_back({new FlameBlast(character, targPoints, ability), FLAME_BLAST});
 			break ;
+		case INCINERATE:
+			if (targPoints.size() != 0)
+				animations.push_back({new Incinerate(character, targPoints), INCINERATE});
+			break ;
 	}
 }
 
@@ -125,8 +129,7 @@ void Abilities::AllSelectorUpdate()
 	{
 		targPoints.clear();
 		targPoints = allSelector->getTargets();
-		delete allSelector;
-		allSelector = NULL;
+		ActivateAbility(ability, character);
 		ClearMap();
 	}
 }
@@ -205,10 +208,10 @@ void Abilities::AnimationUpdater()
 	}
 }
 
-void Abilities::CreateDamage()
+void Abilities::CreateDamage(bool sound)
 {
 	std::vector<SDL_Point> used = {targetPoint};
-	damager.AddDamage(ability, character, used);
+	damager.AddDamage(ability, character, used, sound);
 }
 
 void Abilities::ObjectUpdater()
@@ -270,6 +273,8 @@ void Abilities::Clear()
 	allSelector = NULL;
 	active = false;
 	target = NULL;
+	targetPoint = {-1, -1};
+	targPoints.clear();
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	inMotion = false;

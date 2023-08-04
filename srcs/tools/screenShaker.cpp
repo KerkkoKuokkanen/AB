@@ -11,6 +11,13 @@ void SetScreenShake(int volume, int time)
 
 void ShakeTheScreen()
 {
+	static int everyThird = 0;
+	static int cornerCycle = 0;
+	everyThird++;
+	if (everyThird % 2 != 0)
+		return ;
+	if (everyThird > 300)
+		everyThird = 0;
 	if (gameState.screenShake.shakeCounter <= 0)
 		return ;
 	gameState.screenShake.shakeCounter--;
@@ -20,12 +27,27 @@ void ShakeTheScreen()
 		gameState.screenShake.yShake = 0;
 		return ;
 	}
-	if (gameState.screenShake.xShake < 0)
-		gameState.screenShake.xShake = gameState.screenShake.shakeVolume;
-	else
+	if (cornerCycle == 0)
+	{
 		gameState.screenShake.xShake = -gameState.screenShake.shakeVolume;
-	if (gameState.screenShake.yShake < 0)
-		gameState.screenShake.yShake = gameState.screenShake.shakeVolume;
-	else
 		gameState.screenShake.yShake = -gameState.screenShake.shakeVolume;
+	}
+	else if (cornerCycle == 1)
+	{
+		gameState.screenShake.xShake = gameState.screenShake.shakeVolume;
+		gameState.screenShake.yShake = -gameState.screenShake.shakeVolume;
+	}
+	else if (cornerCycle == 2)
+	{
+		gameState.screenShake.xShake = -gameState.screenShake.shakeVolume;
+		gameState.screenShake.yShake = gameState.screenShake.shakeVolume;
+	}
+	else
+	{
+		gameState.screenShake.xShake = gameState.screenShake.shakeVolume;
+		gameState.screenShake.yShake = gameState.screenShake.shakeVolume;
+	}
+	cornerCycle++;
+	if (cornerCycle == 4)
+		cornerCycle = 0;
 }

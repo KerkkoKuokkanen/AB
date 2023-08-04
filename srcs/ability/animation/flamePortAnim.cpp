@@ -186,7 +186,7 @@ void FlamePort::Update()
 	}
 	if (counter == FLAME_PORT_COLOR_CHANGE_TIME)
 	{
-		SetScreenShake(300, 6);
+		SetScreenShake(500, 4);
 		for (int i = 0; i < particles.size(); i++)
 			particles[i].sprite->Activate();
 	}

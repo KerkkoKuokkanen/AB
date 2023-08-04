@@ -57,9 +57,10 @@ class Abilities
 		void ObjectUpdater();
 		void UpdateThiefObject(t_Object &object, int index);
 		void UpdatePyroAnimation(t_Animation &animation, int index);
+		void PyroIncinerateDamage();
 		void ClearMap();
 		void AbilityStatus();
-		void CreateDamage();
+		void CreateDamage(bool sound = true);
 		void UpdateSelector();
 		void SelectorWithCharacters();
 		void SelectorWithSquares();

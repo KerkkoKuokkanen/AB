@@ -182,7 +182,7 @@ void FlameBlast::Update()
 	if (counter >= LAUNCH_TIME && iterator < amount)
 	{
 		CreateFireBall();
-		SetScreenShake(250, 6);
+		SetScreenShake(400, 4);
 		IncrementIterator();
 		if (iterator >= amount)
 			character->sprite->setTexture(gameState.textures.chars.pyroIdle1);

@@ -3,7 +3,7 @@
 
 void CreateParticlesForSmokeEffect(SDL_Point pos)
 {
-	SetScreenShake(300, 6);
+	SetScreenShake(500, 4);
 	SDL_Rect dest = gameState.battle.ground->getTileDest(pos);
 	Vector place(dest.x + 3150, dest.y + 2300);
 	for (int i = 0; i < 50; i++)

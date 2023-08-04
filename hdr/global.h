@@ -31,7 +31,12 @@ namespace Channels
 		FLAME_BLAST_EXPLOSION,
 		FLAME_BLAST_CHARGE,
 		FLAME_BLAST_LAUNCH,
-		DEBUFF
+		DEBUFF,
+		INCINERATE_CHARGE,
+		INCINERATE_SPIN,
+		INCINERATE_EXP,
+		INCINERATE_MOLO,
+		INCINERATE_EXP_SOUND
 	};
 }
 
@@ -156,6 +161,7 @@ typedef struct s_Audio
 	Mix_Chunk *select;
 	Mix_Chunk *flameBlast[3];
 	Mix_Chunk *debuff;
+	Mix_Chunk *incinerate[5];
 }				t_Audio;
 
 typedef struct s_MouseOver

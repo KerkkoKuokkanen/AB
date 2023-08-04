@@ -83,6 +83,7 @@ void Kill::Update()
 		if (kills[i].timer <= 0 && !visited)
 		{
 			visited = true;
+			SetScreenShake(700, 5);
 			CreateParticles(kills[i].character);
 			RemoveCharacter(kills[i].character);
 			kills.erase(kills.begin() + i);

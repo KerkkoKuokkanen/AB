@@ -246,6 +246,7 @@ bool		StatusApply(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);
 bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);
+bool		RangeCheckWithoutBlockers(Character *character, Character *target, t_Ability *ability);
 Character	*RangedCheck(Character *character, Character *target, int &chance);
 
 #endif

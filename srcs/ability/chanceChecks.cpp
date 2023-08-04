@@ -130,6 +130,14 @@ bool MeleeCheck(Character *character, Character *target, t_Ability *ability)
 	return (false);
 }
 
+bool RangeCheckWithoutBlockers(Character *character, Character *target, t_Ability *ability)
+{
+	int chance = GetChance(character, target, ability);
+	if (rand() % 100 < chance)
+		return (true);
+	return (false);
+}
+
 Character *RangedCheck(Character *character, Character *target, int &chance)
 {
 	SDL_Point cPos = character->position;

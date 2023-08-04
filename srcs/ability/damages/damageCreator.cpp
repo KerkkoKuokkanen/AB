@@ -30,7 +30,7 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 	if (character->stats.armor < 0)
 		character->stats.armor = 0;
 	damages.push_back(add);
-	SetScreenShake(300, 6);
+	SetScreenShake(500, 4);
 	if (partDir.y < 0.0f)
 		return ;
 	character->sprite->orderLayer = (pos.y + 1);

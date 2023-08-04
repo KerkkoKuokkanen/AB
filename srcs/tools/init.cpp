@@ -75,6 +75,11 @@ void getAudio()
 	Mix_Volume(Channels::FLAME_BLAST_CHARGE, 18);
 	Mix_Volume(Channels::FLAME_BLAST_LAUNCH, 17);
 	Mix_Volume(Channels::DEBUFF, 105);
+	Mix_Volume(Channels::INCINERATE_CHARGE, 20);
+	Mix_Volume(Channels::INCINERATE_SPIN, 38);
+	Mix_Volume(Channels::INCINERATE_EXP, 38);
+	Mix_Volume(Channels::INCINERATE_MOLO, 23);
+	Mix_Volume(Channels::INCINERATE_EXP_SOUND, 14);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -95,6 +100,11 @@ void getAudio()
 	gameState.audio.flameBlast[1] = Mix_LoadWAV("audio/abilities/explosionCharge.wav");
 	gameState.audio.flameBlast[2] = Mix_LoadWAV("audio/abilities/explosionLaunch.wav");
 	gameState.audio.debuff = Mix_LoadWAV("audio/effects/debuff.wav");
+	gameState.audio.incinerate[0] = Mix_LoadWAV("audio/abilities/pyro/amp.wav");
+	gameState.audio.incinerate[1] = Mix_LoadWAV("audio/abilities/pyro/rotate.wav");
+	gameState.audio.incinerate[2] = Mix_LoadWAV("audio/abilities/pyro/exp.wav");
+	gameState.audio.incinerate[3] = Mix_LoadWAV("audio/abilities/pyro/molo.wav");
+	gameState.audio.incinerate[4] = Mix_LoadWAV("audio/abilities/pyro/expSound.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -228,7 +238,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.incinerate[1] = get_texture(rend, "sprites/attacks/flameBallAura.png");
 	gameState.textures.chars.pyroAttack[0] = get_texture(rend, "sprites/characters/pyro_attack.png");
 	gameState.textures.chars.pyroAttack[1] = get_texture(rend, "sprites/characters/pyro_attack2.png");
-	gameState.textures.chars.pyroAttackParts = get_texture(rend, "sprites/character/pyro_attack2_kipin.png");
+	gameState.textures.chars.pyroAttackParts = get_texture(rend, "sprites/characters/pyro_attack2_kipin.png");
 }
 
 void	init(t_wr *wr)

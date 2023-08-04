@@ -96,6 +96,8 @@ class Sprite
 			dest.y = yMove;
 		};
 		void setAngle(const double angle) {Sprite::angle = angle;};
+		void addAngle(const double angle) {Sprite::angle += angle;};
+		double getAngle() {return (angle);};
 		void setFlip(const int flip) {
 			if (flip == FLIP_HORIZONTAL)
 				Sprite::flip = SDL_FLIP_HORIZONTAL;
