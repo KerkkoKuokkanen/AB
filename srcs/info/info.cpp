@@ -63,7 +63,7 @@ bool Info::KilledOrDamaged()
 
 void Info::ManageFilterMode()
 {
-	if (gameState.modes.filterMode != 2 || gameState.updateObjs.abilities->active || KilledOrDamaged() ||
+	if (gameState.modes.filterMode != 2 || gameState.updateObjs.abilities->marking || KilledOrDamaged() ||
 		gameState.updateObjs.turnOrder->turnChange || gameState.updateObjs.turnOrder->turnStartActive)
 	{
 		if (filterMode != NULL)

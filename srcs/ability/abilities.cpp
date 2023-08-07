@@ -253,6 +253,7 @@ void Abilities::ClearMap()
 	groundColoring.active = false;
 	if (!inMotion)
 		active = false;
+	marking = false;
 }
 
 void Abilities::Clear()
@@ -278,4 +279,5 @@ void Abilities::Clear()
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	inMotion = false;
+	marking = false;
 }

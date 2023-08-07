@@ -256,7 +256,7 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_NO_SORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
-	render.CreateLayer(LAYER_ORDER_SORT); //info layer
+	render.CreateLayer(LAYER_DEPTH_SORT); //info layer
 	render.CreateLayer(LAYER_NO_SORT); //miss layer
 	render.CreateLayer(LAYER_ORDER_SORT); //status layer
 	render.CreateLayer(LAYER_ORDER_SORT); //turn order layer

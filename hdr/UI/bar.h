@@ -23,6 +23,7 @@ class Bar
 		void ModBars(Character *target, bool health);
 		void ManageReduce();
 		void GetScala();
+		void ManageOrderLayer(Character *target);
 		int swDiff = 0;
 		int destDiff = 0;
 		bool numbers;

@@ -279,6 +279,13 @@ int getXToLeft(SDL_Point pos)
 	return (pos.x + modder);
 }
 
+void PrintStat()
+{
+	static int i = 0;
+	i++;
+	printf("%d\n", i);
+}
+
 int	figure_the_delay(clock_t start, clock_t end)
 {
 	double	time;

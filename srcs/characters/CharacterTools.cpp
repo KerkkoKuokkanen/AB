@@ -53,7 +53,7 @@ void Character::AssignAbilities()
 			abilities = {{FLAME_PORT, 0, 200, StatStructs::FLAME_PORT, NULL},
 						{FLAME_SLASH, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
 						{FLAME_BLAST, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{INCINERATE, 0, 100, StatStructs::ATTACK_STRUCT, NULL}};
+						{INCINERATE, 0, 90, StatStructs::ATTACK_STRUCT, NULL}};
 			AssingDefaultPyroStats(abilities);
 			break ;
 	}

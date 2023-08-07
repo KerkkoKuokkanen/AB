@@ -1,11 +1,24 @@
 
 NAME = AB
-SRCS =	srcs/*.cpp srcs/ability/*.cpp srcs/ability/animation/*.cpp srcs/ability/objects/*.cpp \
-		srcs/ability/selectors/*.cpp srcs/ability/switches/*.cpp srcs/battle/*.cpp \
-		srcs/battle/turn/*.cpp srcs/characters/*.cpp srcs/effects/*.cpp srcs/objects/*.cpp \
-		srcs/tools/*.cpp srcs/UI/*.cpp srcs/info/*.cpp srcs/ability/damages/*.cpp
 
-OBJ = $(SRCS:.c=.o)
+SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp srcs/UI/energy.cpp srcs/UI/number.cpp srcs/UI/statuses.cpp \
+		srcs/tools/basicTools.cpp srcs/tools/init.cpp srcs/tools/mapTools.cpp srcs/tools/poller.cpp srcs/tools/renderer.cpp \
+		srcs/tools/screenShaker.cpp srcs/tools/utility.cpp srcs/objects/object.cpp srcs/info/counter.cpp srcs/info/filterModeBars.cpp \
+		srcs/info/hoverBars.cpp srcs/info/info.cpp srcs/effects/dust.cpp srcs/effects/particle.cpp srcs/effects/partManager.cpp \
+		srcs/characters/Character.cpp srcs/characters/CharacterTools.cpp srcs/characters/hoverOver.cpp srcs/characters/Kill.cpp \
+		srcs/battle/battleGround.cpp srcs/battle/battleMoving.cpp srcs/battle/hoverChecker.cpp srcs/battle/moveCharacter.cpp \
+		srcs/battle/moveLine.cpp srcs/battle/movingAlgos.cpp srcs/battle/turn/turnIndicator.cpp srcs/battle/turn/turnOrder.cpp \
+		srcs/ability/abilities.cpp srcs/ability/chanceChecks.cpp srcs/ability/characterMover.cpp srcs/ability/effectUpdater.cpp \
+		srcs/ability/groundColoring.cpp srcs/ability/miss.cpp srcs/ability/switches/pyroUpdates.cpp srcs/ability/switches/thiefUpdates.cpp \
+		srcs/ability/selectors/allSelector.cpp srcs/ability/selectors/Markers.cpp srcs/ability/selectors/multiSelector.cpp \
+		srcs/ability/selectors/Selector.cpp srcs/ability/selectors/SelectorForTiles.cpp srcs/ability/objects/dagger.cpp \
+		srcs/ability/objects/fireBall.cpp srcs/ability/objects/smokeBomb.cpp srcs/ability/objects/smokeEffect.cpp \
+		srcs/ability/damages/addStatus.cpp srcs/ability/damages/damageCreator.cpp srcs/ability/damages/Damager.cpp \
+		srcs/ability/animation/daggerSlashAnim.cpp srcs/ability/animation/daggerThrowAnim.cpp srcs/ability/animation/flameBlast.cpp \
+		srcs/ability/animation/flamePortAnim.cpp srcs/ability/animation/flameSlashAnim.cpp srcs/ability/animation/incinerateAnim.cpp \
+		srcs/ability/animation/smokeBombAnim.cpp
+
+OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \
 		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability \
 		-I ./hdr/abilities/selectors/ -I ./hdr/info/ -I ./hdr/ability/damages/
@@ -27,13 +40,13 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@g++ $(FLAGS) $(CGFLAGS) $(FRAMEWORKS) $(OBJ) -o $(NAME)
 
-.c.o: $(HEADERS)
+.cpp.o:
 		@g++ $(FLAGS) $(INCLUDES) $(HDR) -c $< -o $@
 
 clean:
-	@rm -rf $(NAME)
+	@rm -rf $(OBJ)
 
-fclean:
+fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all

@@ -26,6 +26,8 @@ void MultiSelector::Update()
 {
 	if (done)
 		return ;
+	if (count != 0)
+		gameState.updateObjs.abilities->marking = true;
 	Character *ret = selector->Update();
 	if (ret != NULL)
 	{
@@ -64,6 +66,7 @@ void MultiSelector::IncludePoint(SDL_Point pos)
 
 void MultiSelector::Destroy()
 {
+	gameState.updateObjs.abilities->marking = false;
 	targets.clear();
 	if (selector != NULL)
 		delete selector;

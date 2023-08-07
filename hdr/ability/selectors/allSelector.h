@@ -12,6 +12,7 @@ class AllSelector
 		GroundColoring *coloring;
 		void ClearPositionOutOfRange(int cleared, SDL_Point start);
 		void UpdatePoints();
+		bool CheckForStatus(Character *character);
 	public:
 		bool done = false;
 		AllSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, int statusSign = (-1));

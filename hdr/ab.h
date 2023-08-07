@@ -242,6 +242,8 @@ t_GMU *getMapDownLeft(SDL_Point pos);
 int getXToRight(SDL_Point pos);
 int getXToLeft(SDL_Point pos);
 
+void PrintStat();
+
 bool		StatusApply(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);

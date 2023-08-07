@@ -7,13 +7,14 @@ void Abilities::PyroIncinerateDamage()
 	bool dmgVisited = false;
 	for (int i = 0; i < targPoints.size(); i++)
 	{
-		Character *targ = gameState.battle.ground->map[targPoints[i].x][targPoints[i].y].character;
-		if (targ == NULL)
+		Character *targ = gameState.battle.ground->map[targPoints[i].y][targPoints[i].x].character;
+		if (targ != NULL)
 		{
 			if (RangeCheckWithoutBlockers(character, targ, ability))
 			{
 				dmgVisited = true;
 				std::vector<SDL_Point> used = {targPoints[i]};
+				targ->statuses.burns.clear();
 				damager.AddDamage(ability, character, used, false);
 			}
 			else

@@ -9,10 +9,10 @@ Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 	backGround = new Sprite(gameState.textures.bar[1], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 	filler = new Sprite(gameState.textures.barFiller, dest, &sRect, NULL, 0, FLIP_NONE, staticSprite);
 	reduce = new Sprite(gameState.textures.barFiller, dest, &rSRect, NULL, 0, FLIP_NONE, staticSprite);
-	bar->orderLayer = 4;
-	backGround->orderLayer = 1;
-	reduce->orderLayer = 2;
-	filler->orderLayer = 3;
+	bar->z = 4;
+	backGround->z = 1;
+	reduce->z = 2;
+	filler->z = 3;
 	reduce->ColorMod(209, 178, 0);
 	Bar::numbers = numbers;
 	Bar::staticSprite = staticSprite;
@@ -173,6 +173,16 @@ void Bar::ManageReduce()
 	}
 }
 
+void Bar::ManageOrderLayer(Character *target)
+{
+	if (target == NULL)
+		return ;
+	bar->orderLayer = target->sprite->orderLayer;
+	backGround->orderLayer = target->sprite->orderLayer;
+	reduce->orderLayer = target->sprite->orderLayer;
+	filler->orderLayer = target->sprite->orderLayer;
+}
+
 void Bar::Update(Character *target, bool health)
 {
 	if (Bar::target == target)
@@ -185,6 +195,7 @@ void Bar::Update(Character *target, bool health)
 	}
 	ModBars(target, health);
 	ManageReduce();
+	ManageOrderLayer(target);
 }
 
 void Bar::Deactivate()

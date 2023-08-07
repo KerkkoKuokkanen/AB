@@ -71,6 +71,7 @@ class Abilities
 
 	public:
 		bool active = false;
+		bool marking = false;
 		void SetAbility(t_Ability *ability, Character *character);
 		void SetMap() {groundColoring.SetMap();};
 		void Upadte();

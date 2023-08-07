@@ -4,16 +4,70 @@
 #define THE_HOVER_BAR_WIDTH 3200
 #define THE_BAR_LIFETIME 88
 
+static bool TopRight(Character *character, Character *target)
+{
+	SDL_Point pos = target->position;
+	SDL_Point cPos = character->position;
+	if (pos.y <= cPos.y)
+	{
+		if (pos.x > cPos.x)
+			return (true);
+		if (pos.x == cPos.x)
+		{
+			int x = getXToLeft(pos);
+			if (x == pos.x)
+				return (true);
+		}
+	}
+	return (false);
+}
+
+static bool TopLeft(Character *character, Character *target)
+{
+	SDL_Point pos = target->position;
+	SDL_Point cPos = character->position;
+	if (pos.y <= cPos.y)
+	{
+		if (pos.x < cPos.x)
+			return (true);
+		if (pos.x == cPos.x)
+		{
+			int x = getXToRight(pos);
+			if (x == pos.x)
+				return (true);
+		}
+	}
+	return (false);
+}
+
+static bool downRight(Character *character, Character *target)
+{
+	SDL_Point pos = target->position;
+	SDL_Point cPos = character->position;
+	if (pos.y > cPos.y)
+	{
+		if (pos.x > cPos.x)
+			return (true);
+		if (pos.x == cPos.x)
+		{
+			int x = getXToLeft(pos);
+			if (x == pos.x)
+				return (true);
+		}
+	}
+	return (false);
+}
+
 Vector Damager::GetDirection(Character *character, Character *target)
 {
-	SDL_Rect cDest = character->sprite->dest;
-	SDL_Rect eDest = target->sprite->dest;
-	Vector toEnemy(cDest.x - eDest.x, cDest.y - eDest.y);
-	float angle = vectorAngle(Vector(0.0f, 1.0f), toEnemy);
-	float sign = (cDest.x <= eDest.x) ? 1.0f : -1.0f;
-	if (angle < PI / 2)
-		return(Vector(0.5 * sign, -0.5f));
-	return (Vector(0.5f * sign, 0.5f));
+	if (TopRight(character, target))
+		return (Vector(0.5f, -0.5f));
+	if (TopLeft(character, target))
+		return (Vector(-0.5f, -0.5f));
+	if (downRight(character, target))
+		return (Vector(0.5f, 0.5f));
+	return (Vector(-0.5f, 0.5f));
+	
 }
 
 void Damager::PositionBars(Character *target, t_Bars &bars)

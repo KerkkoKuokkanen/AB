@@ -65,7 +65,7 @@ void AllSelector::UpdatePoints()
 				continue ;
 			SDL_Point pos = {j, i};
 			Character *targ = gameState.battle.ground->map[i][j].character;
-			if (targ != NULL && !targ->ally)
+			if (targ != NULL && !targ->ally && CheckForStatus(targ))
 				coloring->SetColoredPosition(pos, purp, purp);
 			else
 				coloring->SetColoredPosition(pos, colorH, colorL);
@@ -93,6 +93,22 @@ void AllSelector::Update()
 		done = true;
 }
 
+bool AllSelector::CheckForStatus(Character *character)
+{
+	if (statusSign == (-1))
+		return (true);
+	switch (statusSign)
+	{
+		case StatusSigns::BURN:
+			if (character->statuses.burns.size() != 0)
+				return (true);
+			break ;
+		default:
+			return (true);
+	}
+	return (false);
+}
+
 std::vector<SDL_Point> AllSelector::getTargets()
 {
 	std::vector<SDL_Point> ret;
@@ -103,7 +119,7 @@ std::vector<SDL_Point> AllSelector::getTargets()
 			if (map[i][j] == TOOL_MAP_SIGN)
 				continue ;
 			Character *targ = gameState.battle.ground->map[i][j].character;
-			if (targ != NULL && !targ->ally)
+			if (targ != NULL && !targ->ally && CheckForStatus(targ))
 				ret.push_back(targ->position);
 		}
 	}
