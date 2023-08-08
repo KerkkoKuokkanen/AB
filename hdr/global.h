@@ -63,6 +63,8 @@ typedef struct s_Surfaces
 	SDL_Surface *trees[5];
 	SDL_Surface *slashTrail;
 	SDL_Surface *counter;
+	SDL_Surface *lionIdle1;
+	SDL_Surface *lionIdle2;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -72,6 +74,7 @@ typedef struct s_Stands
 	SDL_Texture *skeleIdle1Stand;
 	SDL_Texture *skeleIdle2Stand;
 	SDL_Texture *pyroStand;
+	SDL_Texture *lionStand;
 }				t_Stands;
 
 typedef struct s_CharacterTexts
@@ -82,6 +85,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *pyroFlameBlast;
 	SDL_Texture *pyroAttack[2];
 	SDL_Texture *pyroAttackParts;
+	SDL_Texture *lionIdle[2];
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -134,6 +138,7 @@ typedef struct s_Textures
 	SDL_Texture *sBar[3];
 	SDL_Texture *thiefAbilites[3];
 	SDL_Texture *pyroAbilities[4];
+	SDL_Texture *lionAbilities[1];
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];

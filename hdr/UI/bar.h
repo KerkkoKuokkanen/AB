@@ -18,6 +18,7 @@ class Bar
 		SDL_Rect rSRect = {0, 0, 800, 40};
 		int currMax = 0;
 		int currCurr = 0;
+		int layer = 0;
 		void SetBar(int max, int curr);
 		void SetNumber();
 		void ModBars(Character *target, bool health);

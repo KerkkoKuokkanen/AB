@@ -11,8 +11,8 @@ Energy::Energy()
 	stand->Deactivate();
 	energy->Deactivate();
 	energy->ColorMod(190, 190, 190);
-	gameState.render->AddSprite(stand, INFO_LAYER);
-	gameState.render->AddSprite(energy, INFO_LAYER);
+	gameState.render->AddSprite(stand, TURN_ORDER_LAYER);
+	gameState.render->AddSprite(energy, TURN_ORDER_LAYER);
 	sur = gameState.surfaces.energy[1];
 }
 

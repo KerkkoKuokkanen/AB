@@ -45,7 +45,8 @@ enum {
 	FLAME_PORT,
 	FLAME_SLASH,
 	FLAME_BLAST,
-	INCINERATE
+	INCINERATE,
+	LION_SMACK
 };
 
 # include "../SDL2/SDL.h"
@@ -127,7 +128,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 enum {
 	THIEF,
 	SKELE,
-	PYRO
+	PYRO,
+	LION
 };
 
 enum {

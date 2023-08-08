@@ -239,6 +239,14 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.pyroAttack[0] = get_texture(rend, "sprites/characters/pyro_attack.png");
 	gameState.textures.chars.pyroAttack[1] = get_texture(rend, "sprites/characters/pyro_attack2.png");
 	gameState.textures.chars.pyroAttackParts = get_texture(rend, "sprites/characters/pyro_attack2_kipin.png");
+	use = get_texture_and_surface(rend, "sprites/characters/lion/lionIdle1.png");
+	gameState.textures.chars.lionIdle[0] = use.text;
+	gameState.surfaces.lionIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/lion/lionIdle2.png");
+	gameState.textures.chars.lionIdle[1] = use.text;
+	gameState.surfaces.lionIdle2 = use.sur;
+	gameState.textures.stands.lionStand = get_texture(rend, "sprites/characters/lion/lionStand.png");
+	gameState.textures.lionAbilities[0] = get_texture(rend, "sprites/UI/abilities/smack.png");
 }
 
 void	init(t_wr *wr)

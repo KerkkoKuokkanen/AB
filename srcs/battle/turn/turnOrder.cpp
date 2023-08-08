@@ -33,6 +33,12 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->w = 320;
 			srect->h = 363;
 			break ;
+		case LION:
+			srect->x = 300;
+			srect->y = 85;
+			srect->w = 270;
+			srect->h = 242;
+			break ;
 	}
 }
 
@@ -60,6 +66,14 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 		case PYRO:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 33.0f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case LION:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.82f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),
 				rounding(((float)gameState.screen.width / 26.0f)),
 				rounding(((float)gameState.screen.height / 17.0f))

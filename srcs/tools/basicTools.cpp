@@ -188,6 +188,11 @@ SDL_Surface *getSurface(Character *character)
 				return (gameState.surfaces.pyroIdle1);
 			else
 				return (gameState.surfaces.pyroIdle2);
+		case LION:
+			if (text == 0)
+				return (gameState.surfaces.lionIdle1);
+			else
+				return (gameState.surfaces.lionIdle2);
 	}
 	return (NULL);
 }

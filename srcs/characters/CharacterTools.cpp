@@ -37,6 +37,15 @@ static void AssingDefaultThiefStats(std::vector<t_Ability> &stats)
 	stat0->damage = 100;
 }
 
+static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
+{
+	stats[0].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
+	t_AttackWithDebuff *stat0 = (t_AttackWithDebuff*)stats[0].stats;
+	stat0->critChance = 4;
+	stat0->damage = 75;
+	stat0->debuffChance = 80;
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
@@ -56,6 +65,11 @@ void Character::AssignAbilities()
 						{INCINERATE, 0, 90, StatStructs::ATTACK_STRUCT, NULL}};
 			AssingDefaultPyroStats(abilities);
 			break ;
+		case LION:
+			abilities = {{LION_SMACK, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL}};
+			AssignDefaultLionStats(abilities);
+		default:
+			return ;
 	}
 }
 
@@ -95,6 +109,17 @@ void Character::CreateCharacterType(int skin)
 			stands.push_back(gameState.textures.stands.pyroStand);
 			sprite = new Sprite(gameState.textures.chars.pyroIdle1, dest, NULL, NULL, 0, FLIP_NONE);
 			stand = new Sprite(gameState.textures.stands.pyroStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
+		case LION:
+		{
+			SDL_Rect dest = {-3000, -450, 6800, 8160};
+			textures.push_back(gameState.textures.chars.lionIdle[0]);
+			textures.push_back(gameState.textures.chars.lionIdle[1]);
+			stands.push_back(gameState.textures.stands.lionStand);
+			stands.push_back(gameState.textures.stands.lionStand);
+			sprite = new Sprite(gameState.textures.chars.lionIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.lionStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
 	}

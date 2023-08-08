@@ -90,6 +90,9 @@ void CharacterUI::GetAbilities()
 			case INCINERATE:
 				CreateButton(dest, gameState.textures.pyroAbilities[3], INCINERATE, activeCharacter->abilities[i].cost);
 				break ;
+			case LION_SMACK:
+				CreateButton(dest, gameState.textures.lionAbilities[0], LION_SMACK, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }

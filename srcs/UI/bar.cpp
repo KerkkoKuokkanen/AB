@@ -13,20 +13,25 @@ Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 	backGround->z = 1;
 	reduce->z = 2;
 	filler->z = 3;
+	bar->orderLayer = 4;
+	backGround->orderLayer = 1;
+	reduce->orderLayer = 2;
+	filler->orderLayer = 3;
 	reduce->ColorMod(209, 178, 0);
 	Bar::numbers = numbers;
 	Bar::staticSprite = staticSprite;
-	gameState.render->AddSprite(bar, INFO_LAYER);
-	gameState.render->AddSprite(backGround, INFO_LAYER);
-	gameState.render->AddSprite(reduce, INFO_LAYER);
-	gameState.render->AddSprite(filler, INFO_LAYER);
+	layer = (staticSprite) ? TURN_ORDER_LAYER : INFO_LAYER;
+	gameState.render->AddSprite(bar, layer);
+	gameState.render->AddSprite(backGround, layer);
+	gameState.render->AddSprite(reduce, layer);
+	gameState.render->AddSprite(filler, layer);
 	if (!numbers)
 		return ;
 	SDL_Rect slashDest = {dest.x + dest.w / 2 - 417, dest.y + dest.h / 2 + 150, rounding((float)dest.w / 60.0f), rounding((float)dest.h * 0.4f)};
 	slash = new Sprite(gameState.textures.ascii.slash, slashDest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 	slash->ColorMod(190, 190, 150);
 	slash->orderLayer = 5;
-	gameState.render->AddSprite(slash, INFO_LAYER);
+	gameState.render->AddSprite(slash, layer);
 }
 
 void Bar::ChangeToSmallBar()
@@ -104,12 +109,12 @@ void Bar::SetNumber()
 		delete stat;
 	if (maxStat != NULL)
 		delete maxStat;
-	stat = new Number((currCurr < 0) ? 0 : currCurr, 800, INFO_LAYER, 5, staticSprite, NumberType::WHITE);
+	stat = new Number((currCurr < 0) ? 0 : currCurr, 800, layer, 5, staticSprite, NumberType::WHITE);
 	stat->ColorMod(190, 190, 150);
 	int w = stat->getFullWidth();
 	Vector pos((float)(slash->dest.x - w - 200), (float)(slash->dest.y + 300));
 	stat->Position(pos);
-	maxStat = new Number((currMax < 0) ? 0 : currMax, 800, INFO_LAYER, 5, staticSprite, NumberType::WHITE);
+	maxStat = new Number((currMax < 0) ? 0 : currMax, 800, layer, 5, staticSprite, NumberType::WHITE);
 	maxStat->ColorMod(190, 190, 150);
 	w = maxStat->getFullWidth();
 	Vector place((float)(slash->dest.x + 1200), (float)(slash->dest.y + 300));
@@ -175,7 +180,7 @@ void Bar::ManageReduce()
 
 void Bar::ManageOrderLayer(Character *target)
 {
-	if (target == NULL)
+	if (target == NULL || layer == TURN_ORDER_LAYER)
 		return ;
 	bar->orderLayer = target->sprite->orderLayer;
 	backGround->orderLayer = target->sprite->orderLayer;
