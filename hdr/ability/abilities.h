@@ -54,6 +54,7 @@ class Abilities
 		void ActivateAbility(t_Ability *ability, Character *character);
 		void AnimationUpdater();
 		void UpdateThiefAnimation(t_Animation &animation, int index);
+		void UpdateLionAnimation(t_Animation &animation, int index);
 		void ObjectUpdater();
 		void UpdateThiefObject(t_Object &object, int index);
 		void UpdatePyroAnimation(t_Animation &animation, int index);

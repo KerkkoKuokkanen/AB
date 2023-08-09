@@ -353,5 +353,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case INCINERATE:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(INCINERATE), activeCharacter);
 			break ;
+		case LION_SMACK:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(LION_SMACK), activeCharacter);
+			break ;
 	}
 }

@@ -109,6 +109,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/animation/flamePortAnim.h"
 # include "ability/animation/daggerSlashAnim.h"
 # include "ability/animation/smokeBombAnim.h"
+# include "ability/animation/lionSmackAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
 # include "ability/animation/flameSlash.h"
 # include "ability/objects/smokeEffect.h"
@@ -246,6 +247,7 @@ int getXToLeft(SDL_Point pos);
 
 void PrintStat();
 
+void		UpdateStatuses();
 bool		StatusApply(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);

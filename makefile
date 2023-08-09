@@ -16,7 +16,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/damages/addStatus.cpp srcs/ability/damages/damageCreator.cpp srcs/ability/damages/Damager.cpp \
 		srcs/ability/animation/daggerSlashAnim.cpp srcs/ability/animation/daggerThrowAnim.cpp srcs/ability/animation/flameBlast.cpp \
 		srcs/ability/animation/flamePortAnim.cpp srcs/ability/animation/flameSlashAnim.cpp srcs/ability/animation/incinerateAnim.cpp \
-		srcs/ability/animation/smokeBombAnim.cpp
+		srcs/ability/animation/smokeBombAnim.cpp srcs/ability/animation/lionSmackAnim.cpp srcs/ability/switches/lionUpdates.cpp \
+		srcs/characters/StatusUpdater.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

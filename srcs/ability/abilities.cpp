@@ -28,6 +28,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case INCINERATE:
 			allSelector = new AllSelector(pos, 6, 0, &groundColoring, true, StatusSigns::BURN);
 			break ;
+		case LION_SMACK:
+			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			break ;
 	}
 }
 
@@ -69,6 +72,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case INCINERATE:
 			if (targPoints.size() != 0)
 				animations.push_back({new Incinerate(character, targPoints), INCINERATE});
+			break ;
+		case LION_SMACK:
+			animations.push_back({new LionSmack(character, targetPoint), LION_SMACK});
 			break ;
 	}
 }
@@ -203,6 +209,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case PYRO:
 				UpdatePyroAnimation(animations[i], i);
+				break ;
+			case LION:
+				UpdateLionAnimation(animations[i], i);
 				break ;
 		}
 	}

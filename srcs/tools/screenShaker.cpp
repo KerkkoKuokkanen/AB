@@ -3,6 +3,8 @@
 
 void SetScreenShake(int volume, int time)
 {
+	gameState.screenShake.xShake = 0;
+	gameState.screenShake.yShake = 0;
 	gameState.screenShake.shakeCounter = time;
 	gameState.screenShake.xShake = (rand() % 2 == 0) ? volume : -volume;
 	gameState.screenShake.yShake = (rand() % 2 == 0) ? volume : -volume;
@@ -19,7 +21,11 @@ void ShakeTheScreen()
 	if (everyThird > 300)
 		everyThird = 0;
 	if (gameState.screenShake.shakeCounter <= 0)
+	{
+		gameState.screenShake.xShake = 0;
+		gameState.screenShake.yShake = 0;
 		return ;
+	}
 	gameState.screenShake.shakeCounter--;
 	if (gameState.screenShake.xShake != 0)
 	{

@@ -25,7 +25,7 @@ void Info::FindHoveredCharacter()
 		if (gameState.battle.ground->characters[i].character->hover)
 		{
 			hovered = gameState.battle.ground->characters[i].character;
-			if (hovered->turn || hovered->active == false || !NoOneClicked())
+			if ((hovered->turn && hovered->ally) || hovered->active == false || !NoOneClicked())
 				hovered = NULL;
 			return ;
 		}
@@ -38,7 +38,7 @@ void Info::FindHoveredCharacter()
 				gameState.battle.ground->map[i][j].character != NULL)
 			{
 				hovered = gameState.battle.ground->map[i][j].character;
-				if (hovered->turn || hovered->active == false || !NoOneClicked())
+				if ((hovered->turn && hovered->ally) || hovered->active == false || !NoOneClicked())
 					hovered = NULL;
 				return ;
 			}

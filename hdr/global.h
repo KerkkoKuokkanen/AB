@@ -36,7 +36,8 @@ namespace Channels
 		INCINERATE_SPIN,
 		INCINERATE_EXP,
 		INCINERATE_MOLO,
-		INCINERATE_EXP_SOUND
+		INCINERATE_EXP_SOUND,
+		LION_SMACK
 	};
 }
 
@@ -86,6 +87,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *pyroAttack[2];
 	SDL_Texture *pyroAttackParts;
 	SDL_Texture *lionIdle[2];
+	SDL_Texture *lionSmack;
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -95,6 +97,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *fireBallAura;
 	SDL_Texture *incinerate[2];
 	SDL_Texture *incExplosion;
+	SDL_Texture *lionTrail;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -167,6 +170,7 @@ typedef struct s_Audio
 	Mix_Chunk *flameBlast[3];
 	Mix_Chunk *debuff;
 	Mix_Chunk *incinerate[5];
+	Mix_Chunk *lionSmack;
 }				t_Audio;
 
 typedef struct s_MouseOver

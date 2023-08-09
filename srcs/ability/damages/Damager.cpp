@@ -112,6 +112,22 @@ void Damager::CreateBars(Character *target)
 	bars.push_back(add);
 }
 
+void Damager::CreateDebuff(t_Ability *ability, Character *character, SDL_Point targ)
+{
+	Character *target = gameState.battle.ground->map[targ.y][targ.x].character;
+	if (target == NULL)
+		return ;
+	switch (character->cSing)
+	{
+		case PYRO:
+			statuses.push_back(new AddStatus(character, target, StatusSigns::BURN));
+			break ;
+		case LION:
+			target->statuses.stun = 1;
+			break ;
+	}
+}
+
 void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SDL_Point> &targets, bool sound)
 {
 	for (int i = 0; i < targets.size(); i++)
@@ -133,7 +149,7 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
 		}
 		if (StatusApply(ability, character, targ))
-			statuses.push_back(new AddStatus(character, targ, StatusSigns::BURN));
+			CreateDebuff(ability, character, targ->position);
 	}
 }
 

@@ -16,6 +16,7 @@ namespace StatStructs
 typedef struct s_StatusEffects
 {
 	std::vector<int> burns;
+	int stun;
 }				t_StatusEffects;
 
 typedef struct s_AttackStruct

@@ -25,6 +25,7 @@ class Damager
 		void CreateBars(Character *target);
 		void UpdateBars();
 		void UpdateStatuses();
+		void CreateDebuff(t_Ability *ability, Character *character, SDL_Point targ);
 	public:
 		void AddDamage(t_Ability *ability, Character *character, std::vector<SDL_Point> &targets, bool sound = true);
 		void Update();

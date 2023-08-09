@@ -521,6 +521,10 @@ void TurnOrder::Update()
 	SetStuffHappening();
 	SetStuffWithoudMove();
 	gameState.updateObjs.indicator->Deactivate();
+	if (turnStartActive)
+		UpdateStartTurn();
+	if (turnChange)
+		ChangeTurn();
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		indicators[i].character->turn = false;
@@ -541,10 +545,6 @@ void TurnOrder::Update()
 	}
 	if (!visited)
 		StartTurn();
-	if (turnStartActive)
-		UpdateStartTurn();
-	if (turnChange)
-		ChangeTurn();
 	if (killActive)
 		KillMoveUpdate();
 	CheckClickBox();

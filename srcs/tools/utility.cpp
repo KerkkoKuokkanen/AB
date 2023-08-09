@@ -175,6 +175,7 @@ void ObjUpdate()
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
 	gameState.updateObjs.indicator->Update();
+	UpdateStatuses();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
 	if (gameState.updateObjs.abilities != NULL)

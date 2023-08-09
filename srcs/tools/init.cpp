@@ -80,6 +80,7 @@ void getAudio()
 	Mix_Volume(Channels::INCINERATE_EXP, 38);
 	Mix_Volume(Channels::INCINERATE_MOLO, 23);
 	Mix_Volume(Channels::INCINERATE_EXP_SOUND, 14);
+	Mix_Volume(Channels::LION_SMACK, 18);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -105,6 +106,7 @@ void getAudio()
 	gameState.audio.incinerate[2] = Mix_LoadWAV("audio/abilities/pyro/exp.wav");
 	gameState.audio.incinerate[3] = Mix_LoadWAV("audio/abilities/pyro/molo.wav");
 	gameState.audio.incinerate[4] = Mix_LoadWAV("audio/abilities/pyro/expSound.wav");
+	gameState.audio.lionSmack = Mix_LoadWAV("audio/abilities/lion/punch.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -247,6 +249,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.lionIdle2 = use.sur;
 	gameState.textures.stands.lionStand = get_texture(rend, "sprites/characters/lion/lionStand.png");
 	gameState.textures.lionAbilities[0] = get_texture(rend, "sprites/UI/abilities/smack.png");
+	gameState.textures.chars.lionSmack = get_texture(rend, "sprites/characters/lion/lionSmack.png");
+	gameState.textures.attacks.lionTrail = get_texture(rend, "sprites/characters/lion/lionSmackTrail.png");
 }
 
 void	init(t_wr *wr)

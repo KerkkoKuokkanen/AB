@@ -9,10 +9,20 @@ Character::Character(int skin, bool allied)
 	top.x = top.x - (float)sprite->dest.x;
 	top.y = top.y - (float)sprite->dest.y;
 	topMid = {rounding(top.x), rounding(top.y)};
+	statuses.stun = 0;
+	statuses.burns = {};
 	width = 5800;
 	height = 7500;
 	if (!allied)
 		ally = false;
+}
+
+void Character::ManageStun()
+{
+	if (statuses.stun > 0)
+		sprite->ColorMod(255, 219, 56);
+	else
+		sprite->ClearColorMod();
 }
 
 void Character::DeleteCharacter()
@@ -70,11 +80,14 @@ void Character::Update()
 	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
 		clicked = false;
 	ShiftChecker();
+	ManageStun();
 	if (animationActive)
 		return ;
 	if (gameState.updateObjs.characterAnimIter == 50)
 	{
 		currentTexture = (currentTexture == 0) ? 1 : 0;
+		if (statuses.stun > 0)
+			return ;
 		sprite->setTexture(textures[currentTexture]);
 		stand->setTexture(stands[currentTexture]);
 	}
