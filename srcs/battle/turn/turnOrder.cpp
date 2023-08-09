@@ -34,10 +34,10 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->h = 363;
 			break ;
 		case LION:
-			srect->x = 300;
-			srect->y = 85;
-			srect->w = 270;
-			srect->h = 242;
+			srect->x = 227;
+			srect->y = 60;
+			srect->w = 455;
+			srect->h = 440;
 			break ;
 	}
 }
