@@ -99,6 +99,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "info/counter.h"
 # include "info/filterModeBars.h"
 # include "info/hoverBars.h"
+# include "info/stunUpdates.h"
 # include "info/info.h"
 # include "battleClasses/groundColoring.h"
 # include "ability/damages/addStatus.h"

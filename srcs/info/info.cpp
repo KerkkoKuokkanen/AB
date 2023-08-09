@@ -15,6 +15,7 @@ Info::Info()
 {
 	hoverBars = new HoverBars;
 	counter = new Counter;
+	stunUpdates = new StunUpdates;
 	hovered = NULL;
 }
 
@@ -85,6 +86,7 @@ void Info::Update()
 	ManageFilterMode();
 	hoverBars->Update(hovered);
 	counter->Update();
+	stunUpdates->Update();
 	overInfo = counter->insideBox;
 }
 
@@ -92,4 +94,6 @@ void Info::Destroy()
 {
 	delete hoverBars;
 	delete counter;
+	if (stunUpdates != NULL)
+		delete stunUpdates;
 }

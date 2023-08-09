@@ -201,6 +201,7 @@ void TurnOrder::StartTurn()
 		indicators[i].active = true;
 		indicators[i].x = TURN_SIGN;
 	}
+	UpdateStartTurn();
 }
 
 void TurnOrder::SideManage(t_Indicator &indicator)

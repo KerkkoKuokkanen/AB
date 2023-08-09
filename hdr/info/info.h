@@ -11,6 +11,7 @@ class Info
 		HoverBars *hoverBars;
 		Counter *counter;
 		FilterModeBars *filterMode = NULL;
+		StunUpdates *stunUpdates = NULL;
 		void FindHoveredCharacter();
 		void ManageFilterMode();
 		bool KilledOrDamaged();

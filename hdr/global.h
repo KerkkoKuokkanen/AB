@@ -152,6 +152,7 @@ typedef struct s_Textures
 	SDL_Texture *MISS;
 	SDL_Texture *marker;
 	SDL_Texture *counter;
+	SDL_Texture *questionMark;
 }				t_Textures;
 
 typedef struct s_Audio

@@ -17,14 +17,6 @@ Character::Character(int skin, bool allied)
 		ally = false;
 }
 
-void Character::ManageStun()
-{
-	if (statuses.stun > 0)
-		sprite->ColorMod(255, 219, 56);
-	else
-		sprite->ClearColorMod();
-}
-
 void Character::DeleteCharacter()
 {
 	delete sprite;
@@ -80,7 +72,6 @@ void Character::Update()
 	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
 		clicked = false;
 	ShiftChecker();
-	ManageStun();
 	if (animationActive)
 		return ;
 	if (gameState.updateObjs.characterAnimIter == 50)

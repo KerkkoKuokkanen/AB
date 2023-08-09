@@ -24,7 +24,6 @@ class Character
 		void CreateCharacterType(int skin);
 		void AssignAbilities();
 		void ShiftChecker();
-		void ManageStun();
 		bool animationActive = false;
 	public:
 		SDL_Point topMid = {0, 0};
