@@ -1,5 +1,6 @@
 
 #include "../../hdr/global.h"
+#define STUN_TIME 30
 
 bool StunUpdates::StunExists(Character *character)
 {
@@ -30,8 +31,35 @@ void StunUpdates::CreateStuns()
 		add->z = character->sprite->z + 0.1f;
 		add->orderLayer = character->sprite->orderLayer;
 		gameState.render->AddSprite(add, BATTLEGROUND_LAYER);
-		questionMark.push_back({add, character});
+		questionMark.push_back({add, character, 0});
+		PlaySound(gameState.audio.stun, Channels::STUN, 0);
 	}
+}
+
+void StunUpdates::UpdateFade(int index)
+{
+	Character *targ = questionMark[index].target;
+	if (questionMark[index].timer < STUN_TIME)
+		questionMark[index].timer++;
+	if (targ == NULL || targ->killed || targ->damaged)
+		return ;
+	if (questionMark[index].timer >= STUN_TIME)
+	{
+		questionMark[index].target->sprite->ColorMod(255, 219, 56);
+		if (questionMark[index].target->active == false)
+			questionMark[index].sprite->AlphaMod(35);
+		else
+			questionMark[index].sprite->ClearAlphaMod();
+		return ;
+	}
+	float aUnit = 255.0f / 30.0f;
+	int alpha = rounding(aUnit * (float)questionMark[index].timer);
+	questionMark[index].sprite->AlphaMod(alpha);
+	float gUnit = 36.0f / 30.0f;
+	float bUnit = 199.0f / 30.0f;
+	int g = rounding(gUnit * (float)questionMark[index].timer);
+	int b = rounding(bUnit * (float)questionMark[index].timer);
+	questionMark[index].target->sprite->ColorMod(255, 255 - g, 255 - b);
 }
 
 void StunUpdates::IterStuns()
@@ -43,11 +71,7 @@ void StunUpdates::IterStuns()
 			questionMark[i].sprite->Deactivate();
 		else
 			questionMark[i].sprite->Activate();
-		if (questionMark[i].target->active == false)
-			questionMark[i].sprite->AlphaMod(35);
-		else
-			questionMark[i].sprite->ClearAlphaMod();
-		questionMark[i].target->sprite->ColorMod(255, 219, 56);
+		UpdateFade(i);
 		if (questionMark[i].target->killed || questionMark[i].target->statuses.stun <= 0)
 		{
 			questionMark[i].target->sprite->ClearColorMod();

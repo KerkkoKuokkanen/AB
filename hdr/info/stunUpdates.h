@@ -8,6 +8,7 @@ typedef struct s_Stun
 {
 	Sprite *sprite;
 	Character *target;
+	int timer;
 }				t_Stun;
 
 class StunUpdates
@@ -17,6 +18,7 @@ class StunUpdates
 		void UpdateStuns();
 		void CreateStuns();
 		void IterStuns();
+		void UpdateFade(int index);
 		bool StunExists(Character *character);
 	public:
 		~StunUpdates() {Destroy();};

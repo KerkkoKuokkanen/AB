@@ -37,7 +37,8 @@ namespace Channels
 		INCINERATE_EXP,
 		INCINERATE_MOLO,
 		INCINERATE_EXP_SOUND,
-		LION_SMACK
+		LION_SMACK,
+		STUN
 	};
 }
 
@@ -172,6 +173,7 @@ typedef struct s_Audio
 	Mix_Chunk *debuff;
 	Mix_Chunk *incinerate[5];
 	Mix_Chunk *lionSmack;
+	Mix_Chunk *stun;
 }				t_Audio;
 
 typedef struct s_MouseOver

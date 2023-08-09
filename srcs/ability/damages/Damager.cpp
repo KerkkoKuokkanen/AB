@@ -161,12 +161,13 @@ void Damager::UpdateBars()
 		bars[i].armor->Update(bars[i].target, true);
 		bars[i].health->Update(bars[i].target, false);
 		bars[i].statusBar->Update();
+		if (bars[i].timer == 66)
+			bars[i].target->damaged = false;
 		if (bars[i].timer <= 0)
 		{
 			delete bars[i].health;
 			delete bars[i].armor;
 			delete bars[i].statusBar;
-			bars[i].target->damaged = false;
 			bars.erase(bars.begin() + i);
 			i--;
 		}

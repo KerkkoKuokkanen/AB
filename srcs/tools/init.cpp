@@ -81,6 +81,7 @@ void getAudio()
 	Mix_Volume(Channels::INCINERATE_MOLO, 23);
 	Mix_Volume(Channels::INCINERATE_EXP_SOUND, 14);
 	Mix_Volume(Channels::LION_SMACK, 18);
+	Mix_Volume(Channels::STUN, 80);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -107,6 +108,7 @@ void getAudio()
 	gameState.audio.incinerate[3] = Mix_LoadWAV("audio/abilities/pyro/molo.wav");
 	gameState.audio.incinerate[4] = Mix_LoadWAV("audio/abilities/pyro/expSound.wav");
 	gameState.audio.lionSmack = Mix_LoadWAV("audio/abilities/lion/punch.wav");
+	gameState.audio.stun = Mix_LoadWAV("audio/abilities/lion/stun.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
