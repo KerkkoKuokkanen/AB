@@ -10,11 +10,12 @@ class PhantomSelector
 		std::vector<SDL_Point> targets = {};
 		int orientation = 0;
 		Character *character;
-		SDL_Point pos = {0, 0};
+		SDL_Point pos = {-1, -1};
 		GroundColoring *coloring;
 		TileSelector *selector = NULL;
 		void HighlightAdditional(SDL_Point ret);
 		void HighlightBlock(SDL_Point ret);
+		bool CheckPoint(SDL_Point ret);
 	public:
 		bool done = false;
 		PhantomSelector(Character *character, int range, GroundColoring *coloring);

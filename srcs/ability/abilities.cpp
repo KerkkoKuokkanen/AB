@@ -79,6 +79,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case LION_SMACK:
 			animations.push_back({new LionSmack(character, targetPoint), LION_SMACK});
 			break ;
+		case PHANTOM_KNIGHT:
+			animations.push_back({new PhantomAnim(targPoints), PHANTOM_KNIGHT});
+			break ;
 	}
 }
 
@@ -123,7 +126,11 @@ void Abilities::UpdatePhantomSelector()
 	phantSelector->Update();
 	if (phantSelector->done)
 	{
+		targPoints.clear();
 		gameState.updateObjs.UI->UseEnergy(ability->cost);
+		targPoints = phantSelector->GetTargets();
+		if (targPoints.size() != 0)
+			ActivateAbility(ability, character);
 		ClearMap();
 	}
 }

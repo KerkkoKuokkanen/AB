@@ -23,5 +23,16 @@ void Abilities::UpdateLionAnimation(t_Animation &animation, int index)
 			}
 			break ;
 		}
+		case PHANTOM_KNIGHT:
+		{
+			PhantomAnim *use = (PhantomAnim*)animation.animation;
+			use->Update();
+			if (use->done)
+			{
+				delete use;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }

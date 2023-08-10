@@ -38,6 +38,7 @@ class Sprite
 			spritesLayer = -1;
 		};
 		~Sprite();
+		void setSRect(SDL_Rect *srect) {Sprite::srect = srect;};
 		void Destroy() {delete this;};
 		void Activate() {active = true;};
 		void Deactivate() {active = false;};

@@ -50,7 +50,6 @@ class Abilities
 		Damager damager;
 		EffectUpdater effectUpdater;
 
-		bool inMotion = false;
 		void SetSelector(t_Ability *ability, Character *character);
 		void ActivateAbility(t_Ability *ability, Character *character);
 		void AnimationUpdater();
@@ -73,6 +72,7 @@ class Abilities
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 
 	public:
+		bool inMotion = false;
 		bool active = false;
 		bool marking = false;
 		void SetAbility(t_Ability *ability, Character *character);
