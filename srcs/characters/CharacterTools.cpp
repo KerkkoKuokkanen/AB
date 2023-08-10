@@ -6,6 +6,7 @@ static void AssingDefaultPyroStats(std::vector<t_Ability> &stats)
 	stats[0].stats = (void*)malloc(sizeof(t_FlamePortStats));
 	t_FlamePortStats *stat0 = (t_FlamePortStats*)stats[0].stats;
 	stat0->selfDamagePrecent = 10;
+	stat0->range = 15;
 	stats[1].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
 	t_AttackWithDebuff *stat1 = (t_AttackWithDebuff*)stats[1].stats;
 	stat1->critChance = 4;
@@ -44,6 +45,10 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stat0->critChance = 4;
 	stat0->damage = 75;
 	stat0->debuffChance = 80;
+	stats[1].stats = (void*)malloc(sizeof(t_PhantomKnight));
+	t_PhantomKnight *stat1 = (t_PhantomKnight*)stats[1].stats;
+	stat1->hits = 1;
+	stat1->turns = 1;
 }
 
 void Character::AssignAbilities()
@@ -51,22 +56,23 @@ void Character::AssignAbilities()
 	switch (cSing)
 	{
 		case THIEF:
-			abilities = {{DAGGER_THROW, 0, 80, StatStructs::ATTACK_STRUCT, NULL},
-						{SMOKE_BOMB, 0, 200, StatStructs::LASTING_EFFECT, NULL},
-						{DAGGER_SLASH, 0, 80, StatStructs::ATTACK_STRUCT, NULL}};
+			abilities = {{DAGGER_THROW, 0, 0, 80, StatStructs::ATTACK_STRUCT, NULL},
+						{SMOKE_BOMB, 0, 0, 200, StatStructs::LASTING_EFFECT, NULL},
+						{DAGGER_SLASH, 0, 0, 80, StatStructs::ATTACK_STRUCT, NULL}};
 			AssingDefaultThiefStats(abilities);
 			break ;
 		case SKELE:
 			break ;
 		case PYRO:
-			abilities = {{FLAME_PORT, 0, 200, StatStructs::FLAME_PORT, NULL},
-						{FLAME_SLASH, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{FLAME_BLAST, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{INCINERATE, 0, 90, StatStructs::ATTACK_STRUCT, NULL}};
+			abilities = {{FLAME_PORT, 0, 0, 200, StatStructs::FLAME_PORT, NULL},
+						{FLAME_SLASH, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
+						{FLAME_BLAST, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
+						{INCINERATE, 0, 0, 90, StatStructs::ATTACK_STRUCT, NULL}};
 			AssingDefaultPyroStats(abilities);
 			break ;
 		case LION:
-			abilities = {{LION_SMACK, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL}};
+			abilities = {{LION_SMACK, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
+						{PHANTOM_KNIGHT, 0, 0, 200, StatStructs::PHANTOM_KNIGHT, NULL}};
 			AssignDefaultLionStats(abilities);
 		default:
 			return ;

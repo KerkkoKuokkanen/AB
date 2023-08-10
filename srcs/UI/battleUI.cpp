@@ -93,6 +93,9 @@ void CharacterUI::GetAbilities()
 			case LION_SMACK:
 				CreateButton(dest, gameState.textures.lionAbilities[0], LION_SMACK, activeCharacter->abilities[i].cost);
 				break ;
+			case PHANTOM_KNIGHT:
+				CreateButton(dest, gameState.textures.lionAbilities[1], PHANTOM_KNIGHT, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }
@@ -319,8 +322,6 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 	if (value == NO_CONTACT)
 		return ;
 	overCharacterUI = true;
-	if (gameState.updateObjs.abilities->active)
-		return ;
 	if (buttons[buttonIndex].energyCost != 0 && buttons[buttonIndex].energyCost < activeCharacter->moves)
 		ShowEnergy(buttons[buttonIndex].energyCost);
 	if (buttons[buttonIndex].buttonSign == 0 && value == BUTTON_PRESS)
@@ -355,6 +356,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case LION_SMACK:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(LION_SMACK), activeCharacter);
+			break ;
+		case PHANTOM_KNIGHT:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(PHANTOM_KNIGHT), activeCharacter);
 			break ;
 	}
 }

@@ -31,6 +31,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case LION_SMACK:
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
+		case PHANTOM_KNIGHT:
+			phantSelector = new PhantomSelector(character, 8, &groundColoring);
+			break ;
 	}
 }
 
@@ -114,6 +117,17 @@ void Abilities::SelectorWithSquares()
 	}
 }
 
+void Abilities::UpdatePhantomSelector()
+{
+	gameState.updateObjs.UI->ShowEnergy(ability->cost);
+	phantSelector->Update();
+	if (phantSelector->done)
+	{
+		gameState.updateObjs.UI->UseEnergy(ability->cost);
+		ClearMap();
+	}
+}
+
 void Abilities::MultiSelectorWithCharacter()
 {
 	gameState.updateObjs.UI->ShowEnergy(ability->cost);
@@ -150,6 +164,8 @@ void Abilities::UpdateSelector()
 		MultiSelectorWithCharacter();
 	else if (allSelector != NULL)
 		AllSelectorUpdate();
+	else if (phantSelector != NULL)
+		UpdatePhantomSelector();
 }
 
 void Abilities::UpdateMisses()
@@ -258,6 +274,9 @@ void Abilities::ClearMap()
 	if (allSelector != NULL)
 		delete allSelector;
 	allSelector = NULL;
+	if (phantSelector != NULL)
+		delete phantSelector;
+	phantSelector = NULL;
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	if (!inMotion)
@@ -281,6 +300,9 @@ void Abilities::Clear()
 	if (allSelector != NULL)
 		delete allSelector;
 	allSelector = NULL;
+	if (phantSelector != NULL)
+		delete phantSelector;
+	phantSelector = NULL;
 	active = false;
 	target = NULL;
 	targetPoint = {-1, -1};

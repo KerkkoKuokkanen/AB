@@ -46,6 +46,7 @@ class Abilities
 		TileSelector *tileSelector = NULL;
 		MultiSelector *multiSelector = NULL;
 		AllSelector *allSelector = NULL;
+		PhantomSelector *phantSelector = NULL;
 		Damager damager;
 		EffectUpdater effectUpdater;
 
@@ -65,6 +66,7 @@ class Abilities
 		void UpdateSelector();
 		void SelectorWithCharacters();
 		void SelectorWithSquares();
+		void UpdatePhantomSelector();
 		void MultiSelectorWithCharacter();
 		void AllSelectorUpdate();
 		void UpdateMisses();

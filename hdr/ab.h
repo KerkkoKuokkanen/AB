@@ -46,7 +46,8 @@ enum {
 	FLAME_SLASH,
 	FLAME_BLAST,
 	INCINERATE,
-	LION_SMACK
+	LION_SMACK,
+	PHANTOM_KNIGHT
 };
 
 # include "../SDL2/SDL.h"
@@ -64,6 +65,7 @@ typedef struct s_Ability
 {
 	int type;
 	int cost;
+	int suplies;
 	int baseChance;
 	int statType;
 	void *stats;
@@ -123,6 +125,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/selectors/selector.h"
 # include "ability/selectors/selectorForTiles.h"
 # include "ability/selectors/multiSelector.h"
+# include "ability/selectors/phantomSelector.h"
 # include "ability/miss.h"
 # include "ability/abilities.h"
 # include "UI/battleUI.h"

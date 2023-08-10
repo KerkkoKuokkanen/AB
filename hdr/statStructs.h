@@ -9,7 +9,8 @@ namespace StatStructs
 		ATTACK_AND_DEBUFF,
 		ATTACK_STRUCT,
 		LASTING_EFFECT,
-		FLAME_PORT
+		FLAME_PORT,
+		PHANTOM_KNIGHT
 	};
 };
 
@@ -40,6 +41,13 @@ typedef struct s_LastingEffect
 typedef struct s_FlamePortStats
 {
 	int selfDamagePrecent;
+	int range;
 }				t_FlamePortStats;
+
+typedef struct s_PhantomKnight
+{
+	int turns;
+	int hits;
+}				t_PhantomKnight;
 
 #endif

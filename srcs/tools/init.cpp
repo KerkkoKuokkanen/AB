@@ -251,6 +251,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.lionIdle2 = use.sur;
 	gameState.textures.stands.lionStand = get_texture(rend, "sprites/characters/lion/lionStand.png");
 	gameState.textures.lionAbilities[0] = get_texture(rend, "sprites/UI/abilities/smack.png");
+	gameState.textures.lionAbilities[1] = get_texture(rend, "sprites/UI/abilities/PhantomKnight.png");
 	gameState.textures.chars.lionSmack = get_texture(rend, "sprites/characters/lion/lionSmack.png");
 	gameState.textures.attacks.lionTrail = get_texture(rend, "sprites/characters/lion/lionSmackTrail.png");
 	gameState.textures.questionMark = get_texture(rend, "sprites/UI/questionMark.png");
