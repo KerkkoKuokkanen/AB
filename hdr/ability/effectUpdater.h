@@ -6,10 +6,8 @@
 
 typedef struct s_AbilityEffect
 {
-	int duration;
-	int time;
 	SDL_Point pos;
-	t_Ability ability;
+	t_Ability *ability;
 	void *effect;
 }				t_AbilityEffect;
 
@@ -18,13 +16,12 @@ class EffectUpdater
 	private:
 		int turnChecker = 0;
 		std::vector<t_AbilityEffect> effects;
-		void CreateEffect(t_AbilityEffect &add);
-		void UpdateEffect(t_AbilityEffect &effect);
-		void CheckTurnCounter();
-		void DeleteEffect(void *effect, int type);
+		void CreateEffect(Character *character, t_AbilityEffect &add);
+		void DeleteEffect(t_AbilityEffect &effect);
+		void UpdateEffect(t_AbilityEffect &effect, int index);
 		t_AbilityEffect *CheckForEffectAlready(int type, SDL_Point pos);
 	public:
-		void SetEffect(int duration, SDL_Point pos, t_Ability ability);
+		void SetEffect(Character *character, SDL_Point pos, t_Ability *ability);
 		void Update();
 		void Clear();
 };

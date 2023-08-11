@@ -21,6 +21,7 @@ class PhantomSelector
 		PhantomSelector(Character *character, int range, GroundColoring *coloring);
 		~PhantomSelector() {Destroy();};
 		std::vector<SDL_Point> &GetTargets();
+		void ChangeOrientation();
 		void Update();
 		void Destroy();
 };

@@ -1,6 +1,16 @@
 
 #include "../../../hdr/global.h"
 
+bool Abilities::CheckForPhantomKnight()
+{
+	if (phantSelector != NULL)
+	{
+		phantSelector->ChangeOrientation();
+		return (true);
+	}
+	return (false);
+}
+
 void Abilities::UpdateLionAnimation(t_Animation &animation, int index)
 {
 	switch (animation.type)
@@ -29,6 +39,8 @@ void Abilities::UpdateLionAnimation(t_Animation &animation, int index)
 			use->Update();
 			if (use->done)
 			{
+				for (int i = 0; i < targPoints.size(); i++)
+					effectUpdater.SetEffect(character, targPoints[i], ability);
 				delete use;
 				animations.erase(animations.begin() + index);
 			}

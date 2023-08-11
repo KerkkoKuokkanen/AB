@@ -70,6 +70,7 @@ class Abilities
 		void AllSelectorUpdate();
 		void UpdateMisses();
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
+		bool CheckForPhantomKnight();
 
 	public:
 		bool inMotion = false;

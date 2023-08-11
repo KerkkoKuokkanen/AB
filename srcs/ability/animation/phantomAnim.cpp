@@ -1,6 +1,6 @@
 
 #include "../../../hdr/global.h"
-#define PART_AMOUNT 350
+#define PART_AMOUNT 450
 #define SCALE_TIME 20
 
 static Color GetColor()
@@ -20,21 +20,23 @@ static Color GetColor()
 void PhantomAnim::CreateSprite(SDL_Point target)
 {
 	SDL_Rect tDest = gameState.battle.ground->getTileDest(target);
-	SDL_Point pos = {tDest.x + 2500, tDest.y + 1500};
-	SDL_Rect dest = {pos.x, pos.y, 6800, 0}; //8160
-	SDL_Rect srect = {0, 0, 1000, 0}; //1200
+	SDL_Point pos = {tDest.x, tDest.y};
+	SDL_Rect dest = {pos.x - 400, pos.y, 6800, 8160}; //8160
 	t_SpriteAndSRect add;
-	add.srect = srect;
-	Sprite *sprite = new Sprite(gameState.textures.chars.lionIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
-	sprites.push_back(add);
-	sprite->setSRect(&sprites[sprites.size() - 1].srect);
+	add.srect = (SDL_Rect*)malloc(sizeof(SDL_Rect));
+	add.srect->x = 0;
+	add.srect->y = 0;
+	add.srect->w = 1000;
+	add.srect->h = 0;
+	Sprite *sprite = new Sprite(gameState.textures.chars.lionIdle[0], dest, add.srect, NULL, 0, FLIP_NONE);
 	sprite->ColorMod(0, 217, 255);
 	sprite->AlphaMod(170);
 	sprite->orderLayer = target.y;
 	int height = gameState.battle.ground->map[target.y][target.x].height;
 	sprite->setDepth((float)height * (float)BATTLE_DEPTH_UNIT + 8.0f);
 	gameState.render->AddSprite(sprite, BATTLEGROUND_LAYER);
-	sprites[sprites.size() - 1].sprite = sprite;
+	add.sprite = sprite;
+	sprites.push_back(add);
 }
 
 void PhantomAnim::CreateParticles(SDL_Point target)
@@ -79,14 +81,14 @@ void PhantomAnim::ScaleKnight(int index)
 		sScale = 1200;
 	if (sScale < 0)
 		sScale = 0;
-	sprites[index].srect.h = sScale;
+	sprites[index].srect->h = sScale;
 	sprites[index].sprite->dest.h = scale;
-	sprites[index].sprite->dest.y -= 408;
+	sprites[index].sprite->dest.y -= (5650 / 21);
 }
 
 void PhantomAnim::UpdateKnight()
 {
-	if (counter > 100)
+	if (counter > SCALE_TIME)
 		return ;
 	for (int i = 0; i < sprites.size(); i++)
 	{
@@ -100,7 +102,7 @@ void PhantomAnim::Update()
 		return ;
 	UpdateKnight();
 	counter++;
-	if (counter > 120)
+	if (counter > 60)
 		done = true;
 }
 
@@ -108,6 +110,7 @@ void PhantomAnim::Destroy()
 {
 	for (int i = 0; i < sprites.size(); i++)
 	{
+		free(sprites[i].srect);
 		delete sprites[i].sprite;
 	}
 }

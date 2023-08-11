@@ -1,11 +1,17 @@
 
 #include "../../../hdr/global.h"
 
+static int selectorOrientation = 0;
+
 static int getOrientation()
 {
-	static int orientation = 1;
+	return (selectorOrientation);
+}
+
+void PhantomSelector::ChangeOrientation()
+{
 	orientation = (orientation == 0) ? 1 : 0;
-	return (orientation);
+	selectorOrientation = orientation;
 }
 
 PhantomSelector::PhantomSelector(Character *character, int range, GroundColoring *coloring)
@@ -40,6 +46,8 @@ bool PhantomSelector::CheckPoint(SDL_Point ret)
 	if (gameState.battle.ground->map[ret.y][ret.x].character != NULL)
 		return (false);
 	if (gameState.battle.ground->map[ret.y][ret.x].obj != NULL)
+		return (false);
+	if (gameState.battle.ground->map[ret.y][ret.x].blocked)
 		return (false);
 	return (true);
 }

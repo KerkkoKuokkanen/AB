@@ -12,9 +12,14 @@ class SmokeEffect
 		SDL_Rect tileDest;
 		int orientation = 0;
 		void SwitchOrdering();
+		void CheckIfDone();
+		bool turn = true;
+		int time = 0;
+		Character *character = NULL;
 		SDL_Point pos;
 	public:
-		SmokeEffect(SDL_Point pos);
+		bool done = false;
+		SmokeEffect(Character *character, t_Ability *ability, SDL_Point pos);
 		~SmokeEffect() {Destroy();};
 		void Update();
 		void Destroy();

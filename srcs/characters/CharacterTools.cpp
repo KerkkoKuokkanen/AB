@@ -31,7 +31,7 @@ static void AssingDefaultThiefStats(std::vector<t_Ability> &stats)
 	stat0->damage = 90;
 	stats[1].stats = (void*)malloc(sizeof(t_LastingEffect));
 	t_LastingEffect *stat1 = (t_LastingEffect*)stats[1].stats;
-	stat1->turns = 3;
+	stat1->turns = 2;
 	stats[2].stats = (void*)malloc(sizeof(t_AttackStruct));
 	stat0 = (t_AttackStruct*)stats[2].stats;
 	stat0->critChance = 5;

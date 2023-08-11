@@ -107,6 +107,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/damages/addStatus.h"
 # include "ability/characterMover.h"
 # include "ability/objects/fireBall.h"
+# include "ability/objects/phantomKnight.h"
 # include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"
 # include "ability/animation/phantomAnim.h"

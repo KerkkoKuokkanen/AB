@@ -81,7 +81,7 @@ void Abilities::UpdateThiefObject(t_Object &object, int index)
 			SmokeBomb *used = (SmokeBomb*)object.object;
 			used->Update();
 			if (used->setEffect)
-				effectUpdater.SetEffect(2, targetPoint, *ability);
+				effectUpdater.SetEffect(character, targetPoint, ability);
 			if (used->destroy)
 			{
 				delete used;

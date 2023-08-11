@@ -7,7 +7,7 @@
 typedef struct s_SpriteAndSRect
 {
 	Sprite *sprite;
-	SDL_Rect srect;
+	SDL_Rect *srect;
 }				t_SpriteAndSRect;
 
 class PhantomAnim
