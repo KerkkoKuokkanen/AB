@@ -10,7 +10,8 @@ namespace StatStructs
 		ATTACK_STRUCT,
 		LASTING_EFFECT,
 		FLAME_PORT,
-		PHANTOM_KNIGHT
+		PHANTOM_KNIGHT,
+		TIERS
 	};
 };
 

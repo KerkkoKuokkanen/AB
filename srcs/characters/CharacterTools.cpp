@@ -49,6 +49,9 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	t_PhantomKnight *stat1 = (t_PhantomKnight*)stats[1].stats;
 	stat1->hits = 1;
 	stat1->turns = 1;
+	stats[2].stats = (void*)malloc(sizeof(int));
+	int *stat2 = (int*)stats[2].stats;
+	*stat2 = 1;
 }
 
 void Character::AssignAbilities()
@@ -72,7 +75,8 @@ void Character::AssignAbilities()
 			break ;
 		case LION:
 			abilities = {{LION_SMACK, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{PHANTOM_KNIGHT, 0, 0, 200, StatStructs::PHANTOM_KNIGHT, NULL}};
+						{PHANTOM_KNIGHT, 0, 0, 200, StatStructs::PHANTOM_KNIGHT, NULL},
+						{ROTATE, 0, 0, 200, StatStructs::TIERS, NULL}};
 			AssignDefaultLionStats(abilities);
 		default:
 			return ;

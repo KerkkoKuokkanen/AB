@@ -143,7 +143,7 @@ typedef struct s_Textures
 	SDL_Texture *sBar[3];
 	SDL_Texture *thiefAbilites[3];
 	SDL_Texture *pyroAbilities[4];
-	SDL_Texture *lionAbilities[2];
+	SDL_Texture *lionAbilities[3];
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];

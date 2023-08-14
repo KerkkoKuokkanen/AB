@@ -84,7 +84,7 @@ void getAudio()
 	Mix_Volume(Channels::INCINERATE_EXP_SOUND, 14);
 	Mix_Volume(Channels::LION_SMACK, 18);
 	Mix_Volume(Channels::STUN, 80);
-	Mix_Volume(Channels::PHANTOM_KNIGHT, 120);
+	Mix_Volume(Channels::PHANTOM_KNIGHT, 128);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -256,6 +256,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.stands.lionStand = get_texture(rend, "sprites/characters/lion/lionStand.png");
 	gameState.textures.lionAbilities[0] = get_texture(rend, "sprites/UI/abilities/smack.png");
 	gameState.textures.lionAbilities[1] = get_texture(rend, "sprites/UI/abilities/PhantomKnight.png");
+	gameState.textures.lionAbilities[2] = get_texture(rend, "sprites/UI/abilities/rotate.png");
 	gameState.textures.chars.lionSmack = get_texture(rend, "sprites/characters/lion/lionSmack.png");
 	gameState.textures.attacks.lionTrail = get_texture(rend, "sprites/characters/lion/lionSmackTrail.png");
 	gameState.textures.questionMark = get_texture(rend, "sprites/UI/questionMark.png");

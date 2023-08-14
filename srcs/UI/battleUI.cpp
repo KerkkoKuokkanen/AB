@@ -96,6 +96,9 @@ void CharacterUI::GetAbilities()
 			case PHANTOM_KNIGHT:
 				CreateButton(dest, gameState.textures.lionAbilities[1], PHANTOM_KNIGHT, activeCharacter->abilities[i].cost);
 				break ;
+			case ROTATE:
+				CreateButton(dest, gameState.textures.lionAbilities[2], ROTATE, activeCharacter->abilities[i].cost);
+				break ;
 		}
 	}
 }
