@@ -33,6 +33,8 @@ void PhantomSelector::HighlightBlock(SDL_Point ret)
 		return ;
 	if (gameState.battle.ground->map[ret.y][ret.x].obj != NULL)
 		return ;
+	if (gameState.battle.ground->map[ret.y][ret.x].blocked)
+		return ;
 	Color purp(84, 15, 20);
 	coloring->SetColoredPosition(ret, purp, purp);
 }

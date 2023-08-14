@@ -79,8 +79,8 @@ void Character::Update()
 		currentTexture = (currentTexture == 0) ? 1 : 0;
 		if (statuses.stun > 0)
 			return ;
-		sprite->setTexture(textures[currentTexture]);
-		stand->setTexture(stands[currentTexture]);
+		sprite->setTexture(textures[gameState.updateObjs.characterAnimIndex]);
+		stand->setTexture(stands[gameState.updateObjs.characterAnimIndex]);
 	}
 }
 

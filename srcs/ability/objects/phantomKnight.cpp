@@ -41,8 +41,7 @@ void PhantomKnight::UpdateSprites()
 	}
 	if (gameState.updateObjs.characterAnimIter == 50)
 	{
-		currText = (currText == 0) ? 1 : 0;
-		if (currText == 0)
+		if (gameState.updateObjs.characterAnimIndex == 0)
 			knight->setTexture(gameState.textures.chars.lionIdle[0]);
 		else
 			knight->setTexture(gameState.textures.chars.lionIdle[1]);

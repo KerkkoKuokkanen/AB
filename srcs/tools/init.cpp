@@ -36,6 +36,8 @@ void initKeys()
 	gameState.screenShake.yShake = 0;
 	gameState.screenShake.shakeVolume = 0;
 	gameState.modes.filterMode = 0;
+	gameState.updateObjs.characterAnimIter = 0;
+	gameState.updateObjs.characterAnimIndex = 0;
 }
 
 void initScreen(int width, int height)
@@ -82,6 +84,7 @@ void getAudio()
 	Mix_Volume(Channels::INCINERATE_EXP_SOUND, 14);
 	Mix_Volume(Channels::LION_SMACK, 18);
 	Mix_Volume(Channels::STUN, 80);
+	Mix_Volume(Channels::PHANTOM_KNIGHT, 120);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -109,6 +112,7 @@ void getAudio()
 	gameState.audio.incinerate[4] = Mix_LoadWAV("audio/abilities/pyro/expSound.wav");
 	gameState.audio.lionSmack = Mix_LoadWAV("audio/abilities/lion/punch.wav");
 	gameState.audio.stun = Mix_LoadWAV("audio/abilities/lion/stun.wav");
+	gameState.audio.phantomKnight = Mix_LoadWAV("audio/abilities/lion/summon.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -262,7 +266,7 @@ void	init(t_wr *wr)
 	srand((unsigned int)clock() + time(0));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	Mix_AllocateChannels(30);
+	Mix_AllocateChannels(40);
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	initScreen(1280, 720);

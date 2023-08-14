@@ -61,6 +61,7 @@ void PhantomAnim::CreateParticles(SDL_Point target)
 
 PhantomAnim::PhantomAnim(std::vector<SDL_Point> targets)
 {
+	PlaySound(gameState.audio.phantomKnight, Channels::PHANTOM_KNIGHT, 0);
 	done = false;
 	for (int i = 0; i < targets.size(); i++)
 	{

@@ -189,6 +189,9 @@ void ObjUpdate()
 	if (gameState.updateObjs.fadeIter >= 44.0f)
 		gameState.updateObjs.fadeIter = 0.0f;
 	if (gameState.updateObjs.characterAnimIter > 50)
+	{
+		gameState.updateObjs.characterAnimIndex = (gameState.updateObjs.characterAnimIndex == 0) ? 1 : 0;
 		gameState.updateObjs.characterAnimIter = 0;
+	}
 	UpdateHoveredCharacter();
 }
