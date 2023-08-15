@@ -69,6 +69,7 @@ class Abilities
 		void MultiSelectorWithCharacter();
 		void AllSelectorUpdate();
 		void UpdateMisses();
+		void UpdateRotate(int index);
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 		bool CheckForPhantomKnight();
 

@@ -313,5 +313,11 @@ void Statuses::Destroy()
 		if (statuses[i].images.number != NULL)
 			delete statuses[i].images.number;
 	}
+	for (int i = 0; i < pulsers.size(); i++)
+	{
+		if (pulsers[i].sprite != NULL)
+			delete pulsers[i].sprite;
+	}
 	statuses.clear();
+	pulsers.clear();
 }

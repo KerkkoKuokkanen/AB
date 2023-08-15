@@ -52,7 +52,7 @@ void HoverBars::Update(Character *target)
 {
 	if (target == NULL || target->killed || gameState.updateObjs.abilities->marking || target->damaged
 		|| gameState.updateObjs.turnOrder->turnChange || gameState.updateObjs.turnOrder->turnStartActive ||
-		gameState.modes.filterMode == 2)
+		gameState.modes.filterMode == 2 || target->moving)
 	{
 		HoverBars::target = NULL;
 		health->Deactivate();

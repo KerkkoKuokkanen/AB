@@ -4,9 +4,10 @@
 void BattleGround::CreateNewLine()
 {
 	SDL_Rect tempDest = {-5000, 0, 1000, 1000};
-	Sprite line(lineInd, tempDest, NULL, NULL, 0, FLIP_NONE);
-	moveLines.push_back(new Sprite(line));
-	gameState.render->AddSprite(moveLines[moveLines.size() - 1], layer + 1);
+	Sprite *line = new Sprite(lineInd, tempDest, NULL, NULL, 0, FLIP_NONE);
+	line->orderLayer = 0;
+	moveLines.push_back(line);
+	gameState.render->AddSprite(moveLines[moveLines.size() - 1], LINE_LAYER);
 	moveLines[moveLines.size() - 1]->Deactivate();
 }
 

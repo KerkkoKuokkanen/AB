@@ -1,6 +1,16 @@
 
 #include "../../hdr/global.h"
 
+static void SetSelectorForRotate(t_Ability *ability, Selector *selector)
+{
+	int *tier = (int*)ability->stats;
+	selector->ClearStunned(true, false);
+	if (*tier == 1)
+		selector->SetSelectorFor(true, false);
+	else
+		selector->SetSelectorFor(true, true);
+}
+
 void Abilities::SetSelector(t_Ability *ability, Character *character)
 {
 	SDL_Point pos = character->position;
@@ -23,7 +33,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
 		case FLAME_BLAST:
-			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, true, 2);
+			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, true, 8);
 			break ;
 		case INCINERATE:
 			allSelector = new AllSelector(pos, 6, 0, &groundColoring, true, StatusSigns::BURN);
@@ -33,6 +43,10 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			break ;
 		case PHANTOM_KNIGHT:
 			phantSelector = new PhantomSelector(character, 8, &groundColoring);
+			break ;
+		case ROTATE:
+			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			SetSelectorForRotate(ability, selector);
 			break ;
 	}
 }
@@ -84,6 +98,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case PHANTOM_KNIGHT:
 			SetScreenShake(300, 8);
 			animations.push_back({new PhantomAnim(targPoints), PHANTOM_KNIGHT});
+			break ;
+		case ROTATE:
+			animations.push_back({new Rotate(character, target), ROTATE});
 			break ;
 	}
 }
@@ -228,6 +245,11 @@ void Abilities::AnimationUpdater()
 {
 	for (int i = 0; i < animations.size(); i++)
 	{
+		if (animations[i].type == ROTATE)
+		{
+			UpdateRotate(i);
+			continue ;
+		}
 		switch (character->cSing)
 		{
 			case THIEF:

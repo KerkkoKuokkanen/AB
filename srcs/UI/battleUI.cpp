@@ -363,5 +363,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case PHANTOM_KNIGHT:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(PHANTOM_KNIGHT), activeCharacter);
 			break ;
+		case ROTATE:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ROTATE), activeCharacter);
+			break ;
 	}
 }

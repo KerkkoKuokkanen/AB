@@ -42,6 +42,7 @@ void EffectUpdater::SetEffect(Character *character, SDL_Point pos, t_Ability *ab
 
 void EffectUpdater::UpdateEffect(t_AbilityEffect &effect, int index)
 {
+	bool done = false;
 	switch (effect.ability->type)
 	{
 		case SMOKE_BOMB:
@@ -61,6 +62,11 @@ void EffectUpdater::UpdateEffect(t_AbilityEffect &effect, int index)
 			use->Update();
 			if (use->done)
 			{
+				if (!done)
+				{
+					PlaySound(gameState.audio.poof, Channels::POOF, 0);
+					done = true;
+				}
 				delete use;
 				effects.erase(effects.begin() + index);
 			}

@@ -119,7 +119,7 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 			sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
 		else
 			sprites[index][sprites[index].size() - 1].ColorMod(255, 181, 181);
-		if (movedCharacter.iterator >= 15)
+		if (movedCharacter.iterator == 15)
 		{
 			movedCharacter.character->sprite->orderLayer = next.y;
 			movedCharacter.character->stand->orderLayer = next.y;
@@ -133,7 +133,7 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 
 void BattleGround::MangeIterator(Vector newPos)
 {
-	if (movedCharacter.iterator == 28)
+	if (movedCharacter.iterator >= 28)
 	{
 		movedCharacter.iterator = 0;
 		movedCharacter.index += 1;

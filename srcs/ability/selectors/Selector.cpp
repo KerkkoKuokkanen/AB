@@ -143,17 +143,45 @@ void Selector::SetBlock(SDL_Point target)
 
 Character *Selector::GetRet(Character *character, SDL_Point pos)
 {
+	if (character->killed)
+		return (NULL);
 	Color purp = {84, 15, 20}, colorH(245, 147, 66), colorL(204, 126, 61);
-	if (character->ally && sForAlly)
+	Character *used = gameState.battle.ground->map[position.y][position.x].character;
+	if (character->ally && sForAlly && used != character)
 	{
-		groundColoring->SetColoredPosition(pos, purp, purp);
-		return (character);
+		if (stunAlly)
+		{
+			if (character->statuses.stun == 0)
+			{
+				SetBlock(pos);
+				groundColoring->SetColoredPosition(pos, purp, purp);
+				return (character);
+			}
+		}
+		else
+		{
+			SetBlock(pos);
+			groundColoring->SetColoredPosition(pos, purp, purp);
+			return (character);
+		}
 	}
 	if (!character->ally && sForEnemy)
 	{
-		SetBlock(pos);
-		groundColoring->SetColoredPosition(pos, purp, purp);
-		return (character);
+		if (stunEnemy)
+		{
+			if (character->statuses.stun == 0)
+			{
+				SetBlock(pos);
+				groundColoring->SetColoredPosition(pos, purp, purp);
+				return (character);
+			}
+		}
+		else
+		{
+			SetBlock(pos);
+			groundColoring->SetColoredPosition(pos, purp, purp);
+			return (character);
+		}
 	}
 	groundColoring->SetColoredPosition(pos, colorH, colorL);
 	return (NULL);

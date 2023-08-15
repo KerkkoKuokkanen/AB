@@ -26,9 +26,10 @@ void BattleGround::MoveInit(SDL_Renderer *rend)
 void BattleGround::CreateNewIndicator()
 {
 	SDL_Rect tempDest = {0, 0, 1000, 1000};
-	Sprite point(moveInd, tempDest, NULL, NULL, 0, FLIP_NONE);
-	moveIndicators.push_back(new Sprite(point));
-	gameState.render->AddSprite(moveIndicators[moveIndicators.size() - 1], layer + 1);
+	Sprite *point = new Sprite(moveInd, tempDest, NULL, NULL, 0, FLIP_NONE);
+	point->orderLayer = 1;
+	moveIndicators.push_back(point);
+	gameState.render->AddSprite(moveIndicators[moveIndicators.size() - 1], LINE_LAYER);
 	moveIndicators[moveIndicators.size() - 1]->Deactivate();
 	moveIndicators[moveIndicators.size() - 1]->orderLayer = 1;
 }

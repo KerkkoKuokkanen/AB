@@ -1,5 +1,20 @@
 
 #include "../../../hdr/global.h"
+#define PART_AMOUNT 300
+
+static Color GetColor()
+{
+	int hit = rand() % 100;
+	if (hit > 91)
+		return (Color(255, 255, 255));
+	if (hit < 70)
+		return (Color(0, 76, 255));
+	if (hit > 25)
+		return (Color(0, 217, 255));
+	if (hit > 10)
+		return (Color(0, 255, 213));
+	return (Color(1, 1, 1));
+}
 
 PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos)
 {
@@ -69,8 +84,29 @@ void PhantomKnight::Update()
 		done = true;
 }
 
+void PhantomKnight::CreateParticles()
+{
+	SDL_Point pos = {knight->dest.x + 3100, knight->dest.y + 4000};
+	for (int i = 0; i < PART_AMOUNT; i++)
+	{
+		int xAdd = rand() % 1000;
+		int yAdd = rand() % 2600;
+		xAdd = (rand() % 2 == 0) ? -xAdd : xAdd;
+		yAdd = (rand() % 2 == 0) ? -yAdd : yAdd;
+		float angle = float_rand() * (2.0f * PI);
+		Vector dir(0.0f, -1.0f);
+		vectorRotate(dir, angle);
+		float drag = 1.02f + float_rand() * 0.1f;
+		float speed = rand() % 160 + 40;
+		Vector place((float)(pos.x + xAdd), (float)(pos.y + yAdd));
+		int life = rand() % 40 + 60;
+		gameState.updateObjs.partManager->CreateModParticle(dir, place, speed, GetColor(), Color(1, 1, 1), life, drag, false);
+	}
+}
+
 void PhantomKnight::Destroy()
 {
+	CreateParticles();
 	gameState.battle.ground->map[position.y][position.x].blocked = false;
 	if (knight != NULL)
 		delete knight;

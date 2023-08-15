@@ -85,6 +85,8 @@ void getAudio()
 	Mix_Volume(Channels::LION_SMACK, 18);
 	Mix_Volume(Channels::STUN, 80);
 	Mix_Volume(Channels::PHANTOM_KNIGHT, 128);
+	Mix_Volume(Channels::ROTATE, 35);
+	Mix_Volume(Channels::POOF, 28);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -113,6 +115,8 @@ void getAudio()
 	gameState.audio.lionSmack = Mix_LoadWAV("audio/abilities/lion/punch.wav");
 	gameState.audio.stun = Mix_LoadWAV("audio/abilities/lion/stun.wav");
 	gameState.audio.phantomKnight = Mix_LoadWAV("audio/abilities/lion/summon.wav");
+	gameState.audio.rotate = Mix_LoadWAV("audio/abilities/lion/rotate.wav");
+	gameState.audio.poof = Mix_LoadWAV("audio/abilities/lion/poof.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -274,6 +278,7 @@ void	init(t_wr *wr)
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
+	render.CreateLayer(LAYER_ORDER_SORT); //line layer
 	render.CreateLayer(LAYER_NO_SORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer

@@ -17,6 +17,7 @@ class PhantomKnight
 		int currentTurn = 0;
 		void UpdateSprites();
 		void CheckTurns();
+		void CreateParticles();
 		bool cTurn = true;
 	public:
 		bool done = false;

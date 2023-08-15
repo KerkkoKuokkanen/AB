@@ -39,7 +39,9 @@ namespace Channels
 		INCINERATE_EXP_SOUND,
 		LION_SMACK,
 		STUN,
-		PHANTOM_KNIGHT
+		PHANTOM_KNIGHT,
+		ROTATE,
+		POOF
 	};
 }
 
@@ -176,6 +178,8 @@ typedef struct s_Audio
 	Mix_Chunk *lionSmack;
 	Mix_Chunk *stun;
 	Mix_Chunk *phantomKnight;
+	Mix_Chunk *rotate;
+	Mix_Chunk *poof;
 }				t_Audio;
 
 typedef struct s_MouseOver

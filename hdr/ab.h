@@ -27,6 +27,7 @@
 //layer defines
 enum {
 	BATTLEGROUND_LAYER,
+	LINE_LAYER,
 	DUST_LAYER,
 	PARTICLE_LAYER,
 	OBJECT_LAYER,
@@ -109,6 +110,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/characterMover.h"
 # include "ability/objects/fireBall.h"
 # include "ability/objects/phantomKnight.h"
+# include "ability/animation/rotate.h"
 # include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"
 # include "ability/animation/phantomAnim.h"
