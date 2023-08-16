@@ -26,7 +26,9 @@ bool ControlSetter::CheckValid(SDL_Point pos)
 		return (false);
 	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
 		return (false);
-	if (gameState.battle.ground->map[pos.y][pos.x].blocked)
+	if (gameState.battle.ground->map[pos.y][pos.x].blocked && gameState.battle.ground->map[pos.y][pos.x].character == NULL)
+		return (false);
+	if (gameState.battle.ground->map[pos.y][pos.x].character != NULL && gameState.battle.ground->map[pos.y][pos.x].character->ally == character->ally)
 		return (false);
 	return (true);
 }

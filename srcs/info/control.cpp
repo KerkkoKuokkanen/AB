@@ -9,7 +9,7 @@ Control::Control(SDL_Point pos, bool ally)
 	sprite = new Sprite(gameState.textures.control, dest, NULL, NULL, 0, FLIP_NONE);
 	sprite->orderLayer = pos.y;
 	int height = gameState.battle.ground->map[pos.y][pos.x].height;
-	sprite->z = (float)height * (float)BATTLE_DEPTH_UNIT + 0.5f;
+	sprite->z = (float)height * (float)BATTLE_DEPTH_UNIT + 8.5f;
 	gameState.render->AddSprite(sprite, BATTLEGROUND_LAYER);
 	sprite->AlphaMod(170);
 	if (!ally)
@@ -23,7 +23,9 @@ void Control::Update()
 	if (gameState.battle.ground->map[pos.y][pos.x].active == false)
 		sprite->AlphaMod(10);
 	else
-		sprite->AlphaMod(170);
+	{
+		sprite->AlphaMod(200);
+	}
 }
 
 void Control::Destroy()
