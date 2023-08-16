@@ -55,6 +55,8 @@ Character *OpportunityAttack::CheckValid(SDL_Point pos)
 		return (NULL);
 	if (ret->ally == target->ally)
 		return (NULL);
+	if (ret->statuses.stun != 0)
+		return (NULL);
 	return (ret);
 }
 
