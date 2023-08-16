@@ -153,6 +153,13 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 	}
 }
 
+void Damager::AddOpportunityDamage(Character *damager, Character *target)
+{
+	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::LOWER_VOLUME_HIT, 0};
+	std::vector<t_Sound> sounds = {add3};
+	damageCreator.CreateDamage(target, Color(255, 0, 0), 5, 5, GetDirection(damager, target), sounds);
+}
+
 void Damager::UpdateBars()
 {
 	for (int i = 0; i < bars.size(); i++)

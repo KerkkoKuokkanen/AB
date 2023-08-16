@@ -48,7 +48,7 @@ class Abilities
 		AllSelector *allSelector = NULL;
 		PhantomSelector *phantSelector = NULL;
 		Damager damager;
-		EffectUpdater effectUpdater;
+		OpportunityAttack oAttack;
 
 		void SetSelector(t_Ability *ability, Character *character);
 		void ActivateAbility(t_Ability *ability, Character *character);
@@ -74,6 +74,7 @@ class Abilities
 		bool CheckForPhantomKnight();
 
 	public:
+		EffectUpdater effectUpdater;
 		bool inMotion = false;
 		bool active = false;
 		bool marking = false;
@@ -81,6 +82,8 @@ class Abilities
 		void SetMap() {groundColoring.SetMap();};
 		void Upadte();
 		void Clear();
+		void CreateOpportunityDamage(Character *damager, Character *target);
+		void CreateMiss(Character *damager, Character *target);
 };
 
 #endif

@@ -41,7 +41,9 @@ namespace Channels
 		STUN,
 		PHANTOM_KNIGHT,
 		ROTATE,
-		POOF
+		POOF,
+		LOWER_VOLUME_HIT,
+		LOWER_VOLUME_WHIFF
 	};
 }
 
@@ -157,6 +159,7 @@ typedef struct s_Textures
 	SDL_Texture *marker;
 	SDL_Texture *counter;
 	SDL_Texture *questionMark;
+	SDL_Texture *control;
 }				t_Textures;
 
 typedef struct s_Audio

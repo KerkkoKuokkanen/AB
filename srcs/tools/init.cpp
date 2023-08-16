@@ -38,6 +38,7 @@ void initKeys()
 	gameState.modes.filterMode = 0;
 	gameState.updateObjs.characterAnimIter = 0;
 	gameState.updateObjs.characterAnimIndex = 0;
+	gameState.modes.disableBars = false;
 }
 
 void initScreen(int width, int height)
@@ -87,6 +88,8 @@ void getAudio()
 	Mix_Volume(Channels::PHANTOM_KNIGHT, 128);
 	Mix_Volume(Channels::ROTATE, 35);
 	Mix_Volume(Channels::POOF, 28);
+	Mix_Volume(Channels::LOWER_VOLUME_HIT, 17);
+	Mix_Volume(Channels::LOWER_VOLUME_WHIFF, 50);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -264,6 +267,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.lionSmack = get_texture(rend, "sprites/characters/lion/lionSmack.png");
 	gameState.textures.attacks.lionTrail = get_texture(rend, "sprites/characters/lion/lionSmackTrail.png");
 	gameState.textures.questionMark = get_texture(rend, "sprites/UI/questionMark.png");
+	gameState.textures.control = get_texture(rend, "sprites/env/control.png");
 }
 
 void	init(t_wr *wr)

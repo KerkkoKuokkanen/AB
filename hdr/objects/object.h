@@ -27,6 +27,7 @@ class Object
 		void CheckMouseHover();
 		bool fadeOnMouseOver;
 		int overCounter;
+		int GetTheHeight();
 	public:
 		int size;
 		Sprite *sprite;

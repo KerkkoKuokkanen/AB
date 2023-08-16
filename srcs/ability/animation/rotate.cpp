@@ -28,12 +28,11 @@ Rotate::Rotate(Character *character, Character *target)
 		done = true;
 		return ;
 	}
+	gameState.modes.disableBars = true;
 	PlaySound(gameState.audio.TFootStep[rand() % 3], Channels::THIEF_STEP_CHANNEL, 0);
 	PlaySound(gameState.audio.rotate, Channels::ROTATE, 0);
 	Rotate::character = character;
 	Rotate::target = target;
-	character->moving = true;
-	target->moving = true;
 	character->sprite->ClearAlphaMod();
 	character->stand->ClearAlphaMod();
 	target->sprite->ClearAlphaMod();
@@ -114,11 +113,10 @@ void Rotate::ManageIterator()
 {
 	if (counter >= 28)
 	{
+		gameState.modes.disableBars = false;
 		done = true;
 		gameState.battle.ground->PlaceCharacter(characterTarget, character);
 		gameState.battle.ground->PlaceCharacter(targetTarget, target);
-		character->moving = false;
-		target->moving = false;
 	}
 	counter++;
 }
@@ -137,5 +135,6 @@ void Rotate::Update()
 
 void Rotate::Destroy()
 {
+	gameState.modes.disableBars = false;
 	return ;
 }

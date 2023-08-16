@@ -16,6 +16,7 @@ Info::Info()
 	hoverBars = new HoverBars;
 	counter = new Counter;
 	stunUpdates = new StunUpdates;
+	controls = new ControlSetter;
 	hovered = NULL;
 }
 
@@ -87,6 +88,7 @@ void Info::Update()
 	hoverBars->Update(hovered);
 	counter->Update();
 	stunUpdates->Update();
+	controls->Update();
 	overInfo = counter->insideBox;
 }
 

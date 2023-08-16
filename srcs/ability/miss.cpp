@@ -23,6 +23,20 @@ MISS *createBasicMISS(SDL_Point start, SDL_Point target, bool sound)
 	return (new MISS(place, sound, left));
 }
 
+MISS *createOpportunityMISS(Character *damager, Character *target, bool sound)
+{
+	bool left = false;
+	SDL_Rect dest1 = gameState.battle.ground->getTileDest(damager->position);
+	SDL_Rect dest2 = gameState.battle.ground->getTileDest(target->position);
+	if (dest1.x > dest2.x)
+		left = true;
+	Vector place((float)(dest2.x + 3000), (float)(dest2.y + 1700.0f));
+	SDL_Rect dest = target->sprite->dest;
+	place.x = (float)(dest.x + (dest.w / 3));
+	place.y = (float)(dest.y + (dest.h / 4));
+	return (new MISS(place, sound, left));
+}
+
 MISS::MISS(Vector place, bool sound, bool left)
 {
 	if (sound)

@@ -18,7 +18,7 @@ void TempInitBattle()
 	SDL_Point point2 = {3, 12};
 	SDL_Point point3 = {9, 2};
 	SDL_Point point4 = {8, 10};
-	SDL_Point point5 = {7, 6};
+	SDL_Point point5 = {8, 5};
 	SDL_Point point6 = {2, 12};
 	SDL_Point point7 = {9, 3};
 	SDL_Point point10 = {5, 6};
@@ -44,6 +44,8 @@ int MainLoop(t_wr &wr)
 	while (true)
 	{
 		start = clock();
+		if (gameState.keys.a)
+			gameState.battle.ground->CancelMovement();
 		Utility();
 		gameState.battle.ground->Update();
 		if (gameState.keys.space == 1)

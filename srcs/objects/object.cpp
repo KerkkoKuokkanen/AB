@@ -1,6 +1,36 @@
 
 #include "../../hdr/global.h"
 
+static bool CheckValid(SDL_Point pos)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return (false);
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return (false);
+	return (true);
+}
+
+int Object::GetTheHeight()
+{
+	int left = getXToLeft(pos);
+	int right = getXToRight(pos);
+	int currH = gameState.battle.ground->map[pos.y][pos.x].height;
+	SDL_Point pos1 = {left, pos.y + 1};
+	SDL_Point pos2 = {right, pos.y + 1};
+	int h1 = 0;
+	if (CheckValid(pos1))
+		h1 = gameState.battle.ground->map[pos1.y][pos1.x].height;
+	int h2 = 0;
+	if (CheckValid(pos2))
+		h2 = gameState.battle.ground->map[pos2.y][pos2.x].height;
+	int used = 0;
+	if (h1 <= currH)
+		used = h1;
+	if (h2 > used && h2 <= currH)
+		used = h2;
+	return (used);
+}
+
 Object::Object(int type, SDL_Point position, bool fadeOnMouseOver)
 {
 	SDL_Rect dest = getRect(type, position);
@@ -14,7 +44,7 @@ Object::Object(int type, SDL_Point position, bool fadeOnMouseOver)
 	gameState.battle.ground->map[position.y][position.x].blocked = true;
 	gameState.battle.ground->map[position.y][position.x].obj = this;
 	sprite->orderLayer = (position.y + 1);
-	sprite->setDepth(height * BATTLE_DEPTH_UNIT + 2);
+	sprite->setDepth(GetTheHeight() * BATTLE_DEPTH_UNIT + 0.1f);
 	Object::fadeOnMouseOver = fadeOnMouseOver;
 	overCounter = 0;
 	gameState.updateObjs.objUpdate->AddObject(this);

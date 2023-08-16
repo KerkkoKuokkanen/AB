@@ -31,8 +31,6 @@ class BattleGround {
 	private:
 		SDL_Texture *moveInd;
 		SDL_Texture *lineInd;
-		t_Mover movedCharacter = {NULL, {}, 0, 0};
-		std::vector<std::vector<int>> toolMap;	//remember to clear
 		std::vector<Sprite*> moveIndicators;
 		std::vector<Sprite*> moveLines;
 		void MoveInit(SDL_Renderer *rend);
@@ -75,6 +73,9 @@ class BattleGround {
 		void AddDust(SDL_Point curr, SDL_Point next);
 		void CheckBlocked(int i, int j);
 	public:
+		t_Mover movedCharacter = {NULL, {}, 0, 0};
+		std::vector<std::vector<int>> toolMap;	//remember to clear
+		void CancelMovement();
 		std::vector<t_Troop> characters;	//remember to clear
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);

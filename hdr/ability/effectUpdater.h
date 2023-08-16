@@ -15,12 +15,12 @@ class EffectUpdater
 {
 	private:
 		int turnChecker = 0;
-		std::vector<t_AbilityEffect> effects;
 		void CreateEffect(Character *character, t_AbilityEffect &add);
 		void DeleteEffect(t_AbilityEffect &effect);
 		void UpdateEffect(t_AbilityEffect &effect, int index);
 		t_AbilityEffect *CheckForEffectAlready(int type, SDL_Point pos);
 	public:
+		std::vector<t_AbilityEffect> effects;
 		void SetEffect(Character *character, SDL_Point pos, t_Ability *ability);
 		void Update();
 		void Clear();

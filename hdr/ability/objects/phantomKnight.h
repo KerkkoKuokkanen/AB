@@ -7,10 +7,8 @@
 class PhantomKnight
 {
 	private:
-		Character *character = NULL;
 		Sprite *knight;
 		Sprite *stand;
-		SDL_Point position = {0, 0};
 		int hp = 0;
 		int turns = 0;
 		int currText = 0;
@@ -20,6 +18,8 @@ class PhantomKnight
 		void CreateParticles();
 		bool cTurn = true;
 	public:
+		SDL_Point position = {0, 0};
+		Character *character = NULL;
 		bool done = false;
 		PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos);
 		~PhantomKnight() {Destroy();};

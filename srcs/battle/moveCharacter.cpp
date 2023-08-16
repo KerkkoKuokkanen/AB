@@ -9,7 +9,6 @@ void BattleGround::setMoved(std::vector<SDL_Point> &path)
 	for (int i = path.size() - 1; i >= 0; i--)
 		movedCharacter.path.push_back(path[i]);
 	movedCharacter.character = map[movedCharacter.path[0].y][movedCharacter.path[0].x].character;
-	gameState.updateObjs.UI->UseEnergy(toolMap[path[0].y][path[0].x]);
 	movedCharacter.index = 0;
 	movedCharacter.iterator = 0;
 	movedCharacter.character->clicked = false;
@@ -173,4 +172,17 @@ void BattleGround::MoveCharacter()
 	Vector place = GetPlaceWithIterator(ogPos, newPos, unit, highPoint, curr, next);
 	movedCharacter.character->Position(place);
 	MangeIterator(newPos);
+}
+
+void BattleGround::CancelMovement()
+{
+	if (movedCharacter.character == NULL)
+		return ;
+	movedCharacter.character->sprite->setAngle(0);
+	movedCharacter.character->stand->setAngle(0);
+	movedCharacter.character->moving = false;
+	movedCharacter.character->clicked = false;
+	PlaceCharacter(movedCharacter.character->position, movedCharacter.character);
+	movedCharacter.character = NULL;
+	movedCharacter.path.clear();
 }

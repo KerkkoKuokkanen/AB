@@ -100,6 +100,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/energy.h"
 # include "objects/object.h"
 # include "objects/objUpdate.h"
+# include "info/control.h"
+# include "info/controlSetter.h"
 # include "info/counter.h"
 # include "info/filterModeBars.h"
 # include "info/hoverBars.h"
@@ -126,6 +128,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/damages/damageCreator.h"
 # include "ability/effectUpdater.h"
 # include "ability/damages/Damager.h"
+# include "ability/damages/opportunity.h"
 # include "ability/selectors/allSelector.h"
 # include "ability/selectors/selector.h"
 # include "ability/selectors/selectorForTiles.h"
@@ -182,6 +185,7 @@ typedef struct s_Screen
 typedef struct s_Modes
 {
 	int filterMode;
+	bool disableBars;
 }				t_Modes;
 
 typedef struct s_Camera
@@ -244,6 +248,7 @@ Vector			getDirection(Vector generalDir);
 void			SetScreenShake(int volume, int time);
 void			ShakeTheScreen();
 MISS			*createBasicMISS(SDL_Point start, SDL_Point target, bool sound);
+MISS			*createOpportunityMISS(Character *damager, Character *target, bool sound);
 Vector			GetCharacterTopMid(Character *character);
 
 t_GMU *getMapTopRight(SDL_Point pos);

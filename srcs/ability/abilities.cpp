@@ -214,6 +214,7 @@ void Abilities::Upadte()
 	UpdateSelector();
 	AnimationUpdater();
 	ObjectUpdater();
+	oAttack.Update();
 	effectUpdater.Update();
 	damager.Update();
 	groundColoring.Update();
@@ -290,6 +291,17 @@ void Abilities::AbilityStatus()
 		return ;
 	if (objects.size() == 0 && animations.size() == 0)
 		Clear();
+}
+
+void Abilities::CreateOpportunityDamage(Character *damager, Character *target)
+{
+	Abilities::damager.AddOpportunityDamage(damager, target);
+}
+
+void Abilities::CreateMiss(Character *dmg, Character *target)
+{
+	misses.push_back(createOpportunityMISS(target, dmg, false));
+	PlaySound(gameState.audio.whiff, Channels::LOWER_VOLUME_WHIFF, 0);
 }
 
 void Abilities::ClearMap()

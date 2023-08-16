@@ -48,6 +48,7 @@ typedef struct s_FlamePortStats
 typedef struct s_PhantomKnight
 {
 	int turns;
+	bool opportunity;
 	int hits;
 }				t_PhantomKnight;
 

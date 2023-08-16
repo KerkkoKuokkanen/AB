@@ -10,6 +10,7 @@ class Info
 		Character *hovered;
 		HoverBars *hoverBars;
 		Counter *counter;
+		ControlSetter *controls;
 		FilterModeBars *filterMode = NULL;
 		StunUpdates *stunUpdates = NULL;
 		void FindHoveredCharacter();

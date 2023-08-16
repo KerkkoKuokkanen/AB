@@ -28,6 +28,7 @@ class Damager
 		void CreateDebuff(t_Ability *ability, Character *character, SDL_Point targ);
 	public:
 		void AddDamage(t_Ability *ability, Character *character, std::vector<SDL_Point> &targets, bool sound = true);
+		void AddOpportunityDamage(Character *damager, Character *target);
 		void Update();
 };
 
