@@ -43,7 +43,8 @@ namespace Channels
 		ROTATE,
 		POOF,
 		LOWER_VOLUME_HIT,
-		LOWER_VOLUME_WHIFF
+		LOWER_VOLUME_WHIFF,
+		OPPORTUNIRY
 	};
 }
 
@@ -183,6 +184,7 @@ typedef struct s_Audio
 	Mix_Chunk *phantomKnight;
 	Mix_Chunk *rotate;
 	Mix_Chunk *poof;
+	Mix_Chunk *opportunity;
 }				t_Audio;
 
 typedef struct s_MouseOver

@@ -95,7 +95,7 @@ void OpportunityAttack::StartDamage()
 {
 	if (damager == NULL || target == NULL)
 		return ;
-	mover = new CharacterMover(damager, GetDirection(), 12, 12, 120.0f);
+	mover = new CharacterMover(damager, GetDirection(), 10, 10, 220.0f);
 	if (!hits)
 	{
 		SDL_Point pos = gameState.battle.ground->movedCharacter.path[gameState.battle.ground->movedCharacter.path.size() - 1];
@@ -103,6 +103,7 @@ void OpportunityAttack::StartDamage()
 	}
 	else
 	{
+		PlaySound(gameState.audio.opportunity, Channels::OPPORTUNIRY, 0);
 		SDL_Point pos = gameState.battle.ground->movedCharacter.path[1];
 		gameState.updateObjs.UI->UseEnergy(gameState.battle.ground->toolMap[pos.y][pos.x]);
 	}
@@ -150,7 +151,7 @@ void OpportunityAttack::Update()
 	if (mover != NULL)
 	{
 		int ret = mover->Update();
-		if (ret == 11)
+		if (ret == 9)
 			CreateDamageOrMiss();
 		if (ret == (-1))
 		{

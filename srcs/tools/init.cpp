@@ -90,6 +90,7 @@ void getAudio()
 	Mix_Volume(Channels::POOF, 28);
 	Mix_Volume(Channels::LOWER_VOLUME_HIT, 17);
 	Mix_Volume(Channels::LOWER_VOLUME_WHIFF, 50);
+	Mix_Volume(Channels::OPPORTUNIRY, 100);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -120,6 +121,7 @@ void getAudio()
 	gameState.audio.phantomKnight = Mix_LoadWAV("audio/abilities/lion/summon.wav");
 	gameState.audio.rotate = Mix_LoadWAV("audio/abilities/lion/rotate.wav");
 	gameState.audio.poof = Mix_LoadWAV("audio/abilities/lion/poof.wav");
+	gameState.audio.opportunity = Mix_LoadWAV("audio/abilities/opportunity.wav");
 }
 
 void getTextures(SDL_Renderer *rend)
