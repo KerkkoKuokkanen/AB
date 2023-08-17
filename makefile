@@ -19,7 +19,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/animation/smokeBombAnim.cpp srcs/ability/animation/lionSmackAnim.cpp srcs/ability/switches/lionUpdates.cpp \
 		srcs/characters/StatusUpdater.cpp srcs/info/stunUpdates.cpp srcs/ability/selectors/phantomSelector.cpp \
 		srcs/ability/animation/phantomAnim.cpp srcs/ability/objects/phantomKnight.cpp srcs/ability/animation/rotate.cpp \
-		srcs/ability/switches/updateRotate.cpp srcs/info/control.cpp srcs/info/controlSetter.cpp srcs/ability/damages/opportunity.cpp
+		srcs/ability/switches/updateRotate.cpp srcs/info/control.cpp srcs/info/controlSetter.cpp srcs/ability/damages/opportunity.cpp \
+		srcs/info/movementEnergy.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

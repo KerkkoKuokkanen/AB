@@ -174,7 +174,7 @@ void BattleGround::MoveCharacter()
 	MangeIterator(newPos);
 }
 
-void BattleGround::CancelMovement()
+void BattleGround::CancelMovement(SDL_Point pos)
 {
 	if (movedCharacter.character == NULL)
 		return ;
@@ -182,7 +182,8 @@ void BattleGround::CancelMovement()
 	movedCharacter.character->stand->setAngle(0);
 	movedCharacter.character->moving = false;
 	movedCharacter.character->clicked = false;
-	PlaceCharacter(movedCharacter.character->position, movedCharacter.character);
+	movedCharacter.index = (-1);
+	PlaceCharacter(pos, movedCharacter.character);
 	movedCharacter.character = NULL;
 	movedCharacter.path.clear();
 }

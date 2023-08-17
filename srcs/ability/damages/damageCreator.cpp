@@ -80,7 +80,7 @@ void DamageCreator::MoveManage(Character *character, int time, Vector direction,
 		character->sprite->Move(Vector(-dir.x * amount, -dir.y * amount));
 		return ;
 	}
-	character->sprite->Position(Vector(dest.x, dest.y));
+	gameState.battle.ground->PlaceCharacter(character->position, character);
 	SDL_Point pos = character->position;
 	character->sprite->orderLayer = pos.y;
 }

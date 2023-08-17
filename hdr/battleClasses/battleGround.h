@@ -75,7 +75,7 @@ class BattleGround {
 	public:
 		t_Mover movedCharacter = {NULL, {}, 0, 0};
 		std::vector<std::vector<int>> toolMap;	//remember to clear
-		void CancelMovement();
+		void CancelMovement(SDL_Point pos);
 		std::vector<t_Troop> characters;	//remember to clear
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);

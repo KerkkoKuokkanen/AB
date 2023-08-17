@@ -11,7 +11,7 @@ class OpportunityAttack
 		Character *target = NULL;
 		CharacterMover *mover = NULL;
 		Character *AnyOneMoving();
-		bool tried = false;
+		int tried = false;
 		bool hits = false;
 		void CheckForTargets();
 		Character *GetDamager();

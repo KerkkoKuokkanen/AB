@@ -44,8 +44,6 @@ int MainLoop(t_wr &wr)
 	while (true)
 	{
 		start = clock();
-		if (gameState.keys.a)
-			gameState.battle.ground->CancelMovement();
 		Utility();
 		gameState.battle.ground->Update();
 		if (gameState.keys.space == 1)

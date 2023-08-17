@@ -17,6 +17,7 @@ Info::Info()
 	counter = new Counter;
 	stunUpdates = new StunUpdates;
 	controls = new ControlSetter;
+	movementEnergy = new MovementEnergy;
 	hovered = NULL;
 }
 
@@ -89,6 +90,7 @@ void Info::Update()
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();
+	movementEnergy->Update();
 	overInfo = counter->insideBox;
 }
 
@@ -96,6 +98,8 @@ void Info::Destroy()
 {
 	delete hoverBars;
 	delete counter;
+	delete movementEnergy;
+	delete controls;
 	if (stunUpdates != NULL)
 		delete stunUpdates;
 }

@@ -215,6 +215,7 @@ void BattleGround::PlaceCharacter(SDL_Point &position, Character *character)
 	SDL_Rect location = sprites[index][sprites[index].size() - 1].dest;
 	Vector place = GetCharacterCoord(position, character);
 	character->Position(place);
+	character->position = {position.x, position.y};
 	character->sprite->orderLayer = position.y;
 	character->stand->orderLayer = position.y;
 	character->sprite->setDepth(map[position.y][position.x].height * BATTLE_DEPTH_UNIT + 8);

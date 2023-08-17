@@ -33,13 +33,8 @@ Vector OpportunityAttack::GetDirection()
 
 Character *OpportunityAttack::AnyOneMoving()
 {
-	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
-	{
-		Character *ret = gameState.battle.ground->characters[i].character;
-		if (ret->moving)
-			return (ret);
-	}
-	return (NULL);
+	Character *ret = gameState.battle.ground->movedCharacter.character;
+	return (ret);
 }
 
 Character *OpportunityAttack::CheckValid(SDL_Point pos)
@@ -62,7 +57,7 @@ Character *OpportunityAttack::CheckValid(SDL_Point pos)
 
 Character *OpportunityAttack::GetDamager()
 {
-	SDL_Point pos = target->position;
+	SDL_Point pos = gameState.battle.ground->movedCharacter.path[tried];
 	int left = getXToLeft(pos);
 	int right = getXToRight(pos);
 	std::vector<t_RandChar> chars;
@@ -101,13 +96,11 @@ void OpportunityAttack::StartDamage()
 	if (!hits)
 	{
 		SDL_Point pos = gameState.battle.ground->movedCharacter.path[gameState.battle.ground->movedCharacter.path.size() - 1];
-		gameState.updateObjs.UI->UseEnergy(gameState.battle.ground->toolMap[pos.y][pos.x]);
 	}
 	else
 	{
 		PlaySound(gameState.audio.opportunity, Channels::OPPORTUNIRY, 0);
 		SDL_Point pos = gameState.battle.ground->movedCharacter.path[1];
-		gameState.updateObjs.UI->UseEnergy(gameState.battle.ground->toolMap[pos.y][pos.x]);
 	}
 }
 
@@ -118,18 +111,17 @@ void OpportunityAttack::CheckForTargets()
 	Character *ret = AnyOneMoving();
 	if (ret == NULL)
 	{
-		tried = false;
+		tried = (-1);
 		return ;
 	}
-	if (tried)
+	if (tried == gameState.battle.ground->movedCharacter.index)
 		return ;
+	tried = gameState.battle.ground->movedCharacter.index;
 	target = ret;
 	damager = GetDamager();
-	tried = true;
 	if (damager == NULL)
 	{
 		SDL_Point pos = gameState.battle.ground->movedCharacter.path[gameState.battle.ground->movedCharacter.path.size() - 1];
-		gameState.updateObjs.UI->UseEnergy(gameState.battle.ground->toolMap[pos.y][pos.x]);
 		target = NULL;
 		return ;
 	}
@@ -141,7 +133,7 @@ void OpportunityAttack::CreateDamageOrMiss()
 	if (hits)
 	{
 		gameState.updateObjs.abilities->CreateOpportunityDamage(damager, target);
-		gameState.battle.ground->CancelMovement();
+		gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[tried]);
 		return ;
 	}
 	gameState.updateObjs.abilities->CreateMiss(damager, target);

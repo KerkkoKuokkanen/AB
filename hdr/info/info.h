@@ -13,6 +13,7 @@ class Info
 		ControlSetter *controls;
 		FilterModeBars *filterMode = NULL;
 		StunUpdates *stunUpdates = NULL;
+		MovementEnergy *movementEnergy = NULL;
 		void FindHoveredCharacter();
 		void ManageFilterMode();
 		bool KilledOrDamaged();
