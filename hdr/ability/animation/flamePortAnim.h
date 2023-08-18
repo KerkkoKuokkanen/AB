@@ -24,6 +24,7 @@ class FlamePort
 	private:
 		Character *character;
 		SDL_Point target;
+		SDL_Point ogPosition = {0, 0};
 		std::vector<t_FlamePortPart> particles;
 		void ChangeColor();
 		void CreateParticles(int y, int yTarg);

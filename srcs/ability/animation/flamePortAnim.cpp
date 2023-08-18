@@ -14,6 +14,7 @@ static Color getFlamePartColor()
 FlamePort::FlamePort(Character *character, SDL_Point target)
 {
 	PlaySound(gameState.audio.flamePort[0], Channels::FLAME_PORT1, 0);
+	ogPosition = character->position;
 	FlamePort::character = character;
 	FlamePort::target = target;
 	character->setAnimationActive(true);
@@ -142,9 +143,9 @@ void FlamePort::StartLastPhase()
 		return ;
 	PlaySound(gameState.audio.flamePort[2], Channels::FLAME_PORT3, 0);
 	lastPhaseStarted = true;
-	gameState.battle.ground->PlaceCharacter(target, character);
 	character->sprite->ClearColorMod();
-	SDL_Point pos = character->position;
+	SDL_Point pos = ogPosition;
+	gameState.battle.ground->PlaceCharacter(target, character);
 	gameState.battle.ground->map[pos.y][pos.x].character = NULL;
 	gameState.battle.ground->map[pos.y][pos.x].blocked = false;
 }
@@ -172,6 +173,8 @@ void FlamePort::UpdateLastPhase()
 
 void FlamePort::Update()
 {
+	if (done)
+		return ;
 	ChangeColor();
 	if (counter > FLAME_PORT_COLOR_CHANGE_TIME)
 	{

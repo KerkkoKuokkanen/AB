@@ -33,7 +33,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
 		case FLAME_BLAST:
-			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, true, 8);
+			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, true, 2);
 			break ;
 		case INCINERATE:
 			allSelector = new AllSelector(pos, 6, 0, &groundColoring, true, StatusSigns::BURN);
