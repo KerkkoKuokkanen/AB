@@ -190,7 +190,8 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 		return ;
 	if (marked.size() == 1)
 	{
-		if (map[marked[0].y][marked[0].x].character == NULL || map[marked[0].y][marked[0].x].highlited)
+		if (map[marked[0].y][marked[0].x].character == NULL || map[marked[0].y][marked[0].x].highlited ||
+			gameState.updateObjs.abilities->active)
 			return ;
 		int index = marked[0].y * map[0].size() + marked[0].x;
 		if (map[marked[0].y][marked[0].x].character->ally)
@@ -213,7 +214,8 @@ void BattleGround::CheckMarkedBlocks(std::vector<SDL_Point> &marked)
 			block = marked[i];
 		}
 	}
-	if (map[block.y][block.x].character == NULL || map[block.y][block.x].highlited)
+	if (map[block.y][block.x].character == NULL || map[block.y][block.x].highlited ||
+		gameState.updateObjs.abilities->active)
 		return ;
 	int index = block.y * map[0].size() + block.x;
 	if (map[block.y][block.x].character->ally)

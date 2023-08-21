@@ -24,6 +24,8 @@ class CharacterUI
 		Energy *energys[ENERGYS];
 		Bar *health;
 		Bar *armor;
+		Sprite *text[5] = {NULL, NULL, NULL, NULL, NULL};
+		SDL_Texture *texts = NULL;
 		bool turnActive = true;
 		void getActive();
 		void GetAbilities();
@@ -32,6 +34,8 @@ class CharacterUI
 		void HandleButtonAction(int value, int buttonIndex);
 		void DeactivateUI();
 		void CheckIfMouseOver();
+		void CreateTexts();
+		void ManageTurnText();
 		t_Ability *GetCharacterAbility(int type);
 	public:
 		bool overCharacterUI = false;

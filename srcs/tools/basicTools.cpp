@@ -2,6 +2,35 @@
 #include "../../hdr/ab.h"
 #include "../../hdr/global.h"
 
+SDL_Texture *get_text(const char *text ,int fontType)
+{
+	SDL_Surface *sur = NULL;
+	SDL_Color textColor = {255, 255, 255, 255};
+	switch (fontType)
+	{
+		case FontTypes::GOOGLE_TEXT:
+			sur = TTF_RenderText_Blended(gameState.fonts.googleFont, text, textColor);
+			break ;
+		case FontTypes::FIRE:
+			sur = TTF_RenderText_Blended(gameState.fonts.fire, text, textColor);
+			break ;
+		case FontTypes::NEUE:
+			sur = TTF_RenderText_Blended(gameState.fonts.neue, text, textColor);
+			break ;
+		case FontTypes::GOOGLE_BOLD:
+			sur = TTF_RenderText_Blended(gameState.fonts.googleBold, text, textColor);
+			break ;
+	}
+	if (sur != NULL)
+	{
+		SDL_Texture *ret = SDL_CreateTextureFromSurface(gameState.wr.rend, sur);
+		SDL_SetTextureScaleMode(ret, SDL_ScaleModeLinear);
+		SDL_FreeSurface(sur);
+		return (ret);
+	}
+	return (NULL);
+}
+
 SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 {
 	SDL_Surface	*surface = IMG_Load(filePath);

@@ -9,6 +9,16 @@
 # define ALPHA_BLEND 80
 # define PI 3.14159
 
+namespace FontTypes
+{
+	enum {
+		GOOGLE_TEXT,
+		FIRE,
+		NEUE,
+		GOOGLE_BOLD
+	};
+};
+
 namespace Channels
 {
 	enum {
@@ -161,6 +171,7 @@ typedef struct s_Textures
 	SDL_Texture *counter;
 	SDL_Texture *questionMark;
 	SDL_Texture *control;
+	SDL_Texture *everyColor;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -186,6 +197,14 @@ typedef struct s_Audio
 	Mix_Chunk *poof;
 	Mix_Chunk *opportunity;
 }				t_Audio;
+
+typedef struct s_Fonts
+{
+	TTF_Font *googleFont;
+	TTF_Font *googleBold;
+	TTF_Font *fire;
+	TTF_Font *neue;
+}				t_Fonts;
 
 typedef struct s_MouseOver
 {
@@ -225,12 +244,14 @@ typedef struct	s_ScreenShake
 
 typedef struct	s_GameState
 {
+	t_wr wr;
 	t_Screen screen;
 	t_Camera camera;
 	t_Modes modes;
 	t_Keys keys;
 	Renderer *render;
 	t_Battle battle;
+	t_Fonts fonts;
 	t_Textures textures;
 	t_Surfaces surfaces;
 	t_Updates updateObjs;

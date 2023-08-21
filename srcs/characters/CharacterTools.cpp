@@ -60,24 +60,24 @@ void Character::AssignAbilities()
 	switch (cSing)
 	{
 		case THIEF:
-			abilities = {{DAGGER_THROW, 0, 0, 80, StatStructs::ATTACK_STRUCT, NULL},
-						{SMOKE_BOMB, 0, 0, 200, StatStructs::LASTING_EFFECT, NULL},
-						{DAGGER_SLASH, 0, 0, 80, StatStructs::ATTACK_STRUCT, NULL}};
+			abilities = {{DAGGER_THROW, 0, 0, 80, StatStructs::ATTACK_STRUCT, -1, NULL},
+						{SMOKE_BOMB, 0, 0, 200, StatStructs::LASTING_EFFECT, -1, NULL},
+						{DAGGER_SLASH, 0, 0, 80, StatStructs::ATTACK_STRUCT, -1, NULL}};
 			AssingDefaultThiefStats(abilities);
 			break ;
 		case SKELE:
 			break ;
 		case PYRO:
-			abilities = {{FLAME_PORT, 0, 0, 200, StatStructs::FLAME_PORT, NULL},
-						{FLAME_SLASH, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{FLAME_BLAST, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{INCINERATE, 0, 0, 90, StatStructs::ATTACK_STRUCT, NULL}};
+			abilities = {{FLAME_PORT, 0, 0, 200, StatStructs::FLAME_PORT, -1, NULL},
+						{FLAME_SLASH, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, NULL},
+						{FLAME_BLAST, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, NULL},
+						{INCINERATE, 0, 0, 90, StatStructs::ATTACK_STRUCT, -1, NULL}};
 			AssingDefaultPyroStats(abilities);
 			break ;
 		case LION:
-			abilities = {{LION_SMACK, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, NULL},
-						{PHANTOM_KNIGHT, 0, 0, 200, StatStructs::PHANTOM_KNIGHT, NULL},
-						{ROTATE, 0, 0, 200, StatStructs::TIERS, NULL}};
+			abilities = {{LION_SMACK, 0, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
+						{PHANTOM_KNIGHT, 0, 0, 200, StatStructs::PHANTOM_KNIGHT, -1, NULL},
+						{ROTATE, 0, 0, 200, StatStructs::TIERS, -1, NULL}};
 			AssignDefaultLionStats(abilities);
 		default:
 			return ;

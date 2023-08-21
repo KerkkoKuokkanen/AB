@@ -90,7 +90,7 @@ void getAudio()
 	Mix_Volume(Channels::POOF, 28);
 	Mix_Volume(Channels::LOWER_VOLUME_HIT, 17);
 	Mix_Volume(Channels::LOWER_VOLUME_WHIFF, 50);
-	Mix_Volume(Channels::OPPORTUNIRY, 100);
+	Mix_Volume(Channels::OPPORTUNIRY, 70);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -122,6 +122,14 @@ void getAudio()
 	gameState.audio.rotate = Mix_LoadWAV("audio/abilities/lion/rotate.wav");
 	gameState.audio.poof = Mix_LoadWAV("audio/abilities/lion/poof.wav");
 	gameState.audio.opportunity = Mix_LoadWAV("audio/abilities/opportunity.wav");
+}
+
+void getFonts()
+{
+	gameState.fonts.googleFont = TTF_OpenFont("sprites/fonts/text.ttf", 64);
+	gameState.fonts.googleBold = TTF_OpenFont("sprites/fonts/textBold.ttf", 64);
+	gameState.fonts.fire = TTF_OpenFont("sprites/fonts/fire.ttf", 64);
+	gameState.fonts.neue = TTF_OpenFont("sprites/fonts/Neue.ttf", 64);
 }
 
 void getTextures(SDL_Renderer *rend)
@@ -270,17 +278,19 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.lionTrail = get_texture(rend, "sprites/characters/lion/lionSmackTrail.png");
 	gameState.textures.questionMark = get_texture(rend, "sprites/UI/questionMark.png");
 	gameState.textures.control = get_texture(rend, "sprites/env/control.png");
+	gameState.textures.everyColor = get_texture(rend, "sprites/env/everyColor.png");
 }
 
 void	init(t_wr *wr)
 {
 	srand((unsigned int)clock() + time(0));
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
+	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(40);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -304,6 +314,7 @@ void	init(t_wr *wr)
 	gameState.updateObjs.fadeIter = 0.0f;
 	gameState.updateObjs.characterAnimIter = 0;
 	getTextures(wr->rend);
+	getFonts();
 	getAudio();
 	static TurnIndicator ind;
 	gameState.updateObjs.indicator = &ind;
@@ -319,6 +330,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.objUpdate = &objUpdate;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

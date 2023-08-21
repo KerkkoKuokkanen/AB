@@ -163,6 +163,7 @@ void DamageCreator::Update()
 		}
 		if (damages[i].time >= DAMAGE_DONE)
 		{
+			damages[i].character->damaged = false;
 			damages.erase(damages.begin() + i);
 			continue ;
 		}

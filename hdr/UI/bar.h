@@ -21,6 +21,7 @@ class Bar
 		int layer = 0;
 		void SetBar(int max, int curr);
 		void SetNumber();
+		void SetSmallNumber();
 		void ModBars(Character *target, bool health);
 		void ManageReduce();
 		void GetScala();
@@ -32,6 +33,7 @@ class Bar
 		bool staticSprite;
 		bool colorSet = false;
 		int healthDownTimer = 14;
+		bool smallBar = false;
 	public:
 		Character *target = NULL;
 		Bar(SDL_Rect dest, bool numbers, bool staticSprite = true);

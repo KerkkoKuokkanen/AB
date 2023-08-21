@@ -29,7 +29,7 @@ void TempInitBattle()
 	gameState.updateObjs.abilities->SetMap();
 }
 
-int MainLoop(t_wr &wr)
+int MainLoop()
 {
 	clock_t start, end;
 	TempInitBattle();
@@ -58,8 +58,7 @@ int MainLoop(t_wr &wr)
 
 int main()
 {
-	t_wr wr;
-	init(&wr);
-	MainLoop(wr);
+	init(&gameState.wr);
+	MainLoop();
 	return (0);
 }

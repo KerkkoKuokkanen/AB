@@ -19,6 +19,7 @@ class Sprite
 		Uint8 blue = 0;
 		bool active = true;
 		bool translated = true;
+		bool deleteTexture = false;
 	public:
 		float z = 0.0f;
 		SDL_Rect dest = {0, 0, 0, 0};
@@ -39,6 +40,7 @@ class Sprite
 		};
 		~Sprite();
 		void setSRect(SDL_Rect *srect) {Sprite::srect = srect;};
+		void setDeleteTexture(bool deleteTexture) {Sprite::deleteTexture = deleteTexture;};
 		void Destroy() {delete this;};
 		void Activate() {active = true;};
 		void Deactivate() {active = false;};

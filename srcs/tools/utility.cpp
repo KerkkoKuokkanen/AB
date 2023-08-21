@@ -174,12 +174,12 @@ void ObjUpdate()
 		gameState.updateObjs.dusts[i]->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
+	if (gameState.updateObjs.abilities != NULL)
+		gameState.updateObjs.abilities->Upadte();
 	gameState.updateObjs.indicator->Update();
 	UpdateStatuses();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
-	if (gameState.updateObjs.abilities != NULL)
-		gameState.updateObjs.abilities->Upadte();
 	if (gameState.updateObjs.info != NULL)
 		gameState.updateObjs.info->Update();
 	gameState.updateObjs.killer->Update();

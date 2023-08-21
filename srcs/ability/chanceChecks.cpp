@@ -203,6 +203,8 @@ bool StatusApply(t_Ability *ability, Character *character, Character *target)
 {
 	if (ability == NULL)
 		return (false);
+	if (ability->statusSign == (-1))
+		return (false);
 	int chance = 0;
 	switch (ability->statType)
 	{

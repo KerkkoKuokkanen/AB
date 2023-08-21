@@ -8,15 +8,14 @@ class Info
 {
 	private:
 		Character *hovered;
-		HoverBars *hoverBars;
 		Counter *counter;
 		ControlSetter *controls;
-		FilterModeBars *filterMode = NULL;
 		StunUpdates *stunUpdates = NULL;
 		MovementEnergy *movementEnergy = NULL;
+		InfoBar *bar = NULL;
 		void FindHoveredCharacter();
-		void ManageFilterMode();
 		bool KilledOrDamaged();
+		void UpdateBar();
 	public:
 		bool overInfo = false;
 		Info();

@@ -1,5 +1,6 @@
 
 #include "../../hdr/global.h"
+#define SCALE_FACTOR 600.0f
 
 CharacterUI::CharacterUI()
 {
@@ -220,6 +221,7 @@ void CharacterUI::Update()
 {
 	overCharacterUI = false;
 	getActive();
+	ManageTurnText();
 	if (!turnActive)
 		return ;
 	health->Update(activeCharacter, true);
@@ -265,6 +267,13 @@ void CharacterUI::Destroy()
 	characters.clear();
 	delete health;
 	delete armor;
+	for (int i = 0; i < 5; i++)
+	{
+		if (text[i] != NULL)
+			delete text[i];
+	}
+	if (texts != NULL)
+		SDL_DestroyTexture(texts);
 }
 
 void CharacterUI::CheckIfMouseOver()

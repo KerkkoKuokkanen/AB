@@ -52,6 +52,14 @@ enum {
 	ROTATE
 };
 
+namespace StatusSigns
+{
+	enum {
+		BURN,
+		STUN
+	};
+};
+
 # include "../SDL2/SDL.h"
 # include "tools/vector.h"
 # include "tools/color.h"
@@ -67,9 +75,10 @@ typedef struct s_Ability
 {
 	int type;
 	int cost;
-	int suplies;
+	int fatigue;
 	int baseChance;
 	int statType;
+	int statusSign;
 	void *stats;
 }				t_Ability;
 
@@ -103,10 +112,9 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "info/control.h"
 # include "info/controlSetter.h"
 # include "info/counter.h"
-# include "info/filterModeBars.h"
-# include "info/hoverBars.h"
 # include "info/stunUpdates.h"
 # include "info/movementEnergy.h"
+# include "info/infoBar.h"
 # include "info/info.h"
 # include "battleClasses/groundColoring.h"
 # include "ability/damages/addStatus.h"
@@ -217,6 +225,7 @@ typedef struct s_Keys
 
 int				figure_the_delay(clock_t start, clock_t end);
 void			init(t_wr *wr);
+SDL_Texture		*get_text(const char *text ,int fontType);
 SDL_Texture		*get_texture(SDL_Renderer *rend, const char *filePath);
 t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath);
 SDL_Texture		*get_texture_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode);

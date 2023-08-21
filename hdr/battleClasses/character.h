@@ -12,6 +12,9 @@ typedef struct s_Stats
 	int health;
 	int maxArmor;
 	int armor;
+	int maxFatigue;
+	int fatigue;
+	int level;
 }				t_Stats;
 
 class Character
@@ -54,7 +57,7 @@ class Character
 		bool ally = true;
 		bool killed = false;
 		bool damaged = false;
-		t_Stats stats = {5, 1, 100, 100, 50, 50};
+		t_Stats stats = {5, 1, 100, 100, 50, 50, 80, 0, 1};
 		t_StatusEffects statuses = {};
 		std::vector<t_Ability> abilities;
 };

@@ -1,19 +1,8 @@
 
 #include "../../hdr/global.h"
 
-bool NoOneClicked()
-{
-	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
-	{
-		if (gameState.battle.ground->characters[i].character->clicked)
-			return (false);
-	}
-	return (true);
-}
-
 Info::Info()
 {
-	hoverBars = new HoverBars;
 	counter = new Counter;
 	stunUpdates = new StunUpdates;
 	controls = new ControlSetter;
@@ -28,7 +17,7 @@ void Info::FindHoveredCharacter()
 		if (gameState.battle.ground->characters[i].character->hover)
 		{
 			hovered = gameState.battle.ground->characters[i].character;
-			if ((hovered->turn && hovered->ally) || hovered->active == false || !NoOneClicked())
+			if ((hovered->turn && hovered->ally) || hovered->active == false)
 				hovered = NULL;
 			return ;
 		}
@@ -41,7 +30,7 @@ void Info::FindHoveredCharacter()
 				gameState.battle.ground->map[i][j].character != NULL)
 			{
 				hovered = gameState.battle.ground->map[i][j].character;
-				if ((hovered->turn && hovered->ally) || hovered->active == false || !NoOneClicked())
+				if ((hovered->turn && hovered->ally) || hovered->active == false)
 					hovered = NULL;
 				return ;
 			}
@@ -64,29 +53,29 @@ bool Info::KilledOrDamaged()
 	return (false);
 }
 
-void Info::ManageFilterMode()
+void Info::UpdateBar()
 {
-	if (gameState.modes.filterMode != 2 || gameState.updateObjs.abilities->marking || KilledOrDamaged() ||
-		gameState.updateObjs.turnOrder->turnChange || gameState.updateObjs.turnOrder->turnStartActive)
+	if (hovered == NULL)
 	{
-		if (filterMode != NULL)
-		{
-			delete filterMode;
-			filterMode = NULL;
-		}
+		if (bar != NULL)
+			delete bar;
+		bar = NULL;
 		return ;
 	}
-	if (gameState.modes.filterMode == 2 && filterMode == NULL)
-		filterMode = new FilterModeBars;
-	if (filterMode != NULL)
-		filterMode->Update();
+	if (bar == NULL)
+		bar = new InfoBar(hovered);
+	else if (bar->character != hovered)
+	{
+		delete bar;
+		bar = new InfoBar(hovered);
+	}
+	bar->Update();
 }
 
 void Info::Update()
 {
 	FindHoveredCharacter();
-	ManageFilterMode();
-	hoverBars->Update(hovered);
+	UpdateBar();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();
@@ -96,7 +85,6 @@ void Info::Update()
 
 void Info::Destroy()
 {
-	delete hoverBars;
 	delete counter;
 	delete movementEnergy;
 	delete controls;

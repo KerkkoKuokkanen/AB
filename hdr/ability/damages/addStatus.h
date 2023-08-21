@@ -4,14 +4,6 @@
 
 # include "../../ab.h"
 
-namespace StatusSigns
-{
-	enum
-	{
-		BURN
-	};
-};
-
 class AddStatus
 {
 	private:

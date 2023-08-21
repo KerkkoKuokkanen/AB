@@ -36,12 +36,10 @@ Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 
 void Bar::ChangeToSmallBar()
 {
-	bar->setTexture(gameState.textures.sBar[0]);
-	backGround->setTexture(gameState.textures.sBar[1]);
-	filler->setTexture(gameState.textures.sBar[2]);
-	reduce->setTexture(gameState.textures.sBar[2]);
-	sRect = {0, 0, 300, 50};
-	rSRect = {0, 0, 300, 50};
+	smallBar = true;
+	slash->dest.w += 100;
+	slash->dest.x += 200;
+	slash->dest.y -= 100;
 }
 
 void Bar::GetScala()
@@ -92,19 +90,42 @@ void Bar::Position(SDL_Point place)
 	if (stat != NULL)
 	{
 		int w = stat->getFullWidth();
-		Vector pos((float)(slash->dest.x - 2 - 200), (float)(slash->dest.y + 300));
+		Vector pos((float)(slash->dest.x - 2 - 200), (float)(slash->dest.y + 360));
 		stat->Position(pos);
 	}
 	if (maxStat != NULL)
 	{
 		int w = maxStat->getFullWidth();
-		Vector pos((float)(slash->dest.x + 1200), (float)(slash->dest.y + 300));
+		Vector pos((float)(slash->dest.x + 1200), (float)(slash->dest.y + 360));
 		maxStat->Position(pos);
 	}
 }
 
+void Bar::SetSmallNumber()
+{
+	if (stat != NULL)
+		delete stat;
+	if (maxStat != NULL)
+		delete maxStat;
+	stat = new Number((currCurr < 0) ? 0 : currCurr, 650, layer, 5, staticSprite, NumberType::WHITE);
+	stat->ColorMod(190, 190, 150);
+	int w = stat->getFullWidth();
+	Vector pos((float)(slash->dest.x - w - 300), (float)(slash->dest.y));
+	stat->Position(pos);
+	maxStat = new Number((currMax < 0) ? 0 : currMax, 650, layer, 5, staticSprite, NumberType::WHITE);
+	maxStat->ColorMod(190, 190, 150);
+	w = maxStat->getFullWidth();
+	Vector place((float)(slash->dest.x + 900), (float)(slash->dest.y));
+	maxStat->Position(place);
+}
+
 void Bar::SetNumber()
 {
+	if (smallBar)
+	{
+		SetSmallNumber();
+		return ;
+	}
 	if (stat != NULL)
 		delete stat;
 	if (maxStat != NULL)
@@ -112,12 +133,12 @@ void Bar::SetNumber()
 	stat = new Number((currCurr < 0) ? 0 : currCurr, 800, layer, 5, staticSprite, NumberType::WHITE);
 	stat->ColorMod(190, 190, 150);
 	int w = stat->getFullWidth();
-	Vector pos((float)(slash->dest.x - w - 200), (float)(slash->dest.y + 300));
+	Vector pos((float)(slash->dest.x - w - 200), (float)(slash->dest.y + 360));
 	stat->Position(pos);
 	maxStat = new Number((currMax < 0) ? 0 : currMax, 800, layer, 5, staticSprite, NumberType::WHITE);
 	maxStat->ColorMod(190, 190, 150);
 	w = maxStat->getFullWidth();
-	Vector place((float)(slash->dest.x + 1200), (float)(slash->dest.y + 300));
+	Vector place((float)(slash->dest.x + 1200), (float)(slash->dest.y + 360));
 	maxStat->Position(place);
 }
 
