@@ -50,20 +50,20 @@ void InfoBar::CreateText()
 	dest.x -= 100;
 	dest.y -= 100;
 	text[1] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[1]->ColorMod(1, 1, 1);
+	text[1]->ColorMod(100, 100, 100);
 	gameState.render->AddSprite(text[1], TURN_ORDER_LAYER);
 	dest.x += 200;
 	text[2] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[2]->ColorMod(1, 1, 1);
+	text[2]->ColorMod(100, 100, 100);
 	gameState.render->AddSprite(text[2], TURN_ORDER_LAYER);
 	dest.x -= 200;
 	dest.y += 200;
 	text[3] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[3]->ColorMod(1, 1, 1);
+	text[3]->ColorMod(100, 100, 100);
 	gameState.render->AddSprite(text[3], TURN_ORDER_LAYER);
 	dest.x += 200;
 	text[4] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[4]->ColorMod(1, 1, 1);
+	text[4]->ColorMod(100, 100, 100);
 	gameState.render->AddSprite(text[4], TURN_ORDER_LAYER);
 }
 
@@ -84,6 +84,7 @@ InfoBar::InfoBar(Character *character)
 	CreateBars();
 	outline = new Sprite(gameState.textures.everyColor, {-12600, -39440, 25200, 2380}, NULL, NULL, 0, FLIP_NONE, true);
 	outline->orderLayer = (-1);
+	outline->ColorMod(40, 40, 40);
 	gameState.render->AddSprite(outline, TURN_ORDER_LAYER);
 }
 
