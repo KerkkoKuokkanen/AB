@@ -24,7 +24,7 @@ class CharacterUI
 		Energy *energys[ENERGYS];
 		Bar *health;
 		Bar *armor;
-		Sprite *text[5] = {NULL, NULL, NULL, NULL, NULL};
+		Sprite *text = NULL;
 		SDL_Texture *texts = NULL;
 		bool turnActive = true;
 		void getActive();

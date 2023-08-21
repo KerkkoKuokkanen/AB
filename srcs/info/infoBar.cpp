@@ -28,7 +28,7 @@ static std::string GetText(Character *character)
 
 SDL_Rect InfoBar::GetTextDest(std::string &str)
 {
-	SDL_Rect ret = {0, -42400, 0, 1700};
+	SDL_Rect ret = {0, -42380, 0, 1700};
 	int len = str.length();
 	float width = (float)len * SCALE_FACTOR;
 	ret.w = rounding(width);
@@ -48,6 +48,7 @@ void InfoBar::CreateText()
 	text[0]->ColorMod(220, 220, 220);
 	gameState.render->AddSprite(text[0], TURN_ORDER_LAYER);
 	dest.x -= 100;
+	dest.y -= 100;
 	text[1] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
 	text[1]->ColorMod(1, 1, 1);
 	gameState.render->AddSprite(text[1], TURN_ORDER_LAYER);
@@ -55,12 +56,12 @@ void InfoBar::CreateText()
 	text[2] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
 	text[2]->ColorMod(1, 1, 1);
 	gameState.render->AddSprite(text[2], TURN_ORDER_LAYER);
-	dest.x -= 100;
-	dest.y -= 100;
+	dest.x -= 200;
+	dest.y += 200;
 	text[3] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
 	text[3]->ColorMod(1, 1, 1);
 	gameState.render->AddSprite(text[3], TURN_ORDER_LAYER);
-	dest.y += 200;
+	dest.x += 200;
 	text[4] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
 	text[4]->ColorMod(1, 1, 1);
 	gameState.render->AddSprite(text[4], TURN_ORDER_LAYER);
@@ -68,7 +69,7 @@ void InfoBar::CreateText()
 
 void InfoBar::CreateBars()
 {
-	SDL_Rect dest = {-12500, -38000, 25000, 1600};
+	SDL_Rect dest = {-12500, -37860, 25000, 1600};
 	health = new Bar(dest, true);
 	health->ChangeToSmallBar();
 	dest.y -= 1780;
@@ -81,7 +82,7 @@ InfoBar::InfoBar(Character *character)
 	InfoBar::character = character;
 	CreateText();
 	CreateBars();
-	outline = new Sprite(gameState.textures.everyColor, {-12600, -39600, 25200, 2400}, NULL, NULL, 0, FLIP_NONE, true);
+	outline = new Sprite(gameState.textures.everyColor, {-12600, -39440, 25200, 2380}, NULL, NULL, 0, FLIP_NONE, true);
 	outline->orderLayer = (-1);
 	gameState.render->AddSprite(outline, TURN_ORDER_LAYER);
 }

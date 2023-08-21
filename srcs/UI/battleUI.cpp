@@ -267,11 +267,8 @@ void CharacterUI::Destroy()
 	characters.clear();
 	delete health;
 	delete armor;
-	for (int i = 0; i < 5; i++)
-	{
-		if (text[i] != NULL)
-			delete text[i];
-	}
+	if (text == NULL)
+		delete text;
 	if (texts != NULL)
 		SDL_DestroyTexture(texts);
 }

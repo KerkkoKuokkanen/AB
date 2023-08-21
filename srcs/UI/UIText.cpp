@@ -5,7 +5,7 @@
 static std::string GetText(Character *character)
 {
 	int level = character->stats.level;
-	std::string text = "Turn: Level ";
+	std::string text = "Level ";
 	text += std::to_string(level);
 	switch (character->cSing)
 	{
@@ -27,7 +27,7 @@ static std::string GetText(Character *character)
 
 static SDL_Rect GetTextDest(std::string &str)
 {
-	SDL_Rect ret = {-41500, 44200, 0, 2200};
+	SDL_Rect ret = {-19880, 45080, 0, 1900};
 	int len = str.length();
 	float width = (float)len * SCALE_FACTOR;
 	ret.w = rounding(width);
@@ -41,39 +41,20 @@ void CharacterUI::CreateTexts()
 	const char *str = ret.c_str();
 	SDL_Rect dest = GetTextDest(ret);
 	texts = get_text(str, FontTypes::GOOGLE_TEXT);
-	text[0] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[0]->orderLayer = 1;
-	text[0]->ColorMod(220, 220, 220);
-	gameState.render->AddSprite(text[0], TURN_ORDER_LAYER);
-	dest.x -= 110;
-	text[1] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[1]->ColorMod(1, 1, 1);
-	gameState.render->AddSprite(text[1], TURN_ORDER_LAYER);
-	dest.x += 220;
-	text[2] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[2]->ColorMod(1, 1, 1);
-	gameState.render->AddSprite(text[2], TURN_ORDER_LAYER);
-	dest.x -= 110;
-	dest.y -= 110;
-	text[3] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[3]->ColorMod(1, 1, 1);
-	gameState.render->AddSprite(text[3], TURN_ORDER_LAYER);
-	dest.y += 220;
-	text[4] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[4]->ColorMod(1, 1, 1);
-	gameState.render->AddSprite(text[4], TURN_ORDER_LAYER);
+	text = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
+	text->orderLayer = 7;
+	text->ColorMod(1, 1, 1);
+	text->AlphaMod(130);
+	gameState.render->AddSprite(text, TURN_ORDER_LAYER);
 }
 
 void CharacterUI::ManageTurnText()
 {
 	if (!turnActive)
 	{
-		for (int i = 0; i < 5; i++)
-		{
-			if (text[i] != NULL)
-				delete text[i];
-			text[i] = NULL;
-		}
+		if (text != NULL)
+			delete text;
+		text = NULL;
 		if (texts != NULL)
 		{
 			SDL_DestroyTexture(texts);
@@ -81,6 +62,6 @@ void CharacterUI::ManageTurnText()
 		}
 		return ;
 	}
-	if (text[0] == NULL)
+	if (text == NULL)
 		CreateTexts();
 }
