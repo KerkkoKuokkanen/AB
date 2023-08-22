@@ -122,7 +122,7 @@ void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 		if (i != 0)
 			TakeLineAndPlaceIt(positions[i - 1], positions[i]);
 	}
-	gameState.updateObjs.UI->ShowEnergy(toolMap[positions[0].y][positions[0].x]);
+	gameState.updateObjs.UI->ShowEnergy(toolMap[positions[0].y][positions[0].x], true);
 	setMoved(positions);
 	positions.clear();
 	markingPath = true;

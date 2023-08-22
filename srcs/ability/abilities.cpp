@@ -114,6 +114,7 @@ void Abilities::SelectorWithCharacters()
 		if (gameState.keys.click == RELEASE_CLICK)
 		{
 			gameState.updateObjs.UI->UseEnergy(ability->cost);
+			character->stats.fatigue += ability->fatigue;
 			target = ret;
 			targetPoint = ret->position;
 			ActivateAbility(ability, character);
@@ -132,6 +133,7 @@ void Abilities::SelectorWithSquares()
 		if (gameState.keys.click == RELEASE_CLICK)
 		{
 			gameState.updateObjs.UI->UseEnergy(ability->cost);
+			character->stats.fatigue += ability->fatigue;
 			target = blockChar;
 			targetPoint = ret;
 			ActivateAbility(ability, character);
@@ -148,6 +150,7 @@ void Abilities::UpdatePhantomSelector()
 	{
 		targPoints.clear();
 		gameState.updateObjs.UI->UseEnergy(ability->cost);
+		character->stats.fatigue += ability->fatigue;
 		targPoints = phantSelector->GetTargets();
 		if (targPoints.size() != 0)
 			ActivateAbility(ability, character);
@@ -162,6 +165,7 @@ void Abilities::MultiSelectorWithCharacter()
 	if (!multiSelector->done)
 		return ;
 	gameState.updateObjs.UI->UseEnergy(ability->cost);
+	character->stats.fatigue += ability->fatigue;
 	targPoints.clear();
 	targPoints = multiSelector->GetPositions();
 	ActivateAbility(ability, character);
@@ -174,6 +178,8 @@ void Abilities::AllSelectorUpdate()
 	allSelector->Update();
 	if (allSelector->done)
 	{
+		gameState.updateObjs.UI->UseEnergy(ability->cost);
+		character->stats.fatigue += ability->fatigue;
 		targPoints.clear();
 		targPoints = allSelector->getTargets();
 		ActivateAbility(ability, character);

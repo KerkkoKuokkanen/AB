@@ -45,25 +45,25 @@ void InfoBar::CreateText()
 	charText = texts;
 	text[0] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
 	text[0]->orderLayer = 1;
-	text[0]->ColorMod(220, 220, 220);
+	text[0]->ColorMod(250, 250, 250);
 	gameState.render->AddSprite(text[0], TURN_ORDER_LAYER);
 	dest.x -= 100;
 	dest.y -= 100;
 	text[1] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[1]->ColorMod(100, 100, 100);
+	text[1]->ColorMod(80, 80, 80);
 	gameState.render->AddSprite(text[1], TURN_ORDER_LAYER);
 	dest.x += 200;
 	text[2] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[2]->ColorMod(100, 100, 100);
+	text[2]->ColorMod(80, 80, 80);
 	gameState.render->AddSprite(text[2], TURN_ORDER_LAYER);
 	dest.x -= 200;
 	dest.y += 200;
 	text[3] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[3]->ColorMod(100, 100, 100);
+	text[3]->ColorMod(80, 80, 80);
 	gameState.render->AddSprite(text[3], TURN_ORDER_LAYER);
 	dest.x += 200;
 	text[4] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[4]->ColorMod(100, 100, 100);
+	text[4]->ColorMod(80, 80, 80);
 	gameState.render->AddSprite(text[4], TURN_ORDER_LAYER);
 }
 
@@ -72,9 +72,33 @@ void InfoBar::CreateBars()
 	SDL_Rect dest = {-12500, -37860, 25000, 1600};
 	health = new Bar(dest, true);
 	health->ChangeToSmallBar();
+	health->slash->dest.w += 80;
+	health->leftNumberOffset = {-300, -50};
+	health->rightNumberOffset = {900, -50};
 	dest.y -= 1780;
+	if (character->ally)
+	{
+		dest.w /= 2;
+		dest.h -= 70;
+		armor = new Bar(dest, true);
+		armor->ChangeToSmallBar();
+		armor->ChangeTextureToNarrow();
+		armor->leftNumberOffset = {-230, -50};
+		armor->rightNumberOffset = {850, -50};
+		dest.x = 0;
+		fatigue = new FatigueBar(dest);
+		fatigue->SmallerNumbers();
+		fatigue->leftNumberOffset = {-230, -100};
+		fatigue->rightNumberOffset = {850, - 100};
+		fatigue->slash->dest.w += 400;
+		fatigue->slash->dest.y -= 80;
+		return ;
+	}
 	armor = new Bar(dest, true);
 	armor->ChangeToSmallBar();
+	armor->slash->dest.w += 80;
+	armor->leftNumberOffset = {-300, -50};
+	armor->rightNumberOffset = {900, -50};
 }
 
 InfoBar::InfoBar(Character *character)
@@ -92,6 +116,8 @@ void InfoBar::Update()
 {
 	health->Update(character, true);
 	armor->Update(character, false);
+	if (fatigue != NULL)
+		fatigue->Update(character);
 }
 
 void InfoBar::Destroy()

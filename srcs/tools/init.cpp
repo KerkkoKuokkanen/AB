@@ -248,9 +248,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.ascii.normalNumbers[8] = get_texture(rend, "sprites/UI/numbers/n8.png");
 	gameState.textures.ascii.normalNumbers[9] = get_texture(rend, "sprites/UI/numbers/n9.png");
 	gameState.textures.ascii.slash = get_texture(rend, "sprites/UI/slash.png");
-	gameState.textures.sBar[0] = get_texture(rend, "sprites/UI/smallBar/sBar.png");
-	gameState.textures.sBar[1] = get_texture(rend, "sprites/UI/smallBar/sBarBackGround.png");
-	gameState.textures.sBar[2] = get_texture(rend, "sprites/UI/smallBar/sBarFiller.png");
+	gameState.textures.smallerBar = get_texture_with_scale_mode(rend, "sprites/UI/smallerBar.png", SDL_ScaleModeNearest);
 	gameState.textures.statuses.burns[0] = get_texture(rend, "sprites/attacks/burn.png");
 	gameState.textures.statuses.burns[1] = get_texture(rend, "sprites/attacks/whiteBurn.png");
 	gameState.textures.statuses.burns[2] = get_texture(rend, "sprites/attacks/burn2.png");
@@ -289,6 +287,7 @@ void	init(t_wr *wr)
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(40);
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	initScreen(1280, 720);
 	initKeys();

@@ -9,6 +9,7 @@ Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 	backGround = new Sprite(gameState.textures.bar[1], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 	filler = new Sprite(gameState.textures.barFiller, dest, &sRect, NULL, 0, FLIP_NONE, staticSprite);
 	reduce = new Sprite(gameState.textures.barFiller, dest, &rSRect, NULL, 0, FLIP_NONE, staticSprite);
+	reduce->AlphaMod(140);
 	bar->z = 4;
 	backGround->z = 1;
 	reduce->z = 2;
@@ -29,7 +30,7 @@ Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 		return ;
 	SDL_Rect slashDest = {dest.x + dest.w / 2 - 417, dest.y + dest.h / 2 + 150, rounding((float)dest.w / 60.0f), rounding((float)dest.h * 0.4f)};
 	slash = new Sprite(gameState.textures.ascii.slash, slashDest, NULL, NULL, 0, FLIP_NONE, staticSprite);
-	slash->ColorMod(190, 190, 150);
+	slash->ColorMod(250, 250, 210);
 	slash->orderLayer = 5;
 	gameState.render->AddSprite(slash, layer);
 }
@@ -101,6 +102,12 @@ void Bar::Position(SDL_Point place)
 	}
 }
 
+void Bar::ChangeTextureToNarrow()
+{
+	bar->setTexture(gameState.textures.smallerBar);
+	slash->dest.w += 300;
+}
+
 void Bar::SetSmallNumber()
 {
 	if (stat != NULL)
@@ -108,14 +115,14 @@ void Bar::SetSmallNumber()
 	if (maxStat != NULL)
 		delete maxStat;
 	stat = new Number((currCurr < 0) ? 0 : currCurr, 650, layer, 5, staticSprite, NumberType::WHITE);
-	stat->ColorMod(190, 190, 150);
+	stat->ColorMod(250, 250, 210);
 	int w = stat->getFullWidth();
-	Vector pos((float)(slash->dest.x - w - 300), (float)(slash->dest.y));
+	Vector pos((float)(slash->dest.x - w + leftNumberOffset.x), (float)(slash->dest.y + leftNumberOffset.y));
 	stat->Position(pos);
 	maxStat = new Number((currMax < 0) ? 0 : currMax, 650, layer, 5, staticSprite, NumberType::WHITE);
-	maxStat->ColorMod(190, 190, 150);
+	maxStat->ColorMod(250, 250, 210);
 	w = maxStat->getFullWidth();
-	Vector place((float)(slash->dest.x + 900), (float)(slash->dest.y));
+	Vector place((float)(slash->dest.x + rightNumberOffset.x), (float)(slash->dest.y + rightNumberOffset.y));
 	maxStat->Position(place);
 }
 
@@ -131,14 +138,14 @@ void Bar::SetNumber()
 	if (maxStat != NULL)
 		delete maxStat;
 	stat = new Number((currCurr < 0) ? 0 : currCurr, 800, layer, 5, staticSprite, NumberType::WHITE);
-	stat->ColorMod(190, 190, 150);
+	stat->ColorMod(250, 250, 210);
 	int w = stat->getFullWidth();
-	Vector pos((float)(slash->dest.x - w - 200), (float)(slash->dest.y + 360));
+	Vector pos((float)(slash->dest.x - w + leftNumberOffset.x), (float)(slash->dest.y + leftNumberOffset.y));
 	stat->Position(pos);
 	maxStat = new Number((currMax < 0) ? 0 : currMax, 800, layer, 5, staticSprite, NumberType::WHITE);
-	maxStat->ColorMod(190, 190, 150);
+	maxStat->ColorMod(250, 250, 210);
 	w = maxStat->getFullWidth();
-	Vector place((float)(slash->dest.x + 1200), (float)(slash->dest.y + 360));
+	Vector place((float)(slash->dest.x + rightNumberOffset.x), (float)(slash->dest.y + rightNumberOffset.y));
 	maxStat->Position(place);
 }
 
@@ -199,16 +206,6 @@ void Bar::ManageReduce()
 	}
 }
 
-void Bar::ManageOrderLayer(Character *target)
-{
-	if (target == NULL || layer == TURN_ORDER_LAYER)
-		return ;
-	bar->orderLayer = target->sprite->orderLayer;
-	backGround->orderLayer = target->sprite->orderLayer;
-	reduce->orderLayer = target->sprite->orderLayer;
-	filler->orderLayer = target->sprite->orderLayer;
-}
-
 void Bar::Update(Character *target, bool health)
 {
 	if (Bar::target == target)
@@ -221,7 +218,6 @@ void Bar::Update(Character *target, bool health)
 	}
 	ModBars(target, health);
 	ManageReduce();
-	ManageOrderLayer(target);
 }
 
 void Bar::Deactivate()

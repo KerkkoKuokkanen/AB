@@ -21,7 +21,7 @@ void FilterMode()
 	}
 	if (shiftPress == 1 && gameState.keys.shift == 0)
 		shiftPress = 0;
-	if (gameState.modes.filterMode > 2)
+	if (gameState.modes.filterMode > 1)
 		gameState.modes.filterMode = 0;
 }
 
@@ -174,14 +174,14 @@ void ObjUpdate()
 		gameState.updateObjs.dusts[i]->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
+	if (gameState.updateObjs.info != NULL)
+		gameState.updateObjs.info->Update();
 	if (gameState.updateObjs.abilities != NULL)
 		gameState.updateObjs.abilities->Upadte();
 	gameState.updateObjs.indicator->Update();
 	UpdateStatuses();
 	if (gameState.updateObjs.UI->active)
 		gameState.updateObjs.UI->Update();
-	if (gameState.updateObjs.info != NULL)
-		gameState.updateObjs.info->Update();
 	gameState.updateObjs.killer->Update();
 	gameState.updateObjs.partManager->Update();
 	gameState.updateObjs.fadeIter += 0.06f;

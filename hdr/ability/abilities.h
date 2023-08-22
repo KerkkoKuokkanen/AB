@@ -36,7 +36,6 @@ class Abilities
 		std::vector<t_Object> objects;
 		std::vector<MISS*> misses;
 
-		t_Ability *ability = NULL;
 		Character *character = NULL;
 		Character *target = NULL;
 		SDL_Point targetPoint = {0, 0};
@@ -74,6 +73,7 @@ class Abilities
 		bool CheckForPhantomKnight();
 
 	public:
+		t_Ability *ability = NULL;
 		EffectUpdater effectUpdater;
 		bool inMotion = false;
 		bool active = false;

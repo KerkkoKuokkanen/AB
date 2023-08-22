@@ -13,6 +13,7 @@ typedef struct t_Buttons
 	int buttonSign;
 	bool used;
 	int energyCost;
+	int fatigueCost;
 }				t_Buttons;
 
 class CharacterUI
@@ -24,13 +25,14 @@ class CharacterUI
 		Energy *energys[ENERGYS];
 		Bar *health;
 		Bar *armor;
+		FatigueBar *fatigue;
 		Sprite *text = NULL;
 		SDL_Texture *texts = NULL;
 		bool turnActive = true;
 		void getActive();
 		void GetAbilities();
 		int GetButtonIndex();
-		void CreateButton(SDL_Rect place, SDL_Texture *text, int sign, int cost);
+		void CreateButton(SDL_Rect place, SDL_Texture *text, int sign, int cost, int fatigue);
 		void HandleButtonAction(int value, int buttonIndex);
 		void DeactivateUI();
 		void CheckIfMouseOver();
@@ -41,8 +43,8 @@ class CharacterUI
 		bool overCharacterUI = false;
 		bool active = false;
 		bool NoOneKilled();
-		void UseEnergy(int cost);
-		void ShowEnergy(int cost);
+		void UseEnergy(int cost, bool moving = false);
+		void ShowEnergy(int cost, bool moving = false);
 		CharacterUI();
 		void SetCharacters(std::vector<Character> &characters);
 		void Update();

@@ -155,7 +155,7 @@ typedef struct s_Textures
 	SDL_Texture *KillParticle[2];
 	SDL_Texture *bar[2];
 	SDL_Texture *barFiller;
-	SDL_Texture *sBar[3];
+	SDL_Texture *smallerBar;
 	SDL_Texture *thiefAbilites[3];
 	SDL_Texture *pyroAbilities[4];
 	SDL_Texture *lionAbilities[3];

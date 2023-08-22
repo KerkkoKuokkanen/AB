@@ -60,6 +60,21 @@ void Character::ShiftChecker()
 	}
 }
 
+void Character::ManageFatigue()
+{
+	if (!wasTurn && turn)
+	{
+		wasTurn = true;
+		stats.fatigue -= 23;
+	}
+	if (wasTurn && !turn)
+		wasTurn = false;
+	if (stats.fatigue > stats.maxFatigue)
+		stats.fatigue = stats.maxFatigue;
+	if (stats.fatigue < 0)
+		stats.fatigue = 0;
+}
+
 void Character::Update()
 {
 	if (killed)
@@ -72,6 +87,7 @@ void Character::Update()
 	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
 		clicked = false;
 	ShiftChecker();
+	ManageFatigue();
 	if (animationActive)
 		return ;
 	if (gameState.updateObjs.characterAnimIter == 50)

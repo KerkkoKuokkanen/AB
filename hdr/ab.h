@@ -105,6 +105,7 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "UI/marker.h"
 # include "UI/statuses.h"
 # include "UI/bar.h"
+# include "UI/fatigueBar.h"
 # include "UI/button.h"
 # include "UI/energy.h"
 # include "objects/object.h"

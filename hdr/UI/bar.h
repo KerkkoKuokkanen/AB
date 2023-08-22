@@ -11,7 +11,6 @@ class Bar
 		Sprite *bar;
 		Sprite *filler;
 		Sprite *reduce;
-		Sprite *slash = NULL;
 		Number *stat = NULL;
 		Number *maxStat = NULL;
 		SDL_Rect sRect = {0, 0, 800, 40};
@@ -25,7 +24,6 @@ class Bar
 		void ModBars(Character *target, bool health);
 		void ManageReduce();
 		void GetScala();
-		void ManageOrderLayer(Character *target);
 		int swDiff = 0;
 		int destDiff = 0;
 		bool numbers;
@@ -35,6 +33,9 @@ class Bar
 		int healthDownTimer = 14;
 		bool smallBar = false;
 	public:
+		SDL_Point leftNumberOffset = {-400, 0};
+		SDL_Point rightNumberOffset = {800, 0};
+		Sprite *slash = NULL;
 		Character *target = NULL;
 		Bar(SDL_Rect dest, bool numbers, bool staticSprite = true);
 		~Bar() {Destroy();};
@@ -43,6 +44,7 @@ class Bar
 		void Position(SDL_Point place);
 		void Update(Character *target, bool health);
 		void Deactivate();
+		void ChangeTextureToNarrow();
 		void Activate();
 		void Destroy();
 };

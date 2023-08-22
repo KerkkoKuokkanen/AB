@@ -28,6 +28,8 @@ class Character
 		void AssignAbilities();
 		void ShiftChecker();
 		bool animationActive = false;
+		void ManageFatigue();
+		bool wasTurn = false;
 	public:
 		SDL_Point topMid = {0, 0};
 		int currentTexture = 0;

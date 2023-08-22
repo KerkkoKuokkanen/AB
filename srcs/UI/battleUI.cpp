@@ -5,9 +5,22 @@
 CharacterUI::CharacterUI()
 {
 	SDL_Rect dest1 = {-25000, 44000, 50000, 3200};
-	SDL_Rect dest2 = {-25000, 40500, 50000, 3200};
+	SDL_Rect dest2 = {-25000, 40500, 25000, 3100};
+	SDL_Rect dest3 = {0, 40500, 25000, 3100};
 	health = new Bar(dest1, true);
 	armor = new Bar(dest2, true);
+	fatigue = new FatigueBar(dest3, true);
+	armor->ChangeTextureToNarrow();
+	health->leftNumberOffset = {-500, 300};
+	health->rightNumberOffset = {1480, 300};
+	health->slash->dest.w += 100;
+	armor->slash->dest.y -= 50;
+	armor->leftNumberOffset = {-330, 340};
+	armor->rightNumberOffset = {1100, 340};
+	fatigue->slash->dest.w += 350;
+	fatigue->slash->dest.y -= 50;
+	fatigue->leftNumberOffset = {-300, 260};
+	fatigue->rightNumberOffset = {1200, 260};
 	SDL_Rect but = {21800, 35500, 3500, 3500};
 	for (int i = 0; i < BUTTON_RESERVE; i++)
 	{
@@ -43,7 +56,7 @@ int CharacterUI::GetButtonIndex()
 	return (ret);
 }
 
-void CharacterUI::CreateButton(SDL_Rect dest, SDL_Texture *text, int sign, int cost)
+void CharacterUI::CreateButton(SDL_Rect dest, SDL_Texture *text, int sign, int cost, int fatigue)
 {
 	int index = GetButtonIndex();
 	buttons[index].buttonSign = sign;
@@ -52,6 +65,7 @@ void CharacterUI::CreateButton(SDL_Rect dest, SDL_Texture *text, int sign, int c
 	buttons[index].button->SetDest(dest);
 	buttons[index].button->SetClickBox(dest);
 	buttons[index].energyCost = cost;
+	buttons[index].fatigueCost = fatigue;
 }
 
 void CharacterUI::GetAbilities()
@@ -71,34 +85,34 @@ void CharacterUI::GetAbilities()
 		switch (activeCharacter->abilities[i].type)
 		{
 			case DAGGER_THROW:
-				CreateButton(dest, gameState.textures.thiefAbilites[0], DAGGER_THROW, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.thiefAbilites[0], DAGGER_THROW, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case SMOKE_BOMB:
-				CreateButton(dest, gameState.textures.thiefAbilites[1], SMOKE_BOMB, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.thiefAbilites[1], SMOKE_BOMB, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case DAGGER_SLASH:
-				CreateButton(dest, gameState.textures.thiefAbilites[2], DAGGER_SLASH, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.thiefAbilites[2], DAGGER_SLASH, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case FLAME_PORT:
-				CreateButton(dest, gameState.textures.pyroAbilities[0], FLAME_PORT, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.pyroAbilities[0], FLAME_PORT, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case FLAME_SLASH:
-				CreateButton(dest, gameState.textures.pyroAbilities[1], FLAME_SLASH, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.pyroAbilities[1], FLAME_SLASH, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case FLAME_BLAST:
-				CreateButton(dest, gameState.textures.pyroAbilities[2], FLAME_BLAST, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.pyroAbilities[2], FLAME_BLAST, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case INCINERATE:
-				CreateButton(dest, gameState.textures.pyroAbilities[3], INCINERATE, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.pyroAbilities[3], INCINERATE, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case LION_SMACK:
-				CreateButton(dest, gameState.textures.lionAbilities[0], LION_SMACK, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.lionAbilities[0], LION_SMACK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case PHANTOM_KNIGHT:
-				CreateButton(dest, gameState.textures.lionAbilities[1], PHANTOM_KNIGHT, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.lionAbilities[1], PHANTOM_KNIGHT, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 			case ROTATE:
-				CreateButton(dest, gameState.textures.lionAbilities[2], ROTATE, activeCharacter->abilities[i].cost);
+				CreateButton(dest, gameState.textures.lionAbilities[2], ROTATE, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
 		}
 	}
@@ -109,6 +123,7 @@ void CharacterUI::DeactivateUI()
 	overCharacterUI = false;
 	health->Deactivate();
 	armor->Deactivate();
+	fatigue->Deactivate();
 	for (int i = 0; i< BUTTON_RESERVE; i++)
 		buttons[i].button->Deactivate();
 	for (int i = 0; i < ENERGYS; i++)
@@ -134,6 +149,7 @@ void CharacterUI::getActive()
 	{
 		health->Activate();
 		armor->Activate();
+		fatigue->Activate();
 		if (activeCharacter != characters[index])
 		{
 			activeCharacter = characters[index];
@@ -172,7 +188,7 @@ bool CharacterUI::NoOneKilled()
 	return (true);
 }
 
-void CharacterUI::ShowEnergy(int cost)
+void CharacterUI::ShowEnergy(int cost, bool moving)
 {
 	if (cost == 0)
 		return ;
@@ -184,9 +200,11 @@ void CharacterUI::ShowEnergy(int cost)
 		energys[start]->energy->ClearColorMod();
 		start--;
 	}
+	if (moving)
+		fatigue->ShowFatigue(cost * 1.5f);
 }
 
-void CharacterUI::UseEnergy(int cost)
+void CharacterUI::UseEnergy(int cost, bool moving)
 {
 	if (cost == 0 || cost > activeCharacter->moves)
 		return ;
@@ -197,6 +215,8 @@ void CharacterUI::UseEnergy(int cost)
 		start--;
 	}
 	activeCharacter->moves -= cost;
+	if (moving)
+		activeCharacter->stats.fatigue += cost * 1.5f;
 }
 
 t_Ability *CharacterUI::GetCharacterAbility(int type)
@@ -226,6 +246,7 @@ void CharacterUI::Update()
 		return ;
 	health->Update(activeCharacter, true);
 	armor->Update(activeCharacter, false);
+	fatigue->Update(activeCharacter);
 	CheckIfMouseOver();
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{
@@ -236,6 +257,8 @@ void CharacterUI::Update()
 				HandleButtonAction(buttons[i].button->Update(), i);
 		}
 	}
+	if (gameState.updateObjs.abilities->active && !gameState.updateObjs.abilities->inMotion)
+		fatigue->ShowFatigue(gameState.updateObjs.abilities->ability->fatigue);
 }
 
 void CharacterUI::SetCharacters(std::vector<Character> &characters)
@@ -333,12 +356,16 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 	overCharacterUI = true;
 	if (buttons[buttonIndex].energyCost != 0 && buttons[buttonIndex].energyCost < activeCharacter->moves)
 		ShowEnergy(buttons[buttonIndex].energyCost);
+	fatigue->ShowFatigue(buttons[buttonIndex].fatigueCost);
 	if (buttons[buttonIndex].buttonSign == 0 && value == BUTTON_PRESS)
 	{
 		gameState.updateObjs.turnOrder->ActivateTurnChange();
 		return ;
 	}
 	if (value != BUTTON_PRESS || buttons[buttonIndex].energyCost > activeCharacter->moves)
+		return ;
+	int fat = buttons[buttonIndex].fatigueCost + activeCharacter->stats.fatigue;
+	if (fat > activeCharacter->stats.maxFatigue)
 		return ;
 	switch (buttons[buttonIndex].buttonSign)
 	{

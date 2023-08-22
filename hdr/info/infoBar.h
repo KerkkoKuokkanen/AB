@@ -12,7 +12,7 @@ class InfoBar
 		Sprite *outline = NULL;
 		Bar *health = NULL;
 		Bar *armor = NULL;
-		Bar *fatigue = NULL;
+		FatigueBar *fatigue = NULL;
 		void CreateText();
 		void CreateBars();
 		SDL_Rect GetTextDest(std::string &str);
