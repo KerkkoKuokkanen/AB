@@ -75,7 +75,7 @@ void Character::AssignAbilities()
 			AssingDefaultPyroStats(abilities);
 			break ;
 		case LION:
-			abilities = {{LION_SMACK, 0, 30, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
+			abilities = {{LION_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
 						{PHANTOM_KNIGHT, 0, 10, 200, StatStructs::PHANTOM_KNIGHT, -1, NULL},
 						{ROTATE, 0, 10, 200, StatStructs::TIERS, -1, NULL}};
 			AssignDefaultLionStats(abilities);

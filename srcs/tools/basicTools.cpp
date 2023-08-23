@@ -149,6 +149,17 @@ SDL_FRect	translateSprite(SDL_Rect dest)
 	return (ret);
 }
 
+SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest)
+{
+	SDL_FRect ret = {
+		(float)(dest.x - gameState.camera.x + gameState.screenShake.xShake) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
+		(float)(dest.y - gameState.camera.y + gameState.screenShake.yShake) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
+		(float)dest.w,
+		(float)dest.h * ASPECT_MULTI
+	};
+	return (ret);
+}
+
 bool modPointCheck(SDL_Point &point, SDL_Rect &hitBox)
 {
 	SDL_Rect hb = hitBox;

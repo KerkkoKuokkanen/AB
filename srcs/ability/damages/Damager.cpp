@@ -99,12 +99,12 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 			t_Sound add2 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
 			t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 			std::vector<t_Sound> sounds = {add2, add3};
-			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
+			damageCreator.CreateDamage(targ, Color(255, 0, 0), 12, 12, GetDirection(character, targ), sounds);
 		}
 		else
 		{
 			std::vector<t_Sound> sounds = {};
-			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
+			damageCreator.CreateDamage(targ, Color(255, 0, 0), 12, 12, GetDirection(character, targ), sounds);
 		}
 		if (StatusApply(ability, character, targ))
 			addStatus(targ, ability);

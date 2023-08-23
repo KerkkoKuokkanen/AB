@@ -26,6 +26,7 @@ class CharacterUI
 		Bar *health;
 		Bar *armor;
 		FatigueBar *fatigue;
+		Statuses *statuses;
 		Sprite *text = NULL;
 		SDL_Texture *texts = NULL;
 		bool turnActive = true;

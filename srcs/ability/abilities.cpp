@@ -201,20 +201,6 @@ void Abilities::UpdateSelector()
 		UpdatePhantomSelector();
 }
 
-void Abilities::UpdateMisses()
-{
-	for (int i = 0; i < misses.size(); i++)
-	{
-		misses[i]->Update();
-		if (misses[i]->done)
-		{
-			delete misses[i];
-			misses.erase(misses.begin() + i);
-			i--;
-		}
-	}
-}
-
 void Abilities::Upadte()
 {
 	UpdateSelector();
@@ -224,7 +210,6 @@ void Abilities::Upadte()
 	effectUpdater.Update();
 	damager.Update();
 	groundColoring.Update();
-	UpdateMisses();
 	if (gameState.keys.rightClick == INITIAL_CLICK)
 		ClearMap();
 	AbilityStatus();
@@ -234,13 +219,7 @@ void Abilities::HandleDamageVector(std::vector<t_HitReturn> &ret)
 {
 	for (int i = 0; i < ret.size(); i++)
 	{
-		if (ret[i].missing)
-		{
-			MISS *add = createBasicMISS(character->position, ret[i].target, true);
-			if (add != NULL)
-				misses.push_back(add);
-		}
-		else
+		if (!ret[i].missing)
 		{
 			std::vector<SDL_Point> add = {ret[i].target};
 			damager.AddDamage(ability, character, add);
@@ -302,12 +281,6 @@ void Abilities::AbilityStatus()
 void Abilities::CreateOpportunityDamage(Character *damager, Character *target)
 {
 	Abilities::damager.AddOpportunityDamage(damager, target);
-}
-
-void Abilities::CreateMiss(Character *dmg, Character *target)
-{
-	misses.push_back(createOpportunityMISS(target, dmg, false));
-	PlaySound(gameState.audio.whiff, Channels::LOWER_VOLUME_WHIFF, 0);
 }
 
 void Abilities::ClearMap()

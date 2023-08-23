@@ -19,28 +19,63 @@ static int numDigits(int num)
 	return (3);
 }
 
+bool Statuses::GetMouseOverStatuses()
+{
+	int x = gameState.keys.staticMouseX;
+	int y = gameState.keys.staticMouseY;
+	for (int i = 0; i < statuses.size(); i++)
+	{
+		switch (statuses[i].statusType)
+		{
+			case StatusSigns::BURN:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.statuses.burn, dst1, x, y))
+					return (true);
+				break ;
+			}
+			case StatusSigns::STUN:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.statuses.questionMark, dst1, x, y))
+					return (true);
+				break ;
+			}
+		}
+	}
+	return (false);
+}
+
 void Statuses::CreateStatuses()
 {
 	SDL_Rect dest = {0, 0, size, size};
 	if (character->statuses.burns.size() > 0)
 	{
-		t_NumberAndSprite add;
+		t_SnippetAndSprite add;
 		add.sprite = new Sprite(gameState.textures.statuses.burns[2], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 		add.sprite->orderLayer = 1;
-		gameState.render->AddSprite(add.sprite, INFO_LAYER);
+		gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
 		int num = (int)character->statuses.burns.size();
 		if (num > 0)
 		{
-			add.number = new Number(num, numberSize, INFO_LAYER, 2, staticSprite, NumberType::NORMAL);
-			add.number->ColorMod(168, 168, 168);
+			std::string used = std::to_string(num);
+			const char *text = used.c_str();
+			add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+			add.snippet->SetOrderLayer(3);
+			add.snippet->SetOutlineColor(50, 50, 50);
+			add.snippet->SetAlphaMod(155);
 		}
 		else
-			add.number = NULL;
+			add.snippet = NULL;
 		statuses.push_back({add, StatusSigns::BURN});
 	}
 }
 
-Statuses::Statuses(Character *character, int size, int numberSize, bool staticSprite, bool vertical)
+Statuses::Statuses(Character *character, int size, int numberSize, int numOffset, bool staticSprite, bool vertical)
 {
 	if (size < 50)
 		size = 1000;
@@ -48,6 +83,7 @@ Statuses::Statuses(Character *character, int size, int numberSize, bool staticSp
 		numberSize = 1000;
 	Statuses::size = size;
 	Statuses::numberSize = numberSize;
+	Statuses::numberOffset = numOffset;
 	Statuses::character = character;
 	Statuses::vertical = vertical;
 	Statuses::staticSprite = staticSprite;
@@ -64,8 +100,8 @@ void Statuses::OrderStatuses()
 
 void Statuses::ChangeAmount(int &index, int amount, int num)
 {
-	if (statuses[index].images.number != NULL)
-		delete statuses[index].images.number;
+	if (statuses[index].images.snippet != NULL)
+		delete statuses[index].images.snippet;
 	if (amount == 0)
 	{
 		if (statuses[index].images.sprite != NULL)
@@ -73,11 +109,12 @@ void Statuses::ChangeAmount(int &index, int amount, int num)
 		index -= 1;
 		return ;
 	}
-	statuses[index].images.number = new Number(amount, numberSize, INFO_LAYER, 2, staticSprite, NumberType::NORMAL);
-	statuses[index].images.number->ColorMod(168, 168, 168);
-	if (gameState.screen.unit < 0.00002f)
-		statuses[index].images.number->Deactivate();
-	CreatePulser(statuses[index].statusType);
+	std::string used = std::to_string(amount);
+	const char *text = used.c_str();
+	statuses[index].images.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+	statuses[index].images.snippet->SetOrderLayer(3);
+	statuses[index].images.snippet->SetOutlineColor(50, 50, 50);
+	statuses[index].images.snippet->SetAlphaMod(155);
 	RePosition();
 }
 
@@ -95,35 +132,22 @@ SDL_Rect Statuses::GetRightRect(int statusSign)
 	return (ret);
 }
 
-void Statuses::PositionPulsers()
-{
-	if (pulsers.size() == 0)
-		return ;
-	for (int i = 0; i < pulsers.size(); i++)
-	{
-		SDL_Rect dest = GetRightRect(pulsers[i].statusSign);
-		pulsers[i].sprite->dest.x = dest.x - 100;
-		pulsers[i].sprite->dest.y = dest.y - 100;
-	}
-}
-
 void Statuses::Postion(Vector place)
 {
+	positioned = true;
+	position = {place.x, place.y};
 	if (statuses.size() == 0)
-	{
-		position = {place.x, place.y};
 		return ;
-	}
+	OrderStatuses();
 	float diff = (float)size;
 	for (int i = 0; i < statuses.size(); i++)
 	{
 		statuses[i].images.sprite->Position(Vector(place.x + (diff * i), place.y));
-		if (statuses[i].images.number == NULL)
+		if (statuses[i].images.snippet == NULL)
 			continue ;
-		float x = (float)statuses[i].images.sprite->dest.x - ((int)((float)numberSize * 0.9f) * numDigits(statuses[i].images.number->getNumber()));
-		statuses[i].images.number->Position(Vector(x, place.y));
+		float x = (float)statuses[i].images.sprite->dest.x - ((int)((float)numberOffset * 1.6f) * numDigits(statuses[i].amount));
+		statuses[i].images.snippet->Position({rounding(x), rounding(place.y) - numberSize / 4});
 	}
-	PositionPulsers();
 }
 
 void Statuses::RePosition()
@@ -131,101 +155,17 @@ void Statuses::RePosition()
 	if (statuses.size() == 0)
 		return ;
 	OrderStatuses();
-	SDL_Rect dest = statuses[0].images.sprite->dest;
-	Postion(Vector((float)dest.x, (float)dest.y));
-}
-
-void Statuses::ManageNumbers()
-{
-	if (gameState.screen.unit < 0.00002f)
-	{
-		for (int i = 0; i < statuses.size(); i++)
-		{
-			if (statuses[i].images.number != NULL)
-				statuses[i].images.number->Deactivate();
-		}
-	}
+	if (positioned)
+		Postion(Vector((float)position.x, (float)position.y));
 	else
 	{
-		for (int i = 0; i < statuses.size(); i++)
-		{
-			if (statuses[i].images.number != NULL)
-				statuses[i].images.number->Activate();
-		}
-	}
-}
-
-void Statuses::CreatePulser(int statusSign)
-{
-	int index = 0;
-	bool visited = false;
-	for (int i = 0; i < statuses.size(); i++)
-	{
-		if (statuses[i].statusType == statusSign)
-		{
-			index = i;
-			visited = true;
-			break ;
-		}
-	}
-	if (!visited)
-		return ;
-	for (int i = 0; i < pulsers.size(); i++)
-	{
-		if (pulsers[i].statusSign == statusSign)
-		{
-			pulsers[i].sprite->AlphaMod(0);
-			pulsers[i].timer = 0;
-			return ;
-		}
-	}
-	SDL_Rect dest = statuses[index].images.sprite->dest;
-	dest = {dest.x - 100, dest.y - 100, dest.w + 200, dest.h + 200};
-	t_Pulser add;
-	add.sprite = new Sprite(gameState.textures.statuses.burns[1], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
-	add.sprite->AlphaMod(0);
-	add.sprite->ColorMod(200, 200, 200);
-	gameState.render->AddSprite(add.sprite, INFO_LAYER);
-	add.statusSign = statusSign;
-	add.timer = 0;
-	pulsers.push_back(add);
-}
-
-void Statuses::ManagePulsers()
-{
-	if (pulsers.size() == 0)
-		return ;
-	float unit = 255.0f / 15.0f;
-	for (int i = 0; i < pulsers.size(); i++)
-	{
-		if (pulsers[i].timer <= 15)
-		{
-			int alpha = rounding((float)pulsers[i].timer * unit);
-			if (alpha > 255)
-				alpha = 255;
-			pulsers[i].sprite->AlphaMod(alpha);
-		}
-		else if (pulsers[i].timer > 20)
-		{
-			int alpha = rounding((float)(15 - (pulsers[i].timer - 20)) * unit);
-			if (alpha > 255)
-				alpha = 255;
-			pulsers[i].sprite->AlphaMod(alpha);
-		}
-		pulsers[i].timer++;
-		if (pulsers[i].timer > 35)
-		{
-			delete pulsers[i].sprite;
-			pulsers.erase(pulsers.begin() + i);
-			i--;
-		}
+		SDL_Rect dest = statuses[0].images.sprite->dest;
+		Postion(Vector((float)dest.x, (float)dest.y));
 	}
 }
 
 void Statuses::Update()
 {
-	ManageNumbers();
-	ManagePulsers();
 	CheckIfNewStatuses();
 	CheckIfNeedToCreateStatuses();
 }
@@ -242,7 +182,7 @@ bool Statuses::AlreadyExists(int statusSign)
 
 void Statuses::CreateFrestStatus(int statusSign)
 {
-	t_NumberAndSprite add;
+	t_SnippetAndSprite add;
 	SDL_Rect dest = {0, 0, size, size};
 	bool onlyOne = false;
 	if (statuses.size() == 0)
@@ -253,19 +193,29 @@ void Statuses::CreateFrestStatus(int statusSign)
 		{
 			add.sprite = new Sprite(gameState.textures.statuses.burns[2], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 			add.sprite->orderLayer = 1;
-			gameState.render->AddSprite(add.sprite, INFO_LAYER);
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
 			int num = (int)character->statuses.burns.size();
 			if (num > 0)
 			{
-				add.number = new Number(num, numberSize, INFO_LAYER, 2, staticSprite, NumberType::NORMAL);
-				add.number->ColorMod(168, 168, 168);
-				if (gameState.screen.unit < 0.00002f)
-					add.number->Deactivate();
+				std::string used = std::to_string(num);
+				const char *text = used.c_str();
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet->SetOrderLayer(3);
+				add.snippet->SetOutlineColor(50, 50, 50);
+				add.snippet->SetAlphaMod(155);
 			}
 			else
-				add.number = NULL;
-			statuses.push_back({add, StatusSigns::BURN});
-			CreatePulser(StatusSigns::BURN);
+				add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::BURN, num});
+			break ;
+		}
+		case StatusSigns::STUN:
+		{
+			add.sprite = new Sprite(gameState.textures.questionMark, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::STUN, 1});
 			break ;
 		}
 	}
@@ -284,6 +234,11 @@ void Statuses::CheckIfNeedToCreateStatuses()
 		if (!AlreadyExists(StatusSigns::BURN))
 			CreateFrestStatus(StatusSigns::BURN);
 	}
+	if (character->statuses.stun != 0)
+	{
+		if (!AlreadyExists(StatusSigns::STUN))
+			CreateFrestStatus(StatusSigns::STUN);
+	}
 }
 
 void Statuses::CheckIfNewStatuses()
@@ -295,7 +250,7 @@ void Statuses::CheckIfNewStatuses()
 			case StatusSigns::BURN:
 			{
 				int amount = (int)character->statuses.burns.size();
-				int num = (statuses[i].images.number == NULL) ? 0 : statuses[i].images.number->getNumber();
+				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)
 					ChangeAmount(i, amount, num);
 				break ;
@@ -310,14 +265,8 @@ void Statuses::Destroy()
 	{
 		if (statuses[i].images.sprite != NULL)
 			delete statuses[i].images.sprite;
-		if (statuses[i].images.number != NULL)
-			delete statuses[i].images.number;
-	}
-	for (int i = 0; i < pulsers.size(); i++)
-	{
-		if (pulsers[i].sprite != NULL)
-			delete pulsers[i].sprite;
+		if (statuses[i].images.snippet != NULL)
+			delete statuses[i].images.snippet;
 	}
 	statuses.clear();
-	pulsers.clear();
 }

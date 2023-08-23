@@ -53,7 +53,7 @@ void Markers::MultipleMarkers(t_MarkerPlace *mark)
 	Uint8 g = colors[mark->colorSign].g;
 	Uint8 b = colors[mark->colorSign].b;
 	sprite->ColorMod(r, g, b);
-	gameState.render->AddSprite(sprite, MISS_LAYER);
+	gameState.render->AddSprite(sprite, INFO_LAYER);
 	mark->sprites.push_back(sprite);
 	int amount = mark->sprites.size();
 	int start = (int)place.x - ((DIFFERENCE * amount) / 2);
@@ -97,7 +97,7 @@ void Markers::PlaceMarker(SDL_Point position)
 	add.pos = position;
 	SDL_Rect dest = {(int)(place.x - 200.0f), (int)place.y, 400, 400};
 	Sprite *sprite = new Sprite(gameState.textures.marker, dest, NULL, NULL, 0, FLIP_NONE);
-	gameState.render->AddSprite(sprite, MISS_LAYER);
+	gameState.render->AddSprite(sprite, INFO_LAYER);
 	add.sprites.push_back(sprite);
 	SetColor(&add);
 	marked.push_back(add);

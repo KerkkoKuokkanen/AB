@@ -32,9 +32,8 @@ enum {
 	PARTICLE_LAYER,
 	OBJECT_LAYER,
 	INFO_LAYER,
-	MISS_LAYER,
-	STATUS_LAYER,
 	TURN_ORDER_LAYER,
+	TEXT_LAYER,
 	COUNTER_LAYER
 };
 
@@ -55,8 +54,8 @@ enum {
 namespace StatusSigns
 {
 	enum {
-		BURN,
-		STUN
+		STUN,
+		BURN
 	};
 };
 
@@ -90,6 +89,7 @@ typedef struct s_HitReturn
 
 SDL_FRect	translateSprite(SDL_Rect dest);
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
+SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 
 # include "render/sprite.h"
 # include <vector>
@@ -101,6 +101,8 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "battleClasses/kill.h"
 # include "particle/particle.h"
 # include "particle/particleManager.h"
+# include "info/snippet.h"
+# include "info/flyingText.h"
 # include "UI/number.h"
 # include "UI/marker.h"
 # include "UI/statuses.h"
@@ -144,7 +146,6 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 # include "ability/selectors/selectorForTiles.h"
 # include "ability/selectors/multiSelector.h"
 # include "ability/selectors/phantomSelector.h"
-# include "ability/miss.h"
 # include "ability/abilities.h"
 # include "UI/battleUI.h"
 
@@ -258,8 +259,6 @@ SDL_Surface		*getSurface(Character *character);
 Vector			getDirection(Vector generalDir);
 void			SetScreenShake(int volume, int time);
 void			ShakeTheScreen();
-MISS			*createBasicMISS(SDL_Point start, SDL_Point target, bool sound);
-MISS			*createOpportunityMISS(Character *damager, Character *target, bool sound);
 Vector			GetCharacterTopMid(Character *character);
 
 t_GMU *getMapTopRight(SDL_Point pos);

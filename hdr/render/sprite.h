@@ -20,6 +20,7 @@ class Sprite
 		bool active = true;
 		bool translated = true;
 		bool deleteTexture = false;
+		bool scaled = true;
 	public:
 		float z = 0.0f;
 		SDL_Rect dest = {0, 0, 0, 0};
@@ -40,6 +41,7 @@ class Sprite
 		};
 		~Sprite();
 		void setSRect(SDL_Rect *srect) {Sprite::srect = srect;};
+		void setScaled(bool scaled) {Sprite::scaled = scaled;};
 		void setDeleteTexture(bool deleteTexture) {Sprite::deleteTexture = deleteTexture;};
 		void Destroy() {delete this;};
 		void Activate() {active = true;};
@@ -54,7 +56,12 @@ class Sprite
 			if (translated)
 			{
 				if (!staticSprite)
-					rect = translateSprite(dest);
+				{
+					if (scaled)
+						rect = translateSprite(dest);
+					else
+						rect = translateSpriteWithoutScale(dest);
+				}
 				else
 					rect = staitcTranslateSprite(dest);
 			}

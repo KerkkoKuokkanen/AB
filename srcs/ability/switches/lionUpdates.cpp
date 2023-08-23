@@ -23,8 +23,6 @@ void Abilities::UpdateLionAnimation(t_Animation &animation, int index)
 			{
 				if (MeleeCheck(character, target, ability))
 					CreateDamage();
-				else
-					misses.push_back(createBasicMISS(character->position, targetPoint, true));
 			}
 			if (use->done)
 			{

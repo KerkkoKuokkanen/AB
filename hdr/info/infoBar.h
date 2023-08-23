@@ -13,6 +13,7 @@ class InfoBar
 		Bar *health = NULL;
 		Bar *armor = NULL;
 		FatigueBar *fatigue = NULL;
+		Statuses *statuses = NULL;
 		void CreateText();
 		void CreateBars();
 		SDL_Rect GetTextDest(std::string &str);

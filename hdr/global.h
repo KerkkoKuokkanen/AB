@@ -67,8 +67,15 @@ typedef struct s_Battle
 	int yHeightAdd;
 }				t_Battle;
 
+typedef struct s_StatusSurfaces
+{
+	SDL_Surface *questionMark;
+	SDL_Surface *burn;
+}				t_StatusSurfaces;
+
 typedef struct s_Surfaces
 {
+	t_StatusSurfaces statuses;
 	SDL_Surface *thiefIdle1;
 	SDL_Surface *thiefIdle2;
 	SDL_Surface *skeleIdle1;

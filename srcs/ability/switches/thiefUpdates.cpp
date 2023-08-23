@@ -44,8 +44,6 @@ void Abilities::UpdateThiefAnimation(t_Animation &animation, int index)
 			{
 				if (MeleeCheck(character, target, ability))
 					CreateDamage();
-				else
-					misses.push_back(createBasicMISS(character->position, targetPoint, true));
 			}
 			if (use->done)
 			{
@@ -69,8 +67,6 @@ void Abilities::UpdateThiefObject(t_Object &object, int index)
 			{
 				if (used->createDamage)
 					CreateDamage();
-				else
-					misses.push_back(createBasicMISS(character->position, targetPoint, true));
 				delete used;
 				objects.erase(objects.begin() + index);
 			}

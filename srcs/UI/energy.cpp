@@ -8,6 +8,8 @@ Energy::Energy()
 	SDL_Rect dest = {0, 0, 2600, 4100};
 	stand = new Sprite(gameState.textures.energy[0], dest, NULL, NULL, 0, FLIP_NONE, true);
 	energy = new Sprite(gameState.textures.energy[1], dest, NULL, NULL, 0, FLIP_NONE, true);
+	stand->orderLayer = 5;
+	energy->orderLayer = 6;
 	stand->Deactivate();
 	energy->Deactivate();
 	energy->ColorMod(190, 190, 190);

@@ -251,7 +251,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.smallerBar = get_texture_with_scale_mode(rend, "sprites/UI/smallerBar.png", SDL_ScaleModeNearest);
 	gameState.textures.statuses.burns[0] = get_texture(rend, "sprites/attacks/burn.png");
 	gameState.textures.statuses.burns[1] = get_texture(rend, "sprites/attacks/whiteBurn.png");
-	gameState.textures.statuses.burns[2] = get_texture(rend, "sprites/attacks/burn2.png");
+	use = get_texture_and_surface(rend, "sprites/attacks/burn2.png");
+	gameState.textures.statuses.burns[2] = use.text;
+	gameState.surfaces.statuses.burn = use.sur;
 	use = get_texture_and_surface(rend, "sprites/env/counter.png");
 	gameState.textures.counter = use.text;
 	gameState.surfaces.counter = use.sur;
@@ -274,7 +276,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.lionAbilities[2] = get_texture(rend, "sprites/UI/abilities/rotate.png");
 	gameState.textures.chars.lionSmack = get_texture(rend, "sprites/characters/lion/lionSmack.png");
 	gameState.textures.attacks.lionTrail = get_texture(rend, "sprites/characters/lion/lionSmackTrail.png");
-	gameState.textures.questionMark = get_texture(rend, "sprites/UI/questionMark.png");
+	use = get_texture_and_surface(rend, "sprites/UI/questionMark.png");
+	gameState.textures.questionMark = use.text;
+	gameState.surfaces.statuses.questionMark = use.sur;
 	gameState.textures.control = get_texture(rend, "sprites/env/control.png");
 	gameState.textures.everyColor = get_texture(rend, "sprites/env/everyColor.png");
 }
@@ -298,9 +302,8 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
 	render.CreateLayer(LAYER_DEPTH_SORT); //info layer
-	render.CreateLayer(LAYER_NO_SORT); //miss layer
-	render.CreateLayer(LAYER_ORDER_SORT); //status layer
 	render.CreateLayer(LAYER_ORDER_SORT); //turn order layer
+	render.CreateLayer(LAYER_ORDER_SORT); //flying texts;
 	render.CreateLayer(LAYER_ORDER_SORT); //counter layer
 	gameState.render = &render;
 	static BattleGround battle(BATTLEGROUND_LAYER, wr->rend);

@@ -124,6 +124,9 @@ void CharacterUI::DeactivateUI()
 	health->Deactivate();
 	armor->Deactivate();
 	fatigue->Deactivate();
+	if (statuses != NULL)
+		delete statuses;
+	statuses = NULL;
 	for (int i = 0; i< BUTTON_RESERVE; i++)
 		buttons[i].button->Deactivate();
 	for (int i = 0; i < ENERGYS; i++)
@@ -157,6 +160,8 @@ void CharacterUI::getActive()
 				buttons[i].used = false;
 			GetAbilities();
 		}
+		statuses = new Statuses(activeCharacter, 1900, 1200, 590, true);
+		statuses->Postion(Vector(-24800.0f, 33100.0f));
 		for (int i = 0; i < BUTTON_RESERVE; i++)
 		{
 			if (buttons[i].used)
@@ -247,6 +252,7 @@ void CharacterUI::Update()
 	health->Update(activeCharacter, true);
 	armor->Update(activeCharacter, false);
 	fatigue->Update(activeCharacter);
+	statuses->Update();
 	CheckIfMouseOver();
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{
@@ -305,6 +311,11 @@ void CharacterUI::CheckIfMouseOver()
 	const SDL_Rect dest1 = {(int)hold1.x, (int)hold1.y, (int)hold1.w, (int)hold1.h};
 	const SDL_Rect dest2 = {(int)hold2.x, (int)hold2.y, (int)hold2.w, (int)hold2.h};
 	int x = gameState.keys.staticMouseX, y = gameState.keys.staticMouseY;
+	if (statuses->GetMouseOverStatuses())
+	{
+		overCharacterUI = true;
+		return ;
+	}
 	if (MenuHoverCheck(gameState.surfaces.bar[0], dest1, x, y))
 	{
 		overCharacterUI = true;

@@ -110,12 +110,15 @@ InfoBar::InfoBar(Character *character)
 	outline->orderLayer = (-1);
 	outline->ColorMod(40, 40, 40);
 	gameState.render->AddSprite(outline, TURN_ORDER_LAYER);
+	statuses = new Statuses(character, 1800, 1080, 570, true);
+	statuses->Postion(Vector(-12500.0f, -35200.0f));
 }
 
 void InfoBar::Update()
 {
 	health->Update(character, true);
 	armor->Update(character, false);
+	statuses->Update();
 	if (fatigue != NULL)
 		fatigue->Update(character);
 }
@@ -137,4 +140,6 @@ void InfoBar::Destroy()
 		delete fatigue;
 	if (outline != NULL)
 		delete outline;
+	if (statuses != NULL)
+		delete statuses;
 }

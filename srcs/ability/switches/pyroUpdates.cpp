@@ -18,10 +18,7 @@ void Abilities::PyroIncinerateDamage()
 				damager.AddDamage(ability, character, used, false);
 			}
 			else
-			{
 				visited = true;
-				misses.push_back(createBasicMISS(targ->position, targPoints[i], false));
-			}
 		}
 	}
 	if (visited)
@@ -61,8 +58,6 @@ void Abilities::UpdatePyroAnimation(t_Animation &animation, int index)
 			{
 				if (MeleeCheck(character, target, ability))
 					CreateDamage();
-				else
-					misses.push_back(createBasicMISS(character->position, targetPoint, true));
 			}
 			break ;
 		}

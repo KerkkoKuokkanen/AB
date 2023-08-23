@@ -34,7 +34,6 @@ class Abilities
 
 		std::vector<t_Animation> animations;
 		std::vector<t_Object> objects;
-		std::vector<MISS*> misses;
 
 		Character *character = NULL;
 		Character *target = NULL;
@@ -67,7 +66,6 @@ class Abilities
 		void UpdatePhantomSelector();
 		void MultiSelectorWithCharacter();
 		void AllSelectorUpdate();
-		void UpdateMisses();
 		void UpdateRotate(int index);
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 		bool CheckForPhantomKnight();
@@ -83,7 +81,6 @@ class Abilities
 		void Upadte();
 		void Clear();
 		void CreateOpportunityDamage(Character *damager, Character *target);
-		void CreateMiss(Character *damager, Character *target);
 };
 
 #endif

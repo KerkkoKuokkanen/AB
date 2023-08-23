@@ -9,7 +9,7 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/battle/battleGround.cpp srcs/battle/battleMoving.cpp srcs/battle/hoverChecker.cpp srcs/battle/moveCharacter.cpp \
 		srcs/battle/moveLine.cpp srcs/battle/movingAlgos.cpp srcs/battle/turn/turnIndicator.cpp srcs/battle/turn/turnOrder.cpp \
 		srcs/ability/abilities.cpp srcs/ability/chanceChecks.cpp srcs/ability/characterMover.cpp srcs/ability/effectUpdater.cpp \
-		srcs/ability/groundColoring.cpp srcs/ability/miss.cpp srcs/ability/switches/pyroUpdates.cpp srcs/ability/switches/thiefUpdates.cpp \
+		srcs/ability/groundColoring.cpp srcs/ability/switches/pyroUpdates.cpp srcs/ability/switches/thiefUpdates.cpp \
 		srcs/ability/selectors/allSelector.cpp srcs/ability/selectors/Markers.cpp srcs/ability/selectors/multiSelector.cpp \
 		srcs/ability/selectors/Selector.cpp srcs/ability/selectors/SelectorForTiles.cpp srcs/ability/objects/dagger.cpp \
 		srcs/ability/objects/fireBall.cpp srcs/ability/objects/smokeBomb.cpp srcs/ability/objects/smokeEffect.cpp \
@@ -20,7 +20,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/characters/StatusUpdater.cpp srcs/info/stunUpdates.cpp srcs/ability/selectors/phantomSelector.cpp \
 		srcs/ability/animation/phantomAnim.cpp srcs/ability/objects/phantomKnight.cpp srcs/ability/animation/rotate.cpp \
 		srcs/ability/switches/updateRotate.cpp srcs/info/control.cpp srcs/info/controlSetter.cpp srcs/ability/damages/opportunity.cpp \
-		srcs/info/movementEnergy.cpp srcs/info/infoBar.cpp srcs/UI/UIText.cpp srcs/UI/fatigueBar.cpp
+		srcs/info/movementEnergy.cpp srcs/info/infoBar.cpp srcs/UI/UIText.cpp srcs/UI/fatigueBar.cpp srcs/info/snippet.cpp \
+		srcs/info/flyingText.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

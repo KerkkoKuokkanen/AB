@@ -25,10 +25,12 @@ static bool CheckIfHits(Character *damager, Character *target)
 Vector OpportunityAttack::GetDirection()
 {
 	SDL_Point cPos = damager->position;
-	SDL_Rect cDest = gameState.battle.ground->getTileDest(cPos);
-	SDL_Rect tDest = gameState.battle.ground->getTileDest(target->position);
-	Vector ret((float)(tDest.x - cDest.x), (float)(tDest.y - cDest.y));
-	return (ret);
+	int index = gameState.battle.ground->movedCharacter.index;
+	SDL_Point tPos = gameState.battle.ground->movedCharacter.path[index];
+	SDL_Rect dest1 = gameState.battle.ground->getTileDest(cPos);
+	SDL_Rect dest2 = gameState.battle.ground->getTileDest(tPos);
+	SDL_Point dir = {dest2.x - dest1.x, dest2.y - dest1.y};
+	return (Vector((float)dir.x, (float)dir.y).Normalized());
 }
 
 Character *OpportunityAttack::AnyOneMoving()
@@ -136,7 +138,6 @@ void OpportunityAttack::CreateDamageOrMiss()
 		gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[tried]);
 		return ;
 	}
-	gameState.updateObjs.abilities->CreateMiss(damager, target);
 }
 
 void OpportunityAttack::Update()
