@@ -44,6 +44,8 @@ void Abilities::UpdateThiefAnimation(t_Animation &animation, int index)
 			{
 				if (MeleeCheck(character, target, ability))
 					CreateDamage();
+				else
+					CreateMiss(character->position, target->position, target, true);
 			}
 			if (use->done)
 			{
@@ -67,6 +69,8 @@ void Abilities::UpdateThiefObject(t_Object &object, int index)
 			{
 				if (used->createDamage)
 					CreateDamage();
+				else
+					PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
 				delete used;
 				objects.erase(objects.begin() + index);
 			}

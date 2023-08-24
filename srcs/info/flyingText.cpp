@@ -1,15 +1,20 @@
 
 #include "../../hdr/global.h"
 
-FlyingSnippet::FlyingSnippet(const char *text, Vector position, Vector direction, int size, int time)
+FlyingSnippet::FlyingSnippet(const char *text, Vector position, Vector direction, int size, int time, int layer)
 {
-	snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {(int)position.x, (int)position.y}, size, size / 2, TEXT_LAYER, false);
-	snippet->SetScaled(false);
+	snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {(int)position.x, (int)position.y}, size, size / 2, layer, false);
 	Vector direc = direction.Normalized();
 	dir.x = direc.x;
 	dir.y = direc.y;
 	FlyingSnippet::time = time;
 	third = time * 0.33f;
+	gameState.updateObjs.info->AddSnippet(this);
+}
+
+void FlyingSnippet::SetAmount(int amount)
+{
+	snippet->SetOutlineAmount(amount);
 }
 
 void FlyingSnippet::ManageAlpha()
@@ -26,6 +31,11 @@ void FlyingSnippet::ManageAlpha()
 	snippet->SetAlphaMod(used);
 }
 
+void FlyingSnippet::SetColor(Uint8 r, Uint8 g, Uint8 b)
+{
+	snippet->SetColor(r, g, b);
+}
+
 void FlyingSnippet::ManageMovement()
 {
 	Vector direc(dir.x, dir.y);
@@ -34,6 +44,11 @@ void FlyingSnippet::ManageMovement()
 	direc = direc.Normalized();
 	speed /= drag;
 	snippet->Move(Vector(direc.x * speed, direc.y * speed));
+}
+
+void FlyingSnippet::SetOrdering(int order)
+{
+	snippet->SetOrderLayer(order);
 }
 
 void FlyingSnippet::Update()

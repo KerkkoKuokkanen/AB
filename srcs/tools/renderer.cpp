@@ -89,6 +89,44 @@ Sprite::~Sprite()
 		SDL_DestroyTexture(sprite);
 }
 
+void Sprite::Render(SDL_Renderer *rend)
+{
+	if (!active)
+		return ;
+	SDL_FRect rect;
+	if (translated)
+	{
+		if (!staticSprite)
+		{
+			if (scaled)
+				rect = translateSprite(dest);
+			else
+				rect = translateSpriteWithoutScale(dest);
+		}
+		else
+			rect = staitcTranslateSprite(dest);
+	}
+	else
+		rect = {(float)dest.x, (float)dest.y, (float)dest.w, (float)dest.h};
+	bool tt = false;
+	if (alpha != 255)
+	{
+		tt = true;
+		SDL_SetTextureAlphaMod(sprite, alpha);
+	}
+	bool col = false;
+	if (red != 0 || blue != 0 || green != 0)
+	{
+		col = true;
+		SDL_SetTextureColorMod(sprite, red, green, blue);
+	}
+	SDL_RenderCopyExF(rend, sprite, srect, &rect, angle, point, flip);
+	if (tt)
+		SDL_SetTextureAlphaMod(sprite, 255);
+	if (col)
+		SDL_SetTextureColorMod(sprite, 255, 255, 255);
+};
+
 void Sprite::RemoveFromRenderer()
 {
 	if (spritesLayer == -1)

@@ -13,6 +13,8 @@ class Info
 		StunUpdates *stunUpdates = NULL;
 		MovementEnergy *movementEnergy = NULL;
 		InfoBar *bar = NULL;
+		std::vector<FlyingSnippet*> snippets;
+		void UpdateSnippets();
 		void FindHoveredCharacter();
 		bool KilledOrDamaged();
 		void UpdateBar();
@@ -20,6 +22,7 @@ class Info
 		bool overInfo = false;
 		Info();
 		~Info() {Destroy();};
+		void AddSnippet(FlyingSnippet *snippet);
 		void Update();
 		void Destroy();
 };

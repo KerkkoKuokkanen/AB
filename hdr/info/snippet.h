@@ -11,7 +11,7 @@ class Snippet
 		bool outlineBool = false;
 		SDL_Texture *text = NULL;
 		Sprite *sprite = NULL;
-		Sprite *outline[4] = {NULL, NULL, NULL, NULL};
+		Sprite *outline[8] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 		void CreateOutline(SDL_Rect dest, int layer, bool staticSprite);
 	public:
 		Snippet(const char *text, int fontType, bool outline, SDL_Point pos, int size, int offset, int layer, bool staticSprite);

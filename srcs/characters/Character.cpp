@@ -10,7 +10,7 @@ Character::Character(int skin, bool allied)
 	top.y = top.y - (float)sprite->dest.y;
 	topMid = {rounding(top.x), rounding(top.y)};
 	statuses.stun = 0;
-	statuses.burns = {3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+	statuses.burns = {};
 	width = 5800;
 	height = 7500;
 	if (!allied)
@@ -86,6 +86,10 @@ void Character::Update()
 		gameState.updateObjs.killer->AddCharacterToKill(this);
 	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
 		clicked = false;
+	if (gameState.keys.a != 0 && cSing == LION)
+		gameState.updateObjs.killer->AddCharacterToKill(this);
+	if (gameState.keys.d != 0 && cSing == PYRO)
+		gameState.updateObjs.killer->AddCharacterToKill(this);
 	ShiftChecker();
 	ManageFatigue();
 	if (animationActive)

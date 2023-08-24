@@ -39,6 +39,7 @@ class Abilities
 		Character *target = NULL;
 		SDL_Point targetPoint = {0, 0};
 		std::vector<SDL_Point> targPoints;
+		std::vector<CharacterMover*> misses;
 
 		Selector *selector = NULL;
 		TileSelector *tileSelector = NULL;
@@ -69,7 +70,7 @@ class Abilities
 		void UpdateRotate(int index);
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 		bool CheckForPhantomKnight();
-
+		void UpdateMisses();
 	public:
 		t_Ability *ability = NULL;
 		EffectUpdater effectUpdater;
@@ -78,6 +79,7 @@ class Abilities
 		bool marking = false;
 		void SetAbility(t_Ability *ability, Character *character);
 		void SetMap() {groundColoring.SetMap();};
+		void AddMiss(CharacterMover *miss) {misses.push_back(miss);};
 		void Upadte();
 		void Clear();
 		void CreateOpportunityDamage(Character *damager, Character *target);

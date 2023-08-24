@@ -138,6 +138,8 @@ void OpportunityAttack::CreateDamageOrMiss()
 		gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[tried]);
 		return ;
 	}
+	else
+		PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
 }
 
 void OpportunityAttack::Update()

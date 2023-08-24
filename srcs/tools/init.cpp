@@ -63,7 +63,7 @@ void getAudio()
 	Mix_Volume(Channels::THIEF_STEP_CHANNEL, 16);
 	Mix_Volume(Channels::DAGGER_THROW0, 15);
 	Mix_Volume(Channels::DAGGER_THROW1, 25);
-	Mix_Volume(Channels::WHIFF, 70);
+	Mix_Volume(Channels::WHIFF, 40);
 	Mix_Volume(Channels::DAGGER_THROW_ANIM, 30);
 	Mix_Volume(Channels::SMOKE_THROW, 30);
 	Mix_Volume(Channels::SMOKE_BOMB, 38);
@@ -85,12 +85,37 @@ void getAudio()
 	Mix_Volume(Channels::INCINERATE_EXP_SOUND, 14);
 	Mix_Volume(Channels::LION_SMACK, 18);
 	Mix_Volume(Channels::STUN, 80);
-	Mix_Volume(Channels::PHANTOM_KNIGHT, 128);
+	Mix_Volume(Channels::PHANTOM_KNIGHT, 125);
 	Mix_Volume(Channels::ROTATE, 35);
 	Mix_Volume(Channels::POOF, 28);
 	Mix_Volume(Channels::LOWER_VOLUME_HIT, 17);
 	Mix_Volume(Channels::LOWER_VOLUME_WHIFF, 50);
 	Mix_Volume(Channels::OPPORTUNIRY, 70);
+	Mix_Volume(Channels::KILL_FADE, 40);
+	Mix_Volume(Channels::KILL_EXPLOSION0, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION1, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION2, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION3, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION4, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION5, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION6, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION7, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION8, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION9, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION10, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION11, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION12, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION13, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION14, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION15, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION16, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION17, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION18, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION19, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION20, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION21, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION22, 100);
+	Mix_Volume(Channels::KILL_EXPLOSION23, 100);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -122,6 +147,8 @@ void getAudio()
 	gameState.audio.rotate = Mix_LoadWAV("audio/abilities/lion/rotate.wav");
 	gameState.audio.poof = Mix_LoadWAV("audio/abilities/lion/poof.wav");
 	gameState.audio.opportunity = Mix_LoadWAV("audio/abilities/opportunity.wav");
+	gameState.audio.kills[0] = Mix_LoadWAV("audio/effects/killFade.wav");
+	gameState.audio.kills[1] = Mix_LoadWAV("audio/effects/killExplosion.wav");
 }
 
 void getFonts()
@@ -289,7 +316,7 @@ void	init(t_wr *wr)
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO);
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-	Mix_AllocateChannels(40);
+	Mix_AllocateChannels(120);
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);

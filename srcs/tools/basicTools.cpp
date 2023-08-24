@@ -151,11 +151,13 @@ SDL_FRect	translateSprite(SDL_Rect dest)
 
 SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest)
 {
+	float xUnit = gameState.screen.xStaticUnit;
+	float yUnit = gameState.screen.yStaticUnit;
 	SDL_FRect ret = {
 		(float)(dest.x - gameState.camera.x + gameState.screenShake.xShake) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
 		(float)(dest.y - gameState.camera.y + gameState.screenShake.yShake) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
-		(float)dest.w,
-		(float)dest.h * ASPECT_MULTI
+		(float)dest.w / xUnit,
+		(float)dest.h / yUnit * ASPECT_MULTI
 	};
 	return (ret);
 }

@@ -50,7 +50,8 @@ int CharacterMover::Update()
 		if (!positioned)
 		{
 			positioned = true;
-			character->sprite->Position(Vector((float)ogPos.x, (float)ogPos.y));
+			if (positionBack)
+				character->sprite->Position(Vector((float)ogPos.x, (float)ogPos.y));
 		}
 		return (ANIMATION_DONE);
 	}

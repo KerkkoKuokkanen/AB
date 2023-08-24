@@ -9,7 +9,7 @@ void TempInitBattle()
 	Character thief2(PYRO);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
-	Character thief3(THIEF);
+	Character thief3(PYRO);
 	Character thief4(THIEF);
 	Character skele3(SKELE, false);
 	Character skele6(SKELE, false);

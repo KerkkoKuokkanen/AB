@@ -271,6 +271,10 @@ int getXToLeft(SDL_Point pos);
 
 void PrintStat();
 
+void		CreateDamageSnippet(Character *damager, Character *target, int totalDamage, bool opportunity = false);
+void		CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color);
+void		CreateMiss(SDL_Point damager, SDL_Point target, Character *targ, bool sound = false);
+
 void		UpdateStatuses();
 bool		StatusApply(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);

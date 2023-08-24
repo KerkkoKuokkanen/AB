@@ -25,8 +25,10 @@ class CharacterMover
 		SDL_Rect ogPos;
 		bool positioned = false;
 		SDL_Point position;
+		bool positionBack = true;
 	public:
 		CharacterMover(Character *character, Vector direction, int firstTime, int secondTime, float speed, bool linear = true);
+		void SetPostionBack(bool positionBack) {CharacterMover::positionBack = positionBack;};
 		int Update();
 };
 

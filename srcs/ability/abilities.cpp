@@ -201,11 +201,26 @@ void Abilities::UpdateSelector()
 		UpdatePhantomSelector();
 }
 
+void Abilities::UpdateMisses()
+{
+	for (int i = 0; i < misses.size(); i++)
+	{
+		int ret = misses[i]->Update();
+		if (ret == (-1))
+		{
+			delete misses[i];
+			misses.erase(misses.begin() + i);
+			i = (i == 0) ? 0 : i - 1;
+		}
+	}
+}
+
 void Abilities::Upadte()
 {
 	UpdateSelector();
 	AnimationUpdater();
 	ObjectUpdater();
+	UpdateMisses();
 	oAttack.Update();
 	effectUpdater.Update();
 	damager.Update();
@@ -224,6 +239,8 @@ void Abilities::HandleDamageVector(std::vector<t_HitReturn> &ret)
 			std::vector<SDL_Point> add = {ret[i].target};
 			damager.AddDamage(ability, character, add);
 		}
+		else
+			PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
 	}
 }
 

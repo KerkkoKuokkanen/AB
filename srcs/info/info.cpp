@@ -72,15 +72,35 @@ void Info::UpdateBar()
 	bar->Update();
 }
 
+void Info::UpdateSnippets()
+{
+	for (int i = 0; i < snippets.size(); i++)
+	{
+		snippets[i]->Update();
+		if (snippets[i]->done)
+		{
+			delete snippets[i];
+			snippets.erase(snippets.begin() + i);
+			i = (i == 0) ? 0 : i - 1;
+		}
+	}
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
 	UpdateBar();
+	UpdateSnippets();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();
 	movementEnergy->Update();
 	overInfo = counter->insideBox;
+}
+
+void Info::AddSnippet(FlyingSnippet *snippet)
+{
+	snippets.push_back(snippet);
 }
 
 void Info::Destroy()
