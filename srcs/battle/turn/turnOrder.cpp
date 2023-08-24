@@ -428,6 +428,12 @@ void TurnOrder::RemoveCharacter(Character *character)
 				if (target == TARGET_SIGN)
 					target = indicators[i].indicator->dest.x;
 			}
+			int point = rounding((float)gameState.screen.width / 3.2f);
+			if (indicators[i].indicator->dest.x <= point)
+			{
+				killActive = false;
+				target = TARGET_SIGN;
+			}
 			delete indicators[i].indicator;
 			free(indicators[i].srect);
 			indicators.erase(indicators.begin() + i);

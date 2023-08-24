@@ -71,8 +71,9 @@ static void addStatus(Character *damager, Character *target, t_Ability *ability)
 			CreateTextSnippet(damager, target, "burn", 1200, Color(176, 79, 0));
 			break ;
 		case StatusSigns::STUN:
+			if (target->statuses.stun == 0)
+				CreateTextSnippet(damager, target, "stun", 1200, Color(186, 168, 0));
 			target->statuses.stun = 1;
-			CreateTextSnippet(damager, target, "stun", 1200, Color(186, 168, 0));
 			break ;
 	}
 }

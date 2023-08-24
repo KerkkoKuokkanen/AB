@@ -67,7 +67,7 @@ void Statuses::CreateStatuses()
 			add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 			add.snippet->SetOrderLayer(3);
 			add.snippet->SetOutlineColor(50, 50, 50);
-			add.snippet->SetAlphaMod(155);
+			add.snippet->SetAlphaMod(200);
 		}
 		else
 			add.snippet = NULL;
@@ -100,12 +100,14 @@ void Statuses::OrderStatuses()
 
 void Statuses::ChangeAmount(int &index, int amount, int num)
 {
+	statuses[index].amount = amount;
 	if (statuses[index].images.snippet != NULL)
 		delete statuses[index].images.snippet;
 	if (amount == 0)
 	{
 		if (statuses[index].images.sprite != NULL)
 			delete statuses[index].images.sprite;
+		statuses.erase(statuses.begin() + index);
 		index -= 1;
 		return ;
 	}
@@ -114,7 +116,7 @@ void Statuses::ChangeAmount(int &index, int amount, int num)
 	statuses[index].images.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 	statuses[index].images.snippet->SetOrderLayer(3);
 	statuses[index].images.snippet->SetOutlineColor(50, 50, 50);
-	statuses[index].images.snippet->SetAlphaMod(155);
+	statuses[index].images.snippet->SetAlphaMod(200);
 	RePosition();
 }
 
@@ -202,7 +204,7 @@ void Statuses::CreateFrestStatus(int statusSign)
 				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 				add.snippet->SetOrderLayer(3);
 				add.snippet->SetOutlineColor(50, 50, 50);
-				add.snippet->SetAlphaMod(155);
+				add.snippet->SetAlphaMod(200);
 			}
 			else
 				add.snippet = NULL;
