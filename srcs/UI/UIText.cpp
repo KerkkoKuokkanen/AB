@@ -21,17 +21,19 @@ static std::string GetText(Character *character)
 		case LION:
 			text += ": Lion";
 			break ;
+		case SMITH:
+			text += ": Blacksmith";
+			break ;
 	}
 	return (text);
 }
 
 static SDL_Rect GetTextDest(std::string &str)
 {
-	SDL_Rect ret = {-19880, 45080, 0, 1900};
+	SDL_Rect ret = {-24380, 45080, 0, 1900};
 	int len = str.length();
 	float width = (float)len * SCALE_FACTOR;
 	ret.w = rounding(width);
-	ret.x -= rounding(width / 2.0f);
 	return (ret);
 }
 

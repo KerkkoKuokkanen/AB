@@ -5,20 +5,20 @@ t_GameState gameState;
 
 void TempInitBattle()
 {
-	Character thief(LION);
+	Character thief(SMITH);
 	Character thief2(PYRO);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
-	Character thief3(PYRO);
+	Character thief3(LION);
 	Character thief4(THIEF);
 	Character skele3(SKELE, false);
 	Character skele6(SKELE, false);
 	static std::vector<Character> chars = {thief, thief2, skele, skele2, thief3, thief4, skele3, skele6};
-	SDL_Point point = {8, 6};
-	SDL_Point point2 = {3, 12};
+	SDL_Point point = {9, 6};
+	SDL_Point point2 = {10, 6};
 	SDL_Point point3 = {9, 2};
 	SDL_Point point4 = {8, 10};
-	SDL_Point point5 = {8, 5};
+	SDL_Point point5 = {8, 7};
 	SDL_Point point6 = {2, 12};
 	SDL_Point point7 = {9, 3};
 	SDL_Point point10 = {5, 6};
@@ -27,6 +27,8 @@ void TempInitBattle()
 	gameState.updateObjs.UI->SetCharacters(chars);
 	new TurnOrder(chars);
 	gameState.updateObjs.abilities->SetMap();
+	static OBJ_Update objUpdate;
+	gameState.updateObjs.objUpdate = &objUpdate;
 }
 
 int MainLoop()

@@ -8,12 +8,14 @@ class OBJ_Update
 {
 	private:
 		std::vector<Object*> objects;
+		std::vector<ToolBox*> toolBoxes;
+		void CreateToolBoxes();
+		void UpdateObjects();
+		void UpdateToolBoxes();
 	public:
+		OBJ_Update();
 		void AddObject(Object *obj) {objects.push_back(obj);};
-		void Update() {
-			for (int i = 0; i < objects.size(); i++)
-				objects[i]->Update();
-		};
+		void Update();
 };
 
 #endif

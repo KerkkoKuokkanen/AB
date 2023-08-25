@@ -235,6 +235,11 @@ SDL_Surface *getSurface(Character *character)
 				return (gameState.surfaces.lionIdle1);
 			else
 				return (gameState.surfaces.lionIdle2);
+		case SMITH:
+			if (text == 0)
+				return (gameState.surfaces.smithIdle1);
+			else
+				return (gameState.surfaces.smithIdle2);
 	}
 	return (NULL);
 }

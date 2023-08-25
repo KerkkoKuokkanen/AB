@@ -91,7 +91,7 @@ void Character::CreateCharacterType(int skin)
 	{
 		case THIEF:
 		{
-			SDL_Rect dest = {-3000, -450, 5800, 7500};
+			SDL_Rect dest = {-3000, -450, 5450, 7150};
 			textures.push_back(gameState.textures.thiefIdle1);
 			textures.push_back(gameState.textures.thiefIdle2);
 			stands.push_back(gameState.textures.stands.thiefIdle1Stand);
@@ -131,6 +131,17 @@ void Character::CreateCharacterType(int skin)
 			stands.push_back(gameState.textures.stands.lionStand);
 			sprite = new Sprite(gameState.textures.chars.lionIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
 			stand = new Sprite(gameState.textures.stands.lionStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
+		case SMITH:
+		{
+			SDL_Rect dest = {-3000, -450, 6000, 7360};
+			textures.push_back(gameState.textures.chars.smithIdle[0]);
+			textures.push_back(gameState.textures.chars.smithIdle[1]);
+			stands.push_back(gameState.textures.stands.smithStand);
+			stands.push_back(gameState.textures.stands.smithStand);
+			sprite = new Sprite(gameState.textures.chars.smithIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.smithStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
 	}

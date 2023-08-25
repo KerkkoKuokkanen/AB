@@ -192,9 +192,9 @@ void BattleGround::CreateBattleGround(std::vector<std::vector<t_GMU>> &map)
 
 void BattleGround::CreateMap()
 {
-	t_GMU gmu = { 0, 0, 0, NULL, true, false, false, NULL};
-	t_GMU one = { 0, 1, 0, NULL, true, false, false, NULL};
-	t_GMU two = { 0, 2, 0, NULL, true, false, false, NULL};
+	t_GMU gmu = { 0, 0, 0, NULL, true, false, false, NULL, {(-1), NULL}};
+	t_GMU one = { 0, 1, 0, NULL, true, false, false, NULL, {(-1), NULL}};
+	t_GMU two = { 0, 2, 0, NULL, true, false, false, NULL, {(-1), NULL}};
 	std::vector<t_GMU> tsts = {gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu, gmu};
 	std::vector<t_GMU> tst = {gmu, gmu, gmu, one, gmu, gmu, gmu, one, two, one, gmu};
 	std::vector<t_GMU> tststs = {gmu, gmu, one, one, gmu, gmu, gmu, gmu, gmu, gmu, gmu};

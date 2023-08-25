@@ -110,6 +110,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "UI/fatigueBar.h"
 # include "UI/button.h"
 # include "UI/energy.h"
+# include "objects/toolBox.h"
 # include "objects/object.h"
 # include "objects/objUpdate.h"
 # include "info/control.h"
@@ -153,7 +154,8 @@ enum {
 	THIEF,
 	SKELE,
 	PYRO,
-	LION
+	LION,
+	SMITH
 };
 
 enum {
@@ -165,6 +167,12 @@ enum {
 	TOP_REGULAR_BLOCK
 };
 
+typedef struct s_Additional
+{
+	int type;
+	void *object;
+}				t_Additional;
+
 typedef struct s_GroundMapUnit
 {
 	int tile;
@@ -175,6 +183,7 @@ typedef struct s_GroundMapUnit
 	bool marked;
 	bool blocked;
 	Object *obj;
+	t_Additional additional;
 }				t_GMU;
 
 typedef struct	s_wr

@@ -63,7 +63,7 @@ void getAudio()
 	Mix_Volume(Channels::THIEF_STEP_CHANNEL, 16);
 	Mix_Volume(Channels::DAGGER_THROW0, 15);
 	Mix_Volume(Channels::DAGGER_THROW1, 25);
-	Mix_Volume(Channels::WHIFF, 40);
+	Mix_Volume(Channels::WHIFF, 46);
 	Mix_Volume(Channels::DAGGER_THROW_ANIM, 30);
 	Mix_Volume(Channels::SMOKE_THROW, 30);
 	Mix_Volume(Channels::SMOKE_BOMB, 38);
@@ -308,6 +308,16 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.statuses.questionMark = use.sur;
 	gameState.textures.control = get_texture(rend, "sprites/env/control.png");
 	gameState.textures.everyColor = get_texture(rend, "sprites/env/everyColor.png");
+	gameState.textures.stands.smithStand = get_texture(rend, "sprites/characters/blacksmith/blacksmithStand.png");
+	use = get_texture_and_surface(rend, "sprites/characters/blacksmith/blacksmith.png");
+	gameState.textures.chars.smithIdle[0] = use.text;
+	gameState.surfaces.smithIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/blacksmith/blacksmith2.png");
+	gameState.textures.chars.smithIdle[1] = use.text;
+	gameState.surfaces.smithIdle2 = use.sur;
+	gameState.textures.chars.handTools[0] = get_texture(rend, "sprites/characters/blacksmith/handBox1.png");
+	gameState.textures.chars.handTools[1] = get_texture(rend, "sprites/characters/blacksmith/handBox2.png");
+	gameState.textures.chars.handTools[2] = get_texture(rend, "sprites/characters/blacksmith/handBoxSmack.png");
 }
 
 void	init(t_wr *wr)
@@ -317,10 +327,10 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(120);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(2560, 1600);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -355,10 +365,8 @@ void	init(t_wr *wr)
 	gameState.updateObjs.UI = &bars;
 	static Abilities abilities;
 	gameState.updateObjs.abilities = &abilities;
-	static OBJ_Update objUpdate;
-	gameState.updateObjs.objUpdate = &objUpdate;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	//SDL_SetWindowFullscreen(wr->win, 1);
+	SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 }

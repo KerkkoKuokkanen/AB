@@ -22,6 +22,9 @@ static std::string GetText(Character *character)
 		case LION:
 			text += ": Lion";
 			break ;
+		case SMITH:
+			text += ": Blacksmith";
+			break ;
 	}
 	return (text);
 }

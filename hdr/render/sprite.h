@@ -40,6 +40,7 @@ class Sprite
 			spritesLayer = -1;
 		};
 		~Sprite();
+		Uint8 getAlpha() {return(alpha);};
 		void setSRect(SDL_Rect *srect) {Sprite::srect = srect;};
 		void setScaled(bool scaled) {Sprite::scaled = scaled;};
 		void setDeleteTexture(bool deleteTexture) {Sprite::deleteTexture = deleteTexture;};

@@ -39,6 +39,12 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->w = 455;
 			srect->h = 440;
 			break ;
+		case SMITH:
+			srect->x = 200;
+			srect->y = 68;
+			srect->w = 474;
+			srect->h = 473;
+			break ;
 	}
 }
 
@@ -74,6 +80,14 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 		case LION:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.82f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case SMITH:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.75f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),
 				rounding(((float)gameState.screen.width / 26.0f)),
 				rounding(((float)gameState.screen.height / 17.0f))
