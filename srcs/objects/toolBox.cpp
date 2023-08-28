@@ -32,4 +32,5 @@ void ToolBox::UpdateToolBoxInHand()
 void ToolBox::Update()
 {
 	UpdateToolBoxInHand();
+	
 }
