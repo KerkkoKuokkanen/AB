@@ -94,6 +94,7 @@ void getAudio()
 	AudioCreateVolume(Channels::OPPORTUNIRY, 70);
 	AudioCreateVolume(Channels::KILL_FADE, 40);
 	AudioCreateVolume(Channels::KILL_EXPLOSION0, 100);
+	AudioCreateVolume(Channels::HAMMER_SMACK, 22);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -127,6 +128,7 @@ void getAudio()
 	gameState.audio.opportunity = Mix_LoadWAV("audio/abilities/opportunity.wav");
 	gameState.audio.kills[0] = Mix_LoadWAV("audio/effects/killFade.wav");
 	gameState.audio.kills[1] = Mix_LoadWAV("audio/effects/killExplosion.wav");
+	gameState.audio.hammerSmack = Mix_LoadWAV("audio/abilities/smith/hammerSmack.wav");
 }
 
 void getFonts()

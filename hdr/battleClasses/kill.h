@@ -22,7 +22,6 @@ class Kill
 		void KillColorFade(t_kill *killed);
 		void CreateParticles(Character *character);
 		float getSpeed(Vector dir, Vector genDir);
-		int expChannel = 34;
 	public:
 		Kill();
 		void AddCharacterToKill(Character *character);

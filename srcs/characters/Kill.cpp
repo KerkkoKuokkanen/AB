@@ -84,14 +84,11 @@ void Kill::Update()
 		{
 			visited = true;
 			SetScreenShake(700, 5);
-			PlaySound(gameState.audio.kills[1], expChannel, 0);
+			PlaySound(gameState.audio.kills[1], Channels::KILL_EXPLOSION0, 0);
 			CreateParticles(kills[i].character);
 			RemoveCharacter(kills[i].character);
 			kills.erase(kills.begin() + i);
 			i = (i == 0) ? 0 : i - 1;
-			expChannel += 1;
-			if (expChannel > Channels::KILL_EXPLOSION23)
-				expChannel = Channels::KILL_EXPLOSION0;
 		}
 	}
 }

@@ -38,6 +38,7 @@ void HammerSmack::Update()
 	}
 	if (ret == 4)
 	{
+		PlaySound(gameState.audio.hammerSmack, Channels::HAMMER_SMACK, 0);
 		character->sprite->setTexture(gameState.textures.attacks.hammerSmack[0]);
 		trail->Activate();
 	}
