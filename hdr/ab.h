@@ -256,7 +256,6 @@ void 			vectorRotate(Vector &vec, float angle);
 int				degree(float angle);
 float			float_rand();
 void			CreateDust(SDL_Point position, Vector direction);
-void			PlaySound(Mix_Chunk *clip, int channel, int loops);
 void			Utility();
 void			ObjUpdate();
 void			findMovables(int **map, int moves, SDL_Point start);
@@ -296,6 +295,11 @@ Character	*RangedCheck(Character *character, Character *target, int &chance);
 
 //audio
 
-void AudioUpdate();
+void	AudioUpdate();
+void	AudioSetSound(Mix_Chunk *sound, int channel, int loops);
+void	PlaySound(Mix_Chunk *clip, int channel, int loops);
+void	AudioCreateVolume(int Chan, int volume);
+void	AudioCreateChannels(int amount);
+void	AudioClear();
 
 #endif

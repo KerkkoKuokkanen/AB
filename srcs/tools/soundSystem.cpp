@@ -15,10 +15,16 @@ typedef struct s_Channel
 	bool occupied;
 }				t_Channel;
 
+typedef struct s_Volume
+{
+	int index;
+	int volume;
+}				t_Volume;
+
 auto startTime = std::chrono::high_resolution_clock::now();
 std::vector<t_SoundQ> soundQ = {};
 std::vector<t_Channel> channel = {};
-std::vector<int> volumes = {};
+std::vector<t_Volume> volumes = {};
 
 void AudioCreateChannels(int amount)
 {
@@ -27,14 +33,22 @@ void AudioCreateChannels(int amount)
 		channel.push_back({0, false});
 }
 
-void AudioCreateVolume(int volume)
+void AudioCreateVolume(int Chan, int volume)
 {
-	volumes.push_back(volume);
+	volumes.push_back({Chan, volume});
 }
 
 void AudioSetSound(Mix_Chunk *sound, int channel, int loops)
 {
-	int volume = volumes[channel];
+	int volume = 50;
+	for (int i = 0; i < volumes.size(); i++)
+	{
+		if (volumes[i].index == channel)
+		{
+			volume = volumes[i].volume;
+			break ;
+		}
+	}
 	soundQ.push_back({sound, volume, loops});
 }
 
@@ -78,9 +92,8 @@ static void PollAudio()
 		channel[usedC].occupied = true;
 		channel[usedC].time = GetDuration(sound);
 		soundQ.erase(soundQ.begin() + i);
-		i = (i == 0) ? i : i - 1;
+		i -= 1;
 	}
-	soundQ.clear();
 }
 
 static void UpdateChannels()
@@ -107,5 +120,8 @@ void AudioClear()
 {
 	soundQ.clear();
 	for (int i = 0; i < channel.size(); i++)
+	{
+		channel[i].occupied = false;
 		Mix_HaltChannel(i);
+	}
 }

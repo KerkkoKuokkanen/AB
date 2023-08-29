@@ -270,7 +270,7 @@ void CreateDust(SDL_Point position, Vector direction)
 
 void PlaySound(Mix_Chunk *clip, int channel, int loops)
 {
-	Mix_PlayChannel(channel, clip, loops);
+	AudioSetSound(clip, channel, loops);
 }
 
 float	float_rand()
