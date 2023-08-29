@@ -152,6 +152,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *incinerate[2];
 	SDL_Texture *incExplosion;
 	SDL_Texture *lionTrail;
+	SDL_Texture *hammerSmack[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -209,6 +210,7 @@ typedef struct s_Textures
 	SDL_Texture *questionMark;
 	SDL_Texture *control;
 	SDL_Texture *everyColor;
+	SDL_Texture *smithAbilities[1];
 }				t_Textures;
 
 typedef struct s_Audio

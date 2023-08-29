@@ -1,6 +1,7 @@
 
 #include "../../hdr/ab.h"
 #include "../../hdr/global.h"
+#include <thread>
 
 void initKeys()
 {
@@ -318,6 +319,21 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.handTools[0] = get_texture(rend, "sprites/characters/blacksmith/handBox1.png");
 	gameState.textures.chars.handTools[1] = get_texture(rend, "sprites/characters/blacksmith/handBox2.png");
 	gameState.textures.chars.handTools[2] = get_texture(rend, "sprites/characters/blacksmith/handBoxSmack.png");
+	gameState.textures.smithAbilities[0] = get_texture(rend, "sprites/UI/abilities/hammerSmack.png");
+	gameState.textures.attacks.hammerSmack[0] = get_texture(rend, "sprites/characters/blacksmith/blacksmithSmack.png");
+	gameState.textures.attacks.hammerSmack[1] = get_texture(rend, "sprites/characters/blacksmith/blacksmithSmackTrail.png");
+}
+
+void CraeteAudioThread()
+{
+	static std::thread soundThread([]()
+	{
+		while (true)
+		{
+			AudioUpdate();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Poll every 100 milliseconds
+		}
+	});
 }
 
 void	init(t_wr *wr)
@@ -327,10 +343,10 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(120);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(2560, 1600);
+	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -367,6 +383,7 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	SDL_SetWindowFullscreen(wr->win, 1);
+	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
+	CraeteAudioThread();
 }

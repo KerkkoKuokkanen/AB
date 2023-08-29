@@ -48,7 +48,8 @@ enum {
 	INCINERATE,
 	LION_SMACK,
 	PHANTOM_KNIGHT,
-	ROTATE
+	ROTATE,
+	HAMMER_SMACK
 };
 
 namespace StatusSigns
@@ -126,6 +127,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/objects/fireBall.h"
 # include "ability/objects/phantomKnight.h"
 # include "ability/animation/rotate.h"
+# include "ability/animation/hammerSmack.h"
 # include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"
 # include "ability/animation/phantomAnim.h"
@@ -291,5 +293,9 @@ int			GetChance(Character *character, Character *target, t_Ability *ability);
 bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);
 bool		RangeCheckWithoutBlockers(Character *character, Character *target, t_Ability *ability);
 Character	*RangedCheck(Character *character, Character *target, int &chance);
+
+//audio
+
+void AudioUpdate();
 
 #endif

@@ -71,6 +71,7 @@ class Abilities
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 		bool CheckForPhantomKnight();
 		void UpdateMisses();
+		void UpdateSmithAnimation(t_Animation &anim, int index);
 	public:
 		t_Ability *ability = NULL;
 		EffectUpdater effectUpdater;

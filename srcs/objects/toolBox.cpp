@@ -20,8 +20,10 @@ void ToolBox::UpdateToolBoxInHand()
 	SDL_Texture *text = character->sprite->getTexture();
 	if (text == gameState.textures.chars.smithIdle[0])
 		sprite->setTexture(gameState.textures.chars.handTools[0]);
-	else
+	else if (text == gameState.textures.chars.smithIdle[1])
 		sprite->setTexture(gameState.textures.chars.handTools[1]);
+	else if (text == gameState.textures.attacks.hammerSmack[0])
+		sprite->setTexture(gameState.textures.chars.handTools[2]);
 	sprite->setAngle(angle);
 	sprite->dest = dest;
 	sprite->orderLayer = character->sprite->orderLayer;

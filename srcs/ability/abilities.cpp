@@ -48,6 +48,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			SetSelectorForRotate(ability, selector);
 			break ;
+		case HAMMER_SMACK:
+			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			break ;
 	}
 }
 
@@ -101,6 +104,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case ROTATE:
 			animations.push_back({new Rotate(character, target), ROTATE});
+			break ;
+		case HAMMER_SMACK:
+			animations.push_back({new HammerSmack(character, target), HAMMER_SMACK});
 			break ;
 	}
 }
@@ -263,6 +269,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case LION:
 				UpdateLionAnimation(animations[i], i);
+				break ;
+			case SMITH:
+				UpdateSmithAnimation(animations[i], i);
 				break ;
 		}
 	}

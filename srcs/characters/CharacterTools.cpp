@@ -43,8 +43,8 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stats[0].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
 	t_AttackWithDebuff *stat0 = (t_AttackWithDebuff*)stats[0].stats;
 	stat0->critChance = 4;
-	stat0->damage = 75;
-	stat0->debuffChance = 80;
+	stat0->damage = 80;
+	stat0->debuffChance = 35;
 	stats[1].stats = (void*)malloc(sizeof(t_PhantomKnight));
 	t_PhantomKnight *stat1 = (t_PhantomKnight*)stats[1].stats;
 	stat1->hits = 1;
@@ -53,6 +53,15 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stats[2].stats = (void*)malloc(sizeof(int));
 	int *stat2 = (int*)stats[2].stats;
 	*stat2 = 1;
+}
+
+static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
+{
+	stats[0].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
+	t_AttackWithDebuff *stat0 = (t_AttackWithDebuff*)stats[0].stats;
+	stat0->critChance = 1;
+	stat0->damage = 90;
+	stat0->debuffChance = 40;
 }
 
 void Character::AssignAbilities()
@@ -79,6 +88,9 @@ void Character::AssignAbilities()
 						{PHANTOM_KNIGHT, 0, 10, 200, StatStructs::PHANTOM_KNIGHT, -1, NULL},
 						{ROTATE, 0, 10, 200, StatStructs::TIERS, -1, NULL}};
 			AssignDefaultLionStats(abilities);
+		case SMITH:
+			abilities = {{HAMMER_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL}};
+			AssignDefaultSmithStats(abilities);
 		default:
 			return ;
 	}

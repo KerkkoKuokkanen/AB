@@ -114,6 +114,9 @@ void CharacterUI::GetAbilities()
 			case ROTATE:
 				CreateButton(dest, gameState.textures.lionAbilities[2], ROTATE, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case HAMMER_SMACK:
+				CreateButton(dest, gameState.textures.smithAbilities[0], HAMMER_SMACK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }
@@ -409,6 +412,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case ROTATE:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ROTATE), activeCharacter);
+			break ;
+		case HAMMER_SMACK:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HAMMER_SMACK), activeCharacter);
 			break ;
 	}
 }

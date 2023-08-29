@@ -174,8 +174,6 @@ void ObjUpdate()
 		gameState.updateObjs.dusts[i]->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
 		gameState.updateObjs.turnOrder->Update();
-	if (gameState.updateObjs.info != NULL)
-		gameState.updateObjs.info->Update();
 	if (gameState.updateObjs.abilities != NULL)
 		gameState.updateObjs.abilities->Upadte();
 	gameState.updateObjs.indicator->Update();
@@ -184,6 +182,8 @@ void ObjUpdate()
 		gameState.updateObjs.UI->Update();
 	gameState.updateObjs.killer->Update();
 	gameState.updateObjs.partManager->Update();
+	if (gameState.updateObjs.info != NULL)
+		gameState.updateObjs.info->Update();
 	gameState.updateObjs.fadeIter += 0.06f;
 	gameState.updateObjs.characterAnimIter += 1;
 	if (gameState.updateObjs.fadeIter >= 44.0f)
