@@ -34,7 +34,7 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 			break ;
 		case SKELE:
 			place.x -= 500.0f;
-			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f + 650;
+			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f + 550;
 			break ;
 		case PYRO:
 			place.x -= 500.0f;

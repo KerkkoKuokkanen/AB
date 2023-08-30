@@ -88,9 +88,11 @@ void Character::AssignAbilities()
 						{PHANTOM_KNIGHT, 0, 10, 200, StatStructs::PHANTOM_KNIGHT, -1, NULL},
 						{ROTATE, 0, 10, 200, StatStructs::TIERS, -1, NULL}};
 			AssignDefaultLionStats(abilities);
+			break ;
 		case SMITH:
 			abilities = {{HAMMER_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL}};
 			AssignDefaultSmithStats(abilities);
+			break ;
 		default:
 			return ;
 	}

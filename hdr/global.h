@@ -88,7 +88,8 @@ typedef struct s_Surfaces
 	SDL_Surface *energy[2];
 	SDL_Surface *turnOrder[2];
 	SDL_Surface *bar[2];
-	SDL_Surface *trees[5];
+	SDL_Surface *treesLeft[4];
+	SDL_Surface *treesRight[4];
 	SDL_Surface *slashTrail;
 	SDL_Surface *counter;
 	SDL_Surface *lionIdle1;
@@ -178,7 +179,8 @@ typedef struct s_Textures
 	SDL_Texture *turnDone;
 	SDL_Texture *energy[2];
 	SDL_Texture *weaponObjs[1];
-	SDL_Texture *trees[5];
+	SDL_Texture *treesLeft[4];
+	SDL_Texture *treesRight[4];
 	SDL_Texture *blocks[2];
 	SDL_Texture *smokes[4];
 	SDL_Texture *smokeBomb;

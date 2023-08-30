@@ -10,7 +10,6 @@ namespace ObjectSigns
 	{
 		BUSH,
 		DEAD_TREE,
-		SMALL_TREE,
 		STUMP,
 		TREE
 	};
@@ -20,17 +19,20 @@ class Object
 {
 	private:
 		SDL_Point pos;
-		SDL_Surface *sur;
+		SDL_Surface *surLeft;
+		SDL_Surface *surRight;
 		SDL_Rect getRect(int type, SDL_Point position);
 		int getObjSize(int type);
-		t_TextAndSur getTextureAndSurface(int type);
+		int getTextureAndSurface(int type);
 		void CheckMouseHover();
 		bool fadeOnMouseOver;
 		int overCounter;
-		int GetTheHeight();
+		int GetTheHeightLeft();
+		int GetTheHeightRight();
 	public:
 		int size;
-		Sprite *sprite;
+		Sprite *spriteLeft;
+		Sprite *spriteRight;
 		Object(int type, SDL_Point position, bool fadeOnMouseOver = true);
 		void Update();
 };

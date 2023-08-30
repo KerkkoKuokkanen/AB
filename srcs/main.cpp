@@ -21,7 +21,7 @@ void TempInitBattle()
 	SDL_Point point5 = {8, 7};
 	SDL_Point point6 = {2, 12};
 	SDL_Point point7 = {9, 3};
-	SDL_Point point10 = {5, 6};
+	SDL_Point point10 = {5, 12};
 	static std::vector<SDL_Point> pnt = {point, point2, point3, point4, point5, point6, point7, point10};
 	gameState.battle.ground->StartBattle(chars, pnt);
 	gameState.updateObjs.UI->SetCharacters(chars);
@@ -39,7 +39,7 @@ int MainLoop()
 	Object bree(ObjectSigns::TREE, {3, 8});
 	Object cree(ObjectSigns::BUSH, {1, 10});
 	Object dree(ObjectSigns::STUMP, {5, 14});
-	Object gree(ObjectSigns::DEAD_TREE, {5, 7});
+	Object gree(ObjectSigns::DEAD_TREE, {5, 6});
 	Object lree(ObjectSigns::DEAD_TREE, {4, 5});
 	Object p1ree(ObjectSigns::DEAD_TREE, {2, 0});
 	Object p2ree(ObjectSigns::DEAD_TREE, {2, 2});

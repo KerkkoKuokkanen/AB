@@ -101,8 +101,8 @@ void Selector::SetBlockSprite(SDL_Point pos)
 	block = new Sprite(gameState.textures.blocks[size], dest, NULL, NULL, 0, FLIP_NONE);
 	if (obj != NULL)
 	{
-		block->orderLayer = obj->sprite->orderLayer;
-		block->z = obj->sprite->z + 0.1f;
+		block->orderLayer = obj->spriteLeft->orderLayer;
+		block->z = (obj->spriteLeft->z > obj->spriteRight->z) ? obj->spriteLeft->z + 0.1f : obj->spriteRight->z + 0.1f;
 	}
 	else
 	{

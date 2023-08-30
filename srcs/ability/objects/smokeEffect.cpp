@@ -52,7 +52,7 @@ SmokeEffect::SmokeEffect(Character *character, t_Ability *ability, SDL_Point pos
 	time = use->turns;
 	SDL_Rect dest = gameState.battle.ground->GetSprite(pos)->dest;
 	tileDest = dest;
-	dest.y -= 4800;
+	dest.y -= 4880;
 	dest.x -= 600;
 	dest.w += 1200;
 	dest.h += 3700;
@@ -64,9 +64,13 @@ SmokeEffect::SmokeEffect(Character *character, t_Ability *ability, SDL_Point pos
 	secondSmoke->AlphaMod(235);
 	firstSmoke->orderLayer = pos.y + 1;
 	secondSmoke->orderLayer = pos.y;
+	int x = getXToLeft(pos);
 	int height = gameState.battle.ground->map[pos.y][pos.x].height;
-	firstSmoke->setDepth(height * BATTLE_DEPTH_UNIT + 2.5f);
-	secondSmoke->setDepth((float)height * (float)BATTLE_DEPTH_UNIT + 7.5f);
+	int h2 = height;
+	if (pos.y + 1 < gameState.battle.ground->map.size() && x >= 0)
+		h2 = gameState.battle.ground->map[pos.y + 1][x].height;
+	firstSmoke->setDepth(h2 * BATTLE_DEPTH_UNIT + 0.15);
+	secondSmoke->setDepth((float)height * (float)BATTLE_DEPTH_UNIT + 7.25f);
 	orientation = 0;
 	CreateParticlesForSmokeEffect(pos);
 }

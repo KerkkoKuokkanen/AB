@@ -168,8 +168,6 @@ void Utility()
 
 void ObjUpdate()
 {
-	if (gameState.updateObjs.objUpdate != NULL)
-		gameState.updateObjs.objUpdate->Update();
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
 		gameState.updateObjs.dusts[i]->Update();
 	if (gameState.updateObjs.turnOrder != NULL)
@@ -184,6 +182,8 @@ void ObjUpdate()
 	gameState.updateObjs.partManager->Update();
 	if (gameState.updateObjs.info != NULL)
 		gameState.updateObjs.info->Update();
+	if (gameState.updateObjs.objUpdate != NULL)
+		gameState.updateObjs.objUpdate->Update();
 	gameState.updateObjs.fadeIter += 0.06f;
 	gameState.updateObjs.characterAnimIter += 1;
 	if (gameState.updateObjs.fadeIter >= 44.0f)

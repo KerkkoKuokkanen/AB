@@ -182,21 +182,30 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.energy[1] = use.sur;
 	gameState.textures.weaponObjs[DAGGER_OBJ] = get_texture(rend, "sprites/weapon/dagger.png");
 	gameState.textures.thiefDaggerThrow = get_texture(rend, "sprites/characters/hood_throw.png");
-	use = get_texture_and_surface(rend, "sprites/ground/objects/bush.png");
-	gameState.textures.trees[0] = use.text;
-	gameState.surfaces.trees[0] = use.sur;
-	use = get_texture_and_surface(rend, "sprites/ground/objects/deadTree.png");
-	gameState.textures.trees[1] = use.text;
-	gameState.surfaces.trees[1] = use.sur;
-	use = get_texture_and_surface(rend, "sprites/ground/objects/smallTree.png");
-	gameState.textures.trees[2] = use.text;
-	gameState.surfaces.trees[2] = use.sur;
-	use = get_texture_and_surface(rend, "sprites/ground/objects/stump.png");
-	gameState.textures.trees[3] = use.text;
-	gameState.surfaces.trees[3] = use.sur;
-	use = get_texture_and_surface(rend, "sprites/ground/objects/Tree.png");
-	gameState.textures.trees[4] = use.text;
-	gameState.surfaces.trees[4] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/bushLeft.png", SDL_ScaleModeNearest);
+	gameState.textures.treesLeft[0] = use.text;
+	gameState.surfaces.treesLeft[0] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/deadTreeLeft.png", SDL_ScaleModeNearest);
+	gameState.textures.treesLeft[1] = use.text;
+	gameState.surfaces.treesLeft[1] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/stumpLeft.png", SDL_ScaleModeNearest);
+	gameState.textures.treesLeft[2] = use.text;
+	gameState.surfaces.treesLeft[2] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/TreeLeft.png", SDL_ScaleModeNearest);
+	gameState.textures.treesLeft[3] = use.text;
+	gameState.surfaces.treesLeft[3] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/bushRight.png", SDL_ScaleModeNearest);
+	gameState.textures.treesRight[0] = use.text;
+	gameState.surfaces.treesRight[0] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/deadTreeRight.png", SDL_ScaleModeNearest);
+	gameState.textures.treesRight[1] = use.text;
+	gameState.surfaces.treesRight[1] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/stumpRight.png", SDL_ScaleModeNearest);
+	gameState.textures.treesRight[2] = use.text;
+	gameState.surfaces.treesRight[2] = use.sur;
+	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/TreeRight.png", SDL_ScaleModeNearest);
+	gameState.textures.treesRight[3] = use.text;
+	gameState.surfaces.treesRight[3] = use.sur;
 	gameState.textures.blocks[0] = get_texture(rend, "sprites/env/fullBlock.png");
 	gameState.textures.blocks[1] = get_texture(rend, "sprites/env/halfBlock.png");
 	gameState.textures.thiefSmokeThrow[0] = get_texture(rend, "sprites/characters/hood_smoke.png");
@@ -310,7 +319,7 @@ void CraeteAudioThread()
 		while (true)
 		{
 			AudioUpdate();
-			std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Poll every 100 milliseconds
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
 	});
 }
@@ -322,7 +331,6 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	AudioCreateChannels(120);
-	//Mix_AllocateChannels(120);
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
@@ -363,7 +371,7 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	//SDL_SetWindowFullscreen(wr->win, 1);
-	//SDL_ShowCursor(SDL_DISABLE);
+//	SDL_SetWindowFullscreen(wr->win, 1);
+//	SDL_ShowCursor(SDL_DISABLE);
 	CraeteAudioThread();
 }
