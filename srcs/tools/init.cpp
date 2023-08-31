@@ -95,6 +95,7 @@ void getAudio()
 	AudioCreateVolume(Channels::KILL_FADE, 40);
 	AudioCreateVolume(Channels::KILL_EXPLOSION0, 100);
 	AudioCreateVolume(Channels::HAMMER_SMACK, 22);
+	AudioCreateVolume(Channels::SUPPLY, 44);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -129,6 +130,7 @@ void getAudio()
 	gameState.audio.kills[0] = Mix_LoadWAV("audio/effects/killFade.wav");
 	gameState.audio.kills[1] = Mix_LoadWAV("audio/effects/killExplosion.wav");
 	gameState.audio.hammerSmack = Mix_LoadWAV("audio/abilities/smith/hammerSmack.wav");
+	gameState.audio.supply = Mix_LoadWAV("audio/effects/supply.wav");
 }
 
 void getFonts()
@@ -310,6 +312,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.smithAbilities[0] = get_texture(rend, "sprites/UI/abilities/hammerSmack.png");
 	gameState.textures.attacks.hammerSmack[0] = get_texture(rend, "sprites/characters/blacksmith/blacksmithSmack.png");
 	gameState.textures.attacks.hammerSmack[1] = get_texture(rend, "sprites/characters/blacksmith/blacksmithSmackTrail.png");
+	gameState.textures.supplySymbol = get_texture(rend, "sprites/effects/suplySymbol.png");
+	gameState.textures.smithAbilities[1] = get_texture(rend, "sprites/UI/abilities/throwToolBox.png");
+	gameState.textures.smithAbilities[2] = get_texture(rend, "sprites/UI/abilities/handSuplies.png");
 }
 
 void CraeteAudioThread()

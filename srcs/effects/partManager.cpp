@@ -91,6 +91,54 @@ void ParticleManager::Update()
 	}
 }
 
+void ParticleManager::CreateModParticleWithTexture(SDL_Texture *text, Vector dir, Vector place, float speed, Color start, Color end,
+												int life, float drag, bool staticSprite, float yAdd, SDL_Rect dest)
+{
+	t_Particle particle;
+	particle.part = new Particle;
+	particle.part->initWithTexture(text, dest);
+	particle.part->Activate();
+	particle.part->setPosition(place);
+	particle.part->setDirection(dir);
+	particle.part->setLifeTime(life);
+	particle.part->setSpeed(speed);
+	particle.part->SetDrag(drag);
+	particle.part->sprite->ColorMod(start.r, start.g, start.b);
+	particle.part->sprite->ClearAlphaMod();
+	if (staticSprite)
+		particle.part->sprite->setStatic(true);
+	particle.r = end.r; particle.g = end.g; particle.b = end.b;
+	particle.sr = start.r; particle.sg = start.g; particle.sb = start.b;
+	particle.lifeTime = life; particle.total = life;
+	particle.yAdd = yAdd;
+	particle.dir.x = dir.x; particle.dir.y = dir.y;
+	modParts.push_back(particle);
+}
+
+t_Particle ParticleManager::ReturnModPartWithText(SDL_Texture *text, Vector dir, Vector place, float speed, Color start, Color end,
+												int life, float drag, bool staticSprite, float yAdd, SDL_Rect dest)
+{
+	t_Particle particle;
+	particle.part = new Particle;
+	particle.part->initWithTexture(text, dest);
+	particle.part->Activate();
+	particle.part->setPosition(place);
+	particle.part->setDirection(dir);
+	particle.part->setLifeTime(life);
+	particle.part->setSpeed(speed);
+	particle.part->SetDrag(drag);
+	particle.part->sprite->ColorMod(start.r, start.g, start.b);
+	particle.part->sprite->ClearAlphaMod();
+	if (staticSprite)
+		particle.part->sprite->setStatic(true);
+	particle.r = end.r; particle.g = end.g; particle.b = end.b;
+	particle.sr = start.r; particle.sg = start.g; particle.sb = start.b;
+	particle.lifeTime = life; particle.total = life;
+	particle.yAdd = yAdd;
+	particle.dir.x = dir.x; particle.dir.y = dir.y;
+	return (particle);
+}
+
 void ParticleManager::CreateModParticle(Vector dir, Vector place, float speed, Color start, Color end,
 															int life, float drag, bool staitcSprite, float yAdd)
 {
@@ -127,4 +175,10 @@ void ParticleManager::CreateParticle(Vector dir, Vector place, float speed)
 	part->sprite->ColorMod(2, 2, 2);
 	part->sprite->ClearAlphaMod();
 	particles.push_back(part);
+}
+
+void ParticleManager::AddModParticle(t_Particle &modPart)
+{
+	modPart.part->Activate();
+	modParts.push_back(modPart);
 }

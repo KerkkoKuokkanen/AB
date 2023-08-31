@@ -31,6 +31,9 @@ class ParticleManager
 		void Update();
 		void CreateParticle(Vector dir, Vector place, float speed);
 		void CreateModParticle(Vector dir, Vector place, float speed, Color start, Color end, int life, float drag, bool staticSprite, float yAdd = 0.0f);
+		void CreateModParticleWithTexture(SDL_Texture *text, Vector dir, Vector place, float speed, Color start, Color end, int life, float drag, bool staticSprite, float yAdd, SDL_Rect dest = {0, 0, 200, 200});
+		t_Particle ReturnModPartWithText(SDL_Texture *text, Vector dir, Vector place, float speed, Color start, Color end, int life, float drag, bool staticSprite, float yAdd, SDL_Rect dest = {0, 0, 200, 200});
+		void AddModParticle(t_Particle &modPart);
 };
 
 #endif

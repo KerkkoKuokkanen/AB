@@ -12,6 +12,11 @@ class ToolBox
 		bool inHand = true;
 		void CheckCharacterTexture();
 		void UpdateToolBoxInHand();
+		bool ToolExists(int toolSign);
+		void RemoveInHandAbilities();
+		void InHandAbilities();
+		void ManageSmithAbilities();
+		int iter = 0;
 	public:
 		ToolBox(Character *character);
 		~ToolBox() {Destroy();};

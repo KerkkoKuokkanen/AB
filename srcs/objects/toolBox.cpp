@@ -31,8 +31,68 @@ void ToolBox::UpdateToolBoxInHand()
 	sprite->AlphaMod(character->sprite->getAlpha());
 }
 
+bool ToolBox::ToolExists(int toolSign)
+{
+	for (int i = 0; i < character->abilities.size(); i++)
+	{
+		if (character->abilities[i].type == toolSign)
+			return (true);
+	}
+	return (false);
+}
+
+void ToolBox::RemoveInHandAbilities()
+{
+	for (int i = 0; i < character->abilities.size(); i++)
+	{
+		if (character->abilities[i].type == THROW_TOOLBOX)
+		{
+			if (character->abilities[i].stats != NULL)
+				free(character->abilities[i].stats);
+			character->abilities.erase(character->abilities.begin() + i);
+		}
+	}
+	for (int i = 0; i < character->abilities.size(); i++)
+	{
+		if (character->abilities[i].type == SUPPLY_ALLY)
+		{
+			if (character->abilities[i].stats != NULL)
+				free(character->abilities[i].stats);
+			character->abilities.erase(character->abilities.begin() + i);
+		}
+	}
+}
+
+void ToolBox::InHandAbilities()
+{
+	if (!ToolExists(THROW_TOOLBOX))
+	{
+		character->abilities.push_back({THROW_TOOLBOX, 0, 8, 200, StatStructs::THROWABLE, (-1), NULL});
+		int index = character->abilities.size() - 1;
+		character->abilities[index].stats = (void*)malloc(sizeof(t_Throwable));
+		t_Throwable *used = (t_Throwable*)character->abilities[index].stats;
+		used->range = 9;
+	}
+	if (!ToolExists(SUPPLY_ALLY))
+	{
+		character->abilities.push_back({SUPPLY_ALLY, 0, 16, 200, StatStructs::SUPPLY, (-1), NULL});
+		int index = character->abilities.size() - 1;
+		character->abilities[index].stats = (void*)malloc(sizeof(t_Supply));
+		t_Supply *used = (t_Supply*)character->abilities[index].stats;
+		used->amount = 30;
+	}
+}
+
+void ToolBox::ManageSmithAbilities()
+{
+	if (inHand)
+		InHandAbilities();
+	else
+		RemoveInHandAbilities();
+}
+
 void ToolBox::Update()
 {
 	UpdateToolBoxInHand();
-	
+	ManageSmithAbilities();
 }

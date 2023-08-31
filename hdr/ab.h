@@ -49,7 +49,9 @@ enum {
 	LION_SMACK,
 	PHANTOM_KNIGHT,
 	ROTATE,
-	HAMMER_SMACK
+	HAMMER_SMACK,
+	THROW_TOOLBOX,
+	SUPPLY_ALLY
 };
 
 namespace StatusSigns
@@ -114,6 +116,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "objects/toolBox.h"
 # include "objects/object.h"
 # include "objects/objUpdate.h"
+# include "info/supplyEffect.h"
 # include "info/control.h"
 # include "info/controlSetter.h"
 # include "info/counter.h"

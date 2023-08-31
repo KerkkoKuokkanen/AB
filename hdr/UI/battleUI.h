@@ -39,6 +39,8 @@ class CharacterUI
 		void CheckIfMouseOver();
 		void CreateTexts();
 		void ManageTurnText();
+		bool AbilitiesMatch();
+		void PollAbilities();
 		t_Ability *GetCharacterAbility(int type);
 	public:
 		bool overCharacterUI = false;

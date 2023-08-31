@@ -57,7 +57,8 @@ namespace Channels
 		OPPORTUNIRY,
 		KILL_FADE,
 		KILL_EXPLOSION0,
-		HAMMER_SMACK
+		HAMMER_SMACK,
+		SUPPLY
 	};
 }
 
@@ -190,7 +191,8 @@ typedef struct s_Textures
 	SDL_Texture *questionMark;
 	SDL_Texture *control;
 	SDL_Texture *everyColor;
-	SDL_Texture *smithAbilities[1];
+	SDL_Texture *smithAbilities[3];
+	SDL_Texture *supplySymbol;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -217,6 +219,7 @@ typedef struct s_Audio
 	Mix_Chunk *opportunity;
 	Mix_Chunk *kills[2];
 	Mix_Chunk *hammerSmack;
+	Mix_Chunk *supply;
 }				t_Audio;
 
 typedef struct s_Fonts

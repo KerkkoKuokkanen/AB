@@ -11,9 +11,21 @@ namespace StatStructs
 		LASTING_EFFECT,
 		FLAME_PORT,
 		PHANTOM_KNIGHT,
-		TIERS
+		TIERS,
+		THROWABLE,
+		SUPPLY
 	};
 };
+
+typedef struct s_Supply
+{
+	int amount;
+}				t_Supply;
+
+typedef struct s_Throwable
+{
+	int range;
+}				t_Throwable;
 
 typedef struct s_StatusEffects
 {

@@ -86,11 +86,28 @@ void Info::UpdateSnippets()
 	}
 }
 
+void Info::UpdateSupplyEffects()
+{
+	for (int i = 0; i < supplyEffects.size(); i++)
+	{
+		supplyEffects[i]->Update();
+		if (supplyEffects[i]->done)
+		{
+			delete supplyEffects[i];
+			supplyEffects.erase(supplyEffects.begin() + i);
+			i--;
+			if (supplyEffects.size() == 0)
+				i = 0;
+		}
+	}
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
 	UpdateBar();
 	UpdateSnippets();
+	UpdateSupplyEffects();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();
@@ -110,4 +127,10 @@ void Info::Destroy()
 	delete controls;
 	if (stunUpdates != NULL)
 		delete stunUpdates;
+	for (int i = 0; i < snippets.size(); i++)
+		delete snippets[i];
+	snippets.clear();
+	for (int i = 0; i < supplyEffects.size(); i++)
+		delete supplyEffects[i];
+	supplyEffects.clear();
 }

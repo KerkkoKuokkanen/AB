@@ -53,6 +53,12 @@ void Particle::init()
 	gameState.render->AddSprite(sprite, PARTICLE_LAYER);
 }
 
+void Particle::initWithTexture(SDL_Texture *text, SDL_Rect dest)
+{
+	sprite = new Sprite(text, dest, NULL, NULL, 0, FLIP_NONE);
+	gameState.render->AddSprite(sprite, PARTICLE_LAYER);
+}
+
 void Particle::Activate()
 {
 	sprite->Activate();

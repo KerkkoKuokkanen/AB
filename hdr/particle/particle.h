@@ -22,6 +22,7 @@ class Particle
 		int life = 0;
 		Sprite *sprite = NULL;
 		void init();
+		void initWithTexture(SDL_Texture *text, SDL_Rect dest = {0, 0, 200, 200});
 		void setPosition(Vector pos);
 		void setDirection(Vector dir);
 		void setSpeed(float speed);

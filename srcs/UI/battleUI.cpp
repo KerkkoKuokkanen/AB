@@ -117,6 +117,12 @@ void CharacterUI::GetAbilities()
 			case HAMMER_SMACK:
 				CreateButton(dest, gameState.textures.smithAbilities[0], HAMMER_SMACK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case THROW_TOOLBOX:
+				CreateButton(dest, gameState.textures.smithAbilities[1], THROW_TOOLBOX, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case SUPPLY_ALLY:
+				CreateButton(dest, gameState.textures.smithAbilities[2], SUPPLY_ALLY, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }
@@ -134,6 +140,27 @@ void CharacterUI::DeactivateUI()
 		buttons[i].button->Deactivate();
 	for (int i = 0; i < ENERGYS; i++)
 		energys[i]->Deactivate();
+}
+
+bool CharacterUI::AbilitiesMatch()
+{
+	for (int i = 0; i < BUTTON_RESERVE; i++)
+	{
+		if (buttons[i].used == false)
+			continue ;
+		bool visited = false;
+		for (int i = 0; i < activeCharacter->abilities.size(); i++)
+		{
+			if (buttons[i].buttonSign == activeCharacter->abilities[i].type)
+			{
+				visited = true;
+				break ;
+			}
+		}
+		if (!visited)
+			return (false);
+	}
+	return (true);
 }
 
 void CharacterUI::getActive()
@@ -237,6 +264,21 @@ t_Ability *CharacterUI::GetCharacterAbility(int type)
 	return (NULL);
 }
 
+void CharacterUI::PollAbilities()
+{
+	if (activeCharacter == NULL)
+		return ;
+	for (int i = 0; i < BUTTON_RESERVE; i++)
+		buttons[i].used = false;
+	GetAbilities();
+	for (int i = 0; i < BUTTON_RESERVE; i++)
+	{
+		buttons[i].button->Deactivate();
+		if (buttons[i].used)
+			buttons[i].button->Activate();
+	}
+}
+
 void CharacterUI::ClearEnergys()
 {
 	if (gameState.updateObjs.abilities->active)
@@ -252,6 +294,7 @@ void CharacterUI::Update()
 	ManageTurnText();
 	if (!turnActive)
 		return ;
+	PollAbilities();
 	health->Update(activeCharacter, true);
 	armor->Update(activeCharacter, false);
 	fatigue->Update(activeCharacter);
