@@ -345,8 +345,6 @@ int	figure_the_delay(clock_t start, clock_t end)
 	time = 0.0;
 	time += (double)(end - start) / CLOCKS_PER_SEC;
 	ret = FRAME - (int)(time * 1000.0f);
-	if (ret < 17)
-		printf("%d\n", ret);
 	if (ret < 0)
 		return (0);
 	else

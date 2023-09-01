@@ -86,8 +86,6 @@ void Character::Update()
 		gameState.updateObjs.killer->AddCharacterToKill(this);
 	if (gameState.keys.rightClick == 1 && gameState.keys.click != 1)
 		clicked = false;
-	if (gameState.keys.click == RELEASE_CLICK && cSing == LION)
-		new SupplyEffect(this);
 	ShiftChecker();
 	ManageFatigue();
 	if (animationActive)

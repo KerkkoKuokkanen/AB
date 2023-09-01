@@ -106,6 +106,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "particle/particleManager.h"
 # include "info/snippet.h"
 # include "info/flyingText.h"
+# include "tools/throwArch.h"
 # include "UI/number.h"
 # include "UI/marker.h"
 # include "UI/statuses.h"
