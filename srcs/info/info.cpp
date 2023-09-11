@@ -88,6 +88,7 @@ void Info::UpdateSnippets()
 
 void Info::UpdateSupplyEffects()
 {
+	printf("%lu\n", supplyEffects.size());
 	for (int i = 0; i < supplyEffects.size(); i++)
 	{
 		supplyEffects[i]->Update();

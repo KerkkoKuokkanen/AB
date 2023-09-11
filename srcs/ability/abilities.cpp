@@ -51,6 +51,13 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case HAMMER_SMACK:
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
+		case THROW_TOOLBOX:
+			tileSelector = new TileSelector(pos, 9, 0, &groundColoring, false);
+			break ;
+		case SUPPLY_ALLY:
+			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector->SetSelectorFor(true, false);
+			break ;
 	}
 }
 
@@ -107,6 +114,12 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case HAMMER_SMACK:
 			animations.push_back({new HammerSmack(character, target), HAMMER_SMACK});
+			break ;
+		case THROW_TOOLBOX:
+			animations.push_back({new ToolThrowAnim(character, targetPoint), THROW_TOOLBOX});
+			break ;
+		case SUPPLY_ALLY:
+			animations.push_back({new SupplyAlly(character, target), SUPPLY_ALLY});
 			break ;
 	}
 }

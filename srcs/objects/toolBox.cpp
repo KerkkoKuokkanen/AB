@@ -91,8 +91,60 @@ void ToolBox::ManageSmithAbilities()
 		RemoveInHandAbilities();
 }
 
+void ToolBox::UpdateThrowArch()
+{
+	if (arch == NULL)
+		return ;
+	arch->Update();
+	if (arch->done)
+	{
+		delete arch;
+		sprite->orderLayer = targPos.y;
+		sprite->setDepth(gameState.battle.ground->map[targPos.y][targPos.x].height * BATTLE_DEPTH_UNIT + 8);
+		arch = NULL;
+		CreateDust({sprite->dest.x + 1000, sprite->dest.y + 5200}, Vector(-1.0f, -1.0f));
+		CreateDust({sprite->dest.x + 1400, sprite->dest.y + 5200}, Vector(1.0f, -1.0f));
+		SetScreenShake(250, 6);
+		PlaySound(gameState.audio.boxLand, Channels::BOX_LANDING, 0);
+		PlaySound(gameState.audio.boxLand2, Channels::BOX_LANDING2, 0);
+	}
+}
+
+void ToolBox::ManageToolBoxNotInHand()
+{
+	if (inHand)
+		return ;
+	if (sprite->getTexture() != gameState.textures.chars.toolBox)
+		sprite->setTexture(gameState.textures.chars.toolBox);
+	UpdateThrowArch();
+	if (gameState.battle.ground->map[targPos.y][targPos.x].active == false && arch == NULL)
+		sprite->AlphaMod(35);
+	else
+		sprite->ClearAlphaMod();
+}
+
 void ToolBox::Update()
 {
 	UpdateToolBoxInHand();
+	ManageToolBoxNotInHand();
 	ManageSmithAbilities();
+}
+
+void ToolBox::SetToolThrow(SDL_Point target)
+{
+	if (!inHand)
+	{
+		gameState.battle.ground->map[targPos.y][targPos.x].blocked = true;
+		gameState.battle.ground->map[targPos.y][targPos.x].additional = {AdditionalObjects::TOOLBOX, this};
+	}
+	inHand = false;
+	SDL_Rect dest = gameState.battle.ground->getTileDest(target);
+	if (arch != NULL)
+		delete arch;
+	sprite->ClearAlphaMod();
+	arch = new ThrowArch(sprite, {sprite->dest.x, sprite->dest.y}, {dest.x + 1500, dest.y - 3600}, 12.0f, 450.0f);
+	targPos = target;
+	gameState.battle.ground->map[target.y][target.x].blocked = true;
+	gameState.battle.ground->map[target.y][target.x].additional = {AdditionalObjects::TOOLBOX, this};
+	PlaySound(gameState.audio.toolThrow, Channels::TOOL_THROW, 0);
 }

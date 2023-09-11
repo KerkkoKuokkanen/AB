@@ -14,6 +14,7 @@ class OBJ_Update
 		void UpdateToolBoxes();
 	public:
 		OBJ_Update();
+		ToolBox *GetToolBox(Character *character);
 		void AddObject(Object *obj) {objects.push_back(obj);};
 		void Update();
 };

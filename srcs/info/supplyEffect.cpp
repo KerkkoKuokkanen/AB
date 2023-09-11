@@ -126,5 +126,4 @@ void SupplyEffect::Destroy()
 	target->setAnimationActive(false);
 	target->sprite->ClearColorMod();
 	parts.clear();
-	return ;
 }

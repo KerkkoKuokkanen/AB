@@ -38,3 +38,13 @@ void OBJ_Update::Update()
 	UpdateObjects();
 	UpdateToolBoxes();
 };
+
+ToolBox *OBJ_Update::GetToolBox(Character *character)
+{
+	for (int i = 0; i < toolBoxes.size(); i++)
+	{
+		if (toolBoxes[i]->character == character)
+			return (toolBoxes[i]);
+	}
+	return (NULL);
+}

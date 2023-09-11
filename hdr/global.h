@@ -58,7 +58,10 @@ namespace Channels
 		KILL_FADE,
 		KILL_EXPLOSION0,
 		HAMMER_SMACK,
-		SUPPLY
+		SUPPLY,
+		TOOL_THROW,
+		BOX_LANDING,
+		BOX_LANDING2
 	};
 }
 
@@ -122,6 +125,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *lionSmack;
 	SDL_Texture *smithIdle[2];
 	SDL_Texture *handTools[3];
+	SDL_Texture *toolBox;
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -133,6 +137,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *incExplosion;
 	SDL_Texture *lionTrail;
 	SDL_Texture *hammerSmack[2];
+	SDL_Texture *toolThrow[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -220,6 +225,9 @@ typedef struct s_Audio
 	Mix_Chunk *kills[2];
 	Mix_Chunk *hammerSmack;
 	Mix_Chunk *supply;
+	Mix_Chunk *toolThrow;
+	Mix_Chunk *boxLand;
+	Mix_Chunk *boxLand2;
 }				t_Audio;
 
 typedef struct s_Fonts

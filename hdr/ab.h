@@ -131,6 +131,8 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/objects/fireBall.h"
 # include "ability/objects/phantomKnight.h"
 # include "ability/animation/rotate.h"
+# include "ability/animation/supplyAlly.h"
+# include "ability/animation/thoolThrowAnim.h"
 # include "ability/animation/hammerSmack.h"
 # include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"
@@ -172,6 +174,14 @@ enum {
 	TOP_RIGHT_BLOCK,
 	TOP_REGULAR_BLOCK
 };
+
+namespace AdditionalObjects
+{
+	enum {
+		TOOLBOX
+	};
+};
+
 
 typedef struct s_Additional
 {

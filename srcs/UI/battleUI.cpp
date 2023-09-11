@@ -459,5 +459,11 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case HAMMER_SMACK:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HAMMER_SMACK), activeCharacter);
 			break ;
+		case THROW_TOOLBOX:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(THROW_TOOLBOX), activeCharacter);
+			break ;
+		case SUPPLY_ALLY:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SUPPLY_ALLY), activeCharacter);
+			break ;
 	}
 }
