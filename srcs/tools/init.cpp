@@ -321,9 +321,12 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.supplySymbol = get_texture(rend, "sprites/effects/suplySymbol.png");
 	gameState.textures.smithAbilities[1] = get_texture(rend, "sprites/UI/abilities/throwToolBox.png");
 	gameState.textures.smithAbilities[2] = get_texture(rend, "sprites/UI/abilities/handSuplies.png");
+	gameState.textures.smithAbilities[3] = get_texture(rend, "sprites/UI/abilities/pickUpToolBox.png");
 	gameState.textures.chars.toolBox = get_texture(rend, "sprites/characters/blacksmith/toolBox.png");
 	gameState.textures.attacks.toolThrow[0] = get_texture(rend, "sprites/characters/blacksmith/blackSmithToolThrow.png");
 	gameState.textures.attacks.toolThrow[1] = get_texture(rend, "sprites/characters/blacksmith/blackSmithToolTrail.png");
+	gameState.textures.throwObj = get_texture(rend, "sprites/UI/abilities/throwObject.png");
+	gameState.textures.reSupply = get_texture(rend, "sprites/UI/abilities/resuply.png");
 }
 
 void CraeteAudioThread()

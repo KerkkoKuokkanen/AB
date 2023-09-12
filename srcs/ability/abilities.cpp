@@ -58,6 +58,10 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			selector->SetSelectorFor(true, false);
 			break ;
+		case PICK_UP_TOOLS:
+			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false);
+			tileSelector->IncludePoint(FindToolBox());
+			break ;
 	}
 }
 
@@ -120,6 +124,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case SUPPLY_ALLY:
 			animations.push_back({new SupplyAlly(character, target), SUPPLY_ALLY});
+			break ;
+		case PICK_UP_TOOLS:
+			animations.push_back({new PickUpTools(character), PICK_UP_TOOLS});
 			break ;
 	}
 }

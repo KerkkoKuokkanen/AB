@@ -72,6 +72,7 @@ class Abilities
 		bool CheckForPhantomKnight();
 		void UpdateMisses();
 		void UpdateSmithAnimation(t_Animation &anim, int index);
+		SDL_Point FindToolBox();
 	public:
 		t_Ability *ability = NULL;
 		EffectUpdater effectUpdater;

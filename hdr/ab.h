@@ -51,7 +51,10 @@ enum {
 	ROTATE,
 	HAMMER_SMACK,
 	THROW_TOOLBOX,
-	SUPPLY_ALLY
+	SUPPLY_ALLY,
+	SUPPLY,
+	GENERIC_TOOL_THROW,
+	PICK_UP_TOOLS
 };
 
 namespace StatusSigns
@@ -131,6 +134,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/objects/fireBall.h"
 # include "ability/objects/phantomKnight.h"
 # include "ability/animation/rotate.h"
+# include "ability/animation/pickUpToolBox.h"
 # include "ability/animation/supplyAlly.h"
 # include "ability/animation/thoolThrowAnim.h"
 # include "ability/animation/hammerSmack.h"

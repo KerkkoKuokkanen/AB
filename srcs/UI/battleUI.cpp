@@ -123,6 +123,15 @@ void CharacterUI::GetAbilities()
 			case SUPPLY_ALLY:
 				CreateButton(dest, gameState.textures.smithAbilities[2], SUPPLY_ALLY, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case SUPPLY:
+				CreateButton(dest, gameState.textures.reSupply, SUPPLY, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case GENERIC_TOOL_THROW:
+				CreateButton(dest, gameState.textures.throwObj, GENERIC_TOOL_THROW, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case PICK_UP_TOOLS:
+				CreateButton(dest, gameState.textures.smithAbilities[3], PICK_UP_TOOLS, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }
@@ -268,10 +277,10 @@ void CharacterUI::PollAbilities()
 {
 	if (activeCharacter == NULL)
 		return ;
-	for (int i = 0; i < BUTTON_RESERVE; i++)
+	for (int i = 1; i < BUTTON_RESERVE; i++)
 		buttons[i].used = false;
 	GetAbilities();
-	for (int i = 0; i < BUTTON_RESERVE; i++)
+	for (int i = 1; i < BUTTON_RESERVE; i++)
 	{
 		buttons[i].button->Deactivate();
 		if (buttons[i].used)
@@ -464,6 +473,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case SUPPLY_ALLY:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SUPPLY_ALLY), activeCharacter);
+			break ;
+		case PICK_UP_TOOLS:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(PICK_UP_TOOLS), activeCharacter);
 			break ;
 	}
 }

@@ -31,11 +31,11 @@ void ToolBox::UpdateToolBoxInHand()
 	sprite->AlphaMod(character->sprite->getAlpha());
 }
 
-bool ToolBox::ToolExists(int toolSign)
+bool ToolBox::ToolExists(Character *target, int toolSign)
 {
-	for (int i = 0; i < character->abilities.size(); i++)
+	for (int i = 0; i < target->abilities.size(); i++)
 	{
-		if (character->abilities[i].type == toolSign)
+		if (target->abilities[i].type == toolSign)
 			return (true);
 	}
 	return (false);
@@ -65,7 +65,7 @@ void ToolBox::RemoveInHandAbilities()
 
 void ToolBox::InHandAbilities()
 {
-	if (!ToolExists(THROW_TOOLBOX))
+	if (!ToolExists(character, THROW_TOOLBOX))
 	{
 		character->abilities.push_back({THROW_TOOLBOX, 0, 8, 200, StatStructs::THROWABLE, (-1), NULL});
 		int index = character->abilities.size() - 1;
@@ -73,9 +73,9 @@ void ToolBox::InHandAbilities()
 		t_Throwable *used = (t_Throwable*)character->abilities[index].stats;
 		used->range = 9;
 	}
-	if (!ToolExists(SUPPLY_ALLY))
+	if (!ToolExists(character, SUPPLY_ALLY))
 	{
-		character->abilities.push_back({SUPPLY_ALLY, 0, 16, 200, StatStructs::SUPPLY, (-1), NULL});
+		character->abilities.push_back({SUPPLY_ALLY, 0, 12, 200, StatStructs::SUPPLY, (-1), NULL});
 		int index = character->abilities.size() - 1;
 		character->abilities[index].stats = (void*)malloc(sizeof(t_Supply));
 		t_Supply *used = (t_Supply*)character->abilities[index].stats;
@@ -110,33 +110,41 @@ void ToolBox::UpdateThrowArch()
 	}
 }
 
-void ToolBox::ManageToolBoxNotInHand()
-{
-	if (inHand)
-		return ;
-	if (sprite->getTexture() != gameState.textures.chars.toolBox)
-		sprite->setTexture(gameState.textures.chars.toolBox);
-	UpdateThrowArch();
-	if (gameState.battle.ground->map[targPos.y][targPos.x].active == false && arch == NULL)
-		sprite->AlphaMod(35);
-	else
-		sprite->ClearAlphaMod();
-}
-
 void ToolBox::Update()
 {
 	UpdateToolBoxInHand();
 	ManageToolBoxNotInHand();
 	ManageSmithAbilities();
+	ManageOnGroundAbilities();
+}
+
+void ToolBox::RemoveFromMapPosition()
+{
+	if (gameState.battle.ground->map[targPos.y][targPos.x].additional.object != NULL)
+	{
+		if (gameState.battle.ground->map[targPos.y][targPos.x].additional.type == AdditionalObjects::TOOLBOX)
+		{
+			ToolBox *ret = (ToolBox*)gameState.battle.ground->map[targPos.y][targPos.x].additional.object;
+			if (ret == this)
+			{
+				gameState.battle.ground->map[targPos.y][targPos.x].blocked = false;
+				gameState.battle.ground->map[targPos.y][targPos.x].additional = {-1, NULL};
+			}
+		}
+	}
+}
+
+void ToolBox::SetToolBoxBack()
+{
+	inHand = true;
+	RemoveFromMapPosition();
+	targetCharacters.clear();
 }
 
 void ToolBox::SetToolThrow(SDL_Point target)
 {
 	if (!inHand)
-	{
-		gameState.battle.ground->map[targPos.y][targPos.x].blocked = true;
-		gameState.battle.ground->map[targPos.y][targPos.x].additional = {AdditionalObjects::TOOLBOX, this};
-	}
+		RemoveFromMapPosition();
 	inHand = false;
 	SDL_Rect dest = gameState.battle.ground->getTileDest(target);
 	if (arch != NULL)

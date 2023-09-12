@@ -196,8 +196,10 @@ typedef struct s_Textures
 	SDL_Texture *questionMark;
 	SDL_Texture *control;
 	SDL_Texture *everyColor;
-	SDL_Texture *smithAbilities[3];
+	SDL_Texture *smithAbilities[4];
 	SDL_Texture *supplySymbol;
+	SDL_Texture *reSupply;
+	SDL_Texture *throwObj;
 }				t_Textures;
 
 typedef struct s_Audio
