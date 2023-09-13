@@ -14,6 +14,7 @@ class TileSelector
 		TileSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool blokers, bool staticSearch = false);
 		~TileSelector() {Destroy();};
 		void IncludePoint(SDL_Point pos, int mark = 1);
+		void RemovePoint(SDL_Point pos);
 		SDL_Point Update();
 		void Destroy();
 };

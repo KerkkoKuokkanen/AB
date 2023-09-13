@@ -52,15 +52,22 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
 		case THROW_TOOLBOX:
-			tileSelector = new TileSelector(pos, 9, 0, &groundColoring, false);
+			tileSelector = new TileSelector(pos, 9, 0, &groundColoring, true);
+			tileSelector->RemovePoint(character->position);
 			break ;
 		case SUPPLY_ALLY:
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			selector->SetSelectorFor(true, false);
 			break ;
 		case PICK_UP_TOOLS:
-			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false);
+			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
+			tileSelector->RemovePoint(character->position);
 			tileSelector->IncludePoint(FindToolBox());
+			break ;
+		case SUPPLY:
+			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
+			tileSelector->RemovePoint(character->position);
+			IncudeToolPoints();
 			break ;
 	}
 }
@@ -127,6 +134,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case PICK_UP_TOOLS:
 			animations.push_back({new PickUpTools(character), PICK_UP_TOOLS});
+			break ;
+		case SUPPLY:
+			animations.push_back({new Supply(character, targetPoint), SUPPLY});
 			break ;
 	}
 }
@@ -274,11 +284,8 @@ void Abilities::AnimationUpdater()
 {
 	for (int i = 0; i < animations.size(); i++)
 	{
-		if (animations[i].type == ROTATE)
-		{
-			UpdateRotate(i);
+		if (CheckGenericAnimations(animations[i], i))
 			continue ;
-		}
 		switch (character->cSing)
 		{
 			case THIEF:

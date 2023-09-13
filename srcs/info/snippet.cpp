@@ -153,6 +153,7 @@ void Snippet::SetOrderLayer(int order)
 
 Snippet::Snippet(const char *text, int fontType, bool outline, SDL_Point pos, int size, int offset, int layer, bool staticSprite)
 {
+	string = text;
 	Snippet::outlineBool = outline;
 	Snippet::text = get_text(text, fontType);
 	std::string used(text);
@@ -169,6 +170,7 @@ void Snippet::Destroy()
 {
 	SDL_DestroyTexture(text);
 	delete sprite;
+	string.clear();
 	for (int i = 0; i < 8; i++)
 	{
 		if (outline[i] != NULL)

@@ -99,6 +99,7 @@ void getAudio()
 	AudioCreateVolume(Channels::TOOL_THROW, 19);
 	AudioCreateVolume(Channels::BOX_LANDING, 45);
 	AudioCreateVolume(Channels::BOX_LANDING2, 67);
+	AudioCreateVolume(Channels::PICK_TOOLS, 22);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -137,6 +138,7 @@ void getAudio()
 	gameState.audio.toolThrow = Mix_LoadWAV("audio/abilities/smith/toolThrow.wav");
 	gameState.audio.boxLand = Mix_LoadWAV("audio/abilities/smith/boxLanding.wav");
 	gameState.audio.boxLand2 = Mix_LoadWAV("audio/abilities/smith/boxLanding2.wav");
+	gameState.audio.pickTools = Mix_LoadWAV("audio/abilities/smith/pickTools.wav");
 }
 
 void getFonts()
@@ -327,6 +329,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.toolThrow[1] = get_texture(rend, "sprites/characters/blacksmith/blackSmithToolTrail.png");
 	gameState.textures.throwObj = get_texture(rend, "sprites/UI/abilities/throwObject.png");
 	gameState.textures.reSupply = get_texture(rend, "sprites/UI/abilities/resuply.png");
+	gameState.textures.supplyToolSymbol = get_texture(rend, "sprites/effects/suplyHoverSymbol.png");
 }
 
 void CraeteAudioThread()

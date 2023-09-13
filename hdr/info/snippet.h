@@ -13,6 +13,7 @@ class Snippet
 		Sprite *sprite = NULL;
 		Sprite *outline[8] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
 		void CreateOutline(SDL_Rect dest, int layer, bool staticSprite);
+		std::string string;
 	public:
 		Snippet(const char *text, int fontType, bool outline, SDL_Point pos, int size, int offset, int layer, bool staticSprite);
 		void SetOrderLayer(int order);
@@ -22,6 +23,8 @@ class Snippet
 		void SetAlphaMod(Uint8 alpha);
 		void ClearAlphaMod();
 		void SetScaled(bool scaled);
+		void SetDepth(float z);
+		const char *GetText() {return (string.c_str());};
 		void SetColor(Uint8 r, Uint8 g, Uint8 b);
 		void SetOutlineColor(Uint8 r, Uint8 g, Uint8 b);
 		~Snippet() {Destroy();};

@@ -17,6 +17,8 @@ class ToolBox
 		void CheckCharacterTexture();
 		void UpdateToolBoxInHand();
 		std::vector<t_CharacherAndFound> targetCharacters = {};
+		Snippet *number = NULL;
+		Sprite *symbol = NULL;
 		bool ToolExists(Character *target, int toolSign);
 		void RemoveInHandAbilities();
 		void InHandAbilities();
@@ -28,7 +30,12 @@ class ToolBox
 		void AssignDefaultOnGroundAbilities(Character *target);
 		void RemoveOnGroundAbilities(Character *target);
 		void RemoveFromMapPosition();
+		void CreateSymbol();
+		void CreateNumber();
+		void ManageDisplayNumbers();
+		void DisplayToolBoxNumber();
 		int iter = 0;
+		int supplyAmount = 0;
 		SDL_Point targPos = {0, 0};
 		ThrowArch *arch = NULL;
 	public:
@@ -36,9 +43,11 @@ class ToolBox
 		Sprite *sprite = NULL;
 		ToolBox(Character *character);
 		~ToolBox() {Destroy();};
+		int GetSupplyAmount() {return(supplyAmount);};
 		void SetToolThrow(SDL_Point target);
 		void SetInHand(bool set) {inHand = set;};
 		void SetToolBoxBack();
+		void SupplyTarget(Character *target);
 		SDL_Point getPosition() {return(targPos);};
 		void Update();
 		void Destroy();

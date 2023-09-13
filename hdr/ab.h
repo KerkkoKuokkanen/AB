@@ -134,6 +134,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/objects/fireBall.h"
 # include "ability/objects/phantomKnight.h"
 # include "ability/animation/rotate.h"
+# include "ability/animation/supply.h"
 # include "ability/animation/pickUpToolBox.h"
 # include "ability/animation/supplyAlly.h"
 # include "ability/animation/thoolThrowAnim.h"

@@ -477,5 +477,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case PICK_UP_TOOLS:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(PICK_UP_TOOLS), activeCharacter);
 			break ;
+		case SUPPLY:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SUPPLY), activeCharacter);
+			break ;
 	}
 }

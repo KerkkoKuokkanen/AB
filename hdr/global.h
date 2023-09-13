@@ -61,7 +61,8 @@ namespace Channels
 		SUPPLY,
 		TOOL_THROW,
 		BOX_LANDING,
-		BOX_LANDING2
+		BOX_LANDING2,
+		PICK_TOOLS
 	};
 }
 
@@ -200,6 +201,7 @@ typedef struct s_Textures
 	SDL_Texture *supplySymbol;
 	SDL_Texture *reSupply;
 	SDL_Texture *throwObj;
+	SDL_Texture *supplyToolSymbol;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -230,6 +232,7 @@ typedef struct s_Audio
 	Mix_Chunk *toolThrow;
 	Mix_Chunk *boxLand;
 	Mix_Chunk *boxLand2;
+	Mix_Chunk *pickTools;
 }				t_Audio;
 
 typedef struct s_Fonts

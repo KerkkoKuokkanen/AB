@@ -52,9 +52,9 @@ static Character *GetCharacter(int index, SDL_Point pos)
 
 void ToolBox::AssignDefaultOnGroundAbilities(Character *target)
 {
-	if (!ToolExists(target, SUPPLY))
+	if (!ToolExists(target, SUPPLY) && supplyAmount != 0)
 	{
-		target->abilities.push_back({SUPPLY, 0, 8, 200, StatStructs::SUPPLY, (-1), NULL});
+		target->abilities.push_back({SUPPLY, 0, 0, 200, StatStructs::SUPPLY, (-1), NULL});
 		int index = target->abilities.size() - 1;
 		target->abilities[index].stats = (void*)malloc(sizeof(t_Supply));
 		t_Supply *used = (t_Supply*)target->abilities[index].stats;
@@ -156,6 +156,7 @@ void ToolBox::ManageToolBoxNotInHand()
 	if (sprite->getTexture() != gameState.textures.chars.toolBox)
 		sprite->setTexture(gameState.textures.chars.toolBox);
 	UpdateThrowArch();
+	DisplayToolBoxNumber();
 	if (gameState.battle.ground->map[targPos.y][targPos.x].active == false && arch == NULL)
 		sprite->AlphaMod(35);
 	else

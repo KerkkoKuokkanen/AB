@@ -138,13 +138,52 @@ void ToolBox::SetToolBoxBack()
 {
 	inHand = true;
 	RemoveFromMapPosition();
+	for (int i = 0; i < targetCharacters.size(); i++)
+		RemoveOnGroundAbilities(targetCharacters[i].target);
 	targetCharacters.clear();
+	if (number != NULL)
+		delete number;
+	if (symbol != NULL)
+		delete symbol;
+	number = NULL;
+	symbol = NULL;
+	targetCharacters.clear();
+}
+
+void ToolBox::SupplyTarget(Character *target)
+{
+	supplyAmount -= 1;
+	new SupplyEffect(target);
+	float max = (float)target->stats.maxFatigue;
+	float amount = max * 0.35f;
+	int reduce = rounding(amount);
+	target->stats.fatigue -= reduce;
+	if (target->stats.fatigue < 0)
+		target->stats.fatigue = 0;
+	if (supplyAmount == 0)
+	{
+		for (int i = 0; i < targetCharacters.size(); i++)
+		{
+			Character *targ = targetCharacters[i].target;
+			for (int j = 0; j < targ->abilities.size(); j++)
+			{
+				if (targ->abilities[j].type == SUPPLY)
+				{
+					if (targ->abilities[j].stats != NULL)
+						free(targ->abilities[j].stats);
+					targ->abilities.erase(targ->abilities.begin() + j);
+				}
+			}
+		}
+	}
 }
 
 void ToolBox::SetToolThrow(SDL_Point target)
 {
 	if (!inHand)
 		RemoveFromMapPosition();
+	else
+		supplyAmount = 4;	//Upgrade supply amount here!
 	inHand = false;
 	SDL_Rect dest = gameState.battle.ground->getTileDest(target);
 	if (arch != NULL)

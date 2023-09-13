@@ -20,6 +20,15 @@ void TileSelector::ClearPositionOutOfRange(int cleared, SDL_Point start)
 	free(temp);
 }
 
+void TileSelector::RemovePoint(SDL_Point pos)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return ;
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return ;
+	map[pos.y][pos.x] = TOOL_MAP_SIGN;
+}
+
 void TileSelector::IncludePoint(SDL_Point pos, int mark)
 {
 	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
