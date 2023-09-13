@@ -53,7 +53,7 @@ void InfoBar::CreateText()
 	dest.x -= 100;
 	dest.y -= 100;
 	text[1] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[1]->ColorMod(80, 80, 80);
+	text[1]->ColorMod(140, 140, 140);
 	gameState.render->AddSprite(text[1], TURN_ORDER_LAYER);
 	dest.x += 200;
 	text[2] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);

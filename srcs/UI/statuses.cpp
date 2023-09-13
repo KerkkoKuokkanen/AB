@@ -66,8 +66,8 @@ void Statuses::CreateStatuses()
 			const char *text = used.c_str();
 			add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 			add.snippet->SetOrderLayer(3);
-			add.snippet->SetOutlineColor(50, 50, 50);
-			add.snippet->SetAlphaMod(200);
+			add.snippet->SetOutlineColor(25, 25, 25);
+			add.snippet->SetAlphaMod(204);
 		}
 		else
 			add.snippet = NULL;
@@ -147,7 +147,7 @@ void Statuses::Postion(Vector place)
 		statuses[i].images.sprite->Position(Vector(place.x + (diff * i), place.y));
 		if (statuses[i].images.snippet == NULL)
 			continue ;
-		float x = (float)statuses[i].images.sprite->dest.x - ((int)((float)numberOffset * 1.6f) * numDigits(statuses[i].amount));
+		float x = (float)statuses[i].images.sprite->dest.x - ((int)((float)numberOffset * 1.6f) * ((float)numDigits(statuses[i].amount) * 0.25f));
 		statuses[i].images.snippet->Position({rounding(x), rounding(place.y) - numberSize / 4});
 	}
 }
