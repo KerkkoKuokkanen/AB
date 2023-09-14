@@ -33,7 +33,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
 		case FLAME_BLAST:
-			multiSelector = new MultiSelector(pos, 6, 0, &groundColoring, false, true, 2);
+			multiSelector = new MultiSelector(pos, 5, 0, &groundColoring, false, true, 2);
 			break ;
 		case INCINERATE:
 			allSelector = new AllSelector(pos, 6, 0, &groundColoring, true, StatusSigns::BURN);
@@ -65,6 +65,11 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			tileSelector->IncludePoint(FindToolBox());
 			break ;
 		case SUPPLY:
+			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
+			tileSelector->RemovePoint(character->position);
+			IncudeToolPoints();
+			break ;
+		case GENERIC_TOOL_THROW:
 			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
 			tileSelector->RemovePoint(character->position);
 			IncudeToolPoints();
@@ -137,6 +142,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case SUPPLY:
 			animations.push_back({new Supply(character, targetPoint), SUPPLY});
+			break ;
+		case GENERIC_TOOL_THROW:
+			animations.push_back({new GenericToolThrow(character, targetPoint, &groundColoring), GENERIC_TOOL_THROW});
 			break ;
 	}
 }

@@ -58,7 +58,6 @@ class Abilities
 		void UpdateThiefObject(t_Object &object, int index);
 		void UpdatePyroAnimation(t_Animation &animation, int index);
 		void PyroIncinerateDamage();
-		void ClearMap();
 		void AbilityStatus();
 		void CreateDamage(bool sound = true);
 		void UpdateSelector();
@@ -86,6 +85,7 @@ class Abilities
 		void AddMiss(CharacterMover *miss) {misses.push_back(miss);};
 		void Upadte();
 		void Clear();
+		void ClearMap();
 		void CreateOpportunityDamage(Character *damager, Character *target);
 };
 

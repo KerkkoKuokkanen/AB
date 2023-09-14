@@ -160,6 +160,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/selectors/selectorForTiles.h"
 # include "ability/selectors/multiSelector.h"
 # include "ability/selectors/phantomSelector.h"
+# include "ability/animation/genericToolThrow.h"
 # include "ability/abilities.h"
 # include "UI/battleUI.h"
 

@@ -28,8 +28,10 @@ class CharacterMover
 		bool positionBack = true;
 	public:
 		CharacterMover(Character *character, Vector direction, int firstTime, int secondTime, float speed, bool linear = true);
+		~CharacterMover() {Destroy();};
 		void SetPostionBack(bool positionBack) {CharacterMover::positionBack = positionBack;};
 		int Update();
+		void Destroy();
 };
 
 #endif

@@ -480,5 +480,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case SUPPLY:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SUPPLY), activeCharacter);
 			break ;
+		case GENERIC_TOOL_THROW:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(GENERIC_TOOL_THROW), activeCharacter);
+			break ;
 	}
 }

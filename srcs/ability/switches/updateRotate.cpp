@@ -75,6 +75,17 @@ bool Abilities::CheckGenericAnimations(t_Animation &anim, int index)
 			}
 			return (true);
 		}
+		case GENERIC_TOOL_THROW:
+		{
+			GenericToolThrow *used = (GenericToolThrow*)anim.animation;
+			used->Update();
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			return (true);
+		}
 	}
 	return (false);
 }

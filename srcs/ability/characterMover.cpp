@@ -63,3 +63,8 @@ int CharacterMover::Update()
 	counter++;
 	return (counter);
 }
+
+void CharacterMover::Destroy()
+{
+
+}
