@@ -62,6 +62,10 @@ static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
 	stat0->critChance = 1;
 	stat0->damage = 90;
 	stat0->debuffChance = 40;
+	stats[1].stats = (void*)malloc(sizeof(t_BuffAndDebuff));
+	t_BuffAndDebuff *stat1 = (t_BuffAndDebuff*)stats[1].stats;
+	stat1->buffChance = 200;
+	stat1->debuffChance = 200;
 }
 
 void Character::AssignAbilities()
@@ -90,7 +94,8 @@ void Character::AssignAbilities()
 			AssignDefaultLionStats(abilities);
 			break ;
 		case SMITH:
-			abilities = {{HAMMER_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL}};
+			abilities = {{HAMMER_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
+						{SMITH_BUFF, 0, 10, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::SMITH_BUFF, NULL}};
 			AssignDefaultSmithStats(abilities);
 			break ;
 		default:

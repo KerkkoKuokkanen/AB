@@ -127,6 +127,18 @@ void Abilities::UpdateSmithAnimation(t_Animation &anim, int index)
 				delete used;
 				animations.erase(animations.begin() + index);
 			}
+			break ;
+		}
+		case SMITH_BUFF:
+		{
+			SmithBuff *used = (SmithBuff*)anim.animation;
+			used->Update();
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
 		}
 	}
 }

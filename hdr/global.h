@@ -125,7 +125,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *lionIdle[2];
 	SDL_Texture *lionSmack;
 	SDL_Texture *smithIdle[2];
-	SDL_Texture *handTools[3];
+	SDL_Texture *handTools[4];
 	SDL_Texture *toolBox;
 }				t_CharacterTexts;
 
@@ -139,6 +139,8 @@ typedef struct s_AttackTextures
 	SDL_Texture *lionTrail;
 	SDL_Texture *hammerSmack[2];
 	SDL_Texture *toolThrow[2];
+	SDL_Texture *smithBuff;
+	SDL_Texture *buffLight[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -197,7 +199,7 @@ typedef struct s_Textures
 	SDL_Texture *questionMark;
 	SDL_Texture *control;
 	SDL_Texture *everyColor;
-	SDL_Texture *smithAbilities[4];
+	SDL_Texture *smithAbilities[5];
 	SDL_Texture *supplySymbol;
 	SDL_Texture *reSupply;
 	SDL_Texture *throwObj;

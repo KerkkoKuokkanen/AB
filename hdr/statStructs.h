@@ -13,7 +13,8 @@ namespace StatStructs
 		PHANTOM_KNIGHT,
 		TIERS,
 		THROWABLE,
-		SUPPLY
+		SUPPLY,
+		BUFF_AND_DEBUFF
 	};
 };
 
@@ -21,6 +22,12 @@ typedef struct s_Supply
 {
 	int amount;
 }				t_Supply;
+
+typedef struct s_BuffAndDebuff
+{
+	int buffChance;
+	int debuffChance;
+}				t_BuffAndDebuff;
 
 typedef struct s_Throwable
 {

@@ -132,6 +132,9 @@ void CharacterUI::GetAbilities()
 			case PICK_UP_TOOLS:
 				CreateButton(dest, gameState.textures.smithAbilities[3], PICK_UP_TOOLS, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case SMITH_BUFF:
+				CreateButton(dest, gameState.textures.smithAbilities[4], SMITH_BUFF, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }
@@ -482,6 +485,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case GENERIC_TOOL_THROW:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(GENERIC_TOOL_THROW), activeCharacter);
+			break ;
+		case SMITH_BUFF:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SMITH_BUFF), activeCharacter);
 			break ;
 	}
 }

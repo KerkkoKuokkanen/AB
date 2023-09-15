@@ -54,14 +54,16 @@ enum {
 	SUPPLY_ALLY,
 	SUPPLY,
 	GENERIC_TOOL_THROW,
-	PICK_UP_TOOLS
+	PICK_UP_TOOLS,
+	SMITH_BUFF
 };
 
 namespace StatusSigns
 {
 	enum {
 		STUN,
-		BURN
+		BURN,
+		SMITH_BUFF
 	};
 };
 
@@ -138,6 +140,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/pickUpToolBox.h"
 # include "ability/animation/supplyAlly.h"
 # include "ability/animation/thoolThrowAnim.h"
+# include "ability/animation/smithBuff.h"
 # include "ability/animation/hammerSmack.h"
 # include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"

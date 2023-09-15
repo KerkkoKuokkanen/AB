@@ -74,6 +74,10 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			tileSelector->RemovePoint(character->position);
 			IncudeToolPoints();
 			break ;
+		case SMITH_BUFF:
+			selector = new Selector(pos, 9, 0, &groundColoring, false, false);
+			selector->SetSelectorFor(true, true);
+			break ;
 	}
 }
 
@@ -145,6 +149,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case GENERIC_TOOL_THROW:
 			animations.push_back({new GenericToolThrow(character, targetPoint, &groundColoring), GENERIC_TOOL_THROW});
+			break ;
+		case SMITH_BUFF:
+			animations.push_back({new SmithBuff(character, target), SMITH_BUFF});
 			break ;
 	}
 }

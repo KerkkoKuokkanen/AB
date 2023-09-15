@@ -24,6 +24,8 @@ void ToolBox::UpdateToolBoxInHand()
 		sprite->setTexture(gameState.textures.chars.handTools[1]);
 	else if (text == gameState.textures.attacks.hammerSmack[0])
 		sprite->setTexture(gameState.textures.chars.handTools[2]);
+	else if (text == gameState.textures.attacks.smithBuff)
+		sprite->setTexture(gameState.textures.chars.handTools[3]);
 	sprite->setAngle(angle);
 	sprite->dest = dest;
 	sprite->orderLayer = character->sprite->orderLayer;
