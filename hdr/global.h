@@ -204,6 +204,7 @@ typedef struct s_Textures
 	SDL_Texture *reSupply;
 	SDL_Texture *throwObj;
 	SDL_Texture *supplyToolSymbol;
+	SDL_Texture *buffSymbol;
 }				t_Textures;
 
 typedef struct s_Audio

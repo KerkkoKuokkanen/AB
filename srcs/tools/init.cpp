@@ -335,6 +335,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.smithBuff = get_texture(rend, "sprites/characters/blacksmith/blacksmithbuff.png");
 	gameState.textures.attacks.buffLight[0] = get_texture(rend, "sprites/attacks/LightEffect1.png");
 	gameState.textures.attacks.buffLight[1] = get_texture(rend, "sprites/attacks/LightEffect2.png");
+	gameState.textures.buffSymbol = get_texture(rend, "sprites/UI/buffSymbol.png");
 }
 
 void CraeteAudioThread()

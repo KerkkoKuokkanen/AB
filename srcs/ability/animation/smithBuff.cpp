@@ -19,8 +19,12 @@ void SmithBuff::CreateLight()
 	lights[1] = new Sprite(gameState.textures.attacks.buffLight[1], dest, NULL, NULL, 0, FLIP_NONE);
 	lights[0]->orderLayer = character->sprite->orderLayer;
 	lights[0]->z = character->sprite->z + 0.2f;
+	//lights[0]->ColorMod(23, 96, 255);
+	lights[0]->ColorMod(199, 60, 22);
 	lights[1]->orderLayer = character->sprite->orderLayer;
 	lights[1]->z = character->sprite->z - 0.2f;
+	//lights[1]->ColorMod(23, 96, 255);
+	lights[1]->ColorMod(199, 60, 22);
 	gameState.render->AddSprite(lights[0], BATTLEGROUND_LAYER);
 	gameState.render->AddSprite(lights[1], BATTLEGROUND_LAYER);
 }
