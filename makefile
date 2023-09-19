@@ -25,7 +25,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/animation/HammerSmack.cpp srcs/ability/switches/smithUpdates.cpp srcs/tools/soundSystem.cpp \
 		srcs/info/supplyEffect.cpp srcs/tools/throwArch.cpp srcs/ability/animation/toolThrowAnim.cpp srcs/ability/animation/supplyAlly.cpp \
 		srcs/objects/toolBoxOnGround.cpp srcs/ability/animation/pickUpToolBox.cpp srcs/ability/animation/supply.cpp \
-		srcs/objects/toolBoxNumber.cpp srcs/ability/animation/genericToolThrow.cpp srcs/ability/animation/smithBuff.cpp
+		srcs/objects/toolBoxNumber.cpp srcs/ability/animation/genericToolThrow.cpp srcs/ability/animation/smithBuff.cpp \
+		srcs/effects/buffEffect.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

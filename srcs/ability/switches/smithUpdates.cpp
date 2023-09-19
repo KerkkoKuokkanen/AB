@@ -29,6 +29,16 @@ static bool ThisIsThePosition(Character *character, SDL_Point pos)
 	return (false);
 }
 
+static void CreateSmithBuffDebuff(Character *target, t_Ability *ability)
+{
+	if (target->ally)
+	{
+		target->statuses.buffs.push_back({BuffTypes::ACCURACY, 1, 10});
+		return ;
+	}
+	target->statuses.deBuffs.push_back({BuffTypes::ACCURACY, 1, -10});
+}
+
 SDL_Point Abilities::FindToolBox()
 {
 	SDL_Point pos = character->position;
@@ -133,6 +143,8 @@ void Abilities::UpdateSmithAnimation(t_Animation &anim, int index)
 		{
 			SmithBuff *used = (SmithBuff*)anim.animation;
 			used->Update();
+			if (used->createBuff)
+				CreateSmithBuffDebuff(target, ability);
 			if (used->done)
 			{
 				delete used;

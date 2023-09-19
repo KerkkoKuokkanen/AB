@@ -45,12 +45,32 @@ bool Statuses::GetMouseOverStatuses()
 					return (true);
 				break ;
 			}
+			case StatusSigns::BUFF:
+			{
+				SDL_Rect dest = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(dest);
+				SDL_Point test = {x, y};
+				SDL_Rect used = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (pointCheck(test, used))
+					return (true);
+				break ;
+			}
+			case StatusSigns::DEBUFF:
+			{
+				SDL_Rect dest = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(dest);
+				SDL_Point test = {x, y};
+				SDL_Rect used = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (pointCheck(test, used))
+					return (true);
+				break ;
+			}
 		}
 	}
 	return (false);
 }
 
-void Statuses::CreateStatuses()
+void Statuses::CreateBurns()
 {
 	SDL_Rect dest = {0, 0, size, size};
 	if (character->statuses.burns.size() > 0)
@@ -73,6 +93,11 @@ void Statuses::CreateStatuses()
 			add.snippet = NULL;
 		statuses.push_back({add, StatusSigns::BURN});
 	}
+}
+
+void Statuses::CreateStatuses()
+{
+	CreateBurns();
 }
 
 Statuses::Statuses(Character *character, int size, int numberSize, int numOffset, bool staticSprite, bool vertical)
@@ -220,6 +245,26 @@ void Statuses::CreateFrestStatus(int statusSign)
 			statuses.push_back({add, StatusSigns::STUN, 1});
 			break ;
 		}
+		case StatusSigns::BUFF:
+		{
+			add.sprite = new Sprite(gameState.textures.buffSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			add.sprite->ColorMod(23, 96, 255);
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::BUFF, 1});
+			break ;
+		}
+		case StatusSigns::DEBUFF:
+		{
+			add.sprite = new Sprite(gameState.textures.buffSymbol, dest, NULL, NULL, 0, FLIP_VERTICAL, staticSprite);
+			add.sprite->orderLayer = 1;
+			add.sprite->ColorMod(255, 60, 22);
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::DEBUFF, 1});
+			break ;
+		}
 	}
 	if (onlyOne)
 	{
@@ -241,6 +286,16 @@ void Statuses::CheckIfNeedToCreateStatuses()
 		if (!AlreadyExists(StatusSigns::STUN))
 			CreateFrestStatus(StatusSigns::STUN);
 	}
+	if (character->statuses.buffs.size() != 0)
+	{
+		if (!AlreadyExists(StatusSigns::BUFF))
+			CreateFrestStatus(StatusSigns::BUFF);
+	}
+	if (character->statuses.deBuffs.size() != 0)
+	{
+		if (!AlreadyExists(StatusSigns::DEBUFF))
+			CreateFrestStatus(StatusSigns::DEBUFF);
+	}
 }
 
 void Statuses::CheckIfNewStatuses()
@@ -255,6 +310,24 @@ void Statuses::CheckIfNewStatuses()
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)
 					ChangeAmount(i, amount, num);
+				break ;
+			}
+			case StatusSigns::STUN:
+			{
+				if (character->statuses.stun == 0 && AlreadyExists(StatusSigns::STUN))
+					ChangeAmount(i, 0, 0);
+				break ;
+			}
+			case StatusSigns::BUFF:
+			{
+				if (character->statuses.buffs.size() == 0 && AlreadyExists(StatusSigns::BUFF))
+					ChangeAmount(i, 0, 0);
+				break ;
+			}
+			case StatusSigns::DEBUFF:
+			{
+				if (character->statuses.buffs.size() == 0 && AlreadyExists(StatusSigns::DEBUFF))
+					ChangeAmount(i, 0, 0);
 				break ;
 			}
 		}

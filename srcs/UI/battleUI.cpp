@@ -203,7 +203,7 @@ void CharacterUI::getActive()
 			GetAbilities();
 		}
 		statuses = new Statuses(activeCharacter, 1900, 1200, 590, true);
-		statuses->Postion(Vector(-24800.0f, 33100.0f));
+		statuses->Postion(Vector(-24800.0f, 32900.0f));
 		for (int i = 0; i < BUTTON_RESERVE; i++)
 		{
 			if (buttons[i].used)

@@ -15,17 +15,20 @@ class Info
 		InfoBar *bar = NULL;
 		std::vector<FlyingSnippet*> snippets;
 		std::vector<SupplyEffect*> supplyEffects;
+		std::vector<BuffEffect*> buffEffects;
 		void UpdateSnippets();
 		void FindHoveredCharacter();
 		bool KilledOrDamaged();
 		void UpdateBar();
 		void UpdateSupplyEffects();
+		void UpdateBuffEffects();
 	public:
 		bool overInfo = false;
 		Info();
 		~Info() {Destroy();};
 		void AddSnippet(FlyingSnippet *snippet);
 		void AddSupplyEffect(SupplyEffect *add) {supplyEffects.push_back(add);};
+		void AddBuffEffect(BuffEffect *add) {buffEffects.push_back(add);};
 		void Update();
 		void Destroy();
 };

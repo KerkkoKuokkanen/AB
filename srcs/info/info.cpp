@@ -95,9 +95,21 @@ void Info::UpdateSupplyEffects()
 		{
 			delete supplyEffects[i];
 			supplyEffects.erase(supplyEffects.begin() + i);
-			i--;
-			if (supplyEffects.size() == 0)
-				i = 0;
+			i = (supplyEffects.size() == 0) ? 0 : i - 1;
+		}
+	}
+}
+
+void Info::UpdateBuffEffects()
+{
+	for (int i = 0; i < buffEffects.size(); i++)
+	{
+		buffEffects[i]->Update();
+		if (buffEffects[i]->done)
+		{
+			delete buffEffects[i];
+			buffEffects.erase(buffEffects.begin() + i);
+			i = (buffEffects.size() == 0) ? 0 : i - 1;
 		}
 	}
 }
@@ -108,6 +120,7 @@ void Info::Update()
 	UpdateBar();
 	UpdateSnippets();
 	UpdateSupplyEffects();
+	UpdateBuffEffects();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();

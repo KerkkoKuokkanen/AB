@@ -20,7 +20,7 @@ SupplyEffect::SupplyEffect(Character *target)
 	target->setAnimationActive(true);
 	SupplyEffect::target = target;
 	counter = 0;
-	partCounter = PART_DISTANCE;
+	partCounter = rand() % PART_DISTANCE;
 	done = false;
 	gameState.updateObjs.info->AddSupplyEffect(this);
 }

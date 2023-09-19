@@ -62,7 +62,8 @@ namespace Channels
 		TOOL_THROW,
 		BOX_LANDING,
 		BOX_LANDING2,
-		PICK_TOOLS
+		PICK_TOOLS,
+		BUFF_EFFECT
 	};
 }
 
@@ -79,6 +80,7 @@ typedef struct s_StatusSurfaces
 {
 	SDL_Surface *questionMark;
 	SDL_Surface *burn;
+	SDL_Surface *buff;
 }				t_StatusSurfaces;
 
 typedef struct s_Surfaces
@@ -236,6 +238,8 @@ typedef struct s_Audio
 	Mix_Chunk *boxLand;
 	Mix_Chunk *boxLand2;
 	Mix_Chunk *pickTools;
+	Mix_Chunk *deBuffEffect;
+	Mix_Chunk *BuffEffect;
 }				t_Audio;
 
 typedef struct s_Fonts

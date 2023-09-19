@@ -26,8 +26,7 @@ static void ManageStatuses(Character *character)
 		if (statuses.burns[i] <= 0)
 		{
 			statuses.burns.erase(statuses.burns.begin() + i);
-			if (i != 0)
-				i -= 1;
+			i = (statuses.burns.size() == 0) ? 0 : i - 1;
 		}
 	}
 	if (statuses.stun > 0)
@@ -37,12 +36,38 @@ static void ManageStatuses(Character *character)
 	}
 }
 
+static void ManageBuffs(Character *character)
+{
+	if (character == NULL)
+		return ;
+	t_StatusEffects &statuses = character->statuses;
+	for (int i = 0; i < statuses.buffs.size(); i++)
+	{
+		statuses.buffs[i].turns -= 1;
+		if (statuses.buffs[i].turns <= 0)
+		{
+			statuses.buffs.erase(statuses.buffs.begin() + i);
+			i = (statuses.buffs.size() == 0) ? 0 : i - 1;
+		}
+	}
+	for (int i = 0; i < statuses.deBuffs.size(); i++)
+	{
+		statuses.deBuffs[i].turns -= 1;
+		if (statuses.deBuffs[i].turns <= 0)
+		{
+			statuses.deBuffs.erase(statuses.deBuffs.begin() + i);
+			i = (statuses.deBuffs.size() == 0) ? 0 : i - 1;
+		}
+	}
+}
+
 void UpdateStatuses()
 {
 	static Character *current = NULL;
 	Character *ret = FindTheCharacter();
 	if (current != ret)
 	{
+		ManageBuffs(current);
 		current = ret;
 		if (current == NULL)
 			return ;

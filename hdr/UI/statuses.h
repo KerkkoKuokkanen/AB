@@ -34,6 +34,7 @@ class Statuses
 		int size;
 		int numberSize;
 		int numberOffset;
+		void CreateBurns();
 		void CreateStatuses();
 		void OrderStatuses();
 		void CheckIfNewStatuses();

@@ -15,6 +15,7 @@ class SmithBuff
 		void UpdateLight();
 	public:
 		bool done = false;
+		bool createBuff = false;
 		SmithBuff(Character *character, Character *target);
 		~SmithBuff() {Destroy();};
 		void Update();

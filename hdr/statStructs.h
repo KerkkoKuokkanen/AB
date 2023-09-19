@@ -18,6 +18,14 @@ namespace StatStructs
 	};
 };
 
+namespace BuffTypes
+{
+	enum
+	{
+		ACCURACY
+	};
+};
+
 typedef struct s_Supply
 {
 	int amount;
@@ -34,9 +42,18 @@ typedef struct s_Throwable
 	int range;
 }				t_Throwable;
 
+typedef struct s_BuffDebuff
+{
+	int type;
+	int turns;
+	int amount;
+}				t_BuffDebuff;
+
 typedef struct s_StatusEffects
 {
 	std::vector<int> burns;
+	std::vector<t_BuffDebuff> buffs;
+	std::vector<t_BuffDebuff> deBuffs;
 	int stun;
 }				t_StatusEffects;
 

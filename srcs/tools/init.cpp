@@ -100,6 +100,7 @@ void getAudio()
 	AudioCreateVolume(Channels::BOX_LANDING, 45);
 	AudioCreateVolume(Channels::BOX_LANDING2, 67);
 	AudioCreateVolume(Channels::PICK_TOOLS, 22);
+	AudioCreateVolume(Channels::BUFF_EFFECT, 32);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -139,6 +140,8 @@ void getAudio()
 	gameState.audio.boxLand = Mix_LoadWAV("audio/abilities/smith/boxLanding.wav");
 	gameState.audio.boxLand2 = Mix_LoadWAV("audio/abilities/smith/boxLanding2.wav");
 	gameState.audio.pickTools = Mix_LoadWAV("audio/abilities/smith/pickTools.wav");
+	gameState.audio.deBuffEffect = Mix_LoadWAV("audio/effects/deBuffEffect.wav");
+	gameState.audio.BuffEffect = Mix_LoadWAV("audio/effects/buffEffect.wav");
 }
 
 void getFonts()
@@ -335,7 +338,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.smithBuff = get_texture(rend, "sprites/characters/blacksmith/blacksmithbuff.png");
 	gameState.textures.attacks.buffLight[0] = get_texture(rend, "sprites/attacks/LightEffect1.png");
 	gameState.textures.attacks.buffLight[1] = get_texture(rend, "sprites/attacks/LightEffect2.png");
-	gameState.textures.buffSymbol = get_texture(rend, "sprites/UI/buffSymbol.png");
+	use = get_texture_and_surface(rend, "sprites/UI/buffSymbol.png");
+	gameState.textures.buffSymbol = use.text;
+	gameState.surfaces.statuses.buff = use.sur;
 }
 
 void CraeteAudioThread()

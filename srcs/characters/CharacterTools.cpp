@@ -95,7 +95,7 @@ void Character::AssignAbilities()
 			break ;
 		case SMITH:
 			abilities = {{HAMMER_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
-						{SMITH_BUFF, 0, 10, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::SMITH_BUFF, NULL}};
+						{SMITH_BUFF, 0, 10, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::BUFF, NULL}};
 			AssignDefaultSmithStats(abilities);
 			break ;
 		default:
