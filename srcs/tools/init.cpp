@@ -100,7 +100,7 @@ void getAudio()
 	AudioCreateVolume(Channels::BOX_LANDING, 45);
 	AudioCreateVolume(Channels::BOX_LANDING2, 67);
 	AudioCreateVolume(Channels::PICK_TOOLS, 22);
-	AudioCreateVolume(Channels::BUFF_EFFECT, 32);
+	AudioCreateVolume(Channels::BUFF_EFFECT, 21);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
