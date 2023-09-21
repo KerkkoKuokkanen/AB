@@ -48,6 +48,10 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 			place.x += 10.0f;
 			place.y -= 4850.0f;
 			break ;
+		case MAGE:
+			place.x -= 240.0f;
+			place.y -= 5350.0f;
+			break ;
 	}
 	return (place);
 }

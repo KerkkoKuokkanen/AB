@@ -163,5 +163,16 @@ void Character::CreateCharacterType(int skin)
 			stand = new Sprite(gameState.textures.stands.smithStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
+		case MAGE:
+		{
+			SDL_Rect dest = {-3000, -450, 6700, 8040};
+			textures.push_back(gameState.textures.chars.mageIdle[0]);
+			textures.push_back(gameState.textures.chars.mageIdle[1]);
+			stands.push_back(gameState.textures.stands.mageStand);
+			stands.push_back(gameState.textures.stands.mageStand);
+			sprite = new Sprite(gameState.textures.chars.mageIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.mageStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
 	}
 }

@@ -240,6 +240,11 @@ SDL_Surface *getSurface(Character *character)
 				return (gameState.surfaces.smithIdle1);
 			else
 				return (gameState.surfaces.smithIdle2);
+		case MAGE:
+			if (text == 0)
+				return (gameState.surfaces.mageIdle1);
+			else
+				return (gameState.surfaces.mageIdle2);
 	}
 	return (NULL);
 }

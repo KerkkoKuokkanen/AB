@@ -103,6 +103,8 @@ typedef struct s_Surfaces
 	SDL_Surface *lionIdle2;
 	SDL_Surface *smithIdle1;
 	SDL_Surface *smithIdle2;
+	SDL_Surface *mageIdle1;
+	SDL_Surface *mageIdle2;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -114,6 +116,7 @@ typedef struct s_Stands
 	SDL_Texture *pyroStand;
 	SDL_Texture *lionStand;
 	SDL_Texture *smithStand;
+	SDL_Texture *mageStand;
 }				t_Stands;
 
 typedef struct s_CharacterTexts
@@ -129,6 +132,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *smithIdle[2];
 	SDL_Texture *handTools[4];
 	SDL_Texture *toolBox;
+	SDL_Texture *mageIdle[2];
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures

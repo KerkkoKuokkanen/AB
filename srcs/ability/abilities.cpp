@@ -42,7 +42,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
 		case PHANTOM_KNIGHT:
-			phantSelector = new PhantomSelector(character, 8, &groundColoring);
+			tileSelector = new TileSelector(character->position, 8, 0, &groundColoring, true);
 			break ;
 		case ROTATE:
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
@@ -84,8 +84,6 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 void Abilities::SetAbility(t_Ability *ability, Character *character)
 {
 	gameState.updateObjs.turnOrder->ResetClicks();
-	if (CheckForPhantomKnight())
-		return ;
 	if (inMotion)
 		return ;
 	Clear();
@@ -127,7 +125,7 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case PHANTOM_KNIGHT:
 			SetScreenShake(300, 8);
-			animations.push_back({new PhantomAnim(targPoints), PHANTOM_KNIGHT});
+			animations.push_back({new PhantomAnim({targetPoint}), PHANTOM_KNIGHT});
 			break ;
 		case ROTATE:
 			animations.push_back({new Rotate(character, target), ROTATE});

@@ -39,8 +39,7 @@ void Abilities::UpdateLionAnimation(t_Animation &animation, int index)
 			use->Update();
 			if (use->done)
 			{
-				for (int i = 0; i < targPoints.size(); i++)
-					effectUpdater.SetEffect(character, targPoints[i], ability);
+				effectUpdater.SetEffect(character, targetPoint, ability);
 				delete use;
 				animations.erase(animations.begin() + index);
 			}

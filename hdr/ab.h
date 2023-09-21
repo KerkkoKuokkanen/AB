@@ -174,7 +174,8 @@ enum {
 	SKELE,
 	PYRO,
 	LION,
-	SMITH
+	SMITH,
+	MAGE
 };
 
 enum {
@@ -189,7 +190,8 @@ enum {
 namespace AdditionalObjects
 {
 	enum {
-		TOOLBOX
+		TOOLBOX,
+		PHANTOM_KNIGHT
 	};
 };
 

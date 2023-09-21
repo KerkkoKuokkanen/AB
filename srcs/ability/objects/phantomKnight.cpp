@@ -19,6 +19,8 @@ static Color GetColor()
 PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos)
 {
 	gameState.battle.ground->map[pos.y][pos.x].blocked = true;
+	gameState.battle.ground->map[pos.y][pos.x].additional.type = AdditionalObjects::PHANTOM_KNIGHT;
+	gameState.battle.ground->map[pos.y][pos.x].additional.object = this;
 	PhantomKnight::character = character;
 	position = pos;
 	currentTurn = gameState.updateObjs.turnOrder->turnCount;
