@@ -133,6 +133,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *handTools[4];
 	SDL_Texture *toolBox;
 	SDL_Texture *mageIdle[2];
+	SDL_Texture *mageIndicator;
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -147,6 +148,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *toolThrow[2];
 	SDL_Texture *smithBuff;
 	SDL_Texture *buffLight[2];
+	SDL_Texture *mageAttack;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -211,6 +213,7 @@ typedef struct s_Textures
 	SDL_Texture *throwObj;
 	SDL_Texture *supplyToolSymbol;
 	SDL_Texture *buffSymbol;
+	SDL_Texture *mageAbilities[3];
 }				t_Textures;
 
 typedef struct s_Audio

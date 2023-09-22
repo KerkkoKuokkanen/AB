@@ -54,7 +54,7 @@ void ToolBox::AssignDefaultOnGroundAbilities(Character *target)
 {
 	if (!ToolExists(target, SUPPLY) && supplyAmount != 0)
 	{
-		target->abilities.push_back({SUPPLY, 0, 0, 200, StatStructs::SUPPLY, (-1), NULL});
+		target->abilities.push_back({SUPPLY, 0, 0, 0, 200, StatStructs::SUPPLY, (-1), NULL});
 		int index = target->abilities.size() - 1;
 		target->abilities[index].stats = (void*)malloc(sizeof(t_Supply));
 		t_Supply *used = (t_Supply*)target->abilities[index].stats;
@@ -62,7 +62,7 @@ void ToolBox::AssignDefaultOnGroundAbilities(Character *target)
 	}
 	if (!ToolExists(target, GENERIC_TOOL_THROW))
 	{
-		target->abilities.push_back({GENERIC_TOOL_THROW, 0, 8, 200, StatStructs::THROWABLE, (-1), NULL});
+		target->abilities.push_back({GENERIC_TOOL_THROW, 0, 8, 0, 200, StatStructs::THROWABLE, (-1), NULL});
 		int index = target->abilities.size() - 1;
 		target->abilities[index].stats = (void*)malloc(sizeof(t_Throwable));
 		t_Throwable *used = (t_Throwable*)target->abilities[index].stats;
@@ -70,7 +70,7 @@ void ToolBox::AssignDefaultOnGroundAbilities(Character *target)
 	}
 	if (target->cSing == SMITH && !ToolExists(target, PICK_UP_TOOLS))
 	{
-		target->abilities.push_back({PICK_UP_TOOLS, 0, 8, 200, (-1), (-1), NULL});
+		target->abilities.push_back({PICK_UP_TOOLS, 0, 8, 0, 200, (-1), (-1), NULL});
 		int index = target->abilities.size() - 1;
 		target->abilities[index].stats = NULL;
 	}

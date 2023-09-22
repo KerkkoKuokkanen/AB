@@ -78,6 +78,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 9, 0, &groundColoring, false, false);
 			selector->SetSelectorFor(true, true);
 			break ;
+		case LIGHTNING_BOLT:
+			selector = new Selector(pos, 12, 0, &groundColoring, false, false);
+			break ;
 	}
 }
 
@@ -150,6 +153,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case SMITH_BUFF:
 			animations.push_back({new SmithBuff(character, target), SMITH_BUFF});
+			break ;
+		case LIGHTNING_BOLT:
+			animations.push_back({new MageAttack(character), LIGHTNING_BOLT});
 			break ;
 	}
 }
@@ -312,6 +318,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case SMITH:
 				UpdateSmithAnimation(animations[i], i);
+				break ;
+			case MAGE:
+				UpdateMageAnimation(animations[i], i);
 				break ;
 		}
 	}

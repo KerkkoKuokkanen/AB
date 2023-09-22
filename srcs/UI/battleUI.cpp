@@ -135,6 +135,15 @@ void CharacterUI::GetAbilities()
 			case SMITH_BUFF:
 				CreateButton(dest, gameState.textures.smithAbilities[4], SMITH_BUFF, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case LIGHTNING_BOLT:
+				CreateButton(dest, gameState.textures.mageAbilities[0], LIGHTNING_BOLT, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case ROCK_FALL:
+				CreateButton(dest, gameState.textures.mageAbilities[1], ROCK_FALL, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case HOST_EYES:
+				CreateButton(dest, gameState.textures.mageAbilities[2], HOST_EYES, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }
@@ -488,6 +497,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case SMITH_BUFF:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SMITH_BUFF), activeCharacter);
+			break ;
+		case LIGHTNING_BOLT:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(LIGHTNING_BOLT), activeCharacter);
 			break ;
 	}
 }

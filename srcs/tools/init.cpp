@@ -348,6 +348,11 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.mageIdle[1] = use.text;
 	gameState.surfaces.mageIdle2 = use.sur;
 	gameState.textures.stands.mageStand = get_texture(rend, "sprites/characters/mage/mageStand.png");
+	gameState.textures.chars.mageIndicator = get_texture(rend, "sprites/characters/mage/mageIndicator.png");
+	gameState.textures.mageAbilities[0] = get_texture(rend, "sprites/UI/abilities/lightningBolt.png");
+	gameState.textures.mageAbilities[1] = get_texture(rend, "sprites/UI/abilities/rockFall.png");
+	gameState.textures.mageAbilities[2] = get_texture(rend, "sprites/UI/abilities/mindControl.png");
+	gameState.textures.attacks.mageAttack = get_texture(rend, "sprites/characters/mage/mageAttack.png");
 }
 
 void CraeteAudioThread()

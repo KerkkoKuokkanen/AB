@@ -68,36 +68,57 @@ static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
 	stat1->debuffChance = 200;
 }
 
+static void AssignDefaultMageAbilities(std::vector<t_Ability> &stats)
+{
+	stats[0].stats = (void*)malloc(sizeof(t_AttackStruct));
+	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
+	stat0->critChance = 4;
+	stat0->damage = 100;
+	stats[1].stats = (void*)malloc(sizeof(t_AttackStruct));
+	stat0 = (t_AttackStruct*)stats[1].stats;
+	stat0->critChance = 2;
+	stat0->damage = 75;
+	stats[2].stats = (void*)malloc(sizeof(t_HostEyes));
+	t_HostEyes *stat1 = (t_HostEyes*)stats[2].stats;
+	stat1->enemyChance = 80;
+	stat1->hostRange = 8;
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
 	{
 		case THIEF:
-			abilities = {{DAGGER_THROW, 0, 10, 80, StatStructs::ATTACK_STRUCT, -1, NULL},
-						{SMOKE_BOMB, 0, 10, 200, StatStructs::LASTING_EFFECT, -1, NULL},
-						{DAGGER_SLASH, 0, 10, 80, StatStructs::ATTACK_STRUCT, -1, NULL}};
+			abilities = {{DAGGER_THROW, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, -1, NULL},
+						{SMOKE_BOMB, 0, 10, 0, 200, StatStructs::LASTING_EFFECT, -1, NULL},
+						{DAGGER_SLASH, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, -1, NULL}};
 			AssingDefaultThiefStats(abilities);
 			break ;
 		case SKELE:
 			break ;
 		case PYRO:
-			abilities = {{FLAME_PORT, 0, 10, 200, StatStructs::FLAME_PORT, -1, NULL},
-						{FLAME_SLASH, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, NULL},
-						{FLAME_BLAST, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, NULL},
-						{INCINERATE, 0, 10, 90, StatStructs::ATTACK_STRUCT, -1, NULL}};
+			abilities = {{FLAME_PORT, 0, 10, 0, 200, StatStructs::FLAME_PORT, -1, NULL},
+						{FLAME_SLASH, 0, 10, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, NULL},
+						{FLAME_BLAST, 0, 10, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, NULL},
+						{INCINERATE, 0, 10, 0, 90, StatStructs::ATTACK_STRUCT, -1, NULL}};
 			AssingDefaultPyroStats(abilities);
 			break ;
 		case LION:
-			abilities = {{LION_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
-						{PHANTOM_KNIGHT, 0, 10, 200, StatStructs::PHANTOM_KNIGHT, -1, NULL},
-						{ROTATE, 0, 10, 200, StatStructs::TIERS, -1, NULL}};
+			abilities = {{LION_SMACK, 0, 10, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
+						{PHANTOM_KNIGHT, 0, 10, 0, 200, StatStructs::PHANTOM_KNIGHT, -1, NULL},
+						{ROTATE, 0, 10, 0, 200, StatStructs::TIERS, -1, NULL}};
 			AssignDefaultLionStats(abilities);
 			break ;
 		case SMITH:
-			abilities = {{HAMMER_SMACK, 0, 10, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
-						{SMITH_BUFF, 0, 10, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::BUFF, NULL}};
+			abilities = {{HAMMER_SMACK, 0, 10, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
+						{SMITH_BUFF, 0, 10, 0, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::BUFF, NULL}};
 			AssignDefaultSmithStats(abilities);
 			break ;
+		case MAGE:
+			abilities = {{LIGHTNING_BOLT, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{ROCK_FALL, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{HOST_EYES, 0, 10, 0, 200, StatStructs::HOST_EYES, StatusSigns::DEBUFF, NULL}};
+			AssignDefaultMageAbilities(abilities);
 		default:
 			return ;
 	}

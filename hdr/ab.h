@@ -55,7 +55,10 @@ enum {
 	SUPPLY,
 	GENERIC_TOOL_THROW,
 	PICK_UP_TOOLS,
-	SMITH_BUFF
+	SMITH_BUFF,
+	LIGHTNING_BOLT,
+	ROCK_FALL,
+	HOST_EYES
 };
 
 namespace StatusSigns
@@ -84,6 +87,7 @@ typedef struct s_Ability
 	int type;
 	int cost;
 	int fatigue;
+	int range;
 	int baseChance;
 	int statType;
 	int statusSign;
@@ -149,6 +153,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/phantomAnim.h"
 # include "ability/animation/flamePortAnim.h"
 # include "ability/animation/daggerSlashAnim.h"
+# include "ability/animation/mageAttack.h"
 # include "ability/animation/smokeBombAnim.h"
 # include "ability/animation/lionSmackAnim.h"
 # include "ability/animation/daggerThrowAnim.h"

@@ -11,6 +11,13 @@ bool compareObjects(const t_Indicator &obj1, const t_Indicator &obj2)
 	return (obj1.character->stats.speed > obj2.character->stats.speed);
 }
 
+static SDL_Texture *getCharacterTexture(Character *character)
+{
+	if (character->cSing != MAGE)
+		return (character->sprite->getTexture());
+	return (gameState.textures.chars.mageIndicator);
+}
+
 void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 {
 	switch (cSing)
@@ -44,6 +51,12 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->y = 68;
 			srect->w = 474;
 			srect->h = 473;
+			break ;
+		case MAGE:
+			srect->x = 280;
+			srect->y = 105;
+			srect->w = 330;
+			srect->h = 323;
 			break ;
 	}
 }
@@ -87,7 +100,15 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 			break ;
 		case SMITH:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.75f))),
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.8f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case MAGE:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.8f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),
 				rounding(((float)gameState.screen.width / 26.0f)),
 				rounding(((float)gameState.screen.height / 17.0f))
@@ -149,7 +170,8 @@ void TurnOrder::CreateIndicators()
 		SDL_Rect *srect = (SDL_Rect*)malloc(sizeof(SDL_Rect) * 1);
 		CreateSRect(srect, characters[i]->cSing);
 		SDL_Rect dest = CreateDest(characters[i]->cSing);
-		indicators.push_back({new Sprite(characters[i]->sprite->getTexture(), dest, srect, NULL, 0, FLIP_NONE, true),
+		SDL_Texture *indicatorTexture = getCharacterTexture(characters[i]);
+		indicators.push_back({new Sprite(indicatorTexture, dest, srect, NULL, 0, FLIP_NONE, true),
 																		characters[i], srect, TURN_SIGN, false, 0});
 		indicators[i].indicator->setTranslation(false);
 		indicators[i].indicator->Deactivate();

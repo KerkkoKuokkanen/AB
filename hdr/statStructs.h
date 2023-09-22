@@ -14,7 +14,8 @@ namespace StatStructs
 		TIERS,
 		THROWABLE,
 		SUPPLY,
-		BUFF_AND_DEBUFF
+		BUFF_AND_DEBUFF,
+		HOST_EYES
 	};
 };
 
@@ -25,6 +26,12 @@ namespace BuffTypes
 		ACCURACY
 	};
 };
+
+typedef struct s_HostEyes
+{
+	int enemyChance;
+	int hostRange;
+}				t_HostEyes;
 
 typedef struct s_Supply
 {
