@@ -10,6 +10,7 @@ MageAttack::MageAttack(Character *character)
 
 void MageAttack::CreateLight()
 {
+	PlaySound(gameState.audio.mageCast, Channels::MAGE_CAST, 0);
 	character->sprite->setTexture(gameState.textures.attacks.mageAttack);
 	SDL_Rect dest = character->sprite->dest;
 	dest.w -= 900;
@@ -62,6 +63,8 @@ void MageAttack::Update()
 	UpdateLight();
 	if (counter == 6)
 		CreateLight();
+	if (counter == 8)
+		createEffect = true;
 	if (counter > 53)
 		done = true;
 }

@@ -149,6 +149,6 @@ void CreateMiss(SDL_Point damager, SDL_Point target, Character *targ, bool sound
 	SDL_Rect tDest = gameState.battle.ground->getTileDest(target);
 	SDL_Point direction = {tDest.x - dDest.x, tDest.y - dDest.y};
 	Vector dir = Vector((float)direction.x, (float)direction.y).Normalized();
-	CharacterMover *mover = new CharacterMover(targ, dir, 6, 6, 300.0f);
+	CharacterMover *mover = new CharacterMover(targ, dir, 8, 8, 300.0f);
 	gameState.updateObjs.abilities->AddMiss(mover);
 }

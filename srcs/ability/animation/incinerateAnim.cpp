@@ -5,8 +5,8 @@
 #define HAND_BALL_FLOAT_AMOUNT 100.0f
 #define ALPHA_TIME 26
 #define PARTICLE_AMOUNT 280
-#define FADE_START 156
-#define SECOND_PHASE 140
+#define FADE_START 53
+#define SECOND_PHASE 13
 
 static Color GetColor()
 {
@@ -20,14 +20,12 @@ static Color GetColor()
 
 void Incinerate::CreateSprite(t_IncinerateStruct &ball, Character *target)
 {
-	SDL_Point place = {target->sprite->dest.x + target->sprite->dest.w / 2, target->sprite->dest.y + (int)((float)target->sprite->dest.h * 0.4)};
+	SDL_Point place = {target->sprite->dest.x + target->sprite->dest.w / 2, target->sprite->dest.y + (int)((float)target->sprite->dest.h * 0.3)};
 	SDL_Rect dest = {place.x - BALL_DIMENTIONS / 2, place.y - BALL_DIMENTIONS / 2 + (int)FLOAT_AMOUNT, BALL_DIMENTIONS, BALL_DIMENTIONS};
 	ball.ball = new Sprite(gameState.textures.attacks.incinerate[0], dest, NULL, NULL, 0, FLIP_NONE);
 	ball.aura = new Sprite(gameState.textures.attacks.incinerate[1], dest, NULL, NULL, 0, FLIP_NONE);
-	ball.ball->AlphaMod(0);
 	ball.ball->orderLayer = target->sprite->orderLayer;
 	ball.ball->z = target->sprite->z + 0.5f;
-	ball.aura->AlphaMod(0);
 	ball.aura->orderLayer = target->sprite->orderLayer;
 	ball.aura->z = target->sprite->z + 0.25f;
 	gameState.render->AddSprite(ball.ball, BATTLEGROUND_LAYER);
@@ -41,7 +39,6 @@ void Incinerate::CreateHandBall()
 	handBall = new Sprite(gameState.textures.attacks.incinerate[0], used, NULL, NULL, 0, FLIP_NONE);
 	handBall->orderLayer = character->sprite->orderLayer;
 	handBall->z = character->sprite->z + 0.25f;
-	handBall->AlphaMod(0);
 	gameState.render->AddSprite(handBall, BATTLEGROUND_LAYER);
 }
 
@@ -52,8 +49,8 @@ Incinerate::Incinerate(Character *character, std::vector<SDL_Point> &targets)
 		done = true;
 		return ;
 	}
-	PlaySound(gameState.audio.incinerate[0], Channels::INCINERATE_CHARGE, 0);
-	PlaySound(gameState.audio.incinerate[1], Channels::INCINERATE_SPIN, 0);
+	PlaySound(gameState.audio.incinerate[3], Channels::INCINERATE_MOLO, 0);
+	PlaySound(gameState.audio.incinerate[2], Channels::INCINERATE_EXP, 0);
 	Incinerate::character = character;
 	character->setAnimationActive(true);
 	character->sprite->setTexture(gameState.textures.chars.pyroAttack[0]);
@@ -251,21 +248,14 @@ void Incinerate::Update()
 	createDamage = false;
 	if (done)
 		return ;
-	UpdateHandBall();
-	UpdateBalls();
 	UpdateHandParts();
 	UpdateExplosions();
 	counter++;
-	if (counter == SECOND_PHASE - 7)
-	{
-		PlaySound(gameState.audio.incinerate[2], Channels::INCINERATE_EXP, 0);
-		PlaySound(gameState.audio.incinerate[3], Channels::INCINERATE_MOLO, 0);
-	}
 	if (counter == SECOND_PHASE)
 		StartSecondPhase();
 	if (counter == SECOND_PHASE + 8)
 		createDamage = true;
-	if (counter >= 200)
+	if (counter >= 90)
 		done = true;
 }
 
@@ -330,7 +320,7 @@ void Incinerate::CreateExplosions()
 	{
 		SDL_Rect rect = balls[i].ball->dest;
 		CreateParticles(rect);
-		SDL_Rect dest = {rect.x - 1000, rect.y - 1000, rect.w + 2000, rect.h + 2000};
+		SDL_Rect dest = {rect.x - 1000, rect.y - 1100, rect.w + 2000, rect.h + 2000};
 		Sprite *exp = new Sprite(gameState.textures.attacks.incExplosion, dest, NULL, NULL, 0, FLIP_NONE);
 		exp->orderLayer = balls[i].ball->orderLayer;
 		exp->z = balls[i].ball->z;

@@ -63,7 +63,9 @@ namespace Channels
 		BOX_LANDING,
 		BOX_LANDING2,
 		PICK_TOOLS,
-		BUFF_EFFECT
+		BUFF_EFFECT,
+		MAGE_CAST,
+		LIGHTNING
 	};
 }
 
@@ -149,6 +151,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *smithBuff;
 	SDL_Texture *buffLight[2];
 	SDL_Texture *mageAttack;
+	SDL_Texture *lightning;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -247,6 +250,8 @@ typedef struct s_Audio
 	Mix_Chunk *pickTools;
 	Mix_Chunk *deBuffEffect;
 	Mix_Chunk *BuffEffect;
+	Mix_Chunk *mageCast;
+	Mix_Chunk *lightning;
 }				t_Audio;
 
 typedef struct s_Fonts

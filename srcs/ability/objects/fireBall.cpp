@@ -65,8 +65,8 @@ void FireBall::RotateDirection()
 	Vector dir((float)(goal.x - place.x), (float)(goal.y - place.y));
 	dir = dir.Normalized();
 	Vector currDir(direction.x, direction.y);
-	currDir.x = currDir.x + (dir.x * 0.45f);
-	currDir.y = currDir.y + (dir.y * 0.45f);
+	currDir.x = currDir.x + (dir.x * 0.5f);
+	currDir.y = currDir.y + (dir.y * 0.5f);
 	currDir = currDir.Normalized();
 	direction.x = currDir.x;
 	direction.y = currDir.y;
@@ -87,7 +87,7 @@ bool FireBall::AtTarget()
 	SDL_Point place = {sprite->dest.x + (sprite->dest.w / 2), sprite->dest.y + (sprite->dest.h / 2)};
 	Vector dir((float)(goal.x - place.x), (float)(goal.y - place.y));
 	float dist = dir.Magnitude();
-	if (dist < 500.0f)
+	if (dist < 1000.0f)
 		return (true);
 	return (false);
 }

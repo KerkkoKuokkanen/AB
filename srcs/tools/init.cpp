@@ -101,6 +101,8 @@ void getAudio()
 	AudioCreateVolume(Channels::BOX_LANDING2, 67);
 	AudioCreateVolume(Channels::PICK_TOOLS, 22);
 	AudioCreateVolume(Channels::BUFF_EFFECT, 21);
+	AudioCreateVolume(Channels::MAGE_CAST, 40);
+	AudioCreateVolume(Channels::LIGHTNING, 20);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -142,6 +144,8 @@ void getAudio()
 	gameState.audio.pickTools = Mix_LoadWAV("audio/abilities/smith/pickTools.wav");
 	gameState.audio.deBuffEffect = Mix_LoadWAV("audio/effects/deBuffEffect.wav");
 	gameState.audio.BuffEffect = Mix_LoadWAV("audio/effects/buffEffect.wav");
+	gameState.audio.mageCast = Mix_LoadWAV("audio/abilities/mage/cast.wav");
+	gameState.audio.lightning = Mix_LoadWAV("audio/abilities/mage/lightning.wav");
 }
 
 void getFonts()
@@ -353,6 +357,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.mageAbilities[1] = get_texture(rend, "sprites/UI/abilities/rockFall.png");
 	gameState.textures.mageAbilities[2] = get_texture(rend, "sprites/UI/abilities/mindControl.png");
 	gameState.textures.attacks.mageAttack = get_texture(rend, "sprites/characters/mage/mageAttack.png");
+	gameState.textures.attacks.lightning = get_texture(rend, "sprites/attacks/bolt.png");
 }
 
 void CraeteAudioThread()

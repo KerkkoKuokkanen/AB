@@ -341,6 +341,9 @@ void Abilities::ObjectUpdater()
 			case THIEF:
 				UpdateThiefObject(objects[i], i);
 				break ;
+			case MAGE:
+				UpdateMageObject(objects[i], i);
+				break ;
 		}
 	}
 }

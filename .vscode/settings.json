@@ -67,7 +67,10 @@
 		"utility": "cpp",
 		"thread": "cpp"
 	},
-	"explorerExclude.backup": {},
+	"explorerExclude.backup": {
+
+	
+	},
 	"files.exclude": {
 		"**/.git": true,
 		"**/.svn": true,

@@ -92,18 +92,14 @@ int GetChance(Character *character, Character *target, t_Ability *ability)
 	if (ability->baseChance >= 200)
 		return (200);
 	int ret = ability->baseChance;
+	ret += RangedChance(character, target);
 	switch (ability->type)
 	{
 		case DAGGER_THROW:
-			ret += RangedChance(character, target);
 			ChanceFromBlockers(ret, character, target);
 			break ;
 		case FLAME_BLAST:
-			ret += RangedChance(character, target);
 			ChanceFromBlockers(ret, character, target);
-			break ;
-		case DAGGER_SLASH:
-			ret += RangedChance(character, target);
 			break ;
 	}
 	if (ret > 95)
