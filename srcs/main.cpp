@@ -15,7 +15,7 @@ void TempInitBattle()
 	Character skele6(SKELE, false);
 	static std::vector<Character> chars = {thief, thief2, skele, skele2, thief3, thief4, skele3, skele6};
 	SDL_Point point = {9, 6};
-	SDL_Point point2 = {10, 6};
+	SDL_Point point2 = {10, 11};
 	SDL_Point point3 = {9, 2};
 	SDL_Point point4 = {8, 10};
 	SDL_Point point5 = {8, 7};

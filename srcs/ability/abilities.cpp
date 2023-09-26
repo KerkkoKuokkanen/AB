@@ -79,7 +79,14 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector->SetSelectorFor(true, true);
 			break ;
 		case LIGHTNING_BOLT:
-			selector = new Selector(pos, 12, 0, &groundColoring, false, false);
+			selector = new Selector(pos, 12, 4, &groundColoring, false, false);
+			break ;
+		case ROCK_FALL:
+			phantSelector = new PhantomSelector(character, 10, &groundColoring);
+			break ;
+		case HOST_EYES:
+			selector = new Selector(pos, 11, 2, &groundColoring, false, false);
+			selector->SetSelectorFor(true, true);
 			break ;
 	}
 }
@@ -156,6 +163,12 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case LIGHTNING_BOLT:
 			animations.push_back({new MageAttack(character), LIGHTNING_BOLT});
+			break ;
+		case ROCK_FALL:
+			animations.push_back({new MageAttack(character), ROCK_FALL});
+			break ;
+		case HOST_EYES:
+			animations.push_back({new HostEyesAnim(character, target), HOST_EYES});
 			break ;
 	}
 }

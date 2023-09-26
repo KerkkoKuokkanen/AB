@@ -3,8 +3,6 @@
 
 void Abilities::PyroIncinerateDamage()
 {
-	bool visited = false;
-	bool dmgVisited = false;
 	for (int i = 0; i < targPoints.size(); i++)
 	{
 		Character *targ = gameState.battle.ground->map[targPoints[i].y][targPoints[i].x].character;
@@ -12,24 +10,13 @@ void Abilities::PyroIncinerateDamage()
 		{
 			if (RangeCheckWithoutBlockers(character, targ, ability))
 			{
-				dmgVisited = true;
 				std::vector<SDL_Point> used = {targPoints[i]};
 				targ->statuses.burns.clear();
-				damager.AddDamage(ability, character, used, false);
+				damager.AddDamage(ability, character, used);
 			}
 			else
-			{
-				CreateMiss(character->position, targ->position, targ);
-				visited = true;
-			}
+				CreateMiss(character->position, targ->position, targ, true);
 		}
-	}
-	if (visited)
-		PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
-	if (dmgVisited)
-	{
-		PlaySound(gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0);
-		PlaySound(gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0);
 	}
 }
 

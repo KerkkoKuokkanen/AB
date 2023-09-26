@@ -21,7 +21,10 @@ LightningBolt::LightningBolt(SDL_Point target)
 	SDL_Rect dest = gameState.battle.ground->getTileDest(target);
 	SDL_Rect used = {dest.x - 530, dest.y - 10700, 2400, 11000};
 	sprite = new Sprite(gameState.textures.attacks.lightning, used, NULL, NULL, -23, FLIP_NONE);
-	gameState.render->AddSprite(sprite, DUST_LAYER);
+	Character *ret = gameState.battle.ground->map[target.y][target.x].character;
+	sprite->orderLayer = ret->sprite->orderLayer;
+	sprite->z = ret->sprite->z + 1.0f;
+	gameState.render->AddSprite(sprite, BATTLEGROUND_LAYER);
 	SetScreenShake(500, 7);
 }
 

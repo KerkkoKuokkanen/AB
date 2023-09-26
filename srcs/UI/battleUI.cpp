@@ -501,5 +501,11 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case LIGHTNING_BOLT:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(LIGHTNING_BOLT), activeCharacter);
 			break ;
+		case ROCK_FALL:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ROCK_FALL), activeCharacter);
+			break ;
+		case HOST_EYES:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HOST_EYES), activeCharacter);
+			break ;
 	}
 }

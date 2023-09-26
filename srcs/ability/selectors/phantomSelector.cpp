@@ -19,7 +19,7 @@ PhantomSelector::PhantomSelector(Character *character, int range, GroundColoring
 	PhantomSelector::character = character;
 	PhantomSelector::coloring = coloring;
 	orientation = getOrientation();
-	selector = new TileSelector(character->position, range, 2, coloring, true, true);
+	selector = new TileSelector(character->position, range, 4, coloring, false, true);
 	done = false;
 }
 
@@ -29,11 +29,10 @@ void PhantomSelector::HighlightBlock(SDL_Point ret)
 		return ;
 	if (ret.y < 0 || ret.y >= gameState.battle.ground->map.size())
 		return ;
-	if (gameState.battle.ground->map[ret.y][ret.x].character != NULL)
-		return ;
 	if (gameState.battle.ground->map[ret.y][ret.x].obj != NULL)
 		return ;
-	if (gameState.battle.ground->map[ret.y][ret.x].blocked)
+	if (gameState.battle.ground->map[ret.y][ret.x].additional.object != NULL &&
+		gameState.battle.ground->map[ret.y][ret.x].additional.type == AdditionalObjects::TOOLBOX)
 		return ;
 	Color purp(84, 15, 20);
 	coloring->SetColoredPosition(ret, purp, purp);
@@ -45,11 +44,10 @@ bool PhantomSelector::CheckPoint(SDL_Point ret)
 		return (false);
 	if (ret.y < 0 || ret.y >= gameState.battle.ground->map.size())
 		return (false);
-	if (gameState.battle.ground->map[ret.y][ret.x].character != NULL)
-		return (false);
 	if (gameState.battle.ground->map[ret.y][ret.x].obj != NULL)
 		return (false);
-	if (gameState.battle.ground->map[ret.y][ret.x].blocked)
+	if (gameState.battle.ground->map[ret.y][ret.x].additional.object != NULL &&
+		gameState.battle.ground->map[ret.y][ret.x].additional.type == AdditionalObjects::TOOLBOX)
 		return (false);
 	return (true);
 }
@@ -60,10 +58,10 @@ void PhantomSelector::HighlightAdditional(SDL_Point ret)
 		return ;
 	int x1 = getXToRight(ret);
 	int x2 = getXToLeft(ret);
-	int y1 = (orientation == 0) ? (-1) : 1;
-	int y2 = (orientation == 0) ? 1 : (-1);
-	HighlightBlock({x1, ret.y + y1});
-	HighlightBlock({x2, ret.y + y2});
+	HighlightBlock({x1, ret.y + 1});
+	HighlightBlock({x1, ret.y - 1});
+	HighlightBlock({x2, ret.y + 1});
+	HighlightBlock({x2, ret.y - 1});
 }
 
 void PhantomSelector::Update()
@@ -85,13 +83,15 @@ std::vector<SDL_Point> &PhantomSelector::GetTargets()
 		return (targets);
 	int x1 = getXToRight(pos);
 	int x2 = getXToLeft(pos);
-	int y1 = (orientation == 0) ? (-1) : 1;
-	int y2 = (orientation == 0) ? 1 : (-1);
 	targets.push_back(pos);
-	if (CheckPoint({x1, pos.y + y1}))
-		targets.push_back({x1, pos.y + y1});
-	if (CheckPoint({x2, pos.y + y2}))
-		targets.push_back({x2, pos.y + y2});
+	if (CheckPoint({x1, pos.y + 1}))
+		targets.push_back({x1, pos.y + 1});
+	if (CheckPoint({x1, pos.y - 1}))
+		targets.push_back({x1, pos.y - 1});
+	if (CheckPoint({x1, pos.y + 1}))
+		targets.push_back({x2, pos.y + 1});
+	if (CheckPoint({x1, pos.y - 1}))
+		targets.push_back({x2, pos.y - 1});
 	return (targets);
 }
 
