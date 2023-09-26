@@ -88,9 +88,9 @@ std::vector<SDL_Point> &PhantomSelector::GetTargets()
 		targets.push_back({x1, pos.y + 1});
 	if (CheckPoint({x1, pos.y - 1}))
 		targets.push_back({x1, pos.y - 1});
-	if (CheckPoint({x1, pos.y + 1}))
+	if (CheckPoint({x2, pos.y + 1}))
 		targets.push_back({x2, pos.y + 1});
-	if (CheckPoint({x1, pos.y - 1}))
+	if (CheckPoint({x2, pos.y - 1}))
 		targets.push_back({x2, pos.y - 1});
 	return (targets);
 }
