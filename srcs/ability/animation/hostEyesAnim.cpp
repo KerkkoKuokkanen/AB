@@ -85,13 +85,13 @@ void HostEyesAnim::Update()
 	if (counter == 10)
 		CreateEffects();
 	UpdateEffects();
-	if (counter == 46)
+	if (counter == 60)
 	{
 		character->setAnimationActive(false);
 		character->sprite->setTexture(gameState.textures.chars.mageIdle[0]);
 	}
 	counter++;
-	if (counter > 46 && effects.size() == 0)
+	if (effects.size() == 0 && counter > 15)
 		done = true;
 	if (counter > 450)
 		done = true;

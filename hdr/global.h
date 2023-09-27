@@ -68,7 +68,8 @@ namespace Channels
 		LIGHTNING,
 		METEOR1,
 		METEOR2,
-		METEOR3
+		METEOR3,
+		HOST_EYES1
 	};
 }
 
@@ -258,6 +259,7 @@ typedef struct s_Audio
 	Mix_Chunk *mageCast;
 	Mix_Chunk *lightning;
 	Mix_Chunk *meteors[3];
+	Mix_Chunk *hostEyes[1];
 }				t_Audio;
 
 typedef struct s_Fonts

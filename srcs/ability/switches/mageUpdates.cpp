@@ -40,6 +40,7 @@ void Abilities::UpdateMageAnimation(t_Animation &anim, int index)
 			used->Update();
 			if (used->done)
 			{
+				new HostEffect(target);
 				delete used;
 				animations.erase(animations.begin() + index);
 			}

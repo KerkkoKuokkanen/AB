@@ -114,6 +114,20 @@ void Info::UpdateBuffEffects()
 	}
 }
 
+void Info::UpdateHostEffects()
+{
+	for (int i = 0; i < hostEffects.size(); i++)
+	{
+		hostEffects[i]->Update();
+		if (hostEffects[i]->done)
+		{
+			delete hostEffects[i];
+			hostEffects.erase(hostEffects.begin() + i);
+			i = (buffEffects.size() == 0) ? 0 : i - 1;
+		}
+	}
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
@@ -121,6 +135,7 @@ void Info::Update()
 	UpdateSnippets();
 	UpdateSupplyEffects();
 	UpdateBuffEffects();
+	UpdateHostEffects();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();

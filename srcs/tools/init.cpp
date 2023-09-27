@@ -106,6 +106,7 @@ void getAudio()
 	AudioCreateVolume(Channels::METEOR1, 30);
 	AudioCreateVolume(Channels::METEOR2, 4);
 	AudioCreateVolume(Channels::METEOR3, 11);
+	AudioCreateVolume(Channels::HOST_EYES1, 66);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -152,6 +153,7 @@ void getAudio()
 	gameState.audio.meteors[0] = Mix_LoadWAV("audio/abilities/mage/meteorSummon.wav");
 	gameState.audio.meteors[1] = Mix_LoadWAV("audio/abilities/mage/meteorImpact1.wav");
 	gameState.audio.meteors[2] = Mix_LoadWAV("audio/abilities/mage/meteorImpact2.wav");
+	gameState.audio.hostEyes[0] = Mix_LoadWAV("audio/abilities/mage/spellEffect.wav");
 }
 
 void getFonts()
