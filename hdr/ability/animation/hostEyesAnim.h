@@ -10,6 +10,9 @@ class HostEyesAnim
 		Character *character;
 		Character *target;
 		int counter = 0;
+		std::vector<HostEyesEffect*> effects = {};
+		void CreateEffects();
+		void UpdateEffects();
 	public:
 		bool done = false;
 		bool createEffect = false;

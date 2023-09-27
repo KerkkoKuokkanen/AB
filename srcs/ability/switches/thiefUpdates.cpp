@@ -70,7 +70,10 @@ void Abilities::UpdateThiefObject(t_Object &object, int index)
 				if (used->createDamage)
 					CreateDamage();
 				else
+				{
+					CreateTextSnippet(character, target, "MISS", 1000, Color(32, 153, 186));
 					PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
+				}
 				delete used;
 				objects.erase(objects.begin() + index);
 			}

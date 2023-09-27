@@ -308,7 +308,11 @@ void Abilities::HandleDamageVector(std::vector<t_HitReturn> &ret)
 			damager.AddDamage(ability, character, add);
 		}
 		else
+		{
+			Character *target = gameState.battle.ground->map[ret[i].target.y][ret[i].target.x].character;
+			CreateTextSnippet(character, target, "MISS", 1000, Color(32, 153, 186));
 			PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
+		}
 	}
 }
 

@@ -115,8 +115,8 @@ void Character::AssignAbilities()
 			AssignDefaultSmithStats(abilities);
 			break ;
 		case MAGE:
-			abilities = {{LIGHTNING_BOLT, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
-						{ROCK_FALL, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+			abilities = {{LIGHTNING_BOLT, 0, 10, 0, 10, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{ROCK_FALL, 0, 10, 0, 10, StatStructs::ATTACK_STRUCT, (-1), NULL},
 						{HOST_EYES, 0, 10, 0, 200, StatStructs::HOST_EYES, StatusSigns::DEBUFF, NULL}};
 			AssignDefaultMageAbilities(abilities);
 		default:
