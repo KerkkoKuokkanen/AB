@@ -205,9 +205,17 @@ bool StatusApply(t_Ability *ability, Character *character, Character *target)
 	switch (ability->statType)
 	{
 		case StatStructs::ATTACK_AND_DEBUFF:
+		{
 			t_AttackWithDebuff *used = (t_AttackWithDebuff*)ability->stats;
 			chance = used->debuffChance;
 			break ;
+		}
+		case StatStructs::HOST_EYES:
+		{
+			t_HostEyes *used = (t_HostEyes*)ability->stats;
+			chance = used->enemyChance;
+			break ;
+		}
 	}
 	int hit = rand() % 100;
 	if (hit < chance)

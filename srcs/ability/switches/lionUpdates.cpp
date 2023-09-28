@@ -1,16 +1,6 @@
 
 #include "../../../hdr/global.h"
 
-bool Abilities::CheckForPhantomKnight()
-{
-	if (phantSelector != NULL)
-	{
-		phantSelector->ChangeOrientation();
-		return (true);
-	}
-	return (false);
-}
-
 void Abilities::UpdateLionAnimation(t_Animation &animation, int index)
 {
 	switch (animation.type)

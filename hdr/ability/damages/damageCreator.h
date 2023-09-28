@@ -21,6 +21,7 @@ typedef struct s_Damage
 	SDL_Rect ogPos;
 	Uint8 r, g, b;
 	bool partDone;
+	bool move;
 }				t_Damage;
 
 class DamageCreator
@@ -36,7 +37,7 @@ class DamageCreator
 		float GetDrag();
 		float GetYAdd();
 	public:
-		void CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds);
+		void CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds, bool move = true);
 		void Update();
 };
 

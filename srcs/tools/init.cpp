@@ -107,6 +107,8 @@ void getAudio()
 	AudioCreateVolume(Channels::METEOR2, 4);
 	AudioCreateVolume(Channels::METEOR3, 11);
 	AudioCreateVolume(Channels::HOST_EYES1, 66);
+	AudioCreateVolume(Channels::HOST_EYES2, 23);
+	AudioCreateVolume(Channels::HOST_EYES3, 7);
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -154,6 +156,8 @@ void getAudio()
 	gameState.audio.meteors[1] = Mix_LoadWAV("audio/abilities/mage/meteorImpact1.wav");
 	gameState.audio.meteors[2] = Mix_LoadWAV("audio/abilities/mage/meteorImpact2.wav");
 	gameState.audio.hostEyes[0] = Mix_LoadWAV("audio/abilities/mage/spellEffect.wav");
+	gameState.audio.hostEyes[1] = Mix_LoadWAV("audio/abilities/mage/mindStart.wav");
+	gameState.audio.hostEyes[2] = Mix_LoadWAV("audio/abilities/mage/mindEnd.wav");
 }
 
 void getFonts()
@@ -368,6 +372,12 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.lightning = get_texture(rend, "sprites/attacks/bolt.png");
 	gameState.textures.attacks.rockFall = get_texture(rend, "sprites/attacks/rock.png");
 	gameState.textures.attacks.hostEyes = get_texture(rend, "sprites/characters/mage/mageAttackMind.png");
+	use = get_texture_and_surface(rend, "sprites/attacks/hostEyesStatus.png");
+	gameState.textures.hostSymbol = use.text;
+	gameState.surfaces.hostSymbol = use.sur;
+	use = get_texture_and_surface(rend, "sprites/attacks/mageHostEyesStatus.png");
+	gameState.textures.hostingSymbol = use.text;
+	gameState.surfaces.hostingSymbol = use.sur;
 }
 
 void CraeteAudioThread()

@@ -11,6 +11,15 @@ static void SetSelectorForRotate(t_Ability *ability, Selector *selector)
 		selector->SetSelectorFor(true, true);
 }
 
+static void SetSelectorForHostEyes(t_Ability *ability, Selector *selector)
+{
+	t_HostEyes *used = (t_HostEyes*)ability->stats;
+	if (used->enemyChance > 0)
+		selector->SetSelectorFor(true, true);
+	else
+		selector->SetSelectorFor(true, false);
+}
+
 void Abilities::SetSelector(t_Ability *ability, Character *character)
 {
 	SDL_Point pos = character->position;
@@ -80,13 +89,16 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			break ;
 		case LIGHTNING_BOLT:
 			selector = new Selector(pos, 12, 4, &groundColoring, false, false);
+			ExtendSelector(character, selector);
 			break ;
 		case ROCK_FALL:
 			phantSelector = new PhantomSelector(character, 10, &groundColoring);
+			ExtendPhantSelector(character, phantSelector);
 			break ;
 		case HOST_EYES:
 			selector = new Selector(pos, 11, 2, &groundColoring, false, false);
-			selector->SetSelectorFor(true, true);
+			SetSelectorForHostEyes(ability, selector);
+			ExtendSelector(character, selector);
 			break ;
 	}
 }

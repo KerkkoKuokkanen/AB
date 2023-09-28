@@ -11,6 +11,10 @@ Character::Character(int skin, bool allied)
 	topMid = {rounding(top.x), rounding(top.y)};
 	statuses.stun = 0;
 	statuses.burns = {};
+	statuses.hosted = false;
+	statuses.hosting = NULL;
+	statuses.buffs = {};
+	statuses.deBuffs = {};
 	width = 5800;
 	height = 7500;
 	if (!allied)

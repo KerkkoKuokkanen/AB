@@ -5,6 +5,7 @@
 # include "ab.h"
 # include "render/renderer.h"
 # include "battleClasses/battleGround.h"
+# include "battleClasses/character.h"
 
 # define ALPHA_BLEND 80
 # define PI 3.14159
@@ -69,7 +70,9 @@ namespace Channels
 		METEOR1,
 		METEOR2,
 		METEOR3,
-		HOST_EYES1
+		HOST_EYES1,
+		HOST_EYES2,
+		HOST_EYES3
 	};
 }
 
@@ -111,6 +114,8 @@ typedef struct s_Surfaces
 	SDL_Surface *smithIdle2;
 	SDL_Surface *mageIdle1;
 	SDL_Surface *mageIdle2;
+	SDL_Surface *hostSymbol;
+	SDL_Surface *hostingSymbol;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -223,6 +228,8 @@ typedef struct s_Textures
 	SDL_Texture *supplyToolSymbol;
 	SDL_Texture *buffSymbol;
 	SDL_Texture *mageAbilities[3];
+	SDL_Texture *hostSymbol;
+	SDL_Texture *hostingSymbol;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -259,7 +266,7 @@ typedef struct s_Audio
 	Mix_Chunk *mageCast;
 	Mix_Chunk *lightning;
 	Mix_Chunk *meteors[3];
-	Mix_Chunk *hostEyes[1];
+	Mix_Chunk *hostEyes[3];
 }				t_Audio;
 
 typedef struct s_Fonts

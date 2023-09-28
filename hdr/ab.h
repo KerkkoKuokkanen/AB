@@ -67,7 +67,9 @@ namespace StatusSigns
 		STUN,
 		BURN,
 		BUFF,
-		DEBUFF
+		DEBUFF,
+		HOST,
+		HOSTING
 	};
 };
 
@@ -109,6 +111,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "statStructs.h"
 # include "battleClasses/character.h"
 # include "particle/dust.h"
+# include "statStructs.h"
 # include "battleClasses/turnOrder.h"
 # include "battleClasses/turnIndicator.h"
 # include "battleClasses/kill.h"
@@ -321,6 +324,9 @@ void PrintStat();
 void		CreateDamageSnippet(Character *damager, Character *target, int totalDamage, bool opportunity = false);
 void		CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color);
 void		CreateMiss(SDL_Point damager, SDL_Point target, Character *targ, bool sound = false);
+
+void		ExtendPhantSelector(Character *mage, PhantomSelector *selector);
+void		ExtendSelector(Character *mage, Selector *selector);
 
 void		UpdateStatuses();
 bool		StatusApply(t_Ability *ability, Character *character, Character *target);

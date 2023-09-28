@@ -22,6 +22,17 @@ static bool CheckIfHits(Character *damager, Character *target)
 	return (true);
 }
 
+static bool CheckIfSmoked(SDL_Point pos)
+{
+	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
+	{
+		t_AbilityEffect &effect = gameState.updateObjs.abilities->effectUpdater.effects[i];
+		if (effect.ability->type == SMOKE_BOMB && effect.pos.x == pos.x && effect.pos.y == pos.y)
+			return (true);
+	}
+	return (false);
+}
+
 Vector OpportunityAttack::GetDirection()
 {
 	SDL_Point cPos = damager->position;
@@ -53,6 +64,8 @@ Character *OpportunityAttack::CheckValid(SDL_Point pos)
 	if (ret->ally == target->ally)
 		return (NULL);
 	if (ret->statuses.stun != 0)
+		return (NULL);
+	if (CheckIfSmoked(pos))
 		return (NULL);
 	return (ret);
 }
@@ -135,7 +148,8 @@ void OpportunityAttack::CreateDamageOrMiss()
 	if (hits)
 	{
 		gameState.updateObjs.abilities->CreateOpportunityDamage(damager, target);
-		gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[tried]);
+		if (gameState.battle.ground->movedCharacter.character->cSing != LION)
+			gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[tried]);
 		return ;
 	}
 	else

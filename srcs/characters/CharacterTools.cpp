@@ -81,7 +81,7 @@ static void AssignDefaultMageAbilities(std::vector<t_Ability> &stats)
 	stats[2].stats = (void*)malloc(sizeof(t_HostEyes));
 	t_HostEyes *stat1 = (t_HostEyes*)stats[2].stats;
 	stat1->enemyChance = 80;
-	stat1->hostRange = 8;
+	stat1->hostRange = 5;
 }
 
 void Character::AssignAbilities()
@@ -115,9 +115,9 @@ void Character::AssignAbilities()
 			AssignDefaultSmithStats(abilities);
 			break ;
 		case MAGE:
-			abilities = {{LIGHTNING_BOLT, 0, 10, 0, 10, StatStructs::ATTACK_STRUCT, (-1), NULL},
-						{ROCK_FALL, 0, 10, 0, 10, StatStructs::ATTACK_STRUCT, (-1), NULL},
-						{HOST_EYES, 0, 10, 0, 200, StatStructs::HOST_EYES, StatusSigns::DEBUFF, NULL}};
+			abilities = {{LIGHTNING_BOLT, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{ROCK_FALL, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{HOST_EYES, 0, 10, 0, 200, StatStructs::HOST_EYES, StatusSigns::HOST, NULL}};
 			AssignDefaultMageAbilities(abilities);
 		default:
 			return ;

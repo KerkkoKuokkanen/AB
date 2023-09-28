@@ -1,6 +1,48 @@
 
 #include "../../../hdr/global.h"
 
+static int **GetAdditionals(Character *mage)
+{
+	t_Ability *thisOne = NULL;
+	for (int i = 0; i < mage->abilities.size(); i++)
+	{
+		if (mage->abilities[i].type == HOST_EYES)
+		{
+			thisOne = &mage->abilities[i];
+			break ;
+		}
+	}
+	t_HostEyes *used = (t_HostEyes*)thisOne->stats;
+	int range = used->hostRange;
+	int **map = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());
+	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
+		map[i] = (int *)malloc(sizeof(int) * gameState.battle.ground->map[0].size());
+	Character *ret = (Character*)mage->statuses.hosting;
+	findMovables(map, range, ret->position);
+	return (map);
+}
+
+void ExtendSelector(Character *mage, Selector *selector)
+{
+	if (mage->statuses.hosting == NULL)
+		return ;
+	int **map = GetAdditionals(mage);
+	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
+	{
+		for (int j = 0; j < gameState.battle.ground->map[0].size(); j++)
+		{
+			if (map[i][j] != TOOL_MAP_SIGN)
+			{
+				if (gameState.battle.ground->map[i][j].character != mage)
+					selector->IncludePoint({j, i});
+			}
+		}
+	}
+	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
+		free(map[i]);
+	free(map);
+}
+
 void Selector::ClearPositionOutOfRange(int cleared, SDL_Point start)
 {
 	int **temp = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());

@@ -8,7 +8,6 @@ class PhantomSelector
 {
 	private:
 		std::vector<SDL_Point> targets = {};
-		int orientation = 0;
 		Character *character;
 		SDL_Point pos = {-1, -1};
 		GroundColoring *coloring;
@@ -21,7 +20,7 @@ class PhantomSelector
 		PhantomSelector(Character *character, int range, GroundColoring *coloring);
 		~PhantomSelector() {Destroy();};
 		std::vector<SDL_Point> &GetTargets();
-		void ChangeOrientation();
+		void IncludePoint(SDL_Point pos) {selector->IncludePoint(pos);};
 		void Update();
 		void Destroy();
 };

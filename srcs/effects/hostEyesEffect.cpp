@@ -34,6 +34,7 @@ void HostEyesEffect::CreateSprites()
 
 HostEyesEffect::HostEyesEffect(Character *character, Character *target, float topAmount, bool top)
 {
+	PlaySound(gameState.audio.hostEyes[1], Channels::HOST_EYES2, 0);
 	HostEyesEffect::character = character;
 	HostEyesEffect::target = target;
 	CreateSprites();
@@ -143,6 +144,7 @@ void HostEyesEffect::Update()
 
 void HostEyesEffect::CreateParticles()
 {
+	PlaySound(gameState.audio.hostEyes[2], Channels::HOST_EYES3, 0);
 	SDL_Rect dest = sprites[SPRITE_AMOUNT / 2]->dest;
 	SDL_Point place = {dest.x + 150, dest.y + 150};
 	for (int i = 0; i < 120; i++)

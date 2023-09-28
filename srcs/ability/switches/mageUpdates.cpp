@@ -1,6 +1,52 @@
 
 #include "../../../hdr/global.h"
 
+static bool CheckForNoOtherMages(Character *character, Character *target)
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		Character *used = gameState.battle.ground->characters[i].character;
+		if (used == character)
+			continue ;
+		if (used->statuses.hosting != NULL)
+		{
+			Character *ret = (Character*)used->statuses.hosting;
+			if (ret == target)
+				return (false);
+		}
+	}
+	return (true);
+}
+
+static bool CreateHostEffect(t_Ability *ability, Character *character, Character *target)
+{
+	if (target->ally)
+	{
+		new HostEffect(target);
+		if (character->statuses.hosting != NULL)
+		{
+			Character *ret = (Character*)character->statuses.hosting;
+			if (CheckForNoOtherMages(character, target))
+				ret->statuses.hosted = false;
+		}
+		target->statuses.hosted = true;
+		character->statuses.hosting = target;
+		return (true);
+	}
+	if (!StatusApply(ability, character, target))
+		return (false);
+	new HostEffect(target);
+	if (character->statuses.hosting != NULL)
+	{
+		Character *ret = (Character*)character->statuses.hosting;
+		if (CheckForNoOtherMages(character, target))
+			ret->statuses.hosted = false;
+	}
+	target->statuses.hosted = true;
+	character->statuses.hosting = target;
+	return (true);
+}
+
 void Abilities::UpdateMageAnimation(t_Animation &anim, int index)
 {
 	switch (anim.type)
@@ -40,7 +86,8 @@ void Abilities::UpdateMageAnimation(t_Animation &anim, int index)
 			used->Update();
 			if (used->done)
 			{
-				new HostEffect(target);
+				if (!CreateHostEffect(ability, character, target))
+					CreateMiss(character->position, target->position, target, true);
 				delete used;
 				animations.erase(animations.begin() + index);
 			}

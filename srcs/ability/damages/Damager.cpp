@@ -120,7 +120,10 @@ void Damager::AddOpportunityDamage(Character *damager, Character *target)
 {
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::LOWER_VOLUME_HIT, 0};
 	std::vector<t_Sound> sounds = {add3};
-	damageCreator.CreateDamage(target, Color(255, 0, 0), 5, 5, GetDirection(damager, target), sounds);
+	if (target->cSing == LION)
+		damageCreator.CreateDamage(target, Color(255, 0, 0), 5, 5, GetDirection(damager, target), sounds, false);
+	else
+		damageCreator.CreateDamage(target, Color(255, 0, 0), 5, 5, GetDirection(damager, target), sounds);
 	CreateDamageSnippet(damager, target, rand() % 100 + 1, true);
 }
 

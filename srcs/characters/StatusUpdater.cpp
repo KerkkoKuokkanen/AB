@@ -61,8 +61,38 @@ static void ManageBuffs(Character *character)
 	}
 }
 
+static void ManageHosting()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		Character *ret = gameState.battle.ground->characters[i].character;
+		if (ret->damaged && ret->statuses.hosting != NULL)
+		{
+			Character *targ = (Character*)ret->statuses.hosting;
+			targ->statuses.hosted = false;
+			ret->statuses.hosting = NULL;
+		}
+		if (ret->killed)
+		{
+			Character *targ = (Character*)ret->statuses.hosting;
+			targ->statuses.hosted = false;
+			ret->statuses.hosting = NULL;
+		}
+		if (ret->statuses.hosting != NULL)
+		{
+			Character *targ = (Character*)ret->statuses.hosting;
+			if (targ->killed)
+			{
+				targ->statuses.hosted = false;
+				ret->statuses.hosting = NULL;
+			}
+		}
+	}
+}
+
 void UpdateStatuses()
 {
+	ManageHosting();
 	static Character *current = NULL;
 	Character *ret = FindTheCharacter();
 	if (current != ret)

@@ -1,25 +1,64 @@
 
 #include "../../../hdr/global.h"
 
-static int selectorOrientation = 0;
-
-static int getOrientation()
+static int **GetAdditionals(Character *mage)
 {
-	return (selectorOrientation);
+	t_Ability *thisOne = NULL;
+	for (int i = 0; i < mage->abilities.size(); i++)
+	{
+		if (mage->abilities[i].type == HOST_EYES)
+		{
+			thisOne = &mage->abilities[i];
+			break ;
+		}
+	}
+	t_HostEyes *used = (t_HostEyes*)thisOne->stats;
+	int range = used->hostRange;
+	int **map = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());
+	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
+		map[i] = (int *)malloc(sizeof(int) * gameState.battle.ground->map[0].size());
+	Character *ret = (Character*)mage->statuses.hosting;
+	findMovables(map, range, ret->position);
+	return (map);
 }
 
-void PhantomSelector::ChangeOrientation()
+void ExtendPhantSelector(Character *mage, PhantomSelector *selector)
 {
-	orientation = (orientation == 0) ? 1 : 0;
-	selectorOrientation = orientation;
+	if (mage->statuses.hosting == NULL)
+		return ;
+	int **map = GetAdditionals(mage);
+	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
+	{
+		for (int j = 0; j < gameState.battle.ground->map[0].size(); j++)
+		{
+			if (map[i][j] != TOOL_MAP_SIGN)
+			{
+				t_GMU &used = gameState.battle.ground->map[i][j];
+				if (used.character != mage && used.additional.object == NULL &&
+					used.obj == NULL && !used.blocked)
+					selector->IncludePoint({j, i});
+			}
+		}
+	}
+	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
+		free(map[i]);
+	free(map);
 }
 
 PhantomSelector::PhantomSelector(Character *character, int range, GroundColoring *coloring)
 {
 	PhantomSelector::character = character;
 	PhantomSelector::coloring = coloring;
-	orientation = getOrientation();
 	selector = new TileSelector(character->position, range, 4, coloring, false, true);
+	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
+	{
+		for (int j = 0; j < gameState.battle.ground->map[0].size(); j++)
+		{
+			if (gameState.battle.ground->map[i][j].obj != NULL ||
+				gameState.battle.ground->map[i][j].additional.object != NULL)
+				selector->RemovePoint({j, i});
+		}
+	}
 	done = false;
 }
 

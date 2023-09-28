@@ -16,6 +16,7 @@ static Color getColor()
 
 HostEffect::HostEffect(Character *target)
 {
+	PlaySound(gameState.audio.hostEyes[0], Channels::HOST_EYES1, 0);
 	HostEffect::character = target;
 	target->setAnimationActive(true);
 	gameState.updateObjs.info->AddHostEffect(this);
@@ -77,8 +78,6 @@ void HostEffect::Update()
 	if (done)
 		return ;
 	UpdateColor();
-	if (counter == 2)
-		PlaySound(gameState.audio.hostEyes[0], Channels::HOST_EYES1, 0);
 	if (counter == 12)
 		CreateParticles();
 	counter++;

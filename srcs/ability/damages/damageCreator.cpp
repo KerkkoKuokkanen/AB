@@ -12,7 +12,7 @@
 
 #define PARTICLE_DISTANCE 3200
 
-void DamageCreator::CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds)
+void DamageCreator::CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds, bool move)
 {
 	if (character == NULL)
 		return ;
@@ -21,6 +21,7 @@ void DamageCreator::CreateDamage(Character *character, Color startColor, int arm
 	Vector place = gameState.battle.ground->GetCharacterCoord(pos, character);
 	SDL_Rect dest = {rounding(place.x), rounding(place.y), character->sprite->dest.w, character->sprite->dest.h};
 	t_Damage add = {character, armorDamage, healthDamage, partDir.Normalized(), 0, dest, startColor.r, startColor.g, startColor.b, false};
+	add.move = move;
 	for (int i = 0; i < sounds.size(); i++)
 		PlaySound(sounds[i].sound, sounds[i].channel, sounds[i].loops);
 	character->stats.health -= healthDamage;
@@ -64,6 +65,7 @@ void DamageCreator::ColorManage(Character *character, int time)
 
 void DamageCreator::MoveManage(Character *character, int time, Vector direction, SDL_Rect dest)
 {
+
 	Vector dir = direction.Normalized();
 	if (time <= MOVE_OUT)
 	{
@@ -154,7 +156,8 @@ void DamageCreator::Update()
 	for (int i = 0; i < damages.size(); i++)
 	{
 		ColorManage(damages[i].character, damages[i].time);
-		MoveManage(damages[i].character, damages[i].time, damages[i].partDir, damages[i].ogPos);
+		if (damages[i].move)
+			MoveManage(damages[i].character, damages[i].time, damages[i].partDir, damages[i].ogPos);
 		if (!damages[i].partDone && !visited)
 		{
 			visited = true;

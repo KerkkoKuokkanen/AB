@@ -65,6 +65,24 @@ bool Statuses::GetMouseOverStatuses()
 					return (true);
 				break ;
 			}
+			case StatusSigns::HOST:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.hostSymbol, dst1, x, y))
+					return (true);
+				break ;
+			}
+			case StatusSigns::HOSTING:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.hostingSymbol, dst1, x, y))
+					return (true);
+				break ;
+			}
 		}
 	}
 	return (false);
@@ -265,6 +283,24 @@ void Statuses::CreateFrestStatus(int statusSign)
 			statuses.push_back({add, StatusSigns::DEBUFF, 1});
 			break ;
 		}
+		case StatusSigns::HOST:
+		{
+			add.sprite = new Sprite(gameState.textures.hostSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::HOST, 1});
+			break ;
+		}
+		case StatusSigns::HOSTING:
+		{
+			add.sprite = new Sprite(gameState.textures.hostingSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::HOSTING, 1});
+			break ;
+		}
 	}
 	if (onlyOne)
 	{
@@ -295,6 +331,16 @@ void Statuses::CheckIfNeedToCreateStatuses()
 	{
 		if (!AlreadyExists(StatusSigns::DEBUFF))
 			CreateFrestStatus(StatusSigns::DEBUFF);
+	}
+	if (character->statuses.hosted)
+	{
+		if (!AlreadyExists(StatusSigns::HOST))
+			CreateFrestStatus(StatusSigns::HOST);
+	}
+	if (character->statuses.hosting != NULL)
+	{
+		if (!AlreadyExists(StatusSigns::HOSTING))
+			CreateFrestStatus(StatusSigns::HOSTING);
 	}
 }
 
@@ -327,6 +373,18 @@ void Statuses::CheckIfNewStatuses()
 			case StatusSigns::DEBUFF:
 			{
 				if (character->statuses.buffs.size() == 0 && AlreadyExists(StatusSigns::DEBUFF))
+					ChangeAmount(i, 0, 0);
+				break ;
+			}
+			case StatusSigns::HOST:
+			{
+				if (character->statuses.hosted == false && AlreadyExists(StatusSigns::HOST))
+					ChangeAmount(i, 0, 0);
+				break ;
+			}
+			case StatusSigns::HOSTING:
+			{
+				if (character->statuses.hosting == NULL && AlreadyExists(StatusSigns::HOSTING))
 					ChangeAmount(i, 0, 0);
 				break ;
 			}
