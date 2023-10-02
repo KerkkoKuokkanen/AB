@@ -89,7 +89,7 @@ bool PhantomSelector::CheckPoint(SDL_Point ret)
 		gameState.battle.ground->map[ret.y][ret.x].additional.type == AdditionalObjects::TOOLBOX)
 		return (false);
 	return (true);
-}	//working on new sprites
+}	//more sprite work
 
 void PhantomSelector::HighlightAdditional(SDL_Point ret)
 {
