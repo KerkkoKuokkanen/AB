@@ -80,10 +80,8 @@ void getAudio()
 	AudioCreateVolume(Channels::FLAME_BLAST_LAUNCH, 17);
 	AudioCreateVolume(Channels::DEBUFF, 105);
 	AudioCreateVolume(Channels::INCINERATE_CHARGE, 20);
-	AudioCreateVolume(Channels::INCINERATE_SPIN, 38);
-	AudioCreateVolume(Channels::INCINERATE_EXP, 38);
-	AudioCreateVolume(Channels::INCINERATE_MOLO, 23);
-	AudioCreateVolume(Channels::INCINERATE_EXP_SOUND, 14);
+	AudioCreateVolume(Channels::INCINERATE_MOLO, 15);
+	AudioCreateVolume(Channels::INCINERATE_EXP_SOUND, 78);
 	AudioCreateVolume(Channels::LION_SMACK, 18);
 	AudioCreateVolume(Channels::STUN, 80);
 	AudioCreateVolume(Channels::PHANTOM_KNIGHT, 125);
@@ -129,11 +127,8 @@ void getAudio()
 	gameState.audio.flameBlast[1] = Mix_LoadWAV("audio/abilities/explosionCharge.wav");
 	gameState.audio.flameBlast[2] = Mix_LoadWAV("audio/abilities/explosionLaunch.wav");
 	gameState.audio.debuff = Mix_LoadWAV("audio/effects/debuff.wav");
-	gameState.audio.incinerate[0] = Mix_LoadWAV("audio/abilities/pyro/amp.wav");
-	gameState.audio.incinerate[1] = Mix_LoadWAV("audio/abilities/pyro/rotate.wav");
-	gameState.audio.incinerate[2] = Mix_LoadWAV("audio/abilities/pyro/exp.wav");
-	gameState.audio.incinerate[3] = Mix_LoadWAV("audio/abilities/pyro/molo.wav");
-	gameState.audio.incinerate[4] = Mix_LoadWAV("audio/abilities/pyro/expSound.wav");
+	gameState.audio.incinerate[0] = Mix_LoadWAV("audio/abilities/pyro/molo.wav");
+	gameState.audio.incinerate[1] = Mix_LoadWAV("audio/abilities/pyro/expSound.wav");
 	gameState.audio.lionSmack = Mix_LoadWAV("audio/abilities/lion/punch.wav");
 	gameState.audio.stun = Mix_LoadWAV("audio/abilities/lion/stun.wav");
 	gameState.audio.phantomKnight = Mix_LoadWAV("audio/abilities/lion/summon.wav");
@@ -378,6 +373,16 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/attacks/mageHostEyesStatus.png");
 	gameState.textures.hostingSymbol = use.text;
 	gameState.surfaces.hostingSymbol = use.sur;
+	gameState.textures.attacks.newExps[0] = get_texture(rend, "sprites/attacks/newExp1.png");
+	gameState.textures.attacks.newExps[1] = get_texture(rend, "sprites/attacks/newExp2.png");
+	gameState.textures.attacks.newExps[2] = get_texture(rend, "sprites/attacks/newExp3.png");
+	use = get_texture_and_surface(rend, "sprites/characters/raider/raider1.png");
+	gameState.textures.chars.raiderIdle[0] = use.text;
+	gameState.surfaces.raiderIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/raider/raider2.png");
+	gameState.textures.chars.raiderIdle[1] = use.text;
+	gameState.surfaces.raiderIdle2 = use.sur;
+	gameState.textures.stands.raiderStand = get_texture(rend, "sprites/characters/raider/raiderStand.png");
 }
 
 void CraeteAudioThread()

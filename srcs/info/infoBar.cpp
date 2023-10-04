@@ -25,6 +25,12 @@ static std::string GetText(Character *character)
 		case SMITH:
 			text += ": Blacksmith";
 			break ;
+		case MAGE:
+			text += ": Mage";
+			break ;
+		case RAIDER:
+			text += ": Raider";
+			break ;
 	}
 	return (text);
 }
@@ -76,8 +82,8 @@ void InfoBar::CreateBars()
 	health = new Bar(dest, true);
 	health->ChangeToSmallBar();
 	health->slash->dest.w += 80;
-	health->leftNumberOffset = {-300, -50};
-	health->rightNumberOffset = {900, -50};
+	health->leftNumberOffset = {-300, 20};
+	health->rightNumberOffset = {900, 20};
 	dest.y -= 1780;
 	if (character->ally)
 	{
@@ -86,8 +92,8 @@ void InfoBar::CreateBars()
 		armor = new Bar(dest, true);
 		armor->ChangeToSmallBar();
 		armor->ChangeTextureToNarrow();
-		armor->leftNumberOffset = {-230, -50};
-		armor->rightNumberOffset = {850, -50};
+		armor->leftNumberOffset = {-230, -100};
+		armor->rightNumberOffset = {850, -100};
 		dest.x = 0;
 		fatigue = new FatigueBar(dest);
 		fatigue->SmallerNumbers();
@@ -100,8 +106,8 @@ void InfoBar::CreateBars()
 	armor = new Bar(dest, true);
 	armor->ChangeToSmallBar();
 	armor->slash->dest.w += 80;
-	armor->leftNumberOffset = {-300, -50};
-	armor->rightNumberOffset = {900, -50};
+	armor->leftNumberOffset = {-300, -100};
+	armor->rightNumberOffset = {900, -100};
 }
 
 InfoBar::InfoBar(Character *character)

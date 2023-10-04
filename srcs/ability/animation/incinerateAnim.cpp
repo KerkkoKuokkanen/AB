@@ -49,8 +49,7 @@ Incinerate::Incinerate(Character *character, std::vector<SDL_Point> &targets)
 		done = true;
 		return ;
 	}
-	PlaySound(gameState.audio.incinerate[3], Channels::INCINERATE_MOLO, 0);
-	PlaySound(gameState.audio.incinerate[2], Channels::INCINERATE_EXP, 0);
+	PlaySound(gameState.audio.incinerate[0], Channels::INCINERATE_MOLO, 0);
 	Incinerate::character = character;
 	character->setAnimationActive(true);
 	character->sprite->setTexture(gameState.textures.chars.pyroAttack[0]);
@@ -254,6 +253,16 @@ void Incinerate::Update()
 	if (counter == SECOND_PHASE)
 		StartSecondPhase();
 	if (counter == SECOND_PHASE + 8)
+	{
+		for (int i = 0; i < explosions.size(); i++)
+			explosions[i]->setTexture(gameState.textures.attacks.newExps[1]);
+	}
+	if (counter == SECOND_PHASE + 16)
+	{
+		for (int i = 0; i < explosions.size(); i++)
+			explosions[i]->setTexture(gameState.textures.attacks.newExps[2]);
+	}
+	if (counter == SECOND_PHASE + 8)
 		createDamage = true;
 	if (counter >= 90)
 		done = true;
@@ -262,7 +271,7 @@ void Incinerate::Update()
 void Incinerate::StartSecondPhase()
 {
 	secondPhase = true;
-	PlaySound(gameState.audio.incinerate[4], Channels::INCINERATE_EXP_SOUND, 0);
+	PlaySound(gameState.audio.incinerate[1], Channels::INCINERATE_EXP_SOUND, 0);
 	SetScreenShake(500, 6);
 	CreateExplosions();
 	CreateHandParticles();
@@ -320,9 +329,9 @@ void Incinerate::CreateExplosions()
 	{
 		SDL_Rect rect = balls[i].ball->dest;
 		CreateParticles(rect);
-		SDL_Rect dest = {rect.x - 1000, rect.y - 1100, rect.w + 2000, rect.h + 2000};
-		Sprite *exp = new Sprite(gameState.textures.attacks.incExplosion, dest, NULL, NULL, 0, FLIP_NONE);
-		exp->orderLayer = balls[i].ball->orderLayer;
+		SDL_Rect dest = {rect.x - 5000, rect.y - 5000, rect.w + 10000, rect.h + 10000};
+		Sprite *exp = new Sprite(gameState.textures.attacks.newExps[0], dest, NULL, NULL, 0, FLIP_NONE);
+		exp->orderLayer = balls[i].ball->orderLayer + 1;
 		exp->z = balls[i].ball->z;
 		gameState.render->AddSprite(exp, BATTLEGROUND_LAYER);
 		explosions.push_back(exp);

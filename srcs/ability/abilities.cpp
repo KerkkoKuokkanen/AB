@@ -258,10 +258,13 @@ void Abilities::AllSelectorUpdate()
 	allSelector->Update();
 	if (allSelector->done)
 	{
-		gameState.updateObjs.UI->UseEnergy(ability->cost);
-		character->stats.fatigue += ability->fatigue;
 		targPoints.clear();
 		targPoints = allSelector->getTargets();
+		if (targPoints.size() != 0)
+		{
+			gameState.updateObjs.UI->UseEnergy(ability->cost);
+			character->stats.fatigue += ability->fatigue;
+		}
 		ActivateAbility(ability, character);
 		ClearMap();
 	}

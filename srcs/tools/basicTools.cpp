@@ -245,6 +245,11 @@ SDL_Surface *getSurface(Character *character)
 				return (gameState.surfaces.mageIdle1);
 			else
 				return (gameState.surfaces.mageIdle2);
+		case RAIDER:
+			if (text == 0)
+				return (gameState.surfaces.raiderIdle1);
+			else
+				return (gameState.surfaces.raiderIdle2);
 	}
 	return (NULL);
 }

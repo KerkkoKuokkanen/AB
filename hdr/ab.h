@@ -188,7 +188,8 @@ enum {
 	PYRO,
 	LION,
 	SMITH,
-	MAGE
+	MAGE,
+	RAIDER
 };
 
 enum {

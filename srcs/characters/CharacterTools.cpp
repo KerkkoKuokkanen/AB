@@ -195,5 +195,16 @@ void Character::CreateCharacterType(int skin)
 			stand = new Sprite(gameState.textures.stands.mageStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
+		case RAIDER:
+		{
+			SDL_Rect dest = {-3000, -450, 6800, 8160};
+			textures.push_back(gameState.textures.chars.raiderIdle[0]);
+			textures.push_back(gameState.textures.chars.raiderIdle[1]);
+			stands.push_back(gameState.textures.stands.raiderStand);
+			stands.push_back(gameState.textures.stands.raiderStand);
+			sprite = new Sprite(gameState.textures.chars.raiderIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.raiderStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
 	}
 }

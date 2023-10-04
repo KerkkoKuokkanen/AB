@@ -44,8 +44,6 @@ namespace Channels
 		FLAME_BLAST_LAUNCH,
 		DEBUFF,
 		INCINERATE_CHARGE,
-		INCINERATE_SPIN,
-		INCINERATE_EXP,
 		INCINERATE_MOLO,
 		INCINERATE_EXP_SOUND,
 		LION_SMACK,
@@ -116,6 +114,8 @@ typedef struct s_Surfaces
 	SDL_Surface *mageIdle2;
 	SDL_Surface *hostSymbol;
 	SDL_Surface *hostingSymbol;
+	SDL_Surface *raiderIdle1;
+	SDL_Surface *raiderIdle2;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -128,6 +128,7 @@ typedef struct s_Stands
 	SDL_Texture *lionStand;
 	SDL_Texture *smithStand;
 	SDL_Texture *mageStand;
+	SDL_Texture *raiderStand;
 }				t_Stands;
 
 typedef struct s_CharacterTexts
@@ -145,6 +146,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *toolBox;
 	SDL_Texture *mageIdle[2];
 	SDL_Texture *mageIndicator;
+	SDL_Texture *raiderIdle[2];
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -163,6 +165,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *lightning;
 	SDL_Texture *rockFall;
 	SDL_Texture *hostEyes;
+	SDL_Texture *newExps[3];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -247,7 +250,7 @@ typedef struct s_Audio
 	Mix_Chunk *select;
 	Mix_Chunk *flameBlast[3];
 	Mix_Chunk *debuff;
-	Mix_Chunk *incinerate[5];
+	Mix_Chunk *incinerate[2];
 	Mix_Chunk *lionSmack;
 	Mix_Chunk *stun;
 	Mix_Chunk *phantomKnight;

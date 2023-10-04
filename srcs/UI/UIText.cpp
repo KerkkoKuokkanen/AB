@@ -24,6 +24,12 @@ static std::string GetText(Character *character)
 		case SMITH:
 			text += ": Blacksmith";
 			break ;
+		case MAGE:
+			text += ": Mage";
+			break ;
+		case RAIDER:
+			text += ": Raider";
+			break ;
 	}
 	return (text);
 }

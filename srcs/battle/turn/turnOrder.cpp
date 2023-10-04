@@ -58,6 +58,12 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->w = 330;
 			srect->h = 323;
 			break ;
+		case RAIDER:
+			srect->x = 200;
+			srect->y = 115;
+			srect->w = 415;
+			srect->h = 400;
+			break ;
 	}
 }
 
@@ -109,6 +115,14 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 		case MAGE:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.8f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case RAIDER:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),
 				rounding(((float)gameState.screen.width / 26.0f)),
 				rounding(((float)gameState.screen.height / 17.0f))
