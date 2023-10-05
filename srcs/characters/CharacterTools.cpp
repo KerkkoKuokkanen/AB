@@ -84,6 +84,26 @@ static void AssignDefaultMageAbilities(std::vector<t_Ability> &stats)
 	stat1->hostRange = 5;
 }
 
+static void AssignDefaultRaiderAbilities(std::vector<t_Ability> &stats)
+{
+	stats[0].stats = (void*)malloc(sizeof(t_AttackStruct));
+	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
+	stat0->critChance = 4;
+	stat0->damage = 100;
+	stats[1].stats = (void*)malloc(sizeof(t_AttackStruct));
+	stat0 = (t_AttackStruct*)stats[1].stats;
+	stat0->critChance = 4;
+	stat0->damage = 100;
+	stats[2].stats = (void*)malloc(sizeof(t_ToxicBlade));
+	t_ToxicBlade *stat1 = (t_ToxicBlade*)stats[2].stats;
+	stat1->hits = 2;
+	stat1->stacks = 2;
+	stats[3].stats = (void*)malloc(sizeof(t_RaiderBlock));
+	t_RaiderBlock *stat2 = (t_RaiderBlock*)stats[3].stats;
+	stat2->hits = 1;
+	stat2->precentage = 50;
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
@@ -119,6 +139,14 @@ void Character::AssignAbilities()
 						{ROCK_FALL, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
 						{HOST_EYES, 0, 10, 0, 200, StatStructs::HOST_EYES, StatusSigns::HOST, NULL}};
 			AssignDefaultMageAbilities(abilities);
+			break ;
+		case RAIDER:
+			abilities = {{AXE_SLASH, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{AXE_JUMP, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{TOXIC_BLADE, 0, 10, 0, 200, StatStructs::TOXIC_BLADE, (-1), NULL},
+						{RAIDER_BLOCK, 0, 10, 0, 200, StatStructs::RAIDER_BLOCK, (-1), NULL}};
+			AssignDefaultRaiderAbilities(abilities);
+			break ;
 		default:
 			return ;
 	}

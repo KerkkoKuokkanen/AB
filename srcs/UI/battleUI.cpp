@@ -144,6 +144,18 @@ void CharacterUI::GetAbilities()
 			case HOST_EYES:
 				CreateButton(dest, gameState.textures.mageAbilities[2], HOST_EYES, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case AXE_SLASH:
+				CreateButton(dest, gameState.textures.raiderAbilities[0], AXE_SLASH, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case AXE_JUMP:
+				CreateButton(dest, gameState.textures.raiderAbilities[1], AXE_JUMP, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case TOXIC_BLADE:
+				CreateButton(dest, gameState.textures.raiderAbilities[2], TOXIC_BLADE, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case RAIDER_BLOCK:
+				CreateButton(dest, gameState.textures.raiderAbilities[3], RAIDER_BLOCK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }

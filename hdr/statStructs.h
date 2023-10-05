@@ -15,7 +15,9 @@ namespace StatStructs
 		THROWABLE,
 		SUPPLY,
 		BUFF_AND_DEBUFF,
-		HOST_EYES
+		HOST_EYES,
+		TOXIC_BLADE,
+		RAIDER_BLOCK
 	};
 };
 
@@ -26,6 +28,18 @@ namespace BuffTypes
 		ACCURACY
 	};
 };
+
+typedef struct s_ToxicBlade
+{
+	int hits;
+	int stacks;
+}				t_ToxicBlade;
+
+typedef struct s_RaiderBlock
+{
+	int precentage;
+	int hits;
+}				t_RaiderBlock;
 
 typedef struct s_HostEyes
 {

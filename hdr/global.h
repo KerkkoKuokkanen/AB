@@ -233,6 +233,7 @@ typedef struct s_Textures
 	SDL_Texture *mageAbilities[3];
 	SDL_Texture *hostSymbol;
 	SDL_Texture *hostingSymbol;
+	SDL_Texture *raiderAbilities[4];
 }				t_Textures;
 
 typedef struct s_Audio
