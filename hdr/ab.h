@@ -157,6 +157,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/hostEyesAnim.h"
 # include "ability/animation/pickUpToolBox.h"
 # include "ability/animation/supplyAlly.h"
+# include "ability/animation/axeSlash.h"
 # include "ability/animation/thoolThrowAnim.h"
 # include "ability/animation/smithBuff.h"
 # include "ability/animation/hammerSmack.h"
@@ -344,6 +345,7 @@ Character	*RangedCheck(Character *character, Character *target, int &chance);
 //audio
 
 void	AudioUpdate();
+void	CreateVolumeChannels();
 void	AudioSetSound(Mix_Chunk *sound, int channel, int loops);
 void	PlaySound(Mix_Chunk *clip, int channel, int loops);
 void	AudioCreateVolume(int Chan, int volume);

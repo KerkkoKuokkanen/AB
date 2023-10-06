@@ -519,5 +519,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case HOST_EYES:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HOST_EYES), activeCharacter);
 			break ;
+		case AXE_SLASH:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(AXE_SLASH), activeCharacter);
+			break ;
 	}
 }

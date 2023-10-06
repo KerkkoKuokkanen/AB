@@ -71,6 +71,7 @@ class Abilities
 		void UpdateMisses();
 		void UpdateSmithAnimation(t_Animation &anim, int index);
 		void UpdateMageAnimation(t_Animation &anim, int index);
+		void UpdateRaiderAnimation(t_Animation &anim, int index);
 		void UpdateMageObject(t_Object &object, int index);
 		bool CheckGenericAnimations(t_Animation &anim, int index);
 		void IncudeToolPoints();

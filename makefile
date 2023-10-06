@@ -28,7 +28,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/objects/toolBoxNumber.cpp srcs/ability/animation/genericToolThrow.cpp srcs/ability/animation/smithBuff.cpp \
 		srcs/effects/buffEffect.cpp srcs/ability/animation/mageAttack.cpp srcs/ability/switches/mageUpdates.cpp \
 		srcs/ability/objects/lightningBolt.cpp srcs/ability/objects/rockFall.cpp srcs/ability/animation/hostEyesAnim.cpp \
-		srcs/effects/hostEyesEffect.cpp srcs/effects/hostEffect.cpp
+		srcs/effects/hostEyesEffect.cpp srcs/effects/hostEffect.cpp srcs/ability/animation/axeSlash.cpp \
+		srcs/ability/switches/raiderUpdates.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

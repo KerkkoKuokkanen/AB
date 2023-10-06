@@ -107,6 +107,7 @@ void getAudio()
 	AudioCreateVolume(Channels::HOST_EYES1, 66);
 	AudioCreateVolume(Channels::HOST_EYES2, 23);
 	AudioCreateVolume(Channels::HOST_EYES3, 7);
+	CreateVolumeChannels();
 	gameState.audio.TFootStep[0] = Mix_LoadWAV("audio/footsteps/step0.wav");
 	gameState.audio.TFootStep[1] = Mix_LoadWAV("audio/footsteps/step1.wav");
 	gameState.audio.TFootStep[2] = Mix_LoadWAV("audio/footsteps/step2.wav");
@@ -153,6 +154,7 @@ void getAudio()
 	gameState.audio.hostEyes[0] = Mix_LoadWAV("audio/abilities/mage/spellEffect.wav");
 	gameState.audio.hostEyes[1] = Mix_LoadWAV("audio/abilities/mage/mindStart.wav");
 	gameState.audio.hostEyes[2] = Mix_LoadWAV("audio/abilities/mage/mindEnd.wav");
+	gameState.audio.axeSwing = Mix_LoadWAV("audio/abilities/raider/axeSwing.wav");
 }
 
 void getFonts()
@@ -387,6 +389,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.raiderAbilities[1] = get_texture(rend, "sprites/UI/abilities/axeJump.png");
 	gameState.textures.raiderAbilities[2] = get_texture(rend, "sprites/UI/abilities/toxinAxe.png");
 	gameState.textures.raiderAbilities[3] = get_texture(rend, "sprites/UI/abilities/block.png");
+	gameState.textures.attacks.axeSlash[0] = get_texture(rend, "sprites/characters/raider/raiderAttack.png");
+	gameState.textures.attacks.axeSlash[1] = get_texture(rend, "sprites/characters/raider/raiderAttackTrail.png");
 }
 
 void CraeteAudioThread()

@@ -100,6 +100,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			SetSelectorForHostEyes(ability, selector);
 			ExtendSelector(character, selector);
 			break ;
+		case AXE_SLASH:
+			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			break ;
 	}
 }
 
@@ -181,6 +184,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case HOST_EYES:
 			animations.push_back({new HostEyesAnim(character, target), HOST_EYES});
+			break ;
+		case AXE_SLASH:
+			animations.push_back({new AxeSlash(character, target), AXE_SLASH});
 			break ;
 	}
 }
@@ -353,6 +359,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case MAGE:
 				UpdateMageAnimation(animations[i], i);
+				break ;
+			case RAIDER:
+				UpdateRaiderAnimation(animations[i], i);
 				break ;
 		}
 	}
