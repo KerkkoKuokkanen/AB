@@ -7,25 +7,25 @@
 class Sprite
 {
 	private:
-		double angle = 0.0;
 		SDL_Rect *srect = NULL;
 		SDL_Texture *sprite = NULL;
 		SDL_FPoint *point = NULL;
 		SDL_RendererFlip flip = SDL_FLIP_NONE;
 		bool staticSprite = false;
 		Uint8 alpha = 255;
-		Uint8 red = 0;
-		Uint8 green = 0;
-		Uint8 blue = 0;
 		bool active = true;
 		bool translated = true;
 		bool deleteTexture = false;
 		bool scaled = true;
 	public:
+		double angle = 0.0;
 		float z = 0.0f;
 		SDL_Rect dest = {0, 0, 0, 0};
 		int spritesLayer;
 		int orderLayer = 0;
+		Uint8 red = 0;
+		Uint8 green = 0;
+		Uint8 blue = 0;
 		Sprite(SDL_Texture *sprite, SDL_Rect dest, SDL_Rect *srect, SDL_FPoint *point, const double angle, const int flip, bool staticSprite = false) {
 			Sprite::sprite = sprite;
 			Sprite::dest = dest;

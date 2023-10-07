@@ -13,6 +13,7 @@ class Info
 		StunUpdates *stunUpdates = NULL;
 		MovementEnergy *movementEnergy = NULL;
 		InfoBar *bar = NULL;
+		HealthColoring *healthColoring = NULL;
 		std::vector<FlyingSnippet*> snippets;
 		std::vector<SupplyEffect*> supplyEffects;
 		std::vector<BuffEffect*> buffEffects;
@@ -32,6 +33,7 @@ class Info
 		void AddSupplyEffect(SupplyEffect *add) {supplyEffects.push_back(add);};
 		void AddBuffEffect(BuffEffect *add) {buffEffects.push_back(add);};
 		void AddHostEffect(HostEffect *add) {hostEffects.push_back(add);};
+		void InitHealthColoring() {healthColoring = new HealthColoring;};
 		void Update();
 		void Destroy();
 };

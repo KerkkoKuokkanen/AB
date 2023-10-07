@@ -140,6 +140,7 @@ void Info::Update()
 	stunUpdates->Update();
 	controls->Update();
 	movementEnergy->Update();
+	healthColoring->Update();
 	overInfo = counter->insideBox;
 }
 

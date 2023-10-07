@@ -72,7 +72,7 @@ static void ManageHosting()
 			targ->statuses.hosted = false;
 			ret->statuses.hosting = NULL;
 		}
-		if (ret->killed)
+		if (ret->killed && ret->statuses.hosting != NULL)
 		{
 			Character *targ = (Character*)ret->statuses.hosting;
 			targ->statuses.hosted = false;

@@ -85,6 +85,7 @@ class Abilities
 		void SetAbility(t_Ability *ability, Character *character);
 		void SetMap() {groundColoring.SetMap();};
 		void AddMiss(CharacterMover *miss) {misses.push_back(miss);};
+		Character *GetCharacter() {return (character);};
 		void Upadte();
 		void Clear();
 		void ClearMap();

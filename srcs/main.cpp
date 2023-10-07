@@ -29,6 +29,7 @@ void TempInitBattle()
 	gameState.updateObjs.abilities->SetMap();
 	static OBJ_Update objUpdate;
 	gameState.updateObjs.objUpdate = &objUpdate;
+	gameState.updateObjs.info->InitHealthColoring();
 }
 
 int MainLoop()

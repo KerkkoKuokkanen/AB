@@ -137,6 +137,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "effects/buffEffect.h"
 # include "effects/hostEffect.h"
 # include "effects/hostEyesEffect.h"
+# include "info/healthColoring.h"
 # include "info/supplyEffect.h"
 # include "info/control.h"
 # include "info/controlSetter.h"
