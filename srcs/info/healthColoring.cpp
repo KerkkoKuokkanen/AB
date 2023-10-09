@@ -316,7 +316,7 @@ void HealthColoring::Destroy()
 	for (int i = 0; i < characters.size(); i++)
 	{
 		delete characters[i].sprite;
-		free (characters[i].sRect);
+		free(characters[i].sRect);
 	}
 	characters.clear();
 	classes.clear();
