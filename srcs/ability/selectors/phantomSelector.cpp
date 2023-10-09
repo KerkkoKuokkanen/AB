@@ -35,7 +35,7 @@ void ExtendPhantSelector(Character *mage, PhantomSelector *selector)
 			{
 				t_GMU &used = gameState.battle.ground->map[i][j];
 				if (used.character != mage && used.additional.object == NULL &&
-					used.obj == NULL && !used.blocked)
+					used.obj == NULL)
 					selector->IncludePoint({j, i});
 			}
 		}

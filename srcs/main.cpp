@@ -9,7 +9,7 @@ void TempInitBattle()
 	Character thief2(MAGE);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
-	Character thief3(LION);
+	Character thief3(MAGE);
 	Character thief4(THIEF);
 	Character skele3(SKELE, false);
 	Character skele6(SKELE, false);
