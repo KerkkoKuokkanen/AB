@@ -71,6 +71,15 @@ void Selector::IncludePoint(SDL_Point pos, int mark)
 	map[pos.y][pos.x] = mark;
 }
 
+void Selector::RemovePoint(SDL_Point pos)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return ;
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return ;
+	map[pos.y][pos.x] = TOOL_MAP_SIGN;
+}
+
 Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, bool trees)
 {
 	Selector::trees = trees;
@@ -254,8 +263,21 @@ Character *Selector::Update()
 			if (gameState.battle.ground->map[i][j].character != NULL
 				&& (gameState.battle.ground->map[i][j].marked || gameState.battle.ground->map[i][j].character->hover))
 			{
-				visited = true;
-				ret = GetRet(gameState.battle.ground->map[i][j].character, pos);
+				if (additionalCompFunction != NULL)
+				{
+					if (additionalCompFunction(position, pos))
+					{
+						visited = true;
+						ret = GetRet(gameState.battle.ground->map[i][j].character, pos);
+					}
+					else
+						groundColoring->SetColoredPosition(pos, colorH, colorL);
+				}
+				else
+				{
+					visited = true;
+					ret = GetRet(gameState.battle.ground->map[i][j].character, pos);
+				}
 			}
 			else
 				groundColoring->SetColoredPosition(pos, colorH, colorL);

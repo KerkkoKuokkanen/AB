@@ -7,6 +7,7 @@
 class Selector
 {
 	private:
+		bool (*additionalCompFunction)(SDL_Point, SDL_Point) = NULL;
 		int **map;
 		SDL_Point position;
 		Sprite *block = NULL;
@@ -27,6 +28,8 @@ class Selector
 		void SetSelectorFor(bool ally, bool enemy) {sForAlly = ally; sForEnemy = enemy;};
 		void ClearStunned(bool ally, bool enemy) {stunAlly = ally; stunEnemy = enemy;};
 		void IncludePoint(SDL_Point pos, int mark = 1);
+		void RemovePoint(SDL_Point pos);
+		void AddAdditionalCompareFunction(bool (*compareFunction)(SDL_Point, SDL_Point)) {additionalCompFunction = compareFunction;};
 		Character *Update();
 		void Destroy();
 };

@@ -23,5 +23,16 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 			}
 			break ;
 		}
+		case AXE_JUMP:
+		{
+			AxeJumpAnim *used = (AxeJumpAnim*)anim.animation;
+			used->Update();
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }

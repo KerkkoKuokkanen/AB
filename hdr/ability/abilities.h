@@ -46,6 +46,7 @@ class Abilities
 		MultiSelector *multiSelector = NULL;
 		AllSelector *allSelector = NULL;
 		PhantomSelector *phantSelector = NULL;
+		AxeJumpSelector *axeJumpSelector = NULL;
 		Damager damager;
 		OpportunityAttack oAttack;
 
@@ -63,6 +64,7 @@ class Abilities
 		void UpdateSelector();
 		void SelectorWithCharacters();
 		void SelectorWithSquares();
+		void SelectorForAxeJump();
 		void UpdatePhantomSelector();
 		void MultiSelectorWithCharacter();
 		void AllSelectorUpdate();

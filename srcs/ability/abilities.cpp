@@ -103,6 +103,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case AXE_SLASH:
 			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
 			break ;
+		case AXE_JUMP:
+			axeJumpSelector = new AxeJumpSelector(pos, 10, &groundColoring);
+			break ;
 	}
 }
 
@@ -188,6 +191,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case AXE_SLASH:
 			animations.push_back({new AxeSlash(character, target), AXE_SLASH});
 			break ;
+		case AXE_JUMP:
+			animations.push_back({new AxeJumpAnim(character, target, targetPoint), AXE_JUMP});
+			break ;
 	}
 }
 
@@ -225,6 +231,21 @@ void Abilities::SelectorWithSquares()
 			ActivateAbility(ability, character);
 			ClearMap();
 		}
+	}
+}
+
+void Abilities::SelectorForAxeJump()
+{
+	gameState.updateObjs.UI->ShowEnergy(ability->cost);
+	axeJumpSelector->Update();
+	if (axeJumpSelector->done)
+	{
+		gameState.updateObjs.UI->UseEnergy(ability->cost);
+		character->stats.fatigue += ability->fatigue;
+		target = axeJumpSelector->GetTargetEnemy();
+		targetPoint = axeJumpSelector->GetTargetLandingPos();
+		ActivateAbility(ability, character);
+		ClearMap();
 	}
 }
 
@@ -288,6 +309,8 @@ void Abilities::UpdateSelector()
 		AllSelectorUpdate();
 	else if (phantSelector != NULL)
 		UpdatePhantomSelector();
+	else if (axeJumpSelector != NULL)
+		SelectorForAxeJump();
 }
 
 void Abilities::UpdateMisses()
@@ -419,6 +442,9 @@ void Abilities::ClearMap()
 	if (phantSelector != NULL)
 		delete phantSelector;
 	phantSelector = NULL;
+	if (axeJumpSelector != NULL)
+		delete axeJumpSelector;
+	axeJumpSelector = NULL;
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	if (!inMotion)
@@ -445,6 +471,9 @@ void Abilities::Clear()
 	if (phantSelector != NULL)
 		delete phantSelector;
 	phantSelector = NULL;
+	if (axeJumpSelector != NULL)
+		delete axeJumpSelector;
+	axeJumpSelector = NULL;
 	active = false;
 	target = NULL;
 	targetPoint = {-1, -1};
