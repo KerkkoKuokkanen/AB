@@ -32,6 +32,16 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 				delete used;
 				animations.erase(animations.begin() + index);
 			}
+			if (used->createDamage)
+			{
+				if (MeleeCheck(character, target, ability))
+				{
+					std::vector<SDL_Point> point = {target->position};
+					damager.AddDamage(ability, character, point);
+				}
+				else
+					CreateMiss(character->position, target->position, target, true);
+			}
 			break ;
 		}
 	}

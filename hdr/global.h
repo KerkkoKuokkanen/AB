@@ -296,6 +296,8 @@ typedef struct s_AttackTextures
 	SDL_Texture *hostEyes;
 	SDL_Texture *newExps[3];
 	SDL_Texture *axeSlash[2];
+	SDL_Texture *axeJump;
+	SDL_Texture *jumpSlash[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites

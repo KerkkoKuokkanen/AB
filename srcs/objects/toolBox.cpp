@@ -191,7 +191,7 @@ void ToolBox::SetToolThrow(SDL_Point target)
 	if (arch != NULL)
 		delete arch;
 	sprite->ClearAlphaMod();
-	arch = new ThrowArch(sprite, {sprite->dest.x, sprite->dest.y}, {dest.x + 1300, dest.y - 3600}, 12.0f, 450.0f);
+	arch = new ThrowArch(sprite, {sprite->dest.x, sprite->dest.y}, {dest.x + 1300, dest.y - 3600}, 10000.0f, 450.0f);
 	targPos = target;
 	gameState.battle.ground->map[target.y][target.x].blocked = true;
 	gameState.battle.ground->map[target.y][target.x].additional = {AdditionalObjects::TOOLBOX, this};

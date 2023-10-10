@@ -391,6 +391,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.raiderAbilities[3] = get_texture(rend, "sprites/UI/abilities/block.png");
 	gameState.textures.attacks.axeSlash[0] = get_texture(rend, "sprites/characters/raider/raiderAttack.png");
 	gameState.textures.attacks.axeSlash[1] = get_texture(rend, "sprites/characters/raider/raiderAttackTrail.png");
+	gameState.textures.attacks.axeJump = get_texture(rend, "sprites/characters/raider/raiderJump.png");
+	gameState.textures.attacks.jumpSlash[0] = get_texture(rend, "sprites/characters/raider/raiderAttack2.png");
+	gameState.textures.attacks.jumpSlash[1] = get_texture(rend, "sprites/characters/raider/raiderAttack2Trail.png");
 }
 
 void CraeteAudioThread()
