@@ -334,6 +334,7 @@ void Abilities::Upadte()
 	ObjectUpdater();
 	UpdateMisses();
 	oAttack.Update();
+	aoAttack.Update();
 	effectUpdater.Update();
 	damager.Update();
 	groundColoring.Update();
@@ -423,6 +424,16 @@ void Abilities::AbilityStatus()
 void Abilities::CreateOpportunityDamage(Character *damager, Character *target)
 {
 	Abilities::damager.AddOpportunityDamage(damager, target);
+}
+
+t_Animation *Abilities::GetAnimation(int type)
+{
+	for (int i = 0; i < animations.size(); i++)
+	{
+		if (animations[i].type == type)
+			return (&animations[i]);
+	}
+	return (NULL);
 }
 
 void Abilities::ClearMap()

@@ -14,14 +14,6 @@ static bool CompFunc(t_RandChar &one, t_RandChar &two)
 	return (false);
 }
 
-bool CheckIfOpportunityHits(Character *damager, Character *target)
-{
-	int hit = rand() % 100;
-	if (hit >= 50)
-		return (false);
-	return (true);
-}
-
 static bool CheckIfSmoked(SDL_Point pos)
 {
 	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
@@ -33,24 +25,24 @@ static bool CheckIfSmoked(SDL_Point pos)
 	return (false);
 }
 
-Vector OpportunityAttack::GetDirection()
+static Vector GetDirection(Character *damager, Character *target)
 {
 	SDL_Point cPos = damager->position;
-	int index = gameState.battle.ground->movedCharacter.index;
-	SDL_Point tPos = gameState.battle.ground->movedCharacter.path[index];
+	SDL_Point tPos = target->position;
 	SDL_Rect dest1 = gameState.battle.ground->getTileDest(cPos);
 	SDL_Rect dest2 = gameState.battle.ground->getTileDest(tPos);
 	SDL_Point dir = {dest2.x - dest1.x, dest2.y - dest1.y};
 	return (Vector((float)dir.x, (float)dir.y).Normalized());
 }
 
-Character *OpportunityAttack::AnyOneMoving()
+Character *AbilityOpportunity::GetTarget()
 {
-	Character *ret = gameState.battle.ground->movedCharacter.character;
-	return (ret);
+	if (gameState.updateObjs.abilities->active == false)
+		return (NULL);
+	return (gameState.updateObjs.abilities->GetCharacter());
 }
 
-Character *OpportunityAttack::CheckValid(SDL_Point pos)
+Character *AbilityOpportunity::CheckValid(SDL_Point pos)
 {
 	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
 		return (NULL);
@@ -70,9 +62,9 @@ Character *OpportunityAttack::CheckValid(SDL_Point pos)
 	return (ret);
 }
 
-Character *OpportunityAttack::GetDamager()
+Character *AbilityOpportunity::GetDamager(Character *target)
 {
-	SDL_Point pos = gameState.battle.ground->movedCharacter.path[tried];
+	SDL_Point pos = target->position;
 	int left = getXToLeft(pos);
 	int right = getXToRight(pos);
 	std::vector<t_RandChar> chars;
@@ -103,71 +95,93 @@ Character *OpportunityAttack::GetDamager()
 	return (chars[0].character);
 }
 
-void OpportunityAttack::StartDamage()
+void AbilityOpportunity::StartDamage(Character *damager)
 {
-	if (damager == NULL || target == NULL)
-		return ;
-	mover = new CharacterMover(damager, GetDirection(), 10, 10, 220.0f);
+	mover = new CharacterMover(damager, GetDirection(damager, target), 10, 10, 220.0f);
 	if (hits)
 		PlaySound(gameState.audio.opportunity, Channels::OPPORTUNIRY, 0);
 }
 
-void OpportunityAttack::CheckForTargets()
+void AbilityOpportunity::AxeSlashUpdate()
 {
 	if (mover != NULL)
 		return ;
-	Character *ret = AnyOneMoving();
-	if (ret == NULL)
+	if (gameState.updateObjs.abilities->inMotion == false ||
+		gameState.updateObjs.abilities->ability->type != AXE_JUMP)
 	{
-		tried = (-1);
+		target = NULL;
+		triedForAxe = false;
 		return ;
 	}
-	if (tried == gameState.battle.ground->movedCharacter.index)
+	if (triedForAxe)
 		return ;
-	tried = gameState.battle.ground->movedCharacter.index;
+	triedForAxe = true;
+	Character *ret = GetTarget();
+	if (ret == NULL)
+		return ;
 	target = ret;
-	damager = GetDamager();
+	Character *damager = GetDamager(ret);
 	if (damager == NULL)
 	{
-		SDL_Point pos = gameState.battle.ground->movedCharacter.path[gameState.battle.ground->movedCharacter.path.size() - 1];
 		target = NULL;
 		return ;
 	}
-	StartDamage();
+	StartDamage(damager);
 }
 
-void OpportunityAttack::CreateDamageOrMiss()
+void AbilityOpportunity::ManageAbilityType()
+{
+	t_Ability *ability = gameState.updateObjs.abilities->ability;
+	t_Animation *anim = gameState.updateObjs.abilities->GetAnimation(ability->type);
+	if (anim == NULL)
+		return ;
+	switch (anim->type)
+	{
+		case AXE_JUMP:
+		{
+			AxeJumpAnim *used = (AxeJumpAnim*)anim->animation;
+			if (used->arch != NULL)
+				delete used->arch;
+			used->arch = NULL;
+			used->done = true;
+			gameState.battle.ground->PlaceCharacter(target->position, target);
+			target->sprite->setTexture(gameState.textures.chars.raiderIdle[0]);
+			break ;
+		}
+	}
+}
+
+void AbilityOpportunity::CreateDamageOrMiss()
 {
 	if (hits)
 	{
+		Character *damager = mover->GetCharacter();
+		ManageAbilityType();
 		gameState.updateObjs.abilities->CreateOpportunityDamage(damager, target);
-		if (gameState.battle.ground->movedCharacter.character->cSing != LION)
-			gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[tried]);
 		return ;
 	}
 	else
 		PlaySound(gameState.audio.whiff, Channels::WHIFF, 0);
 }
 
-void OpportunityAttack::Update()
+void AbilityOpportunity::Update()
 {
-	CheckForTargets();
+	AxeSlashUpdate();
 	if (mover != NULL)
 	{
 		int ret = mover->Update();
-		if (ret == 9)
+		if (ret == 8)
 			CreateDamageOrMiss();
 		if (ret == (-1))
 		{
 			delete mover;
 			mover = NULL;
 			target = NULL;
-			damager = NULL;
 		}
 	}
 }
 
-void OpportunityAttack::Destroy()
+void AbilityOpportunity::Destroy()
 {
 	if (mover != NULL)
 		delete mover;

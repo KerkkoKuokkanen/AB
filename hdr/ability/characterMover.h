@@ -30,6 +30,7 @@ class CharacterMover
 		CharacterMover(Character *character, Vector direction, int firstTime, int secondTime, float speed, bool linear = true);
 		~CharacterMover() {Destroy();};
 		void SetPostionBack(bool positionBack) {CharacterMover::positionBack = positionBack;};
+		Character *GetCharacter() {return (character);};
 		int Update();
 		void Destroy();
 };

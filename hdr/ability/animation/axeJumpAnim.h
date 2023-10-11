@@ -18,7 +18,6 @@ class AxeJumpAnim
 		Character *character;
 		Character *target;
 		SDL_Point pos;
-		ThrowArch *arch = NULL;
 		int counter = 0;
 		int secondPhaseCounter = 0;
 		int speedSpriteCounter = 0;
@@ -34,6 +33,7 @@ class AxeJumpAnim
 	public:
 		bool done = false;
 		bool createDamage = false;
+		ThrowArch *arch = NULL;
 		AxeJumpAnim(Character *character, Character *target, SDL_Point pos);
 		~AxeJumpAnim() {Destroy();};
 		void Update();

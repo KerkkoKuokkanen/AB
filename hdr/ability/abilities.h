@@ -49,6 +49,7 @@ class Abilities
 		AxeJumpSelector *axeJumpSelector = NULL;
 		Damager damager;
 		OpportunityAttack oAttack;
+		AbilityOpportunity aoAttack;
 
 		void SetSelector(t_Ability *ability, Character *character);
 		void ActivateAbility(t_Ability *ability, Character *character);
@@ -88,6 +89,7 @@ class Abilities
 		void SetMap() {groundColoring.SetMap();};
 		void AddMiss(CharacterMover *miss) {misses.push_back(miss);};
 		Character *GetCharacter() {return (character);};
+		t_Animation *GetAnimation(int type);
 		void Upadte();
 		void Clear();
 		void ClearMap();

@@ -179,6 +179,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/damages/damageCreator.h"
 # include "ability/effectUpdater.h"
 # include "ability/damages/Damager.h"
+# include "ability/damages/abilityOpportunity.h"
 # include "ability/damages/opportunity.h"
 # include "ability/selectors/allSelector.h"
 # include "ability/selectors/selector.h"
@@ -341,6 +342,7 @@ void		UpdateStatuses();
 bool		StatusApply(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);
+bool		CheckIfOpportunityHits(Character *damager, Character *target);
 bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);
 bool		RangeCheckWithoutBlockers(Character *character, Character *target, t_Ability *ability);
 Character	*RangedCheck(Character *character, Character *target, int &chance);

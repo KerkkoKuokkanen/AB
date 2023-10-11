@@ -30,7 +30,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/objects/lightningBolt.cpp srcs/ability/objects/rockFall.cpp srcs/ability/animation/hostEyesAnim.cpp \
 		srcs/effects/hostEyesEffect.cpp srcs/effects/hostEffect.cpp srcs/ability/animation/axeSlash.cpp \
 		srcs/ability/switches/raiderUpdates.cpp srcs/info/healthColoring.cpp srcs/ability/selectors/axeJumpSelector.cpp \
-		srcs/ability/selectors/axeJumpTilePositions.cpp srcs/ability/animation/axeJumpAnim.cpp
+		srcs/ability/selectors/axeJumpTilePositions.cpp srcs/ability/animation/axeJumpAnim.cpp \
+		srcs/ability/damages/abilityOpportunity.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \
