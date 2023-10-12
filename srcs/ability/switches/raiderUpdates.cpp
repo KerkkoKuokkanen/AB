@@ -44,5 +44,22 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 			}
 			break ;
 		}
+		case TOXIC_BLADE:
+		{
+			ToxinBuff *used = (ToxinBuff*)anim.animation;
+			used->Update();
+			if (used->addStatus)
+			{
+				t_ToxicBlade *add = (t_ToxicBlade*)ability->stats;
+				for (int i = 0; i < add->hits; i++)
+					character->statuses.toxicBlade.push_back(add->stacks);
+			}
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }

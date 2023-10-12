@@ -73,7 +73,8 @@ namespace StatusSigns
 		BUFF,
 		DEBUFF,
 		HOST,
-		HOSTING
+		HOSTING,
+		TOXIC_BLADE
 	};
 };
 
@@ -161,6 +162,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/axeSlash.h"
 # include "ability/animation/axeJumpAnim.h"
 # include "ability/animation/thoolThrowAnim.h"
+# include "ability/animation/toxinBuff.h"
 # include "ability/animation/smithBuff.h"
 # include "ability/animation/hammerSmack.h"
 # include "ability/animation/incinerateAnim.h"

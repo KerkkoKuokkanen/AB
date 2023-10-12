@@ -36,6 +36,21 @@ static void ManageStatuses(Character *character)
 	}
 }
 
+static void ManageToxicBlade()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		Character *ret = gameState.battle.ground->characters[i].character;
+		if (ret->statuses.toxicBlade.size() != 0)
+		{
+			if (ret->turn)
+				continue ;
+			else
+				ret->statuses.toxicBlade.clear();
+		}
+	}
+}
+
 static void ManageBuffs(Character *character)
 {
 	if (character == NULL)
@@ -93,6 +108,7 @@ static void ManageHosting()
 void UpdateStatuses()
 {
 	ManageHosting();
+	ManageToxicBlade();
 	static Character *current = NULL;
 	Character *ret = FindTheCharacter();
 	if (current != ret)

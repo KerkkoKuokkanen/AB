@@ -245,6 +245,7 @@ typedef struct s_Surfaces
 	SDL_Surface *hostingSymbol;
 	SDL_Surface *raiderIdle1;
 	SDL_Surface *raiderIdle2;
+	SDL_Surface *toxinSym;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -366,11 +367,14 @@ typedef struct s_Textures
 	SDL_Texture *hostSymbol;
 	SDL_Texture *hostingSymbol;
 	SDL_Texture *raiderAbilities[4];
+	SDL_Texture *toxinSymbol;
+	SDL_Texture *poisonSymbol;
 }				t_Textures;
 
 typedef struct s_Audio
 {
 	Mix_Chunk *TFootStep[3];
+	Mix_Chunk *hitEffect;
 	Mix_Chunk *daggerThrow[2];
 	Mix_Chunk *flamePort[3];
 	Mix_Chunk *throwAnim;
@@ -404,6 +408,8 @@ typedef struct s_Audio
 	Mix_Chunk *meteors[3];
 	Mix_Chunk *hostEyes[3];
 	Mix_Chunk *axeSwing;
+	Mix_Chunk *jumpScream;
+	Mix_Chunk *raiderJump;
 }				t_Audio;
 
 typedef struct s_Fonts

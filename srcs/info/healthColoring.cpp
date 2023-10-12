@@ -154,7 +154,6 @@ bool HealthColoring::ShouldDeactivate(int index)
 		Character *ret = gameState.updateObjs.abilities->GetCharacter();
 		if (ret == characters[index].character)
 			return (true);
-		ret->sprite->ClearColorMod();
 	}
 	Sprite *used = characters[index].character->sprite;
 	if (used->red != 0 || used->green != 0 || used->blue != 0)

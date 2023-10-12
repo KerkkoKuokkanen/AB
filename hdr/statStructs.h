@@ -75,6 +75,7 @@ typedef struct s_StatusEffects
 	std::vector<int> burns;
 	std::vector<t_BuffDebuff> buffs;
 	std::vector<t_BuffDebuff> deBuffs;
+	std::vector<int> toxicBlade;
 	void *hosting;
 	bool hosted;
 	int stun;

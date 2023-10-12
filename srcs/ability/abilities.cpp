@@ -106,6 +106,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case AXE_JUMP:
 			axeJumpSelector = new AxeJumpSelector(pos, 10, &groundColoring);
 			break ;
+		case TOXIC_BLADE:
+			ActivateAbility(ability, character);
+			break ;
 	}
 }
 
@@ -117,13 +120,15 @@ void Abilities::SetAbility(t_Ability *ability, Character *character)
 	Clear();
 	Abilities::ability = ability;
 	Abilities::character = character;
-	SetSelector(ability, character);
 	active = true;
+	SetSelector(ability, character);
 }
 
 void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 {
 	inMotion = true;
+	gameState.updateObjs.UI->UseEnergy(ability->cost);
+	character->stats.fatigue += ability->fatigue;
 	switch (ability->type)
 	{
 		case DAGGER_THROW:
@@ -194,6 +199,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case AXE_JUMP:
 			animations.push_back({new AxeJumpAnim(character, target, targetPoint), AXE_JUMP});
 			break ;
+		case TOXIC_BLADE:
+			animations.push_back({new ToxinBuff(character), TOXIC_BLADE});
+			break ;
 	}
 }
 
@@ -205,8 +213,6 @@ void Abilities::SelectorWithCharacters()
 	{
 		if (gameState.keys.click == RELEASE_CLICK)
 		{
-			gameState.updateObjs.UI->UseEnergy(ability->cost);
-			character->stats.fatigue += ability->fatigue;
 			target = ret;
 			targetPoint = ret->position;
 			ActivateAbility(ability, character);
@@ -224,8 +230,6 @@ void Abilities::SelectorWithSquares()
 		Character *blockChar = gameState.battle.ground->map[ret.y][ret.x].character;
 		if (gameState.keys.click == RELEASE_CLICK)
 		{
-			gameState.updateObjs.UI->UseEnergy(ability->cost);
-			character->stats.fatigue += ability->fatigue;
 			target = blockChar;
 			targetPoint = ret;
 			ActivateAbility(ability, character);
@@ -240,8 +244,6 @@ void Abilities::SelectorForAxeJump()
 	axeJumpSelector->Update();
 	if (axeJumpSelector->done)
 	{
-		gameState.updateObjs.UI->UseEnergy(ability->cost);
-		character->stats.fatigue += ability->fatigue;
 		target = axeJumpSelector->GetTargetEnemy();
 		targetPoint = axeJumpSelector->GetTargetLandingPos();
 		ActivateAbility(ability, character);
@@ -256,8 +258,6 @@ void Abilities::UpdatePhantomSelector()
 	if (phantSelector->done)
 	{
 		targPoints.clear();
-		gameState.updateObjs.UI->UseEnergy(ability->cost);
-		character->stats.fatigue += ability->fatigue;
 		targPoints = phantSelector->GetTargets();
 		if (targPoints.size() != 0)
 			ActivateAbility(ability, character);
@@ -271,8 +271,6 @@ void Abilities::MultiSelectorWithCharacter()
 	multiSelector->Update();
 	if (!multiSelector->done)
 		return ;
-	gameState.updateObjs.UI->UseEnergy(ability->cost);
-	character->stats.fatigue += ability->fatigue;
 	targPoints.clear();
 	targPoints = multiSelector->GetPositions();
 	ActivateAbility(ability, character);
@@ -288,11 +286,7 @@ void Abilities::AllSelectorUpdate()
 		targPoints.clear();
 		targPoints = allSelector->getTargets();
 		if (targPoints.size() != 0)
-		{
-			gameState.updateObjs.UI->UseEnergy(ability->cost);
-			character->stats.fatigue += ability->fatigue;
-		}
-		ActivateAbility(ability, character);
+			ActivateAbility(ability, character);
 		ClearMap();
 	}
 }

@@ -83,6 +83,15 @@ bool Statuses::GetMouseOverStatuses()
 					return (true);
 				break ;
 			}
+			case StatusSigns::TOXIC_BLADE:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.toxinSym, dst1, x, y))
+					return (true);
+				break ;
+			}
 		}
 	}
 	return (false);
@@ -100,6 +109,7 @@ void Statuses::CreateBurns()
 		int num = (int)character->statuses.burns.size();
 		if (num > 0)
 		{
+			num = (num > 999) ? 999 : num;
 			std::string used = std::to_string(num);
 			const char *text = used.c_str();
 			add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
@@ -190,7 +200,7 @@ void Statuses::Postion(Vector place)
 		statuses[i].images.sprite->Position(Vector(place.x + (diff * i), place.y));
 		if (statuses[i].images.snippet == NULL)
 			continue ;
-		float x = (float)statuses[i].images.sprite->dest.x - ((int)((float)numberOffset * 1.6f) * ((float)numDigits(statuses[i].amount) * 0.25f));
+		float x = (float)statuses[i].images.sprite->dest.x - ((int)((float)numberOffset * 1.6f) * ((float)numDigits(statuses[i].amount) * 0.1f));
 		statuses[i].images.snippet->Position({rounding(x), rounding(place.y) - numberSize / 4});
 	}
 }
@@ -242,6 +252,7 @@ void Statuses::CreateFrestStatus(int statusSign)
 			int num = (int)character->statuses.burns.size();
 			if (num > 0)
 			{
+				num = (num > 999) ? 999 : num;
 				std::string used = std::to_string(num);
 				const char *text = used.c_str();
 				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
@@ -301,6 +312,27 @@ void Statuses::CreateFrestStatus(int statusSign)
 			statuses.push_back({add, StatusSigns::HOSTING, 1});
 			break ;
 		}
+		case StatusSigns::TOXIC_BLADE:
+		{
+			add.sprite = new Sprite(gameState.textures.toxinSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			int num = (int)character->statuses.toxicBlade.size();
+			if (num > 0)
+			{
+				num = (num > 999) ? 999 : num;
+				std::string used = std::to_string(num);
+				const char *text = used.c_str();
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet->SetOrderLayer(3);
+				add.snippet->SetOutlineColor(50, 50, 50);
+				add.snippet->SetAlphaMod(200);
+			}
+			else
+				add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::TOXIC_BLADE, num});
+			break ;
+		}
 	}
 	if (onlyOne)
 	{
@@ -342,6 +374,11 @@ void Statuses::CheckIfNeedToCreateStatuses()
 		if (!AlreadyExists(StatusSigns::HOSTING))
 			CreateFrestStatus(StatusSigns::HOSTING);
 	}
+	if (character->statuses.toxicBlade.size() != 0)
+	{
+		if (!AlreadyExists(StatusSigns::TOXIC_BLADE))
+			CreateFrestStatus(StatusSigns::TOXIC_BLADE);
+	}
 }
 
 void Statuses::CheckIfNewStatuses()
@@ -353,6 +390,7 @@ void Statuses::CheckIfNewStatuses()
 			case StatusSigns::BURN:
 			{
 				int amount = (int)character->statuses.burns.size();
+				amount = (amount > 999) ? 999 : amount;
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)
 					ChangeAmount(i, amount, num);
@@ -386,6 +424,15 @@ void Statuses::CheckIfNewStatuses()
 			{
 				if (character->statuses.hosting == NULL && AlreadyExists(StatusSigns::HOSTING))
 					ChangeAmount(i, 0, 0);
+				break ;
+			}
+			case StatusSigns::TOXIC_BLADE:
+			{
+				int amount = (int)character->statuses.toxicBlade.size();
+				amount = (amount > 999) ? 999 : amount;
+				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
+				if (amount != num)
+					ChangeAmount(i, amount, num);
 				break ;
 			}
 		}

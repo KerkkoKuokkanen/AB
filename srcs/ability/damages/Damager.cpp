@@ -101,7 +101,8 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 		{
 			t_Sound add2 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
 			t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
-			std::vector<t_Sound> sounds = {add2, add3};
+			t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
+			std::vector<t_Sound> sounds = {add2, add3, add5};
 			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
 			CreateDamageSnippet(character, targ, rand() % 100 + 1);
 		}
@@ -118,8 +119,10 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 
 void Damager::AddOpportunityDamage(Character *damager, Character *target)
 {
-	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::LOWER_VOLUME_HIT, 0};
-	std::vector<t_Sound> sounds = {add3};
+	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
+	t_Sound add4 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
+	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
+	std::vector<t_Sound> sounds = {add3, add4, add5};
 	if (target->cSing == LION)
 		damageCreator.CreateDamage(target, Color(255, 0, 0), 5, 5, GetDirection(damager, target), sounds, false);
 	else

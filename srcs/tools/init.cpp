@@ -62,33 +62,33 @@ void initScreen(int width, int height)
 void getAudio()
 {
 	AudioCreateVolume(Channels::THIEF_STEP_CHANNEL, 16);
-	AudioCreateVolume(Channels::DAGGER_THROW0, 15);
-	AudioCreateVolume(Channels::DAGGER_THROW1, 25);
-	AudioCreateVolume(Channels::WHIFF, 46);
+	AudioCreateVolume(Channels::DAGGER_THROW0, 7);
+	AudioCreateVolume(Channels::DAGGER_THROW1, 11);
+	AudioCreateVolume(Channels::WHIFF, 24);
 	AudioCreateVolume(Channels::DAGGER_THROW_ANIM, 30);
 	AudioCreateVolume(Channels::SMOKE_THROW, 30);
-	AudioCreateVolume(Channels::SMOKE_BOMB, 38);
+	AudioCreateVolume(Channels::SMOKE_BOMB, 28);
 	AudioCreateVolume(Channels::DAGGER_SLASH, 30);
-	AudioCreateVolume(Channels::FLAME_PORT1, 12);
-	AudioCreateVolume(Channels::FLAME_PORT2, 58);
-	AudioCreateVolume(Channels::FLAME_PORT3, 11);
-	AudioCreateVolume(Channels::TURN_START, 45);
+	AudioCreateVolume(Channels::FLAME_PORT1, 10);
+	AudioCreateVolume(Channels::FLAME_PORT2, 33);
+	AudioCreateVolume(Channels::FLAME_PORT3, 9);
+	AudioCreateVolume(Channels::TURN_START, 34);
 	AudioCreateVolume(Channels::FLAME_SLASH, 30);
 	AudioCreateVolume(Channels::SELECT, 35);
-	AudioCreateVolume(Channels::FLAME_BLAST_EXPLOSION, 30);
-	AudioCreateVolume(Channels::FLAME_BLAST_CHARGE, 18);
-	AudioCreateVolume(Channels::FLAME_BLAST_LAUNCH, 17);
+	AudioCreateVolume(Channels::FLAME_BLAST_EXPLOSION, 23);
+	AudioCreateVolume(Channels::FLAME_BLAST_CHARGE, 14);
+	AudioCreateVolume(Channels::FLAME_BLAST_LAUNCH, 13);
 	AudioCreateVolume(Channels::DEBUFF, 105);
 	AudioCreateVolume(Channels::INCINERATE_CHARGE, 20);
 	AudioCreateVolume(Channels::INCINERATE_MOLO, 15);
-	AudioCreateVolume(Channels::INCINERATE_EXP_SOUND, 78);
-	AudioCreateVolume(Channels::LION_SMACK, 18);
-	AudioCreateVolume(Channels::STUN, 80);
+	AudioCreateVolume(Channels::INCINERATE_EXP_SOUND, 58);
+	AudioCreateVolume(Channels::LION_SMACK, 12);
+	AudioCreateVolume(Channels::STUN, 40);
 	AudioCreateVolume(Channels::PHANTOM_KNIGHT, 125);
-	AudioCreateVolume(Channels::ROTATE, 35);
+	AudioCreateVolume(Channels::ROTATE, 25);
 	AudioCreateVolume(Channels::POOF, 28);
-	AudioCreateVolume(Channels::LOWER_VOLUME_HIT, 17);
-	AudioCreateVolume(Channels::LOWER_VOLUME_WHIFF, 50);
+	AudioCreateVolume(Channels::LOWER_VOLUME_HIT, 10);
+	AudioCreateVolume(Channels::LOWER_VOLUME_WHIFF, 30);
 	AudioCreateVolume(Channels::OPPORTUNIRY, 70);
 	AudioCreateVolume(Channels::KILL_FADE, 40);
 	AudioCreateVolume(Channels::KILL_EXPLOSION0, 100);
@@ -98,12 +98,12 @@ void getAudio()
 	AudioCreateVolume(Channels::BOX_LANDING, 45);
 	AudioCreateVolume(Channels::BOX_LANDING2, 67);
 	AudioCreateVolume(Channels::PICK_TOOLS, 22);
-	AudioCreateVolume(Channels::BUFF_EFFECT, 21);
+	AudioCreateVolume(Channels::BUFF_EFFECT, 16);
 	AudioCreateVolume(Channels::MAGE_CAST, 28);
 	AudioCreateVolume(Channels::LIGHTNING, 26);
-	AudioCreateVolume(Channels::METEOR1, 30);
-	AudioCreateVolume(Channels::METEOR2, 4);
-	AudioCreateVolume(Channels::METEOR3, 11);
+	AudioCreateVolume(Channels::METEOR1, 28);
+	AudioCreateVolume(Channels::METEOR2, 3);
+	AudioCreateVolume(Channels::METEOR3, 8);
 	AudioCreateVolume(Channels::HOST_EYES1, 66);
 	AudioCreateVolume(Channels::HOST_EYES2, 23);
 	AudioCreateVolume(Channels::HOST_EYES3, 7);
@@ -155,6 +155,9 @@ void getAudio()
 	gameState.audio.hostEyes[1] = Mix_LoadWAV("audio/abilities/mage/mindStart.wav");
 	gameState.audio.hostEyes[2] = Mix_LoadWAV("audio/abilities/mage/mindEnd.wav");
 	gameState.audio.axeSwing = Mix_LoadWAV("audio/abilities/raider/axeSwing.wav");
+	gameState.audio.jumpScream = Mix_LoadWAV("audio/abilities/raider/jumpScream.wav");
+	gameState.audio.raiderJump = Mix_LoadWAV("audio/abilities/raider/jumpstart.wav");
+	gameState.audio.hitEffect = Mix_LoadWAV("audio/effects/newHitEffect2.wav");
 }
 
 void getFonts()
@@ -394,6 +397,10 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.axeJump = get_texture(rend, "sprites/characters/raider/raiderJump.png");
 	gameState.textures.attacks.jumpSlash[0] = get_texture(rend, "sprites/characters/raider/raiderAttack2.png");
 	gameState.textures.attacks.jumpSlash[1] = get_texture(rend, "sprites/characters/raider/raiderAttack2Trail.png");
+	use = get_texture_and_surface(rend, "sprites/effects/toxinsym2.png");
+	gameState.surfaces.toxinSym = use.sur;
+	gameState.textures.toxinSymbol = use.text;
+	gameState.textures.poisonSymbol = get_texture(rend, "sprites/effects/poisonSym.png");
 }
 
 void CraeteAudioThread()

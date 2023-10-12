@@ -24,6 +24,7 @@ AxeJumpAnim::AxeJumpAnim(Character *character, Character *target, SDL_Point pos)
 
 void AxeJumpAnim::StartJump()
 {
+	PlaySound(gameState.audio.raiderJump, Channels::VOLUME_35, 0);
 	SetScreenShake(200, 3);
 	SDL_Point start = {character->sprite->dest.x, character->sprite->dest.y};
 	arch = new ThrowArch(character->sprite, start, GetDest(pos), 14000.0f, 460.0f);
@@ -88,6 +89,7 @@ void AxeJumpAnim::CreateLandingDusts()
 
 void AxeJumpAnim::StartSecondPhase()
 {
+	PlaySound(gameState.audio.axeSwing, Channels::VOLUME_30, 0);
 	secondPhase = true;
 	character->sprite->dest.x += 1000;
 	character->sprite->setTexture(gameState.textures.attacks.jumpSlash[0]);
@@ -108,6 +110,7 @@ void AxeJumpAnim::UpdateJump()
 	arch->Update();
 	if (arch->done)
 	{
+		PlaySound(gameState.audio.raiderJump, Channels::VOLUME_55, 0);
 		delete arch;
 		arch = NULL;
 		gameState.battle.ground->map[ogPos.y][ogPos.x].character = NULL;
@@ -154,6 +157,8 @@ void AxeJumpAnim::Update()
 		return ;
 	if (counter == 6)
 		StartJump();
+	if (counter == 8)
+		PlaySound(gameState.audio.jumpScream, Channels::VOLUME_22, 0);
 	UpdateJump();
 	UpdateSpeedSprite();
 	UpdateSecondPhase();

@@ -97,7 +97,7 @@ static void AssignDefaultRaiderAbilities(std::vector<t_Ability> &stats)
 	stats[2].stats = (void*)malloc(sizeof(t_ToxicBlade));
 	t_ToxicBlade *stat1 = (t_ToxicBlade*)stats[2].stats;
 	stat1->hits = 2;
-	stat1->stacks = 2;
+	stat1->stacks = 10;
 	stats[3].stats = (void*)malloc(sizeof(t_RaiderBlock));
 	t_RaiderBlock *stat2 = (t_RaiderBlock*)stats[3].stats;
 	stat2->hits = 1;

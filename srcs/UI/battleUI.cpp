@@ -525,5 +525,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case AXE_JUMP:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(AXE_JUMP), activeCharacter);
 			break ;
+		case TOXIC_BLADE:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(TOXIC_BLADE), activeCharacter);
+			break ;
 	}
 }
