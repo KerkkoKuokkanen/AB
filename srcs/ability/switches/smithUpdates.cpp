@@ -33,10 +33,10 @@ static void CreateSmithBuffDebuff(Character *target, t_Ability *ability)
 {
 	if (target->ally)
 	{
-		target->statuses.buffs.push_back({BuffTypes::ACCURACY, 1, 10});
+		target->statuses.buffs.push_back({BuffTypes::ACCURACY, 1, 10, true});
 		return ;
 	}
-	target->statuses.deBuffs.push_back({BuffTypes::ACCURACY, 1, -10});
+	target->statuses.deBuffs.push_back({BuffTypes::ACCURACY, 1, -10, true});
 }
 
 SDL_Point Abilities::FindToolBox()

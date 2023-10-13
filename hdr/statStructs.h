@@ -25,7 +25,8 @@ namespace BuffTypes
 {
 	enum
 	{
-		ACCURACY
+		ACCURACY,
+		PROTECTION
 	};
 };
 
@@ -40,7 +41,6 @@ typedef struct s_ToxicBlade
 typedef struct s_RaiderBlock
 {
 	int precentage;
-	int hits;
 }				t_RaiderBlock;
 
 typedef struct s_HostEyes
@@ -70,6 +70,7 @@ typedef struct s_BuffDebuff
 	int type;
 	int turns;
 	int amount;
+	bool atEnd;
 }				t_BuffDebuff;
 
 typedef struct s_ToxicStat

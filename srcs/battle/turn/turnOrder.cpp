@@ -142,9 +142,11 @@ bool TurnOrder::NoOneMoving()
 	return (true);
 }
 
-void TurnOrder::ActivateTurnChange()
+void TurnOrder::ActivateTurnChange(bool force)
 {
-	if (turnChange || turnStartActive || killActive || !NoOneMoving() || gameState.updateObjs.abilities->active)
+	if (!force && gameState.updateObjs.abilities->active)
+		return ;
+	if (turnChange || turnStartActive || killActive || !NoOneMoving())
 		return ;
 	bool visited = false;
 	for (int i = 0; i < indicators.size(); i++)

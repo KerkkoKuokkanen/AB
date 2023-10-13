@@ -70,6 +70,10 @@ void SmithBuff::Update()
 	{
 		createBuff = true;
 		new BuffEffect(target, target->ally);
+		if (target->ally)
+			PlaySound(gameState.audio.BuffEffect, Channels::BUFF_EFFECT, 0);
+		else
+			PlaySound(gameState.audio.deBuffEffect, Channels::BUFF_EFFECT, 0);
 		CreateLight();
 	}
 	if (counter > 46)

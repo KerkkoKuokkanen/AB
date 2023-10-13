@@ -54,7 +54,7 @@ class TurnOrder
 		bool NoOneMoving();
 		void Update();
 		void Destroy();
-		void ActivateTurnChange();
+		void ActivateTurnChange(bool force = false);
 		void CheckClickBox();
 		void RemoveCharacter(Character *character);
 };

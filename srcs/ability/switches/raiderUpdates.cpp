@@ -102,5 +102,22 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 			}
 			break ;
 		}
+		case RAIDER_BLOCK:
+		{
+			RaiderBlock *used = (RaiderBlock*)anim.animation;
+			used->Update();
+			if (used->createBuff)
+			{
+				t_RaiderBlock *used = (t_RaiderBlock*)ability->stats;
+				character->statuses.buffs.push_back({BuffTypes::PROTECTION, 1, used->precentage, false});
+				gameState.updateObjs.turnOrder->ActivateTurnChange(true);
+			}
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }

@@ -300,6 +300,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *axeSlash[2];
 	SDL_Texture *axeJump;
 	SDL_Texture *jumpSlash[2];
+	SDL_Texture *raiderBlock;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -413,6 +414,7 @@ typedef struct s_Audio
 	Mix_Chunk *raiderJump;
 	Mix_Chunk *poison;
 	Mix_Chunk *toxicBlade;
+	Mix_Chunk *raiderBlock;
 }				t_Audio;
 
 typedef struct s_Fonts

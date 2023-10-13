@@ -528,5 +528,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case TOXIC_BLADE:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(TOXIC_BLADE), activeCharacter);
 			break ;
+		case RAIDER_BLOCK:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(RAIDER_BLOCK), activeCharacter);
+			break ;
 	}
 }

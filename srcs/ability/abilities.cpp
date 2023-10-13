@@ -109,6 +109,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case TOXIC_BLADE:
 			ActivateAbility(ability, character);
 			break ;
+		case RAIDER_BLOCK:
+			ActivateAbility(ability, character);
+			break ;
 	}
 }
 
@@ -201,6 +204,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case TOXIC_BLADE:
 			animations.push_back({new ToxinBuff(character), TOXIC_BLADE});
+			break ;
+		case RAIDER_BLOCK:
+			animations.push_back({new RaiderBlock(character), RAIDER_BLOCK});
 			break ;
 	}
 }

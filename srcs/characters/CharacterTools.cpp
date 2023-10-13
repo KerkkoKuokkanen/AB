@@ -102,8 +102,7 @@ static void AssignDefaultRaiderAbilities(std::vector<t_Ability> &stats)
 	stat1->hitChance = 80;
 	stats[3].stats = (void*)malloc(sizeof(t_RaiderBlock));
 	t_RaiderBlock *stat2 = (t_RaiderBlock*)stats[3].stats;
-	stat2->hits = 1;
-	stat2->precentage = 50;
+	stat2->precentage = 15;
 }
 
 void Character::AssignAbilities()

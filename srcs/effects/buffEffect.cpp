@@ -10,10 +10,6 @@ BuffEffect::BuffEffect(Character *target, bool buff)
 	sur = getSurface(target);
 	gameState.updateObjs.info->AddBuffEffect(this);
 	partCounter = rand() % PART_DISTANCE;
-	if (buff)
-		PlaySound(gameState.audio.BuffEffect, Channels::BUFF_EFFECT, 0);
-	else
-		PlaySound(gameState.audio.deBuffEffect, Channels::BUFF_EFFECT, 0);
 }
 
 void BuffEffect::CreateParticles(int y, int yTarg)

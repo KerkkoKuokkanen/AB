@@ -83,13 +83,15 @@ static void ManageToxicBlade(Character *ret)
 	}
 }
 
-static void ManageBuffs(Character *character)
+static void BuffsAtEnd(Character *character)
 {
 	if (character == NULL)
 		return ;
 	t_StatusEffects &statuses = character->statuses;
 	for (int i = 0; i < statuses.buffs.size(); i++)
 	{
+		if (!statuses.buffs[i].atEnd)
+			continue ;
 		statuses.buffs[i].turns -= 1;
 		if (statuses.buffs[i].turns <= 0)
 		{
@@ -99,6 +101,37 @@ static void ManageBuffs(Character *character)
 	}
 	for (int i = 0; i < statuses.deBuffs.size(); i++)
 	{
+		if (!statuses.buffs[i].atEnd)
+			continue ;
+		statuses.deBuffs[i].turns -= 1;
+		if (statuses.deBuffs[i].turns <= 0)
+		{
+			statuses.deBuffs.erase(statuses.deBuffs.begin() + i);
+			i = (statuses.deBuffs.size() == 0) ? 0 : i - 1;
+		}
+	}
+}
+
+static void BuffsAtStart(Character *character)
+{
+	if (character == NULL)
+		return ;
+	t_StatusEffects &statuses = character->statuses;
+	for (int i = 0; i < statuses.buffs.size(); i++)
+	{
+		if (statuses.buffs[i].atEnd)
+			continue ;
+		statuses.buffs[i].turns -= 1;
+		if (statuses.buffs[i].turns <= 0)
+		{
+			statuses.buffs.erase(statuses.buffs.begin() + i);
+			i = (statuses.buffs.size() == 0) ? 0 : i - 1;
+		}
+	}
+	for (int i = 0; i < statuses.deBuffs.size(); i++)
+	{
+		if (statuses.buffs[i].atEnd)
+			continue ;
 		statuses.deBuffs[i].turns -= 1;
 		if (statuses.deBuffs[i].turns <= 0)
 		{
@@ -144,10 +177,11 @@ void UpdateStatuses()
 	ManageToxicBlade(ret);
 	if (current != ret)
 	{
-		ManageBuffs(current);
+		BuffsAtEnd(current);
 		current = ret;
 		if (current == NULL)
 			return ;
+		BuffsAtStart(current);
 		ManageStatuses(current);
 	}
 }
