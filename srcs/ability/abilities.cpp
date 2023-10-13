@@ -420,6 +420,11 @@ void Abilities::CreateOpportunityDamage(Character *damager, Character *target)
 	Abilities::damager.AddOpportunityDamage(damager, target);
 }
 
+void Abilities::CreatePoisonDamage(Character *target, int amount)
+{
+	damager.AddPoisonDamage(target, amount);
+}
+
 t_Animation *Abilities::GetAnimation(int type)
 {
 	for (int i = 0; i < animations.size(); i++)

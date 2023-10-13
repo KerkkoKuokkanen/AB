@@ -195,28 +195,45 @@ int CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos)
 	return (0);
 }
 
-bool StatusApply(t_Ability *ability, Character *character, Character *target)
+static int GetStatusChance(t_Ability *ability, Character *character)
 {
-	if (ability == NULL)
-		return (false);
-	if (ability->statusSign == (-1))
-		return (false);
 	int chance = 0;
+	if (ability->type == AXE_JUMP || ability->type == AXE_SLASH)
+	{
+		for (int i = 0; i < character->abilities.size(); i++)
+		{
+			if (character->abilities[i].type == TOXIC_BLADE)
+			{
+				t_ToxicBlade *used = (t_ToxicBlade*)character->abilities[i].stats;
+				return (used->hitChance);
+			}
+		}
+	}
 	switch (ability->statType)
 	{
 		case StatStructs::ATTACK_AND_DEBUFF:
 		{
 			t_AttackWithDebuff *used = (t_AttackWithDebuff*)ability->stats;
 			chance = used->debuffChance;
-			break ;
+			return (chance);
 		}
 		case StatStructs::HOST_EYES:
 		{
 			t_HostEyes *used = (t_HostEyes*)ability->stats;
 			chance = used->enemyChance;
-			break ;
+			return (chance);
 		}
 	}
+	return (chance);
+}
+
+bool StatusApply(t_Ability *ability, Character *character, Character *target, bool skipCheck)
+{
+	if (ability == NULL)
+		return (false);
+	if (ability->statusSign == (-1) && !skipCheck)
+		return (false);
+	int chance = GetStatusChance(ability, character);
 	int hit = rand() % 100;
 	if (hit < chance)
 		return (true);

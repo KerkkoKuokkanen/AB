@@ -246,6 +246,7 @@ typedef struct s_Surfaces
 	SDL_Surface *raiderIdle1;
 	SDL_Surface *raiderIdle2;
 	SDL_Surface *toxinSym;
+	SDL_Surface *poisonSym;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -410,6 +411,8 @@ typedef struct s_Audio
 	Mix_Chunk *axeSwing;
 	Mix_Chunk *jumpScream;
 	Mix_Chunk *raiderJump;
+	Mix_Chunk *poison;
+	Mix_Chunk *toxicBlade;
 }				t_Audio;
 
 typedef struct s_Fonts

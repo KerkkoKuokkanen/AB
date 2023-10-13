@@ -158,6 +158,8 @@ void getAudio()
 	gameState.audio.jumpScream = Mix_LoadWAV("audio/abilities/raider/jumpScream.wav");
 	gameState.audio.raiderJump = Mix_LoadWAV("audio/abilities/raider/jumpstart.wav");
 	gameState.audio.hitEffect = Mix_LoadWAV("audio/effects/newHitEffect2.wav");
+	gameState.audio.poison = Mix_LoadWAV("audio/effects/poison.wav");
+	gameState.audio.toxicBlade = Mix_LoadWAV("audio/abilities/raider/toxicBlade.wav");
 }
 
 void getFonts()
@@ -400,7 +402,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/effects/toxinsym2.png");
 	gameState.surfaces.toxinSym = use.sur;
 	gameState.textures.toxinSymbol = use.text;
-	gameState.textures.poisonSymbol = get_texture(rend, "sprites/effects/poisonSym.png");
+	use = get_texture_and_surface(rend, "sprites/effects/poisonSym.png");
+	gameState.surfaces.poisonSym = use.sur;
+	gameState.textures.poisonSymbol = use.text;
 }
 
 void CraeteAudioThread()
@@ -422,10 +426,10 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	AudioCreateChannels(120);
-	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1260, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	initScreen(1260, 720);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer

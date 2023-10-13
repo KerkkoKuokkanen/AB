@@ -92,6 +92,15 @@ bool Statuses::GetMouseOverStatuses()
 					return (true);
 				break ;
 			}
+			case StatusSigns::POISON:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.poisonSym, dst1, x, y))
+					return (true);
+				break ;
+			}
 		}
 	}
 	return (false);
@@ -333,6 +342,27 @@ void Statuses::CreateFrestStatus(int statusSign)
 			statuses.push_back({add, StatusSigns::TOXIC_BLADE, num});
 			break ;
 		}
+		case StatusSigns::POISON:
+		{
+			add.sprite = new Sprite(gameState.textures.poisonSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			int num = (int)character->statuses.poison.size();
+			if (num > 0)
+			{
+				num = (num > 999) ? 999 : num;
+				std::string used = std::to_string(num);
+				const char *text = used.c_str();
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet->SetOrderLayer(3);
+				add.snippet->SetOutlineColor(50, 50, 50);
+				add.snippet->SetAlphaMod(200);
+			}
+			else
+				add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::POISON, num});
+			break ;
+		}
 	}
 	if (onlyOne)
 	{
@@ -378,6 +408,11 @@ void Statuses::CheckIfNeedToCreateStatuses()
 	{
 		if (!AlreadyExists(StatusSigns::TOXIC_BLADE))
 			CreateFrestStatus(StatusSigns::TOXIC_BLADE);
+	}
+	if (character->statuses.poison.size() != 0)
+	{
+		if (!AlreadyExists(StatusSigns::POISON))
+			CreateFrestStatus(StatusSigns::POISON);
 	}
 }
 
@@ -429,6 +464,15 @@ void Statuses::CheckIfNewStatuses()
 			case StatusSigns::TOXIC_BLADE:
 			{
 				int amount = (int)character->statuses.toxicBlade.size();
+				amount = (amount > 999) ? 999 : amount;
+				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
+				if (amount != num)
+					ChangeAmount(i, amount, num);
+				break ;
+			}
+			case StatusSigns::POISON:
+			{
+				int amount = (int)character->statuses.poison.size();
 				amount = (amount > 999) ? 999 : amount;
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)

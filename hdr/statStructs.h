@@ -33,6 +33,8 @@ typedef struct s_ToxicBlade
 {
 	int hits;
 	int stacks;
+	int turns;
+	int hitChance;
 }				t_ToxicBlade;
 
 typedef struct s_RaiderBlock
@@ -70,12 +72,19 @@ typedef struct s_BuffDebuff
 	int amount;
 }				t_BuffDebuff;
 
+typedef struct s_ToxicStat
+{
+	int stacks;
+	int turns;
+}				t_ToxicStat;
+
 typedef struct s_StatusEffects
 {
 	std::vector<int> burns;
 	std::vector<t_BuffDebuff> buffs;
 	std::vector<t_BuffDebuff> deBuffs;
-	std::vector<int> toxicBlade;
+	std::vector<t_ToxicStat> toxicBlade;
+	std::vector<int> poison;
 	void *hosting;
 	bool hosted;
 	int stun;

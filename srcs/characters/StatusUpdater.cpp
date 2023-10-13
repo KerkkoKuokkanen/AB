@@ -1,6 +1,15 @@
 
 #include "../../hdr/global.h"
 
+Character *current = NULL;
+bool removeToxicBlade = false;
+
+void ResetStatusUpdates()
+{
+	current = NULL;
+	removeToxicBlade = false;
+}
+
 static Character *FindTheCharacter()
 {
 	if (gameState.updateObjs.turnOrder->turnChange ||
@@ -13,6 +22,13 @@ static Character *FindTheCharacter()
 			return (targ);
 	}
 	return (NULL);
+}
+
+static void ApplyPoison(Character *character)
+{
+	if (character->killed)
+		return ;
+	gameState.updateObjs.abilities->CreatePoisonDamage(character, (int)character->statuses.poison.size());
 }
 
 static void ManageStatuses(Character *character)
@@ -29,6 +45,17 @@ static void ManageStatuses(Character *character)
 			i = (statuses.burns.size() == 0) ? 0 : i - 1;
 		}
 	}
+	if (statuses.poison.size() != 0)
+		ApplyPoison(character);
+	for (int i = 0; i < statuses.poison.size(); i++)
+	{
+		statuses.poison[i] -= 1;
+		if (statuses.poison[i] <= 0)
+		{
+			statuses.poison.erase(statuses.poison.begin() + i);
+			i = (statuses.poison.size() == 0) ? 0 : i - 1;
+		}
+	}
 	if (statuses.stun > 0)
 	{
 		statuses.stun -= 1;
@@ -36,17 +63,22 @@ static void ManageStatuses(Character *character)
 	}
 }
 
-static void ManageToxicBlade()
+static void ManageToxicBlade(Character *ret)
 {
-	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	if (current != NULL && current != ret && current->cSing == RAIDER)
+		removeToxicBlade = true;
+	if (!removeToxicBlade)
+		return ;
+	if (current == NULL)
+		return ;
+	removeToxicBlade = false;
+	for (int i = 0; i < current->statuses.toxicBlade.size(); i++)
 	{
-		Character *ret = gameState.battle.ground->characters[i].character;
-		if (ret->statuses.toxicBlade.size() != 0)
+		current->statuses.toxicBlade[i].turns -= 1;
+		if (current->statuses.toxicBlade[i].turns < 0)
 		{
-			if (ret->turn)
-				continue ;
-			else
-				ret->statuses.toxicBlade.clear();
+			current->statuses.toxicBlade.erase(current->statuses.toxicBlade.begin() + i);
+			i = (current->statuses.toxicBlade.size() == 0) ? 0 : i - 1;
 		}
 	}
 }
@@ -107,10 +139,9 @@ static void ManageHosting()
 
 void UpdateStatuses()
 {
-	ManageHosting();
-	ManageToxicBlade();
-	static Character *current = NULL;
 	Character *ret = FindTheCharacter();
+	ManageHosting();
+	ManageToxicBlade(ret);
 	if (current != ret)
 	{
 		ManageBuffs(current);

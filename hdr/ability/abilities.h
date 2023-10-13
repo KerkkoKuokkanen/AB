@@ -94,6 +94,7 @@ class Abilities
 		void Clear();
 		void ClearMap();
 		void CreateOpportunityDamage(Character *damager, Character *target);
+		void CreatePoisonDamage(Character *target, int amount);
 };
 
 #endif

@@ -74,7 +74,8 @@ namespace StatusSigns
 		DEBUFF,
 		HOST,
 		HOSTING,
-		TOXIC_BLADE
+		TOXIC_BLADE,
+		POISON
 	};
 };
 
@@ -141,6 +142,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "info/healthColoring.h"
 # include "info/supplyEffect.h"
 # include "info/control.h"
+# include "info/colorEffect.h"
 # include "info/controlSetter.h"
 # include "info/counter.h"
 # include "info/stunUpdates.h"
@@ -333,6 +335,7 @@ int getXToLeft(SDL_Point pos);
 
 void PrintStat();
 
+void		CreatePoisonSnippet(Character *target, int amount);
 void		CreateDamageSnippet(Character *damager, Character *target, int totalDamage, bool opportunity = false);
 void		CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color);
 void		CreateMiss(SDL_Point damager, SDL_Point target, Character *targ, bool sound = false);
@@ -341,7 +344,9 @@ void		ExtendPhantSelector(Character *mage, PhantomSelector *selector);
 void		ExtendSelector(Character *mage, Selector *selector);
 
 void		UpdateStatuses();
-bool		StatusApply(t_Ability *ability, Character *character, Character *target);
+void		ResetStatusUpdates();
+
+bool		StatusApply(t_Ability *ability, Character *character, Character *target, bool skipCheck = false);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);
 bool		CheckIfOpportunityHits(Character *damager, Character *target);

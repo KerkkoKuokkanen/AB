@@ -16,6 +16,7 @@ Character::Character(int skin, bool allied)
 	statuses.buffs = {};
 	statuses.deBuffs = {};
 	statuses.toxicBlade = {};
+	statuses.poison = {};
 	width = 5800;
 	height = 7500;
 	if (!allied)

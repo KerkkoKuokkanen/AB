@@ -83,6 +83,8 @@ void ToxinBuff::Update()
 	addStatus = false;
 	if (done)
 		return ;
+	if (counter == 5)
+		PlaySound(gameState.audio.toxicBlade, Channels::VOLUME_24, 0);
 	ToxinBuffColorChange();
 	if (counter > 13 && counter < 18)
 	{

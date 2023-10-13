@@ -6,7 +6,7 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(RAIDER);
-	Character thief2(MAGE);
+	Character thief2(SMITH);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
 	Character thief3(PYRO);
@@ -30,6 +30,7 @@ void TempInitBattle()
 	static OBJ_Update objUpdate;
 	gameState.updateObjs.objUpdate = &objUpdate;
 	gameState.updateObjs.info->InitHealthColoring();
+	ResetStatusUpdates();
 }
 
 int MainLoop()

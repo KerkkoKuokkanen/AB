@@ -58,7 +58,7 @@ static bool downRight(Character *character, Character *target)
 	return (false);
 }
 
-static void addStatus(Character *damager, Character *target, t_Ability *ability)
+static void addStatus(Character *damager, Character *target, t_Ability *ability, bool hit)
 {
 	if (ability == NULL)
 		return ;
@@ -67,14 +67,29 @@ static void addStatus(Character *damager, Character *target, t_Ability *ability)
 	switch (ability->statusSign)
 	{
 		case StatusSigns::BURN:
+		{
+			if (!hit)
+			{
+				CreateTextSnippet(damager, target, "MISS", 900, Color(176, 79, 0));
+				break ;
+			}
+			gameState.updateObjs.info->AddColorEffect(target->sprite, 6, Color(176, 79, 0), 0);
 			target->statuses.burns.push_back(3);
-			CreateTextSnippet(damager, target, "burn", 1200, Color(176, 79, 0));
+			CreateTextSnippet(damager, target, "burned", 1200, Color(176, 79, 0));
 			break ;
+		}
 		case StatusSigns::STUN:
+		{
+			if (!hit && target->statuses.stun == 0)
+			{
+				CreateTextSnippet(damager, target, "MISS", 900, Color(186, 168, 0));
+				break ;
+			}
 			if (target->statuses.stun == 0)
-				CreateTextSnippet(damager, target, "stun", 1200, Color(186, 168, 0));
+				CreateTextSnippet(damager, target, "stunned", 1200, Color(186, 168, 0));
 			target->statuses.stun = 1;
 			break ;
+		}
 	}
 }
 
@@ -112,9 +127,26 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
 			CreateDamageSnippet(character, targ, 12 + 12);
 		}
-		if (StatusApply(ability, character, targ))
-			addStatus(character, targ, ability);
+		bool ret = StatusApply(ability, character, targ);
+		addStatus(character, targ, ability, ret);
 	}
+}
+
+void Damager::AddPoisonDamage(Character *target, int amount)
+{
+	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::VOLUME_8, 0};
+	t_Sound add4 = {gameState.audio.poison, Channels::VOLUME_23, 0};
+	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
+	std::vector<t_Sound> sounds = {add3, add4, add5};
+	Vector dir(1.0f, 0.0f);
+	if (target->ally)
+		dir.x = -1.0f;
+	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 0);
+	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 6);
+	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 12);
+	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 18);
+	damageCreator.CreateDamage(target, Color(255, 0, 0), 0, amount, dir, sounds);
+	CreatePoisonSnippet(target, rand() % 100 + 1);
 }
 
 void Damager::AddOpportunityDamage(Character *damager, Character *target)

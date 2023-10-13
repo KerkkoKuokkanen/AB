@@ -7,6 +7,7 @@ Info::Info()
 	stunUpdates = new StunUpdates;
 	controls = new ControlSetter;
 	movementEnergy = new MovementEnergy;
+	colorEffects = new ColorEffects;
 	hovered = NULL;
 }
 
@@ -141,6 +142,7 @@ void Info::Update()
 	controls->Update();
 	movementEnergy->Update();
 	healthColoring->Update();
+	colorEffects->Update();
 	overInfo = counter->insideBox;
 }
 
@@ -154,6 +156,7 @@ void Info::Destroy()
 	delete counter;
 	delete movementEnergy;
 	delete controls;
+	delete colorEffects;
 	if (stunUpdates != NULL)
 		delete stunUpdates;
 	for (int i = 0; i < snippets.size(); i++)

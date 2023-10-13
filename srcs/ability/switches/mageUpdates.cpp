@@ -22,6 +22,7 @@ static bool CreateHostEffect(t_Ability *ability, Character *character, Character
 {
 	if (target->ally)
 	{
+		CreateTextSnippet(character, target, "host", 1200, Color(145, 3, 110));
 		new HostEffect(target);
 		if (character->statuses.hosting != NULL)
 		{
@@ -35,6 +36,7 @@ static bool CreateHostEffect(t_Ability *ability, Character *character, Character
 	}
 	if (!StatusApply(ability, character, target))
 		return (false);
+	CreateTextSnippet(character, target, "host", 1200, Color(145, 3, 110));
 	new HostEffect(target);
 	if (character->statuses.hosting != NULL)
 	{

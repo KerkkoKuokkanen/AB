@@ -1,6 +1,43 @@
 
 #include "../../../hdr/global.h"
 
+static int GetToxicBladeIndex(Character *character)
+{
+	int min = character->statuses.toxicBlade[0].turns;
+	int index = 0;
+	for (int i = 0; i < character->statuses.toxicBlade.size(); i++)
+	{
+		if (min > character->statuses.toxicBlade[i].turns)
+		{
+			index = i;
+			min = character->statuses.toxicBlade[i].turns;
+		}
+	}
+	return (index);
+}
+
+static void CheckForApplyPoison(Character *character, Character *target, t_Ability *ability)
+{
+	if (character->statuses.toxicBlade.size() == 0)
+		return ;
+	int index = GetToxicBladeIndex(character);
+	int stacks = character->statuses.toxicBlade[index].stacks;
+	character->statuses.toxicBlade.erase(character->statuses.toxicBlade.begin() + index);
+	if (!StatusApply(ability, character, target, true))
+	{
+		CreateTextSnippet(character, target, "MISS", 900, Color(28, 138, 0));
+		return ;
+	}
+	gameState.updateObjs.info->AddColorEffect(target->sprite, 6, Color(28, 138, 0), 0);
+	std::string used;
+	used += std::to_string(stacks);
+	used += " poison";
+	const char *ret = used.c_str();
+	CreateTextSnippet(character, target, ret, 1000, Color(28, 138, 0));
+	for (int i = 0; i < stacks; i++)
+		target->statuses.poison.push_back(3);
+}
+
 void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 {
 	switch (anim.type)
@@ -17,7 +54,10 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 			if (used->createDamage)
 			{
 				if (MeleeCheck(character, target, ability))
+				{
 					CreateDamage();
+					CheckForApplyPoison(character, target, ability);
+				}
 				else
 					CreateMiss(character->position, target->position, target, true);
 			}
@@ -38,6 +78,7 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 				{
 					std::vector<SDL_Point> point = {target->position};
 					damager.AddDamage(ability, character, point);
+					CheckForApplyPoison(character, target, ability);
 				}
 				else
 					CreateMiss(character->position, target->position, target, true);
@@ -52,7 +93,7 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 			{
 				t_ToxicBlade *add = (t_ToxicBlade*)ability->stats;
 				for (int i = 0; i < add->hits; i++)
-					character->statuses.toxicBlade.push_back(add->stacks);
+					character->statuses.toxicBlade.push_back({add->stacks, add->turns});
 			}
 			if (used->done)
 			{

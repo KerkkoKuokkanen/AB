@@ -24,6 +24,7 @@ class Damager
 	public:
 		void AddDamage(t_Ability *ability, Character *character, std::vector<SDL_Point> &targets, bool sound = true);
 		void AddOpportunityDamage(Character *damager, Character *target);
+		void AddPoisonDamage(Character *target, int amount);
 		void Update();
 };
 
