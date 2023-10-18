@@ -203,7 +203,8 @@ enum {
 	LION,
 	SMITH,
 	MAGE,
-	RAIDER
+	RAIDER,
+	ALCHEMIST
 };
 
 enum {

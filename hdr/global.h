@@ -247,6 +247,8 @@ typedef struct s_Surfaces
 	SDL_Surface *raiderIdle2;
 	SDL_Surface *toxinSym;
 	SDL_Surface *poisonSym;
+	SDL_Surface *alchemistIdle1;
+	SDL_Surface *alchemistIdle2;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -278,6 +280,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *mageIdle[2];
 	SDL_Texture *mageIndicator;
 	SDL_Texture *raiderIdle[2];
+	SDL_Texture *AlchemistIdle[2];
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures

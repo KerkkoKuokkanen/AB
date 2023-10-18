@@ -407,6 +407,12 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.poisonSym = use.sur;
 	gameState.textures.poisonSymbol = use.text;
 	gameState.textures.attacks.raiderBlock = get_texture(rend, "sprites/characters/raider/raiderBlock.png");
+	use = get_texture_and_surface(rend, "sprites/characters/alchemist/alchemist.png");
+	gameState.textures.chars.AlchemistIdle[0] = use.text;
+	gameState.surfaces.alchemistIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/alchemist/alchemist2.png");
+	gameState.textures.chars.AlchemistIdle[1] = use.text;
+	gameState.surfaces.alchemistIdle2 = use.sur;
 }
 
 void CraeteAudioThread()
@@ -428,10 +434,10 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	AudioCreateChannels(120);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(2560, 1600);
+	initScreen(1280, 720);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -468,7 +474,7 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	SDL_SetWindowFullscreen(wr->win, 1);
+	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 	CraeteAudioThread();
 }

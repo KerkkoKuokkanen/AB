@@ -24,7 +24,7 @@ static Vector getDir()
 	Vector ret(0.0f, -1.0f);
 	vectorRotate(ret, angle);
 	return (ret);
-}//
+}
 
 static float getSpeed()
 {

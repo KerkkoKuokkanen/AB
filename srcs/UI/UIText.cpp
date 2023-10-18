@@ -30,6 +30,9 @@ static std::string GetText(Character *character)
 		case RAIDER:
 			text += ": Raider";
 			break ;
+		case ALCHEMIST:
+			text += ": Alchemist";
+			break ;
 	}
 	return (text);
 }

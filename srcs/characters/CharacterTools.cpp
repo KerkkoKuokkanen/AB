@@ -235,5 +235,16 @@ void Character::CreateCharacterType(int skin)
 			stand = new Sprite(gameState.textures.stands.raiderStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
+		case ALCHEMIST:
+		{
+			SDL_Rect dest = {-3000, -450, 6800, 7960};
+			textures.push_back(gameState.textures.chars.AlchemistIdle[0]);
+			textures.push_back(gameState.textures.chars.AlchemistIdle[1]);
+			stands.push_back(gameState.textures.stands.pyroStand);
+			stands.push_back(gameState.textures.stands.pyroStand);
+			sprite = new Sprite(gameState.textures.chars.AlchemistIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.pyroStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
 	}
 }
