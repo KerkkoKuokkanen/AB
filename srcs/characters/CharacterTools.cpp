@@ -105,6 +105,11 @@ static void AssignDefaultRaiderAbilities(std::vector<t_Ability> &stats)
 	stat2->precentage = 15;
 }
 
+static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
+{
+
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
@@ -147,6 +152,12 @@ void Character::AssignAbilities()
 						{TOXIC_BLADE, 0, 10, 0, 200, StatStructs::TOXIC_BLADE, (-1), NULL},
 						{RAIDER_BLOCK, 0, 10, 0, 200, StatStructs::RAIDER_BLOCK, (-1), NULL}};
 			AssignDefaultRaiderAbilities(abilities);
+			break ;
+		case ALCHEMIST:
+			abilities = {{NAIL_BOMB, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{ACID_BOMB, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{SLOW_BOMB, 0, 10, 0, 200, StatStructs::ATTACK_STRUCT, (-1), NULL}};
+					AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		default:
 			return ;

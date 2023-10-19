@@ -413,6 +413,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/characters/alchemist/alchemist2.png");
 	gameState.textures.chars.AlchemistIdle[1] = use.text;
 	gameState.surfaces.alchemistIdle2 = use.sur;
+	gameState.textures.alchemistAbilities[0] = get_texture(rend, "sprites/UI/abilities/nailBomb.png");
+	gameState.textures.alchemistAbilities[1] = get_texture(rend, "sprites/UI/abilities/acidExplosion.png");
+	gameState.textures.alchemistAbilities[2] = get_texture(rend, "sprites/UI/abilities/slowDown.png");
 }
 
 void CraeteAudioThread()

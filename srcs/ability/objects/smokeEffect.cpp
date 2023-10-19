@@ -27,12 +27,12 @@ void SmokeEffect::CheckIfDone()
 	if (character != NULL && character->killed == false)
 	{
 		if (!turn && character->turn)
-		{
 			turn = true;
+		else if (turn && !character->turn)
+		{
+			turn = false;
 			time -= 1;
 		}
-		else if (turn && !character->turn)
-			turn = false;
 		return ;
 	}
 	if (!turn && gameState.updateObjs.turnOrder->turnStartActive)

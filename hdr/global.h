@@ -374,6 +374,7 @@ typedef struct s_Textures
 	SDL_Texture *raiderAbilities[4];
 	SDL_Texture *toxinSymbol;
 	SDL_Texture *poisonSymbol;
+	SDL_Texture *alchemistAbilities[3];
 }				t_Textures;
 
 typedef struct s_Audio

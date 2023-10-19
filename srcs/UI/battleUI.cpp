@@ -156,6 +156,15 @@ void CharacterUI::GetAbilities()
 			case RAIDER_BLOCK:
 				CreateButton(dest, gameState.textures.raiderAbilities[3], RAIDER_BLOCK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case NAIL_BOMB:
+				CreateButton(dest, gameState.textures.alchemistAbilities[0], RAIDER_BLOCK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case ACID_BOMB:
+				CreateButton(dest, gameState.textures.alchemistAbilities[1], RAIDER_BLOCK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case SLOW_BOMB:
+				CreateButton(dest, gameState.textures.alchemistAbilities[2], RAIDER_BLOCK, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }

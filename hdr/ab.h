@@ -62,7 +62,10 @@ enum {
 	AXE_SLASH,
 	AXE_JUMP,
 	TOXIC_BLADE,
-	RAIDER_BLOCK
+	RAIDER_BLOCK,
+	NAIL_BOMB,
+	ACID_BOMB,
+	SLOW_BOMB
 };
 
 namespace StatusSigns
