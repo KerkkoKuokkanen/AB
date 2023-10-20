@@ -93,6 +93,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			break ;
 		case ROCK_FALL:
 			phantSelector = new PhantomSelector(character, 10, &groundColoring);
+			phantSelector->SetDefaultAdditionals();
 			ExtendPhantSelector(character, phantSelector);
 			break ;
 		case HOST_EYES:

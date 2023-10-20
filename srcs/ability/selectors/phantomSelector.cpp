@@ -45,11 +45,11 @@ void ExtendPhantSelector(Character *mage, PhantomSelector *selector)
 	free(map);
 }
 
-PhantomSelector::PhantomSelector(Character *character, int range, GroundColoring *coloring)
+PhantomSelector::PhantomSelector(Character *character, int range, GroundColoring *coloring, int cleared)
 {
 	PhantomSelector::character = character;
 	PhantomSelector::coloring = coloring;
-	selector = new TileSelector(character->position, range, 4, coloring, false, true);
+	selector = new TileSelector(character->position, range, cleared, coloring, false);
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
 	{
 		for (int j = 0; j < gameState.battle.ground->map[0].size(); j++)
@@ -89,18 +89,57 @@ bool PhantomSelector::CheckPoint(SDL_Point ret)
 		gameState.battle.ground->map[ret.y][ret.x].additional.type == AdditionalObjects::TOOLBOX)
 		return (false);
 	return (true);
-}	//more sprite work
+}
+
+static int GetX(SDL_Point ret, SDL_Point additional)
+{
+	int yAdder = 0;
+	if (additional.y > 0)
+		yAdder = 1;
+	if (additional.y < 0)
+		yAdder = (-1);
+	if (additional.x < 0)
+	{
+		SDL_Point temp = ret;
+		for (int i = 0; i < abs(additional.x); i++)
+		{
+			temp.x = (additional.y != 0) ? getXToLeft(temp) : temp.x - 1;
+			temp.y += yAdder;
+			if (additional.y != 0)
+				additional.y -= yAdder;
+		}
+		return (temp.x);
+	}
+	if (additional.x > 0)
+	{
+		SDL_Point temp = ret;
+		for (int i = 0; i < additional.x; i++)
+		{
+			temp.x = (additional.y != 0) ? getXToRight(temp) : temp.x + 1;
+			temp.y += yAdder;
+			if (additional.y != 0)
+				additional.y -= yAdder;
+		}
+		return (temp.x);
+	}
+	return (ret.x);
+}
+
+static int GetY(SDL_Point ret, SDL_Point additional)
+{
+	return (ret.y + additional.y);
+}
 
 void PhantomSelector::HighlightAdditional(SDL_Point ret)
 {
 	if (ret.x == -1 || ret.y == -1)
 		return ;
-	int x1 = getXToRight(ret);
-	int x2 = getXToLeft(ret);
-	HighlightBlock({x1, ret.y + 1});
-	HighlightBlock({x1, ret.y - 1});
-	HighlightBlock({x2, ret.y + 1});
-	HighlightBlock({x2, ret.y - 1});
+	for (int i = 0; i < additionals.size(); i++)
+	{
+		int x = GetX(ret, additionals[i]);
+		int y = GetY(ret, additionals[i]);
+		HighlightBlock({x, y});
+	}
 }
 
 void PhantomSelector::Update()
@@ -132,6 +171,17 @@ std::vector<SDL_Point> &PhantomSelector::GetTargets()
 	if (CheckPoint({x2, pos.y - 1}))
 		targets.push_back({x2, pos.y - 1});
 	return (targets);
+}
+
+void PhantomSelector::SetAdditionalHighlights(std::vector<SDL_Point> additionals)
+{
+	for (int i = 0; i < additionals.size(); i++)
+		PhantomSelector::additionals.push_back(additionals[i]);
+}
+
+void PhantomSelector::SetDefaultAdditionals()
+{
+	additionals = {{-1, -1}, {-1, 1}, {1, 1}, {1, -1}};
 }
 
 void PhantomSelector::Destroy()

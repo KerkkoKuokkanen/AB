@@ -8,6 +8,7 @@ class PhantomSelector
 {
 	private:
 		std::vector<SDL_Point> targets = {};
+		std::vector<SDL_Point> additionals = {};
 		Character *character;
 		SDL_Point pos = {-1, -1};
 		GroundColoring *coloring;
@@ -17,9 +18,11 @@ class PhantomSelector
 		bool CheckPoint(SDL_Point ret);
 	public:
 		bool done = false;
-		PhantomSelector(Character *character, int range, GroundColoring *coloring);
+		PhantomSelector(Character *character, int range, GroundColoring *coloring, int cleared = 4);
 		~PhantomSelector() {Destroy();};
 		std::vector<SDL_Point> &GetTargets();
+		void SetAdditionalHighlights(std::vector<SDL_Point> additionals);
+		void SetDefaultAdditionals();
 		void IncludePoint(SDL_Point pos) {selector->IncludePoint(pos);};
 		void Update();
 		void Destroy();
