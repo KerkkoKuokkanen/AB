@@ -5,6 +5,63 @@
 void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap);
 void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap);
 
+int GetFromPointX(SDL_Point position, SDL_Point nextPoint)
+{
+	int yAdder = 0;
+	if (nextPoint.y > 0)
+		yAdder = 1;
+	if (nextPoint.y < 0)
+		yAdder = (-1);
+	if (nextPoint.x < 0)
+	{
+		SDL_Point temp = position;
+		for (int i = 0; i < abs(nextPoint.x); i++)
+		{
+			temp.x = (nextPoint.y != 0) ? getXToLeft(temp) : temp.x - 1;
+			temp.y += yAdder;
+			if (nextPoint.y != 0)
+				nextPoint.y -= yAdder;
+		}
+		return (temp.x);
+	}
+	if (nextPoint.x > 0)
+	{
+		SDL_Point temp = position;
+		for (int i = 0; i < nextPoint.x; i++)
+		{
+			temp.x = (nextPoint.y != 0) ? getXToRight(temp) : temp.x + 1;
+			temp.y += yAdder;
+			if (nextPoint.y != 0)
+				nextPoint.y -= yAdder;
+		}
+		return (temp.x);
+	}
+	return (position.x);
+}
+
+int GetFromPointY(SDL_Point position, SDL_Point nextPoint)
+{
+	return (position.y + nextPoint.y);
+}
+
+SDL_Point GetPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint)
+{
+	int x = GetFromPointX(position, nextPoint);
+	int y = GetFromPointY(position, nextPoint);
+	SDL_Point ret = {x, y};
+	return (ret);
+}
+
+SDL_Point GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint)
+{
+	SDL_Point ret = GetPositionFromCoordinates(position, nextPoint);
+	if (ret.x < 0 || ret.x >= gameState.battle.ground->map[0].size())
+		return (position);
+	if (ret.y < 0 || ret.y >= gameState.battle.ground->map.size())
+		return (position);
+	return (ret);
+}
+
 void findMovablesStatic(int **map, int moves, SDL_Point start)
 {
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)

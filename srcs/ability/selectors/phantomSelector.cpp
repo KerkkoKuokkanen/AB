@@ -91,54 +91,14 @@ bool PhantomSelector::CheckPoint(SDL_Point ret)
 	return (true);
 }
 
-static int GetX(SDL_Point ret, SDL_Point additional)
-{
-	int yAdder = 0;
-	if (additional.y > 0)
-		yAdder = 1;
-	if (additional.y < 0)
-		yAdder = (-1);
-	if (additional.x < 0)
-	{
-		SDL_Point temp = ret;
-		for (int i = 0; i < abs(additional.x); i++)
-		{
-			temp.x = (additional.y != 0) ? getXToLeft(temp) : temp.x - 1;
-			temp.y += yAdder;
-			if (additional.y != 0)
-				additional.y -= yAdder;
-		}
-		return (temp.x);
-	}
-	if (additional.x > 0)
-	{
-		SDL_Point temp = ret;
-		for (int i = 0; i < additional.x; i++)
-		{
-			temp.x = (additional.y != 0) ? getXToRight(temp) : temp.x + 1;
-			temp.y += yAdder;
-			if (additional.y != 0)
-				additional.y -= yAdder;
-		}
-		return (temp.x);
-	}
-	return (ret.x);
-}
-
-static int GetY(SDL_Point ret, SDL_Point additional)
-{
-	return (ret.y + additional.y);
-}
-
 void PhantomSelector::HighlightAdditional(SDL_Point ret)
 {
 	if (ret.x == -1 || ret.y == -1)
 		return ;
 	for (int i = 0; i < additionals.size(); i++)
 	{
-		int x = GetX(ret, additionals[i]);
-		int y = GetY(ret, additionals[i]);
-		HighlightBlock({x, y});
+		SDL_Point add = GetPositionFromCoordinates(ret, additionals[i]);
+		HighlightBlock(add);
 	}
 }
 
