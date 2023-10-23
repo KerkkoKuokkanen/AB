@@ -8,11 +8,11 @@ TurnIndicator::TurnIndicator()
 
 void TurnIndicator::Update()
 {
-	static int p = 0;
-	p++;
 	if (chosen == NULL)
 		return ;
 	if (!chosen->ally)
+		return ;
+	if (gameState.updateObjs.abilities->active)
 		return ;
 	SDL_Point pos = FindCharacter(chosen);
 	if (pos.x == -1 || pos.y == -1)

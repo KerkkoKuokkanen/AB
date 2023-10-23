@@ -119,17 +119,13 @@ std::vector<SDL_Point> &PhantomSelector::GetTargets()
 {
 	if (pos.x == -1)
 		return (targets);
-	int x1 = getXToRight(pos);
-	int x2 = getXToLeft(pos);
 	targets.push_back(pos);
-	if (CheckPoint({x1, pos.y + 1}))
-		targets.push_back({x1, pos.y + 1});
-	if (CheckPoint({x1, pos.y - 1}))
-		targets.push_back({x1, pos.y - 1});
-	if (CheckPoint({x2, pos.y + 1}))
-		targets.push_back({x2, pos.y + 1});
-	if (CheckPoint({x2, pos.y - 1}))
-		targets.push_back({x2, pos.y - 1});
+	for (int i = 0; i < additionals.size(); i++)
+	{
+		SDL_Point add = GetPositionFromCoordinates(pos, additionals[i]);
+		if (CheckPoint(add))
+			targets.push_back(add);
+	}
 	return (targets);
 }
 

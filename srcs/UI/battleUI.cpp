@@ -540,5 +540,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case RAIDER_BLOCK:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(RAIDER_BLOCK), activeCharacter);
 			break ;
+		case NAIL_BOMB:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(NAIL_BOMB), activeCharacter);
+			break ;
 	}
 }

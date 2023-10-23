@@ -165,6 +165,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/pickUpToolBox.h"
 # include "ability/animation/supplyAlly.h"
 # include "ability/animation/axeSlash.h"
+# include "ability/animation/nailBomb.h"
 # include "ability/animation/axeJumpAnim.h"
 # include "ability/animation/thoolThrowAnim.h"
 # include "ability/animation/toxinBuff.h"

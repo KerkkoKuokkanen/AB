@@ -304,6 +304,9 @@ typedef struct s_AttackTextures
 	SDL_Texture *axeJump;
 	SDL_Texture *jumpSlash[2];
 	SDL_Texture *raiderBlock;
+	SDL_Texture *alchemistThrow[2];
+	SDL_Texture *bombs[3];
+	SDL_Texture *nail;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites

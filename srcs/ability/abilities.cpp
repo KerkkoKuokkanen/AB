@@ -113,6 +113,11 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case RAIDER_BLOCK:
 			ActivateAbility(ability, character);
 			break ;
+		case NAIL_BOMB:
+			phantSelector = new PhantomSelector(character, 9, &groundColoring, 0);
+			phantSelector->RemovePoint(character->position);
+			phantSelector->SetDefaultAdditionals();
+			break ;
 	}
 }
 
@@ -208,6 +213,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case RAIDER_BLOCK:
 			animations.push_back({new RaiderBlock(character), RAIDER_BLOCK});
+			break ;
+		case NAIL_BOMB:
+			animations.push_back({new NailBomb(character, targPoints[0]), NAIL_BOMB});
 			break ;
 	}
 }
@@ -387,6 +395,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case RAIDER:
 				UpdateRaiderAnimation(animations[i], i);
+				break ;
+			case ALCHEMIST:
+				UpdateAlchemistAnimation(animations[i], i);
 				break ;
 		}
 	}

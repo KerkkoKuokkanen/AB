@@ -416,6 +416,12 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.alchemistAbilities[0] = get_texture(rend, "sprites/UI/abilities/nailBomb.png");
 	gameState.textures.alchemistAbilities[1] = get_texture(rend, "sprites/UI/abilities/acidExplosion.png");
 	gameState.textures.alchemistAbilities[2] = get_texture(rend, "sprites/UI/abilities/slowDown.png");
+	gameState.textures.attacks.alchemistThrow[0] = get_texture(rend, "sprites/characters/alchemist/alchemistThrow.png");
+	gameState.textures.attacks.alchemistThrow[1] = get_texture(rend, "sprites/characters/alchemist/alchemistThrowTrail.png");
+	gameState.textures.attacks.bombs[0] = get_texture(rend, "sprites/attacks/nailBomb.png");
+	gameState.textures.attacks.bombs[1] = get_texture(rend, "sprites/attacks/acidBomb.png");
+	gameState.textures.attacks.bombs[2] = get_texture(rend, "sprites/attacks/slowDownBomb.png");
+	gameState.textures.attacks.nail = get_texture(rend, "sprites/attacks/nail.png");
 }
 
 void CraeteAudioThread()

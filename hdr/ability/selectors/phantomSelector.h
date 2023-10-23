@@ -24,6 +24,7 @@ class PhantomSelector
 		void SetAdditionalHighlights(std::vector<SDL_Point> additionals);
 		void SetDefaultAdditionals();
 		void IncludePoint(SDL_Point pos) {selector->IncludePoint(pos);};
+		void RemovePoint(SDL_Point pos) {selector->RemovePoint(pos);};
 		void Update();
 		void Destroy();
 };
