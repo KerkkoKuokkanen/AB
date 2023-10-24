@@ -161,6 +161,8 @@ void getAudio()
 	gameState.audio.poison = Mix_LoadWAV("audio/effects/poison.wav");
 	gameState.audio.toxicBlade = Mix_LoadWAV("audio/abilities/raider/toxicBlade.wav");
 	gameState.audio.raiderBlock = Mix_LoadWAV("audio/abilities/raider/block.wav");
+	gameState.audio.nailBomb = Mix_LoadWAV("audio/abilities/alchemist/nailBomb.wav");
+	gameState.audio.bleed = Mix_LoadWAV("audio/effects/bleed.wav");
 }
 
 void getFonts()
@@ -422,6 +424,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.bombs[1] = get_texture(rend, "sprites/attacks/acidBomb.png");
 	gameState.textures.attacks.bombs[2] = get_texture(rend, "sprites/attacks/slowDownBomb.png");
 	gameState.textures.attacks.nail = get_texture(rend, "sprites/attacks/nail.png");
+	use = get_texture_and_surface(rend, "sprites/effects/bleedSym.png");
+	gameState.textures.bleedSymbol = use.text;
+	gameState.surfaces.bleedSymbol = use.sur;
 }
 
 void CraeteAudioThread()

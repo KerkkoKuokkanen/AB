@@ -107,7 +107,13 @@ static void AssignDefaultRaiderAbilities(std::vector<t_Ability> &stats)
 
 static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 {
-
+	stats[0].stats = (void*)malloc(sizeof(t_DamageBomb));
+	t_DamageBomb *stat0 = (t_DamageBomb*)stats[0].stats;
+	stat0->additionalBlocks = false;
+	stat0->critChance = 1;
+	stat0->stacks = 6;
+	stat0->statusChance = 65;
+	stat0->version = 7;
 }
 
 void Character::AssignAbilities()
@@ -154,10 +160,10 @@ void Character::AssignAbilities()
 			AssignDefaultRaiderAbilities(abilities);
 			break ;
 		case ALCHEMIST:
-			abilities = {{NAIL_BOMB, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
-						{ACID_BOMB, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+			abilities = {{NAIL_BOMB, 0, 10, 0, 80, StatStructs::BOMB_STRUCT, (-1), NULL},
+						{ACID_BOMB, 0, 10, 0, 80, StatStructs::BOMB_STRUCT, (-1), NULL},
 						{SLOW_BOMB, 0, 10, 0, 200, StatStructs::ATTACK_STRUCT, (-1), NULL}};
-					AssignDefaultAlchemistAbilities(abilities);
+			AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		default:
 			return ;

@@ -10,10 +10,11 @@ static Vector GetDirection(SDL_Point cPoint, SDL_Point tPoint)
 	return (dir);
 }
 
-NailBomb::NailBomb(Character *character, SDL_Point target)
+NailBomb::NailBomb(Character *character, SDL_Point target, t_Ability *ability)
 {
 	NailBomb::character = character;
 	NailBomb::target = target;
+	NailBomb::ability = ability;
 	character->setAnimationActive(true);
 	mover = new CharacterMover(character, GetDirection(character->position, target), 12, 12, 200.0f);
 }
@@ -33,6 +34,7 @@ static float GetHeightForThrow(SDL_Point start, SDL_Point end)
 
 void NailBomb::StartThrow()
 {
+	PlaySound(gameState.audio.toolThrow, Channels::TOOL_THROW, 0);
 	character->sprite->dest.x += 200;
 	character->sprite->setTexture(gameState.textures.attacks.alchemistThrow[0]);
 	trail = new Sprite(gameState.textures.attacks.alchemistThrow[1], character->sprite->dest, NULL, NULL, 0, FLIP_NONE);
@@ -60,6 +62,11 @@ void NailBomb::UpdateBomb()
 	bomb->addAngle(15.0f);
 	if (arch->done)
 	{
+		PlaySound(gameState.audio.nailBomb, Channels::VOLUME_18, 0);
+		SetScreenShake(200, 6);
+		SDL_Point pos = {bomb->dest.x + 800, bomb->dest.y + 400};
+		t_DamageBomb *used = (t_DamageBomb*)ability->stats;
+		new NailBombBlast(pos, used->version);
 		delete arch;
 		delete bomb;
 		arch = NULL;

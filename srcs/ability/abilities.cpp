@@ -114,10 +114,15 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			ActivateAbility(ability, character);
 			break ;
 		case NAIL_BOMB:
+		{
 			phantSelector = new PhantomSelector(character, 9, &groundColoring, 0);
 			phantSelector->RemovePoint(character->position);
 			phantSelector->SetDefaultAdditionals();
+			t_DamageBomb *used = (t_DamageBomb*)ability->stats;
+			if (used->additionalBlocks)
+				phantSelector->SetAdditionalHighlights({{0, -2}, {0, 2}, {-1, 0}, {1, 0}});
 			break ;
+		}
 	}
 }
 
@@ -215,7 +220,7 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			animations.push_back({new RaiderBlock(character), RAIDER_BLOCK});
 			break ;
 		case NAIL_BOMB:
-			animations.push_back({new NailBomb(character, targPoints[0]), NAIL_BOMB});
+			animations.push_back({new NailBomb(character, targPoints[0], ability), NAIL_BOMB});
 			break ;
 	}
 }
@@ -436,6 +441,11 @@ void Abilities::AbilityStatus()
 void Abilities::CreateOpportunityDamage(Character *damager, Character *target)
 {
 	Abilities::damager.AddOpportunityDamage(damager, target);
+}
+
+void Abilities::CreateBleedDamage(Character *target, int amount)
+{
+	damager.AddBleedDamage(target, amount);
 }
 
 void Abilities::CreatePoisonDamage(Character *target, int amount)

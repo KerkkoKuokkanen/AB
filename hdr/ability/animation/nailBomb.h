@@ -13,6 +13,7 @@ class NailBomb
 		Sprite *bomb = NULL;
 		SDL_Point target;
 		Sprite *trail = NULL;
+		t_Ability *ability;
 		void StartThrow();
 		void UpdateTrail(int ret);
 		void UpdateMover();
@@ -24,7 +25,7 @@ class NailBomb
 	public:
 		bool done = false;
 		bool createDamage = false;
-		NailBomb(Character *character, SDL_Point target);
+		NailBomb(Character *character, SDL_Point target, t_Ability *ability);
 		~NailBomb() {Destroy();};
 		void Update();
 		void Destroy();

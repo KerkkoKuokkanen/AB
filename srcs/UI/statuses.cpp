@@ -101,6 +101,15 @@ bool Statuses::GetMouseOverStatuses()
 					return (true);
 				break ;
 			}
+			case StatusSigns::BLEED:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.bleedSymbol, dst1, x, y))
+					return (true);
+				break ;
+			}
 		}
 	}
 	return (false);
@@ -363,6 +372,27 @@ void Statuses::CreateFrestStatus(int statusSign)
 			statuses.push_back({add, StatusSigns::POISON, num});
 			break ;
 		}
+		case StatusSigns::BLEED:
+		{
+			add.sprite = new Sprite(gameState.textures.bleedSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			int num = (int)character->statuses.bleed.size();
+			if (num > 0)
+			{
+				num = (num > 999) ? 999 : num;
+				std::string used = std::to_string(num);
+				const char *text = used.c_str();
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet->SetOrderLayer(3);
+				add.snippet->SetOutlineColor(50, 50, 50);
+				add.snippet->SetAlphaMod(200);
+			}
+			else
+				add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::BLEED, num});
+			break ;
+		}
 	}
 	if (onlyOne)
 	{
@@ -413,6 +443,11 @@ void Statuses::CheckIfNeedToCreateStatuses()
 	{
 		if (!AlreadyExists(StatusSigns::POISON))
 			CreateFrestStatus(StatusSigns::POISON);
+	}
+	if (character->statuses.bleed.size() != 0)
+	{
+		if (!AlreadyExists(StatusSigns::BLEED))
+			CreateFrestStatus(StatusSigns::BLEED);
 	}
 }
 
@@ -473,6 +508,15 @@ void Statuses::CheckIfNewStatuses()
 			case StatusSigns::POISON:
 			{
 				int amount = (int)character->statuses.poison.size();
+				amount = (amount > 999) ? 999 : amount;
+				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
+				if (amount != num)
+					ChangeAmount(i, amount, num);
+				break ;
+			}
+			case StatusSigns::BLEED:
+			{
+				int amount = (int)character->statuses.bleed.size();
 				amount = (amount > 999) ? 999 : amount;
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)

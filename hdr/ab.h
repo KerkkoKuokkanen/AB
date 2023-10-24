@@ -78,7 +78,8 @@ namespace StatusSigns
 		HOST,
 		HOSTING,
 		TOXIC_BLADE,
-		POISON
+		POISON,
+		BLEED
 	};
 };
 
@@ -141,6 +142,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "objects/objUpdate.h"
 # include "effects/buffEffect.h"
 # include "effects/hostEffect.h"
+# include "effects/nailBombBlast.h"
 # include "effects/hostEyesEffect.h"
 # include "info/healthColoring.h"
 # include "info/supplyEffect.h"
@@ -345,7 +347,7 @@ SDL_Point	GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoin
 
 void PrintStat();
 
-void		CreatePoisonSnippet(Character *target, int amount);
+void		CreatePoisonSnippet(Character *target, int totalAmount, Color color);
 void		CreateDamageSnippet(Character *damager, Character *target, int totalDamage, bool opportunity = false);
 void		CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color);
 void		CreateMiss(SDL_Point damager, SDL_Point target, Character *targ, bool sound = false);

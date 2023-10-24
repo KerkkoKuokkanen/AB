@@ -19,6 +19,7 @@ class Info
 		std::vector<SupplyEffect*> supplyEffects;
 		std::vector<BuffEffect*> buffEffects;
 		std::vector<HostEffect*> hostEffects;
+		std::vector<NailBombBlast*> nailBombs;
 		void UpdateSnippets();
 		void FindHoveredCharacter();
 		bool KilledOrDamaged();
@@ -26,6 +27,7 @@ class Info
 		void UpdateSupplyEffects();
 		void UpdateBuffEffects();
 		void UpdateHostEffects();
+		void UpdateBombEffects();
 	public:
 		bool overInfo = false;
 		Info();
@@ -34,6 +36,7 @@ class Info
 		void AddSupplyEffect(SupplyEffect *add) {supplyEffects.push_back(add);};
 		void AddBuffEffect(BuffEffect *add) {buffEffects.push_back(add);};
 		void AddHostEffect(HostEffect *add) {hostEffects.push_back(add);};
+		void AddBombEffect(void *effect, int abilityType);
 		void AddColorEffect(Sprite *sprite, int time, Color color, int delay) {colorEffects->AddEffect(sprite, time, color, delay);};
 		void InitHealthColoring() {healthColoring = new HealthColoring;};
 		void Update();

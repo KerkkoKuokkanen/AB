@@ -223,6 +223,12 @@ static int GetStatusChance(t_Ability *ability, Character *character)
 			chance = used->enemyChance;
 			return (chance);
 		}
+		case StatStructs::BOMB_STRUCT:
+		{
+			t_DamageBomb *used = (t_DamageBomb*)ability->stats;
+			chance = used->statusChance;
+			return (chance);
+		}
 	}
 	return (chance);
 }

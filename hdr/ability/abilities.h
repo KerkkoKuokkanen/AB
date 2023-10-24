@@ -61,6 +61,7 @@ class Abilities
 		void UpdatePyroAnimation(t_Animation &animation, int index);
 		void UpdateAlchemistAnimation(t_Animation &anim, int index);
 		void PyroIncinerateDamage();
+		void CreateBombDamages();
 		void AbilityStatus();
 		void CreateDamage(bool sound = true);
 		void UpdateSelector();
@@ -96,6 +97,7 @@ class Abilities
 		void ClearMap();
 		void CreateOpportunityDamage(Character *damager, Character *target);
 		void CreatePoisonDamage(Character *target, int amount);
+		void CreateBleedDamage(Character *target, int amount);
 };
 
 #endif

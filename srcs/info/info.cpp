@@ -129,6 +129,31 @@ void Info::UpdateHostEffects()
 	}
 }
 
+void Info::UpdateBombEffects()
+{
+	for (int i = 0; i < nailBombs.size(); i++)
+	{
+		nailBombs[i]->Update();
+		if (nailBombs[i]->done)
+		{
+			delete nailBombs[i];
+			nailBombs.erase(nailBombs.begin() + i);
+			i = (nailBombs.size() == 0) ? 0 : i - 1;
+		}
+	}
+}
+
+void Info::AddBombEffect(void *effect, int abilityType)
+{
+	switch (abilityType)
+	{
+		case NAIL_BOMB:
+			NailBombBlast *used = (NailBombBlast*)effect;
+			nailBombs.push_back(used);
+			break ;
+	}
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
@@ -137,6 +162,7 @@ void Info::Update()
 	UpdateSupplyEffects();
 	UpdateBuffEffects();
 	UpdateHostEffects();
+	UpdateBombEffects();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();
@@ -164,5 +190,11 @@ void Info::Destroy()
 	snippets.clear();
 	for (int i = 0; i < supplyEffects.size(); i++)
 		delete supplyEffects[i];
+	for (int i = 0; i < nailBombs.size(); i++)
+		delete nailBombs[i];
+	for (int i = 0; i < hostEffects.size(); i++)
+		delete hostEffects[i];
+	for (int i = 0; i < buffEffects.size(); i++)
+		delete buffEffects[i];
 	supplyEffects.clear();
 }

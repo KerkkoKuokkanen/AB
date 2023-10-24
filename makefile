@@ -32,7 +32,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/switches/raiderUpdates.cpp srcs/info/healthColoring.cpp srcs/ability/selectors/axeJumpSelector.cpp \
 		srcs/ability/selectors/axeJumpTilePositions.cpp srcs/ability/animation/axeJumpAnim.cpp \
 		srcs/ability/damages/abilityOpportunity.cpp srcs/ability/animation/toxinBuff.cpp srcs/info/colorEffect.cpp \
-		srcs/ability/animation/raiderBlock.cpp srcs/ability/animation/nailBomb.cpp srcs/ability/switches/alchemistUpdates.cpp
+		srcs/ability/animation/raiderBlock.cpp srcs/ability/animation/nailBomb.cpp srcs/ability/switches/alchemistUpdates.cpp \
+		srcs/effects/nailBombBlast.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

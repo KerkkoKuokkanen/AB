@@ -22,13 +22,13 @@ static Vector GetTextDirection(bool left)
 	if (left)
 	{
 		Vector dir(0.0f, -1.0f);
-		int angle = -70;
+		int angle = -75;
 		float rads = (float)angle * (PI / 180.0f);
 		vectorRotate(dir, rads);
 		return (dir.Normalized());
 	}
 	Vector dir(0.0f, -1.0f);
-	int angle = 70;
+	int angle = 75;
 	float rads = (float)angle * (PI / 180.0f);
 	vectorRotate(dir, rads);
 	return (dir.Normalized());
@@ -82,7 +82,7 @@ int GetAmount(int size)
 	return (rounding(amount));
 }
 
-void CreatePoisonSnippet(Character *target, int totalAmount)
+void CreatePoisonSnippet(Character *target, int totalAmount, Color color)
 {
 	SDL_Point pos = target->topMid;
 	bool dirTest = target->ally;
@@ -101,8 +101,7 @@ void CreatePoisonSnippet(Character *target, int totalAmount)
 	used->SetOrdering(orderLayer);
 	float speed = (float)(rand() % 310 + 200);
 	used->SetSpeed(speed);
-	Color ret(28, 138, 0);
-	used->SetColor(ret.r, ret.g, ret.b);
+	used->SetColor(color.r, color.g, color.b);
 	orderLayer += 2;
 	if (orderLayer >= 2147483600)
 		orderLayer = 0;

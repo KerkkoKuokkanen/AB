@@ -17,7 +17,8 @@ namespace StatStructs
 		BUFF_AND_DEBUFF,
 		HOST_EYES,
 		TOXIC_BLADE,
-		RAIDER_BLOCK
+		RAIDER_BLOCK,
+		BOMB_STRUCT
 	};
 };
 
@@ -79,6 +80,15 @@ typedef struct s_ToxicStat
 	int turns;
 }				t_ToxicStat;
 
+typedef struct s_DamageBomb
+{
+	int critChance;
+	int version;
+	bool additionalBlocks;
+	int stacks;
+	int statusChance;
+}				t_DamageBomb;
+
 typedef struct s_StatusEffects
 {
 	std::vector<int> burns;
@@ -86,6 +96,7 @@ typedef struct s_StatusEffects
 	std::vector<t_BuffDebuff> deBuffs;
 	std::vector<t_ToxicStat> toxicBlade;
 	std::vector<int> poison;
+	std::vector<int> bleed;
 	void *hosting;
 	bool hosted;
 	int stun;

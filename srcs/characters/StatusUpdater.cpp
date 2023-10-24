@@ -31,6 +31,13 @@ static void ApplyPoison(Character *character)
 	gameState.updateObjs.abilities->CreatePoisonDamage(character, (int)character->statuses.poison.size());
 }
 
+static void ApplyBleed(Character *character)
+{
+	if (character->killed)
+		return ;
+	gameState.updateObjs.abilities->CreateBleedDamage(character, (int)character->statuses.bleed.size());
+}
+
 static void ManageStatuses(Character *character)
 {
 	if (character == NULL)
@@ -54,6 +61,17 @@ static void ManageStatuses(Character *character)
 		{
 			statuses.poison.erase(statuses.poison.begin() + i);
 			i = (statuses.poison.size() == 0) ? 0 : i - 1;
+		}
+	}
+	if (statuses.bleed.size() != 0)
+		ApplyBleed(character);
+	for (int i = 0; i < statuses.bleed.size(); i++)
+	{
+		statuses.bleed[i] -= 1;
+		if (statuses.bleed[i] <= 0)
+		{
+			statuses.bleed.erase(statuses.bleed.begin() + i);
+			i = (statuses.bleed.size() == 0) ? 0 : i - 1;
 		}
 	}
 	if (statuses.stun > 0)
