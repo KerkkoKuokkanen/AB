@@ -73,6 +73,8 @@ bool AbilityOpportunity::CheckValid(SDL_Point pos)
 		return (false);
 	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
 		return (false);
+	if (CheckIfSmoked(pos))
+		return (false);
 	if (CheckForAdditionalValid(target, pos))
 		return (true);
 	Character *ret = gameState.battle.ground->map[pos.y][pos.x].character;
@@ -83,8 +85,6 @@ bool AbilityOpportunity::CheckValid(SDL_Point pos)
 	if (ret->ally == target->ally)
 		return (false);
 	if (ret->statuses.stun != 0)
-		return (false);
-	if (CheckIfSmoked(pos))
 		return (false);
 	return (true);
 }
