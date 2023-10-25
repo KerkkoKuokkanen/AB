@@ -188,6 +188,11 @@ static void ManageHosting()
 	}
 }
 
+static void AddEnergy(Character *character)
+{
+	character->moves = (character->moves + 9 > 12) ? 12 : character->moves + 9;
+}
+
 void UpdateStatuses()
 {
 	Character *ret = FindTheCharacter();
@@ -199,6 +204,7 @@ void UpdateStatuses()
 		current = ret;
 		if (current == NULL)
 			return ;
+		AddEnergy(current);
 		BuffsAtStart(current);
 		ManageStatuses(current);
 	}

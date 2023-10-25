@@ -75,7 +75,9 @@ void BattleGround::SetMovables(Character *character)
 	SDL_Point pos = character->getCoord();
 	toolMap[pos.y][pos.x] = 0;
 	map[pos.y][pos.x].highlited = highLightSign;
-	IterMapMovables(pos, 0, character->moves, highLightSign);
+	int moves = (character->turn) ? character->moves : character->moves + 9;
+	moves = (moves > 12) ? 12 : moves;
+	IterMapMovables(pos, 0, moves, highLightSign);
 }
 
 void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign)

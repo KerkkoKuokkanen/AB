@@ -72,14 +72,27 @@ Character *OpportunityAttack::AnyOneMoving()
 	return (ret);
 }
 
+static bool CheckForAdditionalValid(Character *target, SDL_Point pos)
+{
+	t_GMU *used = &gameState.battle.ground->map[pos.y][pos.x];
+	if (used->additional.object == NULL)
+		return (false);
+	if (used->additional.type != AdditionalObjects::PHANTOM_KNIGHT)
+		return (false);
+	PhantomKnight *ret = (PhantomKnight*)used->additional.object;
+	Character *PC = ret->character;
+	if (PC->ally == target->ally)
+		return (false);
+	return (true);
+}
+
 bool OpportunityAttack::CheckValid(SDL_Point pos)
 {
 	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
 		return (false);
 	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
 		return (false);
-	if (gameState.battle.ground->map[pos.y][pos.x].additional.type == AdditionalObjects::PHANTOM_KNIGHT &&
-		gameState.battle.ground->map[pos.y][pos.x].additional.object != NULL)
+	if (CheckForAdditionalValid(target, pos))
 		return (true);
 	Character *ret = gameState.battle.ground->map[pos.y][pos.x].character;
 	if (ret == NULL)
