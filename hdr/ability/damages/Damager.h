@@ -20,10 +20,10 @@ class Damager
 		std::vector<Character*> targets;
 		std::vector<t_Bars> bars;
 		std::vector<AddStatus*> statuses = {};
-		Vector GetDirection(Character *character, Character *target);
+		Vector GetDirection(SDL_Point character, Character *target);
 	public:
 		void AddDamage(t_Ability *ability, Character *character, std::vector<SDL_Point> &targets, bool sound = true);
-		void AddOpportunityDamage(Character *damager, Character *target);
+		void AddOpportunityDamage(SDL_Point damager, Character *target);
 		void AddPoisonDamage(Character *target, int amount);
 		void AddBleedDamage(Character *target, int amount);
 		void Update();

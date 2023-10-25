@@ -62,7 +62,7 @@ void NailBomb::UpdateBomb()
 	bomb->addAngle(15.0f);
 	if (arch->done)
 	{
-		PlaySound(gameState.audio.nailBomb, Channels::VOLUME_18, 0);
+		PlaySound(gameState.audio.nailBomb, Channels::VOLUME_14, 0);
 		SetScreenShake(200, 6);
 		SDL_Point pos = {bomb->dest.x + 800, bomb->dest.y + 400};
 		t_DamageBomb *used = (t_DamageBomb*)ability->stats;

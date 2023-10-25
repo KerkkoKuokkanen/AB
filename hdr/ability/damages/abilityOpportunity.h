@@ -9,15 +9,16 @@ class AbilityOpportunity
 	private:
 		bool triedForAxe = false;
 		bool hits = false;
-		CharacterMover *mover = NULL;
+		SpriteMover *mover = NULL;
 		Character *target = NULL;
+		t_Damager damager = {NULL, 0};
 		Character *GetTarget();
-		Character *GetDamager(Character *target);
-		Character *CheckValid(SDL_Point pos);
+		t_Damager GetDamager(Character *target);
+		bool CheckValid(SDL_Point pos);
 		void AxeSlashUpdate();
 		void CreateDamageOrMiss();
 		void ManageAbilityType();
-		void StartDamage(Character *damager);
+		void StartDamage();
 	public:
 		~AbilityOpportunity() {Destroy();};
 		void Update();

@@ -48,7 +48,7 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stats[1].stats = (void*)malloc(sizeof(t_PhantomKnight));
 	t_PhantomKnight *stat1 = (t_PhantomKnight*)stats[1].stats;
 	stat1->hits = 1;
-	stat1->opportunity = false;
+	stat1->opportunity = true;
 	stat1->turns = 1;
 	stats[2].stats = (void*)malloc(sizeof(int));
 	int *stat2 = (int*)stats[2].stats;

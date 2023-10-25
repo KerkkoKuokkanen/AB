@@ -106,14 +106,14 @@ void BattleGround::AddDust(SDL_Point curr, SDL_Point next)
 Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float unit, Vector highPoint, SDL_Point curr, SDL_Point next)
 {
 	Vector place(0, 0);
-	float angle = (movedCharacter.iterator < 14) ? 7.0f : 0.0f;
+	float angle = (movedCharacter.iterator < 10) ? 5.0f : 0.0f;
 	float sign = 1.0f;
 	if (MovingLeft(curr, next))
 	{
 		sign = (-1.0f);
-		angle = (movedCharacter.iterator < 14) ? -7.0f : 0.0f;
+		angle = (movedCharacter.iterator < 10) ? -5.0f : 0.0f;
 	}
-	if (movedCharacter.iterator < 14)
+	if (movedCharacter.iterator < 10)
 	{
 		angle = angle - ((0.538f * (float)movedCharacter.iterator) * sign);
 		movedCharacter.character->sprite->setAngle(angle);
@@ -127,7 +127,7 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 	}
 	else
 	{
-		angle = angle - ((0.538f * ((float)movedCharacter.iterator - 14.0f)) * sign);
+		angle = angle - ((0.538f * ((float)movedCharacter.iterator - 10.0f)) * sign);
 		movedCharacter.character->sprite->setAngle(angle);
 		movedCharacter.character->stand->setAngle(angle);
 		int index = next.y * map[0].size() + next.x;
@@ -135,7 +135,7 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 			sprites[index][sprites[index].size() - 1].ColorMod(195, 255, 195);
 		else
 			sprites[index][sprites[index].size() - 1].ColorMod(255, 181, 181);
-		if (movedCharacter.iterator == 15)
+		if (movedCharacter.iterator == 11)
 		{
 			movedCharacter.character->sprite->orderLayer = next.y;
 			movedCharacter.character->stand->orderLayer = next.y;
@@ -149,7 +149,7 @@ Vector BattleGround::GetPlaceWithIterator(Vector ogPos, Vector newPos, float uni
 
 void BattleGround::MangeIterator(Vector newPos)
 {
-	if (movedCharacter.iterator >= 28)
+	if (movedCharacter.iterator >= 20)
 	{
 		movedCharacter.iterator = 0;
 		movedCharacter.index += 1;
@@ -185,7 +185,7 @@ void BattleGround::MoveCharacter()
 	Vector newPos = GetCharacterCoord(next, movedCharacter.character);
 	float highValue = (ogPos.y < newPos.y) ? ogPos.y : newPos.y;
 	Vector highPoint(ogPos.x + (newPos.x - ogPos.x) / 2.0f, highValue - 1250.0f);
-	float unit = (newPos.x - ogPos.x) / 28.0f;
+	float unit = (newPos.x - ogPos.x) / 20.0f;
 	Vector place = GetPlaceWithIterator(ogPos, newPos, unit, highPoint, curr, next);
 	movedCharacter.character->Position(place);
 	MangeIterator(newPos);

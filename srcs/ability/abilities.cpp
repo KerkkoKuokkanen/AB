@@ -438,7 +438,7 @@ void Abilities::AbilityStatus()
 		Clear();
 }
 
-void Abilities::CreateOpportunityDamage(Character *damager, Character *target)
+void Abilities::CreateOpportunityDamage(SDL_Point damager, Character *target)
 {
 	Abilities::damager.AddOpportunityDamage(damager, target);
 }

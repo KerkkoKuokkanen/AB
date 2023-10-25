@@ -133,4 +133,10 @@ typedef struct s_PhantomKnight
 	int hits;
 }				t_PhantomKnight;
 
+typedef struct s_Damager
+{
+	void *damager;
+	int type;
+}				t_Damager;
+
 #endif

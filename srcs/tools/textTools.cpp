@@ -7,10 +7,10 @@
 
 static int orderLayer = 0;
 
-static bool LeftOrRight(Character *damager, Character *target) //true for left
+static bool LeftOrRight(SDL_Point damager, SDL_Point target) //true for left
 {
-	SDL_Point dPos = damager->position;
-	SDL_Point tPos = target->position;
+	SDL_Point dPos = damager;
+	SDL_Point tPos = target;
 	int test1 = getXToLeft(tPos);
 	if (dPos.x <= test1)
 		return (false);
@@ -107,14 +107,32 @@ void CreatePoisonSnippet(Character *target, int totalAmount, Color color)
 		orderLayer = 0;
 }
 
-void CreateDamageSnippet(Character *damager, Character *target, int totalDamage, bool opportunity)
+static bool LeftOrRightForOpp(SDL_Point damager, Character *target) //true for left
+{
+	t_GMU *used = &gameState.battle.ground->map[damager.y][damager.x];
+	if (used->character != NULL)
+	{
+		bool ret = (target->sprite->dest.x < used->character->sprite->dest.x) ? true : false;
+		return (ret);
+	}
+	if (used->additional.object != NULL && used->additional.type == AdditionalObjects::PHANTOM_KNIGHT)
+	{
+		PhantomKnight *ret = (PhantomKnight*)used->additional.object;
+		Sprite *data = ret->GetSprite();
+		bool value = (target->sprite->dest.x < data->dest.x) ? true : false;
+		return (value);
+	}
+	return (false);
+}
+
+void CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, bool opportunity)
 {
 	SDL_Point pos = target->topMid;
 	bool dirTest;
 	if (!opportunity)
-		dirTest = LeftOrRight(damager, target);
+		dirTest = LeftOrRight(damager, target->position);
 	else
-		dirTest = (target->sprite->dest.x < damager->sprite->dest.x) ? true : false;
+		dirTest = LeftOrRightForOpp(damager, target);
 	SDL_Point start = {0, pos.y + DAMAGE_MINUS};
 	start.x = (dirTest) ? -(rand() % 500 - 1000) : (rand() % 500 + 3000);
 	SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
@@ -140,7 +158,7 @@ void CreateDamageSnippet(Character *damager, Character *target, int totalDamage,
 void CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color)
 {
 	SDL_Point pos = target->topMid;
-	bool dirTest = LeftOrRight(damager, target);
+	bool dirTest = LeftOrRight(damager->position, target->position);
 	SDL_Point start = {0, pos.y + TEXT_MINUS};
 	std::string str(text);
 	int len = str.length();

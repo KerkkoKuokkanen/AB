@@ -190,7 +190,7 @@ void TurnOrder::ActivateTurnChange(bool force)
 		k++;
 	}
 	target = indicators[hold].indicator->dest.x - posDiff;
-	wait = 25;
+	wait = 6;
 }
 
 void TurnOrder::CreateIndicators()
@@ -312,7 +312,7 @@ bool TurnOrder::RightEdgeManage(t_Indicator &indicator)
 void TurnOrder::UpdateStartTurn()
 {
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
-	float unit = 600.0f / ((float)gameState.screen.width / 2.5f);
+	float unit = 600.0f / ((float)gameState.screen.width / 2.0f);
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		int target = CreateDest(indicators[i].character->cSing).x + (posDiff * i);
@@ -325,7 +325,7 @@ void TurnOrder::UpdateStartTurn()
 			return ;
 		}
 		float len = indicators[i].x - (float)target;
-		indicators[i].x -= (float)gameState.screen.width / (650.0f - (unit * len));
+		indicators[i].x -= (float)gameState.screen.width / (500.0f - (unit * len));
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
 		SideManage(indicators[i]);
 	}
@@ -353,7 +353,7 @@ void TurnOrder::ChangeTurn()
 			target = TARGET_SIGN;
 			break ;
 		}
-		indicators[i].x -= (float)gameState.screen.width / 600.0f;
+		indicators[i].x -= (float)gameState.screen.width / 500.0f;
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
 		SideManage(indicators[i]);
 		i++; k++;

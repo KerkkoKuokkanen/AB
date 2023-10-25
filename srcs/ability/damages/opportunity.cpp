@@ -3,7 +3,7 @@
 
 typedef struct s_RandChar
 {
-	Character *character;
+	t_Damager used;
 	int value;
 }				t_RandChar;
 
@@ -12,6 +12,28 @@ static bool CompFunc(t_RandChar &one, t_RandChar &two)
 	if (one.value < two.value)
 		return (true);
 	return (false);
+}
+
+static SDL_Point GetDamagerPos(void *damager, int type)
+{
+	if (type == 0)
+	{
+		Character *ret = (Character*)damager;
+		return (ret->position);
+	}
+	PhantomKnight *used = (PhantomKnight*)damager;
+	return (used->position);
+}
+
+static Character *GetTheCharacterForAttack(t_Damager &damager)
+{
+	if (damager.type == 0)
+	{
+		Character *character = (Character*)damager.damager;
+		return (character);
+	}
+	PhantomKnight *used = (PhantomKnight*)damager.damager;
+	return (used->character);
 }
 
 bool CheckIfOpportunityHits(Character *damager, Character *target)
@@ -35,7 +57,7 @@ static bool CheckIfSmoked(SDL_Point pos)
 
 Vector OpportunityAttack::GetDirection()
 {
-	SDL_Point cPos = damager->position;
+	SDL_Point cPos = GetDamagerPos(damager.damager, damager.type);
 	int index = gameState.battle.ground->movedCharacter.index;
 	SDL_Point tPos = gameState.battle.ground->movedCharacter.path[index];
 	SDL_Rect dest1 = gameState.battle.ground->getTileDest(cPos);
@@ -50,64 +72,92 @@ Character *OpportunityAttack::AnyOneMoving()
 	return (ret);
 }
 
-Character *OpportunityAttack::CheckValid(SDL_Point pos)
+bool OpportunityAttack::CheckValid(SDL_Point pos)
 {
 	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
-		return (NULL);
+		return (false);
 	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
-		return (NULL);
+		return (false);
+	if (gameState.battle.ground->map[pos.y][pos.x].additional.type == AdditionalObjects::PHANTOM_KNIGHT &&
+		gameState.battle.ground->map[pos.y][pos.x].additional.object != NULL)
+		return (true);
 	Character *ret = gameState.battle.ground->map[pos.y][pos.x].character;
 	if (ret == NULL)
-		return (NULL);
+		return (false);
 	if (ret->killed)
-		return (NULL);
+		return (false);
 	if (ret->ally == target->ally)
-		return (NULL);
+		return (false);
 	if (ret->statuses.stun != 0)
-		return (NULL);
+		return (false);
 	if (CheckIfSmoked(pos))
-		return (NULL);
+		return (false);
+	return (true);
+}
+
+static t_Damager GetTheAttacker(SDL_Point pos)
+{
+	t_GMU *used = &gameState.battle.ground->map[pos.y][pos.x];
+	t_Damager ret;
+	if (used->character != NULL)
+	{
+		ret = {used->character, 0};
+		return (ret);
+	}
+	ret = {used->additional.object, 1};
 	return (ret);
 }
 
-Character *OpportunityAttack::GetDamager()
+t_Damager OpportunityAttack::GetDamager()
 {
 	SDL_Point pos = gameState.battle.ground->movedCharacter.path[tried];
 	int left = getXToLeft(pos);
 	int right = getXToRight(pos);
 	std::vector<t_RandChar> chars;
-	Character *ret1 = CheckValid({left, pos.y + 1});
-	if (ret1 != NULL)
-		chars.push_back({ret1, rand() % 1000});
-	Character *ret2 = CheckValid({left, pos.y - 1});
-	if (ret2 != NULL)
-		chars.push_back({ret2, rand() % 1000});
-	Character *ret3 = CheckValid({right, pos.y + 1});
-	if (ret3 != NULL)
-		chars.push_back({ret3, rand() % 1000});
-	Character *ret4 = CheckValid({right, pos.y - 1});
-	if (ret4 != NULL)
-		chars.push_back({ret4, rand() % 1000});
+	if (CheckValid({left, pos.y + 1}))
+		chars.push_back({GetTheAttacker({left, pos.y + 1}), rand() % 1000});
+	if (CheckValid({left, pos.y - 1}))
+		chars.push_back({GetTheAttacker({left, pos.y - 1}), rand() % 1000});
+	if (CheckValid({right, pos.y + 1}))
+		chars.push_back({GetTheAttacker({right, pos.y + 1}), rand() % 1000});
+	if (CheckValid({right, pos.y - 1}))
+		chars.push_back({GetTheAttacker({right, pos.y - 1}), rand() % 1000});
 	hits = false;
+	damager.damager = NULL;
 	if (chars.size() == 0)
-		return (NULL);
+		return (damager);
 	std::sort(chars.begin(), chars.end(), CompFunc);
 	for (int i = 0; i < chars.size(); i++)
 	{
-		if (CheckIfOpportunityHits(chars[i].character, target))
+		if (CheckIfOpportunityHits(GetTheCharacterForAttack(chars[i].used), target))
 		{
 			hits = true;
-			return (chars[i].character);
+			damager.damager = chars[i].used.damager;
+			damager.type = chars[i].used.type;
+			return (damager);
 		}
 	}
-	return (chars[0].character);
+	damager.damager = chars[0].used.damager;
+	damager.type = chars[0].used.type;
+	return (damager);
+}
+
+static Sprite *GetDamagerSprite(void *damager, int type)
+{
+	if (type == 0)
+	{
+		Character *ret = (Character*)damager;
+		return (ret->sprite);
+	}
+	PhantomKnight *used = (PhantomKnight*)damager;
+	return (used->GetSprite());
 }
 
 void OpportunityAttack::StartDamage()
 {
-	if (damager == NULL || target == NULL)
+	if (damager.damager == NULL || target == NULL)
 		return ;
-	mover = new CharacterMover(damager, GetDirection(), 10, 10, 220.0f);
+	mover = new SpriteMover(GetDamagerSprite(damager.damager, damager.type), GetDirection(), 20, 140.0f);
 	if (hits)
 		PlaySound(gameState.audio.opportunity, Channels::OPPORTUNIRY, 0);
 }
@@ -127,7 +177,7 @@ void OpportunityAttack::CheckForTargets()
 	tried = gameState.battle.ground->movedCharacter.index;
 	target = ret;
 	damager = GetDamager();
-	if (damager == NULL)
+	if (damager.damager == NULL)
 	{
 		SDL_Point pos = gameState.battle.ground->movedCharacter.path[gameState.battle.ground->movedCharacter.path.size() - 1];
 		target = NULL;
@@ -140,7 +190,7 @@ void OpportunityAttack::CreateDamageOrMiss()
 {
 	if (hits)
 	{
-		gameState.updateObjs.abilities->CreateOpportunityDamage(damager, target);
+		gameState.updateObjs.abilities->CreateOpportunityDamage(GetDamagerPos(damager.damager, damager.type), target);
 		if (gameState.battle.ground->movedCharacter.character->cSing != LION)
 			gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[tried]);
 		return ;
@@ -162,7 +212,7 @@ void OpportunityAttack::Update()
 			delete mover;
 			mover = NULL;
 			target = NULL;
-			damager = NULL;
+			damager.damager = NULL;
 		}
 	}
 }

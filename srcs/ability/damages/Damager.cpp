@@ -4,10 +4,10 @@
 #define THE_HOVER_BAR_WIDTH 3200
 #define THE_BAR_LIFETIME 88
 
-static bool TopRight(Character *character, Character *target)
+static bool TopRight(SDL_Point character, Character *target)
 {
 	SDL_Point pos = target->position;
-	SDL_Point cPos = character->position;
+	SDL_Point cPos = character;
 	if (pos.y <= cPos.y)
 	{
 		if (pos.x > cPos.x)
@@ -22,10 +22,10 @@ static bool TopRight(Character *character, Character *target)
 	return (false);
 }
 
-static bool TopLeft(Character *character, Character *target)
+static bool TopLeft(SDL_Point character, Character *target)
 {
 	SDL_Point pos = target->position;
-	SDL_Point cPos = character->position;
+	SDL_Point cPos = character;
 	if (pos.y <= cPos.y)
 	{
 		if (pos.x < cPos.x)
@@ -40,10 +40,10 @@ static bool TopLeft(Character *character, Character *target)
 	return (false);
 }
 
-static bool downRight(Character *character, Character *target)
+static bool downRight(SDL_Point character, Character *target)
 {
 	SDL_Point pos = target->position;
-	SDL_Point cPos = character->position;
+	SDL_Point cPos = character;
 	if (pos.y > cPos.y)
 	{
 		if (pos.x > cPos.x)
@@ -93,7 +93,7 @@ static void addStatus(Character *damager, Character *target, t_Ability *ability,
 	}
 }
 
-Vector Damager::GetDirection(Character *character, Character *target)
+Vector Damager::GetDirection(SDL_Point character, Character *target)
 {
 	if (TopRight(character, target))
 		return (Vector(0.5f, -0.5f));
@@ -118,14 +118,14 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 			t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 			t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
 			std::vector<t_Sound> sounds = {add2, add3, add5};
-			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
-			CreateDamageSnippet(character, targ, rand() % 100 + 1);
+			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character->position, targ), sounds);
+			CreateDamageSnippet(character->position, targ, rand() % 100 + 1);
 		}
 		else
 		{
 			std::vector<t_Sound> sounds = {};
-			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character, targ), sounds);
-			CreateDamageSnippet(character, targ, 12 + 12);
+			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character->position, targ), sounds);
+			CreateDamageSnippet(character->position, targ, 12 + 12);
 		}
 		bool ret = StatusApply(ability, character, targ);
 		addStatus(character, targ, ability, ret);
@@ -166,7 +166,7 @@ void Damager::AddPoisonDamage(Character *target, int amount)
 	CreatePoisonSnippet(target, rand() % 100 + 1, Color(28, 138, 0));
 }
 
-void Damager::AddOpportunityDamage(Character *damager, Character *target)
+void Damager::AddOpportunityDamage(SDL_Point damager, Character *target)
 {
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 	t_Sound add4 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};

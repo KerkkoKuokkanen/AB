@@ -7,15 +7,15 @@
 class OpportunityAttack
 {
 	private:
-		Character *damager = NULL;
+		t_Damager damager = {NULL, 0};
 		Character *target = NULL;
-		CharacterMover *mover = NULL;
+		SpriteMover *mover = NULL;
 		Character *AnyOneMoving();
 		int tried = false;
 		bool hits = false;
 		void CheckForTargets();
-		Character *GetDamager();
-		Character *CheckValid(SDL_Point pos);
+		t_Damager GetDamager();
+		bool CheckValid(SDL_Point pos);
 		Vector GetDirection();
 		void StartDamage();
 		void CreateDamageOrMiss();

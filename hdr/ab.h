@@ -130,6 +130,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "info/snippet.h"
 # include "info/flyingText.h"
 # include "tools/throwArch.h"
+# include "tools/spriteMover.h"
 # include "UI/number.h"
 # include "UI/marker.h"
 # include "UI/statuses.h"
@@ -348,7 +349,7 @@ SDL_Point	GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoin
 void PrintStat();
 
 void		CreatePoisonSnippet(Character *target, int totalAmount, Color color);
-void		CreateDamageSnippet(Character *damager, Character *target, int totalDamage, bool opportunity = false);
+void		CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, bool opportunity = false);
 void		CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color);
 void		CreateMiss(SDL_Point damager, SDL_Point target, Character *targ, bool sound = false);
 

@@ -23,6 +23,7 @@ class PhantomKnight
 		bool done = false;
 		PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos);
 		~PhantomKnight() {Destroy();};
+		Sprite *GetSprite() {return (knight);};
 		void Update();
 		void Destroy();
 };
