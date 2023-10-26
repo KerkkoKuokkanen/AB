@@ -135,7 +135,7 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 void Damager::AddBleedDamage(Character *target, int amount)
 {
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::VOLUME_8, 0};
-	t_Sound add4 = {gameState.audio.bleed, Channels::VOLUME_30, 0};
+	t_Sound add4 = {gameState.audio.bleed, Channels::VOLUME_23, 0};
 	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
 	std::vector<t_Sound> sounds = {add3, add4, add5};
 	Vector dir(1.0f, 0.0f);

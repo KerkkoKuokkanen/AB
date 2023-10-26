@@ -12,9 +12,8 @@ void Abilities::UpdateThiefAnimation(t_Animation &animation, int index)
 			if (used->timeForAbility)
 			{
 				int chance = GetChance(character, target, ability);
-				Character *ret = RangedCheck(character, target, chance);
-				targetPoint = ret->position;
-				objects.push_back({new Dagger(character, ret, chance), DAGGER_OBJ});
+				bool hit = RangeCheckWithoutBlockers(character, target, ability);
+				objects.push_back({new Dagger(character, target, hit), DAGGER_OBJ});
 			}
 			if (!used->active)
 			{

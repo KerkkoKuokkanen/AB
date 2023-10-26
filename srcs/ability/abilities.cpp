@@ -26,10 +26,10 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 	switch(ability->type)
 	{
 		case DAGGER_THROW:
-			selector = new Selector(pos, 13, 2, &groundColoring, false, true); // have to chance these hardCoded numbers later
+			selector = new Selector(pos, 13, 2, &groundColoring, false); // have to chance these hardCoded numbers later
 			break ;
 		case DAGGER_SLASH:
-			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			break ;
 		case SMOKE_BOMB:
 			tileSelector = new TileSelector(pos, 7, 0, &groundColoring, false);
@@ -39,33 +39,33 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			tileSelector = new TileSelector(pos, 15, 0, &groundColoring, true);
 			break ;
 		case FLAME_SLASH:
-			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			break ;
 		case FLAME_BLAST:
-			multiSelector = new MultiSelector(pos, 5, 0, &groundColoring, false, true, 2);
+			multiSelector = new MultiSelector(pos, 5, 0, &groundColoring, false, 2);
 			break ;
 		case INCINERATE:
 			allSelector = new AllSelector(pos, 6, 0, &groundColoring, true, StatusSigns::BURN);
 			break ;
 		case LION_SMACK:
-			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			break ;
 		case PHANTOM_KNIGHT:
 			tileSelector = new TileSelector(character->position, 8, 0, &groundColoring, true);
 			break ;
 		case ROTATE:
-			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			SetSelectorForRotate(ability, selector);
 			break ;
 		case HAMMER_SMACK:
-			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			break ;
 		case THROW_TOOLBOX:
 			tileSelector = new TileSelector(pos, 9, 0, &groundColoring, true);
 			tileSelector->RemovePoint(character->position);
 			break ;
 		case SUPPLY_ALLY:
-			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			selector->SetSelectorFor(true, false);
 			break ;
 		case PICK_UP_TOOLS:
@@ -84,11 +84,11 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			IncudeToolPoints();
 			break ;
 		case SMITH_BUFF:
-			selector = new Selector(pos, 9, 0, &groundColoring, false, false);
+			selector = new Selector(pos, 9, 0, &groundColoring, false);
 			selector->SetSelectorFor(true, true);
 			break ;
 		case LIGHTNING_BOLT:
-			selector = new Selector(pos, 12, 4, &groundColoring, false, false);
+			selector = new Selector(pos, 12, 4, &groundColoring, false);
 			ExtendSelector(character, selector);
 			break ;
 		case ROCK_FALL:
@@ -97,12 +97,12 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			ExtendPhantSelector(character, phantSelector);
 			break ;
 		case HOST_EYES:
-			selector = new Selector(pos, 11, 2, &groundColoring, false, false);
+			selector = new Selector(pos, 11, 2, &groundColoring, false);
 			SetSelectorForHostEyes(ability, selector);
 			ExtendSelector(character, selector);
 			break ;
 		case AXE_SLASH:
-			selector = new Selector(pos, 2, 0, &groundColoring, true, false);
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			break ;
 		case AXE_JUMP:
 			axeJumpSelector = new AxeJumpSelector(pos, 10, &groundColoring);

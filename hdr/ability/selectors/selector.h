@@ -10,8 +10,6 @@ class Selector
 		bool (*additionalCompFunction)(SDL_Point, SDL_Point) = NULL;
 		int **map;
 		SDL_Point position;
-		Sprite *block = NULL;
-		bool trees = false;
 		bool sForAlly = false;
 		bool sForEnemy = true;
 		bool stunEnemy = false;
@@ -19,11 +17,8 @@ class Selector
 		void ClearPositionOutOfRange(int cleared, SDL_Point start);
 		Character *GetRet(Character *character, SDL_Point pos);
 		GroundColoring *groundColoring;
-		void SetBlock(SDL_Point target);
-		void SetBlockSprite(SDL_Point pos);
-		void BlockUpdater();
 	public:
-		Selector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, bool trees);
+		Selector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch);
 		~Selector() {Destroy();};
 		void SetSelectorFor(bool ally, bool enemy) {sForAlly = ally; sForEnemy = enemy;};
 		void ClearStunned(bool ally, bool enemy) {stunAlly = ally; stunEnemy = enemy;};

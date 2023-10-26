@@ -16,13 +16,12 @@ class MultiSelector
 		int distance;
 		int cleared;
 		int amount;
-		bool trees;
 		bool staticSearch;
 		void CreateSelector();
 		int count = 0;
 	public:
 		bool done = false;
-		MultiSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, bool trees, int selectAmount);
+		MultiSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, int selectAmount);
 		~MultiSelector() {Destroy();};
 		void IncludePoint(SDL_Point pos);
 		void IncludePoints(std::vector<SDL_Point> &positions);

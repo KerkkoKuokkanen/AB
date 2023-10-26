@@ -365,7 +365,6 @@ int			GetChance(Character *character, Character *target, t_Ability *ability);
 bool		CheckIfOpportunityHits(Character *damager, Character *target);
 bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);
 bool		RangeCheckWithoutBlockers(Character *character, Character *target, t_Ability *ability);
-Character	*RangedCheck(Character *character, Character *target, int &chance);
 
 //audio
 

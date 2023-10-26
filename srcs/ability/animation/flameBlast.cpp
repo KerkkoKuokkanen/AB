@@ -71,11 +71,12 @@ void FlameBlast::CreateFireBall()
 	if (targ == NULL)
 		return ;
 	int chance = GetChance(character, targ, ability);
-	Character *hitTarg = RangedCheck(character, targ, chance);
+	Character *hitTarg = targ;
 	Character *used = hitTarg;
 	if (hitTarg == NULL)
 		used = targ;
-	bool hit = (chance == 1) ? false : true;
+	bool goingToHit = RangeCheckWithoutBlockers(character, used, ability);
+	bool hit = (goingToHit) ? false : true;
 	FireBall *ball = new FireBall(character, used->position, hit);
 	t_FireBall add = {ball, used->position, false, false, hit};
 	fireBalls.push_back(add);

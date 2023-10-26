@@ -96,7 +96,7 @@ AxeJumpSelector::AxeJumpSelector(SDL_Point start, int range, GroundColoring *col
 {
 	AxeJumpSelector::start = start;
 	AxeJumpSelector::coloring = coloring;
-	enemySelector = new Selector(start, range, 2, coloring, false, false);
+	enemySelector = new Selector(start, range, 2, coloring, false);
 	ClearSelectorPositions();
 	enemySelector->AddAdditionalCompareFunction(&CompareFunction);
 }

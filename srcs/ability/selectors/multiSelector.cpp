@@ -1,14 +1,13 @@
 
 #include "../../../hdr/global.h"
 
-MultiSelector::MultiSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, bool trees, int selectAmount)
+MultiSelector::MultiSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, int selectAmount)
 {
 	MultiSelector::start = start;
 	distance = dist;
 	MultiSelector::cleared = cleared;
 	MultiSelector::coloring = coloring;
 	MultiSelector::staticSearch = staticSearch;
-	MultiSelector::trees = trees;
 	amount = selectAmount;
 	selector = NULL;
 	markers = new Markers;
@@ -19,7 +18,7 @@ void MultiSelector::CreateSelector()
 {
 	if (selector != NULL)
 		delete selector;
-	selector = new Selector(start, distance, cleared, coloring, staticSearch, trees);
+	selector = new Selector(start, distance, cleared, coloring, staticSearch);
 }
 
 void MultiSelector::Update()

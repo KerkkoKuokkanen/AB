@@ -80,9 +80,8 @@ void Selector::RemovePoint(SDL_Point pos)
 	map[pos.y][pos.x] = TOOL_MAP_SIGN;
 }
 
-Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, bool trees)
+Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch)
 {
-	Selector::trees = trees;
 	position = start;
 	groundColoring = coloring;
 	map = (int**)malloc(sizeof(int *) * gameState.battle.ground->map.size());
@@ -113,85 +112,6 @@ Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *color
 	groundColoring->active = true;
 }
 
-void Selector::SetBlockSprite(SDL_Point pos)
-{
-	if (!trees)
-		return ;
-	Character *character = NULL;
-	Object *obj = NULL;
-	if (gameState.battle.ground->map[pos.y][pos.x].obj != NULL)
-		obj = gameState.battle.ground->map[pos.y][pos.x].obj;
-	if (gameState.battle.ground->map[pos.y][pos.x].character != NULL)
-		character = gameState.battle.ground->map[pos.y][pos.x].character;
-	int size = 0;
-	if (obj != NULL)
-	{
-		if (obj->size == 1)
-			size = 1;
-	}
-	else
-	{
-		if (character == gameState.battle.ground->map[position.y][position.x].character)
-		{
-			if (block != NULL)
-				delete block;
-			block = NULL;
-			return ;
-		}
-		size = 1;
-	}
-	Sprite *tile = gameState.battle.ground->GetSprite(pos);
-	SDL_Rect dest = {tile->dest.x + 1340, tile->dest.y - 2300, 3150, 3150};
-	if (block != NULL)
-	{
-		if (block->dest.x == dest.x && block->dest.y == dest.y)
-			return ;
-		delete block;
-		block = NULL;
-	}
-	block = new Sprite(gameState.textures.blocks[size], dest, NULL, NULL, 0, FLIP_NONE);
-	if (obj != NULL)
-	{
-		block->orderLayer = obj->spriteLeft->orderLayer;
-		block->z = (obj->spriteLeft->z > obj->spriteRight->z) ? obj->spriteLeft->z + 0.1f : obj->spriteRight->z + 0.1f;
-	}
-	else
-	{
-		block->orderLayer = character->sprite->orderLayer;
-		block->z = character->sprite->z + 0.1f;
-	}
-	gameState.render->AddSprite(block, BATTLEGROUND_LAYER);
-}
-
-void Selector::SetBlock(SDL_Point target)
-{
-	int ret = CheckIfBlock(position, target);
-	if (ret == 0)
-	{
-		if (block != NULL)
-			delete block;
-		block = NULL;
-		return ;
-	}
-	SDL_Point pos = {0, 0};
-	switch (ret)
-	{
-		case 1:
-			pos = {getXToLeft(target), target.y - 1};
-			break ;
-		case 2:
-			pos = {getXToLeft(target), target.y + 1};
-			break ;
-		case 3:
-			pos = {getXToRight(target), target.y + 1};
-			break ;
-		case 4:
-			pos = {getXToRight(target), target.y - 1};
-			break ;
-	}
-	SetBlockSprite(pos);
-}
-
 Character *Selector::GetRet(Character *character, SDL_Point pos)
 {
 	if (character->killed)
@@ -204,14 +124,12 @@ Character *Selector::GetRet(Character *character, SDL_Point pos)
 		{
 			if (character->statuses.stun == 0)
 			{
-				SetBlock(pos);
 				groundColoring->SetColoredPosition(pos, purp, purp);
 				return (character);
 			}
 		}
 		else
 		{
-			SetBlock(pos);
 			groundColoring->SetColoredPosition(pos, purp, purp);
 			return (character);
 		}
@@ -222,29 +140,18 @@ Character *Selector::GetRet(Character *character, SDL_Point pos)
 		{
 			if (character->statuses.stun == 0)
 			{
-				SetBlock(pos);
 				groundColoring->SetColoredPosition(pos, purp, purp);
 				return (character);
 			}
 		}
 		else
 		{
-			SetBlock(pos);
 			groundColoring->SetColoredPosition(pos, purp, purp);
 			return (character);
 		}
 	}
 	groundColoring->SetColoredPosition(pos, colorH, colorL);
 	return (NULL);
-}
-
-void Selector::BlockUpdater()
-{
-	if (block == NULL)
-		return ;
-	float fadeMulti = cos(gameState.updateObjs.fadeIter) / 2.0f + 0.5f;
-	Uint8 add = (Uint8)(60.0f * fadeMulti);
-	block->ColorMod(195 + add, 195 + add, 195 + add);
 }
 
 Character *Selector::Update()
@@ -283,14 +190,6 @@ Character *Selector::Update()
 				groundColoring->SetColoredPosition(pos, colorH, colorL);
 		}
 	}
-	if (visited)
-		BlockUpdater();
-	else
-	{
-		if (block != NULL)
-			delete block;
-		block = NULL;
-	}
 	return (ret);
 }
 
@@ -299,8 +198,6 @@ void Selector::Destroy()
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
 		free(map[i]);
 	free(map);
-	if (block != NULL)
-		delete block;
 	groundColoring->ClearMap();
 	groundColoring->active = false;
 }
