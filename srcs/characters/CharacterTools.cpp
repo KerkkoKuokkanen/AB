@@ -114,6 +114,13 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stat0->stacks = 6;
 	stat0->statusChance = 65;
 	stat0->version = 7;
+	stats[1].stats = (void*)malloc(sizeof(t_DamageBomb));
+	stat0 = (t_DamageBomb*)stats[1].stats;
+	stat0->additionalBlocks = false;
+	stat0->critChance = 1;
+	stat0->stacks = 6;
+	stat0->statusChance = 70;
+	stat0->version = 7;
 }
 
 void Character::AssignAbilities()

@@ -123,6 +123,16 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 				phantSelector->SetAdditionalHighlights({{0, -2}, {0, 2}, {-1, 0}, {1, 0}});
 			break ;
 		}
+		case ACID_BOMB:
+		{
+			phantSelector = new PhantomSelector(character, 10, &groundColoring, 0);
+			phantSelector->RemovePoint(character->position);
+			phantSelector->SetDefaultAdditionals();
+			t_DamageBomb *used = (t_DamageBomb*)ability->stats;
+			if (used->additionalBlocks)
+				phantSelector->SetAdditionalHighlights({{0, -2}, {0, 2}, {-1, 0}, {1, 0}});
+			break ;
+		}
 	}
 }
 
