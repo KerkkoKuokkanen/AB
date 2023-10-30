@@ -232,6 +232,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case NAIL_BOMB:
 			animations.push_back({new NailBomb(character, targPoints[0], ability), NAIL_BOMB});
 			break ;
+		case ACID_BOMB:
+			animations.push_back({new AcidBombAnim(character, targPoints[0], ability), ACID_BOMB});
+			break ;
 	}
 }
 

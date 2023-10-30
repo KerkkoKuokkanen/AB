@@ -141,6 +141,16 @@ void Info::UpdateBombEffects()
 			i = (nailBombs.size() == 0) ? 0 : i - 1;
 		}
 	}
+	for (int i = 0; i < acidBombs.size(); i++)
+	{
+		acidBombs[i]->Update();
+		if (acidBombs[i]->done)
+		{
+			delete acidBombs[i];
+			acidBombs.erase(acidBombs.begin() + i);
+			i = (acidBombs.size() == 0) ? 0 : i - 1;
+		}
+	}
 }
 
 void Info::AddBombEffect(void *effect, int abilityType)
@@ -148,9 +158,18 @@ void Info::AddBombEffect(void *effect, int abilityType)
 	switch (abilityType)
 	{
 		case NAIL_BOMB:
+		{
 			NailBombBlast *used = (NailBombBlast*)effect;
 			nailBombs.push_back(used);
 			break ;
+		}
+		case ACID_BOMB:
+		{
+			AcidBombBlast *used = (AcidBombBlast*)effect;
+			acidBombs.push_back(used);
+			break ;
+		}
+
 	}
 }
 

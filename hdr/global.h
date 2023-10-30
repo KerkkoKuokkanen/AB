@@ -426,6 +426,7 @@ typedef struct s_Audio
 	Mix_Chunk *raiderBlock;
 	Mix_Chunk *nailBomb;
 	Mix_Chunk *bleed;
+	Mix_Chunk *acidBomb[3];
 }				t_Audio;
 
 typedef struct s_Fonts

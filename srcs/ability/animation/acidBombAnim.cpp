@@ -10,11 +10,11 @@ static Vector GetDirection(SDL_Point cPoint, SDL_Point tPoint)
 	return (dir);
 }
 
-NailBomb::NailBomb(Character *character, SDL_Point target, t_Ability *ability)
+AcidBombAnim::AcidBombAnim(Character *character, SDL_Point target, t_Ability *ability)
 {
-	NailBomb::character = character;
-	NailBomb::target = target;
-	NailBomb::ability = ability;
+	AcidBombAnim::character = character;
+	AcidBombAnim::target = target;
+	AcidBombAnim::ability = ability;
 	character->setAnimationActive(true);
 	Vector moverDirection = GetDirection(character->position, target);
 	if (moverDirection.x < 0.0f)
@@ -35,7 +35,7 @@ static float GetHeightForThrow(SDL_Point start, SDL_Point end)
 	return (amount);
 }
 
-void NailBomb::StartThrow()
+void AcidBombAnim::StartThrow()
 {
 	PlaySound(gameState.audio.toolThrow, Channels::TOOL_THROW, 0);
 	character->sprite->dest.x += 200;
@@ -45,17 +45,17 @@ void NailBomb::StartThrow()
 	trail->z = character->sprite->z - 0.04f;
 	gameState.render->AddSprite(trail, BATTLEGROUND_LAYER);
 	bombCreated = true;
-	SDL_Rect bombDest = {character->sprite->dest.x + 4700, character->sprite->dest.y + 1600, 2000, 2000};
-	bomb = new Sprite(gameState.textures.attacks.bombs[0], bombDest, NULL, NULL, 0, FLIP_NONE);
+	SDL_Rect bombDest = {character->sprite->dest.x + 4700, character->sprite->dest.y + 1600, 1650, 1650};
+	bomb = new Sprite(gameState.textures.attacks.bombs[1], bombDest, NULL, NULL, 0, FLIP_NONE);
 	gameState.render->AddSprite(bomb, OBJECT_LAYER);
 	SDL_Rect dst = gameState.battle.ground->getTileDest(target);
-	dst.x += 2000;
+	dst.x += 1800;
 	dst.y += 1000;
 	arch = new ThrowArch(bomb, {bomb->dest.x, bomb->dest.y}, {dst.x, dst.y},
 						GetHeightForThrow({bomb->dest.x, bomb->dest.y}, {dst.x, dst.y}), 360.0f);
 }
 
-void NailBomb::UpdateBomb()
+void AcidBombAnim::UpdateBomb()
 {
 	if (bomb == NULL)
 		return ;
@@ -65,11 +65,13 @@ void NailBomb::UpdateBomb()
 	bomb->addAngle(angleAddition);
 	if (arch->done)
 	{
-		PlaySound(gameState.audio.nailBomb, Channels::VOLUME_14, 0);
+		PlaySound(gameState.audio.acidBomb[0], Channels::VOLUME_55, 0);
+		PlaySound(gameState.audio.acidBomb[1], Channels::VOLUME_9, 0);
+		PlaySound(gameState.audio.acidBomb[2], Channels::VOLUME_26, 0);
 		SetScreenShake(200, 6);
 		SDL_Point pos = {bomb->dest.x + 800, bomb->dest.y + 400};
 		t_DamageBomb *used = (t_DamageBomb*)ability->stats;
-		new NailBombBlast(pos, used->version);
+		new AcidBombBlast(pos, used->version);
 		delete arch;
 		delete bomb;
 		arch = NULL;
@@ -77,7 +79,7 @@ void NailBomb::UpdateBomb()
 	}
 }
 
-void NailBomb::UpdateTrail(int ret)
+void AcidBombAnim::UpdateTrail(int ret)
 {
 	if (trail == NULL)
 		return ;
@@ -96,7 +98,7 @@ void NailBomb::UpdateTrail(int ret)
 	trail->AlphaMod(used);
 }
 
-void NailBomb::UpdateMover()
+void AcidBombAnim::UpdateMover()
 {
 	if (mover == NULL)
 		return ;
@@ -113,7 +115,7 @@ void NailBomb::UpdateMover()
 	}
 }
 
-void NailBomb::Update()
+void AcidBombAnim::Update()
 {
 	createDamage = false;
 	if (done)
@@ -138,14 +140,14 @@ void NailBomb::Update()
 	}
 }
 
-bool NailBomb::CheckIfDone()
+bool AcidBombAnim::CheckIfDone()
 {
 	if (mover == NULL && arch == NULL && bomb == NULL)
 		return (true);
 	return (false);
 }
 
-void NailBomb::Destroy()
+void AcidBombAnim::Destroy()
 {
 	if (trail != NULL)
 		delete trail;

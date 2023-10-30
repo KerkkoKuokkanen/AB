@@ -163,6 +163,9 @@ void getAudio()
 	gameState.audio.raiderBlock = Mix_LoadWAV("audio/abilities/raider/block.wav");
 	gameState.audio.nailBomb = Mix_LoadWAV("audio/abilities/alchemist/nailBomb.wav");
 	gameState.audio.bleed = Mix_LoadWAV("audio/effects/bleed.wav");
+	gameState.audio.acidBomb[0] = Mix_LoadWAV("audio/abilities/alchemist/glassBreak.wav");
+	gameState.audio.acidBomb[1] = Mix_LoadWAV("audio/abilities/alchemist/airRelease.wav");
+	gameState.audio.acidBomb[2] = Mix_LoadWAV("audio/abilities/alchemist/acidFlask.wav");
 }
 
 void getFonts()

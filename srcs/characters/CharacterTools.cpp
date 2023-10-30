@@ -120,7 +120,7 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stat0->critChance = 1;
 	stat0->stacks = 6;
 	stat0->statusChance = 70;
-	stat0->version = 7;
+	stat0->version = 8;
 }
 
 void Character::AssignAbilities()

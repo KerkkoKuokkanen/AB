@@ -20,6 +20,7 @@ class Info
 		std::vector<BuffEffect*> buffEffects;
 		std::vector<HostEffect*> hostEffects;
 		std::vector<NailBombBlast*> nailBombs;
+		std::vector<AcidBombBlast*> acidBombs;
 		void UpdateSnippets();
 		void FindHoveredCharacter();
 		bool KilledOrDamaged();

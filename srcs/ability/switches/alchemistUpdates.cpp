@@ -24,6 +24,25 @@ static void AddBombStatuses(Character *target, Character *character, t_Ability *
 				target->statuses.bleed.push_back(3);
 			break ;
 		}
+		case ACID_BOMB:
+		{
+			if (!StatusApply(ability, character, target, true))
+			{
+				CreateTextSnippet(character, target, "MISS", 900, Color(28, 138, 0));
+				return ;
+			}
+			gameState.updateObjs.info->AddColorEffect(target->sprite, 6, Color(28, 138, 0), 10);
+			t_DamageBomb *stk = (t_DamageBomb*)ability->stats;
+			int stacks = stk->stacks;
+			std::string used;
+			used += std::to_string(stacks);
+			used += " poison";
+			const char *ret = used.c_str();
+			CreateTextSnippet(character, target, ret, 1000, Color(28, 138, 0));
+			for (int i = 0; i < stacks; i++)
+				target->statuses.poison.push_back(3);
+			break ;
+		}
 	}
 }
 
@@ -53,6 +72,19 @@ void Abilities::UpdateAlchemistAnimation(t_Animation &anim, int index)
 		case NAIL_BOMB:
 		{
 			NailBomb *used = (NailBomb*)anim.animation;
+			used->Update();
+			if (used->createDamage)
+				CreateBombDamages();
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
+		case ACID_BOMB:
+		{
+			AcidBombAnim *used = (AcidBombAnim*)anim.animation;
 			used->Update();
 			if (used->createDamage)
 				CreateBombDamages();

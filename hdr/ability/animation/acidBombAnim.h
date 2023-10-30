@@ -1,10 +1,10 @@
 
-#ifndef NAIL_BOMB_H
-# define NAIL_BOMB_H
+#ifndef ACID_BOMB_ANIM_H
+# define ACID_BOMB_ANIM_H
 
 # include "../../ab.h"
 
-class NailBomb
+class AcidBombAnim
 {
 	private:
 		ThrowArch *arch = NULL;
@@ -26,8 +26,8 @@ class NailBomb
 	public:
 		bool done = false;
 		bool createDamage = false;
-		NailBomb(Character *character, SDL_Point target, t_Ability *ability);
-		~NailBomb() {Destroy();};
+		AcidBombAnim(Character *character, SDL_Point target, t_Ability *ability);
+		~AcidBombAnim() {Destroy();};
 		void Update();
 		void Destroy();
 };
