@@ -110,6 +110,15 @@ bool Statuses::GetMouseOverStatuses()
 					return (true);
 				break ;
 			}
+			case StatusSigns::SLOWED:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.slowSymbol, dst1, x, y))
+					return (true);
+				break ;
+			}
 		}
 	}
 	return (false);
@@ -393,6 +402,15 @@ void Statuses::CreateFrestStatus(int statusSign)
 			statuses.push_back({add, StatusSigns::BLEED, num});
 			break ;
 		}
+		case StatusSigns::SLOWED:
+		{
+			add.sprite = new Sprite(gameState.textures.slowSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::SLOWED, 1});
+			break ;
+		}
 	}
 	if (onlyOne)
 	{
@@ -448,6 +466,11 @@ void Statuses::CheckIfNeedToCreateStatuses()
 	{
 		if (!AlreadyExists(StatusSigns::BLEED))
 			CreateFrestStatus(StatusSigns::BLEED);
+	}
+	if (character->statuses.slowed != 0)
+	{
+		if (!AlreadyExists(StatusSigns::SLOWED))
+			CreateFrestStatus(StatusSigns::SLOWED);
 	}
 }
 
@@ -521,6 +544,12 @@ void Statuses::CheckIfNewStatuses()
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)
 					ChangeAmount(i, amount, num);
+				break ;
+			}
+			case StatusSigns::SLOWED:
+			{
+				if (character->statuses.slowed == 0 && AlreadyExists(StatusSigns::SLOWED))
+					ChangeAmount(i, 0, 0);
 				break ;
 			}
 		}

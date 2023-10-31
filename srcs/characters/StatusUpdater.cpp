@@ -128,6 +128,8 @@ static void BuffsAtEnd(Character *character)
 			i = (statuses.deBuffs.size() == 0) ? 0 : i - 1;
 		}
 	}
+	if (character->statuses.slowed == 1)
+		character->statuses.slowed = 0;
 }
 
 static void BuffsAtStart(Character *character)

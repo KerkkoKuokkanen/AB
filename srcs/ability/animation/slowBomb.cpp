@@ -1,5 +1,8 @@
 
 #include "../../../hdr/global.h"
+#define NAIL_AMOUNT 120
+#define PARTICLE_AMOUNT 500
+#define MAX_SPEED 400.0f
 
 static Vector GetDirection(SDL_Point cPoint, SDL_Point tPoint)
 {
@@ -10,11 +13,44 @@ static Vector GetDirection(SDL_Point cPoint, SDL_Point tPoint)
 	return (dir);
 }
 
-NailBomb::NailBomb(Character *character, SDL_Point target, t_Ability *ability)
+static Vector GetDirectionForParts()
 {
-	NailBomb::character = character;
-	NailBomb::target = target;
-	NailBomb::ability = ability;
+	Vector dir(0.0f, -1.0f);
+	float angle = (rand() % 2 == 0) ? float_rand() * PI : -float_rand() * PI;
+	vectorRotate(dir, angle);
+	return (dir);
+}
+
+static float GetSpeed(Vector dir)
+{
+	Vector aVec(1.0f, 0.0f);
+	if (dir.x < 0.0f)
+		aVec.x = -1.0f;
+	float angle = (PI * 0.5f) - vectorAngle(aVec, dir);
+	if (angle < (PI * 0.1f))
+		angle = (PI * 0.1f);
+	float unit = MAX_SPEED / (PI * 0.5f);
+	float speec = unit * angle;
+	return (speec + 100.0f + (float)(rand() % 80));
+}
+
+static Color GetColor()
+{
+	int hit = rand() % 100;
+	if (hit > 75)
+		return (Color(12, 29, 156));
+	if (hit > 43)
+		return (Color(65, 80, 196));
+	if (hit > 9)
+		return (Color(31, 77, 107));
+	return (Color(4, 28, 43));
+}
+
+SlowBomb::SlowBomb(Character *character, SDL_Point target, t_Ability *ability)
+{
+	SlowBomb::character = character;
+	SlowBomb::target = target;
+	SlowBomb::ability = ability;
 	character->setAnimationActive(true);
 	Vector moverDirection = GetDirection(character->position, target);
 	if (moverDirection.x < 0.0f)
@@ -35,7 +71,7 @@ static float GetHeightForThrow(SDL_Point start, SDL_Point end)
 	return (amount);
 }
 
-void NailBomb::StartThrow()
+void SlowBomb::StartThrow()
 {
 	PlaySound(gameState.audio.toolThrow, Channels::TOOL_THROW, 0);
 	character->sprite->dest.x += 200;
@@ -45,17 +81,42 @@ void NailBomb::StartThrow()
 	trail->z = character->sprite->z - 0.04f;
 	gameState.render->AddSprite(trail, BATTLEGROUND_LAYER);
 	bombCreated = true;
-	SDL_Rect bombDest = {character->sprite->dest.x + 4700, character->sprite->dest.y + 1600, 2000, 2000};
-	bomb = new Sprite(gameState.textures.attacks.bombs[0], bombDest, NULL, NULL, 0, FLIP_NONE);
+	SDL_Rect bombDest = {character->sprite->dest.x + 4700, character->sprite->dest.y + 1600, 1600, 1600};
+	bomb = new Sprite(gameState.textures.attacks.bombs[2], bombDest, NULL, NULL, 0, FLIP_NONE);
 	gameState.render->AddSprite(bomb, OBJECT_LAYER);
 	SDL_Rect dst = gameState.battle.ground->getTileDest(target);
-	dst.x += 2000;
-	dst.y += 1000;
+	dst.x += 1800;
+	dst.y += 1200;
 	arch = new ThrowArch(bomb, {bomb->dest.x, bomb->dest.y}, {dst.x, dst.y},
 						GetHeightForThrow({bomb->dest.x, bomb->dest.y}, {dst.x, dst.y}), 360.0f);
 }
 
-void NailBomb::UpdateBomb()
+void SlowBomb::CreateParticles()
+{
+	t_SlowBomb *used = (t_SlowBomb*)ability->stats;
+	int version = used->version;
+	float unit = 0.5f / 10.0f;
+	float amountMulti = 1.0f - (unit * version);
+	float speedMulti = 1.1f - (unit * version);
+	int amount = (int)(PARTICLE_AMOUNT * amountMulti);
+	SDL_Point pos = {bomb->dest.x + 800, bomb->dest.y - 1000};
+	for (int i = 0; i < amount; i++)
+	{
+		int xAdd = (rand() % 150) - (rand() % 150);
+		int yAdd = (rand() % 150) - (rand() % 150);
+		Vector dir = GetDirectionForParts();
+		float drag = 1.07f + float_rand() * 0.1f;
+		float speed = (rand() % 6 == 0) ? (float)(rand() % 550 + 50) * speedMulti : GetSpeed(dir) * 1.3f * speedMulti;
+		Vector place((float)(pos.x + xAdd), (float)(pos.y + yAdd));
+		int life = rand() % 20 + 33;
+		int sizeRand = rand() % 200 + 200;
+		Color used = GetColor();
+		gameState.updateObjs.partManager->CreateModParticleWithTexture(gameState.textures.KillParticle[0],
+										dir, place, speed, used, used, life, drag, false, 0.04f, {0, 0, sizeRand, sizeRand});
+	}
+}
+
+void SlowBomb::UpdateBomb()
 {
 	if (bomb == NULL)
 		return ;
@@ -65,11 +126,11 @@ void NailBomb::UpdateBomb()
 	bomb->addAngle(angleAddition);
 	if (arch->done)
 	{
-		PlaySound(gameState.audio.nailBomb, Channels::VOLUME_14, 0);
+		PlaySound(gameState.audio.slowBomb[0], Channels::VOLUME_60, 0);
+		PlaySound(gameState.audio.slowBomb[1], Channels::VOLUME_128, 0);
+		PlaySound(gameState.audio.acidBomb[2], Channels::VOLUME_22, 0);
 		SetScreenShake(200, 6);
-		SDL_Point pos = {bomb->dest.x + 800, bomb->dest.y};
-		t_DamageBomb *used = (t_DamageBomb*)ability->stats;
-		new NailBombBlast(pos, used->version);
+		CreateParticles();
 		delete arch;
 		delete bomb;
 		arch = NULL;
@@ -77,7 +138,7 @@ void NailBomb::UpdateBomb()
 	}
 }
 
-void NailBomb::UpdateTrail(int ret)
+void SlowBomb::UpdateTrail(int ret)
 {
 	if (trail == NULL)
 		return ;
@@ -96,7 +157,7 @@ void NailBomb::UpdateTrail(int ret)
 	trail->AlphaMod(used);
 }
 
-void NailBomb::UpdateMover()
+void SlowBomb::UpdateMover()
 {
 	if (mover == NULL)
 		return ;
@@ -113,7 +174,7 @@ void NailBomb::UpdateMover()
 	}
 }
 
-void NailBomb::Update()
+void SlowBomb::Update()
 {
 	createDamage = false;
 	if (done)
@@ -138,14 +199,14 @@ void NailBomb::Update()
 	}
 }
 
-bool NailBomb::CheckIfDone()
+bool SlowBomb::CheckIfDone()
 {
 	if (mover == NULL && arch == NULL && bomb == NULL)
 		return (true);
 	return (false);
 }
 
-void NailBomb::Destroy()
+void SlowBomb::Destroy()
 {
 	if (trail != NULL)
 		delete trail;

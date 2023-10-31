@@ -546,5 +546,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case ACID_BOMB:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ACID_BOMB), activeCharacter);
 			break ;
+		case SLOW_BOMB:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SLOW_BOMB), activeCharacter);
+			break ;
 	}
 }

@@ -79,7 +79,8 @@ namespace StatusSigns
 		HOSTING,
 		TOXIC_BLADE,
 		POISON,
-		BLEED
+		BLEED,
+		SLOWED
 	};
 };
 
@@ -143,6 +144,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "objects/objUpdate.h"
 # include "effects/buffEffect.h"
 # include "effects/hostEffect.h"
+# include "effects/slowedEffect.h"
 # include "effects/nailBombBlast.h"
 # include "effects/hostEyesEffect.h"
 # include "effects/acidBombBlast.h"
@@ -176,6 +178,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/toxinBuff.h"
 # include "ability/animation/smithBuff.h"
 # include "ability/animation/hammerSmack.h"
+# include "ability/animation/slowBomb.h"
 # include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"
 # include "ability/animation/phantomAnim.h"

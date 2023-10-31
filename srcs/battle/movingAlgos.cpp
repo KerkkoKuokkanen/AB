@@ -77,10 +77,11 @@ void BattleGround::SetMovables(Character *character)
 	map[pos.y][pos.x].highlited = highLightSign;
 	int moves = (character->turn) ? character->moves : character->moves + 9;
 	moves = (moves > 12) ? 12 : moves;
-	IterMapMovables(pos, 0, moves, highLightSign);
+	int multi = (character->statuses.slowed == 1) ? 2 : 1;
+	IterMapMovables(pos, 0, moves, highLightSign, multi);
 }
 
-void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign)
+void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign, int multi)
 {
 	if (moves >= cMoves)
 		return ;
@@ -89,11 +90,11 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int hig
 	int sizeModder = map[0].size() - 1;
 	if (pos.y > 0 && map[pos.y - 1][pos.x].blocked == false)
 	{
-		int plus = 2;
+		int plus = 2 * multi;
 		if (map[pos.y - 1][pos.x].height > currHeight)
-			plus = 2 + (map[pos.y - 1][pos.x].height - currHeight);
+			plus = (2 + (map[pos.y - 1][pos.x].height - currHeight)) * multi;
 		else if (map[pos.y - 1][pos.x].height < currHeight)
-			plus = 1;
+			plus = 1 * multi;
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -102,17 +103,17 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int hig
 				toolMap[pos.y - 1][pos.x] = temp;
 				map[pos.y - 1][pos.x].highlited = highLightSign;
 				SDL_Point location = {pos.x, pos.y - 1};
-				IterMapMovables(location, temp, cMoves, highLightSign);
+				IterMapMovables(location, temp, cMoves, highLightSign, multi);
 			}
 		}
 	}
 	if (pos.y < (map.size() - 1) && map[pos.y + 1][pos.x].blocked == false)
 	{
-		int plus = 2;
+		int plus = 2 * multi;
 		if (map[pos.y + 1][pos.x].height > currHeight)
-			plus = 2 + (map[pos.y + 1][pos.x].height - currHeight);
+			plus = (2 + (map[pos.y + 1][pos.x].height - currHeight)) * multi;
 		else if (map[pos.y + 1][pos.x].height < currHeight)
-			plus = 1;
+			plus = 1 * multi;
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -121,17 +122,17 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int hig
 				toolMap[pos.y + 1][pos.x] = temp;
 				map[pos.y + 1][pos.x].highlited = highLightSign;
 				SDL_Point location = {pos.x, pos.y + 1};
-				IterMapMovables(location, temp, cMoves, highLightSign);
+				IterMapMovables(location, temp, cMoves, highLightSign, multi);
 			}
 		}
 	}
 	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && map[pos.y - 1][pos.x + modder].blocked == false)
 	{
-		int plus = 2;
+		int plus = 2 * multi;
 		if (map[pos.y - 1][pos.x + modder].height > currHeight)
-			plus = 2 + (map[pos.y - 1][pos.x + modder].height - currHeight);
+			plus = (2 + (map[pos.y - 1][pos.x + modder].height - currHeight)) * multi;
 		else if (map[pos.y - 1][pos.x + modder].height < currHeight)
-			plus = 1;
+			plus = 1 * multi;
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -140,17 +141,17 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int hig
 				toolMap[pos.y - 1][pos.x + modder] = temp;
 				map[pos.y - 1][pos.x + modder].highlited = highLightSign;
 				SDL_Point location = {pos.x + modder, pos.y - 1};
-				IterMapMovables(location, temp, cMoves, highLightSign);
+				IterMapMovables(location, temp, cMoves, highLightSign, multi);
 			}
 		}
 	}
 	if (pos.y < (map.size() - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && map[pos.y + 1][pos.x + modder].blocked == false)
 	{
-		int plus = 2;
+		int plus = 2 * multi;
 		if (map[pos.y + 1][pos.x + modder].height > currHeight)
-			plus = 2 + (map[pos.y + 1][pos.x + modder].height - currHeight);
+			plus = (2 + (map[pos.y + 1][pos.x + modder].height - currHeight)) * multi;
 		else if (map[pos.y + 1][pos.x + modder].height < currHeight)
-			plus = 1;
+			plus = 1 * multi;
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -159,7 +160,7 @@ void BattleGround::IterMapMovables(SDL_Point pos, int moves, int cMoves, int hig
 				toolMap[pos.y + 1][pos.x + modder] = temp;
 				map[pos.y + 1][pos.x + modder].highlited = highLightSign;
 				SDL_Point location = {pos.x + modder, pos.y + 1};
-				IterMapMovables(location, temp, cMoves, highLightSign);
+				IterMapMovables(location, temp, cMoves, highLightSign, multi);
 			}
 		}
 	}

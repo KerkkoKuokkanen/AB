@@ -166,6 +166,9 @@ void getAudio()
 	gameState.audio.acidBomb[0] = Mix_LoadWAV("audio/abilities/alchemist/glassBreak.wav");
 	gameState.audio.acidBomb[1] = Mix_LoadWAV("audio/abilities/alchemist/airRelease.wav");
 	gameState.audio.acidBomb[2] = Mix_LoadWAV("audio/abilities/alchemist/acidFlask.wav");
+	gameState.audio.slowBomb[0] = Mix_LoadWAV("audio/abilities/alchemist/slowGlass.wav");
+	gameState.audio.slowBomb[1] = Mix_LoadWAV("audio/abilities/alchemist/splash.wav");
+	gameState.audio.slowDebuff = Mix_LoadWAV("audio/abilities/alchemist/slowDebuff.wav");
 }
 
 void getFonts()
@@ -430,6 +433,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/effects/bleedSym.png");
 	gameState.textures.bleedSymbol = use.text;
 	gameState.surfaces.bleedSymbol = use.sur;
+	use = get_texture_and_surface(rend, "sprites/effects/slowSymbol.png");
+	gameState.textures.slowSymbol = use.text;
+	gameState.surfaces.slowSymbol = use.sur;
 }
 
 void CraeteAudioThread()

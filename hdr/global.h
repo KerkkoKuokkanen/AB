@@ -250,6 +250,7 @@ typedef struct s_Surfaces
 	SDL_Surface *alchemistIdle1;
 	SDL_Surface *alchemistIdle2;
 	SDL_Surface *bleedSymbol;
+	SDL_Surface *slowSymbol;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -380,6 +381,7 @@ typedef struct s_Textures
 	SDL_Texture *poisonSymbol;
 	SDL_Texture *alchemistAbilities[3];
 	SDL_Texture *bleedSymbol;
+	SDL_Texture *slowSymbol;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -427,6 +429,8 @@ typedef struct s_Audio
 	Mix_Chunk *nailBomb;
 	Mix_Chunk *bleed;
 	Mix_Chunk *acidBomb[3];
+	Mix_Chunk *slowBomb[2];
+	Mix_Chunk *slowDebuff;
 }				t_Audio;
 
 typedef struct s_Fonts

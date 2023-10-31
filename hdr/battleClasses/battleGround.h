@@ -46,7 +46,7 @@ class BattleGround {
 		void ChangeDown();
 		void SetMovables(Character *character);
 		void ClearMovables();
-		void IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign);
+		void IterMapMovables(SDL_Point pos, int moves, int cMoves, int highLightSign, int multi);
 		void ColorFade(Sprite *sprite, int sign);
 		bool BlockMouseHover(SDL_Point &position);
 		bool CheckOverPositions(std::vector<SDL_Point> &positions, SDL_Point og);

@@ -87,6 +87,12 @@ static int GetStatusChance(t_Ability *ability, Character *character)
 			chance = used->statusChance;
 			return (chance);
 		}
+		case StatStructs::SLOW_BOMB_STRUCT:
+		{
+			t_SlowBomb *used = (t_SlowBomb*)ability->stats;
+			chance = used->chance;
+			return (chance);
+		}
 	}
 	return (chance);
 }

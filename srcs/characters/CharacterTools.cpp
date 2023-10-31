@@ -110,6 +110,7 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stats[0].stats = (void*)malloc(sizeof(t_DamageBomb));
 	t_DamageBomb *stat0 = (t_DamageBomb*)stats[0].stats;
 	stat0->additionalBlocks = false;
+	stat0->damage = 60;
 	stat0->critChance = 1;
 	stat0->stacks = 6;
 	stat0->statusChance = 65;
@@ -117,10 +118,17 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stats[1].stats = (void*)malloc(sizeof(t_DamageBomb));
 	stat0 = (t_DamageBomb*)stats[1].stats;
 	stat0->additionalBlocks = false;
+	stat0->damage = 50;
 	stat0->critChance = 1;
 	stat0->stacks = 6;
 	stat0->statusChance = 70;
 	stat0->version = 8;
+	stats[2].stats = (void*)malloc(sizeof(t_SlowBomb));
+	t_SlowBomb *stat1 = (t_SlowBomb*)stats[2].stats;
+	stat1->additionalBlocks = false;
+	stat1->chance = 80;
+	stat1->slowDownVersion = 0;
+	stat1->version = 8;
 }
 
 void Character::AssignAbilities()
@@ -169,7 +177,7 @@ void Character::AssignAbilities()
 		case ALCHEMIST:
 			abilities = {{NAIL_BOMB, 0, 10, 0, 80, StatStructs::BOMB_STRUCT, (-1), NULL},
 						{ACID_BOMB, 0, 10, 0, 80, StatStructs::BOMB_STRUCT, (-1), NULL},
-						{SLOW_BOMB, 0, 10, 0, 200, StatStructs::ATTACK_STRUCT, (-1), NULL}};
+						{SLOW_BOMB, 0, 10, 0, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), NULL}};
 			AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		default:

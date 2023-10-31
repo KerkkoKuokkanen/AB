@@ -65,6 +65,27 @@ void Abilities::CreateBombDamages()
 	}
 }
 
+void Abilities::CreateSlows()
+{
+	for (int i = 0; i < targPoints.size(); i++)
+	{
+		Character *targ = gameState.battle.ground->map[targPoints[i].y][targPoints[i].x].character;
+		if (targ != NULL)
+		{
+			if (targ->statuses.slowed == 1)
+				continue ;
+			if (!StatusApply(ability, character, targ, true))
+			{
+				CreateMiss(character->position, targ->position, targ, true);
+				continue ;
+			}
+			new SlowedEffect(targ);
+			CreateTextSnippet(character, targ, "slowed", 1000, Color(59, 55, 184));
+			targ->statuses.slowed = 1;
+		}
+	}
+}
+
 void Abilities::UpdateAlchemistAnimation(t_Animation &anim, int index)
 {
 	switch (anim.type)
@@ -88,6 +109,19 @@ void Abilities::UpdateAlchemistAnimation(t_Animation &anim, int index)
 			used->Update();
 			if (used->createDamage)
 				CreateBombDamages();
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
+		case SLOW_BOMB:
+		{
+			SlowBomb *used = (SlowBomb*)anim.animation;
+			used->Update();
+			if (used->createDamage)
+				CreateSlows();
 			if (used->done)
 			{
 				delete used;

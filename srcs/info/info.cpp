@@ -153,6 +153,20 @@ void Info::UpdateBombEffects()
 	}
 }
 
+void Info::UpdateSlowEffects()
+{
+	for (int i = 0; i < slowEffects.size(); i++)
+	{
+		slowEffects[i]->Update();
+		if (slowEffects[i]->done)
+		{
+			delete slowEffects[i];
+			slowEffects.erase(slowEffects.begin() + i);
+			i = (slowEffects.size() == 0) ? 0 : i - 1;
+		}
+	}
+}
+
 void Info::AddBombEffect(void *effect, int abilityType)
 {
 	switch (abilityType)
@@ -182,6 +196,7 @@ void Info::Update()
 	UpdateBuffEffects();
 	UpdateHostEffects();
 	UpdateBombEffects();
+	UpdateSlowEffects();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();

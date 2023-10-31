@@ -18,7 +18,8 @@ namespace StatStructs
 		HOST_EYES,
 		TOXIC_BLADE,
 		RAIDER_BLOCK,
-		BOMB_STRUCT
+		BOMB_STRUCT,
+		SLOW_BOMB_STRUCT
 	};
 };
 
@@ -82,12 +83,21 @@ typedef struct s_ToxicStat
 
 typedef struct s_DamageBomb
 {
+	int damage;
 	int critChance;
 	int version;
 	bool additionalBlocks;
 	int stacks;
 	int statusChance;
 }				t_DamageBomb;
+
+typedef struct s_SlowBomb
+{
+	int version;
+	bool additionalBlocks;
+	int chance;
+	int slowDownVersion;
+}				t_SlowBomb;
 
 typedef struct s_StatusEffects
 {
@@ -100,6 +110,7 @@ typedef struct s_StatusEffects
 	void *hosting;
 	bool hosted;
 	int stun;
+	int slowed;
 }				t_StatusEffects;
 
 typedef struct s_AttackStruct

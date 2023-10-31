@@ -69,7 +69,7 @@ void AcidBombAnim::UpdateBomb()
 		PlaySound(gameState.audio.acidBomb[1], Channels::VOLUME_9, 0);
 		PlaySound(gameState.audio.acidBomb[2], Channels::VOLUME_26, 0);
 		SetScreenShake(200, 6);
-		SDL_Point pos = {bomb->dest.x + 800, bomb->dest.y + 400};
+		SDL_Point pos = {bomb->dest.x + 800, bomb->dest.y + 150};
 		t_DamageBomb *used = (t_DamageBomb*)ability->stats;
 		new AcidBombBlast(pos, used->version);
 		delete arch;

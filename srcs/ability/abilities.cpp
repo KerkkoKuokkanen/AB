@@ -133,6 +133,16 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 				phantSelector->SetAdditionalHighlights({{0, -2}, {0, 2}, {-1, 0}, {1, 0}});
 			break ;
 		}
+		case SLOW_BOMB:
+		{
+			phantSelector = new PhantomSelector(character, 7, &groundColoring, 0);
+			phantSelector->RemovePoint(character->position);
+			phantSelector->SetDefaultAdditionals();
+			t_SlowBomb *used = (t_SlowBomb*)ability->stats;
+			if (used->additionalBlocks)
+				phantSelector->SetAdditionalHighlights({{0, -2}, {0, 2}, {-1, 0}, {1, 0}});
+			break ;
+		}
 	}
 }
 
@@ -234,6 +244,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case ACID_BOMB:
 			animations.push_back({new AcidBombAnim(character, targPoints[0], ability), ACID_BOMB});
+			break ;
+		case SLOW_BOMB:
+			animations.push_back({new SlowBomb(character, targPoints[0], ability), SLOW_BOMB});
 			break ;
 	}
 }

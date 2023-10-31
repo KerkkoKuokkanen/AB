@@ -62,6 +62,7 @@ class Abilities
 		void UpdateAlchemistAnimation(t_Animation &anim, int index);
 		void PyroIncinerateDamage();
 		void CreateBombDamages();
+		void CreateSlows();
 		void AbilityStatus();
 		void CreateDamage(bool sound = true);
 		void UpdateSelector();
