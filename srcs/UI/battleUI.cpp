@@ -165,6 +165,9 @@ void CharacterUI::GetAbilities()
 			case SLOW_BOMB:
 				CreateButton(dest, gameState.textures.alchemistAbilities[2], SLOW_BOMB, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case GO_FOR_THE_HEAD:
+				CreateButton(dest, gameState.textures.smithAbilities[5], GO_FOR_THE_HEAD, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }
@@ -548,6 +551,9 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 			break ;
 		case SLOW_BOMB:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SLOW_BOMB), activeCharacter);
+			break ;
+		case GO_FOR_THE_HEAD:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(GO_FOR_THE_HEAD), activeCharacter);
 			break ;
 	}
 }

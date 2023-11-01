@@ -50,6 +50,7 @@ enum {
 	PHANTOM_KNIGHT,
 	ROTATE,
 	HAMMER_SMACK,
+	GO_FOR_THE_HEAD,
 	THROW_TOOLBOX,
 	SUPPLY_ALLY,
 	SUPPLY,
@@ -166,6 +167,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/objects/lightningBolt.h"
 # include "ability/objects/rockFall.h"
 # include "ability/animation/rotate.h"
+# include "ability/animation/goForTheHead.h"
 # include "ability/animation/supply.h"
 # include "ability/animation/hostEyesAnim.h"
 # include "ability/animation/pickUpToolBox.h"

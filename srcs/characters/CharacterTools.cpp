@@ -43,8 +43,8 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stats[0].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
 	t_AttackWithDebuff *stat0 = (t_AttackWithDebuff*)stats[0].stats;
 	stat0->critChance = 4;
-	stat0->damage = 80;
-	stat0->debuffChance = 35;
+	stat0->damage = 75;
+	stat0->debuffChance = 25;
 	stats[1].stats = (void*)malloc(sizeof(t_PhantomKnight));
 	t_PhantomKnight *stat1 = (t_PhantomKnight*)stats[1].stats;
 	stat1->hits = 1;
@@ -57,13 +57,17 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 
 static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
 {
-	stats[0].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
-	t_AttackWithDebuff *stat0 = (t_AttackWithDebuff*)stats[0].stats;
-	stat0->critChance = 1;
-	stat0->damage = 90;
-	stat0->debuffChance = 40;
-	stats[1].stats = (void*)malloc(sizeof(t_BuffAndDebuff));
-	t_BuffAndDebuff *stat1 = (t_BuffAndDebuff*)stats[1].stats;
+	stats[0].stats = (void*)malloc(sizeof(t_AttackStruct));
+	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
+	stat0->critChance = 3;
+	stat0->damage = 100;
+	stats[1].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
+	t_AttackWithDebuff *stat2 = (t_AttackWithDebuff*)stats[1].stats;
+	stat2->critChance = 2;
+	stat2->damage = 100;
+	stat2->debuffChance = 80;
+	stats[2].stats = (void*)malloc(sizeof(t_BuffAndDebuff));
+	t_BuffAndDebuff *stat1 = (t_BuffAndDebuff*)stats[2].stats;
 	stat1->buffChance = 200;
 	stat1->debuffChance = 200;
 }
@@ -157,7 +161,8 @@ void Character::AssignAbilities()
 			AssignDefaultLionStats(abilities);
 			break ;
 		case SMITH:
-			abilities = {{HAMMER_SMACK, 0, 10, 0, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
+			abilities = {{HAMMER_SMACK, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, -1, NULL},
+						{GO_FOR_THE_HEAD, 0, 10, 0, 100, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, NULL},
 						{SMITH_BUFF, 0, 10, 0, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::BUFF, NULL}};
 			AssignDefaultSmithStats(abilities);
 			break ;

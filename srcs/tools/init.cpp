@@ -436,6 +436,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/effects/slowSymbol.png");
 	gameState.textures.slowSymbol = use.text;
 	gameState.surfaces.slowSymbol = use.sur;
+	gameState.textures.attacks.smithHeadSmack[0] = get_texture(rend, "sprites/characters/blacksmith/blacksmithHeadSmack.png");
+	gameState.textures.attacks.smithHeadSmack[1] = get_texture(rend, "sprites/characters/blacksmith/blacksmithHeadSmackTrail.png");
+	gameState.textures.smithAbilities[5] = get_texture(rend, "sprites/UI/abilities/goForTheHead.png");
 }
 
 void CraeteAudioThread()

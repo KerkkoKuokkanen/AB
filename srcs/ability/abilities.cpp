@@ -143,6 +143,11 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 				phantSelector->SetAdditionalHighlights({{0, -2}, {0, 2}, {-1, 0}, {1, 0}});
 			break ;
 		}
+		case GO_FOR_THE_HEAD:
+		{
+			selector = new Selector(pos, 2, 0, &groundColoring, true);
+			break ;
+		}
 	}
 }
 
@@ -247,6 +252,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case SLOW_BOMB:
 			animations.push_back({new SlowBomb(character, targPoints[0], ability), SLOW_BOMB});
+			break ;
+		case GO_FOR_THE_HEAD:
+			animations.push_back({new GoForTheHead(character, target), GO_FOR_THE_HEAD});
 			break ;
 	}
 }

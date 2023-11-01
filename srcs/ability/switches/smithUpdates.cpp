@@ -152,5 +152,23 @@ void Abilities::UpdateSmithAnimation(t_Animation &anim, int index)
 			}
 			break ;
 		}
+		case GO_FOR_THE_HEAD:
+		{
+			GoForTheHead *used = (GoForTheHead*)anim.animation;
+			used->Update();
+			if (used->createDamage)
+			{
+				if (MeleeCheck(character, target, ability))
+					CreateDamage();
+				else
+					CreateMiss(character->position, target->position, target, true);
+			}
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }

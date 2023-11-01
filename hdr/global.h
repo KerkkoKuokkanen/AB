@@ -309,6 +309,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *alchemistThrow[2];
 	SDL_Texture *bombs[3];
 	SDL_Texture *nail;
+	SDL_Texture *smithHeadSmack[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -367,7 +368,7 @@ typedef struct s_Textures
 	SDL_Texture *questionMark;
 	SDL_Texture *control;
 	SDL_Texture *everyColor;
-	SDL_Texture *smithAbilities[5];
+	SDL_Texture *smithAbilities[6];
 	SDL_Texture *supplySymbol;
 	SDL_Texture *reSupply;
 	SDL_Texture *throwObj;
