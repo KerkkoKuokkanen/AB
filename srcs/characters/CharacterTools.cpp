@@ -25,17 +25,23 @@ static void AssingDefaultPyroStats(std::vector<t_Ability> &stats)
 
 static void AssingDefaultThiefStats(std::vector<t_Ability> &stats)
 {
-	stats[0].stats = (void*)malloc(sizeof(t_AttackStruct));
-	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
+	stats[0].stats = (void*)malloc(sizeof(t_AttackWithStatus));
+	t_AttackWithStatus *stat0 = (t_AttackWithStatus*)stats[0].stats;
 	stat0->critChance = 5;
 	stat0->damage = 90;
+	stat0->statusChance = 80;
+	stat0->stacks = 2;
+	stat0->statusActive = true;
 	stats[1].stats = (void*)malloc(sizeof(t_LastingEffect));
 	t_LastingEffect *stat1 = (t_LastingEffect*)stats[1].stats;
 	stat1->turns = 2;
-	stats[2].stats = (void*)malloc(sizeof(t_AttackStruct));
-	stat0 = (t_AttackStruct*)stats[2].stats;
+	stats[2].stats = (void*)malloc(sizeof(t_AttackWithStatus));
+	stat0 = (t_AttackWithStatus*)stats[2].stats;
 	stat0->critChance = 5;
 	stat0->damage = 100;
+	stat0->statusChance = 80;
+	stat0->stacks = 4;
+	stat0->statusActive = true;
 }
 
 static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
@@ -101,7 +107,7 @@ static void AssignDefaultRaiderAbilities(std::vector<t_Ability> &stats)
 	stats[2].stats = (void*)malloc(sizeof(t_ToxicBlade));
 	t_ToxicBlade *stat1 = (t_ToxicBlade*)stats[2].stats;
 	stat1->hits = 2;
-	stat1->stacks = 10;
+	stat1->stacks = 6;
 	stat1->turns = 0;
 	stat1->hitChance = 80;
 	stats[3].stats = (void*)malloc(sizeof(t_RaiderBlock));
@@ -116,7 +122,7 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stat0->additionalBlocks = false;
 	stat0->damage = 60;
 	stat0->critChance = 1;
-	stat0->stacks = 6;
+	stat0->stacks = 3;
 	stat0->statusChance = 65;
 	stat0->version = 7;
 	stats[1].stats = (void*)malloc(sizeof(t_DamageBomb));
@@ -124,7 +130,7 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stat0->additionalBlocks = false;
 	stat0->damage = 50;
 	stat0->critChance = 1;
-	stat0->stacks = 6;
+	stat0->stacks = 4;
 	stat0->statusChance = 70;
 	stat0->version = 8;
 	stats[2].stats = (void*)malloc(sizeof(t_SlowBomb));
@@ -135,14 +141,19 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stat1->version = 8;
 }
 
+static void AssingDefaultKnightAbilities(std::vector<t_Ability> &stats)
+{
+
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
 	{
 		case THIEF:
-			abilities = {{DAGGER_THROW, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, -1, NULL},
+			abilities = {{DAGGER_THROW, 0, 10, 0, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, NULL},
 						{SMOKE_BOMB, 0, 10, 0, 200, StatStructs::LASTING_EFFECT, -1, NULL},
-						{DAGGER_SLASH, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, -1, NULL}};
+						{DAGGER_SLASH, 0, 10, 0, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, NULL}};
 			AssingDefaultThiefStats(abilities);
 			break ;
 		case SKELE:
@@ -185,6 +196,11 @@ void Character::AssignAbilities()
 						{SLOW_BOMB, 0, 10, 0, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), NULL}};
 			AssignDefaultAlchemistAbilities(abilities);
 			break ;
+		case KNIGHT:
+			abilities = {{FLAIL_STRIKE, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{SHILED_BASH, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{CONTROL_ZONE, 0, 10, 0, 200, StatStructs::ATTACK_STRUCT, (-1), NULL}};
+			AssingDefaultKnightAbilities(abilities);
 		default:
 			return ;
 	}
@@ -281,6 +297,17 @@ void Character::CreateCharacterType(int skin)
 			stands.push_back(gameState.textures.stands.pyroStand);
 			sprite = new Sprite(gameState.textures.chars.AlchemistIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
 			stand = new Sprite(gameState.textures.stands.pyroStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
+		case KNIGHT:
+		{
+			SDL_Rect dest = {-3000, -450, 6500, 7360};
+			textures.push_back(gameState.textures.chars.knightIdle[0]);
+			textures.push_back(gameState.textures.chars.knightIdle[1]);
+			stands.push_back(gameState.textures.stands.knightStand);
+			stands.push_back(gameState.textures.stands.knightStand);
+			sprite = new Sprite(gameState.textures.chars.knightIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.knightStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
 	}

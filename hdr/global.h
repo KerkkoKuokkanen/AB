@@ -251,6 +251,8 @@ typedef struct s_Surfaces
 	SDL_Surface *alchemistIdle2;
 	SDL_Surface *bleedSymbol;
 	SDL_Surface *slowSymbol;
+	SDL_Surface *knightIdle1;
+	SDL_Surface *knightIdle2;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -264,6 +266,7 @@ typedef struct s_Stands
 	SDL_Texture *smithStand;
 	SDL_Texture *mageStand;
 	SDL_Texture *raiderStand;
+	SDL_Texture *knightStand;
 }				t_Stands;
 
 typedef struct s_CharacterTexts
@@ -283,6 +286,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *mageIndicator;
 	SDL_Texture *raiderIdle[2];
 	SDL_Texture *AlchemistIdle[2];
+	SDL_Texture *knightIdle[2];
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -383,6 +387,7 @@ typedef struct s_Textures
 	SDL_Texture *alchemistAbilities[3];
 	SDL_Texture *bleedSymbol;
 	SDL_Texture *slowSymbol;
+	SDL_Texture *knightAbilities[3];
 }				t_Textures;
 
 typedef struct s_Audio

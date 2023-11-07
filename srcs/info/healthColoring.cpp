@@ -113,6 +113,14 @@ static void GetDimentions(t_HealthColoringClass &add, Character *charac)
 			add.bottom2 = GetBottom(gameState.surfaces.alchemistIdle2);
 			return ;
 		}
+		case KNIGHT:
+		{
+			add.top1 = GetTop(gameState.surfaces.knightIdle1);
+			add.top2 = GetTop(gameState.surfaces.knightIdle2);
+			add.bottom1 = GetBottom(gameState.surfaces.knightIdle1);
+			add.bottom2 = GetBottom(gameState.surfaces.knightIdle2);
+			return ;
+		}
 	}
 }
 

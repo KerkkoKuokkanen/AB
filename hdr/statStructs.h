@@ -19,7 +19,8 @@ namespace StatStructs
 		TOXIC_BLADE,
 		RAIDER_BLOCK,
 		BOMB_STRUCT,
-		SLOW_BOMB_STRUCT
+		SLOW_BOMB_STRUCT,
+		ATTACK_WITH_STATUS
 	};
 };
 
@@ -125,6 +126,15 @@ typedef struct s_AttackWithDebuff
 	int critChance;
 	int debuffChance;
 }				t_AttackWithDebuff;
+
+typedef struct s_AttackWithStatus
+{
+	int damage;
+	int critChance;
+	int statusChance;
+	int stacks;
+	bool statusActive;
+}				t_AttackWithStatus;
 
 typedef struct s_LastingEffect
 {

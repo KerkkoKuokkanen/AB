@@ -255,6 +255,11 @@ SDL_Surface *getSurface(Character *character)
 				return (gameState.surfaces.alchemistIdle1);
 			else
 				return (gameState.surfaces.alchemistIdle2);
+		case KNIGHT:
+			if (text == 0)
+				return (gameState.surfaces.knightIdle1);
+			else
+				return (gameState.surfaces.knightIdle2);
 	}
 	return (NULL);
 }

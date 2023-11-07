@@ -24,7 +24,7 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 	{
 		case THIEF:
 			srect->x = 150;
-			srect->y = 100;
+			srect->y = 80;
 			srect->w = 700;
 			srect->h = 350;
 			break ;
@@ -69,6 +69,12 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->y = 65;
 			srect->w = 360;
 			srect->h = 363;
+			break ;
+		case KNIGHT:
+			srect->x = 240;
+			srect->y = 44;
+			srect->w = 400;
+			srect->h = 403;
 			break ;
 	}
 }
@@ -135,6 +141,14 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 			};
 			break ;
 		case ALCHEMIST:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case KNIGHT:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),

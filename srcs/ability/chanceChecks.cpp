@@ -93,6 +93,12 @@ static int GetStatusChance(t_Ability *ability, Character *character)
 			chance = used->chance;
 			return (chance);
 		}
+		case StatStructs::ATTACK_WITH_STATUS:
+		{
+			t_AttackWithStatus *used = (t_AttackWithStatus*)ability->stats;
+			chance = used->statusChance;
+			return (chance);
+		}
 	}
 	return (chance);
 }

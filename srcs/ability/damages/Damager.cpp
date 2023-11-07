@@ -90,6 +90,24 @@ static void addStatus(Character *damager, Character *target, t_Ability *ability,
 			target->statuses.stun = 1;
 			break ;
 		}
+		case StatusSigns::BLEED:
+		{
+			if (!hit)
+			{
+				CreateTextSnippet(damager, target, "MISS", 900, Color(184, 6, 6));
+				break ;
+			}
+			gameState.updateObjs.info->AddColorEffect(target->sprite, 6, Color(184, 6, 6), 10);
+			t_AttackWithStatus *val = (t_AttackWithStatus*)ability->stats;
+			int stacks = val->stacks;
+			std::string used;
+			used += std::to_string(stacks);
+			used += " bleed";
+			const char *ret = used.c_str();
+			CreateTextSnippet(damager, target, ret, 1000, Color(184, 6, 6));
+			for (int i = 0; i < stacks; i++)
+				target->statuses.bleed.push_back(3);
+		}
 	}
 }
 

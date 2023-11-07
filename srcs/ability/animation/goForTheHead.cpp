@@ -82,7 +82,7 @@ void GoForTheHead::Update()
 	}
 	counter++;
 }
-//still making sprites
+
 void GoForTheHead::Destroy()
 {
 	character->setAnimationActive(false);

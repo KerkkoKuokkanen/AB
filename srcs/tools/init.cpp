@@ -439,6 +439,16 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.smithHeadSmack[0] = get_texture(rend, "sprites/characters/blacksmith/blacksmithHeadSmack.png");
 	gameState.textures.attacks.smithHeadSmack[1] = get_texture(rend, "sprites/characters/blacksmith/blacksmithHeadSmackTrail.png");
 	gameState.textures.smithAbilities[5] = get_texture(rend, "sprites/UI/abilities/goForTheHead.png");
+	use = get_texture_and_surface(rend, "sprites/characters/knight/flail.png");
+	gameState.textures.chars.knightIdle[0] = use.text;
+	gameState.surfaces.knightIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/knight/flail2.png");
+	gameState.textures.chars.knightIdle[1] = use.text;
+	gameState.surfaces.knightIdle2 = use.sur;
+	gameState.textures.stands.knightStand = get_texture(rend, "sprites/characters/knight/flailStand.png");
+	gameState.textures.knightAbilities[0] = get_texture(rend, "sprites/UI/abilities/flailStrike.png");
+	gameState.textures.knightAbilities[1] = get_texture(rend, "sprites/UI/abilities/shieldStrike.png");
+	gameState.textures.knightAbilities[2] = get_texture(rend, "sprites/UI/abilities/controlZone.png");
 }
 
 void CraeteAudioThread()

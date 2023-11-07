@@ -168,6 +168,15 @@ void CharacterUI::GetAbilities()
 			case GO_FOR_THE_HEAD:
 				CreateButton(dest, gameState.textures.smithAbilities[5], GO_FOR_THE_HEAD, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case FLAIL_STRIKE:
+				CreateButton(dest, gameState.textures.knightAbilities[0], FLAIL_STRIKE, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case SHILED_BASH:
+				CreateButton(dest, gameState.textures.knightAbilities[1], SHILED_BASH, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case CONTROL_ZONE:
+				CreateButton(dest, gameState.textures.knightAbilities[2], CONTROL_ZONE, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }

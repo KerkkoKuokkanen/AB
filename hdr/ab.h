@@ -66,7 +66,10 @@ enum {
 	RAIDER_BLOCK,
 	NAIL_BOMB,
 	ACID_BOMB,
-	SLOW_BOMB
+	SLOW_BOMB,
+	FLAIL_STRIKE,
+	SHILED_BASH,
+	CONTROL_ZONE
 };
 
 namespace StatusSigns
@@ -218,7 +221,8 @@ enum {
 	SMITH,
 	MAGE,
 	RAIDER,
-	ALCHEMIST
+	ALCHEMIST,
+	KNIGHT
 };
 
 enum {
