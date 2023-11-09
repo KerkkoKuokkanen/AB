@@ -143,7 +143,13 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 
 static void AssingDefaultKnightAbilities(std::vector<t_Ability> &stats)
 {
-
+	stats[0].stats = (void*)malloc(sizeof(t_AttackWithStatus));
+	t_AttackWithStatus *stat0 = (t_AttackWithStatus*)stats[0].stats;
+	stat0->critChance = 3;
+	stat0->damage = 100;
+	stat0->stacks = 2;
+	stat0->statusActive = true;
+	stat0->statusChance = 80;
 }
 
 void Character::AssignAbilities()
@@ -197,7 +203,7 @@ void Character::AssignAbilities()
 			AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		case KNIGHT:
-			abilities = {{FLAIL_STRIKE, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+			abilities = {{FLAIL_STRIKE, 0, 10, 0, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, NULL},
 						{SHILED_BASH, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
 						{CONTROL_ZONE, 0, 10, 0, 200, StatStructs::ATTACK_STRUCT, (-1), NULL}};
 			AssingDefaultKnightAbilities(abilities);

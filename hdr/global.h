@@ -314,6 +314,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *bombs[3];
 	SDL_Texture *nail;
 	SDL_Texture *smithHeadSmack[2];
+	SDL_Texture *knightAttack[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -437,6 +438,7 @@ typedef struct s_Audio
 	Mix_Chunk *acidBomb[3];
 	Mix_Chunk *slowBomb[2];
 	Mix_Chunk *slowDebuff;
+	Mix_Chunk *flailStrike;
 }				t_Audio;
 
 typedef struct s_Fonts

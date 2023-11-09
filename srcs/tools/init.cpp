@@ -169,6 +169,7 @@ void getAudio()
 	gameState.audio.slowBomb[0] = Mix_LoadWAV("audio/abilities/alchemist/slowGlass.wav");
 	gameState.audio.slowBomb[1] = Mix_LoadWAV("audio/abilities/alchemist/splash.wav");
 	gameState.audio.slowDebuff = Mix_LoadWAV("audio/abilities/alchemist/slowDebuff.wav");
+	gameState.audio.flailStrike = Mix_LoadWAV("audio/abilities/knight/strike.wav");
 }
 
 void getFonts()
@@ -449,6 +450,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.knightAbilities[0] = get_texture(rend, "sprites/UI/abilities/flailStrike.png");
 	gameState.textures.knightAbilities[1] = get_texture(rend, "sprites/UI/abilities/shieldStrike.png");
 	gameState.textures.knightAbilities[2] = get_texture(rend, "sprites/UI/abilities/controlZone.png");
+	gameState.textures.attacks.knightAttack[0] = get_texture(rend, "sprites/characters/knight/flailAttack.png");
+	gameState.textures.attacks.knightAttack[1] = get_texture(rend, "sprites/characters/knight/flailAttackTrail.png");
 }
 
 void CraeteAudioThread()

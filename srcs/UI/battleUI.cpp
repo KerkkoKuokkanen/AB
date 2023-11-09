@@ -564,5 +564,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case GO_FOR_THE_HEAD:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(GO_FOR_THE_HEAD), activeCharacter);
 			break ;
+		case FLAIL_STRIKE:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAIL_STRIKE), activeCharacter);
+			break ;
 	}
 }

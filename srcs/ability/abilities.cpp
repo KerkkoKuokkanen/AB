@@ -148,6 +148,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selector = new Selector(pos, 2, 0, &groundColoring, true);
 			break ;
 		}
+		case FLAIL_STRIKE:
+			selector = new Selector(character->position, 4, 0, &groundColoring, true);
+			break ;
 	}
 }
 
@@ -255,6 +258,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case GO_FOR_THE_HEAD:
 			animations.push_back({new GoForTheHead(character, target), GO_FOR_THE_HEAD});
+			break ;
+		case FLAIL_STRIKE:
+			animations.push_back({new KnightAttack(character, target), FLAIL_STRIKE});
 			break ;
 	}
 }
@@ -437,6 +443,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case ALCHEMIST:
 				UpdateAlchemistAnimation(animations[i], i);
+				break ;
+			case KNIGHT:
+				UpdateKnightAnimation(animations[i], i);
 				break ;
 		}
 	}
