@@ -171,7 +171,7 @@ void getAudio()
 	gameState.audio.slowDebuff = Mix_LoadWAV("audio/abilities/alchemist/slowDebuff.wav");
 	gameState.audio.flailStrike = Mix_LoadWAV("audio/abilities/knight/strike.wav");
 }
-
+//junction weekend :D
 void getFonts()
 {
 	gameState.fonts.googleFont = TTF_OpenFont("sprites/fonts/text.ttf", 64);
