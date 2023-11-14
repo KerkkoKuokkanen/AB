@@ -24,6 +24,17 @@ void Abilities::UpdateKnightAnimation(t_Animation &anim, int index)
 			}
 			break ;
 		}
+		case SHILED_BASH:
+		{
+			ShieldBash *used = (ShieldBash*)anim.animation;
+			used->Update();
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }
 

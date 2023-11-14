@@ -567,5 +567,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case FLAIL_STRIKE:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAIL_STRIKE), activeCharacter);
 			break ;
+		case SHILED_BASH:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SHILED_BASH), activeCharacter);
+			break ;
 	}
 }

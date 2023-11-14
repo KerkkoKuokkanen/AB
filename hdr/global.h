@@ -315,6 +315,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *nail;
 	SDL_Texture *smithHeadSmack[2];
 	SDL_Texture *knightAttack[2];
+	SDL_Texture *shieldBash[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites

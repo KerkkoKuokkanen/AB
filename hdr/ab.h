@@ -172,6 +172,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/rotate.h"
 # include "ability/animation/goForTheHead.h"
 # include "ability/animation/supply.h"
+# include "ability/animation/shieldBash.h"
 # include "ability/animation/knightAttack.h"
 # include "ability/animation/hostEyesAnim.h"
 # include "ability/animation/pickUpToolBox.h"

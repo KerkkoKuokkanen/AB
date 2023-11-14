@@ -151,6 +151,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case FLAIL_STRIKE:
 			selector = new Selector(character->position, 4, 0, &groundColoring, true);
 			break ;
+		case SHILED_BASH:
+			selector = new Selector(character->position, 2, 0, &groundColoring, true);
+			break ;
 	}
 }
 
@@ -261,6 +264,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case FLAIL_STRIKE:
 			animations.push_back({new KnightAttack(character, target), FLAIL_STRIKE});
+			break ;
+		case SHILED_BASH:
+			animations.push_back({new ShieldBash(character, target), SHILED_BASH});
 			break ;
 	}
 }
