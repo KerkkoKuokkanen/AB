@@ -13,62 +13,28 @@ Kill::Kill()
 
 void Kill::KillColorFade(t_kill *killed)
 {
-	if (killed->timer > 60)
+	if (killed->timer > 15)
 		return ;
-	float unit = 255.0f / 40.0f;
-	int time = killed->timer - 20;
+	float unit = 255.0f / 15.0f;
+	int time = abs(killed->timer - 15);
 	int value = rounding(unit * (float)time);
 	if (time <= 0)
 		value = 2;
 	killed->character->sprite->ColorMod(value, value, value);
 }
 
-float Kill::getSpeed(Vector dir, Vector genDir)
-{
-	float angle = vectorAngle(dir, genDir);
-	float speedUnit = (float)gameState.screen.width / 400.0f;
-	float speed = (rand() % ((int)speedUnit * 20)) + speedUnit * 5.0f;
-	if (angle > 0.78)
-		return (speed);
-	float unit = (speedUnit * 60.0f) / 0.78f;
-	speed += (speedUnit * 60.0f) - (unit * angle);
-	return (speed);
-}
-
-void Kill::CreateParticles(Character *character)
-{
-	SDL_Surface *sur = getSurface(character);
-	if (sur == NULL)
-		return ;
-	float wUnit = (float)character->sprite->dest.w / (float)sur->w;
-	float hUnit = (float)character->sprite->dest.h / (float)sur->h;
-	int counter = PART_DIST;
-	Uint32 *pixels = (Uint32*)sur->pixels;
-	SDL_Rect dest = character->sprite->dest;
-	Vector generalDir(1.0f, 0.0f);
-	if (character->ally)
-		generalDir.x = (-1.0f);
-	for (int y = 0; y < sur->h; y++)
-	{
-		for (int x = 0; x < sur->w; x++)
-		{
-			if (pixels[(y * sur->w) + x] == 0)
-				continue ;
-			counter++;
-			if (counter >= PART_DIST)
-			{
-				float xP = (float)dest.x + (wUnit * (float)x);
-				float yP = (float)dest.y + (hUnit * (float)y);
-				Vector dir = getDirection(generalDir);
-				gameState.updateObjs.partManager->CreateParticle(dir, Vector(xP, yP), getSpeed(dir, generalDir));
-				counter = 0;
-			}
-		}
-	}
-}
-
 void Kill::Update()
 {
+	for (int i = 0; i < killEffects.size(); i++)
+	{
+		killEffects[i]->Update();
+		if (killEffects[i]->done)
+		{
+			delete killEffects[i];
+			killEffects.erase(killEffects.begin() + i);
+			i = (killEffects.size() == 0) ? 0 : i - 1;
+		}
+	}
 	if (kills.size() == 0)
 	{
 		killing = false;
@@ -84,8 +50,7 @@ void Kill::Update()
 		{
 			visited = true;
 			SetScreenShake(700, 5);
-			PlaySound(gameState.audio.kills[1], Channels::KILL_EXPLOSION0, 0);
-			CreateParticles(kills[i].character);
+			killEffects.push_back(new KillEffect(getSurface(kills[i].character), kills[i].character->sprite, kills[i].character->stand));
 			RemoveCharacter(kills[i].character);
 			kills.erase(kills.begin() + i);
 			i = (i == 0) ? 0 : i - 1;
@@ -95,13 +60,13 @@ void Kill::Update()
 
 void Kill::AddCharacterToKill(Character *character)
 {
-	PlaySound(gameState.audio.kills[0], Channels::KILL_FADE, 0);
 	for (int i = 0; i < kills.size(); i++)
 	{
 		if (character == kills[i].character)
 			return ;
 	}
-	t_kill kill = {character, KILL_TIME};
+	t_kill kill = {character, 15};
+	PlaySound(gameState.audio.kills[1], Channels::VOLUME_25, 0);
 	character->killed = true;
 	kills.push_back(kill);
 }

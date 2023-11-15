@@ -31,6 +31,7 @@ enum {
 	DUST_LAYER,
 	PARTICLE_LAYER,
 	OBJECT_LAYER,
+	FILTER_LAYER,
 	INFO_LAYER,
 	TURN_ORDER_LAYER,
 	TEXT_LAYER,
@@ -129,6 +130,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "statStructs.h"
 # include "battleClasses/turnOrder.h"
 # include "battleClasses/turnIndicator.h"
+# include "battleClasses/killEffect.h"
 # include "battleClasses/kill.h"
 # include "particle/particle.h"
 # include "particle/particleManager.h"

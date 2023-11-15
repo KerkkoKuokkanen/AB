@@ -42,7 +42,6 @@ class Info
 		void AddSlowEffect(SlowedEffect *add) {slowEffects.push_back(add);};
 		void AddBombEffect(void *effect, int abilityType);
 		void AddColorEffect(Sprite *sprite, int time, Color color, int delay) {colorEffects->AddEffect(sprite, time, color, delay);};
-		void InitHealthColoring() {healthColoring = new HealthColoring;};
 		void Update();
 		void Destroy();
 };

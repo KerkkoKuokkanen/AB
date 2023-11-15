@@ -493,6 +493,7 @@ void TurnOrder::RemoveCharacter(Character *character)
 		}
 	}
 	int index = 0;
+	bool visited = false;
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		if (indicators[i].character == character)
@@ -507,6 +508,7 @@ void TurnOrder::RemoveCharacter(Character *character)
 			{
 				killActive = false;
 				target = TARGET_SIGN;
+				visited = true;
 			}
 			delete indicators[i].indicator;
 			free(indicators[i].srect);
@@ -515,7 +517,7 @@ void TurnOrder::RemoveCharacter(Character *character)
 			break ;
 		}
 	}
-	while (index < indicators.size())
+	while (index < indicators.size() && visited != true)
 	{
 		indicators[index].killMove += 1;
 		index++;

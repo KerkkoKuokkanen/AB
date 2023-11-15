@@ -16,7 +16,7 @@ LionSmack::LionSmack(Character *character, SDL_Point target)
 	LionSmack::target = target;
 	character->setAnimationActive(true);
 	mover = new CharacterMover(character, GetDirection(), 17, 17, 180.0f);
-	PlaySound(gameState.audio.lionSmack, Channels::LION_SMACK, 0);
+	PlaySound(gameState.audio.lionSmack, Channels::VOLUME_12, 0);
 }
 
 void LionSmack::CreateTrail()

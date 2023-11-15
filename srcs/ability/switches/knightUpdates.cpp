@@ -1,6 +1,10 @@
 
 #include "../../../hdr/global.h"
 
+static void ShieldBashHit(Character *character, Character *target, t_Ability *ability)
+{
+
+}
 
 void Abilities::UpdateKnightAnimation(t_Animation &anim, int index)
 {
@@ -28,6 +32,16 @@ void Abilities::UpdateKnightAnimation(t_Animation &anim, int index)
 		{
 			ShieldBash *used = (ShieldBash*)anim.animation;
 			used->Update();
+			if (used->createDamage)
+			{
+				if (!MeleeCheck(character, target, ability))
+					CreateMiss(character->position, target->position, target, true);
+				else
+				{
+					CreateDamage();
+					ShieldBashHit(character, target, ability);
+				}
+			}
 			if (used->done)
 			{
 				delete used;

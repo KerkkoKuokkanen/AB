@@ -150,6 +150,12 @@ static void AssingDefaultKnightAbilities(std::vector<t_Ability> &stats)
 	stat0->stacks = 2;
 	stat0->statusActive = true;
 	stat0->statusChance = 80;
+	stats[1].stats = (void*)malloc(sizeof(t_ShieldBash));
+	t_ShieldBash *stat1 = (t_ShieldBash*)stats[1].stats;
+	stat1->critChance = 1;
+	stat1->damage = 33;
+	stat1->stunChance = 100;
+	stat1->moveChance = 80;
 }
 
 void Character::AssignAbilities()
@@ -204,7 +210,7 @@ void Character::AssignAbilities()
 			break ;
 		case KNIGHT:
 			abilities = {{FLAIL_STRIKE, 0, 10, 0, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, NULL},
-						{SHILED_BASH, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{SHILED_BASH, 0, 10, 0, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), NULL},
 						{CONTROL_ZONE, 0, 10, 0, 200, StatStructs::ATTACK_STRUCT, (-1), NULL}};
 			AssingDefaultKnightAbilities(abilities);
 		default:

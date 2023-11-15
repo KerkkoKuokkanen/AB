@@ -390,6 +390,7 @@ typedef struct s_Textures
 	SDL_Texture *bleedSymbol;
 	SDL_Texture *slowSymbol;
 	SDL_Texture *knightAbilities[3];
+	SDL_Texture *filter;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -415,7 +416,7 @@ typedef struct s_Audio
 	Mix_Chunk *rotate;
 	Mix_Chunk *poof;
 	Mix_Chunk *opportunity;
-	Mix_Chunk *kills[2];
+	Mix_Chunk *kills[3];
 	Mix_Chunk *hammerSmack;
 	Mix_Chunk *supply;
 	Mix_Chunk *toolThrow;

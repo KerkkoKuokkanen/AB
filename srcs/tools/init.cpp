@@ -44,8 +44,6 @@ void initKeys()
 
 void initScreen(int width, int height)
 {
-	gameState.screen.width = width;
-	gameState.screen.height = height;
 	gameState.screen.aspectRatio = (float)gameState.screen.width / (float)gameState.screen.height;
 	gameState.screen.midPointX = gameState.screen.width / 2;
 	gameState.screen.midPointY = gameState.screen.height / 2;
@@ -101,9 +99,9 @@ void getAudio()
 	AudioCreateVolume(Channels::BUFF_EFFECT, 16);
 	AudioCreateVolume(Channels::MAGE_CAST, 28);
 	AudioCreateVolume(Channels::LIGHTNING, 26);
-	AudioCreateVolume(Channels::METEOR1, 28);
-	AudioCreateVolume(Channels::METEOR2, 3);
-	AudioCreateVolume(Channels::METEOR3, 8);
+	AudioCreateVolume(Channels::METEOR1, 22);
+	AudioCreateVolume(Channels::METEOR2, 2);
+	AudioCreateVolume(Channels::METEOR3, 5);
 	AudioCreateVolume(Channels::HOST_EYES1, 66);
 	AudioCreateVolume(Channels::HOST_EYES2, 23);
 	AudioCreateVolume(Channels::HOST_EYES3, 7);
@@ -138,6 +136,7 @@ void getAudio()
 	gameState.audio.opportunity = Mix_LoadWAV("audio/abilities/opportunity.wav");
 	gameState.audio.kills[0] = Mix_LoadWAV("audio/effects/killFade.wav");
 	gameState.audio.kills[1] = Mix_LoadWAV("audio/effects/killExplosion.wav");
+	gameState.audio.kills[2] = Mix_LoadWAV("audio/effects/killAshes.wav");
 	gameState.audio.hammerSmack = Mix_LoadWAV("audio/abilities/smith/hammerSmack.wav");
 	gameState.audio.supply = Mix_LoadWAV("audio/effects/supply.wav");
 	gameState.audio.toolThrow = Mix_LoadWAV("audio/abilities/smith/toolThrow.wav");
@@ -454,6 +453,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.knightAttack[1] = get_texture(rend, "sprites/characters/knight/flailAttackTrail.png");
 	gameState.textures.attacks.shieldBash[0] = get_texture(rend, "sprites/characters/knight/flailShieldStrike.png");
 	gameState.textures.attacks.shieldBash[1] = get_texture(rend, "sprites/characters/knight/flailShieldStrikeTrail.png");
+	gameState.textures.filter = get_texture(rend, "sprites/env/filter.png");
 }
 
 void CraeteAudioThread()
@@ -478,7 +478,8 @@ void	init(t_wr *wr)
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	initScreen(1280, 720);
+	SDL_GetWindowSize(wr->win, &gameState.screen.width, &gameState.screen.height);
+	initScreen(gameState.screen.width, gameState.screen.height);
 	initKeys();
 	static Renderer render(wr->rend);
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -486,6 +487,7 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_NO_SORT); //dust layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
+	render.CreateLayer(LAYER_NO_SORT); //filter layer
 	render.CreateLayer(LAYER_DEPTH_SORT); //info layer
 	render.CreateLayer(LAYER_ORDER_SORT); //turn order layer
 	render.CreateLayer(LAYER_ORDER_SORT); //flying texts;

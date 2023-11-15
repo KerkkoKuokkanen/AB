@@ -8,6 +8,7 @@ Info::Info()
 	controls = new ControlSetter;
 	movementEnergy = new MovementEnergy;
 	colorEffects = new ColorEffects;
+	healthColoring = new HealthColoring;
 	hovered = NULL;
 }
 

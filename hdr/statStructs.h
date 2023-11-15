@@ -20,7 +20,8 @@ namespace StatStructs
 		RAIDER_BLOCK,
 		BOMB_STRUCT,
 		SLOW_BOMB_STRUCT,
-		ATTACK_WITH_STATUS
+		ATTACK_WITH_STATUS,
+		SHIELD_BASH_STRUCT
 	};
 };
 
@@ -40,6 +41,14 @@ typedef struct s_ToxicBlade
 	int turns;
 	int hitChance;
 }				t_ToxicBlade;
+
+typedef struct s_ShieldBash
+{
+	int damage;
+	int critChance;
+	int stunChance;
+	int moveChance;
+}				t_ShieldBash;
 
 typedef struct s_RaiderBlock
 {

@@ -6,7 +6,7 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(KNIGHT);
-	Character thief2(RAIDER);
+	Character thief2(MAGE);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
 	Character thief3(THIEF);
@@ -29,7 +29,6 @@ void TempInitBattle()
 	gameState.updateObjs.abilities->SetMap();
 	static OBJ_Update objUpdate;
 	gameState.updateObjs.objUpdate = &objUpdate;
-	gameState.updateObjs.info->InitHealthColoring();
 	ResetStatusUpdates();
 }
 
@@ -45,6 +44,10 @@ int MainLoop()
 	Object lree(ObjectSigns::DEAD_TREE, {4, 5});
 	Object p1ree(ObjectSigns::DEAD_TREE, {2, 0});
 	Object p2ree(ObjectSigns::DEAD_TREE, {2, 2});
+	Sprite *filter = new Sprite(gameState.textures.filter, {-60000, -60000, 150000, 110000}, NULL, NULL, 0, FLIP_NONE, true);
+	filter->AlphaMod(10);
+	filter->ColorMod(1, 1, 1);
+	gameState.render->AddSprite(filter, FILTER_LAYER);
 	while (true)
 	{
 		start = clock();
