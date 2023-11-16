@@ -99,6 +99,12 @@ static int GetStatusChance(t_Ability *ability, Character *character)
 			chance = used->statusChance;
 			return (chance);
 		}
+		case StatStructs::SHIELD_BASH_STRUCT:
+		{
+			t_ShieldBash *used = (t_ShieldBash*)ability->stats;
+			chance = used->stunChance;
+			return (chance);
+		}
 	}
 	return (chance);
 }
@@ -110,6 +116,44 @@ bool StatusApply(t_Ability *ability, Character *character, Character *target, bo
 	if (ability->statusSign == (-1) && !skipCheck)
 		return (false);
 	int chance = GetStatusChance(ability, character);
+	if (chance == 200)
+		return (true);
+	if (chance > 95)
+		chance = 95;
+	if (chance < 5)
+		chance = 5;
+	int hit = rand() % 100;
+	if (hit < chance)
+		return (true);
+	return (false);
+}
+
+static int getMoveChance(t_Ability *ability)
+{
+	switch (ability->statType)
+	{
+		case StatStructs::SHIELD_BASH_STRUCT:
+		{
+			t_ShieldBash *used = (t_ShieldBash*)ability->stats;
+			return (used->moveChance);
+		}
+	}
+	return (0);
+}
+
+bool MoveChanceCheck(t_Ability *ability, Character *character, Character *target)
+{
+	int cSize = character->stats.size;
+	int tSize = character->stats.size;
+	int diff = cSize - tSize;
+	int defaultChance = getMoveChance(ability);
+	if (defaultChance >= 200)
+		return (true);
+	if (defaultChance > 95)
+		defaultChance = 95;
+	if (defaultChance < 5)
+		defaultChance = 5;
+	int chance = defaultChance + (diff * 6);
 	int hit = rand() % 100;
 	if (hit < chance)
 		return (true);

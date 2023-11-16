@@ -60,6 +60,8 @@ class Abilities
 		void UpdateThiefObject(t_Object &object, int index);
 		void UpdatePyroAnimation(t_Animation &animation, int index);
 		void UpdateKnightAnimation(t_Animation &animation, int index);
+		void UpdateKnightObjects(t_Object &object, int index);
+		void CreateShieldBashDamage();
 		void UpdateAlchemistAnimation(t_Animation &anim, int index);
 		void PyroIncinerateDamage();
 		void CreateBombDamages();

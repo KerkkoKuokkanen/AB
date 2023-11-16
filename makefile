@@ -36,7 +36,7 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/effects/nailBombBlast.cpp srcs/tools/spriteMover.cpp srcs/ability/animation/acidBombAnim.cpp \
 		srcs/effects/acidBombBlast.cpp srcs/ability/animation/slowBomb.cpp srcs/effects/slowedEffect.cpp \
 		srcs/ability/animation/goForTheHead.cpp srcs/ability/animation/knightAttack.cpp srcs/ability/switches/knightUpdates.cpp \
-		srcs/ability/animation/shieldBash.cpp srcs/characters/killEffect.cpp
+		srcs/ability/animation/shieldBash.cpp srcs/characters/killEffect.cpp srcs/ability/objects/bashMover.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

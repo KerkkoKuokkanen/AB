@@ -6,7 +6,6 @@
 
 typedef struct s_Stun
 {
-	Sprite *sprite;
 	Character *target;
 	int timer;
 }				t_Stun;

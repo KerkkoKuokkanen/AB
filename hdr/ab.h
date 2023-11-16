@@ -202,6 +202,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/objects/smokeEffect.h"
 # include "ability/objects/smokeBomb.h"
 # include "ability/objects/dagger.h"
+# include "ability/objects/bashMover.h"
 # include "ability/damages/damageCreator.h"
 # include "ability/effectUpdater.h"
 # include "ability/damages/Damager.h"
@@ -375,6 +376,7 @@ void		UpdateStatuses();
 void		ResetStatusUpdates();
 
 bool		StatusApply(t_Ability *ability, Character *character, Character *target, bool skipCheck = false);
+bool		MoveChanceCheck(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);
 int			GetChance(Character *character, Character *target, t_Ability *ability);
 bool		CheckIfOpportunityHits(Character *damager, Character *target);

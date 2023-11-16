@@ -29,6 +29,7 @@ ShieldBash::ShieldBash(Character *character, Character *target)
 
 void ShieldBash::CreateTrail()
 {
+	PlaySound(gameState.audio.shieldBash[0], Channels::VOLUME_22, 0);
 	SDL_Rect dest = {character->sprite->dest.x + 500, character->sprite->dest.y, 9700, 7060};
 	character->sprite->dest = dest;
 	character->sprite->setTexture(gameState.textures.attacks.shieldBash[0]);

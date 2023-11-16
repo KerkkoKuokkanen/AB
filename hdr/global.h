@@ -441,6 +441,7 @@ typedef struct s_Audio
 	Mix_Chunk *slowBomb[2];
 	Mix_Chunk *slowDebuff;
 	Mix_Chunk *flailStrike;
+	Mix_Chunk *shieldBash[2];
 }				t_Audio;
 
 typedef struct s_Fonts

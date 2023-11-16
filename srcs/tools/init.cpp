@@ -169,6 +169,8 @@ void getAudio()
 	gameState.audio.slowBomb[1] = Mix_LoadWAV("audio/abilities/alchemist/splash.wav");
 	gameState.audio.slowDebuff = Mix_LoadWAV("audio/abilities/alchemist/slowDebuff.wav");
 	gameState.audio.flailStrike = Mix_LoadWAV("audio/abilities/knight/strike.wav");
+	gameState.audio.shieldBash[0] = Mix_LoadWAV("audio/abilities/knight/shieldBash.wav");
+	gameState.audio.shieldBash[1] = Mix_LoadWAV("audio/abilities/knight/shieldMove.wav");
 }
 
 void getFonts()

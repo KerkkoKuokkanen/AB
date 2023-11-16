@@ -6,7 +6,7 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(KNIGHT);
-	Character thief2(MAGE);
+	Character thief2(RAIDER);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
 	Character thief3(THIEF);
@@ -45,7 +45,7 @@ int MainLoop()
 	Object p1ree(ObjectSigns::DEAD_TREE, {2, 0});
 	Object p2ree(ObjectSigns::DEAD_TREE, {2, 2});
 	Sprite *filter = new Sprite(gameState.textures.filter, {-60000, -60000, 150000, 110000}, NULL, NULL, 0, FLIP_NONE, true);
-	filter->AlphaMod(10);
+	filter->AlphaMod(15);
 	filter->ColorMod(1, 1, 1);
 	gameState.render->AddSprite(filter, FILTER_LAYER);
 	while (true)

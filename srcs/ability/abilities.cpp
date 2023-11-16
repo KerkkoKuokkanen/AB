@@ -475,6 +475,9 @@ void Abilities::ObjectUpdater()
 			case MAGE:
 				UpdateMageObject(objects[i], i);
 				break ;
+			case KNIGHT:
+				UpdateKnightObjects(objects[i], i);
+				break ;
 		}
 	}
 }
