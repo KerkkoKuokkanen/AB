@@ -57,7 +57,7 @@ bool Info::KilledOrDamaged()
 
 void Info::UpdateBar()
 {
-	if (hovered == NULL)
+	if (hovered == NULL || hovered->killed)
 	{
 		if (bar != NULL)
 			delete bar;

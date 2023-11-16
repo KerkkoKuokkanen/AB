@@ -65,6 +65,7 @@ void Kill::AddCharacterToKill(Character *character)
 		if (character == kills[i].character)
 			return ;
 	}
+	SetDelayer(7);
 	t_kill kill = {character, 15};
 	PlaySound(gameState.audio.kills[1], Channels::VOLUME_25, 0);
 	character->killed = true;

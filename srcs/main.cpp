@@ -6,7 +6,7 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(KNIGHT);
-	Character thief2(RAIDER);
+	Character thief2(MAGE);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
 	Character thief3(THIEF);
@@ -52,7 +52,6 @@ int MainLoop()
 	{
 		start = clock();
 		Utility();
-		gameState.battle.ground->Update();
 		if (gameState.keys.space == 1)
 			gameState.updateObjs.turnOrder->ActivateTurnChange();
 		ObjUpdate();

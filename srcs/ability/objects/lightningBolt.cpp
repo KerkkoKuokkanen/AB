@@ -16,7 +16,7 @@ static Color getColor()
 
 LightningBolt::LightningBolt(SDL_Point target)
 {
-	PlaySound(gameState.audio.lightning, Channels::LIGHTNING, 0);
+	PlaySound(gameState.audio.lightning, Channels::VOLUME_19, 0);
 	LightningBolt::target = target;
 	SDL_Rect dest = gameState.battle.ground->getTileDest(target);
 	SDL_Rect used = {dest.x - 530, dest.y - 10700, 2400, 11000};

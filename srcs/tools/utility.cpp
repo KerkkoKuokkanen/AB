@@ -150,6 +150,18 @@ void CheckOverMenu()
 		middle = 0;
 }
 
+void SetDelayer(int delayAddition)
+{
+	if (gameState.screenShake.delayer < delayAddition)
+		gameState.screenShake.delayer = delayAddition;
+}
+
+static void ManageDelay()
+{
+	if (gameState.screenShake.delayer > 0)
+		gameState.screenShake.delayer -= 1;
+}
+
 void Utility()
 {
 	eventPoller();
@@ -162,12 +174,32 @@ void Utility()
 	ManageMouseWheel();
 	ManageTextureHovering();
 	CheckOverMenu();
-	ShakeTheScreen();
+	ManageDelay();
 	gameState.updateObjs.UI->ClearEnergys();
+}
+
+void DelayUpdate()
+{
+	gameState.battle.ground->Update();
+	if (gameState.updateObjs.turnOrder != NULL)
+		gameState.updateObjs.turnOrder->Update();
+	gameState.updateObjs.indicator->Update();
+	UpdateStatuses();
+	if (gameState.updateObjs.UI->active)
+		gameState.updateObjs.UI->Update();
+	if (gameState.updateObjs.info != NULL)
+		gameState.updateObjs.info->Update();
+	if (gameState.updateObjs.objUpdate != NULL)
+		gameState.updateObjs.objUpdate->Update();
+	UpdateHoveredCharacter();
 }
 
 void ObjUpdate()
 {
+	if (gameState.screenShake.delayer > 0)
+		return (DelayUpdate());
+	ShakeTheScreen();
+	gameState.battle.ground->Update();
 	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
 		gameState.updateObjs.dusts[i]->Update();
 	if (gameState.updateObjs.turnOrder != NULL)

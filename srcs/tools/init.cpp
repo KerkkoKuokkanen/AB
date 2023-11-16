@@ -40,6 +40,7 @@ void initKeys()
 	gameState.updateObjs.characterAnimIter = 0;
 	gameState.updateObjs.characterAnimIndex = 0;
 	gameState.modes.disableBars = false;
+	gameState.screenShake.delayer = 0;
 }
 
 void initScreen(int width, int height)

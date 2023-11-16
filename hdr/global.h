@@ -486,6 +486,7 @@ typedef struct	s_ScreenShake
 	int yShake;
 	int shakeCounter;
 	int shakeVolume;
+	int delayer;
 }				t_ScreenShake;
 
 typedef struct	s_GameState
