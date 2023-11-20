@@ -1,12 +1,6 @@
 
 #include "../../../hdr/global.h"
 
-typedef struct s_RandChar
-{
-	t_Damager used;
-	int value;
-}				t_RandChar;
-
 static bool CompFunc(t_RandChar &one, t_RandChar &two)
 {
 	if (one.value < two.value)

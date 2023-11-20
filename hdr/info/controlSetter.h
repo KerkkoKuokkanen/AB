@@ -16,6 +16,7 @@ class ControlSetter
 		void CreateControlsFromPostion(SDL_Point pos);
 		void CreateSingle(SDL_Point pos);
 		bool CheckValid(SDL_Point pos);
+		void AddAdditionalControls();
 	public:
 		void ClearControlled();
 		void Update();

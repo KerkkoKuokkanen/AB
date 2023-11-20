@@ -142,6 +142,24 @@ void Abilities::UpdateKnightAnimation(t_Animation &anim, int index)
 			}
 			break ;
 		}
+		case CONTROL_ZONE:
+		{
+			ControlZone *used = (ControlZone*)anim.animation;
+			used->Update();
+			if (used->createBuff)
+			{
+				character->statuses.controlZone = 1;
+				t_ControlZone *ret = (t_ControlZone*)ability->stats;
+				if (ret->endTurn)
+					gameState.updateObjs.turnOrder->ActivateTurnChange(true);
+			}
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }
 

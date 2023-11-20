@@ -338,7 +338,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/UI/questionMark.png");
 	gameState.textures.questionMark = use.text;
 	gameState.surfaces.statuses.questionMark = use.sur;
-	gameState.textures.control = get_texture(rend, "sprites/env/control.png");
+	use = get_texture_and_surface(rend, "sprites/env/control.png");
+	gameState.textures.control = use.text;
+	gameState.surfaces.control = use.sur;
 	gameState.textures.everyColor = get_texture(rend, "sprites/env/everyColor.png");
 	gameState.textures.stands.smithStand = get_texture(rend, "sprites/characters/blacksmith/blacksmithStand.png");
 	use = get_texture_and_surface(rend, "sprites/characters/blacksmith/blacksmith.png");
@@ -457,6 +459,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.shieldBash[0] = get_texture(rend, "sprites/characters/knight/flailShieldStrike.png");
 	gameState.textures.attacks.shieldBash[1] = get_texture(rend, "sprites/characters/knight/flailShieldStrikeTrail.png");
 	gameState.textures.filter = get_texture(rend, "sprites/env/filter.png");
+	gameState.textures.backGround = get_texture(rend, "sprites/env/backGroundGround.png");
 }
 
 void CraeteAudioThread()
@@ -485,6 +488,7 @@ void	init(t_wr *wr)
 	initScreen(gameState.screen.width, gameState.screen.height);
 	initKeys();
 	static Renderer render(wr->rend);
+	render.CreateLayer(LAYER_NO_SORT); //backGround layer
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
 	render.CreateLayer(LAYER_ORDER_SORT); //line layer
 	render.CreateLayer(LAYER_NO_SORT); //dust layer

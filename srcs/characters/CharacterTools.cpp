@@ -156,6 +156,10 @@ static void AssingDefaultKnightAbilities(std::vector<t_Ability> &stats)
 	stat1->damage = 33;
 	stat1->stunChance = 100;
 	stat1->moveChance = 80;
+	stats[2].stats = (void*)malloc(sizeof(t_ControlZone));
+	t_ControlZone *stat2 = (t_ControlZone*)stats[2].stats;
+	stat2->controlArea = false;
+	stat2->endTurn = true;
 }
 
 void Character::AssignAbilities()
@@ -211,7 +215,7 @@ void Character::AssignAbilities()
 		case KNIGHT:
 			abilities = {{FLAIL_STRIKE, 0, 10, 0, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, NULL},
 						{SHILED_BASH, 0, 10, 0, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), NULL},
-						{CONTROL_ZONE, 0, 10, 0, 200, StatStructs::ATTACK_STRUCT, (-1), NULL}};
+						{CONTROL_ZONE, 0, 10, 0, 200, StatStructs::CONTROL_ZONE_STRUCT, (-1), NULL}};
 			AssingDefaultKnightAbilities(abilities);
 		default:
 			return ;

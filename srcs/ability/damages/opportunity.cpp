@@ -1,12 +1,6 @@
 
 #include "../../../hdr/global.h"
 
-typedef struct s_RandChar
-{
-	t_Damager used;
-	int value;
-}				t_RandChar;
-
 static bool CompFunc(t_RandChar &one, t_RandChar &two)
 {
 	if (one.value < two.value)
@@ -86,6 +80,30 @@ static bool CheckForAdditionalValid(Character *target, SDL_Point pos)
 	return (true);
 }
 
+bool OpportunityAttack::CheckValidForAdditional(SDL_Point pos)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return (false);
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return (false);
+	if (CheckIfSmoked(pos))
+		return (false);
+	Character *ret = gameState.battle.ground->map[pos.y][pos.x].character;
+	if (ret == NULL)
+		return (false);
+	if (ret->killed)
+		return (false);
+	if (ret->ally == target->ally)
+		return (false);
+	if (ret->statuses.stun != 0)
+		return (false);
+	if (ret->cSing != KNIGHT)
+		return (false);
+	if (ret->statuses.controlZone <= 0)
+		return (false);
+	return (true);
+}
+
 bool OpportunityAttack::CheckValid(SDL_Point pos)
 {
 	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
@@ -121,6 +139,25 @@ static t_Damager GetTheAttacker(SDL_Point pos)
 	return (ret);
 }
 
+void OpportunityAttack::AddAdditionalDamagers(SDL_Point pos, std::vector<t_RandChar> &adds)
+{
+	SDL_Point checks[8] = {
+		GetPositionFromCoordinates(pos, {-2, -2}),
+		GetPositionFromCoordinates(pos, {0, -2}),
+		GetPositionFromCoordinates(pos, {2, -2}),
+		GetPositionFromCoordinates(pos, {1, 0}),
+		GetPositionFromCoordinates(pos, {2, 2}),
+		GetPositionFromCoordinates(pos, {0, 2}),
+		GetPositionFromCoordinates(pos, {-2, 2}),
+		GetPositionFromCoordinates(pos, {-1, 0})
+	};
+	for (int i = 0; i < 8; i++)
+	{
+		if (CheckValidForAdditional(checks[i]))
+			adds.push_back({GetTheAttacker(checks[i]), rand() % 1000});
+	}
+}
+
 t_Damager OpportunityAttack::GetDamager()
 {
 	SDL_Point pos = gameState.battle.ground->movedCharacter.path[tried];
@@ -135,6 +172,7 @@ t_Damager OpportunityAttack::GetDamager()
 		chars.push_back({GetTheAttacker({right, pos.y + 1}), rand() % 1000});
 	if (CheckValid({right, pos.y - 1}))
 		chars.push_back({GetTheAttacker({right, pos.y - 1}), rand() % 1000});
+	AddAdditionalDamagers(pos, chars);
 	hits = false;
 	damager.damager = NULL;
 	if (chars.size() == 0)

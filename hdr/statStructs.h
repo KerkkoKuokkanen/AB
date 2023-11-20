@@ -21,7 +21,8 @@ namespace StatStructs
 		BOMB_STRUCT,
 		SLOW_BOMB_STRUCT,
 		ATTACK_WITH_STATUS,
-		SHIELD_BASH_STRUCT
+		SHIELD_BASH_STRUCT,
+		CONTROL_ZONE_STRUCT
 	};
 };
 
@@ -41,6 +42,12 @@ typedef struct s_ToxicBlade
 	int turns;
 	int hitChance;
 }				t_ToxicBlade;
+
+typedef struct s_ControlZone
+{
+	bool endTurn;
+	bool controlArea;
+}				t_ControlZone;
 
 typedef struct s_ShieldBash
 {
@@ -119,6 +126,7 @@ typedef struct s_StatusEffects
 	std::vector<int> bleed;
 	void *hosting;
 	bool hosted;
+	int controlZone;
 	int stun;
 	int slowed;
 }				t_StatusEffects;

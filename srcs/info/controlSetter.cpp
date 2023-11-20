@@ -85,10 +85,35 @@ void ControlSetter::CreatePhantomControls()
 	}
 }
 
+void ControlSetter::AddAdditionalControls()
+{
+	if (character->cSing != KNIGHT)
+		return ;
+	if (character->statuses.controlZone <= 0)
+		return ;
+	SDL_Point pos = character->position;
+	SDL_Point checks[8] = {
+		GetPositionFromCoordinates(pos, {-2, -2}),
+		GetPositionFromCoordinates(pos, {0, -2}),
+		GetPositionFromCoordinates(pos, {2, -2}),
+		GetPositionFromCoordinates(pos, {1, 0}),
+		GetPositionFromCoordinates(pos, {2, 2}),
+		GetPositionFromCoordinates(pos, {0, 2}),
+		GetPositionFromCoordinates(pos, {-2, 2}),
+		GetPositionFromCoordinates(pos, {-1, 0})
+	};
+	for (int i = 0; i < 8; i++)
+	{
+		if (CheckValid(checks[i]))
+			CreateSingle(checks[i]);
+	}
+}
+
 void ControlSetter::CreateControls()
 {
 	CreateControlsFromPostion(character->position);
 	CreatePhantomControls();
+	AddAdditionalControls();
 }
 
 void ControlSetter::Update()
@@ -104,7 +129,7 @@ void ControlSetter::Update()
 		ClearControlled();
 		return ;
 	}
-	if (used->moving || used->damaged || !used->active)
+	if (used->moving || used->damaged)
 	{
 		ClearControlled();
 		return ;

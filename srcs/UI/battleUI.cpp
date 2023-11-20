@@ -570,5 +570,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case SHILED_BASH:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SHILED_BASH), activeCharacter);
 			break ;
+		case CONTROL_ZONE:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(CONTROL_ZONE), activeCharacter);
+			break ;
 	}
 }

@@ -4,6 +4,12 @@
 
 # include "../../ab.h"
 
+typedef struct s_RandChar
+{
+	t_Damager used;
+	int value;
+}				t_RandChar;
+
 class OpportunityAttack
 {
 	private:
@@ -16,9 +22,11 @@ class OpportunityAttack
 		void CheckForTargets();
 		t_Damager GetDamager();
 		bool CheckValid(SDL_Point pos);
+		bool CheckValidForAdditional(SDL_Point pos);
 		Vector GetDirection();
 		void StartDamage();
 		void CreateDamageOrMiss();
+		void AddAdditionalDamagers(SDL_Point pos, std::vector<t_RandChar> &adds);
 	public:
 		void Update();
 		void Destroy();

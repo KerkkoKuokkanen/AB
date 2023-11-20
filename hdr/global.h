@@ -253,6 +253,7 @@ typedef struct s_Surfaces
 	SDL_Surface *slowSymbol;
 	SDL_Surface *knightIdle1;
 	SDL_Surface *knightIdle2;
+	SDL_Surface *control;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -391,6 +392,7 @@ typedef struct s_Textures
 	SDL_Texture *slowSymbol;
 	SDL_Texture *knightAbilities[3];
 	SDL_Texture *filter;
+	SDL_Texture *backGround;
 }				t_Textures;
 
 typedef struct s_Audio

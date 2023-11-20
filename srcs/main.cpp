@@ -6,10 +6,10 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(KNIGHT);
-	Character thief2(MAGE);
+	Character thief2(RAIDER);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
-	Character thief3(THIEF);
+	Character thief3(SMITH);
 	Character thief4(LION);
 	Character skele3(SKELE, false);
 	Character skele6(SKELE, false);
@@ -48,6 +48,9 @@ int MainLoop()
 	filter->AlphaMod(15);
 	filter->ColorMod(1, 1, 1);
 	gameState.render->AddSprite(filter, FILTER_LAYER);
+	Sprite *backGround = new Sprite(gameState.textures.backGround, {-60000, -60000, 150000, 110000}, NULL, NULL, 0, FLIP_NONE, true);
+	backGround->ColorMod(28, 28, 28);
+	gameState.render->AddSprite(backGround, BACK_GROUND);
 	while (true)
 	{
 		start = clock();

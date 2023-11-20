@@ -79,6 +79,8 @@ static void ManageStatuses(Character *character)
 		statuses.stun -= 1;
 		gameState.updateObjs.turnOrder->ActivateTurnChange();
 	}
+	if (statuses.controlZone > 0)
+		statuses.controlZone -= 1;
 }
 
 static void ManageToxicBlade(Character *ret)

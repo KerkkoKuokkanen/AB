@@ -154,6 +154,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case SHILED_BASH:
 			selector = new Selector(character->position, 2, 0, &groundColoring, true);
 			break ;
+		case CONTROL_ZONE:
+			ActivateAbility(ability, character);
+			break ;
 	}
 }
 
@@ -267,6 +270,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case SHILED_BASH:
 			animations.push_back({new ShieldBash(character, target), SHILED_BASH});
+			break ;
+		case CONTROL_ZONE:
+			animations.push_back({new ControlZone(character), CONTROL_ZONE});
 			break ;
 	}
 }
