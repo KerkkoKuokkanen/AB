@@ -6,11 +6,11 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(KNIGHT);
-	Character thief2(RAIDER);
+	Character thief2(ALCHEMIST);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
-	Character thief3(SMITH);
-	Character thief4(LION);
+	Character thief3(THIEF);
+	Character thief4(RAIDER);
 	Character skele3(SKELE, false);
 	Character skele6(SKELE, false);
 	static std::vector<Character> chars = {thief, thief2, skele, skele2, thief3, thief4, skele3, skele6};
