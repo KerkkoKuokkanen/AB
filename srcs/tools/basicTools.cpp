@@ -34,7 +34,11 @@ SDL_Texture *get_text(const char *text ,int fontType)
 SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 {
 	SDL_Surface	*surface = IMG_Load(filePath);
+	if (surface == NULL)
+		printf("surface not loaded\n");
 	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
+	if (text == NULL)
+		printf("text not loaded\n");
 	SDL_FreeSurface(surface);
 	SDL_SetTextureScaleMode(text, SDL_ScaleModeLinear);
 	return (text);
@@ -43,7 +47,11 @@ SDL_Texture	*get_texture(SDL_Renderer *rend, const char *filePath)
 SDL_Texture	*get_texture_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode)
 {
 	SDL_Surface	*surface = IMG_Load(filePath);
+	if (surface == NULL)
+		printf("surface not loaded\n");
 	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
+	if (text == NULL)
+		printf("text not loaded\n");
 	SDL_FreeSurface(surface);
 	SDL_SetTextureScaleMode(text, scaleMode);
 	return (text);
@@ -52,7 +60,11 @@ SDL_Texture	*get_texture_with_scale_mode(SDL_Renderer *rend, const char *filePat
 t_TextAndSur	get_texture_and_surface_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode)
 {
 	SDL_Surface	*surface = IMG_Load(filePath);
+	if (surface == NULL)
+		printf("surface not loaded\n");
 	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
+	if (text == NULL)
+		printf("text not loaded\n");
 	SDL_SetTextureScaleMode(text, scaleMode);
 	t_TextAndSur ret = {text, surface};
 	return (ret);
@@ -61,7 +73,11 @@ t_TextAndSur	get_texture_and_surface_with_scale_mode(SDL_Renderer *rend, const c
 t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath)
 {
 	SDL_Surface	*surface = IMG_Load(filePath);
+	if (surface == NULL)
+		printf("surface not loaded\n");
 	SDL_Texture *text = SDL_CreateTextureFromSurface(rend, surface);
+	if (text == NULL)
+		printf("text not loaded\n");
 	SDL_SetTextureScaleMode(text, SDL_ScaleModeLinear);
 	t_TextAndSur ret = {text, surface};
 	return (ret);
@@ -260,6 +276,11 @@ SDL_Surface *getSurface(Character *character)
 				return (gameState.surfaces.knightIdle1);
 			else
 				return (gameState.surfaces.knightIdle2);
+		case WITCH:
+			if (text == 0)
+				return (gameState.surfaces.witchIdle1);
+			else
+				return (gameState.surfaces.witchIdle2);
 	}
 	return (NULL);
 }

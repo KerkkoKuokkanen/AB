@@ -230,7 +230,8 @@ enum {
 	MAGE,
 	RAIDER,
 	ALCHEMIST,
-	KNIGHT
+	KNIGHT,
+	WITCH
 };
 
 enum {

@@ -5,11 +5,11 @@ t_GameState gameState;
 
 void TempInitBattle()
 {
-	Character thief(KNIGHT);
+	Character thief(WITCH);
 	Character thief2(ALCHEMIST);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
-	Character thief3(THIEF);
+	Character thief3(KNIGHT);
 	Character thief4(RAIDER);
 	Character skele3(SKELE, false);
 	Character skele6(SKELE, false);

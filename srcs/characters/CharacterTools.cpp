@@ -326,5 +326,16 @@ void Character::CreateCharacterType(int skin)
 			stand = new Sprite(gameState.textures.stands.knightStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
+		case WITCH:
+		{
+			SDL_Rect dest = {-3000, -450, 6500, 7360};
+			textures.push_back(gameState.textures.chars.witchIdle[0]);
+			textures.push_back(gameState.textures.chars.witchIdle[1]);
+			stands.push_back(gameState.textures.stands.witchStand);
+			stands.push_back(gameState.textures.stands.witchStand);
+			sprite = new Sprite(gameState.textures.chars.witchIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.witchStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
 	}
 }

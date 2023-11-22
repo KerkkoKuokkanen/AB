@@ -64,6 +64,10 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 			place.x -= 200.0f;
 			place.y -= 5000.0f;
 			break ;
+		case WITCH:
+			place.x -= 350.0f;
+			place.y -= 4600.0f;
+			break ;
 	}
 	return (place);
 }

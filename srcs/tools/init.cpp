@@ -460,6 +460,14 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.shieldBash[1] = get_texture(rend, "sprites/characters/knight/flailShieldStrikeTrail.png");
 	gameState.textures.filter = get_texture(rend, "sprites/env/filter.png");
 	gameState.textures.backGround = get_texture(rend, "sprites/env/backGroundGround.png");
+	use = get_texture_and_surface(rend, "sprites/characters/witch/witch.png");
+	gameState.surfaces.witchIdle1 = use.sur;
+	gameState.textures.chars.witchIdle[0] = use.text;
+	use = get_texture_and_surface(rend, "sprites/characters/witch/witch2.png");
+	gameState.surfaces.witchIdle2 = use.sur;
+	gameState.textures.chars.witchIdle[1] = use.text;
+	gameState.textures.stands.witchStand = get_texture(rend, "sprites/characters/witch/witchStand.png");
+	gameState.textures.chars.witchSource = get_texture(rend, "sprites/characters/witch/witchTurnSprite.png");
 }
 
 void CraeteAudioThread()
@@ -481,7 +489,7 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	AudioCreateChannels(120);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	SDL_GetWindowSize(wr->win, &gameState.screen.width, &gameState.screen.height);
@@ -524,7 +532,7 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	SDL_SetWindowFullscreen(wr->win, 1);
+	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 	CraeteAudioThread();
 }

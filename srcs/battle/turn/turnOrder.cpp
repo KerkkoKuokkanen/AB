@@ -13,9 +13,11 @@ bool compareObjects(const t_Indicator &obj1, const t_Indicator &obj2)
 
 static SDL_Texture *getCharacterTexture(Character *character)
 {
-	if (character->cSing != MAGE)
+	if (character->cSing != MAGE && character->cSing != WITCH)
 		return (character->sprite->getTexture());
-	return (gameState.textures.chars.mageIndicator);
+	if (character->cSing == MAGE)
+		return (gameState.textures.chars.mageIndicator);
+	return (gameState.textures.chars.witchSource);
 }
 
 void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
@@ -75,6 +77,12 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->y = 44;
 			srect->w = 400;
 			srect->h = 403;
+			break ;
+		case WITCH:
+			srect->x = 285;
+			srect->y = 30;
+			srect->w = 310;
+			srect->h = 313;
 			break ;
 	}
 }
@@ -149,6 +157,14 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 			};
 			break ;
 		case KNIGHT:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case WITCH:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),
