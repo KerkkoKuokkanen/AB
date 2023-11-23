@@ -47,6 +47,8 @@ class Abilities
 		AllSelector *allSelector = NULL;
 		PhantomSelector *phantSelector = NULL;
 		AxeJumpSelector *axeJumpSelector = NULL;
+		SelectorQueue *selectorQueue = NULL;
+
 		Damager damager;
 		OpportunityAttack oAttack;
 		AbilityOpportunity aoAttack;
@@ -72,6 +74,7 @@ class Abilities
 		void SelectorWithCharacters();
 		void SelectorWithSquares();
 		void SelectorForAxeJump();
+		void SelectorQueueUpdate();
 		void UpdatePhantomSelector();
 		void MultiSelectorWithCharacter();
 		void AllSelectorUpdate();
@@ -83,7 +86,7 @@ class Abilities
 		void UpdateRaiderAnimation(t_Animation &anim, int index);
 		void UpdateMageObject(t_Object &object, int index);
 		bool CheckGenericAnimations(t_Animation &anim, int index);
-		void IncudeToolPoints();
+		void IncudeToolPoints(TileSelector *used);
 		SDL_Point FindToolBox();
 	public:
 		t_Ability *ability = NULL;

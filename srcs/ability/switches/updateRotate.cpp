@@ -29,21 +29,21 @@ static bool ThisIsThePosition(SDL_Point pos)
 	return (false);
 }
 
-void Abilities::IncudeToolPoints()
+void Abilities::IncudeToolPoints(TileSelector *used)
 {
 	SDL_Point pos = character->position;
 	SDL_Point test = {getXToLeft(pos), pos.y - 1};
 	if (ThisIsThePosition(test))
-		tileSelector->IncludePoint(test);
+		used->IncludePoint(test);
 	test = {test.x, pos.y + 1};
 	if (ThisIsThePosition(test))
-		tileSelector->IncludePoint(test);
+		used->IncludePoint(test);
 	test = {getXToRight(pos), pos.y - 1};
 	if (ThisIsThePosition(test))
-		tileSelector->IncludePoint(test);
+		used->IncludePoint(test);
 	test = {test.x, pos.y + 1};
 	if (ThisIsThePosition(test))
-		tileSelector->IncludePoint(test);
+		used->IncludePoint(test);
 }
 
 void Abilities::UpdateRotate(int index)

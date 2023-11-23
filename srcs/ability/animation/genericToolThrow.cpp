@@ -6,20 +6,13 @@ void GenericToolThrow::GetToolBox()
 	box = (ToolBox*)gameState.battle.ground->map[boxPos.y][boxPos.x].additional.object;
 }
 
-void GenericToolThrow::SetSelector()
-{
-	int throwRange = (character->cSing == LION) ? 10 : 9;
-	selector = new TileSelector(character->position, throwRange, 0, coloring, true);
-	selector->RemovePoint(character->position);
-}
-
-GenericToolThrow::GenericToolThrow(Character *character, SDL_Point target, GroundColoring *coloring)
+GenericToolThrow::GenericToolThrow(Character *character, SDL_Point target, SDL_Point goal)
 {
 	boxPos = target;
+	boxDest = goal;
 	GetToolBox();
 	GenericToolThrow::character = character;
-	GenericToolThrow::coloring = coloring;
-	SetSelector();
+	CreateMover();
 }
 
 void GenericToolThrow::CreateMover()
@@ -31,31 +24,8 @@ void GenericToolThrow::CreateMover()
 	character->setAnimationActive(true);
 }
 
-void GenericToolThrow::UpdateSelector()
-{
-	if (selector == NULL)
-		return ;
-	coloring->active = true;
-	SDL_Point ret = selector->Update();
-	if (ret.x != (-1) && ret.y != (-1))
-	{
-		if (gameState.keys.click == RELEASE_CLICK)
-		{
-			boxDest = ret;
-			delete selector;
-			selector = NULL;
-			coloring->ClearMap();
-			coloring->active = false;
-			secondPhase = true;
-			CreateMover();
-		}
-	}
-}
-
 void GenericToolThrow::UpdateSecondPhase()
 {
-	if (!secondPhase)
-		return ;
 	int ret = mover->Update();
 	if (ret == 10)
 		box->SetToolThrow(boxDest);
@@ -67,7 +37,6 @@ void GenericToolThrow::Update()
 {
 	if (done)
 		return ;
-	UpdateSelector();
 	UpdateSecondPhase();
 }
 
@@ -75,7 +44,5 @@ void GenericToolThrow::Destroy()
 {
 	if (mover != NULL)
 		delete mover;
-	if (selector != NULL)
-		delete selector;
 	character->setAnimationActive(false);
 }

@@ -76,13 +76,16 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case SUPPLY:
 			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
 			tileSelector->RemovePoint(character->position);
-			IncudeToolPoints();
+			IncudeToolPoints(tileSelector);
 			break ;
 		case GENERIC_TOOL_THROW:
-			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
-			tileSelector->RemovePoint(character->position);
-			IncudeToolPoints();
+		{
+			TileSelector *used = new TileSelector(pos, 1, 0, &groundColoring, false, true);
+			IncudeToolPoints(used);
+			selectorQueue = new SelectorQueue(&groundColoring, used);
+			selectorQueue->AddNextSelector(false, {-1, -1}, (character->cSing == LION) ? 10 : 9, 0, true, false);
 			break ;
+		}
 		case SMITH_BUFF:
 			selector = new Selector(pos, 9, 0, &groundColoring, false);
 			selector->SetSelectorFor(true, true);
@@ -227,7 +230,7 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			animations.push_back({new Supply(character, targetPoint), SUPPLY});
 			break ;
 		case GENERIC_TOOL_THROW:
-			animations.push_back({new GenericToolThrow(character, targetPoint, &groundColoring), GENERIC_TOOL_THROW});
+			animations.push_back({new GenericToolThrow(character, targPoints[0], targPoints[1]), GENERIC_TOOL_THROW});
 			break ;
 		case SMITH_BUFF:
 			animations.push_back({new SmithBuff(character, target), SMITH_BUFF});
@@ -349,6 +352,19 @@ void Abilities::MultiSelectorWithCharacter()
 	ClearMap();
 }
 
+void Abilities::SelectorQueueUpdate()
+{
+	selectorQueue->Update();
+	if (selectorQueue->done)
+	{
+		targPoints.clear();
+		targPoints = selectorQueue->GetTargets();
+		if (targPoints.size() != 0)
+			ActivateAbility(ability, character);
+		ClearMap();
+	}
+}
+
 void Abilities::AllSelectorUpdate()
 {
 	gameState.updateObjs.UI->ShowEnergy(ability->cost);
@@ -377,6 +393,8 @@ void Abilities::UpdateSelector()
 		UpdatePhantomSelector();
 	else if (axeJumpSelector != NULL)
 		SelectorForAxeJump();
+	else if (selectorQueue != NULL)
+		SelectorQueueUpdate();
 }
 
 void Abilities::UpdateMisses()
@@ -541,6 +559,9 @@ void Abilities::ClearMap()
 	if (axeJumpSelector != NULL)
 		delete axeJumpSelector;
 	axeJumpSelector = NULL;
+	if (selectorQueue != NULL)
+		delete selectorQueue;
+	selectorQueue = NULL;
 	groundColoring.ClearMap();
 	groundColoring.active = false;
 	if (!inMotion)
@@ -570,6 +591,9 @@ void Abilities::Clear()
 	if (axeJumpSelector != NULL)
 		delete axeJumpSelector;
 	axeJumpSelector = NULL;
+	if (selectorQueue != NULL)
+		delete selectorQueue;
+	selectorQueue = NULL;
 	active = false;
 	target = NULL;
 	targetPoint = {-1, -1};
