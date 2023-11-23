@@ -398,6 +398,7 @@ typedef struct s_Textures
 	SDL_Texture *knightAbilities[3];
 	SDL_Texture *filter;
 	SDL_Texture *backGround;
+	SDL_Texture *witchAbilities[3];
 }				t_Textures;
 
 typedef struct s_Audio

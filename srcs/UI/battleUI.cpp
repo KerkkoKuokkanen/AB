@@ -177,6 +177,15 @@ void CharacterUI::GetAbilities()
 			case CONTROL_ZONE:
 				CreateButton(dest, gameState.textures.knightAbilities[2], CONTROL_ZONE, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			case ACID_RAIN:
+				CreateButton(dest, gameState.textures.witchAbilities[0], ACID_RAIN, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case TELEPORT:
+				CreateButton(dest, gameState.textures.witchAbilities[1], TELEPORT, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
+			case HEALTH_TRANSFER:
+				CreateButton(dest, gameState.textures.witchAbilities[2], HEALTH_TRANSFER, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }

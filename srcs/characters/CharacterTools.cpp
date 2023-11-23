@@ -162,6 +162,11 @@ static void AssingDefaultKnightAbilities(std::vector<t_Ability> &stats)
 	stat2->endTurn = true;
 }
 
+static void AssingDefaultWitchAbilities(std::vector<t_Ability> &stats)
+{
+
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
@@ -217,6 +222,11 @@ void Character::AssignAbilities()
 						{SHILED_BASH, 0, 10, 0, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), NULL},
 						{CONTROL_ZONE, 0, 10, 0, 200, StatStructs::CONTROL_ZONE_STRUCT, (-1), NULL}};
 			AssingDefaultKnightAbilities(abilities);
+		case WITCH:
+			abilities = {{ACID_RAIN, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{TELEPORT, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+						{HEALTH_TRANSFER, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL}};
+			AssingDefaultWitchAbilities(abilities);
 		default:
 			return ;
 	}

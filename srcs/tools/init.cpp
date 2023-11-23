@@ -468,6 +468,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.witchIdle[1] = use.text;
 	gameState.textures.stands.witchStand = get_texture(rend, "sprites/characters/witch/witchStand.png");
 	gameState.textures.chars.witchSource = get_texture(rend, "sprites/characters/witch/witchTurnSprite.png");
+	gameState.textures.witchAbilities[0] = get_texture(rend, "sprites/UI/abilities/acidRain.png");
+	gameState.textures.witchAbilities[1] = get_texture(rend, "sprites/UI/abilities/teleport.png");
+	gameState.textures.witchAbilities[2] = get_texture(rend, "sprites/UI/abilities/healthTransfer.png");
 }
 
 void CraeteAudioThread()
