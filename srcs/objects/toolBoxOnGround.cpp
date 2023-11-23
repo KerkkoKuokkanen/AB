@@ -52,6 +52,8 @@ static Character *GetCharacter(int index, SDL_Point pos)
 
 void ToolBox::AssignDefaultOnGroundAbilities(Character *target)
 {
+	if (gameState.updateObjs.abilities->active)
+		return ;
 	if (!ToolExists(target, SUPPLY) && supplyAmount != 0)
 	{
 		target->abilities.push_back({SUPPLY, 0, 0, 0, 200, StatStructs::SUPPLY, (-1), NULL});
@@ -123,6 +125,8 @@ void ToolBox::RemoveOnGroundAbilities(Character *target)
 void ToolBox::ManageOnGroundAbilities()
 {
 	if (inHand || arch != NULL)
+		return ;
+	if (gameState.updateObjs.abilities->active)
 		return ;
 	for (int i = 0; i < targetCharacters.size(); i++)
 		targetCharacters[i].found = false;

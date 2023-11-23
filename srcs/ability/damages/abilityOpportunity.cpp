@@ -164,7 +164,8 @@ void AbilityOpportunity::AxeSlashUpdate()
 {
 	if (mover != NULL)
 		return ;
-	if (gameState.updateObjs.abilities->inMotion == false ||
+	if (gameState.updateObjs.abilities->ability == NULL ||
+		gameState.updateObjs.abilities->inMotion == false ||
 		gameState.updateObjs.abilities->ability->type != AXE_JUMP)
 	{
 		target = NULL;

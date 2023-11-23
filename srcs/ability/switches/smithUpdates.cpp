@@ -134,6 +134,8 @@ void Abilities::UpdateSmithAnimation(t_Animation &anim, int index)
 			used->Update();
 			if (used->done)
 			{
+				ToolBox *ret = used->GetToolBoxPointer();
+				ret->SetToolBoxBack();
 				delete used;
 				animations.erase(animations.begin() + index);
 			}

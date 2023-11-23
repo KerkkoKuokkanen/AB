@@ -39,6 +39,7 @@ class DamageCreator
 	public:
 		void CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds, bool move = true);
 		void Update();
+		void RemoveCharacter(Character *character);
 };
 
 #endif

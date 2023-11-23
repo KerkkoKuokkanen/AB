@@ -395,12 +395,12 @@ void Abilities::UpdateMisses()
 
 void Abilities::Upadte()
 {
+	oAttack.Update();
+	aoAttack.Update();
 	UpdateSelector();
 	AnimationUpdater();
 	ObjectUpdater();
 	UpdateMisses();
-	oAttack.Update();
-	aoAttack.Update();
 	effectUpdater.Update();
 	damager.Update();
 	groundColoring.Update();

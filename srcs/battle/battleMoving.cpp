@@ -145,8 +145,9 @@ void BattleGround::PlaceMarker()
 		ResetIndicators();
 		return ;
 	}
-	SDL_Point *marked = NULL;
-	SDL_Point *characterBlock = NULL;
+	SDL_Point marked = {0, 0};
+	SDL_Point characterBlock = {0, 0};
+	bool visit1 = false, visit2 = false;
 	for (int i = 0; i < map.size(); i++)
 	{
 		for (int j = 0; j < map[0].size(); j++)
@@ -164,18 +165,18 @@ void BattleGround::PlaceMarker()
 			}
 			if (map[i][j].character != NULL && map[i][j].character->clicked && !map[i][j].character->killed)
 			{
-				SDL_Point pos = {j, i};
-				characterBlock = &pos;
+				characterBlock = {j, i};
+				visit1 = true;
 			}
 			if (map[i][j].marked && map[i][j].highlited)
 			{
-				SDL_Point pos = {j, i};
-				marked = &pos;
+				marked = {j, i};
+				visit2 = true;
 			}
 		}
 	}
-	if (marked != NULL && characterBlock != NULL)
-		MarkerControl(*characterBlock, *marked);
+	if (visit1 && visit2)
+		MarkerControl(characterBlock, marked);
 	else
 		ResetIndicators();
 }

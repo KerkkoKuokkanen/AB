@@ -26,6 +26,7 @@ class Damager
 		void AddOpportunityDamage(SDL_Point damager, Character *target);
 		void AddPoisonDamage(Character *target, int amount);
 		void AddBleedDamage(Character *target, int amount);
+		void RemoveDamageFromCreator(Character *character) {damageCreator.RemoveCharacter(character);};
 		void Update();
 };
 

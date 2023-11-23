@@ -74,6 +74,7 @@ void Kill::AddCharacterToKill(Character *character)
 
 void Kill::RemoveCharacter(Character *character)
 {
+	gameState.updateObjs.abilities->RemoveCharacterFromDamager(character);
 	gameState.battle.ground->RemoveCharacter(character);
 	Character *chosen = gameState.updateObjs.indicator->getChosen();
 	if (chosen != NULL)

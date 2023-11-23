@@ -16,6 +16,7 @@ class PickUpTools
 		bool done = false;
 		PickUpTools(Character *character);
 		~PickUpTools() {Destroy();};
+		ToolBox *GetToolBoxPointer() {return(target);};
 		void Update();
 		void Destroy();
 };

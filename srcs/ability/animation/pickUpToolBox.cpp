@@ -75,8 +75,6 @@ void PickUpTools::Update()
 	int ret = mover->Update();
 	if (ret == 6)
 		PlaySound(gameState.audio.pickTools, Channels::PICK_TOOLS, 0);
-	if (ret == 10)
-		target->SetToolBoxBack();
 	if (ret == (-1))
 		done = true;
 }

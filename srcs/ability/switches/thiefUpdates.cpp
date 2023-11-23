@@ -26,13 +26,13 @@ void Abilities::UpdateThiefAnimation(t_Animation &animation, int index)
 		{
 			SmokeBombAnim *use = (SmokeBombAnim*)animation.animation;
 			use->Update();
+			if (use->timeForAbility)
+				objects.push_back({new SmokeBomb(character->position, targetPoint), SMOKE_OBJ});
 			if (!use->active)
 			{
 				delete use;
 				animations.erase(animations.begin() + index);
 			}
-			if (use->timeForAbility)
-				objects.push_back({new SmokeBomb(character->position, targetPoint), SMOKE_OBJ});
 			break ;
 		}
 		case DAGGER_SLASH:

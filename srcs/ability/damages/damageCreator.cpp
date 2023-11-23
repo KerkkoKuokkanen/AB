@@ -170,8 +170,22 @@ void DamageCreator::Update()
 		{
 			damages[i].character->damaged = false;
 			damages.erase(damages.begin() + i);
+			i = (damages.size() == 0) ? 0 : i - 1;
 			continue ;
 		}
 		damages[i].time++;
+	}
+}
+
+void DamageCreator::RemoveCharacter(Character *character)
+{
+	for (int i = 0; i < damages.size(); i++)
+	{
+		if (damages[i].character == character)
+		{
+			damages[i].character->damaged = false;
+			damages.erase(damages.begin() + i);
+			continue ;
+		}
 	}
 }

@@ -18,7 +18,7 @@ bool MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse)
 	int y = rounding(hUnit * (float)mouseY);
 	if (x < 0 || x >= sur->w)
 		return (false);
-	if (y < 0 || y > sur->h)
+	if (y < 0 || y >= sur->h)
 		return (false);
 	if (pixels[(y * sur->w) + x] != 0)
 		return (true);
@@ -44,7 +44,7 @@ bool CheckIfHoveringOver(Character *character)
 	int y = rounding(hUnit * (float)mouseY);
 	if (x < 0 || x >= sur->w)
 		return (false);
-	if (y < 0 || y > sur->h)
+	if (y < 0 || y >= sur->h)
 		return (false);
 	if (pixels[(y * sur->w) + x] != 0)
 		return (true);

@@ -46,11 +46,6 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 		{
 			AxeSlash *used = (AxeSlash*)anim.animation;
 			used->Update();
-			if (used->done)
-			{
-				delete used;
-				animations.erase(animations.begin() + index);
-			}
 			if (used->createDamage)
 			{
 				if (MeleeCheck(character, target, ability))
@@ -61,17 +56,17 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 				else
 					CreateMiss(character->position, target->position, target, true);
 			}
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
 			break ;
 		}
 		case AXE_JUMP:
 		{
 			AxeJumpAnim *used = (AxeJumpAnim*)anim.animation;
 			used->Update();
-			if (used->done)
-			{
-				delete used;
-				animations.erase(animations.begin() + index);
-			}
 			if (used->createDamage)
 			{
 				if (MeleeCheck(character, target, ability))
@@ -82,6 +77,11 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 				}
 				else
 					CreateMiss(character->position, target->position, target, true);
+			}
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
 			}
 			break ;
 		}

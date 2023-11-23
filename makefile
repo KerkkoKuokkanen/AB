@@ -61,10 +61,10 @@ FRAMEWORKS	=	-F./frameworks \
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@g++ $(FLAGS) $(CGFLAGS) $(FRAMEWORKS) $(OBJ) -o $(NAME)
+	@g++ $(FLAGS) -fsanitize=address $(CGFLAGS) $(FRAMEWORKS) $(OBJ) -o $(NAME)
 
 .cpp.o:
-		@g++ $(FLAGS) $(INCLUDES) $(HDR) -c $< -o $@
+		@g++ $(FLAGS) -fsanitize=address $(INCLUDES) $(HDR) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJ)

@@ -45,6 +45,8 @@ bool ToolBox::ToolExists(Character *target, int toolSign)
 
 void ToolBox::RemoveInHandAbilities()
 {
+	if (gameState.updateObjs.abilities->active)
+		return ;
 	for (int i = 0; i < character->abilities.size(); i++)
 	{
 		if (character->abilities[i].type == THROW_TOOLBOX)
@@ -67,6 +69,8 @@ void ToolBox::RemoveInHandAbilities()
 
 void ToolBox::InHandAbilities()
 {
+	if (gameState.updateObjs.abilities->active)
+		return ;
 	if (!ToolExists(character, THROW_TOOLBOX))
 	{
 		character->abilities.push_back({THROW_TOOLBOX, 0, 8, 0, 200, StatStructs::THROWABLE, (-1), NULL});

@@ -39,17 +39,17 @@ void Abilities::UpdatePyroAnimation(t_Animation &animation, int index)
 		{
 			FlameSlash *use = (FlameSlash*)animation.animation;
 			use->Update();
-			if (use->done)
-			{
-				delete use;
-				animations.erase(animations.begin() + index);
-			}
 			if (use->createDamage)
 			{
 				if (MeleeCheck(character, target, ability))
 					CreateDamage();
 				else
 					CreateMiss(character->position, target->position, target, true);
+			}
+			if (use->done)
+			{
+				delete use;
+				animations.erase(animations.begin() + index);
 			}
 			break ;
 		}
