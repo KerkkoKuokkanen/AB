@@ -198,6 +198,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/phantomAnim.h"
 # include "ability/animation/flamePortAnim.h"
 # include "ability/animation/daggerSlashAnim.h"
+# include "ability/animation/witchAnimation.h"
 # include "ability/animation/mageAttack.h"
 # include "ability/animation/controlZone.h"
 # include "ability/animation/smokeBombAnim.h"
