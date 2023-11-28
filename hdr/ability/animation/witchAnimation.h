@@ -1,5 +1,5 @@
 
-#ifndef WITHC_ANIMATION_H
+#ifndef WITCH_ANIMATION_H
 # define WITCH_ANIMATION_H
 
 # include "../../ab.h"
@@ -23,6 +23,10 @@ class WitchAnimation
 		int intensity = 0;
 		int colorType = 0;
 		int counter = 0;
+		void UpdateAuraAlpha();
+		void CreateParticles();
+		SDL_Point GetPartPos();
+		Color GetPartColor();
 	public:
 		bool done = false;
 		WitchAnimation(Character *character, int type, int intensity);

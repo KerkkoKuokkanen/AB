@@ -99,7 +99,7 @@ void CreatePoisonSnippet(Character *target, int totalAmount, Color color)
 	int amount = GetAmount(size);
 	used->SetAmount(amount);
 	used->SetOrdering(orderLayer);
-	float speed = (float)(rand() % 310 + 200);
+	float speed = (float)(rand() % 50 + 290);
 	used->SetSpeed(speed);
 	used->SetColor(color.r, color.g, color.b);
 	orderLayer += 2;
@@ -146,7 +146,7 @@ void CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, 
 	int amount = GetAmount(size);
 	used->SetAmount(amount);
 	used->SetOrdering(orderLayer);
-	float speed = (float)(rand() % 310 + 200);
+	float speed = (float)(rand() % 50 + 290);
 	used->SetSpeed(speed);
 	Color ret(204, 60, 41);
 	used->SetColor(ret.r, ret.g, ret.b);
@@ -159,11 +159,11 @@ void CreateTextSnippet(Character *damager, Character *target, const char *text, 
 {
 	SDL_Point pos = target->topMid;
 	bool dirTest = LeftOrRight(damager->position, target->position);
-	SDL_Point start = {0, pos.y + TEXT_MINUS};
+	SDL_Point start = {3000, pos.y + TEXT_MINUS};
 	std::string str(text);
 	int len = str.length();
-	int offset = size * len;
-	start.x = (dirTest) ? -(rand() % 500 - 5000 + offset) : (rand() % 500 - 400 + offset);
+	int offset = ((size * 0.5f) * len);
+	start.x = (dirTest) ? start.x - offset : start.x;
 	SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
 	Vector dir = GetTextDirection(dirTest);
 	int time = 90 + rand() % 20;
@@ -171,7 +171,7 @@ void CreateTextSnippet(Character *damager, Character *target, const char *text, 
 	used->SetDrag(1.12f);
 	used->SetAmount(50);
 	used->SetOrdering(orderLayer);
-	float speed = (float)(rand() % 310 + 200);
+	float speed = (float)(rand() % 50 + 290);
 	used->SetSpeed(speed);
 	used->SetColor(color.r, color.g, color.b);
 	orderLayer += 2;

@@ -172,6 +172,8 @@ void getAudio()
 	gameState.audio.flailStrike = Mix_LoadWAV("audio/abilities/knight/strike.wav");
 	gameState.audio.shieldBash[0] = Mix_LoadWAV("audio/abilities/knight/shieldBash.wav");
 	gameState.audio.shieldBash[1] = Mix_LoadWAV("audio/abilities/knight/shieldMove.wav");
+	gameState.audio.rainAttack[0] = Mix_LoadWAV("audio/abilities/witch/rain.wav");
+	gameState.audio.rainAttack[1] = Mix_LoadWAV("audio/abilities/witch/acid.wav");
 }
 
 void getFonts()
@@ -472,15 +474,10 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.witchAbilities[1] = get_texture(rend, "sprites/UI/abilities/teleport.png");
 	gameState.textures.witchAbilities[2] = get_texture(rend, "sprites/UI/abilities/healthTransfer.png");
 	gameState.textures.attacks.witchAttack = get_texture(rend, "sprites/characters/witch/witchAttack.png");
-	use = get_texture_and_surface(rend, "sprites/characters/witch/witchAttackHand1.png");
-	gameState.textures.attacks.glows[0] = use.text;
-	gameState.surfaces.glows[0] = use.sur;
-	use = get_texture_and_surface(rend, "sprites/characters/witch/witchAttackHand2.png");
-	gameState.textures.attacks.glows[1] = use.text;
-	gameState.surfaces.glows[1] = use.sur;
-	use = get_texture_and_surface(rend, "sprites/characters/witch/witchAttackHand3.png");
-	gameState.textures.attacks.glows[2] = use.text;
-	gameState.surfaces.glows[2] = use.sur;
+	gameState.textures.attacks.glows[0] = get_texture(rend, "sprites/characters/witch/witchAttackHand1.png");
+	gameState.textures.attacks.glows[1] = get_texture(rend, "sprites/characters/witch/witchAttackHand2.png");
+	gameState.textures.attacks.glows[2] = get_texture(rend, "sprites/characters/witch/witchAttackHand3.png");
+	gameState.textures.attacks.rainDrop = get_texture(rend, "sprites/env/raindDrop.png");
 }
 
 void CraeteAudioThread()

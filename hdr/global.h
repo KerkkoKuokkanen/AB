@@ -256,7 +256,6 @@ typedef struct s_Surfaces
 	SDL_Surface *control;
 	SDL_Surface *witchIdle1;
 	SDL_Surface *witchIdle2;
-	SDL_Surface *glows[3];
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -325,6 +324,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *shieldBash[2];
 	SDL_Texture *witchAttack;
 	SDL_Texture *glows[3];
+	SDL_Texture *rainDrop;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -453,6 +453,7 @@ typedef struct s_Audio
 	Mix_Chunk *slowDebuff;
 	Mix_Chunk *flailStrike;
 	Mix_Chunk *shieldBash[2];
+	Mix_Chunk *rainAttack[2];
 }				t_Audio;
 
 typedef struct s_Fonts

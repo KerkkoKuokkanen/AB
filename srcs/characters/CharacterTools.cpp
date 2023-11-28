@@ -164,7 +164,10 @@ static void AssingDefaultKnightAbilities(std::vector<t_Ability> &stats)
 
 static void AssingDefaultWitchAbilities(std::vector<t_Ability> &stats)
 {
-
+	stats[0].stats = (void*)malloc(sizeof(t_AcidRainDamage));
+	t_AcidRainDamage *stat0 = (t_AcidRainDamage*)stats[0].stats;
+	stat0->chance = 100;
+	stat0->stacks = 10;
 }
 
 void Character::AssignAbilities()
@@ -222,11 +225,13 @@ void Character::AssignAbilities()
 						{SHILED_BASH, 0, 10, 0, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), NULL},
 						{CONTROL_ZONE, 0, 10, 0, 200, StatStructs::CONTROL_ZONE_STRUCT, (-1), NULL}};
 			AssingDefaultKnightAbilities(abilities);
+			break ;
 		case WITCH:
-			abilities = {{ACID_RAIN, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
+			abilities = {{ACID_RAIN, 0, 10, 0, 80, StatStructs::ACID_RAIN_STRUCT, (-1), NULL},
 						{TELEPORT, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL},
 						{HEALTH_TRANSFER, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL}};
 			AssingDefaultWitchAbilities(abilities);
+			break ;
 		default:
 			return ;
 	}

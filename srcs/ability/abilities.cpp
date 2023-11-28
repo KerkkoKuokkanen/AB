@@ -160,6 +160,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case CONTROL_ZONE:
 			ActivateAbility(ability, character);
 			break ;
+		case ACID_RAIN:
+			selector = new Selector(character->position, 10, 2, &groundColoring, false);
+			break ;
 	}
 }
 
@@ -276,6 +279,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case CONTROL_ZONE:
 			animations.push_back({new ControlZone(character), CONTROL_ZONE});
+			break ;
+		case ACID_RAIN:
+			animations.push_back({new AcidRain(character, target->position, 1), ACID_RAIN});
 			break ;
 	}
 }
@@ -476,6 +482,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case KNIGHT:
 				UpdateKnightAnimation(animations[i], i);
+				break ;
+			case WITCH:
+				UpdateWitchAnimation(animations[i], i);
 				break ;
 		}
 	}

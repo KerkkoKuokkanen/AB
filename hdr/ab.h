@@ -205,6 +205,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/lionSmackAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
 # include "ability/animation/raiderBlock.h"
+# include "ability/animation/acidRain.h"
 # include "ability/animation/flameSlash.h"
 # include "ability/objects/smokeEffect.h"
 # include "ability/objects/smokeBomb.h"

@@ -22,7 +22,8 @@ namespace StatStructs
 		SLOW_BOMB_STRUCT,
 		ATTACK_WITH_STATUS,
 		SHIELD_BASH_STRUCT,
-		CONTROL_ZONE_STRUCT
+		CONTROL_ZONE_STRUCT,
+		ACID_RAIN_STRUCT
 	};
 };
 
@@ -42,6 +43,12 @@ typedef struct s_ToxicBlade
 	int turns;
 	int hitChance;
 }				t_ToxicBlade;
+
+typedef struct s_AcidRainDamage
+{
+	int stacks;
+	int chance;
+}				t_AcidRainDamage;
 
 typedef struct s_ControlZone
 {

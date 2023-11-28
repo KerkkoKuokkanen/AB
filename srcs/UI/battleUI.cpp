@@ -582,5 +582,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case CONTROL_ZONE:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(CONTROL_ZONE), activeCharacter);
 			break ;
+		case ACID_RAIN:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ACID_RAIN), activeCharacter);
+			break ;
 	}
 }

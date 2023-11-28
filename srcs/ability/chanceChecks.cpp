@@ -105,6 +105,12 @@ static int GetStatusChance(t_Ability *ability, Character *character)
 			chance = used->stunChance;
 			return (chance);
 		}
+		case StatStructs::ACID_RAIN_STRUCT:
+		{
+			t_AcidRainDamage *used = (t_AcidRainDamage*)ability->stats;
+			chance = used->chance;
+			return (chance);
+		}
 	}
 	return (chance);
 }
