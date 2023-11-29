@@ -17,6 +17,7 @@ class Sprite
 		bool translated = true;
 		bool deleteTexture = false;
 		bool scaled = true;
+		bool removed = false;
 	public:
 		double angle = 0.0;
 		float z = 0.0f;
@@ -26,6 +27,7 @@ class Sprite
 		Uint8 red = 0;
 		Uint8 green = 0;
 		Uint8 blue = 0;
+		void SetRemoved() {removed = true;};
 		Sprite(SDL_Texture *sprite, SDL_Rect dest, SDL_Rect *srect, SDL_FPoint *point, const double angle, const int flip, bool staticSprite = false) {
 			Sprite::sprite = sprite;
 			Sprite::dest = dest;

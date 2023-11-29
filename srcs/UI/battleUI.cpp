@@ -585,5 +585,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case ACID_RAIN:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ACID_RAIN), activeCharacter);
 			break ;
+		case TELEPORT:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(TELEPORT), activeCharacter);
+			break ;
 	}
 }

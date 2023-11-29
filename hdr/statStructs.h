@@ -23,7 +23,8 @@ namespace StatStructs
 		ATTACK_WITH_STATUS,
 		SHIELD_BASH_STRUCT,
 		CONTROL_ZONE_STRUCT,
-		ACID_RAIN_STRUCT
+		ACID_RAIN_STRUCT,
+		TELEPORT
 	};
 };
 
@@ -43,6 +44,12 @@ typedef struct s_ToxicBlade
 	int turns;
 	int hitChance;
 }				t_ToxicBlade;
+
+typedef struct s_Teleport
+{
+	int secondRange;
+	int maxSize;
+}				t_Teleport;
 
 typedef struct s_AcidRainDamage
 {

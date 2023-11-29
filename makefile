@@ -38,7 +38,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/animation/goForTheHead.cpp srcs/ability/animation/knightAttack.cpp srcs/ability/switches/knightUpdates.cpp \
 		srcs/ability/animation/shieldBash.cpp srcs/characters/killEffect.cpp srcs/ability/objects/bashMover.cpp \
 		srcs/ability/animation/controlZone.cpp srcs/ability/selectors/selectorQueue.cpp srcs/ability/animation/acidRain.cpp \
-		srcs/ability/switches/witchUpdates.cpp srcs/ability/animation/witchAnimation.cpp
+		srcs/ability/switches/witchUpdates.cpp srcs/ability/animation/witchAnimation.cpp srcs/ability/animation/teleStart.cpp \
+		srcs/ability/objects/telePort.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

@@ -30,6 +30,8 @@ enum {
 	BATTLEGROUND_LAYER,
 	LINE_LAYER,
 	DUST_LAYER,
+	FLAME_PORT_LAYER,
+	TELEPORT_LAYER,
 	PARTICLE_LAYER,
 	OBJECT_LAYER,
 	FILTER_LAYER,
@@ -174,6 +176,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/characterMover.h"
 # include "ability/objects/fireBall.h"
 # include "ability/objects/phantomKnight.h"
+# include "ability/objects/teleport.h"
 # include "ability/objects/lightningBolt.h"
 # include "ability/objects/rockFall.h"
 # include "ability/animation/rotate.h"
@@ -202,6 +205,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/mageAttack.h"
 # include "ability/animation/controlZone.h"
 # include "ability/animation/smokeBombAnim.h"
+# include "ability/animation/teleStart.h"
 # include "ability/animation/lionSmackAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
 # include "ability/animation/raiderBlock.h"
@@ -375,6 +379,7 @@ SDL_Point	GetPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint);
 SDL_Point	GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint);
 
 void PrintStat();
+bool CheckForSize(SDL_Point point1, SDL_Point point2);
 
 void		CreatePoisonSnippet(Character *target, int totalAmount, Color color);
 void		CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, bool opportunity = false);

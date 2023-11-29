@@ -64,6 +64,7 @@ class Abilities
 		void UpdateKnightAnimation(t_Animation &animation, int index);
 		void UpdateKnightObjects(t_Object &object, int index);
 		void UpdateWitchAnimation(t_Animation &animation, int index);
+		void UpdateWitchObjects(t_Object &object, int index);
 		void CreateShieldBashDamage();
 		void UpdateAlchemistAnimation(t_Animation &anim, int index);
 		void PyroIncinerateDamage();

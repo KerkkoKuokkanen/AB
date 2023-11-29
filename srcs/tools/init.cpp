@@ -174,6 +174,8 @@ void getAudio()
 	gameState.audio.shieldBash[1] = Mix_LoadWAV("audio/abilities/knight/shieldMove.wav");
 	gameState.audio.rainAttack[0] = Mix_LoadWAV("audio/abilities/witch/rain.wav");
 	gameState.audio.rainAttack[1] = Mix_LoadWAV("audio/abilities/witch/acid.wav");
+	gameState.audio.teleport[0] = Mix_LoadWAV("audio/abilities/witch/realTele1.wav");
+	gameState.audio.teleport[1] = Mix_LoadWAV("audio/abilities/witch/realTele2.wav");
 }
 
 void getFonts()
@@ -510,6 +512,8 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
 	render.CreateLayer(LAYER_ORDER_SORT); //line layer
 	render.CreateLayer(LAYER_NO_SORT); //dust layer
+	render.CreateLayer(LAYER_NO_SORT); //tele layer
+	render.CreateLayer(LAYER_NO_SORT); //flame port layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
 	render.CreateLayer(LAYER_NO_SORT); //filter layer

@@ -54,6 +54,10 @@ class Renderer
 			printf("render.h :could not find the sprite\n");
 			return (false);
 		}
+		void ClearLayer(int layer)
+		{
+			spriteLayers[layer].clear();
+		}
 		void RenderClear() {
 			SDL_RenderClear(rend);
 		};

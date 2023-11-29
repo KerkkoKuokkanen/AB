@@ -84,6 +84,25 @@ void findMovables(int **map, int moves, SDL_Point start)
 	IterMapMovables(start, 0, moves, map);
 }
 
+static bool AdditionalCheck(SDL_Point pos)
+{
+	if (gameState.battle.ground->map[pos.y][pos.x].obj != NULL)
+	{
+		if (gameState.battle.ground->map[pos.y][pos.x].obj->size == 1)
+			return (true);
+		if (gameState.battle.ground->map[pos.y][pos.x].blocked)
+			return (false);
+	}
+	return (true);
+}
+
+static int AdditionalAdd(SDL_Point pos)
+{
+	if (gameState.battle.ground->map[pos.y][pos.x].obj != NULL)
+		return (4);
+	return (0);
+}
+
 void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 {
 	if (moves >= cMoves)
@@ -91,13 +110,14 @@ void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 	int currHeight = gameState.battle.ground->map[pos.y][pos.x].height;
 	int modder = (pos.y % 2 == 0) ? (-1) : 1;
 	int sizeModder = gameState.battle.ground->map[0].size() - 1;
-	if (pos.y > 0)
+	if (pos.y > 0 && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		if (gameState.battle.ground->map[pos.y - 1][pos.x].height > currHeight)
 			plus = 2 + (gameState.battle.ground->map[pos.y - 1][pos.x].height - currHeight);
 		else if (gameState.battle.ground->map[pos.y - 1][pos.x].height < currHeight)
 			plus = 1;
+		plus += AdditionalAdd({pos.x, pos.y - 1});
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -109,13 +129,14 @@ void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			}
 		}
 	}
-	if (pos.y < (gameState.battle.ground->map.size() - 1))
+	if (pos.y < (gameState.battle.ground->map.size() - 1) && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		if (gameState.battle.ground->map[pos.y + 1][pos.x].height > currHeight)
 			plus = 2 + (gameState.battle.ground->map[pos.y + 1][pos.x].height - currHeight);
 		else if (gameState.battle.ground->map[pos.y + 1][pos.x].height < currHeight)
 			plus = 1;
+		plus += AdditionalAdd({pos.x, pos.y + 1});
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -127,13 +148,14 @@ void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			}
 		}
 	}
-	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder)
+	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		if (gameState.battle.ground->map[pos.y - 1][pos.x + modder].height > currHeight)
 			plus = 2 + (gameState.battle.ground->map[pos.y - 1][pos.x + modder].height - currHeight);
 		else if (gameState.battle.ground->map[pos.y - 1][pos.x + modder].height < currHeight)
 			plus = 1;
+		plus += AdditionalAdd({pos.x + modder, pos.y - 1});
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -145,13 +167,14 @@ void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			}
 		}
 	}
-	if (pos.y < (gameState.battle.ground->map.size() - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder)
+	if (pos.y < (gameState.battle.ground->map.size() - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		if (gameState.battle.ground->map[pos.y + 1][pos.x + modder].height > currHeight)
 			plus = 2 + (gameState.battle.ground->map[pos.y + 1][pos.x + modder].height - currHeight);
 		else if (gameState.battle.ground->map[pos.y + 1][pos.x + modder].height < currHeight)
 			plus = 1;
+		plus += AdditionalAdd({pos.x + modder, pos.y + 1});
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
@@ -171,7 +194,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 		return ;
 	int modder = (pos.y % 2 == 0) ? (-1) : 1;
 	int sizeModder = gameState.battle.ground->map[0].size() - 1;
-	if (pos.y > 0)
+	if (pos.y > 0 && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		int temp = moves + plus;
@@ -185,7 +208,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			}
 		}
 	}
-	if (pos.y < (gameState.battle.ground->map.size() - 1))
+	if (pos.y < (gameState.battle.ground->map.size() - 1) && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		int temp = moves + plus;
@@ -199,7 +222,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			}
 		}
 	}
-	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder)
+	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		int temp = moves + plus;
@@ -213,7 +236,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 			}
 		}
 	}
-	if (pos.y < (gameState.battle.ground->map.size() - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder)
+	if (pos.y < (gameState.battle.ground->map.size() - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && AdditionalCheck(pos))
 	{
 		int plus = 2;
 		int temp = moves + plus;

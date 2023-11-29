@@ -64,7 +64,7 @@ void FlamePort::CreateParticles(int y, int yTarg)
 				add.sprite->Position(Vector(xP, yP));
 				Color used = getFlamePartColor();
 				add.sprite->ColorMod(used.r, used.g, used.b);
-				gameState.render->AddSprite(add.sprite, PARTICLE_LAYER);
+				gameState.render->AddSprite(add.sprite, FLAME_PORT_LAYER);
 				particles.push_back(add);
 				add.sprite->Deactivate();
 				counter = 0;
@@ -158,8 +158,12 @@ void FlamePort::UpdateLastPhase()
 	{
 		character->stand->ClearAlphaMod();
 		character->sprite->ClearAlphaMod();
+		gameState.render->ClearLayer(FLAME_PORT_LAYER);
 		for (int i = 0; i < particles.size(); i++)
+		{
+			particles[i].sprite->SetRemoved();
 			delete particles[i].sprite;
+		}
 		particles.clear();
 		character->setAnimationActive(false);
 		done = true;

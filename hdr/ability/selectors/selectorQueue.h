@@ -30,6 +30,7 @@ class SelectorQueue
 		SelectorQueue(GroundColoring *coloring, TileSelector *selec = NULL) {SelectorQueue::coloring = coloring; tileSelector = selec;};
 		~SelectorQueue() {Destroy();};
 		std::vector<SDL_Point> GetTargets();
+		void AddStartingSelecotr(Selector *selector) {SelectorQueue::selector = selector;};
 		void AddNextSelector(bool normal, SDL_Point pos, int range, int cleared, bool blockers, bool staticSearch);
 		void Update();
 		void Destroy();

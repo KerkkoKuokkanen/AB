@@ -163,6 +163,16 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case ACID_RAIN:
 			selector = new Selector(character->position, 10, 2, &groundColoring, false);
 			break ;
+		case TELEPORT:
+		{
+			Selector *used = new Selector(character->position, 10, 0, &groundColoring, false);
+			used->SetSelectorFor(true, true);
+			used->AddAdditionalCompareFunction(CheckForSize);
+			selectorQueue = new SelectorQueue(&groundColoring);
+			selectorQueue->AddStartingSelecotr(used);
+			t_Teleport *tele = (t_Teleport*)ability->stats;
+			selectorQueue->AddNextSelector(false, {-1, -1}, tele->secondRange, 0, true, false);
+		}
 	}
 }
 
@@ -282,6 +292,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case ACID_RAIN:
 			animations.push_back({new AcidRain(character, target->position, 1), ACID_RAIN});
+			break ;
+		case TELEPORT:
+			animations.push_back({new TeleStart(character, targPoints[0]), TELEPORT});
 			break ;
 	}
 }
@@ -510,6 +523,9 @@ void Abilities::ObjectUpdater()
 				break ;
 			case KNIGHT:
 				UpdateKnightObjects(objects[i], i);
+				break ;
+			case WITCH:
+				UpdateWitchObjects(objects[i], i);
 				break ;
 		}
 	}

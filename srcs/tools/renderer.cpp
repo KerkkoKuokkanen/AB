@@ -84,7 +84,8 @@ Sprite::~Sprite()
 {
 	if (spritesLayer == -1)
 		return ;
-	gameState.render->RemoveSprite(this, spritesLayer);
+	if (!removed)
+		gameState.render->RemoveSprite(this, spritesLayer);
 	if (deleteTexture && sprite != NULL)
 		SDL_DestroyTexture(sprite);
 }
