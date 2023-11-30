@@ -166,6 +166,16 @@ void Info::UpdateSlowEffects()
 			i = (slowEffects.size() == 0) ? 0 : i - 1;
 		}
 	}
+	for (int i = 0; i < healEffects.size(); i++)
+	{
+		healEffects[i]->Update();
+		if (healEffects[i]->done)
+		{
+			delete healEffects[i];
+			healEffects.erase(healEffects.begin() + i);
+			i = (healEffects.size() == 0) ? 0 : i - 1;
+		}
+	}
 }
 
 void Info::AddBombEffect(void *effect, int abilityType)

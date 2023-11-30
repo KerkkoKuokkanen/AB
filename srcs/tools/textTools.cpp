@@ -155,6 +155,35 @@ void CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, 
 		orderLayer = 0;
 }
 
+void CreateDamageSnippetWithColor(SDL_Point damager, Character *target, int totalDamage, Color col, bool opportunity)
+{
+	SDL_Point pos = target->topMid;
+	bool dirTest;
+	if (!opportunity)
+		dirTest = LeftOrRight(damager, target->position);
+	else
+		dirTest = LeftOrRightForOpp(damager, target);
+	SDL_Point start = {0, pos.y + DAMAGE_MINUS};
+	start.x = (dirTest) ? -(rand() % 500 - 1000) : (rand() % 500 + 3000);
+	SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
+	Vector dir = GetDirection(dirTest);
+	int size = GetSize(target, totalDamage);
+	std::string num = std::to_string(totalDamage);
+	const char *text = num.c_str();
+	int time = 90 + rand() % 20;
+	FlyingSnippet *used = new FlyingSnippet(text, Vector((float)use.x, (float)use.y), dir, size, time);
+	used->SetDrag(1.115f);
+	int amount = GetAmount(size);
+	used->SetAmount(amount);
+	used->SetOrdering(orderLayer);
+	float speed = (float)(rand() % 50 + 290);
+	used->SetSpeed(speed);
+	used->SetColor(col.r, col.g, col.b);
+	orderLayer += 2;
+	if (orderLayer >= 2147483600)
+		orderLayer = 0;
+}
+
 void CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color)
 {
 	SDL_Point pos = target->topMid;

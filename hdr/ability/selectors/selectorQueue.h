@@ -12,6 +12,9 @@ typedef struct s_Selec
 	int cleared;
 	bool blockers;
 	bool staticSearch;
+	bool (*additionalCompFunction)(SDL_Point, SDL_Point);
+	bool ally;
+	bool enemy;
 }				t_Selec;
 
 class SelectorQueue
@@ -31,7 +34,8 @@ class SelectorQueue
 		~SelectorQueue() {Destroy();};
 		std::vector<SDL_Point> GetTargets();
 		void AddStartingSelecotr(Selector *selector) {SelectorQueue::selector = selector;};
-		void AddNextSelector(bool normal, SDL_Point pos, int range, int cleared, bool blockers, bool staticSearch);
+		void AddNextSelector(bool normal, SDL_Point pos, int range, int cleared, bool blockers, bool staticSearch, bool (*compFunc)(SDL_Point, SDL_Point) = NULL);
+		void AddNextSelectorWithTarget(bool normal, SDL_Point pos, int range, int cleared, bool blockers, bool staticSearch, bool ally, bool enemy, bool (*compFunc)(SDL_Point, SDL_Point) = NULL);
 		void Update();
 		void Destroy();
 };

@@ -16,12 +16,12 @@ typedef struct s_Bars
 class Damager
 {
 	private:
-		DamageCreator damageCreator;
 		std::vector<Character*> targets;
 		std::vector<t_Bars> bars;
 		std::vector<AddStatus*> statuses = {};
-		Vector GetDirection(SDL_Point character, Character *target);
 	public:
+		DamageCreator damageCreator;
+		Vector GetDirection(SDL_Point character, Character *target);
 		void AddDamage(t_Ability *ability, Character *character, std::vector<SDL_Point> &targets, bool sound = true);
 		void AddOpportunityDamage(SDL_Point damager, Character *target);
 		void AddPoisonDamage(Character *target, int amount);

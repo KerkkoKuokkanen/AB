@@ -1,7 +1,7 @@
 
 #include "../../../hdr/global.h"
 #define TIME_OUT 500
-#define PART_DISTANCE 1500
+#define PART_DISTANCE 200
 
 static Color GetColor()
 {
@@ -44,7 +44,7 @@ void TelePort::CreateParticles(int start, int end)
 			if (pixels[(y * sur->w) + x] == 0)
 				continue ;
 			partCounter++;
-			if (partCounter >= FLAME_PORT_PART_DISTANCE)
+			if (partCounter >= PART_DISTANCE)
 			{
 				float xP = (float)dest.x + (wUnit * (float)x);
 				float yP = (float)dest.y + (hUnit * (float)y);

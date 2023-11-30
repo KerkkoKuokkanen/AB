@@ -172,6 +172,15 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selectorQueue->AddStartingSelecotr(used);
 			t_Teleport *tele = (t_Teleport*)ability->stats;
 			selectorQueue->AddNextSelector(false, {-1, -1}, tele->secondRange, 0, true, false);
+			break ;
+		}
+		case HEALTH_TRANSFER:
+		{
+			t_HealthTransfer *stats = (t_HealthTransfer*)ability->stats;
+			selectorQueue = new SelectorQueue(&groundColoring);
+			selectorQueue->AddNextSelectorWithTarget(true, character->position, ability->range, 0, false, false, true, stats->enemy);
+			selectorQueue->AddNextSelectorWithTarget(true, {-1, -1}, stats->secondRange, 0, false, false, true, stats->enemy, CheckForMaxHealth);
+			break ;
 		}
 	}
 }
@@ -296,6 +305,12 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		case TELEPORT:
 			animations.push_back({new TeleStart(character, targPoints[0]), TELEPORT});
 			break ;
+		case HEALTH_TRANSFER:
+		{
+			Character *used = gameState.battle.ground->map[targPoints[0].y][targPoints[0].x].character;
+			animations.push_back({new HeartBeat(character, used), HEALTH_TRANSFER});
+			break ;
+		}
 	}
 }
 

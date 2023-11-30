@@ -176,6 +176,8 @@ void getAudio()
 	gameState.audio.rainAttack[1] = Mix_LoadWAV("audio/abilities/witch/acid.wav");
 	gameState.audio.teleport[0] = Mix_LoadWAV("audio/abilities/witch/realTele1.wav");
 	gameState.audio.teleport[1] = Mix_LoadWAV("audio/abilities/witch/realTele2.wav");
+	gameState.audio.heartBeat = Mix_LoadWAV("audio/abilities/witch/heartBeat.wav");
+	gameState.audio.healPart = Mix_LoadWAV("audio/abilities/witch/helly.wav");
 }
 
 void getFonts()
@@ -480,6 +482,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.glows[1] = get_texture(rend, "sprites/characters/witch/witchAttackHand2.png");
 	gameState.textures.attacks.glows[2] = get_texture(rend, "sprites/characters/witch/witchAttackHand3.png");
 	gameState.textures.attacks.rainDrop = get_texture(rend, "sprites/env/raindDrop.png");
+	gameState.textures.attacks.heartBeat[0] = get_texture(rend, "sprites/env/heartBeat.png");
+	gameState.textures.attacks.heartBeat[1] = get_texture(rend, "sprites/env/heartBeatOutline.png");
 }
 
 void CraeteAudioThread()

@@ -22,6 +22,7 @@ class Info
 		std::vector<NailBombBlast*> nailBombs;
 		std::vector<AcidBombBlast*> acidBombs;
 		std::vector<SlowedEffect*> slowEffects;
+		std::vector<HealEffect*> healEffects;
 		void UpdateSnippets();
 		void FindHoveredCharacter();
 		bool KilledOrDamaged();
@@ -39,6 +40,7 @@ class Info
 		void AddSupplyEffect(SupplyEffect *add) {supplyEffects.push_back(add);};
 		void AddBuffEffect(BuffEffect *add) {buffEffects.push_back(add);};
 		void AddHostEffect(HostEffect *add) {hostEffects.push_back(add);};
+		void AddHealEffect(HealEffect *add) {healEffects.push_back(add);};
 		void AddSlowEffect(SlowedEffect *add) {slowEffects.push_back(add);};
 		void AddBombEffect(void *effect, int abilityType);
 		void AddColorEffect(Sprite *sprite, int time, Color color, int delay) {colorEffects->AddEffect(sprite, time, color, delay);};

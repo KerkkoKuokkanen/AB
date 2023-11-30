@@ -588,5 +588,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 		case TELEPORT:
 			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(TELEPORT), activeCharacter);
 			break ;
+		case HEALTH_TRANSFER:
+			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HEALTH_TRANSFER), activeCharacter);
+			break ;
 	}
 }

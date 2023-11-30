@@ -325,6 +325,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *witchAttack;
 	SDL_Texture *glows[3];
 	SDL_Texture *rainDrop;
+	SDL_Texture *heartBeat[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -455,6 +456,8 @@ typedef struct s_Audio
 	Mix_Chunk *shieldBash[2];
 	Mix_Chunk *rainAttack[2];
 	Mix_Chunk *teleport[2];
+	Mix_Chunk *heartBeat;
+	Mix_Chunk *healPart;
 }				t_Audio;
 
 typedef struct s_Fonts

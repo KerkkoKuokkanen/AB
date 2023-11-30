@@ -157,6 +157,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "objects/objUpdate.h"
 # include "effects/buffEffect.h"
 # include "effects/hostEffect.h"
+# include "effects/healEffect.h"
 # include "effects/slowedEffect.h"
 # include "effects/nailBombBlast.h"
 # include "effects/hostEyesEffect.h"
@@ -179,6 +180,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/objects/teleport.h"
 # include "ability/objects/lightningBolt.h"
 # include "ability/objects/rockFall.h"
+# include "ability/objects/healthTransfer.h"
 # include "ability/animation/rotate.h"
 # include "ability/animation/goForTheHead.h"
 # include "ability/animation/supply.h"
@@ -205,6 +207,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/mageAttack.h"
 # include "ability/animation/controlZone.h"
 # include "ability/animation/smokeBombAnim.h"
+# include "ability/animation/heartBeat.h"
 # include "ability/animation/teleStart.h"
 # include "ability/animation/lionSmackAnim.h"
 # include "ability/animation/daggerThrowAnim.h"
@@ -379,10 +382,13 @@ SDL_Point	GetPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint);
 SDL_Point	GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint);
 
 void PrintStat();
+
 bool CheckForSize(SDL_Point point1, SDL_Point point2);
+bool CheckForMaxHealth(SDL_Point point1, SDL_Point point2);
 
 void		CreatePoisonSnippet(Character *target, int totalAmount, Color color);
 void		CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, bool opportunity = false);
+void		CreateDamageSnippetWithColor(SDL_Point damager, Character *target, int totalDamage, Color col, bool opportunity = false);
 void		CreateTextSnippet(Character *damager, Character *target, const char *text, int size, Color color);
 void		CreateMiss(SDL_Point damager, SDL_Point target, Character *targ, bool sound = false);
 

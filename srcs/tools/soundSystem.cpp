@@ -1,6 +1,7 @@
 
 #include "../../hdr/global.h"
 #include <chrono>
+#include <mutex>
 
 typedef struct s_SoundQ
 {
@@ -25,6 +26,7 @@ auto startTime = std::chrono::high_resolution_clock::now();
 std::vector<t_SoundQ> soundQ = {};
 std::vector<t_Channel> channel = {};
 std::vector<t_Volume> volumes = {};
+std::mutex soundQMutex;
 
 void CreateVolumeChannels()
 {
@@ -181,6 +183,7 @@ void AudioSetSound(Mix_Chunk *sound, int channel, int loops)
 			break ;
 		}
 	}
+	std::unique_lock<std::mutex> lock(soundQMutex);
 	soundQ.push_back({sound, volume, loops});
 }
 
@@ -211,20 +214,19 @@ static int FindChannel()
 
 static void PollAudio()
 {
-	for (int i = 0; i < soundQ.size(); i++)
+	std::unique_lock<std::mutex> lock(soundQMutex);
+	while (!soundQ.empty())
 	{
-		Mix_Chunk *sound = soundQ[i].sound;
-		int volume = soundQ[i].volume;
-		int loops = soundQ[i].loops;
+		t_SoundQ used = soundQ.back();
+		Mix_Chunk *sound = used.sound;
+		int volume = used.volume;
+		int loops = used.loops;
 		int usedC = FindChannel();
-		if (usedC == (-1))
-			return ;
 		Mix_Volume(usedC, volume);
 		Mix_PlayChannel(usedC, sound, loops);
 		channel[usedC].occupied = true;
 		channel[usedC].time = GetDuration(sound);
-		soundQ.erase(soundQ.begin() + i);
-		i -= 1;
+		soundQ.pop_back();
 	}
 }
 
@@ -250,6 +252,7 @@ void AudioUpdate()
 
 void AudioClear()
 {
+	std::unique_lock<std::mutex> lock(soundQMutex);
 	soundQ.clear();
 	for (int i = 0; i < channel.size(); i++)
 	{

@@ -172,6 +172,11 @@ static void AssingDefaultWitchAbilities(std::vector<t_Ability> &stats)
 	t_Teleport *stat1 = (t_Teleport*)stats[1].stats;
 	stat1->maxSize = 5;
 	stat1->secondRange = 10;
+	stats[2].stats = (void*)malloc(sizeof(t_HealthTransfer));
+	t_HealthTransfer *stat2 = (t_HealthTransfer*)stats[2].stats;
+	stat2->amount = 20;
+	stat2->secondRange = 10;
+	stat2->enemy = false;
 }
 
 void Character::AssignAbilities()
@@ -233,7 +238,7 @@ void Character::AssignAbilities()
 		case WITCH:
 			abilities = {{ACID_RAIN, 0, 10, 0, 80, StatStructs::ACID_RAIN_STRUCT, (-1), NULL},
 						{TELEPORT, 0, 10, 0, 80, StatStructs::TELEPORT, (-1), NULL},
-						{HEALTH_TRANSFER, 0, 10, 0, 80, StatStructs::ATTACK_STRUCT, (-1), NULL}};
+						{HEALTH_TRANSFER, 0, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), NULL}};
 			AssingDefaultWitchAbilities(abilities);
 			break ;
 		default:

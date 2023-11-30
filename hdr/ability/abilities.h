@@ -77,6 +77,7 @@ class Abilities
 		void SelectorWithSquares();
 		void SelectorForAxeJump();
 		void SelectorQueueUpdate();
+		int CreateWitchDamage();
 		void UpdatePhantomSelector();
 		void MultiSelectorWithCharacter();
 		void AllSelectorUpdate();

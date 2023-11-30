@@ -24,7 +24,8 @@ namespace StatStructs
 		SHIELD_BASH_STRUCT,
 		CONTROL_ZONE_STRUCT,
 		ACID_RAIN_STRUCT,
-		TELEPORT
+		TELEPORT,
+		HEALTH_TRANSFER
 	};
 };
 
@@ -50,6 +51,13 @@ typedef struct s_Teleport
 	int secondRange;
 	int maxSize;
 }				t_Teleport;
+
+typedef struct s_HealthTransfer
+{
+	int secondRange;
+	int amount;
+	bool enemy;
+}				t_HealthTransfer;
 
 typedef struct s_AcidRainDamage
 {

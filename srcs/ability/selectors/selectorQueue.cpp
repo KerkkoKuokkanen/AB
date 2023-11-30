@@ -1,9 +1,15 @@
 
 #include "../../../hdr/global.h"
 
-void SelectorQueue::AddNextSelector(bool normal, SDL_Point pos, int range, int cleared, bool blockers, bool staticSearch)
+void SelectorQueue::AddNextSelector(bool normal, SDL_Point pos, int range, int cleared, bool blockers, bool staticSearch, bool (*compFunc)(SDL_Point, SDL_Point))
 {
-	t_Selec add = {normal, pos, range, cleared, blockers, staticSearch};
+	t_Selec add = {normal, pos, range, cleared, blockers, staticSearch, compFunc, false, true};
+	nextSelectors.push_back(add);
+}
+
+void SelectorQueue::AddNextSelectorWithTarget(bool normal, SDL_Point pos, int range, int cleared, bool blockers, bool staticSearch, bool ally, bool enemy, bool (*compFunc)(SDL_Point, SDL_Point))
+{
+	t_Selec add = {normal, pos, range, cleared, blockers, staticSearch, compFunc, ally, enemy};
 	nextSelectors.push_back(add);
 }
 
@@ -23,6 +29,10 @@ void SelectorQueue::CreateNextSelector()
 	if (data.normal)
 	{
 		selector = new Selector(pos, data.range, data.cleared, coloring, data.staticSearch);
+		selector->SetSelectorFor(data.ally, data.enemy);
+		if (data.additionalCompFunction != NULL)
+			selector->AddAdditionalCompareFunction(data.additionalCompFunction);
+		nextSelectors.erase(nextSelectors.begin() + 0);
 		return ;
 	}
 	tileSelector = new TileSelector(pos, data.range, data.cleared, coloring, data.blockers, data.staticSearch);
