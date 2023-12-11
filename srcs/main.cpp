@@ -6,13 +6,13 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(WITCH);
-	Character thief2(PYRO);
-	Character skele(SKELE, false);
-	Character skele2(SKELE, false);
+	Character thief2(MAGE);
+	Character skele(WITCH, false);
+	Character skele2(PYRO, false);
 	Character thief3(LION);
 	Character thief4(KNIGHT);
-	Character skele3(SKELE, false);
-	Character skele6(SKELE, false);
+	Character skele3(LION, false);
+	Character skele6(KNIGHT, false);
 	static std::vector<Character> chars = {thief, thief2, skele, skele2, thief3, thief4, skele3, skele6};
 	SDL_Point point = {9, 6};
 	SDL_Point point2 = {10, 11};

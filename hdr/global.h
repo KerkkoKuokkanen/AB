@@ -403,6 +403,7 @@ typedef struct s_Textures
 	SDL_Texture *filter;
 	SDL_Texture *backGround;
 	SDL_Texture *witchAbilities[3];
+	SDL_Texture *critFilter;
 }				t_Textures;
 
 typedef struct s_Audio
@@ -458,6 +459,7 @@ typedef struct s_Audio
 	Mix_Chunk *teleport[2];
 	Mix_Chunk *heartBeat;
 	Mix_Chunk *healPart;
+	Mix_Chunk *criticalHit;
 }				t_Audio;
 
 typedef struct s_Fonts

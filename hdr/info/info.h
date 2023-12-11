@@ -4,12 +4,19 @@
 
 # include "../ab.h"
 
+typedef struct s_CritFilter
+{
+	int time;
+	Sprite *sprite;
+}				t_CritFilter;
+
 class Info
 {
 	private:
 		Character *hovered;
 		Counter *counter;
 		ControlSetter *controls;
+		t_CritFilter critFilter = {0, NULL};
 		StunUpdates *stunUpdates = NULL;
 		MovementEnergy *movementEnergy = NULL;
 		InfoBar *bar = NULL;
@@ -32,6 +39,7 @@ class Info
 		void UpdateHostEffects();
 		void UpdateBombEffects();
 		void UpdateSlowEffects();
+		void UpdateCritFilter();
 	public:
 		bool overInfo = false;
 		Info();
@@ -43,6 +51,7 @@ class Info
 		void AddHealEffect(HealEffect *add) {healEffects.push_back(add);};
 		void AddSlowEffect(SlowedEffect *add) {slowEffects.push_back(add);};
 		void AddBombEffect(void *effect, int abilityType);
+		void SetCritFilter();
 		void AddColorEffect(Sprite *sprite, int time, Color color, int delay) {colorEffects->AddEffect(sprite, time, color, delay);};
 		void Update();
 		void Destroy();

@@ -130,20 +130,21 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 		Character *targ = gameState.battle.ground->map[targets[i].y][targets[i].x].character;
 		if (targ == NULL || targ->killed)
 			continue ;
+		SDL_Point damages = GetDamageValues(targ, character, ability);
 		if (sound)
 		{
 			t_Sound add2 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
 			t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 			t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
 			std::vector<t_Sound> sounds = {add2, add3, add5};
-			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character->position, targ), sounds);
-			CreateDamageSnippet(character->position, targ, rand() % 100 + 1);
+			damageCreator.CreateDamage(targ, Color(255, 0, 0), damages.x, damages.y, GetDirection(character->position, targ), sounds);
+			CreateDamageSnippet(character->position, targ, damages.x + damages.y);
 		}
 		else
 		{
 			std::vector<t_Sound> sounds = {};
-			damageCreator.CreateDamage(targ, Color(255, 0, 0), 5, 5, GetDirection(character->position, targ), sounds);
-			CreateDamageSnippet(character->position, targ, 12 + 12);
+			damageCreator.CreateDamage(targ, Color(255, 0, 0), damages.x, damages.y, GetDirection(character->position, targ), sounds);
+			CreateDamageSnippet(character->position, targ, damages.x + damages.y);
 		}
 		bool ret = StatusApply(ability, character, targ);
 		addStatus(character, targ, ability, ret);
@@ -190,11 +191,12 @@ void Damager::AddOpportunityDamage(SDL_Point damager, Character *target)
 	t_Sound add4 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
 	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
 	std::vector<t_Sound> sounds = {add3, add4, add5};
+	SDL_Point damages = GetOpportunityDamageValues(target, damager);
 	if (target->cSing == LION)
-		damageCreator.CreateDamage(target, Color(255, 0, 0), 5, 5, GetDirection(damager, target), sounds, false);
+		damageCreator.CreateDamage(target, Color(255, 0, 0), damages.x, damages.y, GetDirection(damager, target), sounds, false);
 	else
-		damageCreator.CreateDamage(target, Color(255, 0, 0), 5, 5, GetDirection(damager, target), sounds);
-	CreateDamageSnippet(damager, target, rand() % 100 + 1, true);
+		damageCreator.CreateDamage(target, Color(255, 0, 0), damages.x, damages.y, GetDirection(damager, target), sounds);
+	CreateDamageSnippet(damager, target, damages.x + damages.y, true);
 }
 
 void Damager::Update()

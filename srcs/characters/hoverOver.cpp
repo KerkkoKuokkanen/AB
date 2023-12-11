@@ -1,6 +1,26 @@
 
 #include "../../hdr/global.h"
 
+bool AnyOneClicked()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		if (gameState.battle.ground->characters[i].character->clicked)
+			return (true);
+	}
+	return (false);
+}
+
+static bool AnyOneMoving()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		if (gameState.battle.ground->characters[i].character->moving)
+			return (true);
+	}
+	return (false);
+}
+
 bool MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse)
 {
 	if (sur == NULL)
@@ -77,7 +97,7 @@ Character *HoveringOver()
 void UpdateHoveredCharacter()
 {
 	Character *chosen = gameState.updateObjs.chosen;
-	if (chosen == NULL || gameState.updateObjs.turnOrder->insideBox || gameState.updateObjs.abilities->active)
+	if (chosen == NULL || gameState.updateObjs.turnOrder->insideBox || gameState.updateObjs.abilities->active || AnyOneMoving())
 		return ;
 	SDL_Point position = chosen->position;
 	if (!gameState.battle.ground->map[position.y][position.x].highlited)
@@ -94,16 +114,6 @@ void UpdateHoveredCharacter()
 		gameState.updateObjs.abilities->Clear();
 		chosen->clicked = true;
 	}
-}
-
-bool AnyOneClicked()
-{
-	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
-	{
-		if (gameState.battle.ground->characters[i].character->clicked)
-			return (true);
-	}
-	return (false);
 }
 
 void ManageTextureHovering()

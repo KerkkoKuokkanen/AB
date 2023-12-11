@@ -198,6 +198,32 @@ void Info::AddBombEffect(void *effect, int abilityType)
 	}
 }
 
+void Info::UpdateCritFilter()
+{
+	if (critFilter.sprite == NULL)
+		return ;
+	critFilter.time -= 1;
+	if (critFilter.time > 30)
+	{
+		int count = 40 - critFilter.time;
+		int alpha = 30 + (15 * count);
+		critFilter.sprite->AlphaMod(alpha);
+		return ;
+	}
+	if (critFilter.time <= 0)
+	{
+		delete critFilter.sprite;
+		critFilter.sprite = NULL;
+		return ;
+	}
+	if (critFilter.time <= 10)
+	{
+		int count = 10 - critFilter.time;
+		int alpha = 165 - (15 * count);
+		critFilter.sprite->AlphaMod(alpha);
+	}
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
@@ -208,6 +234,7 @@ void Info::Update()
 	UpdateHostEffects();
 	UpdateBombEffects();
 	UpdateSlowEffects();
+	UpdateCritFilter();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();
@@ -215,6 +242,18 @@ void Info::Update()
 	healthColoring->Update();
 	colorEffects->Update();
 	overInfo = counter->insideBox;
+}
+
+void Info::SetCritFilter()
+{
+	if (critFilter.sprite != NULL)
+		delete critFilter.sprite;
+	critFilter.sprite = new Sprite(gameState.textures.critFilter, {-50000, -50000, 100000, 57000}, NULL, NULL, 0, FLIP_NONE, true);
+	critFilter.sprite->orderLayer = 10;
+	critFilter.sprite->AlphaMod(30);
+	critFilter.sprite->ColorMod(97, 9, 9);
+	critFilter.time = 40;
+	gameState.render->AddSprite(critFilter.sprite, FILTER_LAYER);
 }
 
 void Info::AddSnippet(FlyingSnippet *snippet)

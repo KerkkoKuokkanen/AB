@@ -73,7 +73,7 @@ void ToolBox::InHandAbilities()
 		return ;
 	if (!ToolExists(character, THROW_TOOLBOX))
 	{
-		character->abilities.push_back({THROW_TOOLBOX, 0, 8, 0, 200, StatStructs::THROWABLE, (-1), NULL});
+		character->abilities.push_back({THROW_TOOLBOX, 2, 15, 0, 200, StatStructs::THROWABLE, (-1), 0, 0, NULL});
 		int index = character->abilities.size() - 1;
 		character->abilities[index].stats = (void*)malloc(sizeof(t_Throwable));
 		t_Throwable *used = (t_Throwable*)character->abilities[index].stats;
@@ -81,7 +81,7 @@ void ToolBox::InHandAbilities()
 	}
 	if (!ToolExists(character, SUPPLY_ALLY))
 	{
-		character->abilities.push_back({SUPPLY_ALLY, 0, 12, 0, 200, StatStructs::SUPPLY, (-1), NULL});
+		character->abilities.push_back({SUPPLY_ALLY, 3, 25, 0, 200, StatStructs::SUPPLY, (-1), 0, 0, NULL});
 		int index = character->abilities.size() - 1;
 		character->abilities[index].stats = (void*)malloc(sizeof(t_Supply));
 		t_Supply *used = (t_Supply*)character->abilities[index].stats;

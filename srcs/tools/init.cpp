@@ -178,6 +178,7 @@ void getAudio()
 	gameState.audio.teleport[1] = Mix_LoadWAV("audio/abilities/witch/realTele2.wav");
 	gameState.audio.heartBeat = Mix_LoadWAV("audio/abilities/witch/heartBeat.wav");
 	gameState.audio.healPart = Mix_LoadWAV("audio/abilities/witch/helly.wav");
+	gameState.audio.criticalHit = Mix_LoadWAV("audio/effects/criticalHit.wav");
 }
 
 void getFonts()
@@ -484,6 +485,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.rainDrop = get_texture(rend, "sprites/env/raindDrop.png");
 	gameState.textures.attacks.heartBeat[0] = get_texture(rend, "sprites/env/heartBeat.png");
 	gameState.textures.attacks.heartBeat[1] = get_texture(rend, "sprites/env/heartBeatOutline.png");
+	gameState.textures.critFilter = get_texture(rend, "sprites/env/CritHit.png");
 }
 
 void CraeteAudioThread()
@@ -520,7 +522,7 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_NO_SORT); //flame port layer
 	render.CreateLayer(LAYER_NO_SORT); //particle layer
 	render.CreateLayer(LAYER_NO_SORT); //object layer
-	render.CreateLayer(LAYER_NO_SORT); //filter layer
+	render.CreateLayer(LAYER_ORDER_SORT); //filter layer
 	render.CreateLayer(LAYER_DEPTH_SORT); //info layer
 	render.CreateLayer(LAYER_ORDER_SORT); //turn order layer
 	render.CreateLayer(LAYER_ORDER_SORT); //flying texts;
