@@ -108,7 +108,7 @@ void Abilities::UpdateMageObject(t_Object &object, int index)
 			used->Update();
 			if (used->createDamage)
 			{
-				if (RangeCheckWithoutBlockers(character, target, ability))
+				if (MeleeCheck(character, target, ability))
 					CreateDamage();
 				else
 					CreateMiss(character->position, targetPoint, target, true);
@@ -131,7 +131,7 @@ void Abilities::UpdateMageObject(t_Object &object, int index)
 				std::vector<SDL_Point> targyy = {targ};
 				if (ret != NULL)
 				{
-					if (RangeCheckWithoutBlockers(character, ret, ability))
+					if (MeleeCheck(character, ret, ability))
 						damager.AddDamage(ability, character, targyy);
 					else
 						CreateMiss(character->position, targ, ret, true);

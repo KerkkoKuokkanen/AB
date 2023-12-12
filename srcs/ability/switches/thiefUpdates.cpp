@@ -12,7 +12,7 @@ void Abilities::UpdateThiefAnimation(t_Animation &animation, int index)
 			if (used->timeForAbility)
 			{
 				int chance = GetChance(character, target, ability);
-				bool hit = RangeCheckWithoutBlockers(character, target, ability);
+				bool hit = MeleeCheck(character, target, ability);
 				objects.push_back({new Dagger(character, target, hit), DAGGER_OBJ});
 			}
 			if (!used->active)

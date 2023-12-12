@@ -75,7 +75,7 @@ void FlameBlast::CreateFireBall()
 	Character *used = hitTarg;
 	if (hitTarg == NULL)
 		used = targ;
-	bool goingToHit = RangeCheckWithoutBlockers(character, used, ability);
+	bool goingToHit = MeleeCheck(character, used, ability);
 	bool hit = (goingToHit) ? false : true;
 	FireBall *ball = new FireBall(character, used->position, hit);
 	t_FireBall add = {ball, used->position, false, false, hit};

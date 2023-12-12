@@ -13,6 +13,42 @@ int RangedChance(Character *character, Character *target)
 	return (5 * height);
 }
 
+static float AccBuffMulit(Character *character)
+{
+	float ret = 1.0f;
+	for (int i = 0; i < character->statuses.buffs.size(); i++)
+	{
+		if (character->statuses.buffs[i].type == BuffTypes::ACCURACY)
+			ret += (float)character->statuses.buffs[i].amount / 100.0f;
+	}
+	return (ret);
+}
+
+static float AccDeBuffMulti(Character *character)
+{
+	float ret = 1.0f;
+	for (int i = 0; i < character->statuses.deBuffs.size(); i++)
+	{
+		if (character->statuses.deBuffs[i].type == BuffTypes::ACCURACY)
+			ret -= (float)character->statuses.deBuffs[i].amount / 100.0f;
+	}
+	if (ret < 0.1f)
+		ret = 0.1f;
+	return (ret);
+}
+
+static int ChanceModifiers(Character *character, Character *target, int chance)
+{
+	float chanceRet = (float)chance;
+	float accBuff = AccBuffMulit(character);
+	float hostMulti = (character->statuses.hosted) ? 0.85f : 1.0f;
+	float accDebuff = AccDeBuffMulti(character);
+	chanceRet *= accBuff;
+	chanceRet *= accDebuff;
+	chanceRet *= hostMulti;
+	return (rounding(chanceRet));
+}
+
 int GetChance(Character *character, Character *target, t_Ability *ability)
 {
 	if (ability == NULL)
@@ -28,24 +64,7 @@ int GetChance(Character *character, Character *target, t_Ability *ability)
 	return (ret);
 }
 
-Character *BasicCheck(Character *target, int &chance)
-{
-	if ((rand() % 100) < chance)
-		chance = 1;
-	else
-		chance = 0;
-	return (target);
-}
-
 bool MeleeCheck(Character *character, Character *target, t_Ability *ability)
-{
-	int chance = GetChance(character, target, ability);
-	if (rand() % 100 < chance)
-		return (true);
-	return (false);
-}
-
-bool RangeCheckWithoutBlockers(Character *character, Character *target, t_Ability *ability)
 {
 	int chance = GetChance(character, target, ability);
 	if (rand() % 100 < chance)

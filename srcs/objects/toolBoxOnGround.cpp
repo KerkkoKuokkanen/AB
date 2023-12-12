@@ -64,7 +64,7 @@ void ToolBox::AssignDefaultOnGroundAbilities(Character *target)
 	}
 	if (!ToolExists(target, GENERIC_TOOL_THROW))
 	{
-		target->abilities.push_back({GENERIC_TOOL_THROW, 2, 15, 0, 200, StatStructs::THROWABLE, (-1), 0, 0, NULL});
+		target->abilities.push_back({GENERIC_TOOL_THROW, 2, 15, 9, 200, StatStructs::THROWABLE, (-1), 0, 0, NULL});
 		int index = target->abilities.size() - 1;
 		target->abilities[index].stats = (void*)malloc(sizeof(t_Throwable));
 		t_Throwable *used = (t_Throwable*)target->abilities[index].stats;

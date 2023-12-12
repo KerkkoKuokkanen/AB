@@ -10,10 +10,35 @@ static int GetTheDamageRandom(Character *character)
 	return (ret);
 }
 
+static float GetProtectionMulti(Character *target)
+{
+	float ret = 1.0f;
+	for (int i = 0; i < target->statuses.buffs.size(); i++)
+	{
+		if (target->statuses.buffs[i].type == BuffTypes::PROTECTION)
+			ret -= (float)target->statuses.buffs[i].amount / 100.0f;
+	}
+	if (ret < 0.1f)
+		ret = 0.1f;
+	return (ret);
+}
+
+static float BurnAddition(Character *target)
+{
+	int amount = target->statuses.burns.size();
+	amount *= 2;
+	float multi = 1.0f + ((float)amount / 100.0f);
+	return (multi);
+}
+
 static int GetDamageReduction(Character *damaged, Character *damager, int damage)
 {
-	
-	return (damage);
+	float damageRet = (float)damage;
+	float burnMulti = BurnAddition(damaged);
+	float protectioMulti = GetProtectionMulti(damaged);
+	damageRet *= burnMulti;
+	damageRet *= protectioMulti;
+	return (rounding(damageRet));
 }
 
 static SDL_Point GetFinalDamageSplit(Character *target, int damage)
@@ -78,9 +103,9 @@ SDL_Point GetDamageValues(Character *target, Character *caster, t_Ability *abili
 	int crit = ability->critChance;
 	if (rand() % 100 < crit)
 	{
+		SetDelayer(6);
 		PlaySound(gameState.audio.heartBeat, Channels::VOLUME_45, 0);
 		PlaySound(gameState.audio.criticalHit, Channels::VOLUME_36, 0);
-		gameState.updateObjs.info->SetCritFilter();
 		return (GetFinalDamageSplitCritical(target, damage));
 	}
 	return (GetFinalDamageSplit(target, damage));

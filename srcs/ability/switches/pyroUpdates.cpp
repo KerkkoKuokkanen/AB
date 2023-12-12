@@ -8,7 +8,7 @@ void Abilities::PyroIncinerateDamage()
 		Character *targ = gameState.battle.ground->map[targPoints[i].y][targPoints[i].x].character;
 		if (targ != NULL)
 		{
-			if (RangeCheckWithoutBlockers(character, targ, ability))
+			if (MeleeCheck(character, targ, ability))
 			{
 				std::vector<SDL_Point> used = {targPoints[i]};
 				targ->statuses.burns.clear();

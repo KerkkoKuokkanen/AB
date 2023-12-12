@@ -67,7 +67,7 @@ void Abilities::UpdateWitchAnimation(t_Animation &animation, int index)
 			if (used->createEffect)
 			{
 				Character *used = gameState.battle.ground->map[targPoints[0].y][targPoints[0].x].character;
-				if (RangeCheckWithoutBlockers(character, used, ability) || used->ally)
+				if (MeleeCheck(character, used, ability) || used->ally)
 					objects.push_back({new TelePort(used, targPoints[1]), TELEPORT});
 				else
 					CreateMiss(character->position, used->position, used, true);
@@ -86,7 +86,7 @@ void Abilities::UpdateWitchAnimation(t_Animation &animation, int index)
 			if (used->createEffect)
 			{
 				Character *source = gameState.battle.ground->map[targPoints[0].y][targPoints[0].x].character;
-				if (RangeCheckWithoutBlockers(character, source, ability) || source->ally)
+				if (MeleeCheck(character, source, ability) || source->ally)
 				{
 					Character *end = gameState.battle.ground->map[targPoints[1].y][targPoints[1].x].character;
 					objects.push_back({new HealthTransfer(source, end), HEALTH_TRANSFER});
