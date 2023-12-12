@@ -177,6 +177,7 @@ void FlamePort::UpdateLastPhase()
 
 void FlamePort::Update()
 {
+	createSelfDamage = false;
 	if (done)
 		return ;
 	ChangeColor();
@@ -193,6 +194,7 @@ void FlamePort::Update()
 	}
 	if (counter == FLAME_PORT_COLOR_CHANGE_TIME)
 	{
+		createSelfDamage = true;
 		SetScreenShake(500, 4);
 		for (int i = 0; i < particles.size(); i++)
 			particles[i].sprite->Activate();

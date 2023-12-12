@@ -42,6 +42,7 @@ class FlamePort
 		bool lastPhaseStarted = false;
 	public:
 		bool done = false;
+		bool createSelfDamage = false;
 		FlamePort(Character *character, SDL_Point target);
 		void Update();
 };

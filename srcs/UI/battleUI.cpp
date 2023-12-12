@@ -469,6 +469,49 @@ void CharacterUI::CheckIfMouseOver()
 	}
 }
 
+static bool CheckPosForNextTo(SDL_Point pos)
+{
+	if (!CheckIfValidPosition(pos))
+		return (false);
+	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
+	if (point->blocked == false)
+		return (false);
+	if (CheckIfSmoked(pos))
+		return (false);
+	if (point->character != NULL)
+	{
+		if (point->character->ally == false)
+			return (true);
+	}
+	if (point->additional.object != NULL)
+	{
+		if (point->additional.type != AdditionalObjects::PHANTOM_KNIGHT)
+			return (false);
+		PhantomKnight *used = (PhantomKnight*)point->additional.object;
+		if (used->character->ally == false)
+			return (true);
+	}
+	return (false);
+}
+
+static bool CharacterNextToTrue(Character *character, t_Ability *ability)
+{
+	if (ability->melee)
+		return (false);
+	SDL_Point pos = character->position;
+	int left = getXToLeft(pos);
+	int right = getXToRight(pos);
+	if (CheckPosForNextTo({left, pos.y - 1}))
+		return (true);
+	if (CheckPosForNextTo({left, pos.y + 1}))
+		return (true);
+	if (CheckPosForNextTo({right, pos.y - 1}))
+		return (true);
+	if (CheckPosForNextTo({right, pos.y + 1}))
+		return (true);
+	return (false);
+}
+
 void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 {
 	if (value == NO_CONTACT)
@@ -487,109 +530,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 	int fat = buttons[buttonIndex].fatigueCost + activeCharacter->stats.fatigue;
 	if (fat > activeCharacter->stats.maxFatigue)
 		return ;
-	switch (buttons[buttonIndex].buttonSign)
-	{
-		case DAGGER_THROW:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(DAGGER_THROW), activeCharacter);
-			break ;
-		case SMOKE_BOMB:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SMOKE_BOMB), activeCharacter);
-			break ;
-		case DAGGER_SLASH:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(DAGGER_SLASH), activeCharacter);
-			break ;
-		case FLAME_PORT:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_PORT), activeCharacter);
-			break ;
-		case FLAME_SLASH:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_SLASH), activeCharacter);
-			break ;
-		case FLAME_BLAST:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAME_BLAST), activeCharacter);
-			break ;
-		case INCINERATE:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(INCINERATE), activeCharacter);
-			break ;
-		case LION_SMACK:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(LION_SMACK), activeCharacter);
-			break ;
-		case PHANTOM_KNIGHT:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(PHANTOM_KNIGHT), activeCharacter);
-			break ;
-		case ROTATE:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ROTATE), activeCharacter);
-			break ;
-		case HAMMER_SMACK:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HAMMER_SMACK), activeCharacter);
-			break ;
-		case THROW_TOOLBOX:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(THROW_TOOLBOX), activeCharacter);
-			break ;
-		case SUPPLY_ALLY:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SUPPLY_ALLY), activeCharacter);
-			break ;
-		case PICK_UP_TOOLS:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(PICK_UP_TOOLS), activeCharacter);
-			break ;
-		case SUPPLY:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SUPPLY), activeCharacter);
-			break ;
-		case GENERIC_TOOL_THROW:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(GENERIC_TOOL_THROW), activeCharacter);
-			break ;
-		case SMITH_BUFF:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SMITH_BUFF), activeCharacter);
-			break ;
-		case LIGHTNING_BOLT:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(LIGHTNING_BOLT), activeCharacter);
-			break ;
-		case ROCK_FALL:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ROCK_FALL), activeCharacter);
-			break ;
-		case HOST_EYES:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HOST_EYES), activeCharacter);
-			break ;
-		case AXE_SLASH:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(AXE_SLASH), activeCharacter);
-			break ;
-		case AXE_JUMP:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(AXE_JUMP), activeCharacter);
-			break ;
-		case TOXIC_BLADE:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(TOXIC_BLADE), activeCharacter);
-			break ;
-		case RAIDER_BLOCK:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(RAIDER_BLOCK), activeCharacter);
-			break ;
-		case NAIL_BOMB:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(NAIL_BOMB), activeCharacter);
-			break ;
-		case ACID_BOMB:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ACID_BOMB), activeCharacter);
-			break ;
-		case SLOW_BOMB:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SLOW_BOMB), activeCharacter);
-			break ;
-		case GO_FOR_THE_HEAD:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(GO_FOR_THE_HEAD), activeCharacter);
-			break ;
-		case FLAIL_STRIKE:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(FLAIL_STRIKE), activeCharacter);
-			break ;
-		case SHILED_BASH:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(SHILED_BASH), activeCharacter);
-			break ;
-		case CONTROL_ZONE:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(CONTROL_ZONE), activeCharacter);
-			break ;
-		case ACID_RAIN:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(ACID_RAIN), activeCharacter);
-			break ;
-		case TELEPORT:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(TELEPORT), activeCharacter);
-			break ;
-		case HEALTH_TRANSFER:
-			gameState.updateObjs.abilities->SetAbility(GetCharacterAbility(HEALTH_TRANSFER), activeCharacter);
-			break ;
-	}
+	t_Ability *ability = GetCharacterAbility(buttons[buttonIndex].buttonSign);
+	if (CharacterNextToTrue(activeCharacter, ability))
+		return ;
+	gameState.updateObjs.abilities->SetAbility(ability, activeCharacter);
 }

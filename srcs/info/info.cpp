@@ -203,9 +203,9 @@ void Info::UpdateCritFilter()
 	if (critFilter.sprite == NULL)
 		return ;
 	critFilter.time -= 1;
-	if (critFilter.time > 30)
+	if (critFilter.time > 20)
 	{
-		int count = 40 - critFilter.time;
+		int count = 30 - critFilter.time;
 		int alpha = 30 + (15 * count);
 		critFilter.sprite->AlphaMod(alpha);
 		return ;
@@ -252,7 +252,7 @@ void Info::SetCritFilter()
 	critFilter.sprite->orderLayer = 10;
 	critFilter.sprite->AlphaMod(30);
 	critFilter.sprite->ColorMod(97, 9, 9);
-	critFilter.time = 40;
+	critFilter.time = 30;
 	gameState.render->AddSprite(critFilter.sprite, FILTER_LAYER);
 }
 

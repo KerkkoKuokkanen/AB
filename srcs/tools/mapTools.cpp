@@ -5,6 +5,15 @@
 void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap);
 void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap);
 
+bool CheckIfValidPosition(SDL_Point pos)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return (false);
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return (false);
+	return (true);
+}
+
 int GetFromPointX(SDL_Point position, SDL_Point nextPoint)
 {
 	int yAdder = 0;

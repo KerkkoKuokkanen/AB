@@ -118,6 +118,7 @@ typedef struct s_Ability
 	int statusSign;
 	int damage;
 	int critChance;
+	bool melee;
 	void *stats;
 }				t_Ability;
 
@@ -385,6 +386,8 @@ SDL_Point	GetPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint);
 SDL_Point	GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoint);
 
 void PrintStat();
+bool CheckIfValidPosition(SDL_Point pos);
+bool CheckIfSmoked(SDL_Point pos);
 
 bool CheckForSize(SDL_Point point1, SDL_Point point2);
 bool CheckForMaxHealth(SDL_Point point1, SDL_Point point2);

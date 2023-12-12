@@ -6,7 +6,7 @@ t_GameState gameState;
 void TempInitBattle()
 {
 	Character thief(WITCH);
-	Character thief2(MAGE);
+	Character thief2(PYRO);
 	Character skele(WITCH, false);
 	Character skele2(PYRO, false);
 	Character thief3(LION);

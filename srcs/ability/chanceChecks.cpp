@@ -49,14 +49,39 @@ static int ChanceModifiers(Character *character, Character *target, int chance)
 	return (rounding(chanceRet));
 }
 
+static int SmokeChecker(Character *character, int chance)
+{
+	SDL_Point pos = character->position;
+	if (!CheckIfSmoked(pos))
+		return (chance);
+	chance = rounding((float)chance * 0.5f);
+	return (chance);
+}
+
+static int GetTheBaseChance(Character *character, Character *target, t_Ability *ability)
+{
+	int baseChance = 0;
+	if (ability == NULL)
+	{
+		baseChance = 50;
+		int levelDiff = character->stats.level - target->stats.level;
+		baseChance += 5 * levelDiff;
+	}
+	else
+	{
+		if (ability->baseChance >= 200)
+			return (200);
+		baseChance = ability->baseChance;
+	}
+	return (baseChance);
+}
+
 int GetChance(Character *character, Character *target, t_Ability *ability)
 {
-	if (ability == NULL)
-		return (0);
-	if (ability->baseChance >= 200)
-		return (200);
-	int ret = ability->baseChance;
+	int ret = GetTheBaseChance(character, target, ability);
 	ret += RangedChance(character, target);
+	ret = ChanceModifiers(character, target, ret);
+	ret = (ability == NULL) ? ret : SmokeChecker(character, ret);
 	if (ret > 95)
 		ret = 95;
 	if (ret < 5)
@@ -174,11 +199,11 @@ bool MoveChanceCheck(t_Ability *ability, Character *character, Character *target
 	int defaultChance = getMoveChance(ability);
 	if (defaultChance >= 200)
 		return (true);
+	int chance = defaultChance + (diff * 6);
 	if (defaultChance > 95)
 		defaultChance = 95;
 	if (defaultChance < 5)
 		defaultChance = 5;
-	int chance = defaultChance + (diff * 6);
 	int hit = rand() % 100;
 	if (hit < chance)
 		return (true);

@@ -32,13 +32,10 @@ static Character *GetTheCharacterForAttack(t_Damager &damager)
 
 bool CheckIfOpportunityHits(Character *damager, Character *target)
 {
-	int hit = rand() % 100;
-	if (hit >= 50)
-		return (false);
-	return (true);
+	return (MeleeCheck(damager, target, NULL));
 }
 
-static bool CheckIfSmoked(SDL_Point pos)
+bool CheckIfSmoked(SDL_Point pos)
 {
 	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
 	{

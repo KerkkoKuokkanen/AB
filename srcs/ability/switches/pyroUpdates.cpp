@@ -28,6 +28,17 @@ void Abilities::UpdatePyroAnimation(t_Animation &animation, int index)
 		{
 			FlamePort *use = (FlamePort*)animation.animation;
 			use->Update();
+			if (use->createSelfDamage)
+			{
+				t_FlamePortStats *stats = (t_FlamePortStats*)ability->stats;
+				int amount = stats->selfDamagePrecent;
+				float multi = ((float)amount / 100.0f);
+				int healthMinus = rounding((float)character->stats.maxHealth * multi);
+				int health = (character->stats.health - healthMinus <= 0) ? 1 : character->stats.health - healthMinus;
+				character->stats.health = health;
+				PlaySound(gameState.audio.heartBeat, Channels::VOLUME_35, 0);
+				gameState.updateObjs.info->SetCritFilter();
+			}
 			if (use->done)
 			{
 				delete use;

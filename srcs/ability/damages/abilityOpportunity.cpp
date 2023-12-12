@@ -8,17 +8,6 @@ static bool CompFunc(t_RandChar &one, t_RandChar &two)
 	return (false);
 }
 
-static bool CheckIfSmoked(SDL_Point pos)
-{
-	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
-	{
-		t_AbilityEffect &effect = gameState.updateObjs.abilities->effectUpdater.effects[i];
-		if (effect.ability->type == SMOKE_BOMB && effect.pos.x == pos.x && effect.pos.y == pos.y)
-			return (true);
-	}
-	return (false);
-}
-
 static SDL_Point GetDamagerPos(void *damager, int type)
 {
 	if (type == 0)
