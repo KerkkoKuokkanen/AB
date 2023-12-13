@@ -536,6 +536,7 @@ typedef struct s_AiMoveMaps
 {
 	t_MovementMap **abilities;
 	t_MovementMap **staticMoves;
+	t_MovementMap **normalMoves;
 }				t_AiMoveMaps;
 
 extern t_AiMoveMaps moveMaps;

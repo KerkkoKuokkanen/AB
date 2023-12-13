@@ -359,6 +359,7 @@ void			Utility();
 void			ObjUpdate();
 void			findMovables(int **map, int moves, SDL_Point start);
 void			findMovablesStatic(int **map, int moves, SDL_Point start);
+void			findMovablesNormal(int **map, int moves, SDL_Point start);
 Character		*HoveringOver();
 void			ManageTextureHovering();
 bool			MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse);
