@@ -128,6 +128,12 @@ typedef struct s_HitReturn
 	bool missing;
 }				t_HitReturn;
 
+typedef struct s_Additional
+{
+	int type;
+	void *object;
+}				t_Additional;
+
 SDL_FRect	translateSprite(SDL_Rect dest);
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
@@ -148,7 +154,6 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "info/flyingText.h"
 # include "tools/throwArch.h"
 # include "tools/spriteMover.h"
-# include "AI/AiData.h"
 # include "UI/number.h"
 # include "UI/marker.h"
 # include "UI/statuses.h"
@@ -237,6 +242,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/genericToolThrow.h"
 # include "ability/abilities.h"
 # include "UI/battleUI.h"
+# include "AI/AiData.h"
 
 enum {
 	THIEF,
@@ -267,13 +273,6 @@ namespace AdditionalObjects
 		PHANTOM_KNIGHT
 	};
 };
-
-
-typedef struct s_Additional
-{
-	int type;
-	void *object;
-}				t_Additional;
 
 typedef struct s_GroundMapUnit
 {
@@ -413,6 +412,8 @@ bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);
 
 SDL_Point	GetDamageValues(Character *target, Character *caster, t_Ability *ability);
 SDL_Point	GetOpportunityDamageValues(Character *target, SDL_Point caster);
+
+void	CreateTheMoveMaps();
 
 //audio
 

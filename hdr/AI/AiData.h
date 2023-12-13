@@ -54,6 +54,8 @@ typedef struct s_AiMapUnit
 typedef struct s_AiData
 {
 	t_AiMapUnit **map;
+	std::vector<Character*> turnQueue;
+	Character *current;
 }				t_AiData;
 
 #endif

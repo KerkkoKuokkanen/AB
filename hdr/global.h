@@ -526,4 +526,18 @@ typedef struct	s_GameState
 
 extern t_GameState gameState;
 
+typedef struct s_MovementMap
+{
+	SDL_Point start;
+	int **map;
+}				t_MovementMap;
+
+typedef struct s_AiMoveMaps
+{
+	t_MovementMap **abilities;
+	t_MovementMap **staticMoves;
+}				t_AiMoveMaps;
+
+extern t_AiMoveMaps moveMaps;
+
 #endif
