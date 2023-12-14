@@ -40,7 +40,7 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/animation/controlZone.cpp srcs/ability/selectors/selectorQueue.cpp srcs/ability/animation/acidRain.cpp \
 		srcs/ability/switches/witchUpdates.cpp srcs/ability/animation/witchAnimation.cpp srcs/ability/animation/teleStart.cpp \
 		srcs/ability/objects/telePort.cpp srcs/ability/animation/heartBeat.cpp srcs/ability/objects/healthTransfer.cpp \
-		srcs/effects/healEffect.cpp srcs/ability/damages/damageValue.cpp srcs/AI/data/dataCollector.cpp srcs/AI/data/abilityTargetType.cpp \
+		srcs/effects/healEffect.cpp srcs/ability/damages/damageValue.cpp srcs/AI/data/dataCollector.cpp \
 		srcs/AI/data/mapChecks.cpp
 
 OBJ = $(SRCS:.cpp=.o)
