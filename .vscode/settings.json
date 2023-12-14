@@ -65,7 +65,9 @@
 		"functional": "cpp",
 		"iterator": "cpp",
 		"utility": "cpp",
-		"thread": "cpp"
+		"thread": "cpp",
+		"deque": "cpp",
+		"queue": "cpp"
 	},
 	"explorerExclude.backup": {
 

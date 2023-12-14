@@ -4,10 +4,6 @@
 
 # include "../ab.h"
 
-# define AI_TARGET_TYPE_ALLIES 0
-# define AI_TARGET_TYPE_ENEMIES 1
-# define AI_TARGET_TYPE_BOTH 2
-
 typedef struct s_ControlUnit
 {
 	bool controlled;
@@ -17,16 +13,12 @@ typedef struct s_ControlUnit
 	int types;
 }				t_ControlUnit;
 
-typedef struct s_AiAbility
-{
-	t_Ability *ability;
-	int targetType;
-}				t_AiAbility;
-
 typedef struct s_AiCharacter
 {
 	Character *character;
-	std::vector<t_AiAbility> abilities;
+	int health;
+	int armor;
+	bool alive;
 }				t_AiCharacter;
 
 typedef struct s_AiMapUnitGeneral
@@ -54,7 +46,7 @@ typedef struct s_AiMapUnit
 typedef struct s_AiData
 {
 	t_AiMapUnit **map;
-	std::vector<Character*> turnQueue;
+	std::vector<t_AiCharacter> turnQueue;
 	t_AiCharacter current;
 }				t_AiData;
 

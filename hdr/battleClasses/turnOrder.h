@@ -20,7 +20,6 @@ class TurnOrder
 {
 	private:
 		std::vector<Character*> characters;
-		std::vector<t_Indicator> indicators;
 		Sprite *banner;
 		Sprite *backGround;
 		void CreateIndicators();
@@ -43,6 +42,7 @@ class TurnOrder
 		void SetStuffWithoudMove();
 		int wait = 0;
 	public:
+		std::vector<t_Indicator> indicators;
 		int turnCount = 0;
 		bool turnStartActive = false;
 		bool turnChange = false;

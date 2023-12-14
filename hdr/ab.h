@@ -414,7 +414,10 @@ bool		MeleeCheck(Character *character, Character *target, t_Ability *ability);
 SDL_Point	GetDamageValues(Character *target, Character *caster, t_Ability *ability);
 SDL_Point	GetOpportunityDamageValues(Character *target, SDL_Point caster);
 
+//AI stuff
+
 void	CreateTheMoveMaps();
+bool	CheckIfNextToToolBox(SDL_Point pos);
 
 //audio
 
