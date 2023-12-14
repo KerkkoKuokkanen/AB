@@ -47,7 +47,7 @@ HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr
 		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability \
 		-I ./hdr/abilities/selectors/ -I ./hdr/info/ -I ./hdr/ability/damages/ -I ./hdr/effects -I ./hdr/AI
 
-FLAGS = -std=c++11 -g
+FLAGS = -std=c++11 -O2 -g
 CGFLAGS = 
 INCLUDES	=	-I./frameworks/SDL2.framework/Versions/A/Headers \
 				-I./frameworks/SDL2_image.framework/Versions/A/Headers \

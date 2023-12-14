@@ -55,7 +55,7 @@ typedef struct s_AiData
 {
 	t_AiMapUnit **map;
 	std::vector<Character*> turnQueue;
-	Character *current;
+	t_AiCharacter current;
 }				t_AiData;
 
 #endif
