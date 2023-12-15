@@ -22,6 +22,9 @@ static std::string GetText(Character *character)
 		case LION:
 			text += ": Lion";
 			break ;
+		case PHANTOM_LION:
+			text = "Phantom";
+			break ;
 		case SMITH:
 			text += ": Blacksmith";
 			break ;
@@ -94,7 +97,7 @@ void InfoBar::CreateBars()
 	health->leftNumberOffset = {-300, 20};
 	health->rightNumberOffset = {900, 20};
 	dest.y -= 1780;
-	if (character->ally)
+	if (character->ally && character->cSing != PHANTOM_LION)
 	{
 		dest.w /= 2;
 		dest.h -= 70;

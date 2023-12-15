@@ -37,8 +37,8 @@ class Character
 		int currentTexture = 0;
 		int cSing;
 		SDL_Point position = {0, 0};
-		Sprite *sprite;
-		Sprite *stand;
+		Sprite *sprite = NULL;
+		Sprite *stand = NULL;
 		Character(int skin, bool allied = true);
 		void FindPosition();
 		void Destroy();

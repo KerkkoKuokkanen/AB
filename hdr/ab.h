@@ -230,8 +230,8 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/damages/damageCreator.h"
 # include "ability/effectUpdater.h"
 # include "ability/damages/Damager.h"
-# include "ability/damages/abilityOpportunity.h"
 # include "ability/damages/opportunity.h"
+# include "ability/damages/abilityOpportunity.h"
 # include "ability/selectors/allSelector.h"
 # include "ability/selectors/selector.h"
 # include "ability/selectors/selectorForTiles.h"
@@ -249,6 +249,7 @@ enum {
 	SKELE,
 	PYRO,
 	LION,
+	PHANTOM_LION,
 	SMITH,
 	MAGE,
 	RAIDER,

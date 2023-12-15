@@ -133,8 +133,10 @@ void Character::Move(Vector amount)
 
 void Character::Destroy()
 {
-	delete sprite;
-	delete stand;
+	if (sprite != NULL)
+		delete sprite;
+	if (stand != NULL)
+		delete stand;
 	for (int i = 0; i < abilities.size(); i++)
 	{
 		if (abilities[i].stats != NULL)

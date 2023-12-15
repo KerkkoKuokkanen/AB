@@ -28,8 +28,8 @@ bool CheckIfNextToToolBox(SDL_Point pos)
 	return (false);
 }
 
-std::vector<Character*> GetPositionControllers(SDL_Point pos)
+/* std::vector<Character*> GetPositionControllers(SDL_Point pos)
 {
 	int left = getXToLeft(pos);
 	int right = getXToRight(pos);
-}
+} */

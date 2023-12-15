@@ -28,9 +28,7 @@ void PhantomAnim::CreateSprite(SDL_Point target)
 	add.srect->y = 0;
 	add.srect->w = 1000;
 	add.srect->h = 0;
-	Sprite *sprite = new Sprite(gameState.textures.chars.lionIdle[0], dest, add.srect, NULL, 0, FLIP_NONE);
-	sprite->ColorMod(0, 217, 255);
-	sprite->AlphaMod(170);
+	Sprite *sprite = new Sprite(gameState.textures.chars.phantLions[0], dest, add.srect, NULL, 0, FLIP_NONE);
 	sprite->orderLayer = target.y;
 	int height = gameState.battle.ground->map[target.y][target.x].height;
 	sprite->setDepth((float)height * (float)BATTLE_DEPTH_UNIT + 8.0f);

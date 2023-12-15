@@ -44,6 +44,10 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 			place.x -= 400.0f;
 			place.y -= 5650.0f;
 			break ;
+		case PHANTOM_LION:
+			place.x -= 400.0f;
+			place.y -= 5650.0f;
+			break ;
 		case SMITH:
 			place.x += 10.0f;
 			place.y -= 4850.0f;

@@ -486,6 +486,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.attacks.heartBeat[0] = get_texture(rend, "sprites/env/heartBeat.png");
 	gameState.textures.attacks.heartBeat[1] = get_texture(rend, "sprites/env/heartBeatOutline.png");
 	gameState.textures.critFilter = get_texture(rend, "sprites/env/CritHit.png");
+	gameState.textures.chars.phantLions[0] = get_texture(rend, "sprites/characters/lion/p1.png");
+	gameState.textures.chars.phantLions[1] = get_texture(rend, "sprites/characters/lion/p2.png");
+	gameState.textures.chars.phantLions[2] = get_texture(rend, "sprites/characters/lion/p3.png");
 }
 
 void CraeteAudioThread()

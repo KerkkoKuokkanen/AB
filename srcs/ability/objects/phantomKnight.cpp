@@ -1,6 +1,7 @@
 
 #include "../../../hdr/global.h"
 #define PART_AMOUNT 300
+#define KILL_TIMER 31
 
 static Color GetColor()
 {
@@ -16,11 +17,13 @@ static Color GetColor()
 	return (Color(1, 1, 1));
 }
 
-PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos)
+PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos) : Character(PHANTOM_LION)
 {
 	gameState.battle.ground->map[pos.y][pos.x].blocked = true;
 	gameState.battle.ground->map[pos.y][pos.x].additional.type = AdditionalObjects::PHANTOM_KNIGHT;
 	gameState.battle.ground->map[pos.y][pos.x].additional.object = this;
+	gameState.battle.ground->map[pos.y][pos.x].character = this;
+	Character::position = pos;
 	PhantomKnight::character = character;
 	position = pos;
 	currentTurn = gameState.updateObjs.turnOrder->turnCount;
@@ -29,11 +32,8 @@ PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point
 	turns = use->turns;
 	SDL_Rect tDest = gameState.battle.ground->getTileDest(pos);
 	SDL_Rect dest = {tDest.x - 400, tDest.y - 5650, 6800, 8160};
-	knight = new Sprite(gameState.textures.chars.lionIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
-	stand = new Sprite(gameState.textures.stands.lionStand, dest, NULL, NULL, 0, FLIP_NONE);
-	knight->ColorMod(0, 217, 255);
-	stand->ColorMod(0, 217, 255);
-	knight->AlphaMod(170);
+	knight = new Sprite(gameState.textures.chars.phantLions[0], dest, NULL, NULL, 0, FLIP_NONE);
+	stand = new Sprite(gameState.textures.chars.phantLions[2], dest, NULL, NULL, 0, FLIP_NONE);
 	stand->AlphaMod(170);
 	knight->orderLayer = pos.y;
 	stand->orderLayer = pos.y;
@@ -42,26 +42,34 @@ PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point
 	stand->setDepth((float)height * (float)BATTLE_DEPTH_UNIT + 7.0f);
 	gameState.render->AddSprite(knight, BATTLEGROUND_LAYER);
 	gameState.render->AddSprite(stand, BATTLEGROUND_LAYER);
+	delete sprite;
+	delete Character::stand;
+	sprite = knight;
+	Character::stand = stand;
+	stats.maxArmor = use->armor;
+	stats.armor = use->armor;
+	stats.maxHealth = use->hits;
+	stats.health = use->hits;
 }
 
 void PhantomKnight::UpdateSprites()
 {
 	if (!gameState.battle.ground->map[position.y][position.x].active || gameState.modes.filterMode == 1)
 	{
-		knight->AlphaMod(35);
-		stand->AlphaMod(35);
+		knight->AlphaMod(45);
+		stand->AlphaMod(45);
 	}
 	else
 	{
-		knight->AlphaMod(170);
-		stand->AlphaMod(170);
+		knight->ClearAlphaMod();
+		stand->ClearAlphaMod();
 	}
 	if (gameState.updateObjs.characterAnimIter == 50)
 	{
 		if (gameState.updateObjs.characterAnimIndex == 0)
-			knight->setTexture(gameState.textures.chars.lionIdle[0]);
+			knight->setTexture(gameState.textures.chars.phantLions[0]);
 		else
-			knight->setTexture(gameState.textures.chars.lionIdle[1]);
+			knight->setTexture(gameState.textures.chars.phantLions[1]);
 	}
 }
 
@@ -82,7 +90,9 @@ void PhantomKnight::Update()
 		return ;
 	UpdateSprites();
 	CheckTurns();
-	if (character == NULL || turns <= 0 || hp <= 0 || character->killed)
+	if (stats.health <= 0)
+		killTimer++;
+	if (character == NULL || turns <= 0 || hp <= 0 || character->killed || killTimer > KILL_TIMER)
 		done = true;
 }
 
@@ -110,8 +120,14 @@ void PhantomKnight::Destroy()
 {
 	CreateParticles();
 	gameState.battle.ground->map[position.y][position.x].blocked = false;
+	gameState.battle.ground->map[position.y][position.x].character = NULL;
 	if (knight != NULL)
 		delete knight;
 	if (stand != NULL)
 		delete stand;
+	knight = NULL;
+	stand = NULL;
+	Character::stand = NULL;
+	Character::sprite = NULL;
+	Character::Destroy();
 }

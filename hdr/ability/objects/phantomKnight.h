@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class PhantomKnight
+class PhantomKnight : Character
 {
 	private:
 		Sprite *knight;
@@ -17,6 +17,7 @@ class PhantomKnight
 		void CheckTurns();
 		void CreateParticles();
 		bool cTurn = true;
+		int killTimer = 0;
 	public:
 		SDL_Point position = {0, 0};
 		Character *character = NULL;

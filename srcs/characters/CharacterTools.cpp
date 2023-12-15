@@ -53,7 +53,8 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stat0->debuffChance = 25;
 	stats[1].stats = (void*)malloc(sizeof(t_PhantomKnight));
 	t_PhantomKnight *stat1 = (t_PhantomKnight*)stats[1].stats;
-	stat1->hits = 1;
+	stat1->hits = 20;
+	stat1->armor = 10;
 	stat1->opportunity = true;
 	stat1->turns = 1;
 	stats[2].stats = (void*)malloc(sizeof(int));
@@ -302,6 +303,17 @@ void Character::CreateCharacterType(int skin)
 			stands.push_back(gameState.textures.stands.lionStand);
 			sprite = new Sprite(gameState.textures.chars.lionIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
 			stand = new Sprite(gameState.textures.stands.lionStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
+		case PHANTOM_LION:
+		{
+			SDL_Rect dest = {-3000, -450, 6800, 8160};
+			textures.push_back(gameState.textures.chars.lionIdle[0]);
+			textures.push_back(gameState.textures.chars.lionIdle[1]);
+			stands.push_back(gameState.textures.stands.lionStand);
+			stands.push_back(gameState.textures.stands.lionStand);
+			sprite = new Sprite(NULL, dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(NULL, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
 		case SMITH:

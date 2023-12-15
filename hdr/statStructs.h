@@ -191,6 +191,7 @@ typedef struct s_PhantomKnight
 	int turns;
 	bool opportunity;
 	int hits;
+	int armor;
 }				t_PhantomKnight;
 
 typedef struct s_Damager

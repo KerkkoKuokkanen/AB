@@ -127,12 +127,12 @@ static t_Damager GetTheAttacker(SDL_Point pos)
 {
 	t_GMU *used = &gameState.battle.ground->map[pos.y][pos.x];
 	t_Damager ret;
-	if (used->character != NULL)
+	if (used->additional.object != NULL && used->additional.type == AdditionalObjects::PHANTOM_KNIGHT)
 	{
-		ret = {used->character, 0};
+		ret = {used->additional.object, 1};
 		return (ret);
 	}
-	ret = {used->additional.object, 1};
+	ret = {used->character, 0};
 	return (ret);
 }
 

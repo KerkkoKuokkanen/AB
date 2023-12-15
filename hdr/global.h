@@ -282,6 +282,7 @@ typedef struct s_CharacterTexts
 	SDL_Texture *pyroAttack[2];
 	SDL_Texture *pyroAttackParts;
 	SDL_Texture *lionIdle[2];
+	SDL_Texture *phantLions[3];
 	SDL_Texture *lionSmack;
 	SDL_Texture *smithIdle[2];
 	SDL_Texture *handTools[4];
