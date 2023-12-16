@@ -190,6 +190,10 @@ void TelePort::ManageSecondPhase()
 		gameState.battle.ground->map[startPosition.y][startPosition.x].blocked = false;
 		gameState.battle.ground->map[targetPosition.y][targetPosition.x].character = character;
 		gameState.battle.ground->map[targetPosition.y][targetPosition.x].blocked = true;
+		gameState.battle.ground->map[targetPosition.y][targetPosition.x].additional.object = gameState.battle.ground->map[startPosition.y][startPosition.x].additional.object;
+		gameState.battle.ground->map[targetPosition.y][targetPosition.x].additional.type = gameState.battle.ground->map[startPosition.y][startPosition.x].additional.type;
+		gameState.battle.ground->map[startPosition.y][startPosition.x].additional.object = NULL;
+		gameState.battle.ground->map[startPosition.y][startPosition.x].additional.type = (-1);
 		character->sprite->Activate();
 		character->stand->Activate();
 	}

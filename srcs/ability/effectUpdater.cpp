@@ -67,9 +67,6 @@ void EffectUpdater::UpdateEffect(t_AbilityEffect &effect, int index)
 					PlaySound(gameState.audio.poof, Channels::POOF, 0);
 					done = true;
 				}
-				SDL_Point pos = use->position;
-				gameState.battle.ground->map[pos.y][pos.x].additional.type = (-1);
-				gameState.battle.ground->map[pos.y][pos.x].additional.object = NULL;
 				delete use;
 				effects.erase(effects.begin() + index);
 			}

@@ -119,6 +119,7 @@ typedef struct s_Ability
 	int damage;
 	int critChance;
 	bool melee;
+	bool targetAdds;
 	void *stats;
 }				t_Ability;
 

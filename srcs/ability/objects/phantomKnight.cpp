@@ -17,7 +17,7 @@ static Color GetColor()
 	return (Color(1, 1, 1));
 }
 
-PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos) : Character(PHANTOM_LION)
+PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos) : Character(PHANTOM_LION, false)
 {
 	gameState.battle.ground->map[pos.y][pos.x].blocked = true;
 	gameState.battle.ground->map[pos.y][pos.x].additional.type = AdditionalObjects::PHANTOM_KNIGHT;
@@ -54,7 +54,7 @@ PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point
 
 void PhantomKnight::UpdateSprites()
 {
-	if (!gameState.battle.ground->map[position.y][position.x].active || gameState.modes.filterMode == 1)
+	if (!gameState.battle.ground->map[Character::position.y][Character::position.x].active || gameState.modes.filterMode == 1)
 	{
 		knight->AlphaMod(45);
 		stand->AlphaMod(45);
@@ -64,6 +64,8 @@ void PhantomKnight::UpdateSprites()
 		knight->ClearAlphaMod();
 		stand->ClearAlphaMod();
 	}
+	if (statuses.stun > 0)
+		return ;
 	if (gameState.updateObjs.characterAnimIter == 50)
 	{
 		if (gameState.updateObjs.characterAnimIndex == 0)
@@ -119,8 +121,11 @@ void PhantomKnight::CreateParticles()
 void PhantomKnight::Destroy()
 {
 	CreateParticles();
-	gameState.battle.ground->map[position.y][position.x].blocked = false;
-	gameState.battle.ground->map[position.y][position.x].character = NULL;
+	SDL_Point pos = Character::position;
+	gameState.battle.ground->map[pos.y][pos.x].blocked = false;
+	gameState.battle.ground->map[pos.y][pos.x].character = NULL;
+	gameState.battle.ground->map[pos.y][pos.x].additional.type = (-1);
+	gameState.battle.ground->map[pos.y][pos.x].additional.object = NULL;
 	if (knight != NULL)
 		delete knight;
 	if (stand != NULL)

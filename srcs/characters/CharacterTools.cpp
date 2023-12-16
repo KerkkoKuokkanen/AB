@@ -186,69 +186,69 @@ void Character::AssignAbilities()
 	{
 		case THIEF:
 			stats = {18, 24, 9, 160, 160, 110, 110, 90, 0, 3, 1};
-			abilities = {{DAGGER_THROW, 3, 15, 11, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 90, 5, false, NULL},
-						{SMOKE_BOMB, 4, 20, 7, 200, StatStructs::LASTING_EFFECT, -1, 0, 0, false, NULL},
-						{DAGGER_SLASH, 2, 10, 2, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 100, 5, true, NULL}};
+			abilities = {{DAGGER_THROW, 3, 15, 11, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 90, 5, false, true, NULL},
+						{SMOKE_BOMB, 4, 20, 7, 200, StatStructs::LASTING_EFFECT, -1, 0, 0, false, true, NULL},
+						{DAGGER_SLASH, 2, 10, 2, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 100, 5, true, true, NULL}};
 			AssingDefaultThiefStats(abilities);
 			break ;
 		case SKELE:
 			break ;
 		case PYRO:
 			stats = {28, 35, 5, 120, 120, 70, 70, 90, 0, 2, 1};
-			abilities = {{FLAME_PORT, 3, 20, 14, 200, StatStructs::FLAME_PORT, -1, 0, 0, true, NULL},
-						{FLAME_SLASH, 3, 15, 2, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, 100, 4, true, NULL},
-						{FLAME_BLAST, 4, 25, 5, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, 60, 2, true, NULL},
-						{INCINERATE, 5, 30, 6, 90, StatStructs::ATTACK_STRUCT, -1, 175, 4, true, NULL}};
+			abilities = {{FLAME_PORT, 3, 20, 14, 200, StatStructs::FLAME_PORT, -1, 0, 0, true, false, NULL},
+						{FLAME_SLASH, 3, 15, 2, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, 100, 4, true, true, NULL},
+						{FLAME_BLAST, 4, 25, 5, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, 60, 2, true, true, NULL},
+						{INCINERATE, 5, 30, 6, 90, StatStructs::ATTACK_STRUCT, -1, 175, 4, true, true, NULL}};
 			AssingDefaultPyroStats(abilities);
 			break ;
 		case LION:
 			stats = {16, 20, 2, 220, 220, 280, 280, 80, 0, 8, 1};
-			abilities = {{LION_SMACK, 3, 20, 2, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, 50, 1, true, NULL},
-						{PHANTOM_KNIGHT, 5, 25, 8, 200, StatStructs::PHANTOM_KNIGHT, -1, 0, 0, true, NULL},
-						{ROTATE, 2, 10, 2, 200, StatStructs::TIERS, -1, 0, 0, true, NULL}};
+			abilities = {{LION_SMACK, 3, 20, 2, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, 50, 1, true, true, NULL},
+						{PHANTOM_KNIGHT, 5, 25, 8, 200, StatStructs::PHANTOM_KNIGHT, -1, 0, 0, true, false, NULL},
+						{ROTATE, 2, 10, 2, 200, StatStructs::TIERS, -1, 0, 0, true, true, NULL}};
 			AssignDefaultLionStats(abilities);
 			break ;
 		case SMITH:
 			stats = {20, 25, 2, 180, 180, 100, 100, 70, 0, 4, 1};
-			abilities = {{HAMMER_SMACK, 3, 15, 2, 80, StatStructs::ATTACK_STRUCT, -1, 100, 1, true, NULL},
-						{GO_FOR_THE_HEAD, 5, 30, 2, 100, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, 120, 2, true, NULL},
-						{SMITH_BUFF, 2, 10, 9, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::BUFF, 0, 0, true, NULL}};
+			abilities = {{HAMMER_SMACK, 3, 15, 2, 80, StatStructs::ATTACK_STRUCT, -1, 100, 1, true, true, NULL},
+						{GO_FOR_THE_HEAD, 5, 30, 2, 100, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, 120, 2, true, true, NULL},
+						{SMITH_BUFF, 2, 10, 9, 200, StatStructs::BUFF_AND_DEBUFF, StatusSigns::BUFF, 0, 0, true, false, NULL}};
 			AssignDefaultSmithStats(abilities);
 			break ;
 		case MAGE:
 			stats = {24, 30, 3, 80, 80, 60, 60, 95, 0, 1, 1};
-			abilities = {{LIGHTNING_BOLT, 3, 15, 12, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 3, false, NULL},
-						{ROCK_FALL, 5, 20, 10, 80, StatStructs::ATTACK_STRUCT, (-1), 55, 2, false, NULL},
-						{HOST_EYES, 2, 10, 11, 200, StatStructs::HOST_EYES, StatusSigns::HOST, 0, 0, false, NULL}};
+			abilities = {{LIGHTNING_BOLT, 3, 15, 12, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 3, false, true, NULL},
+						{ROCK_FALL, 5, 20, 10, 80, StatStructs::ATTACK_STRUCT, (-1), 55, 2, false, true, NULL},
+						{HOST_EYES, 2, 10, 11, 200, StatStructs::HOST_EYES, StatusSigns::HOST, 0, 0, false, false, NULL}};
 			AssignDefaultMageAbilities(abilities);
 			break ;
 		case RAIDER:
 			stats = {28, 33, 4, 190, 190, 160, 160, 100, 0, 4, 1};
-			abilities = {{AXE_SLASH, 3, 15, 2, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 4, true, NULL},
-						{AXE_JUMP, 3, 20, 10, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 4, true, NULL},
-						{TOXIC_BLADE, 2, 10, 0, 200, StatStructs::TOXIC_BLADE, (-1), 0, 0, true, NULL},
-						{RAIDER_BLOCK, 3, 25, 0, 200, StatStructs::RAIDER_BLOCK, (-1), 0, 0, true, NULL}};
+			abilities = {{AXE_SLASH, 3, 15, 2, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 4, true, true, NULL},
+						{AXE_JUMP, 3, 20, 10, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 4, true, true, NULL},
+						{TOXIC_BLADE, 2, 10, 0, 200, StatStructs::TOXIC_BLADE, (-1), 0, 0, true, false, NULL},
+						{RAIDER_BLOCK, 3, 25, 0, 200, StatStructs::RAIDER_BLOCK, (-1), 0, 0, true, false, NULL}};
 			AssignDefaultRaiderAbilities(abilities);
 			break ;
 		case ALCHEMIST:
 			stats = {21, 25, 6, 140, 140, 100, 100, 80, 0, 3, 1};
-			abilities = {{NAIL_BOMB, 4, 20, 9, 80, StatStructs::BOMB_STRUCT, (-1), 75, 2, false, NULL},
-						{ACID_BOMB, 4, 20, 10, 80, StatStructs::BOMB_STRUCT, (-1), 60, 3, false, NULL},
-						{SLOW_BOMB, 5, 20, 7, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), 0, 0, false, NULL}};
+			abilities = {{NAIL_BOMB, 4, 20, 9, 80, StatStructs::BOMB_STRUCT, (-1), 75, 2, false, true, NULL},
+						{ACID_BOMB, 4, 20, 10, 80, StatStructs::BOMB_STRUCT, (-1), 60, 3, false, true, NULL},
+						{SLOW_BOMB, 5, 20, 7, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), 0, 0, false, true, NULL}};
 			AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		case KNIGHT:
 			stats = {20, 27, 3, 180, 180, 200, 200, 90, 0, 6, 1};
-			abilities = {{FLAIL_STRIKE, 3, 15, 4, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 100, 3, true, NULL},
-						{SHILED_BASH, 3, 25, 2, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), 33, 2, true, NULL},
-						{CONTROL_ZONE, 3, 25, 0, 200, StatStructs::CONTROL_ZONE_STRUCT, (-1), 0, 0, true, NULL}};
+			abilities = {{FLAIL_STRIKE, 3, 15, 4, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 100, 3, true, true, NULL},
+						{SHILED_BASH, 3, 25, 2, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), 33, 2, true, true, NULL},
+						{CONTROL_ZONE, 3, 25, 0, 200, StatStructs::CONTROL_ZONE_STRUCT, (-1), 0, 0, true, false, NULL}};
 			AssingDefaultKnightAbilities(abilities);
 			break ;
 		case WITCH:
 			stats = {10, 14, 8, 110, 110, 70, 70, 80, 0, 2, 1};
-			abilities = {{ACID_RAIN, 3, 15, 10, 80, StatStructs::ACID_RAIN_STRUCT, (-1), 0, 0, false, NULL},
-						{TELEPORT, 4, 20, 10, 80, StatStructs::TELEPORT, (-1), 0, 0, false, NULL},
-						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, true, NULL}};
+			abilities = {{ACID_RAIN, 3, 15, 10, 80, StatStructs::ACID_RAIN_STRUCT, (-1), 0, 0, false, true, NULL},
+						{TELEPORT, 4, 20, 10, 80, StatStructs::TELEPORT, (-1), 0, 0, false, true, NULL},
+						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, true, false, NULL}};
 			AssingDefaultWitchAbilities(abilities);
 			break ;
 		default:

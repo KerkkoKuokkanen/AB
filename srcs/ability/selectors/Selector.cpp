@@ -112,6 +112,19 @@ Selector::Selector(SDL_Point start, int dist, int cleared, GroundColoring *color
 	groundColoring->active = true;
 }
 
+static bool CheckForAdditional(SDL_Point pos)
+{
+	t_Ability *abl = gameState.updateObjs.abilities->ability;
+	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
+	if (point->additional.object != NULL)
+	{
+		if (abl->targetAdds)
+			return (true);
+		return (false);
+	}
+	return (true);
+}
+
 Character *Selector::GetRet(Character *character, SDL_Point pos)
 {
 	if (character->killed)
@@ -167,7 +180,7 @@ Character *Selector::Update()
 			if (map[i][j] == TOOL_MAP_SIGN)
 				continue ;
 			SDL_Point pos = {j, i};
-			if (gameState.battle.ground->map[i][j].character != NULL
+			if (gameState.battle.ground->map[i][j].character != NULL && CheckForAdditional(pos)
 				&& (gameState.battle.ground->map[i][j].marked || gameState.battle.ground->map[i][j].character->hover))
 			{
 				if (additionalCompFunction != NULL)
