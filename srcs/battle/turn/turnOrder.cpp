@@ -268,6 +268,7 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 		dest.h - rounding((float)gameState.screen.height / 9.5f)
 	};
 	CreateIndicators();
+	std::sort(indicators.begin(), indicators.end(), compareObjects);
 	StartTurn(); // this is temporarily here
 }
 
@@ -276,7 +277,6 @@ void TurnOrder::StartTurn()
 	PlaySound(gameState.audio.turnStart, Channels::TURN_START, 0);
 	turnCount += 1;
 	turnStartActive = true;
-	std::sort(indicators.begin(), indicators.end(), compareObjects);
 	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
 	for (int i = 0; i < indicators.size(); i++)
 	{
