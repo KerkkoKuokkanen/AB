@@ -256,6 +256,7 @@ typedef struct s_Surfaces
 	SDL_Surface *control;
 	SDL_Surface *witchIdle1;
 	SDL_Surface *witchIdle2;
+	SDL_Surface *toolBox;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -271,6 +272,7 @@ typedef struct s_Stands
 	SDL_Texture *raiderStand;
 	SDL_Texture *knightStand;
 	SDL_Texture *witchStand;
+	SDL_Texture *toolsStand;
 }				t_Stands;
 
 typedef struct s_CharacterTexts

@@ -1,7 +1,14 @@
 
 #include "../../hdr/global.h"
 
-ToolBox::ToolBox(Character *character)
+bool ToolBox::AcceptAbility(int type)
+{
+	if (type == HEALTH_TRANSFER)
+		return (false);
+	return (true);
+}
+
+ToolBox::ToolBox(Character *character) : Character(TOOLS)
 {
 	ToolBox::character = character;
 	SDL_Rect dest = character->sprite->dest;
@@ -9,6 +16,18 @@ ToolBox::ToolBox(Character *character)
 	sprite->orderLayer = character->sprite->orderLayer;
 	sprite->z = character->sprite->z + 0.05f;
 	gameState.render->AddSprite(sprite, BATTLEGROUND_LAYER);
+	stand = new Sprite(gameState.textures.stands.toolsStand, dest, NULL, NULL, 0, FLIP_NONE);
+	stand->orderLayer = sprite->orderLayer;
+	stand->z = sprite->z - 0.1f;
+	stand->Deactivate();
+	gameState.render->AddSprite(stand, BATTLEGROUND_LAYER);
+	Character::sprite = sprite;
+	Character::stand = stand;
+	Character::stats.maxArmor = 20;
+	Character::stats.armor = 20;
+	Character::stats.maxHealth = 60;
+	Character::stats.health = 60;
+	//Character::ally = character->ally;
 }
 
 void ToolBox::UpdateToolBoxInHand()
@@ -45,7 +64,7 @@ bool ToolBox::ToolExists(Character *target, int toolSign)
 
 void ToolBox::RemoveInHandAbilities()
 {
-	if (gameState.updateObjs.abilities->active)
+	if (gameState.updateObjs.abilities->active || character == NULL)
 		return ;
 	for (int i = 0; i < character->abilities.size(); i++)
 	{
@@ -65,6 +84,7 @@ void ToolBox::RemoveInHandAbilities()
 			character->abilities.erase(character->abilities.begin() + i);
 		}
 	}
+	character = NULL;
 }
 
 void ToolBox::InHandAbilities()
@@ -99,8 +119,18 @@ void ToolBox::ManageSmithAbilities()
 
 void ToolBox::UpdateThrowArch()
 {
+	stand->Deactivate();
 	if (arch == NULL)
+	{
+		if (!inHand)
+		{
+			stand->Activate();
+			stand->z = sprite->z - 0.1f;
+			stand->orderLayer = sprite->orderLayer;
+			stand->dest = sprite->dest;
+		}
 		return ;
+	}
 	arch->Update();
 	if (arch->done)
 	{
@@ -118,10 +148,29 @@ void ToolBox::UpdateThrowArch()
 
 void ToolBox::Update()
 {
+	if (done)
+		return ;
 	UpdateToolBoxInHand();
 	ManageToolBoxNotInHand();
 	ManageSmithAbilities();
 	ManageOnGroundAbilities();
+	stand->dest = sprite->dest;
+	targPos = Character::position;
+	if (Character::stats.health <= 0 && delayerStart == false)
+		delayerStart = true;
+	if (character != NULL && character->killed)
+		done = true;
+	if (delayerStart)
+	{
+		deathTimer--;
+		if (deathTimer < 0)
+			done = true;
+	}
+	if (done || delayerStart)
+	{
+		for (int i = 0; i < targetCharacters.size(); i++)
+			RemoveOnGroundAbilities(targetCharacters[i].target);
+	}
 }
 
 void ToolBox::RemoveFromMapPosition()
@@ -135,15 +184,17 @@ void ToolBox::RemoveFromMapPosition()
 			{
 				gameState.battle.ground->map[targPos.y][targPos.x].blocked = false;
 				gameState.battle.ground->map[targPos.y][targPos.x].additional = {-1, NULL};
+				gameState.battle.ground->map[targPos.y][targPos.x].character = NULL;
 			}
 		}
 	}
 }
 
-void ToolBox::SetToolBoxBack()
+void ToolBox::SetToolBoxBack(Character *getter)
 {
 	inHand = true;
 	RemoveFromMapPosition();
+	stand->Deactivate();
 	for (int i = 0; i < targetCharacters.size(); i++)
 		RemoveOnGroundAbilities(targetCharacters[i].target);
 	targetCharacters.clear();
@@ -153,6 +204,7 @@ void ToolBox::SetToolBoxBack()
 		delete symbol;
 	number = NULL;
 	symbol = NULL;
+	character = getter;
 	targetCharacters.clear();
 }
 
@@ -195,9 +247,25 @@ void ToolBox::SetToolThrow(SDL_Point target)
 	if (arch != NULL)
 		delete arch;
 	sprite->ClearAlphaMod();
-	arch = new ThrowArch(sprite, {sprite->dest.x, sprite->dest.y}, {dest.x + 1300, dest.y - 3600}, 10000.0f, 450.0f);
+	arch = new ThrowArch(sprite, {sprite->dest.x, sprite->dest.y}, {dest.x + 1300, dest.y - 4000}, 10000.0f, 450.0f);
 	targPos = target;
 	gameState.battle.ground->map[target.y][target.x].blocked = true;
 	gameState.battle.ground->map[target.y][target.x].additional = {AdditionalObjects::TOOLBOX, this};
+	gameState.battle.ground->map[target.y][target.x].character = this;
+	Character::position = target;
 	PlaySound(gameState.audio.toolThrow, Channels::TOOL_THROW, 0);
+}
+
+void ToolBox::Destroy()
+{
+	if (sprite != NULL)
+		delete sprite;
+	if (stand != NULL)
+		delete stand;
+	if (symbol != NULL)
+		delete symbol;
+	if (number != NULL)
+		delete number;
+	if (arch != NULL)
+		delete arch;
 }

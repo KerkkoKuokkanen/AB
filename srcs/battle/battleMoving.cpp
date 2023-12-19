@@ -152,8 +152,8 @@ void BattleGround::PlaceMarker()
 	{
 		for (int j = 0; j < map[0].size(); j++)
 		{
-			if (map[i][j].character != NULL && map[i][j].marked && gameState.keys.click == RELEASE_CLICK
-														&& !gameState.updateObjs.turnOrder->stuffHappening)
+			if (map[i][j].character != NULL && map[i][j].marked && gameState.keys.click == RELEASE_CLICK &&
+				!gameState.updateObjs.turnOrder->stuffHappening && map[i][j].additional.object == NULL)
 			{
 				if (NoOtherCharacters() == false)
 				{

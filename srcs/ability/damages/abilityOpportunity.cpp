@@ -63,6 +63,8 @@ bool AbilityOpportunity::CheckValid(SDL_Point pos)
 	Character *ret = gameState.battle.ground->map[pos.y][pos.x].character;
 	if (ret == NULL)
 		return (false);
+	if (ret->cSing == TOOLS)
+		return (false);
 	if (ret->killed)
 		return (false);
 	if (ret->ally == target->ally)
@@ -108,6 +110,8 @@ bool AbilityOpportunity::CheckValidForAdditional(SDL_Point pos)
 	if (ret == NULL)
 		return (false);
 	if (ret->killed)
+		return (false);
+	if (ret->cSing == TOOLS)
 		return (false);
 	if (ret->ally == target->ally)
 		return (false);

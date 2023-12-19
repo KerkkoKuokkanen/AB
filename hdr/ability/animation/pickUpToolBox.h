@@ -12,9 +12,10 @@ class PickUpTools
 		CharacterMover *mover = NULL;
 		bool gotTheBox(SDL_Point pos);
 		void GetToolBox();
+		SDL_Point targ = {0, 0};
 	public:
 		bool done = false;
-		PickUpTools(Character *character);
+		PickUpTools(Character *character, SDL_Point targ);
 		~PickUpTools() {Destroy();};
 		ToolBox *GetToolBoxPointer() {return(target);};
 		void Update();

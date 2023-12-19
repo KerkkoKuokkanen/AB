@@ -90,6 +90,8 @@ bool OpportunityAttack::CheckValidForAdditional(SDL_Point pos)
 		return (false);
 	if (ret->killed)
 		return (false);
+	if (ret->cSing == TOOLS)
+		return (false);
 	if (ret->ally == target->ally)
 		return (false);
 	if (ret->statuses.stun != 0)
@@ -115,6 +117,8 @@ bool OpportunityAttack::CheckValid(SDL_Point pos)
 	if (ret == NULL)
 		return (false);
 	if (ret->killed)
+		return (false);
+	if (ret->cSing == TOOLS)
 		return (false);
 	if (ret->ally == target->ally)
 		return (false);

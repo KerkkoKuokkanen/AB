@@ -248,7 +248,7 @@ void Character::AssignAbilities()
 			stats = {10, 14, 8, 110, 110, 70, 70, 80, 0, 2, 1};
 			abilities = {{ACID_RAIN, 3, 15, 10, 80, StatStructs::ACID_RAIN_STRUCT, (-1), 0, 0, false, true, NULL},
 						{TELEPORT, 4, 20, 10, 80, StatStructs::TELEPORT, (-1), 0, 0, false, true, NULL},
-						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, true, false, NULL}};
+						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, true, true, NULL}};
 			AssingDefaultWitchAbilities(abilities);
 			break ;
 		default:
@@ -306,6 +306,17 @@ void Character::CreateCharacterType(int skin)
 			break ;
 		}
 		case PHANTOM_LION:
+		{
+			SDL_Rect dest = {-3000, -450, 6800, 8160};
+			textures.push_back(gameState.textures.chars.lionIdle[0]);
+			textures.push_back(gameState.textures.chars.lionIdle[1]);
+			stands.push_back(gameState.textures.stands.lionStand);
+			stands.push_back(gameState.textures.stands.lionStand);
+			sprite = new Sprite(NULL, dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(NULL, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
+		case TOOLS:
 		{
 			SDL_Rect dest = {-3000, -450, 6800, 8160};
 			textures.push_back(gameState.textures.chars.lionIdle[0]);

@@ -366,7 +366,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.smithAbilities[1] = get_texture(rend, "sprites/UI/abilities/throwToolBox.png");
 	gameState.textures.smithAbilities[2] = get_texture(rend, "sprites/UI/abilities/handSuplies.png");
 	gameState.textures.smithAbilities[3] = get_texture(rend, "sprites/UI/abilities/pickUpToolBox.png");
-	gameState.textures.chars.toolBox = get_texture(rend, "sprites/characters/blacksmith/toolBox.png");
+	use = get_texture_and_surface(rend, "sprites/characters/blacksmith/toolBox.png");
+	gameState.textures.chars.toolBox = use.text;
+	gameState.surfaces.toolBox = use.sur;
 	gameState.textures.attacks.toolThrow[0] = get_texture(rend, "sprites/characters/blacksmith/blackSmithToolThrow.png");
 	gameState.textures.attacks.toolThrow[1] = get_texture(rend, "sprites/characters/blacksmith/blackSmithToolTrail.png");
 	gameState.textures.throwObj = get_texture(rend, "sprites/UI/abilities/throwObject.png");
@@ -489,6 +491,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.phantLions[0] = get_texture(rend, "sprites/characters/lion/p1.png");
 	gameState.textures.chars.phantLions[1] = get_texture(rend, "sprites/characters/lion/p2.png");
 	gameState.textures.chars.phantLions[2] = get_texture(rend, "sprites/characters/lion/p3.png");
+	gameState.textures.stands.toolsStand = get_texture(rend, "sprites/characters/blacksmith/toolBoxStand.png");
 }
 
 void CraeteAudioThread()

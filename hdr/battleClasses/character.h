@@ -52,6 +52,7 @@ class Character
 		SDL_Point &getCoord();
 		void Position(Vector to);
 		void Move(Vector amount);
+		virtual bool AcceptAbility(int type) {return (true);};
 		bool active = true;
 		bool hover = false;
 		bool clicked = false;

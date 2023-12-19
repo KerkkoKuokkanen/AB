@@ -116,6 +116,11 @@ static bool CheckForAdditional(SDL_Point pos)
 {
 	t_Ability *abl = gameState.updateObjs.abilities->ability;
 	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
+	if (point->character != NULL)
+	{
+		if (!point->character->AcceptAbility(abl->type))
+			return (false);
+	}
 	if (point->additional.object != NULL)
 	{
 		if (abl->targetAdds)

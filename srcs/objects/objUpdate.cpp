@@ -30,6 +30,20 @@ void OBJ_Update::UpdateToolBoxes()
 	for (int i = 0; i < toolBoxes.size(); i++)
 	{
 		toolBoxes[i]->Update();
+		if (toolBoxes[i]->done)
+		{
+			if (toolBoxes[i]->character == NULL)
+			{
+				SDL_Point pos = toolBoxes[i]->position;
+				gameState.battle.ground->map[pos.y][pos.x].character = NULL;
+				gameState.battle.ground->map[pos.y][pos.x].blocked = false;
+				gameState.battle.ground->map[pos.y][pos.x].additional.object = NULL;
+				gameState.battle.ground->map[pos.y][pos.x].additional.type = (-1);
+			}
+			delete toolBoxes[i];
+			toolBoxes.erase(toolBoxes.begin() + i);
+			i = (toolBoxes.size() == 0) ? 0 : i - 1;
+		}
 	}
 }
 

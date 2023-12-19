@@ -21,7 +21,7 @@ bool PickUpTools::gotTheBox(SDL_Point pos)
 			if (gameState.battle.ground->map[y][x].additional.type == AdditionalObjects::TOOLBOX)
 			{
 				ToolBox *used = (ToolBox*)gameState.battle.ground->map[y][x].additional.object;
-				if (used->character == character)
+				if (pos.x == targ.x && pos.y == targ.y)
 				{
 					target = used;
 					return (true);
@@ -51,8 +51,9 @@ void PickUpTools::GetToolBox()
 	gotTheBox({x, y});
 }
 
-PickUpTools::PickUpTools(Character *character)
+PickUpTools::PickUpTools(Character *character, SDL_Point targ)
 {
+	PickUpTools::targ = targ;
 	PickUpTools::character = character;
 	GetToolBox();
 	if (target == NULL)

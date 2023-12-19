@@ -19,11 +19,7 @@ static bool ThisIsThePosition(Character *character, SDL_Point pos)
 		if (gameState.battle.ground->map[y][x].additional.object != NULL)
 		{
 			if (gameState.battle.ground->map[y][x].additional.type == AdditionalObjects::TOOLBOX)
-			{
-				ToolBox *used = (ToolBox*)gameState.battle.ground->map[y][x].additional.object;
-				if (used->character == character)
-					return (true);
-			}
+				return (true);
 		}
 	}
 	return (false);
@@ -39,7 +35,7 @@ static void CreateSmithBuffDebuff(Character *target, t_Ability *ability)
 	target->statuses.deBuffs.push_back({BuffTypes::ACCURACY, 1, -10, true});
 }
 
-SDL_Point Abilities::FindToolBox()
+SDL_Point Abilities::FindToolBox(TileSelector *selec)
 {
 	SDL_Point pos = character->position;
 	int x = getXToLeft(pos);
@@ -47,26 +43,26 @@ SDL_Point Abilities::FindToolBox()
 	if (ThisIsThePosition(character, {x, y}))
 	{
 		SDL_Point ret = {x, y};
-		return (ret);
+		selec->IncludePoint(ret);
 	}
 	y = pos.y + 1;
 	if (ThisIsThePosition(character, {x, y}))
 	{
 		SDL_Point ret = {x, y};
-		return (ret);
+		selec->IncludePoint(ret);
 	}
 	x = getXToRight(pos);
 	y = pos.y - 1;
 	if (ThisIsThePosition(character, {x, y}))
 	{
 		SDL_Point ret = {x, y};
-		return (ret);
+		selec->IncludePoint(ret);
 	}
 	y = pos.y + 1;
 	if (ThisIsThePosition(character, {x, y}))
 	{
 		SDL_Point ret = {x, y};
-		return (ret);
+		selec->IncludePoint(ret);
 	}
 	SDL_Point ret = {0, 0};
 	return (ret);
@@ -135,7 +131,7 @@ void Abilities::UpdateSmithAnimation(t_Animation &anim, int index)
 			if (used->done)
 			{
 				ToolBox *ret = used->GetToolBoxPointer();
-				ret->SetToolBoxBack();
+				ret->SetToolBoxBack(character);
 				delete used;
 				animations.erase(animations.begin() + index);
 			}

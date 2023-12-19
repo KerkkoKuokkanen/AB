@@ -90,7 +90,7 @@ class Abilities
 		void UpdateMageObject(t_Object &object, int index);
 		bool CheckGenericAnimations(t_Animation &anim, int index);
 		void IncudeToolPoints(TileSelector *used);
-		SDL_Point FindToolBox();
+		SDL_Point FindToolBox(TileSelector *selec);
 	public:
 		t_Ability *ability = NULL;
 		EffectUpdater effectUpdater;

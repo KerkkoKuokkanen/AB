@@ -256,7 +256,8 @@ enum {
 	RAIDER,
 	ALCHEMIST,
 	KNIGHT,
-	WITCH
+	WITCH,
+	TOOLS
 };
 
 enum {

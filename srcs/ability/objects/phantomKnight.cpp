@@ -24,6 +24,7 @@ PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point
 	gameState.battle.ground->map[pos.y][pos.x].additional.object = this;
 	gameState.battle.ground->map[pos.y][pos.x].character = this;
 	Character::position = pos;
+	Character::ally = character->ally;
 	PhantomKnight::character = character;
 	position = pos;
 	currentTurn = gameState.updateObjs.turnOrder->turnCount;

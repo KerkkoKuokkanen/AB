@@ -10,7 +10,7 @@ typedef struct s_CharacterAndFound
 	bool found;
 }				t_CharacherAndFound;
 
-class ToolBox
+class ToolBox : public Character
 {
 	private:
 		bool inHand = true;
@@ -38,16 +38,21 @@ class ToolBox
 		int supplyAmount = 0;
 		SDL_Point targPos = {0, 0};
 		ThrowArch *arch = NULL;
+		bool delayerStart = false;
+		int deathTimer = 31;
 	public:
+		bool done = false;
 		Character *character = NULL;
 		Sprite *sprite = NULL;
+		Sprite *stand = NULL;
 		ToolBox(Character *character);
 		~ToolBox() {Destroy();};
 		int GetSupplyAmount() {return(supplyAmount);};
 		void SetToolThrow(SDL_Point target);
 		void SetInHand(bool set) {inHand = set;};
-		void SetToolBoxBack();
+		void SetToolBoxBack(Character *getter);
 		void SupplyTarget(Character *target);
+		bool AcceptAbility(int type) override;
 		SDL_Point getPosition() {return(targPos);};
 		void Update();
 		void Destroy();

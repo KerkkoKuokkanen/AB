@@ -71,7 +71,7 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case PICK_UP_TOOLS:
 			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
 			tileSelector->RemovePoint(character->position);
-			tileSelector->IncludePoint(FindToolBox());
+			FindToolBox(tileSelector);
 			break ;
 		case SUPPLY:
 			tileSelector = new TileSelector(pos, 1, 0, &groundColoring, false, true);
@@ -246,7 +246,7 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			animations.push_back({new SupplyAlly(character, target), SUPPLY_ALLY});
 			break ;
 		case PICK_UP_TOOLS:
-			animations.push_back({new PickUpTools(character), PICK_UP_TOOLS});
+			animations.push_back({new PickUpTools(character, targetPoint), PICK_UP_TOOLS});
 			break ;
 		case SUPPLY:
 			animations.push_back({new Supply(character, targetPoint), SUPPLY});

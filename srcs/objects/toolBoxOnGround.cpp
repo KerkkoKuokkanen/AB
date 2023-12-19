@@ -70,7 +70,7 @@ void ToolBox::AssignDefaultOnGroundAbilities(Character *target)
 		t_Throwable *used = (t_Throwable*)target->abilities[index].stats;
 		used->range = 9;
 	}
-	if (target->cSing == SMITH && !ToolExists(target, PICK_UP_TOOLS))
+	if (target->cSing == SMITH && !ToolExists(target, PICK_UP_TOOLS) && !ToolExists(target, THROW_TOOLBOX))
 	{
 		target->abilities.push_back({PICK_UP_TOOLS, 0, 5, 0, 200, (-1), (-1), 0, 0, true, false, NULL});
 		int index = target->abilities.size() - 1;
