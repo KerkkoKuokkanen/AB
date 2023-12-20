@@ -419,8 +419,9 @@ SDL_Point	GetOpportunityDamageValues(Character *target, SDL_Point caster);
 
 //AI stuff
 
-void	CreateTheMoveMaps();
-bool	CheckIfNextToToolBox(SDL_Point pos);
+void			CreateTheMoveMaps();
+bool			CheckIfNextToToolBox(SDL_Point pos);
+t_AiCharacter	GetTheStartingTurnForAi();
 
 //audio
 

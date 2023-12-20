@@ -29,90 +29,53 @@ void CreateTheMoveMaps()
 	}
 }
 
-t_AiData *GetTheAiDataStruct()
+static t_AiCharacter SetTheCharacter(Character *character)
 {
-	t_AiData *ret = (t_AiData*)malloc(sizeof(t_AiData));
-	bzero(ret, sizeof(t_AiData));
-	int h = gameState.battle.ground->map.size();
-	int w = gameState.battle.ground->map[0].size();
-	ret->map = (t_AiMapUnit**)malloc(sizeof(t_AiMapUnit*) * h);
-	bzero(ret->map,	sizeof(t_AiMapUnit*) * h);
-	for (int i = 0; i < h; i++)
-	{
-		ret->map[i] = (t_AiMapUnit*)malloc(sizeof(t_AiMapUnit) * w);
-		bzero(ret->map[i], sizeof(t_AiMapUnit) * w);
-	}
+	t_AiCharacter ret;
+	ret.alive = !character->killed;
+	ret.armor = character->stats.armor;
+	ret.health = character->stats.health;
+	ret.fatigue = character->stats.fatigue;
+	ret.moves = character->moves;
+	ret.character = character;
+	ret.position = character->position;
 	return (ret);
-	
 }
 
-void FreeTheAiDataStruct(t_AiData *data)
+t_AiCharacter GetTheStartingTurnForAi()
 {
-	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
-		free(data->map[i]);
-	free(data->map);
-	free(data);
-}
-
-static Character *SetAiDataCharacterOrder(t_AiData *data)
-{
-	Character *ret = NULL;
-	for (int i = 0; i < gameState.updateObjs.turnOrder->indicators.size(); i++)
+	Character *used = NULL;
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
 	{
-		Character *add = gameState.updateObjs.turnOrder->indicators[i].character;
-		t_AiCharacter addToTurnQ;
-		addToTurnQ.character = add;
-		addToTurnQ.health = add->stats.health;
-		addToTurnQ.armor = add->stats.armor;
-		addToTurnQ.alive = !add->killed;
-		data->turnQueue.push_back(addToTurnQ);
-		if (add->turn)
-			ret = add;
+		if (gameState.battle.ground->characters[i].character->turn)
+			used = gameState.battle.ground->characters[i].character;
 	}
-	return ret;
+	return (SetTheCharacter(used));
 }
 
-static void SetPositionCharacter(t_AiMapUnit *used, SDL_Point pos)
+static int **GetMoveMap()
 {
-	t_GMU *check = &gameState.battle.ground->map[pos.y][pos.x];
-	if (check->character == NULL)
-	{
-		used->character.alive = false;
-		used->character.armor = 0;
-		used->character.health = 0;
-		used->character.character = NULL;
-		return ;
-	}
-	used->character.alive = !check->character->killed;
-	used->character.armor = check->character->stats.armor;
-	used->character.health = check->character->stats.health;
-	used->character.character = check->character;
+	int w = gameState.battle.ground->map[0].size();
+	int h = gameState.battle.ground->map.size();
+	int **ret = (int**)malloc(sizeof(int*) * h);
+	for (int i = 0; i < h; i++)
+		ret[i] = (int*)malloc(sizeof(int) * w);
+	return (ret);
 }
 
-static void SetAiDataMap(t_AiData *data)
+void FreeMoveMap(int **map)
 {
 	int h = gameState.battle.ground->map.size();
-	int w = gameState.battle.ground->map[0].size();
 	for (int i = 0; i < h; i++)
-	{
-		for (int j = 0; j < w; j++)
-		{
-			t_GMU *point = &gameState.battle.ground->map[i][j];
-			data->map[i][j].blocked = point->blocked;
-			data->map[i][j].height = point->height;
-			data->map[i][j].generals.obj = point->obj;
-			data->map[i][j].generals.add = point->additional;
-			data->map[i][j].specials.smoked = CheckIfSmoked({j, i});
-			data->map[i][j].specials.toolBoxAbilities = CheckIfNextToToolBox({j, i});
-			SetPositionCharacter(&data->map[i][j], {j, i});
-		}
-	}
+		free(map[i]);
+	free(map);
 }
 
-t_AiData *CollectInitialData()
+int **GetMoves(t_AiCharacter *aiChar)
 {
-	t_AiData *ret = GetTheAiDataStruct();
-	Character *curr = SetAiDataCharacterOrder(ret);
-	ret->current = {curr, curr->stats.health, curr->stats.armor, !curr->killed};
-	return (ret);
+	SDL_Point pos = aiChar->position;
+	int moves = aiChar->moves;
+	int **map = GetMoveMap();
+	findMovablesNormal(map, moves, pos);
+	return (map);
 }

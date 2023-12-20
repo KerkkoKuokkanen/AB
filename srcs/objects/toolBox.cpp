@@ -27,7 +27,7 @@ ToolBox::ToolBox(Character *character) : Character(TOOLS)
 	Character::stats.armor = 20;
 	Character::stats.maxHealth = 60;
 	Character::stats.health = 60;
-	//Character::ally = character->ally;
+	Character::ally = character->ally;
 }
 
 void ToolBox::UpdateToolBoxInHand()
