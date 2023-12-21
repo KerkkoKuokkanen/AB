@@ -4,7 +4,7 @@
 
 void IterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap);
 void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap);
-void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap);
+void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, t_AiMapUnit **toolMap);
 
 bool CheckIfValidPosition(SDL_Point pos)
 {

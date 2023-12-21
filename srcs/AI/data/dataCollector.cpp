@@ -58,11 +58,11 @@ static t_AiMapObj SetTheObj(Object *obj)
 	t_AiMapObj ret;
 	if (obj == NULL)
 	{
-		ret.obj = NULL;
+		ret.obj = false;
 		ret.size = 0;
 		return (ret);
 	}
-	ret.obj = obj;
+	ret.obj = true;
 	ret.size = obj->size;
 	return (ret);
 }
