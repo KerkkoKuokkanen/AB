@@ -32,6 +32,17 @@ void CreateTheMoveMaps()
 static t_AiCharacter SetTheCharacter(Character *character)
 {
 	t_AiCharacter ret;
+	if (character == NULL)
+	{
+		ret.alive = false;
+		ret.armor = 0;
+		ret.health = 0;
+		ret.fatigue = 0;
+		ret.moves = 0;
+		ret.position = {0, 0};
+		ret.character = NULL;
+		return (ret);
+	}
 	ret.alive = !character->killed;
 	ret.armor = character->stats.armor;
 	ret.health = character->stats.health;
@@ -39,6 +50,20 @@ static t_AiCharacter SetTheCharacter(Character *character)
 	ret.moves = character->moves;
 	ret.character = character;
 	ret.position = character->position;
+	return (ret);
+}
+
+static t_AiMapObj SetTheObj(Object *obj)
+{
+	t_AiMapObj ret;
+	if (obj == NULL)
+	{
+		ret.obj = NULL;
+		ret.size = 0;
+		return (ret);
+	}
+	ret.obj = obj;
+	ret.size = obj->size;
 	return (ret);
 }
 
@@ -71,11 +96,36 @@ void FreeMoveMap(int **map)
 	free(map);
 }
 
-int **GetMoves(t_AiCharacter *aiChar)
+void GetMoves(t_AiCharacter *aiChar, t_AiMapUnit **map)
 {
 	SDL_Point pos = aiChar->position;
 	int moves = aiChar->moves;
-	int **map = GetMoveMap();
 	findMovablesNormal(map, moves, pos);
-	return (map);
+}
+
+void SetAiMapAdds(t_AiMapUnit &unit, SDL_Point pos)
+{
+	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
+	unit.adds.smoke = CheckIfSmoked(pos);
+	unit.adds.phantom = (point->additional.type == AdditionalObjects::PHANTOM_KNIGHT) ? true : false;
+	unit.adds.toolBox = (point->additional.type == AdditionalObjects::TOOLBOX) ? true : false;
+}
+
+void SetAiDataMapInitial(t_AiMapUnit **map)
+{
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			t_GMU *point = &gameState.battle.ground->map[i][j];
+			map[i][j].blocked = point->blocked;
+			map[i][j].height = point->height;
+			map[i][j].character = SetTheCharacter(point->character);
+			map[i][j].obj = SetTheObj(point->obj);
+			SetAiMapAdds(map[i][j], {j, i});
+			map[i][j].movable = TOOL_MAP_SIGN;
+		}
+	}
 }

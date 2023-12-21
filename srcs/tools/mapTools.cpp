@@ -72,14 +72,14 @@ SDL_Point GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoin
 	return (ret);
 }
 
-void findMovablesNormal(int **map, int moves, SDL_Point start)
+void findMovablesNormal(t_AiMapUnit **map, int moves, SDL_Point start)
 {
 	for (int i = 0; i < gameState.battle.ground->map.size(); i++)
 	{
 		for (int j = 0; j < gameState.battle.ground->map[0].size(); j++)
-			map[i][j] = TOOL_MAP_SIGN;
+			map[i][j].movable = TOOL_MAP_SIGN;
 	}
-	map[start.y][start.x] = 0;
+	map[start.y][start.x].movable = 0;
 	NormalIterMapMovables(start, 0, moves, map);
 }
 
@@ -273,7 +273,7 @@ void IterMapMovablesStatic(SDL_Point pos, int moves, int cMoves, int **toolMap)
 	}
 }
 
-void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
+void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, t_AiMapUnit **toolMap)
 {
 	if (moves >= cMoves)
 		return ;
@@ -290,11 +290,11 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
-			if (toolMap[pos.y - 1][pos.x] > temp)
+			if (toolMap[pos.y - 1][pos.x].movable > temp)
 			{
-				toolMap[pos.y - 1][pos.x] = temp;
+				toolMap[pos.y - 1][pos.x].movable = temp;
 				SDL_Point location = {pos.x, pos.y - 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				NormalIterMapMovables(location, temp, cMoves, toolMap);
 			}
 		}
 	}
@@ -308,11 +308,11 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
-			if (toolMap[pos.y + 1][pos.x] > temp)
+			if (toolMap[pos.y + 1][pos.x].movable > temp)
 			{
-				toolMap[pos.y + 1][pos.x] = temp;
+				toolMap[pos.y + 1][pos.x].movable = temp;
 				SDL_Point location = {pos.x, pos.y + 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				NormalIterMapMovables(location, temp, cMoves, toolMap);
 			}
 		}
 	}
@@ -326,11 +326,11 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
-			if (toolMap[pos.y - 1][pos.x + modder] > temp)
+			if (toolMap[pos.y - 1][pos.x + modder].movable > temp)
 			{
-				toolMap[pos.y - 1][pos.x + modder] = temp;
+				toolMap[pos.y - 1][pos.x + modder].movable = temp;
 				SDL_Point location = {pos.x + modder, pos.y - 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				NormalIterMapMovables(location, temp, cMoves, toolMap);
 			}
 		}
 	}
@@ -344,11 +344,11 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, int **toolMap)
 		int temp = moves + plus;
 		if (temp <= cMoves)
 		{
-			if (toolMap[pos.y + 1][pos.x + modder] > temp)
+			if (toolMap[pos.y + 1][pos.x + modder].movable > temp)
 			{
-				toolMap[pos.y + 1][pos.x + modder] = temp;
+				toolMap[pos.y + 1][pos.x + modder].movable = temp;
 				SDL_Point location = {pos.x + modder, pos.y + 1};
-				IterMapMovables(location, temp, cMoves, toolMap);
+				NormalIterMapMovables(location, temp, cMoves, toolMap);
 			}
 		}
 	}
