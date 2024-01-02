@@ -96,7 +96,7 @@ void FreeMoveMap(int **map)
 	free(map);
 }
 
-void GetMoves(t_AiCharacter *aiChar, t_AiMapUnit **map)
+void GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map)
 {
 	SDL_Point pos = aiChar->position;
 	int moves = aiChar->moves;
@@ -137,7 +137,26 @@ static bool IsCharacter(t_AiMapUnit &point)
 	return (true);
 }
 
-float GetAiScore(t_AiMapUnit **map, bool ally, float allyMulti, float enemyMulit, float fatiqueMulti)
+void DestroyMap(t_AiMapUnit **map)
+{
+	int h = gameState.battle.ground->map.size();
+	for (int i = 0; i < h; i++)
+		free(map[i]);
+	free(map);
+}
+
+t_AiMapUnit **GetTheMap()
+{
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	t_AiMapUnit **map = (t_AiMapUnit**)malloc(sizeof(t_AiMapUnit*) * h);
+	for (int i = 0; i < h; i++)
+		map[i] = (t_AiMapUnit*)malloc(sizeof(t_AiMapUnit) * w);
+	SetAiDataMapInitial(map);
+	return (map);
+}
+
+float GetAiScore(t_AiMapUnit **map, bool ally)
 {
 	float ah = 0.0f;
 	float eh = 0.0f;
@@ -160,6 +179,8 @@ float GetAiScore(t_AiMapUnit **map, bool ally, float allyMulti, float enemyMulit
 				eh += (float)(map[i][j].character.health + map[i][j].character.armor);
 		}
 	}
-	float finalValue = ah * allyMulti - eh * enemyMulit - fat * fatiqueMulti;
+	if (fat < 36.0f)
+		fat = 0.0f;
+	float finalValue = ah  - eh - fat;
 	return (finalValue);
 }

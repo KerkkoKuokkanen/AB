@@ -244,6 +244,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/abilities.h"
 # include "UI/battleUI.h"
 # include "AI/AiData.h"
+# include "AI/AiIterator.h"
 
 enum {
 	THIEF,
@@ -422,6 +423,9 @@ SDL_Point	GetOpportunityDamageValues(Character *target, SDL_Point caster);
 void			CreateTheMoveMaps();
 bool			CheckIfNextToToolBox(SDL_Point pos);
 t_AiCharacter	GetTheStartingTurnForAi();
+t_AiMapUnit		**GetTheMap();
+float			GetAiScore(t_AiMapUnit **map, bool ally);
+void			GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map);
 
 //audio
 
