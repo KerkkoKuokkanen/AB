@@ -18,5 +18,6 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter character, float
 
 void AiIterator::Destroy()
 {
+	
 
 }
