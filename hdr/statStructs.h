@@ -200,4 +200,18 @@ typedef struct s_Damager
 	int type;
 }				t_Damager;
 
+namespace SelectorTypesForAi
+{
+	enum
+	{
+		SELECTOR,
+		TILE_SELECTOR
+	};
+};
+
+typedef struct s_TargetingType
+{
+	std::tuple<int, int> rangeAndType;
+}				t_TargetingType;
+
 #endif

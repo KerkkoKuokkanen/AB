@@ -12,12 +12,23 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter character, float
 	AiIterator::character = character;
 	AiIterator::map = map;
 	AiIterator::startScore = startScore;
-	passTested = false;
+	action = {startScore};
 	GetPossibleMoves();
+	CalculateAbilityScores();
+}
+
+void AiIterator::CheckDefaultAbilities()
+{
+	for (int i = 0; i < character.character->abilities.size(); i++)
+		SendToTargeting(&character.character->abilities[i]);
+}
+
+void AiIterator::CalculateAbilityScores()
+{
+	CheckDefaultAbilities();
 }
 
 void AiIterator::Destroy()
 {
 	
-
 }

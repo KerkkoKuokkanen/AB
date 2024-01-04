@@ -4,6 +4,12 @@
 
 # include "../ab.h"
 
+typedef struct s_BestMove
+{
+	float score;
+
+}				t_BestMove;
+
 class AiIterator
 {
 	private:
@@ -11,9 +17,11 @@ class AiIterator
 		t_AiCharacter character = {};
 		float startScore = 0.0f;
 		int depth = 0;
-		std::vector<SDL_Point> possibleMoves = {};
-		bool passTested = false;
+		t_BestMove action = {0.0f};
 		void GetPossibleMoves();
+		void CalculateAbilityScores();
+		void CheckDefaultAbilities();
+		void SendToTargeting(t_Ability *ability);
 	public:
 		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter character, float startScore, int depth);
 		~AiIterator() {Destroy();};

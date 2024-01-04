@@ -230,7 +230,7 @@ void CharacterUI::getActive()
 {
 	bool outCome = false;
 	int index = 0;
-	for (int i = 0; i < characters.size() - 1; i++)
+	for (int i = 0; i < characters.size(); i++)
 	{
 		if (characters[i]->turn && characters[i]->ally)
 		{
