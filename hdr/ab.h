@@ -391,7 +391,7 @@ SDL_Point	GetValidPositionFromCoordinates(SDL_Point position, SDL_Point nextPoin
 
 void PrintStat();
 bool CheckIfValidPosition(SDL_Point pos);
-bool CheckIfSmoked(SDL_Point pos);
+int CheckIfSmoked(SDL_Point pos);
 
 bool CheckForSize(SDL_Point point1, SDL_Point point2);
 bool CheckForMaxHealth(SDL_Point point1, SDL_Point point2);

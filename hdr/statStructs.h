@@ -217,9 +217,4 @@ typedef struct s_TargetingType
 	bool staticSearch;
 }				t_TargetingType;
 
-typedef struct s_AiActionStruct
-{
-	bool pass;
-}				t_AiActionStruct;
-
 #endif

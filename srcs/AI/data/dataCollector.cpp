@@ -106,7 +106,8 @@ void GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map)
 void SetAiMapAdds(t_AiMapUnit &unit, SDL_Point pos)
 {
 	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
-	unit.adds.smoke = CheckIfSmoked(pos);
+	int smoke = CheckIfSmoked(pos);
+	unit.adds.smoke = {(bool)smoke, smoke};
 	unit.adds.phantom = (point->additional.type == AdditionalObjects::PHANTOM_KNIGHT) ? true : false;
 	unit.adds.toolBox = (point->additional.type == AdditionalObjects::TOOLBOX) ? true : false;
 }

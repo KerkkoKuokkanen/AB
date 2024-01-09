@@ -35,15 +35,19 @@ bool CheckIfOpportunityHits(Character *damager, Character *target)
 	return (MeleeCheck(damager, target, NULL));
 }
 
-bool CheckIfSmoked(SDL_Point pos)
+int CheckIfSmoked(SDL_Point pos)
 {
 	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
 	{
 		t_AbilityEffect &effect = gameState.updateObjs.abilities->effectUpdater.effects[i];
 		if (effect.ability->type == SMOKE_BOMB && effect.pos.x == pos.x && effect.pos.y == pos.y)
-			return (true);
+		{
+			SmokeEffect *used = (SmokeEffect*)effect.effect;
+			int ret = used->getTime();
+			return (ret);
+		}
 	}
-	return (false);
+	return (0);
 }
 
 Vector OpportunityAttack::GetDirection()

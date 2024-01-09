@@ -4,7 +4,7 @@
 
 bool dataReady = false;
 bool aiInMotion = false;
-t_AiActionStruct move = {};
+t_BestMove move = {};
 
 std::mutex aiMotionMutex;
 
@@ -18,13 +18,13 @@ void SetAiInMotion()
 void CollectData()
 {
 	std::unique_lock<std::mutex> lock(aiMotionMutex);
-	move.pass = false;
+	move.same = false;
 }
 
 static void SetDataReady()
 {
 	std::unique_lock<std::mutex> lock(aiMotionMutex);
-	move.pass = true;
+	move.same = true;
 	dataReady = true;
 }
 

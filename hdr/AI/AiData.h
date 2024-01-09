@@ -25,7 +25,7 @@ typedef struct s_AiAdds
 {
 	bool phantom;
 	bool toolBox;
-	bool smoke;
+	std::tuple<bool, int> smoke;
 }				t_AiAdds;
 
 typedef struct s_AiMapUnit

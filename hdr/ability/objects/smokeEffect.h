@@ -21,6 +21,7 @@ class SmokeEffect
 		bool done = false;
 		SmokeEffect(Character *character, t_Ability *ability, SDL_Point pos);
 		~SmokeEffect() {Destroy();};
+		int getTime() {return(time);};
 		void Update();
 		void Destroy();
 };
