@@ -181,6 +181,6 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 	}
 	if (fat < 36.0f)
 		fat = 0.0f;
-	float finalValue = ah  - eh - fat;
+	float finalValue = ah - eh - fat;
 	return (finalValue);
 }

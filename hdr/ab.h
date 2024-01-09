@@ -427,6 +427,7 @@ t_AiMapUnit		**GetTheMap();
 float			GetAiScore(t_AiMapUnit **map, bool ally);
 void			GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map);
 t_TargetingType	GetAbilityTargetingType(t_Ability *ability);
+t_AiMapUnit		**GetReplica(t_AiMapUnit **map);
 
 //audio
 

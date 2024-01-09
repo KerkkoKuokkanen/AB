@@ -211,7 +211,15 @@ namespace SelectorTypesForAi
 
 typedef struct s_TargetingType
 {
-	std::tuple<int, int> rangeAndType;
+	int range;
+	int targetType;
+	bool characters;
+	bool staticSearch;
 }				t_TargetingType;
+
+typedef struct s_AiActionStruct
+{
+	bool pass;
+}				t_AiActionStruct;
 
 #endif
