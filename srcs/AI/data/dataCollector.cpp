@@ -138,14 +138,6 @@ static bool IsCharacter(t_AiMapUnit &point)
 	return (true);
 }
 
-void DestroyMap(t_AiMapUnit **map)
-{
-	int h = gameState.battle.ground->map.size();
-	for (int i = 0; i < h; i++)
-		free(map[i]);
-	free(map);
-}
-
 t_AiMapUnit **GetTheMap()
 {
 	int h = gameState.battle.ground->map.size();

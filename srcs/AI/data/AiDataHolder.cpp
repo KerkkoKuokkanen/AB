@@ -16,3 +16,11 @@ t_AiMapUnit **GetReplica(t_AiMapUnit **map)
 	}
 	return (ret);
 }
+
+void DestroyMap(t_AiMapUnit **map)
+{
+	int h = gameState.battle.ground->map.size();
+	for (int i = 0; i < h; i++)
+		free(map[i]);
+	free(map);
+}

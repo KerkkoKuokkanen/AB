@@ -37,6 +37,7 @@ void AiIterator::HandleAbilityAction(SDL_Point pos, t_Ability *ability)
 {
 	t_AiMapUnit **newMap = GetReplica(map);
 	UseTheAbility(pos, ability, newMap);
+	DestroyMap(newMap);
 }
 
 static int GetAbilityDamage(t_Ability *ability, Character *character)
