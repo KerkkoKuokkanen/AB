@@ -50,7 +50,8 @@ int MainLoop()
 	{
 		start = clock();
 		Utility();
-		if (gameState.keys.space == 1)
+		AiManaging();
+		if (CheckForTurnChange())
 			gameState.updateObjs.turnOrder->ActivateTurnChange();
 		ObjUpdate();
 		gameState.render->RenderAll();

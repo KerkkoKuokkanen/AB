@@ -26,7 +26,7 @@ void AiIterator::IterateTheMap()
 		for (int j = 0; j < w; j++)
 		{
 			CheckForAbility({j, i});
-			CheckForMove({j, i});
+			//CheckForMove({j, i});
 		}
 	}
 }

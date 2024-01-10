@@ -506,6 +506,18 @@ void CraeteAudioThread()
 	});
 }
 
+void AiThread()
+{
+	static std::thread aiThread([]()
+	{
+		while (true)
+		{
+			AiManagerUpdate();
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+	});
+}
+
 void	init(t_wr *wr)
 {
 	srand((unsigned int)clock() + time(0));
@@ -561,4 +573,5 @@ void	init(t_wr *wr)
 	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 	CraeteAudioThread();
+	AiThread();
 }
