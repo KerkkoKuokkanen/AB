@@ -424,6 +424,8 @@ bool CheckForTurnChange();
 
 //AI stuff
 
+bool			AiCheckSmoked(SDL_Point pos, t_AiMapUnit **map);
+int				AiGetChance(t_AiCharacter *character, t_AiCharacter *target, t_Ability *ability, t_AiMapUnit **map);
 void			AiManaging();
 void			AiManagerUpdate();
 void			CreateTheMoveMaps();

@@ -40,6 +40,7 @@ static t_AiCharacter SetTheCharacter(Character *character)
 		ret.fatigue = 0;
 		ret.moves = 0;
 		ret.position = {0, 0};
+		ret.statuses = {};
 		ret.character = NULL;
 		return (ret);
 	}
@@ -50,6 +51,7 @@ static t_AiCharacter SetTheCharacter(Character *character)
 	ret.moves = character->moves;
 	ret.character = character;
 	ret.position = character->position;
+	std::memcpy(&ret.statuses, &character->statuses, sizeof(t_StatusEffects));
 	return (ret);
 }
 

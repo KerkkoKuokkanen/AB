@@ -17,7 +17,7 @@ static Color GetColor()
 	return (Color(1, 1, 1));
 }
 
-PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos) : Character(PHANTOM_LION, false)
+PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos) : Character(PHANTOM_LION, character->ally)
 {
 	gameState.battle.ground->map[pos.y][pos.x].blocked = true;
 	gameState.battle.ground->map[pos.y][pos.x].additional.type = AdditionalObjects::PHANTOM_KNIGHT;
@@ -51,6 +51,7 @@ PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point
 	stats.armor = use->armor;
 	stats.maxHealth = use->hits;
 	stats.health = use->hits;
+	stats.level = character->stats.level;
 }
 
 void PhantomKnight::UpdateSprites()

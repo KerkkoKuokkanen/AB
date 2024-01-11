@@ -40,25 +40,25 @@ void AiIterator::HandleAbilityAction(SDL_Point pos, t_Ability *ability)
 	DestroyMap(newMap);
 }
 
-static int GetAbilityDamage(t_Ability *ability, Character *character)
+static int GetAbilityDamage(t_Ability *ability, t_AiCharacter *character)
 {
 	int dmg = ability->damage;
 	if (dmg == 0)
 		return (0);
-	int cdMin = character->stats.baseDamageLow;
-	int cdMax = character->stats.baseDamageHigh;
+	int cdMin = character->character->stats.baseDamageLow;
+	int cdMax = character->character->stats.baseDamageHigh;
 	int mid = rounding((float)(cdMax + cdMin) / 2.0f);
 	float multi = (float)dmg / 100.0f;
 	float amont = (float)mid * multi;
 	return (rounding(amont));
 }
 
-static void CreateDamageToPosition(SDL_Point pos, Character *damager, t_Ability *ability, t_AiMapUnit **map)
+static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Ability *ability, t_AiMapUnit **map)
 {
 	t_AiCharacter *charm = &map[pos.y][pos.x].character;
 	if (charm->character == NULL)
 		return ;
-	int chance = GetChance(damager, charm->character, ability);
+	int chance = AiGetChance(damager, charm, ability, map);
 	int damage = GetAbilityDamage(ability, damager);
 	damage = rounding((float)damage * ((float)chance / 100.0f));
 	int armor = charm->armor;
@@ -87,7 +87,7 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 	{
 		case DAGGER_THROW:
 		{
-			CreateDamageToPosition(pos, character.character, ability, newMap);
+			CreateDamageToPosition(pos, &character, ability, newMap);
 			AddAbilityUseCosts(ability, &character);
 			break ;
 		}
@@ -99,7 +99,7 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 		}
 		case DAGGER_SLASH:
 		{
-			CreateDamageToPosition(pos, character.character, ability, newMap);
+			CreateDamageToPosition(pos, &character, ability, newMap);
 			AddAbilityUseCosts(ability, &character);
 			break ;
 		}

@@ -12,6 +12,7 @@ typedef struct s_AiCharacter
 	int fatigue;
 	bool alive;
 	int moves;
+	t_StatusEffects statuses;
 	SDL_Point position;
 }				t_AiCharacter;
 
