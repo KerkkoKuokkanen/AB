@@ -24,11 +24,15 @@ class AiIterator
 		void GetPossibleMoves();
 		void IterateTheMap();
 		void SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap);
+		void SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap);
 		void UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap);
 		void HandleAbilityAction(SDL_Point pos, t_Ability *ability);
 		void CheckForAbility(SDL_Point pos);
 		void CheckForMove(SDL_Point pos);
 		int CheckMovePosition(SDL_Point pos);
+		void HandleMoveAfterMath(SDL_Point target, int damage, int fatigue);
+		void SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map);
+		void SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map);
 	public:
 		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter character, float startScore, int depth);
 		t_BestMove GetBestMove() {return(action);};

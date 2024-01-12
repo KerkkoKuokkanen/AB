@@ -43,7 +43,8 @@ void AiManagerUpdate()	//funtion only for the Ai thread
 	if (aiInMotion == false)
 		return ;
 	t_AiMapUnit **map = GetTheMap();
-	t_AiCharacter turn = GetTheStartingTurnForAi();
+	t_AiCharacter turn;
+	GetTheStartingTurnForAi(&turn);
 	float startSore = GetAiScore(map, turn.character->ally);
 	AiIterator *used = new AiIterator;
 	used->CalculateMoves(map, turn, startSore, 0);

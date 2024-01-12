@@ -52,6 +52,8 @@ PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point
 	stats.maxHealth = use->hits;
 	stats.health = use->hits;
 	stats.level = character->stats.level;
+	stats.baseDamageHigh = character->stats.baseDamageHigh;
+	stats.baseDamageLow = character->stats.baseDamageLow;
 }
 
 void PhantomKnight::UpdateSprites()

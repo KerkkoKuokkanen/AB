@@ -29,30 +29,29 @@ void CreateTheMoveMaps()
 	}
 }
 
-static t_AiCharacter SetTheCharacter(Character *character)
+static void SetTheCharacter(t_AiCharacter *aiChar, Character *character)
 {
-	t_AiCharacter ret;
 	if (character == NULL)
 	{
-		ret.alive = false;
-		ret.armor = 0;
-		ret.health = 0;
-		ret.fatigue = 0;
-		ret.moves = 0;
-		ret.position = {0, 0};
-		ret.statuses = {};
-		ret.character = NULL;
-		return (ret);
+		aiChar->alive = false;
+		aiChar->armor = 0;
+		aiChar->health = 0;
+		aiChar->fatigue = 0;
+		aiChar->moves = 0;
+		aiChar->position = {0, 0};
+		aiChar->statuses = {};
+		aiChar->character = NULL;
+		return ;
 	}
-	ret.alive = !character->killed;
-	ret.armor = character->stats.armor;
-	ret.health = character->stats.health;
-	ret.fatigue = character->stats.fatigue;
-	ret.moves = character->moves;
-	ret.character = character;
-	ret.position = character->position;
-	std::memcpy(&ret.statuses, &character->statuses, sizeof(t_StatusEffects));
-	return (ret);
+	aiChar->alive = !character->killed;
+	aiChar->armor = character->stats.armor;
+	aiChar->health = character->stats.health;
+	aiChar->fatigue = character->stats.fatigue;
+	aiChar->moves = character->moves;
+	aiChar->character = character;
+	aiChar->position = character->position;
+	std::memcpy(&aiChar->statuses, &character->statuses, sizeof(t_StatusEffects));
+	return ;
 }
 
 static t_AiMapObj SetTheObj(Object *obj)
@@ -69,7 +68,7 @@ static t_AiMapObj SetTheObj(Object *obj)
 	return (ret);
 }
 
-t_AiCharacter GetTheStartingTurnForAi()
+void GetTheStartingTurnForAi(t_AiCharacter *charac)
 {
 	Character *used = NULL;
 	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
@@ -77,7 +76,7 @@ t_AiCharacter GetTheStartingTurnForAi()
 		if (gameState.battle.ground->characters[i].character->turn)
 			used = gameState.battle.ground->characters[i].character;
 	}
-	return (SetTheCharacter(used));
+	SetTheCharacter(charac, used);
 }
 
 static int **GetMoveMap()
@@ -125,7 +124,7 @@ void SetAiDataMapInitial(t_AiMapUnit **map)
 			t_GMU *point = &gameState.battle.ground->map[i][j];
 			map[i][j].blocked = point->blocked;
 			map[i][j].height = point->height;
-			map[i][j].character = SetTheCharacter(point->character);
+			SetTheCharacter(&map[i][j].character, point->character);
 			map[i][j].obj = SetTheObj(point->obj);
 			SetAiMapAdds(map[i][j], {j, i});
 			map[i][j].movable = TOOL_MAP_SIGN;

@@ -424,13 +424,16 @@ bool CheckForTurnChange();
 
 //AI stuff
 
+void			CreateDamageToAiCharacter(t_AiCharacter *character, int damage);
+int				AiOppDamageNumber(t_AiCharacter *target, t_AiCharacter *caster);
+int				AiDamageNumber(t_AiCharacter *target, t_AiCharacter *caster, t_Ability *ability);
 bool			AiCheckSmoked(SDL_Point pos, t_AiMapUnit **map);
 int				AiGetChance(t_AiCharacter *character, t_AiCharacter *target, t_Ability *ability, t_AiMapUnit **map);
 void			AiManaging();
 void			AiManagerUpdate();
 void			CreateTheMoveMaps();
 bool			CheckIfNextToToolBox(SDL_Point pos);
-t_AiCharacter	GetTheStartingTurnForAi();
+void			GetTheStartingTurnForAi(t_AiCharacter *charac);
 t_AiMapUnit		**GetTheMap();
 float			GetAiScore(t_AiMapUnit **map, bool ally);
 void			GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map);

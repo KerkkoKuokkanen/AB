@@ -40,17 +40,19 @@ void AiIterator::HandleAbilityAction(SDL_Point pos, t_Ability *ability)
 	DestroyMap(newMap);
 }
 
-static int GetAbilityDamage(t_Ability *ability, t_AiCharacter *character)
+void CreateDamageToAiCharacter(t_AiCharacter *character, int damage)
 {
-	int dmg = ability->damage;
-	if (dmg == 0)
-		return (0);
-	int cdMin = character->character->stats.baseDamageLow;
-	int cdMax = character->character->stats.baseDamageHigh;
-	int mid = rounding((float)(cdMax + cdMin) / 2.0f);
-	float multi = (float)dmg / 100.0f;
-	float amont = (float)mid * multi;
-	return (rounding(amont));
+	int armor = character->armor;
+	if (armor >= damage)
+	{
+		character->armor -= damage;
+		return ;
+	}
+	damage = damage - character->armor;
+	character->armor = 0;
+	character->health -= damage;
+	if (character->health <= 0)
+		character->alive = false;
 }
 
 static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Ability *ability, t_AiMapUnit **map)
@@ -59,23 +61,14 @@ static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Abil
 	if (charm->character == NULL)
 		return ;
 	int chance = AiGetChance(damager, charm, ability, map);
-	int damage = GetAbilityDamage(ability, damager);
+	int damage = AiDamageNumber(charm, damager, ability);
 	damage = rounding((float)damage * ((float)chance / 100.0f));
-	int armor = charm->armor;
-	if (armor >= damage)
-	{
-		charm->armor -= damage;
-		return ;
-	}
-	damage = damage - charm->armor;
-	charm->armor = 0;
-	charm->health -= damage;
-	if (charm->health <= 0)
-		charm->alive = false;
+	CreateDamageToAiCharacter(charm, damage);
 }
 
-static void AddAbilityUseCosts(t_Ability *ability, t_AiCharacter *character)
+static void AddAbilityUseCosts(t_Ability *ability, t_AiMapUnit **map, SDL_Point pos)
 {
+	t_AiCharacter *character = &map[pos.y][pos.x].character;
 	character->fatigue += ability->fatigue;
 	character->moves -= ability->cost;
 }
@@ -88,7 +81,7 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 		case DAGGER_THROW:
 		{
 			CreateDamageToPosition(pos, &character, ability, newMap);
-			AddAbilityUseCosts(ability, &character);
+			AddAbilityUseCosts(ability, newMap, pos);
 			break ;
 		}
 		case SMOKE_BOMB:
@@ -100,7 +93,7 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 		case DAGGER_SLASH:
 		{
 			CreateDamageToPosition(pos, &character, ability, newMap);
-			AddAbilityUseCosts(ability, &character);
+			AddAbilityUseCosts(ability, newMap, pos);
 			break ;
 		}
 	}
@@ -116,5 +109,6 @@ void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUn
 		action.pos = pos;
 		action.score = score;
 		action.same = false;
+		action.character = &character;
 	}
 }
