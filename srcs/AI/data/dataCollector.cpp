@@ -39,7 +39,7 @@ static void SetTheCharacter(t_AiCharacter *aiChar, Character *character)
 		aiChar->fatigue = 0;
 		aiChar->moves = 0;
 		aiChar->position = {0, 0};
-		aiChar->statuses = {};
+		//aiChar->statuses = {};
 		aiChar->character = NULL;
 		return ;
 	}
@@ -145,7 +145,10 @@ t_AiMapUnit **GetTheMap()
 	int w = gameState.battle.ground->map[0].size();
 	t_AiMapUnit **map = (t_AiMapUnit**)malloc(sizeof(t_AiMapUnit*) * h);
 	for (int i = 0; i < h; i++)
+	{
 		map[i] = (t_AiMapUnit*)malloc(sizeof(t_AiMapUnit) * w);
+		bzero(map[i], sizeof(t_AiMapUnit) * w);
+	}
 	SetAiDataMapInitial(map);
 	return (map);
 }
