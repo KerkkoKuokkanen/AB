@@ -25,6 +25,7 @@ class PhantomKnight : Character
 		PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos);
 		~PhantomKnight() {Destroy();};
 		Sprite *GetSprite() {return (knight);};
+		int GetTurns() {return (turns);};
 		void Update();
 		void Destroy();
 };

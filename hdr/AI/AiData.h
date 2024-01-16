@@ -22,11 +22,18 @@ typedef struct s_AiMapObj
 	int size;
 }				t_AiMapObj;
 
+typedef struct s_MapAdd
+{
+	bool isIt;
+	int turns;
+	Character *parent;
+}				t_MapAdd;
+
 typedef struct s_AiAdds
 {
-	bool phantom;
-	bool toolBox;
-	std::tuple<bool, int> smoke;
+	t_MapAdd phantom;
+	t_MapAdd toolBox;
+	t_MapAdd smoke;
 }				t_AiAdds;
 
 typedef struct s_AiMapUnit

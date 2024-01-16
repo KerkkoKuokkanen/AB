@@ -87,7 +87,7 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 		case SMOKE_BOMB:
 		{
 			t_LastingEffect *smoke = (t_LastingEffect*)ability->stats;
-			newMap[pos.y][pos.x].adds.smoke = {true, smoke->turns};
+			newMap[pos.y][pos.x].adds.smoke = {true, smoke->turns, character.character};
 			break ;
 		}
 		case DAGGER_SLASH:

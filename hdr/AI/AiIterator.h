@@ -34,8 +34,9 @@ class AiIterator
 		void HandleMoveAfterMath(SDL_Point target, int damage, int fatigue);
 		void SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map);
 		void SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map);
+		void DoThePassAction();
 	public:
-		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter character, float startScore, int depth);
+		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter &character, float startScore, int depth);
 		t_BestMove GetBestMove() {return(action);};
 		~AiIterator() {Destroy();};
 		void Destroy();

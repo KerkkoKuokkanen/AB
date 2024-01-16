@@ -15,7 +15,7 @@ void AiIterator::SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_
 	map[pos.y][pos.x].character.moves = character->moves;
 	map[pos.y][pos.x].character.character = character->character;
 	map[pos.y][pos.x].character.position = pos;
-	std::memcpy(&map[pos.y][pos.x].character.statuses, &character->statuses, sizeof(t_StatusEffects));
+	map[pos.y][pos.x].character.statuses = character->statuses;
 }
 
 void AiIterator::SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map)
@@ -27,10 +27,10 @@ void AiIterator::SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map)
 	map[pos.y][pos.x].character.fatigue = 0;
 	map[pos.y][pos.x].character.moves = 0;
 	map[pos.y][pos.x].character.position = {0, 0};
-	map[pos.y][pos.x].character.statuses = {};
+	bzero(&map[pos.y][pos.x].character.statuses, sizeof(t_StatusEffects));
 }
 
-void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter character, float startScore, int depth)
+void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter &character, float startScore, int depth)
 {
 	AiIterator::depth = depth - 1;
 	AiIterator::character = character;

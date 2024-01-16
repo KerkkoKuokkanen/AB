@@ -39,7 +39,7 @@ static void SetTheCharacter(t_AiCharacter *aiChar, Character *character)
 		aiChar->fatigue = 0;
 		aiChar->moves = 0;
 		aiChar->position = {0, 0};
-		//aiChar->statuses = {};
+		bzero(&aiChar->statuses, sizeof(t_StatusEffects));
 		aiChar->character = NULL;
 		return ;
 	}
@@ -50,7 +50,7 @@ static void SetTheCharacter(t_AiCharacter *aiChar, Character *character)
 	aiChar->moves = character->moves;
 	aiChar->character = character;
 	aiChar->position = character->position;
-	std::memcpy(&aiChar->statuses, &character->statuses, sizeof(t_StatusEffects));
+	aiChar->statuses = character->statuses;
 	return ;
 }
 
@@ -104,13 +104,66 @@ void GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map)
 	findMovablesNormal(map, moves, pos);
 }
 
+static void SetSmokeAdd(t_AiMapUnit &unit, SDL_Point pos)
+{
+	if (!CheckIfSmoked(pos))
+	{
+		unit.adds.smoke = {false, 0, NULL};
+		return ;
+	}
+	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
+	{
+		t_AbilityEffect &effect = gameState.updateObjs.abilities->effectUpdater.effects[i];
+		if (effect.ability->type == SMOKE_BOMB && effect.pos.x == pos.x && effect.pos.y == pos.y)
+		{
+			SmokeEffect *used = (SmokeEffect*)effect.effect;
+			int ret = used->getTime();
+			Character *thh = used->getCharacter();
+			unit.adds.smoke = {true, ret, thh};
+			return ;
+		}
+	}
+	return ;
+}
+
+static void SetPhantomAdd(t_AiMapUnit &unit, SDL_Point pos)
+{
+	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
+	if (point->additional.type == AdditionalObjects::PHANTOM_KNIGHT)
+	{
+		PhantomKnight *used = (PhantomKnight*)point->additional.object;
+		unit.adds.phantom.isIt = true;
+		unit.adds.phantom.turns = used->GetTurns();
+		unit.adds.phantom.parent = used->character;
+		return ;
+	}
+	unit.adds.phantom.isIt = false;
+	unit.adds.phantom.parent = NULL;
+	unit.adds.phantom.turns = 0;
+}
+
+static void SetToolBoxAdd(t_AiMapUnit &unit, SDL_Point pos)
+{
+	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
+	if (point->additional.type == AdditionalObjects::TOOLBOX)
+	{
+		ToolBox *used = (ToolBox*)point->additional.object;
+		unit.adds.toolBox.isIt = true;
+		unit.adds.toolBox.parent = point->character;
+		unit.adds.toolBox.turns = 1;
+		return ;
+	}
+	unit.adds.toolBox.isIt = false;
+	unit.adds.toolBox.parent = NULL;
+	unit.adds.toolBox.turns = 0;
+}
+
 void SetAiMapAdds(t_AiMapUnit &unit, SDL_Point pos)
 {
 	t_GMU *point = &gameState.battle.ground->map[pos.y][pos.x];
-	int smoke = CheckIfSmoked(pos);
-	unit.adds.smoke = {(bool)smoke, smoke};
-	unit.adds.phantom = (point->additional.type == AdditionalObjects::PHANTOM_KNIGHT) ? true : false;
-	unit.adds.toolBox = (point->additional.type == AdditionalObjects::TOOLBOX) ? true : false;
+	SetSmokeAdd(unit, pos);
+	SetPhantomAdd(unit, pos);
+	SetToolBoxAdd(unit, pos);
 }
 
 void SetAiDataMapInitial(t_AiMapUnit **map)

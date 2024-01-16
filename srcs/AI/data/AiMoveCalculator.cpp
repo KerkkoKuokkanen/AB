@@ -33,7 +33,7 @@ static bool AiValidPos(SDL_Point pos)
 
 static bool AdditionalValidation(SDL_Point pos, t_AiMapUnit **map, bool ally)
 {
-	if (map[pos.y][pos.x].adds.phantom == false)
+	if (map[pos.y][pos.x].adds.phantom.isIt == false)
 		return (false);
 	if (map[pos.y][pos.x].character.character->ally == ally)
 		return (false);

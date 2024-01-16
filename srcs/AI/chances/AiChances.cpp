@@ -3,7 +3,7 @@
 
 bool AiCheckSmoked(SDL_Point pos, t_AiMapUnit **map)
 {
-	bool smoke = std::get<0>(map[pos.y][pos.x].adds.smoke);
+	bool smoke = map[pos.y][pos.x].adds.smoke.isIt;
 	if (smoke)
 		return (true);
 	return (false);
