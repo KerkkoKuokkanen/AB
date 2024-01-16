@@ -37,6 +37,8 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter character, float
 	AiIterator::map = map;
 	AiIterator::startScore = startScore;
 	action = {startScore, true};
+	action.character = &character;
+	action.pos = character.position;
 	GetPossibleMoves();
 	IterateTheMap();
 }

@@ -307,10 +307,13 @@ void CharacterUI::UseEnergy(int cost, bool moving)
 	if (cost == 0 || cost > activeCharacter->moves)
 		return ;
 	int start = activeCharacter->moves - 1;
-	for (int i = 0; i < cost; i++)
+	if (activeCharacter->ally)
 	{
-		energys[start]->Used(true);
-		start--;
+		for (int i = 0; i < cost; i++)
+		{
+			energys[start]->Used(true);
+			start--;
+		}
 	}
 	activeCharacter->moves -= cost;
 	if (moving)

@@ -62,7 +62,7 @@ class BattleGround {
 		void CreateNewIndicator();
 		void CreateNewLine();
 		int findLine();
-		void setMoved(std::vector<SDL_Point> &path);
+		void setMoved(std::vector<SDL_Point> &path, bool force = false);
 		void MoveCharacter();
 		void FigureOrderingLayer(SDL_Point curr, SDL_Point next);
 		Vector ParabolaPosition(Vector pos, Vector highPoint, float unit, float ogX);
@@ -84,6 +84,7 @@ class BattleGround {
 		void CreateBattleGround(std::vector<std::vector<t_GMU>> &map);
 		void CreateMap();
 		void ChangeMapHeight(bool down);
+		void SetAiMoveAction(SDL_Point target, SDL_Point start);
 		void StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos);
 		void HighLightBlock(SDL_Point pos, Uint8 r, Uint8 g, Uint8 b);
 		void ResetBlockColor(SDL_Point pos);

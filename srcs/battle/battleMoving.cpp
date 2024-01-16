@@ -102,6 +102,15 @@ void BattleGround::TakeMarkerAndPlaceIt(SDL_Point pos)
 	moveIndicators[i]->Activate();
 }
 
+void BattleGround::SetAiMoveAction(SDL_Point target, SDL_Point start)
+{
+	Character *used = map[start.y][start.x].character;
+	SetMovables(used);
+	std::vector<SDL_Point> positions = FindPath(start, target);
+	ClearMovables();
+	setMoved(positions, true);
+}
+
 void BattleGround::MarkerControl(SDL_Point cPos, SDL_Point mPos)
 {
 	markingPath = false;

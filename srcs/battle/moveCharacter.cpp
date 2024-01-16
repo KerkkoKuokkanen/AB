@@ -1,9 +1,9 @@
 
 #include "../../hdr/global.h"
 
-void BattleGround::setMoved(std::vector<SDL_Point> &path)
+void BattleGround::setMoved(std::vector<SDL_Point> &path, bool force)
 {
-	if (gameState.keys.click != RELEASE_CLICK)
+	if (gameState.keys.click != RELEASE_CLICK && !force)
 		return ;
 	movedCharacter.path.clear();
 	for (int i = path.size() - 1; i >= 0; i--)

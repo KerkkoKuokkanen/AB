@@ -9,6 +9,7 @@ typedef struct s_BestMove
 	float score;
 	bool same;
 	SDL_Point pos;
+	std::vector<SDL_Point> tPoints;
 	t_Ability *ability;
 	t_AiCharacter *character;
 }				t_BestMove;
@@ -20,7 +21,7 @@ class AiIterator
 		t_AiCharacter character = {};
 		float startScore = 0.0f;
 		int depth = 0;
-		t_BestMove action = {0.0f, true, {0, 0}, NULL, NULL};
+		t_BestMove action = {0.0f, true, {0, 0}, {}, NULL, NULL};
 		void GetPossibleMoves();
 		void IterateTheMap();
 		void SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap);

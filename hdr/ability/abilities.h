@@ -39,6 +39,7 @@ class Abilities
 		Character *target = NULL;
 		SDL_Point targetPoint = {0, 0};
 		std::vector<SDL_Point> targPoints;
+
 		std::vector<CharacterMover*> misses;
 
 		Selector *selector = NULL;
@@ -100,6 +101,7 @@ class Abilities
 		void SetAbility(t_Ability *ability, Character *character);
 		void SetMap() {groundColoring.SetMap();};
 		void AddMiss(CharacterMover *miss) {misses.push_back(miss);};
+		void SetAiAbilityToAction(t_Ability *ability, Character *character, SDL_Point target, std::vector<SDL_Point> &adds);
 		Character *GetCharacter() {return (character);};
 		t_Animation *GetAnimation(int type);
 		void Upadte();

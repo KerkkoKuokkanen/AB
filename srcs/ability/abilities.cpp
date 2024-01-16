@@ -197,10 +197,26 @@ void Abilities::SetAbility(t_Ability *ability, Character *character)
 	SetSelector(ability, character);
 }
 
+void Abilities::SetAiAbilityToAction(t_Ability *ability, Character *character, SDL_Point target, std::vector<SDL_Point> &adds)
+{
+	gameState.updateObjs.turnOrder->ResetClicks();
+	Clear();
+	active = true;
+	character->moves -= ability->cost;
+	Abilities::target = gameState.battle.ground->map[target.y][target.x].character;
+	targetPoint = target;
+	Abilities::character = character;
+	Abilities::ability = ability;
+	for (int i = 0; i < adds.size(); i++)
+		targPoints.push_back(adds[i]);
+	ActivateAbility(ability, character);
+}
+
 void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 {
 	inMotion = true;
-	gameState.updateObjs.UI->UseEnergy(ability->cost);
+	if (character->ally)
+		gameState.updateObjs.UI->UseEnergy(ability->cost);
 	character->stats.fatigue += ability->fatigue;
 	switch (ability->type)
 	{

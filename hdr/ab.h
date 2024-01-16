@@ -424,6 +424,7 @@ bool CheckForTurnChange();
 
 //AI stuff
 
+bool			SomeOneMoving();
 void			CreateDamageToAiCharacter(t_AiCharacter *character, int damage);
 int				AiOppDamageNumber(t_AiCharacter *target, t_AiCharacter *caster);
 int				AiDamageNumber(t_AiCharacter *target, t_AiCharacter *caster, t_Ability *ability);

@@ -109,6 +109,5 @@ void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUn
 		action.pos = pos;
 		action.score = score;
 		action.same = false;
-		action.character = &character;
 	}
 }

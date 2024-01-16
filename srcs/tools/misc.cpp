@@ -13,3 +13,14 @@ bool CheckForTurnChange()
 	}
 	return(true);
 }
+
+bool SomeOneMoving()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		Character *used = gameState.battle.ground->characters[i].character;
+		if (used->moving)
+			return (true);
+	}
+	return (false);
+}

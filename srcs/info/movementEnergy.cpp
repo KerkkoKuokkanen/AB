@@ -23,6 +23,12 @@ void MovementEnergy::Update()
 			gameState.battle.ground->CancelMovement(gameState.battle.ground->movedCharacter.path[index]);
 			return ;
 		}
-		gameState.updateObjs.UI->UseEnergy(energy, true);
+		if (gameState.battle.ground->movedCharacter.character->ally)
+			gameState.updateObjs.UI->UseEnergy(energy, true);
+		else
+		{
+			gameState.battle.ground->movedCharacter.character->moves -= energy;
+			gameState.battle.ground->movedCharacter.character->stats.fatigue += energy * 1.5f;
+		}
 	}
 }
