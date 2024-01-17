@@ -18,6 +18,8 @@ static bool CheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, SDL_Point pos, 
 		return (false);
 	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character.character == NULL)
 		return (false);
+	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character.alive == false)
+		return (false);
 	return (true);
 }
 
@@ -40,6 +42,27 @@ void AiIterator::HandleAbilityAction(SDL_Point pos, t_Ability *ability)
 	DestroyMap(newMap);
 }
 
+void AiCheckForHosting(t_AiCharacter *character, t_AiMapUnit **map)
+{
+	if (character->statuses.hosting == NULL)
+		return ;
+	Character *hosted = (Character*)character->statuses.hosting;
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			if (map[i][j].character.character == hosted)
+			{
+				map[i][j].character.statuses.hosted = false;
+				character->statuses.hosting = NULL;
+				return ;
+			}
+		}
+	}
+}
+
 void CreateDamageToAiCharacter(t_AiCharacter *character, int damage)
 {
 	int armor = character->armor;
@@ -55,6 +78,30 @@ void CreateDamageToAiCharacter(t_AiCharacter *character, int damage)
 		character->alive = false;
 }
 
+void CheckDeadCharacter(t_AiCharacter *character, t_AiMapUnit **map)
+{
+	if (character->alive)
+		return ;
+	if (character->character->cSing != LION && character->character->cSing != THIEF)
+		return ;
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			if (map[i][j].adds.smoke.parent == character->character)
+				map[i][j].adds.smoke.parent = NULL;
+			if (map[i][j].adds.phantom.parent == character->character)
+			{
+				map[i][j].adds.phantom.isIt = false;
+				map[i][j].adds.phantom.parent = NULL;
+				map[i][j].adds.phantom.turns = 0;
+			}
+		}
+	}
+}
+
 static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Ability *ability, t_AiMapUnit **map)
 {
 	t_AiCharacter *charm = &map[pos.y][pos.x].character;
@@ -64,6 +111,8 @@ static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Abil
 	int damage = AiDamageNumber(charm, damager, ability);
 	damage = rounding((float)damage * ((float)chance / 100.0f));
 	CreateDamageToAiCharacter(charm, damage);
+	AiCheckForHosting(charm, map);
+	CheckDeadCharacter(charm, map);
 }
 
 static void AddAbilityUseCosts(t_Ability *ability, t_AiMapUnit **map, SDL_Point pos)
@@ -102,8 +151,8 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 
 void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap)
 {
-	float score = GetAiScore(newMap, character.character->ally);
-	if (score > action.score)
+	float score = SendToNextOne(newMap, character, 0);
+	if (score < action.score)
 	{
 		action.ability = ability;
 		action.pos = pos;

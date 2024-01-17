@@ -155,6 +155,8 @@ void AiIterator::HandleMoveAfterMath(SDL_Point target, int damage, int fatigue)
 	newMap[target.y][target.x].character.moves -= cost;
 	newMap[target.y][target.x].character.fatigue += fatigue;
 	CreateDamageToAiCharacter(&newMap[target.y][target.x].character, damage);
+	AiCheckForHosting(&newMap[target.y][target.x].character, newMap);
+	CheckDeadCharacter(&newMap[target.y][target.x].character, newMap);
 	SetMoveToAction(target, newMap);
 	DestroyMap(newMap);
 }
@@ -181,8 +183,8 @@ void AiIterator::CheckForMove(SDL_Point pos)
 
 void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 {
-	float score = GetAiScore(newMap, character.character->ally);
-	if (score > action.score)
+	float score = SendToNextOne(newMap, character, 0);
+	if (score < action.score)
 	{
 		action.ability = NULL;
 		action.character = &character;

@@ -21,6 +21,8 @@ bool SomeOneMoving()
 		Character *used = gameState.battle.ground->characters[i].character;
 		if (used->moving)
 			return (true);
+		if (used->damaged)
+			return (true);
 	}
 	return (false);
 }

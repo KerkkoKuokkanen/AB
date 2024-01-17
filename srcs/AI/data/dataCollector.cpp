@@ -206,11 +206,20 @@ t_AiMapUnit **GetTheMap()
 	return (map);
 }
 
+AiIterator *GetAiIterator()
+{
+	return (new AiIterator);
+}
+
+void ReturnAiIterator(AiIterator *iterator)
+{
+	delete iterator;
+}
+
 float GetAiScore(t_AiMapUnit **map, bool ally)
 {
 	float ah = 0.0f;
 	float eh = 0.0f;
-	float fat = 0.0f;
 	int w = gameState.battle.ground->map[0].size();
 	int h = gameState.battle.ground->map.size();
 	for (int i = 0; i < h; i++)
@@ -220,17 +229,18 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 			bool value = IsCharacter(map[i][j]);
 			if (value == false)
 				continue ;
-			if (map[i][j].character.character->ally == ally)
+			if (map[i][j].character.character->ally)
 			{
-				ah += (float)(map[i][j].character.health + map[i][j].character.armor);
-				fat += (float)map[i][j].character.fatigue;
+				if (map[i][j].character.alive)
+					ah += (float)(map[i][j].character.health + map[i][j].character.armor);
 			}
 			else
-				eh += (float)(map[i][j].character.health + map[i][j].character.armor);
+			{
+				if (map[i][j].character.alive)
+					eh += (float)(map[i][j].character.health + map[i][j].character.armor);
+			}
 		}
 	}
-	if (fat < 36.0f)
-		fat = 0.0f;
-	float finalValue = ah - eh - fat;
+	float finalValue = ah - eh;
 	return (finalValue);
 }

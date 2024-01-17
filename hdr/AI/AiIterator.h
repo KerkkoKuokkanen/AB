@@ -12,6 +12,7 @@ typedef struct s_BestMove
 	std::vector<SDL_Point> tPoints;
 	t_Ability *ability;
 	t_AiCharacter *character;
+	Character *norm;
 }				t_BestMove;
 
 class AiIterator
@@ -34,10 +35,20 @@ class AiIterator
 		void HandleMoveAfterMath(SDL_Point target, int damage, int fatigue);
 		void SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map);
 		void SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map);
-		void DoThePassAction();
+		void DoThePassAction(int fromPass);
+		void TurnStartActions();
+		void TurnStartMapEffects();
+		void RoundStartMapChecks();
+		void TurnStartCharacterChecks(t_AiCharacter *character);
+		void TurnEndActions();
+		void TurnEndChecks(t_AiCharacter *character);
+		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter &character, int fromPass);
+		void RemoveDeadCharacter(t_AiMapUnit **newMap);
+		t_AiCharacter *GetCharInMap();
 	public:
-		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter &character, float startScore, int depth);
+		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter &character, float startScore, int depth, int fromPass = 0);
 		t_BestMove GetBestMove() {return(action);};
+		float GetBestScore() {return(action.score);};
 		~AiIterator() {Destroy();};
 		void Destroy();
 };

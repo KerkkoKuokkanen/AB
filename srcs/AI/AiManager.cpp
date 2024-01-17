@@ -19,13 +19,11 @@ t_BestMove CollectData()
 {
 	std::unique_lock<std::mutex> lock(aiMotionMutex);
 	t_BestMove ret = move;
-	ret.same = move.same;
-	move.same = false;
 	dataReady = false;
 	return (ret);
 }
 
-static void SetDataReady(t_BestMove &returned)
+static void SetDataReady(t_BestMove returned)
 {
 	std::unique_lock<std::mutex> lock(aiMotionMutex);
 	move.ability = returned.ability;
@@ -33,6 +31,7 @@ static void SetDataReady(t_BestMove &returned)
 	move.score = returned.score;
 	move.pos = returned.pos;
 	move.character = returned.character;
+	move.norm = returned.character->character;
 	move.tPoints.clear();
 	for (int i = 0; i < returned.tPoints.size(); i++)
 		move.tPoints.push_back(returned.tPoints[i]);
@@ -54,7 +53,7 @@ void AiManagerUpdate()	//funtion only for the Ai thread
 	GetTheStartingTurnForAi(&turn);
 	float startSore = GetAiScore(map, turn.character->ally);
 	AiIterator *used = new AiIterator;
-	used->CalculateMoves(map, turn, startSore, 0);
+	used->CalculateMoves(map, turn, startSore, 1);
 	t_BestMove tester = used->GetBestMove();
 	DeactivateAI();
 	SetDataReady(tester);
@@ -92,10 +91,10 @@ static void HandleDataAction()
 	}
 	if (ret.ability == NULL)
 	{
-		gameState.battle.ground->SetAiMoveAction(ret.pos, ret.character->character->position);
+		gameState.battle.ground->SetAiMoveAction(ret.pos, ret.norm->position);
 		return ;
 	}
-	gameState.updateObjs.abilities->SetAiAbilityToAction(ret.ability, ret.character->character, ret.pos, ret.tPoints);
+	gameState.updateObjs.abilities->SetAiAbilityToAction(ret.ability, ret.norm, ret.pos, ret.tPoints);
 }
 
 void AiManaging() //this function is for the default thread for managing AI

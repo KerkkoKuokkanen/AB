@@ -3,6 +3,8 @@
 
 void AiIterator::GetPossibleMoves()
 {
+	if (character.alive == false)
+		return ;
 	GetAiMapMoves(&character, map);
 }
 
@@ -30,21 +32,105 @@ void AiIterator::SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map)
 	bzero(&map[pos.y][pos.x].character.statuses, sizeof(t_StatusEffects));
 }
 
-void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter &character, float startScore, int depth)
+t_AiCharacter *AiIterator::GetCharInMap()
 {
-	AiIterator::depth = depth - 1;
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			if (map[i][j].character.character == character.character)
+				return (&map[i][j].character);
+		}
+	}
+	return (NULL);
+}
+
+void AiIterator::TurnStartActions()
+{
+	t_AiCharacter *character = GetCharInMap();
+	TurnStartMapEffects();
+	TurnStartCharacterChecks(character);
+}
+
+void AiIterator::DoThePassAction(int fromPass)
+{
+	if (fromPass == 0)
+		return ;
+	if (fromPass == 1)
+	{
+		TurnStartActions();
+		return ;
+	}
+	RoundStartMapChecks();
+	TurnStartActions();
+}
+
+void AiIterator::TurnEndActions()
+{
+	t_AiCharacter *character = GetCharInMap();
+	TurnEndChecks(character);
+	t_AiCharacter *next = NULL;
+	int type = GetNextCharacter(character, next, map);
+	if (next == NULL)
+		return ;
+	t_AiCharacter &send = map[next->position.y][next->position.x].character;
+	float score = SendToNextOne(map, send, type);
+	if (score < action.score)
+	{
+		action.same = true;
+		action.score = score;
+	}
+}
+
+void AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap)
+{
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			if (newMap[i][j].character.alive == false)
+				SetDefaultNoCharacter({j, i}, newMap);
+		}
+	}
+}
+
+float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter &character, int fromPass)
+{
+	float scr = GetAiScore(nmap, character.character->ally);
+	if (depth <= 0)
+		return (scr);
+	RemoveDeadCharacter(nmap);
+	AiIterator *next = GetAiIterator();
+	next->CalculateMoves(nmap, character, scr, depth - 1, fromPass);
+	float ret = next->GetBestScore();
+	return (ret);
+}
+
+void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter &character, float startScore, int depth, int fromPass)
+{
+	AiIterator::depth = depth;
 	AiIterator::character = character;
 	AiIterator::map = map;
 	AiIterator::startScore = startScore;
-	action = {startScore, true};
+	AiIterator::character.position = GetCharInMap()->position;
+	action.score = startScore;
+	action.same = true;
 	action.character = &character;
 	action.pos = character.position;
+	DoThePassAction(fromPass);
 	GetPossibleMoves();
 	IterateTheMap();
+	TurnEndActions();
 }
 
 void AiIterator::IterateTheMap()
 {
+	if (character.alive == false)
+		return ;
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
 	for (int i = 0; i < h; i++)

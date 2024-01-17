@@ -424,6 +424,11 @@ bool CheckForTurnChange();
 
 //AI stuff
 
+int				GetNextCharacter(t_AiCharacter *curr, t_AiCharacter *next, t_AiMapUnit **map);
+void			ReturnAiIterator(AiIterator *iterator);
+AiIterator		*GetAiIterator();
+void			AiCheckForHosting(t_AiCharacter *character, t_AiMapUnit **map);
+void			CheckDeadCharacter(t_AiCharacter *character, t_AiMapUnit **map);
 bool			SomeOneMoving();
 void			CreateDamageToAiCharacter(t_AiCharacter *character, int damage);
 int				AiOppDamageNumber(t_AiCharacter *target, t_AiCharacter *caster);
