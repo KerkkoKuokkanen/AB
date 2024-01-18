@@ -15,6 +15,12 @@ typedef struct s_BestMove
 	Character *norm;
 }				t_BestMove;
 
+typedef struct s_SomeRetShit
+{
+	t_AiCharacter *character;
+	int type;
+}				t_SomeRetShit;
+
 class AiIterator
 {
 	private:

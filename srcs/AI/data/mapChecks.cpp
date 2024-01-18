@@ -132,16 +132,24 @@ static t_AiCharacter *GetNext(int curr, t_AiMapUnit **map)
 	return (next);
 }
 
-int GetNextCharacter(t_AiCharacter *curr, t_AiCharacter *next, t_AiMapUnit **map)
+t_SomeRetShit GetNextCharacter(t_AiCharacter *curr, t_AiCharacter *next, t_AiMapUnit **map)
 {
+	t_SomeRetShit ret = {NULL, 0};
 	int current = GetCurrent(curr);
 	next = GetNext(current, map);
 	if (next == NULL)
-		return (1);
+	{
+		ret = {next, 1};
+		return (ret);
+	}
 	int nesta = GetCurrent(next);
 	if (nesta <= current)
-		return (2);
-	return (1);
+	{
+		ret = {next, 2};
+		return (ret);
+	}
+	ret = {next, 1};
+	return (ret);
 }
 
 /* std::vector<Character*> GetPositionControllers(SDL_Point pos)

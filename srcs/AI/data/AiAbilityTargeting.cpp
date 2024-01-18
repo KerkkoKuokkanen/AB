@@ -152,6 +152,16 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap)
 {
 	float score = SendToNextOne(newMap, character, 0);
+	if (character.character->ally)
+	{
+		if (score > action.score)
+		{
+			action.ability = ability;
+			action.pos = pos;
+			action.score = score;
+			action.same = false;
+		}
+	}
 	if (score < action.score)
 	{
 		action.ability = ability;

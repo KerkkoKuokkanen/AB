@@ -424,7 +424,7 @@ bool CheckForTurnChange();
 
 //AI stuff
 
-int				GetNextCharacter(t_AiCharacter *curr, t_AiCharacter *next, t_AiMapUnit **map);
+t_SomeRetShit	GetNextCharacter(t_AiCharacter *curr, t_AiCharacter *next, t_AiMapUnit **map);
 void			ReturnAiIterator(AiIterator *iterator);
 AiIterator		*GetAiIterator();
 void			AiCheckForHosting(t_AiCharacter *character, t_AiMapUnit **map);

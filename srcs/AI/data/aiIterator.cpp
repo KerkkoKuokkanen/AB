@@ -66,17 +66,26 @@ void AiIterator::DoThePassAction(int fromPass)
 	RoundStartMapChecks();
 	TurnStartActions();
 }
-
+//sprite making
 void AiIterator::TurnEndActions()
-{
+{	///continue from here. Crash here because of the new shit
 	t_AiCharacter *character = GetCharInMap();
 	TurnEndChecks(character);
 	t_AiCharacter *next = NULL;
-	int type = GetNextCharacter(character, next, map);
-	if (next == NULL)
+	t_SomeRetShit ret = GetNextCharacter(character, next, map);
+	if (ret.character == NULL)
 		return ;
-	t_AiCharacter &send = map[next->position.y][next->position.x].character;
-	float score = SendToNextOne(map, send, type);
+	t_AiCharacter &send = map[ret.character->position.y][ret.character->position.x].character;
+	float score = SendToNextOne(map, send, ret.type);
+	if (character->character->ally)
+	{
+		if (score > action.score)
+		{
+			action.same = true;
+			action.score = score;
+		}
+		return ;
+	}
 	if (score < action.score)
 	{
 		action.same = true;

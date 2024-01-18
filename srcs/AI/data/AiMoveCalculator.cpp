@@ -184,6 +184,18 @@ void AiIterator::CheckForMove(SDL_Point pos)
 void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 {
 	float score = SendToNextOne(newMap, character, 0);
+	if (character.character->ally)
+	{
+		if (score > action.score)
+		{
+			action.ability = NULL;
+			action.character = &character;
+			action.pos = pos;
+			action.same = false;
+			action.score = score;
+		}
+		return ;
+	}
 	if (score < action.score)
 	{
 		action.ability = NULL;
