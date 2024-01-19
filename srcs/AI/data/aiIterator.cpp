@@ -66,9 +66,9 @@ void AiIterator::DoThePassAction(int fromPass)
 	RoundStartMapChecks();
 	TurnStartActions();
 }
-//sprite making
+
 void AiIterator::TurnEndActions()
-{	///continue from here. Crash here because of the new shit
+{
 	t_AiCharacter *character = GetCharInMap();
 	TurnEndChecks(character);
 	t_AiCharacter *next = NULL;
@@ -107,7 +107,7 @@ void AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap)
 	}
 }
 
-float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter &character, int fromPass)
+float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter character, int fromPass)
 {
 	float scr = GetAiScore(nmap, character.character->ally);
 	if (depth <= 0)
@@ -119,7 +119,7 @@ float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter &character, in
 	return (ret);
 }
 
-void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter &character, float startScore, int depth, int fromPass)
+void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter character, float startScore, int depth, int fromPass)
 {
 	AiIterator::depth = depth;
 	AiIterator::character = character;
