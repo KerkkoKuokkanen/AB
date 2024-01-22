@@ -14,22 +14,22 @@ static bool CheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, SDL_Point pos, 
 		return (false);
 	if (map[pos.y][pos.x].obj.obj == true)
 		return (false);
-	if (map[pos.y][pos.x].character.character != NULL && ret.characters == false)
+	if (map[pos.y][pos.x].character != NULL && ret.characters == false)
 		return (false);
-	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character.character == NULL)
+	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character == NULL)
 		return (false);
-	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character.alive == false)
+	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character->alive == false)
 		return (false);
 	return (true);
 }
 
 void AiIterator::CheckForAbility(SDL_Point pos)
 {
-	for (int i = 0; i < character.character->abilities.size(); i++)
+	for (int i = 0; i < character->character->abilities.size(); i++)
 	{
-		t_Ability *ability = &character.character->abilities[i];
-		if ((ability->fatigue + character.fatigue) > character.character->stats.maxFatigue ||
-			ability->cost > character.moves || !CheckIfCanHit(map, ability, pos, character.position))
+		t_Ability *ability = &character->character->abilities[i];
+		if ((ability->fatigue + character->fatigue) > character->character->stats.maxFatigue ||
+			ability->cost > character->moves || !CheckIfCanHit(map, ability, pos, character->position))
 			continue ;
 		HandleAbilityAction(pos, ability);
 	}
@@ -53,9 +53,9 @@ void AiCheckForHosting(t_AiCharacter *character, t_AiMapUnit **map)
 	{
 		for (int j = 0; j < w; j++)
 		{
-			if (map[i][j].character.character == hosted)
+			if (map[i][j].character->character == hosted)
 			{
-				map[i][j].character.statuses.hosted = false;
+				map[i][j].character->statuses.hosted = false;
 				character->statuses.hosting = NULL;
 				return ;
 			}
@@ -104,7 +104,7 @@ void CheckDeadCharacter(t_AiCharacter *character, t_AiMapUnit **map)
 
 static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Ability *ability, t_AiMapUnit **map)
 {
-	t_AiCharacter *charm = &map[pos.y][pos.x].character;
+	t_AiCharacter *charm = map[pos.y][pos.x].character;
 	if (charm->character == NULL)
 		return ;
 	int chance = AiGetChance(damager, charm, ability, map);
@@ -117,7 +117,7 @@ static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Abil
 
 static void AddAbilityUseCosts(t_Ability *ability, t_AiMapUnit **map, SDL_Point pos)
 {
-	t_AiCharacter *character = &map[pos.y][pos.x].character;
+	t_AiCharacter *character = map[pos.y][pos.x].character;
 	character->fatigue += ability->fatigue;
 	character->moves -= ability->cost;
 }
@@ -129,19 +129,19 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 	{
 		case DAGGER_THROW:
 		{
-			CreateDamageToPosition(pos, &character, ability, newMap);
+			CreateDamageToPosition(pos, character, ability, newMap);
 			AddAbilityUseCosts(ability, newMap, pos);
 			break ;
 		}
 		case SMOKE_BOMB:
 		{
 			t_LastingEffect *smoke = (t_LastingEffect*)ability->stats;
-			newMap[pos.y][pos.x].adds.smoke = {true, smoke->turns, character.character};
+			newMap[pos.y][pos.x].adds.smoke = {true, smoke->turns, character->character};
 			break ;
 		}
 		case DAGGER_SLASH:
 		{
-			CreateDamageToPosition(pos, &character, ability, newMap);
+			CreateDamageToPosition(pos, character, ability, newMap);
 			AddAbilityUseCosts(ability, newMap, pos);
 			break ;
 		}
@@ -152,7 +152,7 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap)
 {
 	float score = SendToNextOne(newMap, character, 0);
-	if (character.character->ally)
+	if (character->character->ally)
 	{
 		if (score > action.score)
 		{

@@ -10,7 +10,7 @@ Character::Character(int skin, bool allied)
 	top.y = top.y - (float)sprite->dest.y;
 	topMid = {rounding(top.x), rounding(top.y)};
 	statuses.stun = 0;
-	statuses.burns = {3, 3 ,3};
+	statuses.burns = {3, 3, 3};
 	statuses.hosted = false;
 	statuses.hosting = NULL;
 	statuses.buffs = {};

@@ -29,29 +29,42 @@ void CreateTheMoveMaps()
 	}
 }
 
-static void SetTheCharacter(t_AiCharacter *aiChar, Character *character)
+void CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, Character *character)
+{
+	for (int i = 0; i < character->statuses.bleed.size(); i++)
+		aiChar->statuses.bleed.push_back(character->statuses.bleed[i]);
+	for (int i = 0; i < character->statuses.buffs.size(); i++)
+		aiChar->statuses.buffs.push_back(character->statuses.buffs[i]);
+	for (int i = 0; i < character->statuses.burns.size(); i++)
+		aiChar->statuses.burns.push_back(character->statuses.burns[i]);
+	for (int i = 0; i < character->statuses.deBuffs.size(); i++)
+		aiChar->statuses.deBuffs.push_back(character->statuses.deBuffs[i]);
+	for (int i = 0; i < character->statuses.poison.size(); i++)
+		aiChar->statuses.poison.push_back(character->statuses.poison[i]);
+	for (int i = 0; i < character->statuses.toxicBlade.size(); i++)
+		aiChar->statuses.toxicBlade.push_back(character->statuses.toxicBlade[i]);
+	aiChar->statuses.hosting = character->statuses.hosting;
+	aiChar->statuses.hosted = character->statuses.hosted;
+	aiChar->statuses.controlZone = character->statuses.controlZone;
+	aiChar->statuses.stun = character->statuses.stun;
+	aiChar->statuses.slowed = character->statuses.slowed;
+}
+
+static t_AiCharacter *SetTheCharacter(Character *character)
 {
 	if (character == NULL)
-	{
-		aiChar->alive = false;
-		aiChar->armor = 0;
-		aiChar->health = 0;
-		aiChar->fatigue = 0;
-		aiChar->moves = 0;
-		aiChar->position = {0, 0};
-		bzero(&aiChar->statuses, sizeof(t_StatusEffects));
-		aiChar->character = NULL;
-		return ;
-	}
-	aiChar->alive = !character->killed;
-	aiChar->armor = character->stats.armor;
-	aiChar->health = character->stats.health;
-	aiChar->fatigue = character->stats.fatigue;
-	aiChar->moves = character->moves;
-	aiChar->character = character;
-	aiChar->position = character->position;
-	aiChar->statuses = character->statuses;
-	return ;
+		return (NULL);
+	t_AiCharacter *used = new t_AiCharacter;
+	used = new t_AiCharacter;
+	used->alive = !character->killed;
+	used->armor = character->stats.armor;
+	used->health = character->stats.health;
+	used->fatigue = character->stats.fatigue;
+	used->moves = character->moves;
+	used->character = character;
+	used->position = character->position;
+	CopyStatusesFromTheCharacter(used, character);
+	return (used);
 }
 
 static t_AiMapObj SetTheObj(Object *obj)
@@ -68,15 +81,30 @@ static t_AiMapObj SetTheObj(Object *obj)
 	return (ret);
 }
 
-void GetTheStartingTurnForAi(t_AiCharacter *charac)
+t_AiCharacter *GetTheStartingTurnForAi(t_AiMapUnit **map)
 {
 	Character *used = NULL;
 	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
 	{
 		if (gameState.battle.ground->characters[i].character->turn)
+		{
 			used = gameState.battle.ground->characters[i].character;
+			break ;
+		}
 	}
-	SetTheCharacter(charac, used);
+	int w = gameState.battle.ground->map[0].size();
+	int h = gameState.battle.ground->map.size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			if (map[i][j].character == NULL)
+				continue ;
+			if (map[i][j].character->character == used)
+				return (map[i][j].character);
+		}
+	}
+	return (NULL);
 }
 
 static int **GetMoveMap()
@@ -177,7 +205,7 @@ void SetAiDataMapInitial(t_AiMapUnit **map)
 			t_GMU *point = &gameState.battle.ground->map[i][j];
 			map[i][j].blocked = point->blocked;
 			map[i][j].height = point->height;
-			SetTheCharacter(&map[i][j].character, point->character);
+			map[i][j].character = SetTheCharacter(point->character);
 			map[i][j].obj = SetTheObj(point->obj);
 			SetAiMapAdds(map[i][j], {j, i});
 			map[i][j].movable = TOOL_MAP_SIGN;
@@ -187,7 +215,7 @@ void SetAiDataMapInitial(t_AiMapUnit **map)
 
 static bool IsCharacter(t_AiMapUnit &point)
 {
-	if (point.character.character == NULL)
+	if (point.character == NULL)
 		return (false);
 	return (true);
 }
@@ -229,15 +257,15 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 			bool value = IsCharacter(map[i][j]);
 			if (value == false)
 				continue ;
-			if (map[i][j].character.character->ally)
+			if (map[i][j].character->character->ally)
 			{
-				if (map[i][j].character.alive)
-					ah += (float)(map[i][j].character.health + map[i][j].character.armor);
+				if (map[i][j].character->alive)
+					ah += (float)(map[i][j].character->health + map[i][j].character->armor);
 			}
 			else
 			{
-				if (map[i][j].character.alive)
-					eh += (float)(map[i][j].character.health + map[i][j].character.armor);
+				if (map[i][j].character->alive)
+					eh += (float)(map[i][j].character->health + map[i][j].character->armor);
 			}
 		}
 	}

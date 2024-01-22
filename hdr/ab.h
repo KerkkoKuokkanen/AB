@@ -424,6 +424,7 @@ bool CheckForTurnChange();
 
 //AI stuff
 
+void			CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, Character *character);
 t_SomeRetShit	GetNextCharacter(t_AiCharacter *curr, t_AiCharacter *next, t_AiMapUnit **map);
 void			ReturnAiIterator(AiIterator *iterator);
 AiIterator		*GetAiIterator();
@@ -439,7 +440,7 @@ void			AiManaging();
 void			AiManagerUpdate();
 void			CreateTheMoveMaps();
 bool			CheckIfNextToToolBox(SDL_Point pos);
-void			GetTheStartingTurnForAi(t_AiCharacter *charac);
+t_AiCharacter	*GetTheStartingTurnForAi(t_AiMapUnit **map);
 t_AiMapUnit		**GetTheMap();
 float			GetAiScore(t_AiMapUnit **map, bool ally);
 void			GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map);

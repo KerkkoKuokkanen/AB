@@ -18,9 +18,8 @@ static void ManageStatuses(t_AiCharacter *character)
 		character->statuses.burns[i] -= 1;
 		if (character->statuses.burns[i] <= 0)
 		{
-			//this is the bug
-			/* character->statuses.burns.erase(character->statuses.burns.begin() + i);
-			i = (character->statuses.burns.size() == 0) ? 0 : i - 1; */
+			character->statuses.burns.erase(character->statuses.burns.begin() + i);
+			i = (character->statuses.burns.size() == 0) ? 0 : i - 1;
 		}
 	}
 	if (character->statuses.poison.size() != 0)
@@ -41,8 +40,8 @@ static void ManageStatuses(t_AiCharacter *character)
 		character->statuses.bleed[i] -= 1;
 		if (character->statuses.bleed[i] <= 0)
 		{
-			/* character->statuses.bleed.erase(character->statuses.bleed.begin() + i);
-			i = (character->statuses.bleed.size() == 0) ? 0 : i - 1; */
+			character->statuses.bleed.erase(character->statuses.bleed.begin() + i);
+			i = (character->statuses.bleed.size() == 0) ? 0 : i - 1;
 		}
 	}
 	if (character->statuses.stun > 0)
@@ -131,5 +130,7 @@ static void TurnEndStatuses(t_AiCharacter *character)
 
 void AiIterator::TurnEndChecks(t_AiCharacter *character)
 {
+	if (character == NULL)
+		return ;
 	TurnEndStatuses(character);
 }

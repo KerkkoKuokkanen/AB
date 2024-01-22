@@ -35,7 +35,7 @@ static bool AdditionalValidation(SDL_Point pos, t_AiMapUnit **map, bool ally)
 {
 	if (map[pos.y][pos.x].adds.phantom.isIt == false)
 		return (false);
-	if (map[pos.y][pos.x].character.character->ally == ally)
+	if (map[pos.y][pos.x].character->character->ally == ally)
 		return (false);
 	return (true);
 }
@@ -46,15 +46,15 @@ static bool ValidAttacker(SDL_Point pos, t_AiMapUnit **map, bool ally)
 		return (false);
 	if (AdditionalValidation(pos, map, ally))
 		return (true);
-	if (map[pos.y][pos.x].character.character == NULL)
+	if (map[pos.y][pos.x].character == NULL)
 		return (false);
-	if (map[pos.y][pos.x].character.alive == false)
+	if (map[pos.y][pos.x].character->alive == false)
 		return (false);
-	if (map[pos.y][pos.x].character.character->cSing == TOOLS)
+	if (map[pos.y][pos.x].character->character->cSing == TOOLS)
 		return (false);
-	if (map[pos.y][pos.x].character.character->ally == ally)
+	if (map[pos.y][pos.x].character->character->ally == ally)
 		return (false);
-	if (map[pos.y][pos.x].character.statuses.stun != 0)
+	if (map[pos.y][pos.x].character->statuses.stun != 0)
 		return (false);
 	return (true);
 }
@@ -63,19 +63,19 @@ static bool AiOppExtras(SDL_Point pos, t_AiMapUnit **map, bool ally)
 {
 	if (AiCheckSmoked(pos, map))
 		return (false);
-	if (map[pos.y][pos.x].character.character == NULL)
+	if (map[pos.y][pos.x].character == NULL)
 		return (false);
-	if (map[pos.y][pos.x].character.alive == false)
+	if (map[pos.y][pos.x].character->alive == false)
 		return (false);
-	if (map[pos.y][pos.x].character.character->cSing == TOOLS)
+	if (map[pos.y][pos.x].character->character->cSing == TOOLS)
 		return (false);
-	if (map[pos.y][pos.x].character.character->ally == ally)
+	if (map[pos.y][pos.x].character->character->ally == ally)
 		return (false);
-	if (map[pos.y][pos.x].character.statuses.stun != 0)
+	if (map[pos.y][pos.x].character->statuses.stun != 0)
 		return (false);
-	if (map[pos.y][pos.x].character.character->cSing != KNIGHT)
+	if (map[pos.y][pos.x].character->character->cSing != KNIGHT)
 		return (false);
-	if (map[pos.y][pos.x].character.statuses.controlZone <= 0)
+	if (map[pos.y][pos.x].character->statuses.controlZone <= 0)
 		return (false);
 	return (true);
 }
@@ -119,14 +119,14 @@ static void GetAiOppDamagers(std::vector<SDL_Point> &dmgs, t_AiMapUnit **map, SD
 int AiIterator::CheckMovePosition(SDL_Point pos)
 {
 	std::vector<SDL_Point> damagers;
-	GetAiOppDamagers(damagers, map, pos, character.character->ally);
+	GetAiOppDamagers(damagers, map, pos, character->character->ally);
 	if (damagers.size() == 0)
 		return (0);
 	int totalChance = 0;
 	float chanceForHit = 1.0f;
 	for (int i = 0; i < damagers.size(); i++)
 	{
-		int chance = GetChance(map[damagers[i].y][damagers[i].x].character.character, character.character, NULL);
+		int chance = GetChance(map[damagers[i].y][damagers[i].x].character->character, character->character, NULL);
 		totalChance += chance;
 		float chancer = (float)chance / 100.0f;
 		chanceForHit *= (1.0f - chancer);
@@ -137,10 +137,10 @@ int AiIterator::CheckMovePosition(SDL_Point pos)
 	float totalDamage = 0.0f;
 	for (int i = 0; i < damagers.size(); i++)
 	{
-		int chance = GetChance(map[damagers[i].y][damagers[i].x].character.character, character.character, NULL);
+		int chance = GetChance(map[damagers[i].y][damagers[i].x].character->character, character->character, NULL);
 		float chancer = (float)chance / 100.0f;
 		float portion = chancer / (float)totalChance;
-		int damage = AiOppDamageNumber(&character, &map[damagers[i].y][damagers[i].x].character);
+		int damage = AiOppDamageNumber(character, map[damagers[i].y][damagers[i].x].character);
 		totalDamage += ((float)damage * chanceForHit) * portion;
 	}
 	return (rounding(totalDamage));
@@ -149,14 +149,14 @@ int AiIterator::CheckMovePosition(SDL_Point pos)
 void AiIterator::HandleMoveAfterMath(SDL_Point target, int damage, int fatigue)
 {
 	t_AiMapUnit **newMap = GetReplica(map);
-	SetDefaultNoCharacter(character.position, newMap);
-	SetDefaultCharacter(target, &character, newMap);
+	SetDefaultCharacter(target, newMap[character->position.y][character->position.x].character, newMap);
+	SetDefaultNoCharacter(character->position, newMap);
 	int cost = map[target.y][target.x].movable;
-	newMap[target.y][target.x].character.moves -= cost;
-	newMap[target.y][target.x].character.fatigue += fatigue;
-	CreateDamageToAiCharacter(&newMap[target.y][target.x].character, damage);
-	AiCheckForHosting(&newMap[target.y][target.x].character, newMap);
-	CheckDeadCharacter(&newMap[target.y][target.x].character, newMap);
+	newMap[target.y][target.x].character->moves -= cost;
+	newMap[target.y][target.x].character->fatigue += fatigue;
+	CreateDamageToAiCharacter(newMap[target.y][target.x].character, damage);
+	AiCheckForHosting(newMap[target.y][target.x].character, newMap);
+	CheckDeadCharacter(newMap[target.y][target.x].character, newMap);
 	SetMoveToAction(target, newMap);
 	DestroyMap(newMap);
 }
@@ -165,10 +165,10 @@ void AiIterator::CheckForMove(SDL_Point pos)
 {
 	if (map[pos.y][pos.x].movable == TOOL_MAP_SIGN)
 		return ;
-	if (AtGoal(pos, character.position))
+	if (AtGoal(pos, character->position))
 		return ;
 	SDL_Point current = pos;
-	SDL_Point goal = character.position;
+	SDL_Point goal = character->position;
 	int damage = 0;
 	int fatigue = 0;
 	while (!AtGoal(current, goal))
@@ -183,13 +183,13 @@ void AiIterator::CheckForMove(SDL_Point pos)
 
 void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 {
-	float score = SendToNextOne(newMap, character, 0);
-	if (character.character->ally)
+	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, 0);
+	if (character->character->ally)
 	{
 		if (score > action.score)
 		{
 			action.ability = NULL;
-			action.character = &character;
+			action.character = character;
 			action.pos = pos;
 			action.same = false;
 			action.score = score;
@@ -199,7 +199,7 @@ void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 	if (score < action.score)
 	{
 		action.ability = NULL;
-		action.character = &character;
+		action.character = character;
 		action.pos = pos;
 		action.same = false;
 		action.score = score;

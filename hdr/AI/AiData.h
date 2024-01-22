@@ -40,7 +40,7 @@ typedef struct s_AiMapUnit
 {
 	bool blocked;
 	int height;
-	t_AiCharacter character;
+	t_AiCharacter *character;
 	t_AiMapObj obj;
 	t_AiAdds adds;
 	int movable;

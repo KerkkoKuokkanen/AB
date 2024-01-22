@@ -49,7 +49,7 @@ void AiIterator::RoundStartMapChecks()
 
 void AiIterator::TurnStartMapEffects()
 {
-	if (character.character->cSing != LION && character.character->cSing != THIEF)
+	if (character->character->cSing != LION && character->character->cSing != THIEF)
 		return ;
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
@@ -57,7 +57,7 @@ void AiIterator::TurnStartMapEffects()
 	{
 		for (int j = 0; j < w; j++)
 		{
-			if (map[i][j].adds.phantom.parent == character.character)
+			if (map[i][j].adds.phantom.parent == character->character)
 			{
 				map[i][j].adds.phantom.turns -= 1;
 				if (map[i][j].adds.phantom.turns <= 0)
@@ -67,7 +67,7 @@ void AiIterator::TurnStartMapEffects()
 					map[i][j].adds.phantom.turns = 0;
 				}
 			}
-			if (map[i][j].adds.smoke.parent == character.character)
+			if (map[i][j].adds.smoke.parent == character->character)
 			{
 				map[i][j].adds.smoke.turns -= 1;
 				if (map[i][j].adds.smoke.turns <= 0)
@@ -100,10 +100,12 @@ static t_AiCharacter *GetFromMap(Character *character, t_AiMapUnit **map)
 	{
 		for (int j = 0; j < w; j++)
 		{
-			if (map[i][j].character.character == character)
+			if (map[i][j].character == NULL)
+				continue ;
+			if (map[i][j].character->character == character)
 			{
-				if (map[i][j].character.alive)
-					return (&map[i][j].character);
+				if (map[i][j].character->alive)
+					return (map[i][j].character);
 			}
 		}
 	}

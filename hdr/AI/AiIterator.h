@@ -25,7 +25,7 @@ class AiIterator
 {
 	private:
 		t_AiMapUnit **map = NULL;
-		t_AiCharacter character = {};
+		t_AiCharacter *character = NULL;
 		float startScore = 0.0f;
 		int depth = 0;
 		t_BestMove action = {0.0f, true, {0, 0}, {}, NULL, NULL};
@@ -48,11 +48,11 @@ class AiIterator
 		void TurnStartCharacterChecks(t_AiCharacter *character);
 		void TurnEndActions();
 		void TurnEndChecks(t_AiCharacter *character);
-		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter character, int fromPass);
+		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter *character, int fromPass);
 		void RemoveDeadCharacter(t_AiMapUnit **newMap);
 		t_AiCharacter *GetCharInMap();
 	public:
-		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter character, float startScore, int depth, int fromPass = 0);
+		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter *character, float startScore, int depth, int fromPass = 0);
 		t_BestMove GetBestMove() {return(action);};
 		float GetBestScore() {return(action.score);};
 		~AiIterator() {Destroy();};
