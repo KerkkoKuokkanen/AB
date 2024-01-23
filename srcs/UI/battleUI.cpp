@@ -483,7 +483,7 @@ static bool CheckPosForNextTo(SDL_Point pos)
 		return (false);
 	if (point->character != NULL)
 	{
-		if (point->character->ally == false)
+		if (point->character->ally == false && point->character->statuses.stun <= 0)
 			return (true);
 	}
 	if (point->additional.object != NULL)
@@ -491,7 +491,7 @@ static bool CheckPosForNextTo(SDL_Point pos)
 		if (point->additional.type != AdditionalObjects::PHANTOM_KNIGHT)
 			return (false);
 		PhantomKnight *used = (PhantomKnight*)point->additional.object;
-		if (used->character->ally == false)
+		if (used->character->ally == false && used->character->statuses.stun <= 0)
 			return (true);
 	}
 	return (false);

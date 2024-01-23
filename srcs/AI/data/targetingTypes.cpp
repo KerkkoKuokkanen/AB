@@ -50,17 +50,17 @@ int AiOppDamageNumber(t_AiCharacter *target, t_AiCharacter *caster)
 
 t_TargetingType GetAbilityTargetingType(t_Ability *ability)
 {
-	t_TargetingType ret = {0, 0, false, false};
+	t_TargetingType ret = {0, 0, false, false, false};
 	switch (ability->type)
 	{
 		case DAGGER_THROW:
-			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, false};
+			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, false, ability->melee};
 			break ;
 		case DAGGER_SLASH:
-			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, true};
+			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, true, ability->melee};
 			break ;
 		case SMOKE_BOMB:
-			ret = {ability->range, SelectorTypesForAi::TILE_SELECTOR, true, false};
+			ret = {ability->range, SelectorTypesForAi::TILE_SELECTOR, true, false, ability->melee};
 			break ;
 	}
 	return (ret);

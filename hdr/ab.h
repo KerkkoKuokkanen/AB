@@ -245,6 +245,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "UI/battleUI.h"
 # include "AI/AiData.h"
 # include "AI/AiIterator.h"
+# include "AI/AiObjectHolder.h"
 
 enum {
 	THIEF,
@@ -447,6 +448,10 @@ void			GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map);
 t_TargetingType	GetAbilityTargetingType(t_Ability *ability);
 t_AiMapUnit		**GetReplica(t_AiMapUnit **map);
 void			DestroyMap(t_AiMapUnit **map);
+void			InitObjHolder();
+t_AiMapUnit		**GetMapFromHolder();
+t_AiCharacter	*GetAiCharacterFromHolder();
+void			ReturnAiIterator(AiIterator *iterator);
 
 //audio
 

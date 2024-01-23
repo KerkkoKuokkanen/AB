@@ -40,6 +40,7 @@ void StartBattle()
 	backGround->ColorMod(28, 28, 28);
 	gameState.render->AddSprite(backGround, BACK_GROUND);
 	CreateTheMoveMaps();
+	InitObjHolder();
 }
 
 int MainLoop()

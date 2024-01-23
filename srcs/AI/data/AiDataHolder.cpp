@@ -1,5 +1,15 @@
 
 #include "../../../hdr/global.h"
+#define FREE_CHARS_SIZE 80
+#define FREE_MAPS_SIZE 50
+#define ITERATOR_SIZE 500
+
+static AiObjHolder objHolder;
+
+void InitObjHolder()
+{
+	objHolder.Init();
+}
 
 static void CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, t_AiCharacter *character)
 {
@@ -26,7 +36,7 @@ static t_AiCharacter *SetTheCharacter(t_AiCharacter *character)
 {
 	if (character == NULL)
 		return (NULL);
-	t_AiCharacter *used = new t_AiCharacter;
+	t_AiCharacter *used = objHolder.GetCharacter();
 	used = new t_AiCharacter;
 	used->alive = character->alive;
 	used->armor = character->armor;
@@ -39,14 +49,36 @@ static t_AiCharacter *SetTheCharacter(t_AiCharacter *character)
 	return (used);
 }
 
+t_AiMapUnit **GetMapFromHolder()
+{
+	t_AiMapUnit **ret = objHolder.GetMap();
+	return (ret);
+}
+
+t_AiCharacter *GetAiCharacterFromHolder()
+{
+	t_AiCharacter *ret = objHolder.GetCharacter();
+	return (ret);
+}
+
+AiIterator *GetAiIterator()
+{
+	AiIterator *ret = objHolder.GetIterator();
+	return (ret);
+}
+
+void ReturnAiIterator(AiIterator *iterator)
+{
+	objHolder.ReturnAiIterator(iterator);
+}
+
 t_AiMapUnit **GetReplica(t_AiMapUnit **map)
 {
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
-	t_AiMapUnit **ret = (t_AiMapUnit**)malloc(sizeof(t_AiMapUnit*) * h);
+	t_AiMapUnit **ret = objHolder.GetMap();
 	for (int i = 0; i < h; i++)
 	{
-		ret[i] = (t_AiMapUnit*)malloc(sizeof(t_AiMapUnit) * w);
 		for (int j = 0; j < w; j++)
 		{
 			ret[i][j].blocked = map[i][j].blocked;
@@ -62,6 +94,34 @@ t_AiMapUnit **GetReplica(t_AiMapUnit **map)
 
 void DestroyMap(t_AiMapUnit **map)
 {
+	objHolder.ReturnMap(map);
+}
+
+static t_AiMapUnit **GetTheMapForHolder()
+{
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	t_AiMapUnit **map = (t_AiMapUnit**)malloc(sizeof(t_AiMapUnit*) * h);
+	for (int i = 0; i < h; i++)
+	{
+		map[i] = (t_AiMapUnit*)malloc(sizeof(t_AiMapUnit) * w);
+		bzero(map[i], sizeof(t_AiMapUnit) * w);
+	}
+	return (map);
+}
+
+static void ResetCharacter(t_AiCharacter *character)
+{
+	character->statuses.bleed.clear();
+	character->statuses.buffs.clear();
+	character->statuses.burns.clear();
+	character->statuses.deBuffs.clear();
+	character->statuses.poison.clear();
+	character->statuses.toxicBlade.clear();
+}
+
+void AiObjHolder::ReturnMap(t_AiMapUnit **map)
+{
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
 	for (int i = 0; i < h; i++)
@@ -69,10 +129,74 @@ void DestroyMap(t_AiMapUnit **map)
 		for (int j = 0; j < w; j++)
 		{
 			if (map[i][j].character != NULL)
-				delete (map[i][j].character);
+			{
+				ResetCharacter(map[i][j].character);
+				freeCharacters.push_back(map[i][j].character);
+				map[i][j].character = NULL;
+			}
 		}
 	}
-	for (int i = 0; i < h; i++)
-		free(map[i]);
-	free(map);
+	freeMaps.push_back(map);
+}
+
+t_AiCharacter *AiObjHolder::GetCharacter()
+{
+	if (freeCharacters.size() > 0)
+	{
+		t_AiCharacter *ret = freeCharacters.back();
+		freeCharacters.pop_back();
+		return (ret);
+	}
+	t_AiCharacter *ret = new t_AiCharacter;
+	bzero(ret, sizeof(t_AiCharacter));
+	return (ret);
+}
+
+t_AiMapUnit **AiObjHolder::GetMap()
+{
+	if (freeMaps.size() > 0)
+	{
+		t_AiMapUnit **ret = freeMaps.back();
+		freeMaps.pop_back();
+		return (ret);
+	}
+	t_AiMapUnit **ret = GetTheMap();
+	return (ret);
+}
+
+void AiObjHolder::ReturnAiIterator(AiIterator *itertor)
+{
+	freeIterators.push_back(itertor);
+}
+
+AiIterator *AiObjHolder::GetIterator()
+{
+	if (freeIterators.size() > 0)
+	{
+		AiIterator *ret = freeIterators.back();
+		freeIterators.pop_back();
+		return (ret);
+	}
+	AiIterator *ret = new AiIterator;
+	return (ret);
+}
+
+void AiObjHolder::Init()
+{
+	for (int i = 0; i < FREE_MAPS_SIZE; i++)
+	{
+		t_AiMapUnit **map = GetTheMapForHolder();
+		freeMaps.push_back(map);
+	}
+	for (int i = 0; i < FREE_CHARS_SIZE; i++)
+	{
+		t_AiCharacter *character = new t_AiCharacter;
+		bzero(character, sizeof(t_AiCharacter));
+		freeCharacters.push_back(character);
+	}
+	for (int i = 0; i < ITERATOR_SIZE; i++)
+	{
+		AiIterator *iter = new AiIterator;
+		freeIterators.push_back(iter);
+	}
 }

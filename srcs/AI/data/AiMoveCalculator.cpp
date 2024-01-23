@@ -163,6 +163,8 @@ void AiIterator::HandleMoveAfterMath(SDL_Point target, int damage, int fatigue)
 
 void AiIterator::CheckForMove(SDL_Point pos)
 {
+	if (moveMoves <= 0)
+		return ;
 	if (map[pos.y][pos.x].movable == TOOL_MAP_SIGN)
 		return ;
 	if (AtGoal(pos, character->position))
@@ -183,7 +185,7 @@ void AiIterator::CheckForMove(SDL_Point pos)
 
 void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 {
-	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, 0);
+	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, 0, moveMoves - 1);
 	if (character->character->ally)
 	{
 		if (score > action.score)

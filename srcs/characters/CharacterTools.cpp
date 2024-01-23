@@ -187,7 +187,7 @@ void Character::AssignAbilities()
 		case THIEF:
 			stats = {18, 24, 9, 160, 160, 110, 110, 90, 0, 3, 1};
 			abilities = {{DAGGER_THROW, 3, 15, 11, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 90, 5, false, true, NULL},
-						{SMOKE_BOMB, 4, 20, 7, 200, StatStructs::LASTING_EFFECT, -1, 0, 0, false, true, NULL},
+						{SMOKE_BOMB, 4, 20, 7, 200, StatStructs::LASTING_EFFECT, -1, 0, 0, true, true, NULL},
 						{DAGGER_SLASH, 2, 10, 2, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 100, 5, true, true, NULL}};
 			AssingDefaultThiefStats(abilities);
 			break ;

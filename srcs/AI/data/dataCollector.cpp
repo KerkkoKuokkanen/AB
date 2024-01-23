@@ -54,7 +54,7 @@ static t_AiCharacter *SetTheCharacter(Character *character)
 {
 	if (character == NULL)
 		return (NULL);
-	t_AiCharacter *used = new t_AiCharacter;
+	t_AiCharacter *used = GetAiCharacterFromHolder();
 	used = new t_AiCharacter;
 	used->alive = !character->killed;
 	used->armor = character->stats.armor;
@@ -224,24 +224,9 @@ t_AiMapUnit **GetTheMap()
 {
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
-	t_AiMapUnit **map = (t_AiMapUnit**)malloc(sizeof(t_AiMapUnit*) * h);
-	for (int i = 0; i < h; i++)
-	{
-		map[i] = (t_AiMapUnit*)malloc(sizeof(t_AiMapUnit) * w);
-		bzero(map[i], sizeof(t_AiMapUnit) * w);
-	}
+	t_AiMapUnit **map = GetMapFromHolder();
 	SetAiDataMapInitial(map);
 	return (map);
-}
-
-AiIterator *GetAiIterator()
-{
-	return (new AiIterator);
-}
-
-void ReturnAiIterator(AiIterator *iterator)
-{
-	delete iterator;
 }
 
 float GetAiScore(t_AiMapUnit **map, bool ally)

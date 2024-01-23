@@ -65,7 +65,7 @@ void AiIterator::TurnEndActions()
 	t_SomeRetShit ret = GetNextCharacter(character, next, map);
 	if (ret.character == NULL)
 		return ;
-	float score = SendToNextOne(map, map[ret.character->position.y][ret.character->position.x].character, ret.type);
+	float score = SendToNextOne(map, map[ret.character->position.y][ret.character->position.x].character, ret.type, 2);
 	if (character->character->ally)
 	{
 		if (score > action.score)
@@ -101,24 +101,27 @@ void AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap)
 	}
 }
 
-float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int fromPass)
+float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int fromPass, int movered)
 {
 	float scr = GetAiScore(nmap, character->character->ally);
 	if (depth <= 0)
 		return (scr);
 	RemoveDeadCharacter(nmap); //I need to check that the character that we send next is not null
 	AiIterator *next = GetAiIterator();
-	next->CalculateMoves(nmap, character, scr, depth - 1, fromPass);
+	next->CalculateMoves(nmap, character, scr, depth - 1, movered, fromPass);
 	float ret = next->GetBestScore();
+	ReturnAiIterator(next);
 	return (ret);
 }
 
-void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, float startScore, int depth, int fromPass)
+void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, float startScore, int depth, int moveMoves, int fromPass)
 {
+//	auto startTime = std::chrono::high_resolution_clock::now();
 	AiIterator::depth = depth;
 	AiIterator::character = character;
 	AiIterator::map = map;
 	AiIterator::startScore = startScore;
+	AiIterator::moveMoves = moveMoves;
 	action.score = startScore;
 	action.same = true;
 	action.character = character;
@@ -132,6 +135,9 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, floa
 	GetPossibleMoves();
 	IterateTheMap();
 	TurnEndActions();
+	/* auto currentTime = std::chrono::high_resolution_clock::now();
+	auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(currentTime - startTime).count();
+	std::cout << "Delta Time pass: " << deltaTime << " ass" << std::endl; */
 }
 
 void AiIterator::IterateTheMap()

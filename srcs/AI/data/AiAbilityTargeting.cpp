@@ -1,6 +1,11 @@
 
 #include "../../../hdr/global.h"
 
+static bool CheckForNotMelee(t_AiMapUnit **map, t_Ability *ability, bool ally)
+{
+
+}
+
 static bool CheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, SDL_Point pos, SDL_Point start)
 {
 	t_TargetingType ret = GetAbilityTargetingType(ability);
@@ -14,6 +19,7 @@ static bool CheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, SDL_Point pos, 
 		return (false);
 	if (map[pos.y][pos.x].obj.obj == true)
 		return (false);
+	//need to add the melee check
 	if (map[pos.y][pos.x].character != NULL && ret.characters == false)
 		return (false);
 	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character == NULL)
@@ -129,20 +135,21 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 	{
 		case DAGGER_THROW:
 		{
+			AddAbilityUseCosts(ability, newMap, character->position);
 			CreateDamageToPosition(pos, character, ability, newMap);
-			AddAbilityUseCosts(ability, newMap, pos);
 			break ;
 		}
 		case SMOKE_BOMB:
 		{
+			AddAbilityUseCosts(ability, newMap, character->position);
 			t_LastingEffect *smoke = (t_LastingEffect*)ability->stats;
 			newMap[pos.y][pos.x].adds.smoke = {true, smoke->turns, character->character};
 			break ;
 		}
 		case DAGGER_SLASH:
 		{
+			AddAbilityUseCosts(ability, newMap, character->position);
 			CreateDamageToPosition(pos, character, ability, newMap);
-			AddAbilityUseCosts(ability, newMap, pos);
 			break ;
 		}
 	}
@@ -151,7 +158,7 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 
 void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap)
 {
-	float score = SendToNextOne(newMap, character, 0);
+	float score = SendToNextOne(newMap, character, 0, moveMoves);
 	if (character->character->ally)
 	{
 		if (score > action.score)

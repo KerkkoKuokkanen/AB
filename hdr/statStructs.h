@@ -215,6 +215,7 @@ typedef struct s_TargetingType
 	int targetType;
 	bool characters;
 	bool staticSearch;
+	bool melee;
 }				t_TargetingType;
 
 #endif
