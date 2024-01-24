@@ -1,12 +1,56 @@
 
 #include "../../../hdr/global.h"
 
-static bool CheckForNotMelee(t_AiMapUnit **map, t_Ability *ability, bool ally)
+static int AiGetXToRight(SDL_Point pos)
 {
-
+	int modder = (pos.y % 2 == 0) ? 0 : 1;
+	return (pos.x + modder);
 }
 
-static bool CheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, SDL_Point pos, SDL_Point start)
+static int AiGetXToLeft(SDL_Point pos)
+{
+	int modder = (pos.y % 2 == 0) ? -1 : 0;
+	return (pos.x + modder);
+}
+
+static bool AiValidChecker(SDL_Point pos)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return (false);
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return (false);
+	return (true);
+}
+
+static bool CheckForMeleePos(t_AiMapUnit **map, SDL_Point pos, bool ally)
+{
+	if (!AiValidChecker(pos))
+		return (false);
+	if (map[pos.y][pos.x].character == NULL)
+		return (false);
+	if (map[pos.y][pos.x].character->character->ally != ally)
+		return (true);
+	return (false);
+}
+
+static bool CheckForNotMelee(t_AiMapUnit **map, t_Ability *ability, SDL_Point pos, bool ally)
+{
+	if (ability->melee)
+		return (false);
+	int left = AiGetXToLeft(pos);
+	int right = AiGetXToRight(pos);
+	if (CheckForMeleePos(map, {left, pos.y - 1}, ally))
+		return (true);
+	if (CheckForMeleePos(map, {left, pos.y + 1}, ally))
+		return (true);
+	if (CheckForMeleePos(map, {right, pos.y - 1}, ally))
+		return (true);
+	if (CheckForMeleePos(map, {right, pos.y + 1}, ally))
+		return (true);
+	return (false);
+}
+
+static bool CheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, t_AiCharacter *character, SDL_Point pos, SDL_Point start)
 {
 	t_TargetingType ret = GetAbilityTargetingType(ability);
 	int range = ret.range;
@@ -19,7 +63,8 @@ static bool CheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, SDL_Point pos, 
 		return (false);
 	if (map[pos.y][pos.x].obj.obj == true)
 		return (false);
-	//need to add the melee check
+	if (CheckForNotMelee(map, ability, character->position, character->character->ally))
+		return (false);
 	if (map[pos.y][pos.x].character != NULL && ret.characters == false)
 		return (false);
 	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character == NULL)
@@ -35,7 +80,7 @@ void AiIterator::CheckForAbility(SDL_Point pos)
 	{
 		t_Ability *ability = &character->character->abilities[i];
 		if ((ability->fatigue + character->fatigue) > character->character->stats.maxFatigue ||
-			ability->cost > character->moves || !CheckIfCanHit(map, ability, pos, character->position))
+			ability->cost > character->moves || !CheckIfCanHit(map, ability, character, pos, character->position))
 			continue ;
 		HandleAbilityAction(pos, ability);
 	}
