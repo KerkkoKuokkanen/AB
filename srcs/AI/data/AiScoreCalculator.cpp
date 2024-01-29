@@ -1,7 +1,7 @@
 #include "../../../hdr/global.h"
 #define HEALTH_MULTI 1.0f
 #define FAT_MULTI 0.3f
-#define IND_HEALTH_MULTI 0.8f
+#define IND_HEALTH_MULTI 0.9f
 
 static std::vector<t_AiCharacter*> charQ;
 

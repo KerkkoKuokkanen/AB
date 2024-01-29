@@ -203,6 +203,14 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 
 void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap)
 {
+	if (!secondLap)
+	{
+		float score = GetAiScore(newMap, true);
+		moveSaves.push_back({iterationLoop, ability->type, score});
+		return ;
+	}
+	if (!InSaves(iterationLoop, ability->type))
+		return ;
 	float score = SendToNextOne(newMap, character, 0, moveMoves);
 	if (character->character->ally)
 	{

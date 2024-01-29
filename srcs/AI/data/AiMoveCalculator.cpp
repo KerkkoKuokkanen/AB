@@ -185,6 +185,14 @@ void AiIterator::CheckForMove(SDL_Point pos)
 
 void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 {
+	if (!secondLap)
+	{
+		float score = GetAiScore(newMap, true);
+		moveSaves.push_back({iterationLoop, -1, score});
+		return ;
+	}
+	if (!InSaves(iterationLoop, (-1)))
+		return ;
 	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, 0, moveMoves - 1);
 	if (character->character->ally)
 	{

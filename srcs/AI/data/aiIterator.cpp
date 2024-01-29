@@ -116,7 +116,8 @@ float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, in
 
 void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, float startScore, int depth, int moveMoves, int fromPass)
 {
-//	auto startTime = std::chrono::high_resolution_clock::now();
+	moveSaves.clear();
+	secondLap = false;
 	AiIterator::depth = depth;
 	AiIterator::character = character;
 	AiIterator::map = map;
@@ -134,10 +135,9 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, floa
 	DoThePassAction(fromPass);
 	GetPossibleMoves();
 	IterateTheMap();
+	ParseMoveSaves();
+	IterateTheMap();
 	TurnEndActions();
-	/* auto currentTime = std::chrono::high_resolution_clock::now();
-	auto deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(currentTime - startTime).count();
-	std::cout << "Delta Time pass: " << deltaTime << " ass" << std::endl; */
 }
 
 void AiIterator::IterateTheMap()
@@ -146,6 +146,7 @@ void AiIterator::IterateTheMap()
 		return ;
 	if (character->alive == false)
 		return ;
+	iterationLoop = 0;
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
 	for (int i = 0; i < h; i++)
@@ -154,8 +155,19 @@ void AiIterator::IterateTheMap()
 		{
 			CheckForAbility({j, i});
 			CheckForMove({j, i});
+			iterationLoop++;
 		}
 	}
+}
+
+bool AiIterator::InSaves(int iterNum, int type)
+{
+	for (int i = 0; i < moveSaves.size(); i++)
+	{
+		if (moveSaves[i].iteration == iterNum && moveSaves[i].abilitySign == type)
+			return (true);
+	}
+	return (false);
 }
 
 void AiIterator::Destroy()

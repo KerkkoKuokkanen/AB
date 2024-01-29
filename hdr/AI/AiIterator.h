@@ -21,14 +21,24 @@ typedef struct s_SomeRetShit
 	int type;
 }				t_SomeRetShit;
 
+typedef struct s_MoveIter
+{
+	int iteration;
+	int abilitySign;
+	float score;
+}				t_MoveIter;
+
 class AiIterator
 {
 	private:
+		std::vector<t_MoveIter> moveSaves = {};
 		t_AiMapUnit **map = NULL;
 		t_AiCharacter *character = NULL;
 		float startScore = 0.0f;
 		int depth = 0;
 		int moveMoves = 0;
+		int iterationLoop = 0;
+		bool secondLap = false;
 		t_BestMove action = {0.0f, true, {0, 0}, {}, NULL, NULL};
 		void GetPossibleMoves();
 		void IterateTheMap();
@@ -51,6 +61,8 @@ class AiIterator
 		void TurnEndChecks(t_AiCharacter *character);
 		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter *character, int fromPass, int movered);
 		void RemoveDeadCharacter(t_AiMapUnit **newMap);
+		void ParseMoveSaves();
+		bool InSaves(int iterNum, int type);
 		t_AiCharacter *GetCharInMap();
 	public:
 		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter *character, float startScore, int depth, int moveMoves, int fromPass = 0);
