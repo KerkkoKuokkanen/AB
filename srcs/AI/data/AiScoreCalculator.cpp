@@ -1,7 +1,7 @@
 #include "../../../hdr/global.h"
 #define HEALTH_MULTI 1.0f
 #define FAT_MULTI 0.3f
-#define IND_HEALTH_MULTI 0.9f
+#define IND_HEALTH_MULTI 1.2f
 
 static std::vector<t_AiCharacter*> charQ;
 
@@ -121,6 +121,7 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 	charQ.clear();
 	float healthScore = GetHealthScore(map);
 	SDL_FPoint indEval = GetIndividualScores(map);
-	float finalScore = healthScore + indEval.x + indEval.y;
+	float posScore = GetAiPositionScore(charQ, map);
+	float finalScore = healthScore + indEval.x + indEval.y + posScore;
 	return (finalScore);
 }

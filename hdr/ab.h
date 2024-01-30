@@ -452,6 +452,7 @@ void			InitObjHolder();
 t_AiMapUnit		**GetMapFromHolder();
 t_AiCharacter	*GetAiCharacterFromHolder();
 void			ReturnAiIterator(AiIterator *iterator);
+float			GetAiPositionScore(std::vector<t_AiCharacter*> &CQ, t_AiMapUnit **map);
 
 //audio
 
