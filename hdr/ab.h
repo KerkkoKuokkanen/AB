@@ -76,7 +76,8 @@ enum {
 	CONTROL_ZONE,
 	ACID_RAIN,
 	TELEPORT,
-	HEALTH_TRANSFER
+	HEALTH_TRANSFER,
+	SKELE_MELEE
 };
 
 namespace StatusSigns
@@ -208,6 +209,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/smithBuff.h"
 # include "ability/animation/hammerSmack.h"
 # include "ability/animation/slowBomb.h"
+# include "ability/animation/skeleMelee.h"
 # include "ability/animation/incinerateAnim.h"
 # include "ability/animation/flameBlast.h"
 # include "ability/animation/phantomAnim.h"

@@ -186,6 +186,9 @@ void CharacterUI::GetAbilities()
 			case HEALTH_TRANSFER:
 				CreateButton(dest, gameState.textures.witchAbilities[2], HEALTH_TRANSFER, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
 				break ;
+			default :
+				CreateButton(dest, gameState.textures.thiefAbilites[0], activeCharacter->abilities[i].type, activeCharacter->abilities[i].cost, activeCharacter->abilities[i].fatigue);
+				break ;
 		}
 	}
 }

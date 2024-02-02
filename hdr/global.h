@@ -329,6 +329,8 @@ typedef struct s_AttackTextures
 	SDL_Texture *glows[3];
 	SDL_Texture *rainDrop;
 	SDL_Texture *heartBeat[2];
+	SDL_Texture *sekeleMelee;
+	SDL_Texture *skeleLunge;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites

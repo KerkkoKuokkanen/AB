@@ -492,6 +492,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.phantLions[1] = get_texture(rend, "sprites/characters/lion/p2.png");
 	gameState.textures.chars.phantLions[2] = get_texture(rend, "sprites/characters/lion/p3.png");
 	gameState.textures.stands.toolsStand = get_texture(rend, "sprites/characters/blacksmith/toolBoxStand.png");
+	gameState.textures.attacks.sekeleMelee = get_texture(rend, "sprites/characters/skelegrab.png");
+	gameState.textures.attacks.skeleLunge = get_texture(rend, "sprites/characters/skeleLunge.png");
 }
 
 void CraeteAudioThread()

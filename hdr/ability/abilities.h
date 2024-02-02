@@ -86,6 +86,7 @@ class Abilities
 		void HandleDamageVector(std::vector<t_HitReturn> &ret);
 		void UpdateMisses();
 		void UpdateSmithAnimation(t_Animation &anim, int index);
+		void UpdateEnemyAnimationOne(t_Animation &anim, int index);
 		void UpdateMageAnimation(t_Animation &anim, int index);
 		void UpdateRaiderAnimation(t_Animation &anim, int index);
 		void UpdateMageObject(t_Object &object, int index);

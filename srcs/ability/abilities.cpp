@@ -182,6 +182,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 			selectorQueue->AddNextSelectorWithTarget(true, {-1, -1}, stats->secondRange, 0, false, false, true, stats->enemy, CheckForMaxHealth);
 			break ;
 		}
+		case SKELE_MELEE:
+			selector = new Selector(character->position, ability->range, 0, &groundColoring, true);
+			break ;
 	}
 }
 
@@ -327,6 +330,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			animations.push_back({new HeartBeat(character, used), HEALTH_TRANSFER});
 			break ;
 		}
+		case SKELE_MELEE:
+			animations.push_back({new SkeleMeleeAnim(character, target), SKELE_MELEE});
+			break ;
 	}
 }
 
@@ -529,6 +535,9 @@ void Abilities::AnimationUpdater()
 				break ;
 			case WITCH:
 				UpdateWitchAnimation(animations[i], i);
+				break ;
+			case SKELE:
+				UpdateEnemyAnimationOne(animations[i], i);
 				break ;
 		}
 	}

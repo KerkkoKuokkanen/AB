@@ -44,7 +44,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/AI/data/mapChecks.cpp srcs/AI/AiManager.cpp srcs/AI/data/aiIterator.cpp srcs/AI/data/targetingTypes.cpp \
 		srcs/AI/data/AiAbilityTargeting.cpp srcs/AI/data/AiDataHolder.cpp srcs/tools/misc.cpp srcs/AI/data/AiMoveCalculator.cpp \
 		srcs/AI/chances/AiChances.cpp srcs/AI/data/AiStatusChecks.cpp srcs/AI/data/AiScoreCalculator.cpp \
-		srcs/AI/data/CheckAiSaves.cpp srcs/AI/data/AiPositionScore.cpp
+		srcs/AI/data/CheckAiSaves.cpp srcs/AI/data/AiPositionScore.cpp srcs/ability/animation/skeleMelee.cpp \
+		srcs/ability/switches/enemyUpdatesOne.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

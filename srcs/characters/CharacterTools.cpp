@@ -180,6 +180,14 @@ static void AssingDefaultWitchAbilities(std::vector<t_Ability> &stats)
 	stat2->enemy = false;
 }
 
+static void AssignDefaultSkeleStats(std::vector<t_Ability> &stats)
+{
+	stats[0].stats = (void*)malloc(sizeof(t_AttackStruct));
+	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
+	stat0->critChance = 2;
+	stat0->damage = 100;
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
@@ -192,6 +200,9 @@ void Character::AssignAbilities()
 			AssingDefaultThiefStats(abilities);
 			break ;
 		case SKELE:
+			stats = {22, 29, 3, 140, 140, 70, 70, 130, 3, 0};
+			abilities = {{SKELE_MELEE, 3, 15, 2, 80, StatStructs::ATTACK_STRUCT, -1, 100, 2, true, true, NULL}};
+			AssignDefaultSkeleStats(abilities);
 			break ;
 		case PYRO:
 			stats = {28, 35, 5, 120, 120, 70, 70, 90, 0, 2, 1};
