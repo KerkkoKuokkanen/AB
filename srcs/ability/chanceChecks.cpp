@@ -76,11 +76,35 @@ static int GetTheBaseChance(Character *character, Character *target, t_Ability *
 	return (baseChance);
 }
 
+static int CheckOppChancers(Character *character, t_Ability *ability, int ret)
+{
+	if (ability != NULL)
+		return (ret);
+	float amount = 1.0f;
+	float currMax = 0.0f;
+	for (int i = 0; i < character->statuses.buffs.size(); i++)
+	{
+		if (character->statuses.buffs[i].type != BuffTypes::OPPORTUNITY_ACCURACY)
+			continue ;
+		float adder = (float)character->statuses.buffs[i].amount;
+		if (currMax < adder)
+			currMax = adder;
+	}
+	if ((int)currMax == 0)
+		return (ret);
+	currMax /= 100.0f;
+	amount += currMax;
+	float returner = (float)ret;
+	returner *= amount;
+	return (rounding(returner));
+}
+
 int GetChance(Character *character, Character *target, t_Ability *ability)
 {
 	int ret = GetTheBaseChance(character, target, ability);
 	ret += RangedChance(character, target);
 	ret = ChanceModifiers(character, target, ret);
+	ret = CheckOppChancers(character, ability, ret);
 	ret = (ability == NULL) ? ret : SmokeChecker(character, ret);
 	if (ret > 95)
 		ret = 95;

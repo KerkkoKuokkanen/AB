@@ -179,6 +179,7 @@ void getAudio()
 	gameState.audio.heartBeat = Mix_LoadWAV("audio/abilities/witch/heartBeat.wav");
 	gameState.audio.healPart = Mix_LoadWAV("audio/abilities/witch/helly.wav");
 	gameState.audio.criticalHit = Mix_LoadWAV("audio/effects/criticalHit.wav");
+	gameState.audio.skeleMelee = Mix_LoadWAV("audio/abilities/skele/skeleMelee.wav");
 }
 
 void getFonts()
@@ -493,7 +494,9 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.phantLions[2] = get_texture(rend, "sprites/characters/lion/p3.png");
 	gameState.textures.stands.toolsStand = get_texture(rend, "sprites/characters/blacksmith/toolBoxStand.png");
 	gameState.textures.attacks.sekeleMelee = get_texture(rend, "sprites/characters/skelegrab.png");
-	gameState.textures.attacks.skeleLunge = get_texture(rend, "sprites/characters/skeleLunge.png");
+	use = get_texture_and_surface(rend, "sprites/characters/skeleLunge.png");
+	gameState.textures.attacks.skeleLunge = use.text;
+	gameState.surfaces.skeleLunge = use.sur;
 }
 
 void CraeteAudioThread()

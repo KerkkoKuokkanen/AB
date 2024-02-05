@@ -25,11 +25,13 @@ class ThrowArch
 		void UpdatePosition();
 		void PlaceSprite();
 		bool CheckIfDone();
+		float goalMagnitude = 500.0f;
 	public:
 		bool done = false;
 		ThrowArch(Sprite *sprite, SDL_Point start, SDL_Point end, float maxDist, float speed);
 		~ThrowArch() {Destroy();};
 		void Update();
+		void SetGoalMagnitude(float mag) {goalMagnitude = mag;};
 		void Destroy();
 };
 

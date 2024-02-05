@@ -257,6 +257,7 @@ typedef struct s_Surfaces
 	SDL_Surface *witchIdle1;
 	SDL_Surface *witchIdle2;
 	SDL_Surface *toolBox;
+	SDL_Surface *skeleLunge;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -465,6 +466,7 @@ typedef struct s_Audio
 	Mix_Chunk *heartBeat;
 	Mix_Chunk *healPart;
 	Mix_Chunk *criticalHit;
+	Mix_Chunk *skeleMelee;
 }				t_Audio;
 
 typedef struct s_Fonts

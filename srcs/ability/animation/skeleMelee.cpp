@@ -27,6 +27,7 @@ void SkeleMeleeAnim::UpdateSprite(int ret)
 {
 	if (ret == 4)
 	{
+		PlaySound(gameState.audio.skeleMelee, Channels::VOLUME_12, 0);
 		character->sprite->dest.y -= 600;
 		character->sprite->dest.x -= 400;
 		character->sprite->setTexture(gameState.textures.attacks.sekeleMelee);

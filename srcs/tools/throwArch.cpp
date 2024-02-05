@@ -63,7 +63,7 @@ void ThrowArch::PlaceSprite()
 bool ThrowArch::CheckIfDone()
 {
 	Vector where((float)end.x - position.x, (float)end.y - position.y);
-	if (where.Magnitude() < 500.0f)
+	if (where.Magnitude() < goalMagnitude)
 		return (true);
 	return (false);
 }

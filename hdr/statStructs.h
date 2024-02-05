@@ -34,7 +34,8 @@ namespace BuffTypes
 	enum
 	{
 		ACCURACY,
-		PROTECTION
+		PROTECTION,
+		OPPORTUNITY_ACCURACY
 	};
 };
 

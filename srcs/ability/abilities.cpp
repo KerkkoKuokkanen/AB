@@ -185,6 +185,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case SKELE_MELEE:
 			selector = new Selector(character->position, ability->range, 0, &groundColoring, true);
 			break ;
+		case SKELE_LUNGE:
+			axeJumpSelector = new AxeJumpSelector(pos, ability->range, &groundColoring);
+			break ;
 	}
 }
 
@@ -332,6 +335,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 		}
 		case SKELE_MELEE:
 			animations.push_back({new SkeleMeleeAnim(character, target), SKELE_MELEE});
+			break ;
+		case SKELE_LUNGE:
+			animations.push_back({new SkeleLunge(character, target, targetPoint), SKELE_LUNGE});
 			break ;
 	}
 }
