@@ -13,6 +13,7 @@ void AiIterator::GetPossibleMoves()
 void AiIterator::SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map)
 {
 	map[pos.y][pos.x].character = character;
+	map[pos.y][pos.x].blocked = true;
 	character->position = pos;
 }
 
@@ -36,52 +37,6 @@ t_AiCharacter *AiIterator::GetCharInMap()
 	return (NULL);
 }
 
-void AiIterator::TurnStartActions()
-{
-	t_AiCharacter *character = GetCharInMap();
-	TurnStartMapEffects();
-	TurnStartCharacterChecks(character);
-}
-
-void AiIterator::DoThePassAction(int fromPass)
-{
-	if (character == NULL)
-		return ;
-	if (fromPass == 0)
-		return ;
-	if (fromPass == 1)
-	{
-		TurnStartActions();
-		return ;
-	}
-	RoundStartMapChecks();
-	TurnStartActions();
-}
-
-void AiIterator::TurnEndActions()
-{
-	TurnEndChecks(character);
-	t_AiCharacter *next = NULL;
-	t_SomeRetShit ret = GetNextCharacter(character, next, map);
-	if (ret.character == NULL)
-		return ;
-	float score = SendToNextOne(map, map[ret.character->position.y][ret.character->position.x].character, ret.type, 2);
-	if (character->character->ally)
-	{
-		if (score > action.score)
-		{
-			action.same = true;
-			action.score = score;
-		}
-		return ;
-	}
-	if (score < action.score)
-	{
-		action.same = true;
-		action.score = score;
-	}
-}
-
 void AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap)
 {
 	int h = gameState.battle.ground->map.size();
@@ -101,20 +56,20 @@ void AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap)
 	}
 }
 
-float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int fromPass, int movered)
+float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int movered)
 {
 	float scr = GetAiScore(nmap, character->character->ally);
 	if (depth <= 0)
 		return (scr);
 	RemoveDeadCharacter(nmap); //I need to check that the character that we send next is not null
 	AiIterator *next = GetAiIterator();
-	next->CalculateMoves(nmap, character, scr, depth - 1, movered, fromPass);
+	next->CalculateMoves(nmap, character, scr, depth - 1, movered);
 	float ret = next->GetBestScore();
 	ReturnAiIterator(next);
 	return (ret);
 }
 
-void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, float startScore, int depth, int moveMoves, int fromPass)
+void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, float startScore, int depth, int moveMoves)
 {
 	moveSaves.clear();
 	secondLap = false;
@@ -132,12 +87,10 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, floa
 		action.pos = character->position;
 	if (character == NULL)
 		return ;
-	DoThePassAction(fromPass);
 	GetPossibleMoves();
 	IterateTheMap();
 	ParseMoveSaves();
 	IterateTheMap();
-	TurnEndActions();
 }
 
 void AiIterator::IterateTheMap()
@@ -160,11 +113,12 @@ void AiIterator::IterateTheMap()
 	}
 }
 
-bool AiIterator::InSaves(int iterNum, int type)
+bool AiIterator::InSaves(int iterNum, int type, SDL_Point add)
 {
 	for (int i = 0; i < moveSaves.size(); i++)
 	{
-		if (moveSaves[i].iteration == iterNum && moveSaves[i].abilitySign == type)
+		if (moveSaves[i].iteration == iterNum && moveSaves[i].abilitySign == type &&
+			moveSaves[i].secondaryPos.x == add.x && moveSaves[i].secondaryPos.y == add.y)
 			return (true);
 	}
 	return (false);

@@ -53,14 +53,11 @@ t_TargetingType GetAbilityTargetingType(t_Ability *ability)
 	t_TargetingType ret = {0, 0, false, false, false};
 	switch (ability->type)
 	{
-		case DAGGER_THROW:
-			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, false, ability->melee};
-			break ;
-		case DAGGER_SLASH:
+		case SKELE_MELEE:
 			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, true, ability->melee};
 			break ;
-		case SMOKE_BOMB:
-			ret = {ability->range, SelectorTypesForAi::TILE_SELECTOR, true, false, ability->melee};
+		case SKELE_LUNGE:
+			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, false, ability->melee};
 			break ;
 	}
 	return (ret);

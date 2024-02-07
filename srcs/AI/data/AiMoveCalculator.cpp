@@ -151,6 +151,7 @@ void AiIterator::HandleMoveAfterMath(SDL_Point target, int damage, int fatigue)
 	t_AiMapUnit **newMap = GetReplica(map);
 	SetDefaultCharacter(target, newMap[character->position.y][character->position.x].character, newMap);
 	SetDefaultNoCharacter(character->position, newMap);
+	newMap[character->position.y][character->position.x].blocked = false;
 	int cost = map[target.y][target.x].movable;
 	newMap[target.y][target.x].character->moves -= cost;
 	newMap[target.y][target.x].character->fatigue += fatigue;
@@ -188,12 +189,12 @@ void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 	if (!secondLap)
 	{
 		float score = GetAiScore(newMap, true);
-		moveSaves.push_back({iterationLoop, -1, score});
+		moveSaves.push_back({iterationLoop, -1, score, {0, 0}});
 		return ;
 	}
-	if (!InSaves(iterationLoop, (-1)))
+	if (!InSaves(iterationLoop, (-1), {0, 0}))
 		return ;
-	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, 0, moveMoves - 1);
+	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, moveMoves - 1);
 	if (character->character->ally)
 	{
 		if (score > action.score)

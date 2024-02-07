@@ -180,6 +180,7 @@ void getAudio()
 	gameState.audio.healPart = Mix_LoadWAV("audio/abilities/witch/helly.wav");
 	gameState.audio.criticalHit = Mix_LoadWAV("audio/effects/criticalHit.wav");
 	gameState.audio.skeleMelee = Mix_LoadWAV("audio/abilities/skele/skeleMelee.wav");
+	gameState.audio.skeleLunge = Mix_LoadWAV("audio/abilities/skele/skeleLunge.wav");
 }
 
 void getFonts()

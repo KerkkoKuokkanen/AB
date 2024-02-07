@@ -5,6 +5,7 @@
 
 SkeleLunge::SkeleLunge(Character *skele, Character *target, SDL_Point pos)
 {
+	PlaySound(gameState.audio.skeleLunge, Channels::VOLUME_18, 0);
 	SkeleLunge::skele = skele;
 	SkeleLunge::target = target;
 	SkeleLunge::pos = pos;

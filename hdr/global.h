@@ -467,6 +467,7 @@ typedef struct s_Audio
 	Mix_Chunk *healPart;
 	Mix_Chunk *criticalHit;
 	Mix_Chunk *skeleMelee;
+	Mix_Chunk *skeleLunge;
 }				t_Audio;
 
 typedef struct s_Fonts

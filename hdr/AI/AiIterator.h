@@ -26,6 +26,7 @@ typedef struct s_MoveIter
 	int iteration;
 	int abilitySign;
 	float score;
+	SDL_Point secondaryPos;
 }				t_MoveIter;
 
 class AiIterator
@@ -42,7 +43,7 @@ class AiIterator
 		t_BestMove action = {0.0f, true, {0, 0}, {}, NULL, NULL};
 		void GetPossibleMoves();
 		void IterateTheMap();
-		void SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap);
+		void SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap, SDL_Point add = {0, 0});
 		void SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap);
 		void UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap);
 		void HandleAbilityAction(SDL_Point pos, t_Ability *ability);
@@ -52,20 +53,14 @@ class AiIterator
 		void HandleMoveAfterMath(SDL_Point target, int damage, int fatigue);
 		void SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map);
 		void SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map);
-		void DoThePassAction(int fromPass);
-		void TurnStartActions();
-		void TurnStartMapEffects();
-		void RoundStartMapChecks();
-		void TurnStartCharacterChecks(t_AiCharacter *character);
-		void TurnEndActions();
-		void TurnEndChecks(t_AiCharacter *character);
-		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter *character, int fromPass, int movered);
+		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter *character, int movered);
 		void RemoveDeadCharacter(t_AiMapUnit **newMap);
 		void ParseMoveSaves();
-		bool InSaves(int iterNum, int type);
+		bool InSaves(int iterNum, int type, SDL_Point add);
+		void AdditionalActions(SDL_Point pos, t_Ability *ability, t_AiMapUnit **map);
 		t_AiCharacter *GetCharInMap();
 	public:
-		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter *character, float startScore, int depth, int moveMoves, int fromPass = 0);
+		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter *character, float startScore, int depth, int moveMoves);
 		t_BestMove GetBestMove() {return(action);};
 		float GetBestScore() {return(action.score);};
 		~AiIterator() {Destroy();};
