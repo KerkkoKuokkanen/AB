@@ -139,6 +139,6 @@ void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUn
 		action.pos = pos;
 		action.score = score;
 		action.same = false;
+		action.tPoints.push_back(add);
 	}
 }
-//The ability that is being sent to action in the actual game propably does not have all the nessecary data so fix that!!

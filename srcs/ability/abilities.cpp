@@ -337,7 +337,7 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			animations.push_back({new SkeleMeleeAnim(character, target), SKELE_MELEE});
 			break ;
 		case SKELE_LUNGE:
-			animations.push_back({new SkeleLunge(character, target, targetPoint), SKELE_LUNGE});
+			animations.push_back({new SkeleLunge(character, target, targPoints[0]), SKELE_LUNGE});
 			break ;
 	}
 }

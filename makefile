@@ -43,8 +43,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/effects/healEffect.cpp srcs/ability/damages/damageValue.cpp srcs/AI/data/dataCollector.cpp \
 		srcs/AI/AiManager.cpp srcs/AI/data/aiIterator.cpp srcs/AI/data/targetingTypes.cpp \
 		srcs/AI/data/AiAbilityTargeting.cpp srcs/AI/data/AiDataHolder.cpp srcs/tools/misc.cpp srcs/AI/data/AiMoveCalculator.cpp \
-		srcs/AI/chances/AiChances.cpp srcs/AI/data/AiScoreCalculator.cpp \
-		srcs/AI/data/CheckAiSaves.cpp srcs/AI/data/AiPositionScore.cpp srcs/ability/animation/skeleMelee.cpp \
+		srcs/AI/chances/AiChances.cpp srcs/AI/scores/AiScoreCalculator.cpp \
+		srcs/AI/data/CheckAiSaves.cpp srcs/AI/scores/AiPositionScore.cpp srcs/ability/animation/skeleMelee.cpp \
 		srcs/ability/switches/enemyUpdatesOne.cpp srcs/ability/animation/skeleLunge.cpp srcs/AI/data/AiAbilityTargetChecks.cpp \
 		srcs/AI/data/AiAdditionalAbilityActions.cpp
 
