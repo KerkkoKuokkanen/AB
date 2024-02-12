@@ -139,9 +139,8 @@ int AiIterator::CheckMovePosition(SDL_Point pos)
 	{
 		int chance = GetChance(map[damagers[i].y][damagers[i].x].character->character, character->character, NULL);
 		float chancer = (float)chance / 100.0f;
-		float portion = chancer / (float)totalChance;
 		int damage = AiOppDamageNumber(character, map[damagers[i].y][damagers[i].x].character);
-		totalDamage += ((float)damage * chanceForHit) * portion;
+		totalDamage += ((float)damage * chanceForHit);
 	}
 	return (rounding(totalDamage));
 }
@@ -195,18 +194,6 @@ void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 	if (!InSaves(iterationLoop, (-1), {0, 0}))
 		return ;
 	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, moveMoves - 1);
-	if (character->character->ally)
-	{
-		if (score > action.score)
-		{
-			action.ability = NULL;
-			action.character = character;
-			action.pos = pos;
-			action.same = false;
-			action.score = score;
-		}
-		return ;
-	}
 	if (score < action.score)
 	{
 		action.ability = NULL;

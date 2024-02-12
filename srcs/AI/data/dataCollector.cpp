@@ -23,8 +23,8 @@ void CreateTheMoveMaps()
 				moveMaps.abilities[i][j].map[k] = (int*)malloc(sizeof(int) * width);
 				moveMaps.staticMoves[i][j].map[k] = (int*)malloc(sizeof(int) * width);
 			}
-			findMovables(moveMaps.abilities[i][j].map, 25, pos);
-			findMovablesStatic(moveMaps.staticMoves[i][j].map, 25, pos);
+			findMovables(moveMaps.abilities[i][j].map, 200, pos);
+			findMovablesStatic(moveMaps.staticMoves[i][j].map, 200, pos);
 		}
 	}
 }

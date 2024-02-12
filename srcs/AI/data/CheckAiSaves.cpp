@@ -1,6 +1,6 @@
 
 #include "../../../hdr/global.h"
-#define ROOM_FOR_MOVE 5
+#define ROOM_FOR_MOVE 15
 
 static bool SrotingCompareFuncEnemy(t_MoveIter one, t_MoveIter two)
 {
@@ -15,26 +15,10 @@ static bool SrotingCompareFuncEnemy(t_MoveIter one, t_MoveIter two)
 	return (false);
 }
 
-static bool SrotingCompareFuncAlly(t_MoveIter one, t_MoveIter two)
-{
-	if (one.abilitySign == two.abilitySign)
-	{
-		if (one.score > two.score)
-			return (true);
-		return (false);
-	}
-	if (one.abilitySign < two.abilitySign)
-		return (true);
-	return (false);
-}
-
 void AiIterator::ParseMoveSaves()
 {
 	secondLap = true;
-	if (character->character->ally)
-		std::sort(moveSaves.begin(), moveSaves.end(), SrotingCompareFuncAlly);
-	else
-		std::sort(moveSaves.begin(), moveSaves.end(), SrotingCompareFuncEnemy);
+	std::sort(moveSaves.begin(), moveSaves.end(), SrotingCompareFuncEnemy);
 	int counter = 0;
 	int currentSign = (-1);
 	for (int i = 0; i < moveSaves.size(); i++)

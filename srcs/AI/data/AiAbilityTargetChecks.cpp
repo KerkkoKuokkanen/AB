@@ -67,6 +67,23 @@ static bool AdditionalChecks(t_AiMapUnit **map, t_Ability *ability, t_AiCharacte
 	return (false);
 }
 
+static bool SameChecker(SDL_Point pos, SDL_Point cPos, int abilityType)
+{
+	if (pos.x == cPos.x && pos.y == cPos.y)
+		return (false);
+	return (true);
+}
+
+static bool AllyChecker(t_AiMapUnit **map, SDL_Point pos, t_AiCharacter *charac, int abilityType)
+{
+	t_AiCharacter *targ = map[pos.y][pos.x].character;
+	if (targ == NULL)
+		return (true);
+	if (targ->character->ally == false)
+		return (false);
+	return (true);
+}
+
 bool AiCheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, t_AiCharacter *character, SDL_Point pos, SDL_Point start)
 {
 	t_TargetingType ret = GetAbilityTargetingType(ability);
@@ -88,7 +105,11 @@ bool AiCheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, t_AiCharacter *chara
 		return (false);
 	if (ret.targetType == SelectorTypesForAi::SELECTOR && map[pos.y][pos.x].character->alive == false)
 		return (false);
+	if (!SameChecker(pos, character->position, ability->type))
+		return (false);
 	if (!AdditionalChecks(map, ability, character, pos, start))
+		return (false);
+	if (!AllyChecker(map, pos, character, ability->type))
 		return (false);
 	return (true);
 }

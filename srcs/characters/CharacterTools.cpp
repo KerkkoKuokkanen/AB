@@ -206,7 +206,7 @@ void Character::AssignAbilities()
 		case SKELE:
 			stats = {22, 29, 3, 140, 140, 70, 70, 130, 3, 0};
 			abilities = {{SKELE_MELEE, 3, 15, 2, 80, StatStructs::ATTACK_STRUCT, -1, 100, 2, true, true, NULL},
-						{SKELE_LUNGE, 5, 20, 8, 80, StatStructs::ATTACK_STRUCT, -1, 100, 2, false, true, NULL}};
+						{SKELE_LUNGE, 4, 20, 8, 80, StatStructs::ATTACK_STRUCT, -1, 100, 2, false, true, NULL}};
 			AssignDefaultSkeleStats(abilities);
 			break ;
 		case PYRO:
