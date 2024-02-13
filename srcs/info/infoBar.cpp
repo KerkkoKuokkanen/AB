@@ -74,20 +74,20 @@ void InfoBar::CreateText()
 	dest.x -= 100;
 	dest.y -= 100;
 	text[1] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[1]->ColorMod(140, 140, 140);
+	text[1]->ColorMod(40, 40, 40);
 	gameState.render->AddSprite(text[1], TURN_ORDER_LAYER);
 	dest.x += 200;
 	text[2] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[2]->ColorMod(80, 80, 80);
+	text[2]->ColorMod(40, 40, 40);
 	gameState.render->AddSprite(text[2], TURN_ORDER_LAYER);
 	dest.x -= 200;
 	dest.y += 200;
 	text[3] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[3]->ColorMod(80, 80, 80);
+	text[3]->ColorMod(40, 40, 40);
 	gameState.render->AddSprite(text[3], TURN_ORDER_LAYER);
 	dest.x += 200;
 	text[4] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
-	text[4]->ColorMod(80, 80, 80);
+	text[4]->ColorMod(40, 40, 40);
 	gameState.render->AddSprite(text[4], TURN_ORDER_LAYER);
 }
 
@@ -100,7 +100,7 @@ void InfoBar::CreateBars()
 	health->leftNumberOffset = {-300, 20};
 	health->rightNumberOffset = {900, 20};
 	dest.y -= 1780;
-	if (character->ally && character->cSing != PHANTOM_LION && character->cSing != TOOLS)
+	if (character->cSing != PHANTOM_LION && character->cSing != TOOLS)
 	{
 		dest.w /= 2;
 		dest.h -= 70;

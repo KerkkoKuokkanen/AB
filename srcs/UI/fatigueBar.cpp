@@ -5,6 +5,7 @@
 FatigueBar::FatigueBar(SDL_Rect dest, bool staticSprite)
 {
 	bar = new Sprite(gameState.textures.smallerBar, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+	bar->ColorMod(180, 180, 180);
 	backGround = new Sprite(gameState.textures.bar[1], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 	filler = new Sprite(gameState.textures.barFiller, dest, &sRect, NULL, 0, FLIP_NONE, staticSprite);
 	shower = new Sprite(gameState.textures.barFiller, dest, &rSRect, NULL, 0, FLIP_NONE, staticSprite);

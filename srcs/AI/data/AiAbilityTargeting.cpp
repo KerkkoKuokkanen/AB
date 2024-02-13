@@ -20,27 +20,6 @@ void AiIterator::HandleAbilityAction(SDL_Point pos, t_Ability *ability)
 	DestroyMap(newMap);
 }
 
-void AiCheckForHosting(t_AiCharacter *character, t_AiMapUnit **map)
-{
-	if (character->statuses.hosting == NULL)
-		return ;
-	Character *hosted = (Character*)character->statuses.hosting;
-	int h = gameState.battle.ground->map.size();
-	int w = gameState.battle.ground->map[0].size();
-	for (int i = 0; i < h; i++)
-	{
-		for (int j = 0; j < w; j++)
-		{
-			if (map[i][j].character->character == hosted)
-			{
-				map[i][j].character->statuses.hosted = false;
-				character->statuses.hosting = NULL;
-				return ;
-			}
-		}
-	}
-}
-
 void CreateDamageToAiCharacter(t_AiCharacter *character, int damage)
 {
 	int armor = character->armor;
@@ -89,7 +68,6 @@ static void CreateDamageToPosition(SDL_Point pos, t_AiCharacter *damager, t_Abil
 	int damage = AiDamageNumber(charm, damager, ability);
 	damage = rounding((float)damage * ((float)chance / 100.0f));
 	CreateDamageToAiCharacter(charm, damage);
-	AiCheckForHosting(charm, map);
 	CheckDeadCharacter(charm, map);
 }
 

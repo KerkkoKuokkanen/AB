@@ -6,6 +6,7 @@
 Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 {
 	bar = new Sprite(gameState.textures.bar[0], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+	bar->ColorMod(180, 180, 180);
 	backGround = new Sprite(gameState.textures.bar[1], dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 	filler = new Sprite(gameState.textures.barFiller, dest, &sRect, NULL, 0, FLIP_NONE, staticSprite);
 	reduce = new Sprite(gameState.textures.barFiller, dest, &rSRect, NULL, 0, FLIP_NONE, staticSprite);

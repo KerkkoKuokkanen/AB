@@ -289,6 +289,17 @@ bool CharacterUI::NoOneKilled()
 	return (true);
 }
 
+void CharacterUI::ShowNoEnergy()
+{
+	float red = 98.0f;
+	float gAndB = 163.0f;
+	float fadeMulti = cos(gameState.updateObjs.fadeIter) / 2.0f + 0.5f;
+	int redUse = rounding(red * fadeMulti);
+	int gAndbUse = rounding(gAndB * fadeMulti);
+	for (int i = 0; i < ENERGYS; i++)
+		energys[i]->energy->ColorMod(92 + redUse, 27 + gAndbUse, 27 + gAndbUse);
+}
+
 void CharacterUI::ShowEnergy(int cost, bool moving)
 {
 	if (cost == 0)
@@ -525,6 +536,8 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 	overCharacterUI = true;
 	if (buttons[buttonIndex].energyCost != 0 && buttons[buttonIndex].energyCost < activeCharacter->moves)
 		ShowEnergy(buttons[buttonIndex].energyCost);
+	else
+		ShowNoEnergy();
 	fatigue->ShowFatigue(buttons[buttonIndex].fatigueCost);
 	if (buttons[buttonIndex].buttonSign == 0 && value == BUTTON_PRESS)
 	{

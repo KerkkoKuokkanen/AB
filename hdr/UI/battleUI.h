@@ -48,6 +48,7 @@ class CharacterUI
 		bool NoOneKilled();
 		void UseEnergy(int cost, bool moving = false);
 		void ShowEnergy(int cost, bool moving = false);
+		void ShowNoEnergy();
 		CharacterUI();
 		void SetCharacters(std::vector<Character> &characters);
 		void Update();

@@ -31,11 +31,9 @@ static bool AiValidPos(SDL_Point pos)
 	return (true);
 }
 
-static bool AdditionalValidation(SDL_Point pos, t_AiMapUnit **map, bool ally)
+static bool AdditionalValidation(SDL_Point pos, t_AiMapUnit **map)
 {
 	if (map[pos.y][pos.x].adds.phantom.isIt == false)
-		return (false);
-	if (map[pos.y][pos.x].character->character->ally == ally)
 		return (false);
 	return (true);
 }
@@ -44,7 +42,7 @@ static bool ValidAttacker(SDL_Point pos, t_AiMapUnit **map, bool ally)
 {
 	if (AiCheckSmoked(pos, map))
 		return (false);
-	if (AdditionalValidation(pos, map, ally))
+	if (AdditionalValidation(pos, map))
 		return (true);
 	if (map[pos.y][pos.x].character == NULL)
 		return (false);
@@ -155,7 +153,6 @@ void AiIterator::HandleMoveAfterMath(SDL_Point target, int damage, int fatigue)
 	newMap[target.y][target.x].character->moves -= cost;
 	newMap[target.y][target.x].character->fatigue += fatigue;
 	CreateDamageToAiCharacter(newMap[target.y][target.x].character, damage);
-	AiCheckForHosting(newMap[target.y][target.x].character, newMap);
 	CheckDeadCharacter(newMap[target.y][target.x].character, newMap);
 	SetMoveToAction(target, newMap);
 	DestroyMap(newMap);

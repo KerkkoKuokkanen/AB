@@ -37,10 +37,11 @@ t_AiCharacter *AiIterator::GetCharInMap()
 	return (NULL);
 }
 
-void AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap)
+bool AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap, t_AiCharacter *curr)
 {
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
+	bool ret = false;
 	for (int i = 0; i < h; i++)
 	{
 		for (int j = 0; j < w; j++)
@@ -49,11 +50,21 @@ void AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap)
 				continue ;
 			if (newMap[i][j].character->alive == false)
 			{
+				if (newMap[i][j].character == curr)
+					ret = true;
+				if (newMap[i][j].character->character->cSing == PHANTOM_LION ||
+					newMap[i][j].character->character->cSing == TOOLS)
+				{
+					newMap[i][j].adds.phantom.isIt = false;
+					newMap[i][j].adds.phantom.parent = NULL;
+					newMap[i][j].adds.phantom.turns = 0;
+				}
 				delete newMap[i][j].character;
 				SetDefaultNoCharacter({j, i}, newMap);
 			}
 		}
 	}
+	return (ret);
 }
 
 float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int movered)
@@ -61,7 +72,8 @@ float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, in
 	float scr = GetAiScore(nmap, character->character->ally);
 	if (depth <= 0)
 		return (scr);
-	RemoveDeadCharacter(nmap); //I need to check that the character that we send next is not null
+	if (RemoveDeadCharacter(nmap, character))
+		return (scr);
 	AiIterator *next = GetAiIterator();
 	next->CalculateMoves(nmap, character, scr, depth - 1, movered);
 	float ret = next->GetBestScore();
@@ -81,12 +93,10 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, floa
 	action.score = startScore;
 	action.same = true;
 	action.character = character;
-	if (character == NULL)
-		action.pos = {0, 0};
-	else
-		action.pos = character->position;
+	action.pos = {0, 0};
 	if (character == NULL)
 		return ;
+	action.pos = character->position;
 	GetPossibleMoves();
 	IterateTheMap();
 	ParseMoveSaves();

@@ -54,7 +54,7 @@ class AiIterator
 		void SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map);
 		void SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map);
 		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter *character, int movered);
-		void RemoveDeadCharacter(t_AiMapUnit **newMap);
+		bool RemoveDeadCharacter(t_AiMapUnit **newMap, t_AiCharacter *curr);
 		void ParseMoveSaves();
 		bool InSaves(int iterNum, int type, SDL_Point add);
 		void AdditionalActions(SDL_Point pos, t_Ability *ability, t_AiMapUnit **map);
