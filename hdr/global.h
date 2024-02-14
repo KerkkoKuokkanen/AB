@@ -351,6 +351,13 @@ typedef struct s_ButtonTextures
 	SDL_Texture *incinerate;
 }				t_ButtonTextures;
 
+typedef struct s_IconTextures
+{
+	SDL_Texture *icons[12];
+	SDL_Texture *iconX;
+	SDL_Texture *iconBars[3];
+}				t_IconTextures;
+
 typedef struct s_Textures
 {
 	t_Stands stands;
@@ -359,6 +366,7 @@ typedef struct s_Textures
 	t_Ascii ascii;
 	t_StatusSprites statuses;
 	t_ButtonTextures buttonTextures;
+	t_IconTextures iconTexts;
 	SDL_Texture *thiefIdle1;
 	SDL_Texture *thiefIdle2;
 	SDL_Texture *thiefDaggerThrow;

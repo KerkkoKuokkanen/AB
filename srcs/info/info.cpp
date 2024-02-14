@@ -12,6 +12,11 @@ Info::Info()
 	hovered = NULL;
 }
 
+void Info::InitInfo()
+{
+	iconHandler = new IconBarHandler;
+}
+
 void Info::FindHoveredCharacter()
 {
 	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
@@ -241,6 +246,7 @@ void Info::Update()
 	movementEnergy->Update();
 	healthColoring->Update();
 	colorEffects->Update();
+	iconHandler->Update();
 	overInfo = counter->insideBox;
 }
 
@@ -267,6 +273,7 @@ void Info::Destroy()
 	delete movementEnergy;
 	delete controls;
 	delete colorEffects;
+	delete iconHandler;
 	if (stunUpdates != NULL)
 		delete stunUpdates;
 	for (int i = 0; i < snippets.size(); i++)

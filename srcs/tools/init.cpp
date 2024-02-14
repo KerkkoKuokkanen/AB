@@ -498,6 +498,22 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/characters/skeleLunge.png");
 	gameState.textures.attacks.skeleLunge = use.text;
 	gameState.surfaces.skeleLunge = use.sur;
+	gameState.textures.iconTexts.iconX = get_texture(rend, "sprites/UI/icons/DeadX.png");
+	gameState.textures.iconTexts.iconBars[0] = get_texture(rend, "sprites/UI/icons/IconBar.png");
+	gameState.textures.iconTexts.iconBars[1] = get_texture(rend, "sprites/UI/icons/IconFiller.png");
+	gameState.textures.iconTexts.iconBars[2] = get_texture(rend, "sprites/UI/icons/IconBarBackGround.png");
+	gameState.textures.iconTexts.icons[ALCHEMIST] = get_texture(rend, "sprites/UI/icons/AlchemistIcon.png");
+	gameState.textures.iconTexts.icons[KNIGHT] = get_texture(rend, "sprites/UI/icons/KnightIcon.png");
+	gameState.textures.iconTexts.icons[LION] = get_texture(rend, "sprites/UI/icons/LionIcon.png");
+	gameState.textures.iconTexts.icons[MAGE] = get_texture(rend, "sprites/UI/icons/MageIcon.png");
+	gameState.textures.iconTexts.icons[PHANTOM_LION] = get_texture(rend, "sprites/UI/icons/PhantomLionIcon.png");
+	gameState.textures.iconTexts.icons[PYRO] = get_texture(rend, "sprites/UI/icons/PyroIcon.png");
+	gameState.textures.iconTexts.icons[RAIDER] = get_texture(rend, "sprites/UI/icons/RaiderIcon.png");
+	gameState.textures.iconTexts.icons[SKELE] = get_texture(rend, "sprites/UI/icons/SkeleIcon.png");
+	gameState.textures.iconTexts.icons[SMITH] = get_texture(rend, "sprites/UI/icons/SmithIcon.png");
+	gameState.textures.iconTexts.icons[THIEF] = get_texture(rend, "sprites/UI/icons/ThiefIcon.png");
+	gameState.textures.iconTexts.icons[TOOLS] = get_texture(rend, "sprites/UI/icons/toolIcon.png");
+	gameState.textures.iconTexts.icons[WITCH] = get_texture(rend, "sprites/UI/icons/WitchIcon.png");
 }
 
 void CraeteAudioThread()

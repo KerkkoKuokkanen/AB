@@ -22,6 +22,7 @@ class Info
 		InfoBar *bar = NULL;
 		ColorEffects *colorEffects = NULL;
 		HealthColoring *healthColoring = NULL;
+		IconBarHandler *iconHandler = NULL;
 		std::vector<FlyingSnippet*> snippets;
 		std::vector<SupplyEffect*> supplyEffects;
 		std::vector<BuffEffect*> buffEffects;
@@ -44,6 +45,7 @@ class Info
 		bool overInfo = false;
 		Info();
 		~Info() {Destroy();};
+		void InitInfo();
 		void AddSnippet(FlyingSnippet *snippet);
 		void AddSupplyEffect(SupplyEffect *add) {supplyEffects.push_back(add);};
 		void AddBuffEffect(BuffEffect *add) {buffEffects.push_back(add);};

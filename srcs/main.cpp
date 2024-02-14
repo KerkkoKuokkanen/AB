@@ -6,7 +6,7 @@ t_AiMoveMaps moveMaps;
 
 void TempInitBattle()
 {
-	Character thief(WITCH);
+	Character thief(PYRO);
 	Character thief1(RAIDER);
 	Character skele(SKELE, false);
 	Character skele1(SKELE, false);
@@ -47,6 +47,7 @@ void StartBattle()
 	gameState.render->AddSprite(backGround, BACK_GROUND);
 	CreateTheMoveMaps();
 	InitObjHolder();
+	gameState.updateObjs.info->InitInfo();
 }
 
 int MainLoop()
