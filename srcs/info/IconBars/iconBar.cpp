@@ -8,7 +8,7 @@ IconBar::IconBar(Character *target, int slot, int aStart, int a, int hStart, int
 	IconBar::slot = slot;
 	counter = ICON_BAR_TIME;
 	SDL_Rect dest = {-48700, -41000, 3000, 3000};
-	SDL_Rect dest2 = {-48800, -41200, 12700, 3280};
+	SDL_Rect dest2 = {-48800, -41140, 12700, 3230};
 	dest.y += 6500 * slot;
 	dest2.y += 6500 * slot;
 	iconBlock = new Sprite(gameState.textures.iconTexts.icons[target->cSing], dest, NULL, NULL, 0, FLIP_NONE, true);
