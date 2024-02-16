@@ -25,9 +25,9 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 	switch (cSing)
 	{
 		case THIEF:
-			srect->x = 150;
-			srect->y = 80;
-			srect->w = 700;
+			srect->x = 320;
+			srect->y = 70;
+			srect->w = 340;
 			srect->h = 350;
 			break ;
 		case SKELE:
@@ -94,9 +94,9 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 	{
 		case THIEF:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 33.0f))),
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 17.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
 				rounding(((float)gameState.screen.height / 17.0f))
 			};
 			break ;

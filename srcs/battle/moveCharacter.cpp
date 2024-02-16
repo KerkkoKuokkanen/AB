@@ -29,8 +29,8 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 	switch (character->cSing)
 	{
 		case THIEF:
-			place.x += 175.0f;
-			place.y = place.y - (float)character->getHeight() + (float)gameState.battle.yDist / 2.0f - 300;
+			place.x -= 450.0f;
+			place.y -= 5000.0f;
 			break ;
 		case SKELE:
 			place.x -= 500.0f;

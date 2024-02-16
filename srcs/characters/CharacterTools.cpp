@@ -279,7 +279,7 @@ void Character::CreateCharacterType(int skin)
 	{
 		case THIEF:
 		{
-			SDL_Rect dest = {-3000, -450, 5450, 7150};
+			SDL_Rect dest = {-3000, -450, 6800, 7360};
 			textures.push_back(gameState.textures.thiefIdle1);
 			textures.push_back(gameState.textures.thiefIdle2);
 			stands.push_back(gameState.textures.stands.thiefIdle1Stand);

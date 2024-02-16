@@ -37,7 +37,6 @@ void DaggerThrowAnim::MoveBack()
 		PlaySound(gameState.audio.throwAnim, Channels::DAGGER_THROW_ANIM, 0);
 		character->sprite->setTexture(gameState.textures.thiefDaggerThrow);
 		timeForAbility = true;
-		character->sprite->Move(Vector(550.0f, 380.0f));
 	}
 	int time = counter;
 	float speed = (100.0f / (float)time) + 80.0f;

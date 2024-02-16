@@ -194,10 +194,10 @@ void getFonts()
 void getTextures(SDL_Renderer *rend)
 {
 	t_TextAndSur use;
-	use = get_texture_and_surface(rend, "sprites/characters/hood_idle1.png");
+	use = get_texture_and_surface(rend, "sprites/characters/thief/newThief.png");
 	gameState.textures.thiefIdle1 = use.text;
 	gameState.surfaces.thiefIdle1 = use.sur;
-	use = get_texture_and_surface(rend, "sprites/characters/hood_idle2.png");
+	use = get_texture_and_surface(rend, "sprites/characters/thief/newThief2.png");
 	gameState.textures.thiefIdle2 = use.text;
 	gameState.surfaces.thiefIdle2 = use.sur;
 	use = get_texture_and_surface(rend, "sprites/characters/skele.png");
@@ -233,7 +233,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.energy[1] = use.text;
 	gameState.surfaces.energy[1] = use.sur;
 	gameState.textures.weaponObjs[DAGGER_OBJ] = get_texture(rend, "sprites/weapon/dagger.png");
-	gameState.textures.thiefDaggerThrow = get_texture(rend, "sprites/characters/hood_throw.png");
+	gameState.textures.thiefDaggerThrow = get_texture(rend, "sprites/characters/thief/newThiefDaggerThrow.png");
 	use = get_texture_and_surface_with_scale_mode(rend, "sprites/ground/objects/bushLeft.png", SDL_ScaleModeNearest);
 	gameState.textures.treesLeft[0] = use.text;
 	gameState.surfaces.treesLeft[0] = use.sur;
@@ -260,19 +260,19 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.treesRight[3] = use.sur;
 	gameState.textures.blocks[0] = get_texture(rend, "sprites/env/fullBlock.png");
 	gameState.textures.blocks[1] = get_texture(rend, "sprites/env/halfBlock.png");
-	gameState.textures.thiefSmokeThrow[0] = get_texture(rend, "sprites/characters/hood_smoke.png");
-	gameState.textures.thiefSmokeThrow[1] = get_texture(rend, "sprites/effects/hood_smoke_trail.png");
+	gameState.textures.thiefSmokeThrow[0] = get_texture(rend, "sprites/characters/thief/newThiefSmoke.png");
+	gameState.textures.thiefSmokeThrow[1] = get_texture(rend, "sprites/characters/thief/newThiefSmokeTrail.png");
 	gameState.textures.smokes[0] = get_texture(rend, "sprites/env/smoke1-1.png");
 	gameState.textures.smokes[1] = get_texture(rend, "sprites/env/smoke1-2.png");
 	gameState.textures.smokes[2] = get_texture(rend, "sprites/env/smoke2-1.png");
 	gameState.textures.smokes[3] = get_texture(rend, "sprites/env/smoke2-2.png");
-	gameState.textures.stands.thiefIdle1Stand = get_texture(rend, "sprites/characters/hood_idle1_stand.png");
-	gameState.textures.stands.thiefIdle2Stand = get_texture(rend, "sprites/characters/hood_idle2_stand.png");
+	gameState.textures.stands.thiefIdle1Stand = get_texture(rend, "sprites/characters/thief/newThiefStand.png");
+	gameState.textures.stands.thiefIdle2Stand = gameState.textures.stands.thiefIdle1Stand;
 	gameState.textures.stands.skeleIdle1Stand = get_texture(rend, "sprites/characters/skele_stand.png");
 	gameState.textures.stands.skeleIdle2Stand = get_texture(rend, "sprites/characters/skele2_stand.png");
 	gameState.textures.smokeBomb = get_texture(rend, "sprites/weapon/smokeBomb.png");
-	gameState.textures.thiefSlash[0] = get_texture(rend, "sprites/characters/hood_slash.png");
-	use = get_texture_and_surface(rend, "sprites/effects/hood_slash_trail.png");
+	gameState.textures.thiefSlash[0] = get_texture(rend, "sprites/characters/thief/newThiefDaggerSlash.png");
+	use = get_texture_and_surface(rend, "sprites/characters/thief/newThiefDaggerSlashTrail.png");
 	gameState.textures.thiefSlash[1] = use.text;
 	gameState.surfaces.slashTrail = use.sur;
 	gameState.textures.thiefAbilites[2] = get_texture(rend, "sprites/UI/abilities/daggerSlash.png");

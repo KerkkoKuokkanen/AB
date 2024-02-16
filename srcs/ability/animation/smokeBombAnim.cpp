@@ -23,7 +23,6 @@ void SmokeBombAnim::SetThrowText()
 {
 	PlaySound(gameState.audio.smokeThrow, Channels::SMOKE_THROW, 0);
 	character->sprite->setTexture(gameState.textures.thiefSmokeThrow[0]);
-	character->sprite->Move(Vector(550.0f, 550.0f));
 	trail = new Sprite(gameState.textures.thiefSmokeThrow[1], character->sprite->dest, NULL, NULL, 0, FLIP_NONE);
 	gameState.render->AddSprite(trail, BATTLEGROUND_LAYER);
 	SDL_Point position = character->position;
@@ -34,7 +33,6 @@ void SmokeBombAnim::SetThrowText()
 void SmokeBombAnim::RemoveAnimText()
 {
 	character->sprite->setTexture(gameState.textures.thiefIdle1);
-	character->sprite->Move(Vector(-550.0f, -550.0f));
 }
 
 void SmokeBombAnim::Update()

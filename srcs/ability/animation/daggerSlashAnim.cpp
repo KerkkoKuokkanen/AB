@@ -61,13 +61,15 @@ void DaggerSlashAnim::Update()
 	if (counter == 4)
 	{
 		character->sprite->setTexture(gameState.textures.thiefSlash[0]);
-		character->sprite->Move(Vector(680.0f, 400.0f));
+		character->sprite->dest.x += 400;
+		character->sprite->dest.y += 100;
 		CreateTrail();
 	}
 	if (counter == 23)
 	{
 		character->sprite->setTexture(gameState.textures.thiefIdle1);
-		character->sprite->Move(Vector(-680.0f, -400.0f));
+		character->sprite->dest.x -= 400;
+		character->sprite->dest.y -= 100;
 	}
 	counter++;
 }
