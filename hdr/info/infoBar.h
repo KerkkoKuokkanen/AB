@@ -16,8 +16,11 @@ class InfoBar
 		Statuses *statuses = NULL;
 		void CreateText();
 		void CreateBars();
+		void CheckMouseOver();
 		SDL_Rect GetTextDest(std::string &str);
 	public:
+		bool statBars = false;
+		bool over = false;
 		Character *character = NULL;
 		InfoBar(Character *character);
 		~InfoBar() {Destroy();};

@@ -43,6 +43,7 @@ class Info
 		void UpdateCritFilter();
 	public:
 		bool overInfo = false;
+		bool overInfoBar = false;
 		Info();
 		~Info() {Destroy();};
 		void InitInfo();

@@ -131,6 +131,8 @@ void CheckOverMenu()
 		gameState.updateObjs.hover.overTurnOrder = true;
 	if (gameState.updateObjs.info != NULL && gameState.updateObjs.info->overInfo)
 		gameState.updateObjs.hover.overTurnOrder = true;
+	if (gameState.updateObjs.info != NULL && gameState.updateObjs.info->overInfoBar)
+		gameState.updateObjs.hover.overTurnOrder = true;
 	if (gameState.updateObjs.UI != NULL && gameState.updateObjs.UI->overCharacterUI)
 		gameState.updateObjs.hover.overCharacterUI = true;
 	if (gameState.updateObjs.hover.overTurnOrder ||

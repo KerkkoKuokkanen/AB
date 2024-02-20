@@ -138,11 +138,28 @@ InfoBar::InfoBar(Character *character)
 	statuses->Postion(Vector(-12500.0f, -35200.0f));
 }
 
+void InfoBar::CheckMouseOver()
+{
+	if (!statBars)
+		return ;
+	over = false;
+	SDL_Rect outline = {-12600, -39440, 25200, 2380};
+	SDL_FRect hold = staitcTranslateSprite(outline);
+	SDL_Rect real = {(int)hold.x, (int)hold.y, (int)hold.w, (int)hold.h};
+	int x = gameState.keys.staticMouseX, y = gameState.keys.staticMouseY;
+	SDL_Point check = {x, y};
+	if (pointCheck(check, real))
+		over = true;
+	if (statuses->GetMouseOverStatuses())
+		over = true;
+}
+
 void InfoBar::Update()
 {
 	health->Update(character, true);
 	armor->Update(character, false);
 	statuses->Update();
+	CheckMouseOver();
 	if (fatigue != NULL)
 		fatigue->Update(character);
 }

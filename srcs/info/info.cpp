@@ -1,6 +1,17 @@
 
 #include "../../hdr/global.h"
 
+static Character *AnyOneClicked()
+{
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		Character *character = gameState.battle.ground->characters[i].character;
+		if (character->clicked)
+			return (character);
+	}
+	return (NULL);
+}
+
 Info::Info()
 {
 	counter = new Counter;
@@ -62,6 +73,20 @@ bool Info::KilledOrDamaged()
 
 void Info::UpdateBar()
 {
+	overInfoBar = false;
+	Character *ret = AnyOneClicked();
+	if (ret != NULL && !ret->turn)
+	{
+		if (bar->character != ret)
+		{
+			delete bar;
+			bar = new InfoBar(ret);
+		}
+		bar->statBars = true;
+		bar->Update();
+		overInfoBar = bar->over;
+		return ;
+	}
 	if (hovered == NULL || hovered->killed)
 	{
 		if (bar != NULL)
@@ -76,7 +101,9 @@ void Info::UpdateBar()
 		delete bar;
 		bar = new InfoBar(hovered);
 	}
+	bar->statBars = false;
 	bar->Update();
+	overInfoBar = bar->over;
 }
 
 void Info::UpdateSnippets()
