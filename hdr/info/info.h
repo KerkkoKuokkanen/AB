@@ -23,6 +23,7 @@ class Info
 		ColorEffects *colorEffects = NULL;
 		HealthColoring *healthColoring = NULL;
 		IconBarHandler *iconHandler = NULL;
+		StatusInfo *statusInfo = NULL;
 		std::vector<FlyingSnippet*> snippets;
 		std::vector<SupplyEffect*> supplyEffects;
 		std::vector<BuffEffect*> buffEffects;
@@ -41,6 +42,8 @@ class Info
 		void UpdateBombEffects();
 		void UpdateSlowEffects();
 		void UpdateCritFilter();
+		void UpdateStatusInfo();
+		int hoverIcon = -1;
 	public:
 		bool overInfo = false;
 		bool overInfoBar = false;

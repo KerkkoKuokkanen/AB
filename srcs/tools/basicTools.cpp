@@ -20,6 +20,9 @@ SDL_Texture *get_text(const char *text ,int fontType)
 		case FontTypes::GOOGLE_BOLD:
 			sur = TTF_RenderText_Blended(gameState.fonts.googleBold, text, textColor);
 			break ;
+		case FontTypes::GOOGLE_TEXT_SMALL:
+			sur = TTF_RenderText_Blended(gameState.fonts.googleFontSmall, text, textColor);
+			break ;
 	}
 	if (sur != NULL)
 	{

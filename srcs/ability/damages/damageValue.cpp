@@ -26,7 +26,7 @@ static float GetProtectionMulti(Character *target)
 static float BurnAddition(Character *target)
 {
 	int amount = target->statuses.burns.size();
-	amount *= 2;
+	amount *= 5;
 	float multi = 1.0f + ((float)amount / 100.0f);
 	return (multi);
 }

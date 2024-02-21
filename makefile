@@ -47,7 +47,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/AI/data/CheckAiSaves.cpp srcs/ability/animation/skeleMelee.cpp \
 		srcs/ability/switches/enemyUpdatesOne.cpp srcs/ability/animation/skeleLunge.cpp srcs/AI/data/AiAbilityTargetChecks.cpp \
 		srcs/AI/data/AiAdditionalAbilityActions.cpp srcs/info/IconBars/iconBar.cpp srcs/info/IconBars/iconBarHandler.cpp \
-		srcs/info/IconBars/iconHealth.cpp
+		srcs/info/IconBars/iconHealth.cpp srcs/info/texts/statusInfos.cpp srcs/info/texts/textBubble.cpp \
+		srcs/info/texts/createBubbles.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

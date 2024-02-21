@@ -23,6 +23,7 @@ bool Statuses::GetMouseOverStatuses()
 {
 	int x = gameState.keys.staticMouseX;
 	int y = gameState.keys.staticMouseY;
+	hoverIcon = (-1);
 	for (int i = 0; i < statuses.size(); i++)
 	{
 		switch (statuses[i].statusType)
@@ -33,7 +34,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.statuses.burn, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::BURN;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::STUN:
@@ -42,7 +46,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.statuses.questionMark, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::STUN;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::BUFF:
@@ -52,7 +59,10 @@ bool Statuses::GetMouseOverStatuses()
 				SDL_Point test = {x, y};
 				SDL_Rect used = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (pointCheck(test, used))
+				{
+					hoverIcon = StatusSigns::BUFF;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::DEBUFF:
@@ -62,7 +72,10 @@ bool Statuses::GetMouseOverStatuses()
 				SDL_Point test = {x, y};
 				SDL_Rect used = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (pointCheck(test, used))
+				{
+					hoverIcon = StatusSigns::DEBUFF;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::HOST:
@@ -71,7 +84,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.hostSymbol, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::HOST;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::HOSTING:
@@ -80,7 +96,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.hostingSymbol, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::HOSTING;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::TOXIC_BLADE:
@@ -89,7 +108,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.toxinSym, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::TOXIC_BLADE;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::POISON:
@@ -98,7 +120,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.poisonSym, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::POISON;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::BLEED:
@@ -107,7 +132,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.bleedSymbol, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::BLEED;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::SLOWED:
@@ -116,7 +144,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.slowSymbol, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::SLOWED;
 					return (true);
+				}
 				break ;
 			}
 			case StatusSigns::CONTROL:
@@ -125,7 +156,10 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
 				if (MenuHoverCheck(gameState.surfaces.control, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::CONTROL;
 					return (true);
+				}
 				break ;
 			}
 		}
@@ -148,7 +182,7 @@ void Statuses::CreateBurns()
 			num = (num > 999) ? 999 : num;
 			std::string used = std::to_string(num);
 			const char *text = used.c_str();
-			add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+			add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 			add.snippet->SetOrderLayer(3);
 			add.snippet->SetOutlineColor(25, 25, 25);
 			add.snippet->SetAlphaMod(204);

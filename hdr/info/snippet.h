@@ -24,6 +24,7 @@ class Snippet
 		void ClearAlphaMod();
 		void SetScaled(bool scaled);
 		void SetDepth(float z);
+		SDL_Rect GetDest();
 		const char *GetText() {return (string.c_str());};
 		void SetColor(Uint8 r, Uint8 g, Uint8 b);
 		void SetOutlineColor(Uint8 r, Uint8 g, Uint8 b);

@@ -186,6 +186,7 @@ void getAudio()
 void getFonts()
 {
 	gameState.fonts.googleFont = TTF_OpenFont("sprites/fonts/text.ttf", 64);
+	gameState.fonts.googleFontSmall = TTF_OpenFont("sprites/fonts/text.ttf", 16);
 	gameState.fonts.googleBold = TTF_OpenFont("sprites/fonts/textBold.ttf", 64);
 	gameState.fonts.fire = TTF_OpenFont("sprites/fonts/fire.ttf", 64);
 	gameState.fonts.neue = TTF_OpenFont("sprites/fonts/Neue.ttf", 64);
@@ -567,6 +568,7 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_ORDER_SORT); //turn order layer
 	render.CreateLayer(LAYER_ORDER_SORT); //flying texts;
 	render.CreateLayer(LAYER_ORDER_SORT); //counter layer
+	render.CreateLayer(LAYER_ORDER_SORT); //text bubble layer
 	gameState.render = &render;
 	static BattleGround battle(BATTLEGROUND_LAYER, wr->rend);
 	gameState.battle.ground = &battle;

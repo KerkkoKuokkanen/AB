@@ -7,9 +7,12 @@
 class StatusInfo
 {
 	private:
+		TextBubble *bubble = NULL;
+		void SetUpBubble(int hoverIcon);
+		void CreateBubbles(int hoverIcon);
 	public:
 		~StatusInfo() {Destroy();};
-		void Update();
+		void Update(int hoverIcon);
 		void Destroy();
 };
 

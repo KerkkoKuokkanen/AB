@@ -20,6 +20,7 @@ Info::Info()
 	movementEnergy = new MovementEnergy;
 	colorEffects = new ColorEffects;
 	healthColoring = new HealthColoring;
+	statusInfo = new StatusInfo;
 	hovered = NULL;
 }
 
@@ -73,6 +74,7 @@ bool Info::KilledOrDamaged()
 
 void Info::UpdateBar()
 {
+	hoverIcon = (-1);
 	overInfoBar = false;
 	Character *ret = AnyOneClicked();
 	if (ret != NULL && !ret->turn)
@@ -84,6 +86,7 @@ void Info::UpdateBar()
 		}
 		bar->statBars = true;
 		bar->Update();
+		hoverIcon = bar->hoverIcon;
 		overInfoBar = bar->over;
 		return ;
 	}
@@ -256,6 +259,11 @@ void Info::UpdateCritFilter()
 	}
 }
 
+void Info::UpdateStatusInfo()
+{
+	statusInfo->Update(hoverIcon);
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
@@ -267,6 +275,7 @@ void Info::Update()
 	UpdateBombEffects();
 	UpdateSlowEffects();
 	UpdateCritFilter();
+	UpdateStatusInfo();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();

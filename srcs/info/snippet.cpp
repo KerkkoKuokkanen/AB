@@ -128,6 +128,11 @@ void Snippet::Move(Vector amount)
 	}
 }
 
+SDL_Rect Snippet::GetDest()
+{
+	return (sprite->dest);
+}
+
 void Snippet::Position(SDL_Point pos)
 {
 	sprite->dest.x = pos.x;

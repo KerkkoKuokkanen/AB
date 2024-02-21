@@ -16,7 +16,8 @@ namespace FontTypes
 		GOOGLE_TEXT,
 		FIRE,
 		NEUE,
-		GOOGLE_BOLD
+		GOOGLE_BOLD,
+		GOOGLE_TEXT_SMALL
 	};
 };
 
@@ -481,6 +482,7 @@ typedef struct s_Audio
 typedef struct s_Fonts
 {
 	TTF_Font *googleFont;
+	TTF_Font *googleFontSmall;
 	TTF_Font *googleBold;
 	TTF_Font *fire;
 	TTF_Font *neue;

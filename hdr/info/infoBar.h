@@ -19,6 +19,7 @@ class InfoBar
 		void CheckMouseOver();
 		SDL_Rect GetTextDest(std::string &str);
 	public:
+		int hoverIcon = (-1);
 		bool statBars = false;
 		bool over = false;
 		Character *character = NULL;

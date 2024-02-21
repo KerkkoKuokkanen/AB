@@ -46,6 +46,7 @@ class Statuses
 		SDL_Rect GetRightRect(int statusSign);
 		bool positioned = false;
 	public:
+		int hoverIcon = (-1);
 		Statuses(Character *character, int size, int numberSize, int numOffset, bool staticSprite, bool vertical = false);
 		~Statuses() {Destroy();};
 		void Postion(Vector place);

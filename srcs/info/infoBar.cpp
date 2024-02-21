@@ -140,6 +140,7 @@ InfoBar::InfoBar(Character *character)
 
 void InfoBar::CheckMouseOver()
 {
+	hoverIcon = (-1);
 	if (!statBars)
 		return ;
 	over = false;
@@ -151,7 +152,10 @@ void InfoBar::CheckMouseOver()
 	if (pointCheck(check, real))
 		over = true;
 	if (statuses->GetMouseOverStatuses())
+	{
+		hoverIcon = statuses->hoverIcon;
 		over = true;
+	}
 }
 
 void InfoBar::Update()
