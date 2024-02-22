@@ -80,23 +80,15 @@ static int CheckOppChancers(Character *character, t_Ability *ability, int ret)
 {
 	if (ability != NULL)
 		return (ret);
-	float amount = 1.0f;
-	float currMax = 0.0f;
+	float multi = 1.0f;
+	float chanceRet = (float)ret;
 	for (int i = 0; i < character->statuses.buffs.size(); i++)
 	{
-		if (character->statuses.buffs[i].type != BuffTypes::OPPORTUNITY_ACCURACY)
-			continue ;
-		float adder = (float)character->statuses.buffs[i].amount;
-		if (currMax < adder)
-			currMax = adder;
+		if (character->statuses.buffs[i].type == BuffTypes::OPPORTUNITY_ACCURACY)
+			multi += (float)character->statuses.buffs[i].amount / 100.0f;
 	}
-	if ((int)currMax == 0)
-		return (ret);
-	currMax /= 100.0f;
-	amount += currMax;
-	float returner = (float)ret;
-	returner *= amount;
-	return (rounding(returner));
+	chanceRet *= multi;
+	return (rounding(chanceRet));
 }
 
 int GetChance(Character *character, Character *target, t_Ability *ability)

@@ -27,12 +27,13 @@ static bool ThisIsThePosition(Character *character, SDL_Point pos)
 
 static void CreateSmithBuffDebuff(Character *target, t_Ability *ability)
 {
+	t_BuffAndDebuff *used = (t_BuffAndDebuff*)ability->stats;
 	if (target->ally)
 	{
-		target->statuses.buffs.push_back({BuffTypes::ACCURACY, 1, 10, true});
+		AddBuffToCharacter(target, {BuffTypes::ACCURACY, used->turns, used->amount, true, BuffDebuffId::NO_ID});
 		return ;
 	}
-	target->statuses.deBuffs.push_back({BuffTypes::ACCURACY, 1, -10, true});
+	AddDeBuffToCharacter(target, {BuffTypes::ACCURACY, used->turns, used->amount, true, BuffDebuffId::NO_ID});
 }
 
 SDL_Point Abilities::FindToolBox(TileSelector *selec)

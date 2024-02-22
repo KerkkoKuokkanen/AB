@@ -21,6 +21,15 @@ namespace FontTypes
 	};
 };
 
+namespace BuffDebuffId
+{
+	enum {
+		NO_ID,
+		SKELE_OPP,
+		RAIDER_PROT
+	};
+};
+
 namespace Channels
 {
 	enum {
@@ -255,6 +264,7 @@ typedef struct s_Surfaces
 	SDL_Surface *knightIdle1;
 	SDL_Surface *knightIdle2;
 	SDL_Surface *control;
+	SDL_Surface *controlSmall;
 	SDL_Surface *witchIdle1;
 	SDL_Surface *witchIdle2;
 	SDL_Surface *toolBox;
@@ -398,6 +408,7 @@ typedef struct s_Textures
 	SDL_Texture *counter;
 	SDL_Texture *questionMark;
 	SDL_Texture *control;
+	SDL_Texture *controlSmall;
 	SDL_Texture *everyColor;
 	SDL_Texture *smithAbilities[6];
 	SDL_Texture *supplySymbol;

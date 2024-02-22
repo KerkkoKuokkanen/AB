@@ -130,8 +130,8 @@ static void BuffsAtEnd(Character *character)
 			i = (statuses.deBuffs.size() == 0) ? 0 : i - 1;
 		}
 	}
-	if (character->statuses.slowed == 1)
-		character->statuses.slowed = 0;
+	if (character->statuses.slowed > 0)
+		character->statuses.slowed -= 1;
 }
 
 static void BuffsAtStart(Character *character)
@@ -195,6 +195,42 @@ static void ManageHosting()
 static void AddEnergy(Character *character)
 {
 	character->moves = (character->moves + 9 > 12) ? 12 : character->moves + 9;
+}
+
+void AddBuffToCharacter(Character *target, t_BuffDebuff add)
+{
+	if (add.id <= 0)
+	{
+		target->statuses.buffs.push_back(add);
+		return ;
+	}
+	for (int i = 0; i < target->statuses.buffs.size(); i++)
+	{
+		if (target->statuses.buffs[i].id == add.id)
+		{
+			target->statuses.buffs.erase(target->statuses.buffs.begin() + i);
+			i = (target->statuses.buffs.size() == 0) ? 0 : 1 - 1;
+		}
+	}
+	target->statuses.buffs.push_back(add);
+}
+
+void AddDeBuffToCharacter(Character *target, t_BuffDebuff add)
+{
+	if (add.id <= 0)
+	{
+		target->statuses.deBuffs.push_back(add);
+		return ;
+	}
+	for (int i = 0; i < target->statuses.deBuffs.size(); i++)
+	{
+		if (target->statuses.deBuffs[i].id == add.id)
+		{
+			target->statuses.deBuffs.erase(target->statuses.deBuffs.begin() + i);
+			i = (target->statuses.deBuffs.size() == 0) ? 0 : 1 - 1;
+		}
+	}
+	target->statuses.deBuffs.push_back(add);
 }
 
 void UpdateStatuses()

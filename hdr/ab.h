@@ -391,6 +391,9 @@ t_GMU *getMapTopLeft(SDL_Point pos);
 t_GMU *getMapDownRight(SDL_Point pos);
 t_GMU *getMapDownLeft(SDL_Point pos);
 
+void AddBuffToCharacter(Character *target, t_BuffDebuff add);
+void AddDeBuffToCharacter(Character *target, t_BuffDebuff add);
+
 void SetDelayer(int delayAddition);
 
 int			getXToRight(SDL_Point pos);

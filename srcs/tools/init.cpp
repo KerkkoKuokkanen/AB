@@ -186,7 +186,7 @@ void getAudio()
 void getFonts()
 {
 	gameState.fonts.googleFont = TTF_OpenFont("sprites/fonts/text.ttf", 64);
-	gameState.fonts.googleFontSmall = TTF_OpenFont("sprites/fonts/text.ttf", 16);
+	gameState.fonts.googleFontSmall = TTF_OpenFont("sprites/fonts/text.ttf", 18);
 	gameState.fonts.googleBold = TTF_OpenFont("sprites/fonts/textBold.ttf", 64);
 	gameState.fonts.fire = TTF_OpenFont("sprites/fonts/fire.ttf", 64);
 	gameState.fonts.neue = TTF_OpenFont("sprites/fonts/Neue.ttf", 64);
@@ -351,6 +351,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/env/control.png");
 	gameState.textures.control = use.text;
 	gameState.surfaces.control = use.sur;
+	use = get_texture_and_surface(rend, "sprites/env/controlSmall.png");
+	gameState.textures.controlSmall = use.text;
+	gameState.surfaces.controlSmall = use.sur;
 	gameState.textures.everyColor = get_texture(rend, "sprites/env/everyColor.png");
 	gameState.textures.stands.smithStand = get_texture(rend, "sprites/characters/blacksmith/blacksmithStand.png");
 	use = get_texture_and_surface(rend, "sprites/characters/blacksmith/blacksmith.png");

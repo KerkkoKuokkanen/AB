@@ -77,6 +77,8 @@ static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
 	t_BuffAndDebuff *stat1 = (t_BuffAndDebuff*)stats[2].stats;
 	stat1->buffChance = 200;
 	stat1->debuffChance = 200;
+	stat1->turns = 2;
+	stat1->amount = 10;
 }
 
 static void AssignDefaultMageAbilities(std::vector<t_Ability> &stats)

@@ -40,7 +40,7 @@ void Abilities::UpdateEnemyAnimationOne(t_Animation &anim, int index)
 			if (used->done)
 			{
 				PlaySound(gameState.audio.BuffEffect, Channels::VOLUME_11, 0);
-				character->statuses.buffs.push_back({BuffTypes::OPPORTUNITY_ACCURACY, 2, 50, false});
+				AddBuffToCharacter(character, {BuffTypes::OPPORTUNITY_ACCURACY, 2, 50, false, BuffDebuffId::SKELE_OPP});
 				new BuffEffect(character, true);
 				delete used;
 				animations.erase(animations.begin() + index);

@@ -9,7 +9,6 @@ void StatusInfo::SetUpBubble(int hoverIcon)
 	bubble->SetMouseFollow({600, 600});
 	bubble->id = hoverIcon;
 	CreateBubbles(hoverIcon);
-	bubble->SetUpOutline(500, -2000);
 }
 
 void StatusInfo::Update(int hoverIcon)

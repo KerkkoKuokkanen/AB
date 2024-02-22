@@ -77,7 +77,7 @@ void BattleGround::SetMovables(Character *character)
 	map[pos.y][pos.x].highlited = highLightSign;
 	int moves = (character->turn) ? character->moves : character->moves + 9;
 	moves = (moves > 12) ? 12 : moves;
-	int multi = (character->statuses.slowed == 1) ? 2 : 1;
+	int multi = (character->statuses.slowed != 0) ? 2 : 1;
 	IterMapMovables(pos, 0, moves, highLightSign, multi);
 }
 

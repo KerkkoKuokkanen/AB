@@ -155,7 +155,7 @@ bool Statuses::GetMouseOverStatuses()
 				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
 				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
 				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
-				if (MenuHoverCheck(gameState.surfaces.control, dst1, x, y))
+				if (MenuHoverCheck(gameState.surfaces.controlSmall, dst1, x, y))
 				{
 					hoverIcon = StatusSigns::CONTROL;
 					return (true);
@@ -456,7 +456,7 @@ void Statuses::CreateFrestStatus(int statusSign)
 		}
 		case StatusSigns::CONTROL:
 		{
-			add.sprite = new Sprite(gameState.textures.control, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite = new Sprite(gameState.textures.controlSmall, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 			add.sprite->ColorMod(1, 150, 1);
 			add.sprite->orderLayer = 1;
 			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);

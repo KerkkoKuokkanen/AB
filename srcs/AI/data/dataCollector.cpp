@@ -128,6 +128,8 @@ void GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map)
 {
 	SDL_Point pos = aiChar->position;
 	int moves = aiChar->moves;
+	if (aiChar->statuses.slowed != 0)
+		moves /= 2;
 	findMovablesNormal(map, moves, pos);
 }
 

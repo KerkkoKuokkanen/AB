@@ -100,6 +100,8 @@ typedef struct s_BuffAndDebuff
 {
 	int buffChance;
 	int debuffChance;
+	int turns;
+	int amount;
 }				t_BuffAndDebuff;
 
 typedef struct s_Throwable
@@ -113,6 +115,7 @@ typedef struct s_BuffDebuff
 	int turns;
 	int amount;
 	bool atEnd;
+	int id;
 }				t_BuffDebuff;
 
 typedef struct s_ToxicStat

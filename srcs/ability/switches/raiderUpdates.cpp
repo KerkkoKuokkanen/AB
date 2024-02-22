@@ -109,7 +109,7 @@ void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)
 			if (used->createBuff)
 			{
 				t_RaiderBlock *used = (t_RaiderBlock*)ability->stats;
-				character->statuses.buffs.push_back({BuffTypes::PROTECTION, 1, used->precentage, false});
+				AddBuffToCharacter(character, {BuffTypes::PROTECTION, 1, used->precentage, false, BuffDebuffId::RAIDER_PROT});
 				gameState.updateObjs.turnOrder->ActivateTurnChange(true);
 			}
 			if (used->done)
