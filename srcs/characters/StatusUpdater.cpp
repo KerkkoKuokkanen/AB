@@ -152,7 +152,7 @@ static void BuffsAtStart(Character *character)
 	}
 	for (int i = 0; i < statuses.deBuffs.size(); i++)
 	{
-		if (statuses.buffs[i].atEnd)
+		if (statuses.deBuffs[i].atEnd)
 			continue ;
 		statuses.deBuffs[i].turns -= 1;
 		if (statuses.deBuffs[i].turns <= 0)

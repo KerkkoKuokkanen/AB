@@ -86,21 +86,6 @@ static int GetYMinus(int last)
 	return (ret);
 }
 
-static std::string GetTurnText(int small, int big)
-{
-	if (small == big)
-	{
-		std::string ret = std::to_string(small);
-		ret += " Turns";
-		return (ret);
-	}
-	std::string ret = std::to_string(small);
-	ret += "-";
-	ret += std::to_string(big);
-	ret += " Turns";
-	return (ret);
-}
-
 void StatusInfo::CreateBubbles(int hoverIcon)
 {
 	switch (hoverIcon)
@@ -255,11 +240,29 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		}
 		case StatusSigns::BUFF:
 		{
-			int start = 250;
+			int start = 2750;
 			Character *click = AnyOneClicked();
-			Snippet *add1 = new Snippet("BUFFS:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
+			Snippet *add1 = new Snippet("Buffs:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			add1->SetColor(56, 119, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
+			start = TTBuffAccuracy(click, bubble, start);
+			start = TTBuffOppAccuracy(click, bubble, start);
+			start = TTBuffProtection(click, bubble, start);
+			start -= 3000;
+			bubble->SetUpOutline(500, GetYMinus(start));
+			break ;
+		}
+		case StatusSigns::DEBUFF:
+		{
+			int start = 2750;
+			Character *click = AnyOneClicked();
+			Snippet *add1 = new Snippet("Debuffs:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
+			add1->SetColor(235, 47, 0);
+			bubble->AddSnippetToBubble(add1, {500, 250});
+			start = TTDeBuffAccuracy(click, bubble, start);
+			start = TTDeBuffOppAccuracy(click, bubble, start);
+			start = TTDeBuffProtection(click, bubble, start);
+			start -= 3000;
 			bubble->SetUpOutline(500, GetYMinus(start));
 			break ;
 		}

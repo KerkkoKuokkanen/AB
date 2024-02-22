@@ -391,6 +391,13 @@ t_GMU *getMapTopLeft(SDL_Point pos);
 t_GMU *getMapDownRight(SDL_Point pos);
 t_GMU *getMapDownLeft(SDL_Point pos);
 
+int TTBuffProtection(Character *character, TextBubble *bubble, int start);
+int TTBuffOppAccuracy(Character *character, TextBubble *bubble, int start);
+int TTBuffAccuracy(Character *character, TextBubble *bubble, int start);
+int TTDeBuffAccuracy(Character *character, TextBubble *bubble, int start);
+int TTDeBuffOppAccuracy(Character *character, TextBubble *bubble, int start);
+int TTDeBuffProtection(Character *character, TextBubble *bubble, int start);
+
 void AddBuffToCharacter(Character *target, t_BuffDebuff add);
 void AddDeBuffToCharacter(Character *target, t_BuffDebuff add);
 
