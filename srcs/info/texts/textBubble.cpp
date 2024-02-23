@@ -81,20 +81,45 @@ void TextBubble::SetUpOutline(int xAdd, int yAdd)
 	outline->dest.h = furthest.y + yAdd;
 }
 
+void TextBubble::SetFollowCorner(int followSign)
+{
+	if (followSign < 0 || followSign >= 4)
+		return ;
+	follorCorner = followSign;
+}
+
 void TextBubble::SetMouseFollow(SDL_Point followPos)
 {
 	TextBubble::followPos = followPos;
 	followMouse = true;
 }
 
+int TextBubble::GetFollowX()
+{
+	int x = gameState.keys.smX;
+	x += followPos.x;
+	if (follorCorner == 0 || follorCorner == 2)
+		return (x);
+	x -= outline->dest.w;
+	return (x);
+}
+
+int TextBubble::GetFollorY()
+{
+	int y = gameState.keys.smY;
+	y += followPos.y;
+	if (follorCorner == 0 || follorCorner == 1)
+		return (y);
+	y -= outline->dest.h;
+	return (y);
+}
+
 void TextBubble::Update()
 {
 	if (followMouse == false)
 		return ;
-	int x = gameState.keys.smX;
-	int y = gameState.keys.smY;
-	x += followPos.x;
-	y += followPos.y;
+	int x = GetFollowX();
+	int y = GetFollorY();
 	pos = {x, y};
 	for (int i = 0; i < sprites.size(); i++)
 	{

@@ -25,10 +25,14 @@ class TextBubble
 		SDL_Point pos = {0, 0};
 		bool followMouse = false;
 		SDL_Point followPos = {0, 0};
+		int follorCorner = 0;
+		int GetFollowX();
+		int GetFollorY();
 	public:
 		int id = 0;
 		TextBubble(SDL_Point position);
 		~TextBubble() {Destroy();};
+		void SetFollowCorner(int cornerSign);
 		void SetMouseFollow(SDL_Point followPos);
 		void SetPosition(SDL_Point position);
 		void AddSnippetToBubble(Snippet *snippet, SDL_Point pos);

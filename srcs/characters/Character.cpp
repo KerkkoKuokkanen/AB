@@ -16,7 +16,7 @@ Character::Character(int skin, bool allied)
 	statuses.buffs = {};
 	statuses.deBuffs = {};
 	statuses.toxicBlade = {};
-	statuses.poison = {};
+	statuses.poison = {4, 4, 4, 4, 2, 2};
 	statuses.bleed = {};
 	statuses.controlZone = 0;
 	statuses.slowed = 0;
