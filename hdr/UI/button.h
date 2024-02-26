@@ -24,6 +24,7 @@ class Button
 		void Deactivate() {sprite->Deactivate(); active = false;};
 		void Activate() {sprite->Activate(); active = true;};
 		void ClearColor() {sprite->ClearColorMod();};
+		void SetUnActiveColor() {sprite->ColorMod(100, 100, 100);};
 		int Update();
 };
 

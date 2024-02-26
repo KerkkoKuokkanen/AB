@@ -6,7 +6,8 @@ void StatusInfo::SetUpBubble(int hoverIcon)
 	if (bubble != NULL)
 		delete bubble;
 	bubble = new TextBubble({0, 0});
-	bubble->SetMouseFollow({600, 600});
+	bubble->SetMouseFollow({xAdd, yAdd});
+	bubble->SetFollowCorner(followCorner);
 	bubble->id = hoverIcon;
 	CreateBubbles(hoverIcon);
 }

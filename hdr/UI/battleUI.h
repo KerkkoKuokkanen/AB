@@ -27,6 +27,7 @@ class CharacterUI
 		Bar *armor;
 		FatigueBar *fatigue;
 		Statuses *statuses;
+		StatusInfo *stausInfo = NULL;
 		Sprite *text = NULL;
 		SDL_Texture *texts = NULL;
 		bool turnActive = true;
@@ -41,6 +42,7 @@ class CharacterUI
 		void ManageTurnText();
 		bool AbilitiesMatch();
 		void PollAbilities();
+		bool CheckButtonCriteria(int index);
 		t_Ability *GetCharacterAbility(int type);
 	public:
 		bool overCharacterUI = false;

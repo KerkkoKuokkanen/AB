@@ -4,6 +4,8 @@
 
 CharacterUI::CharacterUI()
 {
+	stausInfo = new StatusInfo;
+	stausInfo->GiveFollowCorner(2);
 	SDL_Rect dest1 = {-25000, 44000, 50000, 3200};
 	SDL_Rect dest2 = {-25000, 40500, 25000, 3100};
 	SDL_Rect dest3 = {0, 40500, 25000, 3100};
@@ -379,11 +381,17 @@ void CharacterUI::Update()
 	armor->Update(activeCharacter, false);
 	fatigue->Update(activeCharacter);
 	statuses->Update();
+	stausInfo->Update(statuses->hoverIcon);
 	CheckIfMouseOver();
 	for (int i = 0; i < BUTTON_RESERVE && !activeCharacter->moving; i++)
 	{
 		if (buttons[i].used)
 		{
+			if (!CheckButtonCriteria(i))
+			{
+				buttons[i].button->SetUnActiveColor();
+				continue ;
+			}
 			buttons[i].button->ClearColor();
 			if (!overCharacterUI)
 				HandleButtonAction(buttons[i].button->Update(), i);
@@ -527,6 +535,25 @@ static bool CharacterNextToTrue(Character *character, t_Ability *ability)
 	if (CheckPosForNextTo({right, pos.y + 1}))
 		return (true);
 	return (false);
+}
+
+bool CharacterUI::CheckButtonCriteria(int index)
+{
+	if (buttons[index].buttonSign == 0)
+		return (true);
+	if (activeCharacter == NULL)
+		return (false);
+	if (buttons[index].energyCost > activeCharacter->moves)
+		return (false);
+	int fat = buttons[index].fatigueCost + activeCharacter->stats.fatigue;
+	if (fat > activeCharacter->stats.maxFatigue)
+		return (false);
+	t_Ability *ability = GetCharacterAbility(buttons[index].buttonSign);
+	if (ability == NULL)
+		return (false);
+	if (CharacterNextToTrue(activeCharacter, ability))
+		return (false);
+	return (true);
 }
 
 void CharacterUI::HandleButtonAction(int value, int buttonIndex)

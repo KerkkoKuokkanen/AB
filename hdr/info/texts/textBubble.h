@@ -38,6 +38,8 @@ class TextBubble
 		void AddSnippetToBubble(Snippet *snippet, SDL_Point pos);
 		void AddSpriteToBubble(Sprite *sprite, SDL_Point pos);
 		void SetUpOutline(int xAdd, int yAdd);
+		void SetAlphaMod(int alpha);
+		void ClearAlphaMod();
 		void Update();
 		void Destroy();
 };

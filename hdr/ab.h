@@ -158,6 +158,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "info/flyingText.h"
 # include "tools/throwArch.h"
 # include "tools/spriteMover.h"
+# include "UI/texts/UiTextUpdater.h"
 # include "UI/number.h"
 # include "UI/marker.h"
 # include "UI/statuses.h"

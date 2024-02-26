@@ -21,6 +21,7 @@ Info::Info()
 	colorEffects = new ColorEffects;
 	healthColoring = new HealthColoring;
 	statusInfo = new StatusInfo;
+	statusInfo->SetXAndYAdd(600, 600);
 	hovered = NULL;
 }
 

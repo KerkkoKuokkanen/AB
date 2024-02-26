@@ -110,8 +110,33 @@ int TextBubble::GetFollorY()
 	y += followPos.y;
 	if (follorCorner == 0 || follorCorner == 1)
 		return (y);
-	y -= outline->dest.h;
+	float minus = (float)outline->dest.h * 1.7777f;
+	y -= rounding(minus);
 	return (y);
+}
+
+void TextBubble::ClearAlphaMod()
+{
+	for (int i = 0; i < sprites.size(); i++)
+		sprites[i].sprite->ClearAlphaMod();
+	for (int i = 0; i < snippets.size(); i++)
+		snippets[i].snippet->ClearAlphaMod();
+	outline->AlphaMod(210);
+}
+
+void TextBubble::SetAlphaMod(int alpha)
+{
+	if (alpha > 255)
+		alpha = 255;
+	if (alpha < 0)
+		alpha = 0;
+	for (int i = 0; i < sprites.size(); i++)
+		sprites[i].sprite->AlphaMod(alpha);
+	for (int i = 0; i < snippets.size(); i++)
+		snippets[i].snippet->SetAlphaMod(alpha);
+	float unit = 210.0f / 255.0f;
+	int use = rounding(unit * (float)alpha);
+	outline->AlphaMod(use);
 }
 
 void TextBubble::Update()
