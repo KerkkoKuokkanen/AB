@@ -6,6 +6,8 @@ CharacterUI::CharacterUI()
 {
 	stausInfo = new StatusInfo;
 	stausInfo->GiveFollowCorner(2);
+	stausInfo->SetTurnerAss();
+	abilityText = new UiTextUpdater;
 	SDL_Rect dest1 = {-25000, 44000, 50000, 3200};
 	SDL_Rect dest2 = {-25000, 40500, 25000, 3100};
 	SDL_Rect dest3 = {0, 40500, 25000, 3100};
@@ -371,11 +373,15 @@ void CharacterUI::ClearEnergys()
 
 void CharacterUI::Update()
 {
+	textInfoSign = 0;
 	overCharacterUI = false;
 	getActive();
 	ManageTurnText();
 	if (!turnActive)
+	{
+		abilityText->Update(0);
 		return ;
+	}
 	PollAbilities();
 	health->Update(activeCharacter, true);
 	armor->Update(activeCharacter, false);
@@ -397,6 +403,7 @@ void CharacterUI::Update()
 				HandleButtonAction(buttons[i].button->Update(), i);
 		}
 	}
+	abilityText->Update(textInfoSign);
 	if (gameState.updateObjs.abilities->active && !gameState.updateObjs.abilities->inMotion)
 		fatigue->ShowFatigue(gameState.updateObjs.abilities->ability->fatigue);
 }
@@ -560,6 +567,7 @@ void CharacterUI::HandleButtonAction(int value, int buttonIndex)
 {
 	if (value == NO_CONTACT)
 		return ;
+	textInfoSign = buttons[buttonIndex].buttonSign;
 	overCharacterUI = true;
 	if (buttons[buttonIndex].energyCost != 0 && buttons[buttonIndex].energyCost < activeCharacter->moves)
 		ShowEnergy(buttons[buttonIndex].energyCost);

@@ -30,6 +30,7 @@ void TextBubble::AddSpriteToBubble(Sprite *sprite, SDL_Point pos)
 	sprite->dest.x = place.x;
 	sprite->dest.y = place.y;
 	sprites.push_back({sprite, pos});
+	gameState.render->AddSprite(sprite, TEXT_BUBBLE_LAYER);
 }
 
 void TextBubble::SetPosition(SDL_Point position)

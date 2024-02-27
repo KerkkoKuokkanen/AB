@@ -518,6 +518,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.iconTexts.icons[THIEF] = get_texture(rend, "sprites/UI/icons/ThiefIcon.png");
 	gameState.textures.iconTexts.icons[TOOLS] = get_texture(rend, "sprites/UI/icons/toolIcon.png");
 	gameState.textures.iconTexts.icons[WITCH] = get_texture(rend, "sprites/UI/icons/WitchIcon.png");
+	gameState.textures.rangedSymbol = get_texture(rend, "sprites/UI/RangedSymbol.png");
+	gameState.textures.smallEnergy = get_texture(rend, "sprites/UI/smallEnergy.png");
 }
 
 void CraeteAudioThread()

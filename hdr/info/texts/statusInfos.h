@@ -13,8 +13,10 @@ class StatusInfo
 		int followCorner = 0;
 		int xAdd = 0;
 		int yAdd = 0;
+		bool fromTurnerAss = false;
 	public:
 		~StatusInfo() {Destroy();};
+		void SetTurnerAss() {fromTurnerAss = true;};
 		void SetXAndYAdd(int x, int y) {xAdd = x; yAdd = y;};
 		void GiveFollowCorner(int corner) {followCorner = corner;};
 		void Update(int hoverIcon);

@@ -430,6 +430,8 @@ typedef struct s_Textures
 	SDL_Texture *backGround;
 	SDL_Texture *witchAbilities[3];
 	SDL_Texture *critFilter;
+	SDL_Texture *rangedSymbol;
+	SDL_Texture *smallEnergy;
 }				t_Textures;
 
 typedef struct s_Audio

@@ -5,8 +5,10 @@
 #define TN 1100
 #define TNO 550
 
-static Character *AnyOneClicked()
+static Character *AnyOneClicked(bool turnerAss)
 {
+	if (turnerAss)
+		return (gameState.updateObjs.UI->GetActiveCharacter());
 	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
 	{
 		Character *character = gameState.battle.ground->characters[i].character;
@@ -92,7 +94,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 	{
 		case StatusSigns::BURN:
 		{
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			std::string ret = GetBurnTurnNumber(click->statuses.burns, click);
 			Snippet *add1 = new Snippet("Burn:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
@@ -110,7 +112,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		}
 		case StatusSigns::POISON:
 		{
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			std::string ret = GetBurnTurnNumber(click->statuses.poison, click);
 			Snippet *add1 = new Snippet("Poison:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
@@ -126,7 +128,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		}
 		case StatusSigns::BLEED:
 		{
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			std::string ret = GetBurnTurnNumber(click->statuses.bleed, click);
 			Snippet *add1 = new Snippet("Bleed:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
@@ -154,7 +156,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		}
 		case StatusSigns::SLOWED:
 		{
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			std::string ret = GetSlowTurnNumber(click->statuses.slowed, click);
 			Snippet *add1 = new Snippet("Slow:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
@@ -170,7 +172,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		}
 		case StatusSigns::CONTROL:
 		{
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			std::string ret = GetSlowTurnNumber(click->statuses.controlZone, click);
 			Snippet *add1 = new Snippet("Control Zone:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
@@ -186,7 +188,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		}
 		case StatusSigns::TOXIC_BLADE:
 		{
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			std::string ret = GetToxicBladeTurnNumber(click->statuses.toxicBlade, click);
 			Snippet *add1 = new Snippet("Toxic Blade:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
@@ -241,7 +243,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		case StatusSigns::BUFF:
 		{
 			int start = 2750;
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			Snippet *add1 = new Snippet("Buffs:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			add1->SetColor(56, 119, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
@@ -255,7 +257,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		case StatusSigns::DEBUFF:
 		{
 			int start = 2750;
-			Character *click = AnyOneClicked();
+			Character *click = AnyOneClicked(fromTurnerAss);
 			Snippet *add1 = new Snippet("Debuffs:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			add1->SetColor(235, 47, 0);
 			bubble->AddSnippetToBubble(add1, {500, 250});

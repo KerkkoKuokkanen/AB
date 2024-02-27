@@ -28,6 +28,7 @@ class CharacterUI
 		FatigueBar *fatigue;
 		Statuses *statuses;
 		StatusInfo *stausInfo = NULL;
+		UiTextUpdater *abilityText = NULL;
 		Sprite *text = NULL;
 		SDL_Texture *texts = NULL;
 		bool turnActive = true;
@@ -44,6 +45,7 @@ class CharacterUI
 		void PollAbilities();
 		bool CheckButtonCriteria(int index);
 		t_Ability *GetCharacterAbility(int type);
+		int textInfoSign = 0;
 	public:
 		bool overCharacterUI = false;
 		bool active = false;
@@ -57,6 +59,7 @@ class CharacterUI
 		void Destroy();
 		void RemoveCharacter(Character *character);
 		void ClearEnergys();
+		Character *GetActiveCharacter() {return (activeCharacter);};
 };
 
 #endif
