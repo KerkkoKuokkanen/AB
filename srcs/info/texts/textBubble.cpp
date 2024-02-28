@@ -11,6 +11,11 @@ TextBubble::TextBubble(SDL_Point position)
 	gameState.render->AddSprite(outline, TEXT_BUBBLE_LAYER);
 }
 
+void TextBubble::ChangeOutlineColor(int r, int g, int b)
+{
+	outline->ColorMod(r, g, b);
+}
+
 void TextBubble::AddSnippetToBubble(Snippet *snippet, SDL_Point pos)
 {
 	snippet->SetOrderLayer(2);

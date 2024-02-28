@@ -14,6 +14,8 @@ class StatusInfo
 		int xAdd = 0;
 		int yAdd = 0;
 		bool fromTurnerAss = false;
+		int counter = 0;
+		int hovering = -1;
 	public:
 		~StatusInfo() {Destroy();};
 		void SetTurnerAss() {fromTurnerAss = true;};

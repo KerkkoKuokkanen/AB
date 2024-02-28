@@ -151,7 +151,7 @@ void UiTextUpdater::CreateBubble()
 		case DAGGER_THROW:
 		{
 			Snippet *add1 = new Snippet("Dagger Throw", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
@@ -277,21 +277,21 @@ void UiTextUpdater::CreateBubble()
 		case LIGHTNING_BOLT:
 		{
 			Snippet *add1 = new Snippet("Lightning Bolt", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
 		case ROCK_FALL:
 		{
 			Snippet *add1 = new Snippet("Meteor Fall", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
 		case HOST_EYES:
 		{
 			Snippet *add1 = new Snippet("Host Eyes", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
@@ -326,21 +326,21 @@ void UiTextUpdater::CreateBubble()
 		case NAIL_BOMB:
 		{
 			Snippet *add1 = new Snippet("Nail Bomb", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
 		case ACID_BOMB:
 		{
 			Snippet *add1 = new Snippet("Acid Flask", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
 		case SLOW_BOMB:
 		{
 			Snippet *add1 = new Snippet("Slow Bomb", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
@@ -368,14 +368,14 @@ void UiTextUpdater::CreateBubble()
 		case ACID_RAIN:
 		{
 			Snippet *add1 = new Snippet("Acid Rain", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
 		case TELEPORT:
 		{
 			Snippet *add1 = new Snippet("Teleport", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
-			add1->SetColor(4, 219, 0);
+			add1->SetColor(0, 115, 255);
 			bubble->AddSnippetToBubble(add1, {500, 250});
 			break ;
 		}
