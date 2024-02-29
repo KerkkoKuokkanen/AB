@@ -189,6 +189,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "info/IconBars/IconHealth.h"
 # include "info/IconBars/IconBar.h"
 # include "info/IconBars/IconBarHandler.h"
+# include "info/texts/hitChance.h"
 # include "info/texts/statusInfos.h"
 # include "info/info.h"
 # include "battleClasses/groundColoring.h"
