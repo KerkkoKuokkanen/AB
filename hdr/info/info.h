@@ -24,6 +24,7 @@ class Info
 		HealthColoring *healthColoring = NULL;
 		IconBarHandler *iconHandler = NULL;
 		StatusInfo *statusInfo = NULL;
+		HitChanceBubble *hitChanceBubble = NULL;
 		std::vector<FlyingSnippet*> snippets;
 		std::vector<SupplyEffect*> supplyEffects;
 		std::vector<BuffEffect*> buffEffects;

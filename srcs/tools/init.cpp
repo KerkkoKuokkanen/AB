@@ -520,6 +520,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.iconTexts.icons[WITCH] = get_texture(rend, "sprites/UI/icons/WitchIcon.png");
 	gameState.textures.rangedSymbol = get_texture(rend, "sprites/UI/RangedSymbol.png");
 	gameState.textures.smallEnergy = get_texture(rend, "sprites/UI/smallEnergy.png");
+	gameState.textures.hitSymbol = get_texture(rend, "sprites/UI/HitSymbol.png");
 }
 
 void CraeteAudioThread()

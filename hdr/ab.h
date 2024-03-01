@@ -431,6 +431,7 @@ void		ExtendSelector(Character *mage, Selector *selector);
 void		UpdateStatuses();
 void		ResetStatusUpdates();
 
+int			GetStatusChance(t_Ability *ability, Character *character, Character *target);
 bool		StatusApply(t_Ability *ability, Character *character, Character *target, bool skipCheck = false);
 bool		MoveChanceCheck(t_Ability *ability, Character *character, Character *target);
 int			CheckIfBlock(SDL_Point characterPos, SDL_Point targetPos);

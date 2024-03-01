@@ -236,10 +236,9 @@ void Statuses::ChangeAmount(int &index, int amount, int num)
 	}
 	std::string used = std::to_string(amount);
 	const char *text = used.c_str();
-	statuses[index].images.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+	statuses[index].images.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 	statuses[index].images.snippet->SetOrderLayer(3);
-	statuses[index].images.snippet->SetOutlineColor(50, 50, 50);
-	statuses[index].images.snippet->SetAlphaMod(200);
+	statuses[index].images.snippet->SetOutlineColor(5, 5, 5);
 	RePosition();
 }
 
@@ -325,10 +324,9 @@ void Statuses::CreateFrestStatus(int statusSign)
 				num = (num > 999) ? 999 : num;
 				std::string used = std::to_string(num);
 				const char *text = used.c_str();
-				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 				add.snippet->SetOrderLayer(3);
-				add.snippet->SetOutlineColor(50, 50, 50);
-				add.snippet->SetAlphaMod(200);
+				add.snippet->SetOutlineColor(5, 5, 5);
 			}
 			else
 				add.snippet = NULL;
@@ -393,10 +391,9 @@ void Statuses::CreateFrestStatus(int statusSign)
 				num = (num > 999) ? 999 : num;
 				std::string used = std::to_string(num);
 				const char *text = used.c_str();
-				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 				add.snippet->SetOrderLayer(3);
-				add.snippet->SetOutlineColor(50, 50, 50);
-				add.snippet->SetAlphaMod(200);
+				add.snippet->SetOutlineColor(5, 5, 5);
 			}
 			else
 				add.snippet = NULL;
@@ -414,10 +411,9 @@ void Statuses::CreateFrestStatus(int statusSign)
 				num = (num > 999) ? 999 : num;
 				std::string used = std::to_string(num);
 				const char *text = used.c_str();
-				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 				add.snippet->SetOrderLayer(3);
-				add.snippet->SetOutlineColor(50, 50, 50);
-				add.snippet->SetAlphaMod(200);
+				add.snippet->SetOutlineColor(5, 5, 5);
 			}
 			else
 				add.snippet = NULL;
@@ -435,10 +431,9 @@ void Statuses::CreateFrestStatus(int statusSign)
 				num = (num > 999) ? 999 : num;
 				std::string used = std::to_string(num);
 				const char *text = used.c_str();
-				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
+				add.snippet = new Snippet(text, FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, numberSize, numberOffset, TURN_ORDER_LAYER, true);
 				add.snippet->SetOrderLayer(3);
-				add.snippet->SetOutlineColor(50, 50, 50);
-				add.snippet->SetAlphaMod(200);
+				add.snippet->SetOutlineColor(5, 5, 5);
 			}
 			else
 				add.snippet = NULL;

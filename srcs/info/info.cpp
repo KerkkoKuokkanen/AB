@@ -21,6 +21,7 @@ Info::Info()
 	colorEffects = new ColorEffects;
 	healthColoring = new HealthColoring;
 	statusInfo = new StatusInfo;
+	hitChanceBubble = new HitChanceBubble;
 	statusInfo->SetXAndYAdd(600, 600);
 	hovered = NULL;
 }
@@ -284,6 +285,7 @@ void Info::Update()
 	healthColoring->Update();
 	colorEffects->Update();
 	iconHandler->Update();
+	hitChanceBubble->Update(hovered);
 	overInfo = counter->insideBox;
 }
 

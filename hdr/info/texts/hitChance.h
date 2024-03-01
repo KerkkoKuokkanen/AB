@@ -10,6 +10,7 @@ class HitChanceBubble
 		TextBubble *bubble = NULL;
 		int counter = 0;
 		int currAbility = 0;
+		Character *currHover = NULL;
 		void Deleting();
 		void CreateBubble();
 	public:

@@ -41,6 +41,7 @@ class TextBubble
 		void SetAlphaMod(int alpha);
 		void ClearAlphaMod();
 		void ChangeOutlineColor(int r, int g, int b);
+		void DisableOutline();
 		void Update();
 		void Destroy();
 };

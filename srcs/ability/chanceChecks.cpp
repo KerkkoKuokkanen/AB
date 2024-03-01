@@ -113,7 +113,7 @@ bool MeleeCheck(Character *character, Character *target, t_Ability *ability)
 	return (false);
 }
 
-static int GetStatusChance(t_Ability *ability, Character *character)
+static int GetChanceNumber(t_Ability *ability, Character *character, Character *target)
 {
 	int chance = 0;
 	if (ability->type == AXE_JUMP || ability->type == AXE_SLASH)
@@ -175,19 +175,27 @@ static int GetStatusChance(t_Ability *ability, Character *character)
 	return (chance);
 }
 
+int GetStatusChance(t_Ability *ability, Character *character, Character *target)
+{
+	int chance = GetChanceNumber(ability, character, target);
+	if (chance == 200)
+		return (200);
+	if (chance > 95)
+		chance = 95;
+	if (chance < 5)
+		chance = 5;
+	return (chance);
+}
+
 bool StatusApply(t_Ability *ability, Character *character, Character *target, bool skipCheck)
 {
 	if (ability == NULL)
 		return (false);
 	if (ability->statusSign == (-1) && !skipCheck)
 		return (false);
-	int chance = GetStatusChance(ability, character);
+	int chance = GetStatusChance(ability, character, target);
 	if (chance == 200)
 		return (true);
-	if (chance > 95)
-		chance = 95;
-	if (chance < 5)
-		chance = 5;
 	int hit = rand() % 100;
 	if (hit < chance)
 		return (true);

@@ -1,7 +1,7 @@
 
 #include "../../hdr/global.h"
 
-#define SCALE_FACTOR 550.0f
+#define SCALE_FACTOR 600.0f
 
 static std::string GetText(Character *character)
 {
@@ -52,7 +52,7 @@ static std::string GetText(Character *character)
 
 SDL_Rect InfoBar::GetTextDest(std::string &str)
 {
-	SDL_Rect ret = {0, -42380, 0, 1700};
+	SDL_Rect ret = {0, -42380, 0, 1800};
 	int len = str.length();
 	float width = (float)len * SCALE_FACTOR;
 	ret.w = rounding(width);
@@ -65,7 +65,7 @@ void InfoBar::CreateText()
 	std::string ret = GetText(character);
 	const char *str = ret.c_str();
 	SDL_Rect dest = GetTextDest(ret);
-	SDL_Texture *texts = get_text(str, FontTypes::GOOGLE_TEXT);
+	SDL_Texture *texts = get_text(str, FontTypes::GOOGLE_TEXT_SMALL);
 	charText = texts;
 	text[0] = new Sprite(texts, dest, NULL, NULL, 0, FLIP_NONE, true);
 	text[0]->orderLayer = 1;

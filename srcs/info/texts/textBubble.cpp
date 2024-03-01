@@ -87,6 +87,12 @@ void TextBubble::SetUpOutline(int xAdd, int yAdd)
 	outline->dest.h = furthest.y + yAdd;
 }
 
+void TextBubble::DisableOutline()
+{
+	if (outline != NULL)
+		outline->Deactivate();
+}
+
 void TextBubble::SetFollowCorner(int followSign)
 {
 	if (followSign < 0 || followSign >= 4)
