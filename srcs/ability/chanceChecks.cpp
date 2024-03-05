@@ -135,6 +135,12 @@ static int GetChanceNumber(t_Ability *ability, Character *character, Character *
 			chance = used->debuffChance;
 			return (chance);
 		}
+		case StatStructs::BUFF_AND_DEBUFF:
+		{
+			t_BuffAndDebuff *used = (t_BuffAndDebuff*)ability->stats;
+			chance = used->debuffChance;
+			return (chance);
+		}
 		case StatStructs::HOST_EYES:
 		{
 			t_HostEyes *used = (t_HostEyes*)ability->stats;

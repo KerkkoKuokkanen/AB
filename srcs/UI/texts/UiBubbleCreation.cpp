@@ -55,6 +55,18 @@ static std::string GetAbilityDamageString(t_Ability *ability, Character *charact
 	return (ret);
 }
 
+static std::string AccuracyAddition(t_Ability *ability)
+{
+	if (ability->type != SMITH_BUFF)
+		return ("");
+	t_BuffAndDebuff *used = (t_BuffAndDebuff*)ability->stats;
+	int chance = used->debuffChance;
+	std::string add = ", ";
+	add += std::to_string(chance);
+	add += "%";
+	return (add);
+}
+
 static std::string GetAccuracyString(t_Ability *ability)
 {
 	if (ability == NULL)
@@ -63,6 +75,7 @@ static std::string GetAccuracyString(t_Ability *ability)
 	int accuracy = ability->baseChance;
 	ret += std::to_string(accuracy);
 	ret += "%";
+	ret += AccuracyAddition(ability);
 	return (ret);
 }
 

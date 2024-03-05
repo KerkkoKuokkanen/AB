@@ -3,6 +3,7 @@
 
 SmithBuff::SmithBuff(Character *character, Character *target)
 {
+	PlaySound(gameState.audio.mageCast, Channels::MAGE_CAST, 0);
 	SmithBuff::character = character;
 	SmithBuff::target = target;
 	counter = 0;
@@ -69,11 +70,6 @@ void SmithBuff::Update()
 	if (counter == 6)
 	{
 		createBuff = true;
-		new BuffEffect(target, target->ally);
-		if (target->ally)
-			PlaySound(gameState.audio.BuffEffect, Channels::BUFF_EFFECT, 0);
-		else
-			PlaySound(gameState.audio.deBuffEffect, Channels::BUFF_EFFECT, 0);
 		CreateLight();
 	}
 	if (counter > 46)

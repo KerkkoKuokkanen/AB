@@ -76,7 +76,7 @@ static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
 	stats[2].stats = (void*)malloc(sizeof(t_BuffAndDebuff));
 	t_BuffAndDebuff *stat1 = (t_BuffAndDebuff*)stats[2].stats;
 	stat1->buffChance = 200;
-	stat1->debuffChance = 200;
+	stat1->debuffChance = 150;
 	stat1->turns = 2;
 	stat1->amount = 10;
 }

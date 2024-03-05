@@ -25,15 +25,24 @@ static bool ThisIsThePosition(Character *character, SDL_Point pos)
 	return (false);
 }
 
-static void CreateSmithBuffDebuff(Character *target, t_Ability *ability)
+static void CreateSmithBuffDebuff(Character *character, Character *target, t_Ability *ability)
 {
 	t_BuffAndDebuff *used = (t_BuffAndDebuff*)ability->stats;
 	if (target->ally)
 	{
+		new BuffEffect(target, target->ally);
+		PlaySound(gameState.audio.BuffEffect, Channels::BUFF_EFFECT, 0);
 		AddBuffToCharacter(target, {BuffTypes::ACCURACY, used->turns, used->amount, true, BuffDebuffId::NO_ID});
 		return ;
 	}
-	AddDeBuffToCharacter(target, {BuffTypes::ACCURACY, used->turns, used->amount, true, BuffDebuffId::NO_ID});
+	if (!StatusApply(ability, character, target, true))
+		CreateMiss(character->position, target->position, target, true);
+	else
+	{
+		PlaySound(gameState.audio.deBuffEffect, Channels::BUFF_EFFECT, 0);
+		new BuffEffect(target, target->ally);
+		AddDeBuffToCharacter(target, {BuffTypes::ACCURACY, used->turns, used->amount, true, BuffDebuffId::NO_ID});
+	}
 }
 
 SDL_Point Abilities::FindToolBox(TileSelector *selec)
@@ -143,7 +152,7 @@ void Abilities::UpdateSmithAnimation(t_Animation &anim, int index)
 			SmithBuff *used = (SmithBuff*)anim.animation;
 			used->Update();
 			if (used->createBuff)
-				CreateSmithBuffDebuff(target, ability);
+				CreateSmithBuffDebuff(character, target, ability);
 			if (used->done)
 			{
 				delete used;

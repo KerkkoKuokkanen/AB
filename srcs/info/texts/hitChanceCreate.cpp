@@ -116,6 +116,24 @@ void HitChanceBubble::CreateBubble()
 			bubble->SetUpOutline(500, GetYMinus(4750));
 			break ;
 		}
+		case SMITH_BUFF:
+		{
+			delete bubble;
+			bubble = new TextBubble({0, 0});
+			bubble->SetMouseFollow({0, 0});
+			bubble->SetFollowCorner(2);
+			Sprite *adder1 = new Sprite(gameState.textures.buffSymbol, {0, 0, 2000, 2000}, NULL, NULL, 0, FLIP_VERTICAL, true);
+			adder1->ColorMod(255, 60, 22);
+			int bleed = GetStatusChance(ability, active, currHover);
+			std::string blee = " ";
+			blee += std::to_string(bleed);
+			blee += "%";
+			Snippet *add4 = new Snippet(blee.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			bubble->AddSpriteToBubble(adder1, {500, 750});
+			bubble->AddSnippetToBubble(add4, {2700, 1150});
+			bubble->SetUpOutline(500, GetYMinus(1150));
+			break ;
+		}
 		case LIGHTNING_BOLT:
 		{
 			bubble->SetUpOutline(500, GetYMinus(1150));

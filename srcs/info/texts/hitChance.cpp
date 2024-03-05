@@ -8,8 +8,8 @@ static bool InAcceptedAbilities(int ability)
 	static int acc[] = {SMOKE_BOMB, FLAME_PORT, PHANTOM_KNIGHT, ROTATE,
 						THROW_TOOLBOX, SUPPLY_ALLY, SUPPLY, GENERIC_TOOL_THROW,
 						PICK_UP_TOOLS, TOXIC_BLADE, RAIDER_BLOCK, CONTROL_ZONE,
-						SMITH_BUFF, HEALTH_TRANSFER};
-	for (int i = 0; i < 14; i++)
+						HEALTH_TRANSFER};
+	for (int i = 0; i < 13; i++)
 	{
 		if (ability == acc[i])
 			return (false);
