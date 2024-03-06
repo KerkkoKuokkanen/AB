@@ -350,6 +350,7 @@ typedef struct s_Keys
 	int space;
 	int shift;
 	int control;
+	int tab;
 }				t_Keys;
 
 int				figure_the_delay(clock_t start, clock_t end);

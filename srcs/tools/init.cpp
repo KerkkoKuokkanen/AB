@@ -9,6 +9,7 @@ void initKeys()
 	gameState.keys.a = 0;
 	gameState.keys.s = 0;
 	gameState.keys.d = 0;
+	gameState.keys.tab = 0;
 	gameState.keys.left = 0;
 	gameState.keys.right = 0;
 	gameState.keys.up = 0;

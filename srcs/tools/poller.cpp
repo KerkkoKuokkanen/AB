@@ -5,7 +5,6 @@
 void eventPoller()
 {
 	SDL_Event evnt;
-
 	while (SDL_PollEvent(&evnt))
 	{
 		switch (evnt.type)
@@ -70,6 +69,9 @@ void eventPoller()
 					case SDL_SCANCODE_LCTRL:
 						gameState.keys.control = 1;
 						break ;
+					case SDL_SCANCODE_TAB:
+						gameState.keys.tab = 1;
+						break ;
 					default:
 						break ;
 				}
@@ -109,6 +111,9 @@ void eventPoller()
 						break ;
 					case SDL_SCANCODE_LCTRL:
 						gameState.keys.control = 0;
+						break ;
+					case SDL_SCANCODE_TAB:
+						gameState.keys.tab = 0;
 						break ;
 					default:
 						break ;
