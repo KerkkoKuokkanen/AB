@@ -576,6 +576,7 @@ void	init(t_wr *wr)
 	render.CreateLayer(LAYER_ORDER_SORT); //flying texts;
 	render.CreateLayer(LAYER_ORDER_SORT); //counter layer
 	render.CreateLayer(LAYER_ORDER_SORT); //text bubble layer
+	render.CreateLayer(LAYER_ORDER_SORT); //menu layer
 	gameState.render = &render;
 	static BattleGround battle(BATTLEGROUND_LAYER, wr->rend);
 	gameState.battle.ground = &battle;

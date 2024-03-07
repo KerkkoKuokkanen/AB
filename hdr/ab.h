@@ -39,7 +39,8 @@ enum {
 	TURN_ORDER_LAYER,
 	TEXT_LAYER,
 	COUNTER_LAYER,
-	TEXT_BUBBLE_LAYER
+	TEXT_BUBBLE_LAYER,
+	MENU_LAYER
 };
 
 enum {
@@ -189,6 +190,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "info/IconBars/IconHealth.h"
 # include "info/IconBars/IconBar.h"
 # include "info/IconBars/IconBarHandler.h"
+# include "info/menu/menu.h"
 # include "info/texts/hitChance.h"
 # include "info/texts/statusInfos.h"
 # include "info/info.h"
