@@ -22,6 +22,7 @@ class TurnOrder
 		std::vector<Character*> characters;
 		Sprite *banner;
 		Sprite *backGround;
+		Sprite *hoverIndicator;
 		void CreateIndicators();
 		void CreateSRect(SDL_Rect *srect, int cSing);
 		SDL_Rect CreateDest(int cSing);
@@ -40,7 +41,10 @@ class TurnOrder
 		void KillMoveUpdate();
 		void SetStuffHappening();
 		void SetStuffWithoudMove();
+		int InActiveList(Character *hover);
+		void UpdateHoverIndicator();
 		int wait = 0;
+		int hoverCounter = 0;
 	public:
 		std::vector<t_Indicator> indicators;
 		int turnCount = 0;

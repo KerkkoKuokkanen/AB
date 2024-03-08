@@ -81,7 +81,12 @@ void Info::UpdateBar()
 	Character *ret = AnyOneClicked();
 	if (ret != NULL && !ret->turn)
 	{
-		if (bar->character != ret)
+		if (bar == NULL || bar->character == NULL)
+		{
+			delete bar;
+			bar = new InfoBar(ret);
+		}
+		else if (bar->character != ret)
 		{
 			delete bar;
 			bar = new InfoBar(ret);

@@ -522,6 +522,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.rangedSymbol = get_texture(rend, "sprites/UI/RangedSymbol.png");
 	gameState.textures.smallEnergy = get_texture(rend, "sprites/UI/smallEnergy.png");
 	gameState.textures.hitSymbol = get_texture(rend, "sprites/UI/HitSymbol.png");
+	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/TurnIndicator.png");
 }
 
 void CraeteAudioThread()

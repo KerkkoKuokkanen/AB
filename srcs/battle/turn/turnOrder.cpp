@@ -242,6 +242,14 @@ void TurnOrder::CreateIndicators()
 
 TurnOrder::TurnOrder(std::vector<Character> &characters)
 {
+	int www = rounding(gameState.screen.width / 50.0f);
+	int hhh = rounding(gameState.screen.height / 44.0f);
+	int yyy = rounding(gameState.screen.height / 300.0f);
+	hoverIndicator = new Sprite(gameState.textures.turnIndicator, {0, yyy, www, hhh}, NULL, NULL, 0, FLIP_NONE, true);
+	hoverIndicator->setTranslation(false);
+	hoverIndicator->orderLayer = 5;
+	gameState.render->AddSprite(hoverIndicator, TURN_ORDER_LAYER);
+	hoverIndicator->Deactivate();
 	for (int i = 0; i < characters.size(); i++)
 		TurnOrder::characters.push_back(&characters[i]);
 	SDL_Rect dest = {
@@ -648,6 +656,7 @@ void TurnOrder::Update()
 		KillMoveUpdate();
 	CheckClickBox();
 	MouseScroll();
+	UpdateHoverIndicator();
 }
 
 void TurnOrder::Destroy()
