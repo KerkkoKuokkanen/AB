@@ -133,7 +133,10 @@ void Abilities::UpdateKnightAnimation(t_Animation &anim, int index)
 				if (!MeleeCheck(character, target, ability))
 					CreateMiss(character->position, target->position, target, true);
 				else
+				{
+					new ShieldBashEffect(character, target);
 					CreateShieldBashDamage();
+				}
 			}
 			if (used->done)
 			{

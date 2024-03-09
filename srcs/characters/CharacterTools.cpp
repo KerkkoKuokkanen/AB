@@ -49,8 +49,8 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stats[0].stats = (void*)malloc(sizeof(t_AttackWithDebuff));
 	t_AttackWithDebuff *stat0 = (t_AttackWithDebuff*)stats[0].stats;
 	stat0->critChance = 4;
-	stat0->damage = 75;
-	stat0->debuffChance = 25;
+	stat0->damage = 70;
+	stat0->debuffChance = 30;
 	stats[1].stats = (void*)malloc(sizeof(t_PhantomKnight));
 	t_PhantomKnight *stat1 = (t_PhantomKnight*)stats[1].stats;
 	stat1->hits = 20;
@@ -59,7 +59,7 @@ static void AssignDefaultLionStats(std::vector<t_Ability> &stats)
 	stat1->turns = 1;
 	stats[2].stats = (void*)malloc(sizeof(int));
 	int *stat2 = (int*)stats[2].stats;
-	*stat2 = 1;
+	*stat2 = 2;
 }
 
 static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
@@ -72,7 +72,7 @@ static void AssignDefaultSmithStats(std::vector<t_Ability> &stats)
 	t_AttackWithDebuff *stat2 = (t_AttackWithDebuff*)stats[1].stats;
 	stat2->critChance = 2;
 	stat2->damage = 100;
-	stat2->debuffChance = 80;
+	stat2->debuffChance = 85;
 	stats[2].stats = (void*)malloc(sizeof(t_BuffAndDebuff));
 	t_BuffAndDebuff *stat1 = (t_BuffAndDebuff*)stats[2].stats;
 	stat1->buffChance = 200;
@@ -94,7 +94,7 @@ static void AssignDefaultMageAbilities(std::vector<t_Ability> &stats)
 	stats[2].stats = (void*)malloc(sizeof(t_HostEyes));
 	t_HostEyes *stat1 = (t_HostEyes*)stats[2].stats;
 	stat1->enemyChance = 80;
-	stat1->hostRange = 5;
+	stat1->hostRange = 6;
 }
 
 static void AssignDefaultRaiderAbilities(std::vector<t_Ability> &stats)
@@ -123,23 +123,23 @@ static void AssignDefaultAlchemistAbilities(std::vector<t_Ability> &stats)
 	stats[0].stats = (void*)malloc(sizeof(t_DamageBomb));
 	t_DamageBomb *stat0 = (t_DamageBomb*)stats[0].stats;
 	stat0->additionalBlocks = false;
-	stat0->damage = 60;
+	stat0->damage = 100;
 	stat0->critChance = 1;
 	stat0->stacks = 3;
-	stat0->statusChance = 65;
+	stat0->statusChance = 75;
 	stat0->version = 7;
 	stats[1].stats = (void*)malloc(sizeof(t_DamageBomb));
 	stat0 = (t_DamageBomb*)stats[1].stats;
 	stat0->additionalBlocks = false;
-	stat0->damage = 50;
+	stat0->damage = 70;
 	stat0->critChance = 1;
-	stat0->stacks = 4;
-	stat0->statusChance = 70;
+	stat0->stacks = 10;
+	stat0->statusChance = 85;
 	stat0->version = 8;
 	stats[2].stats = (void*)malloc(sizeof(t_SlowBomb));
 	t_SlowBomb *stat1 = (t_SlowBomb*)stats[2].stats;
 	stat1->additionalBlocks = false;
-	stat1->chance = 80;
+	stat1->chance = 95;
 	stat1->slowDownVersion = 0;
 	stat1->version = 8;
 }
@@ -220,9 +220,9 @@ void Character::AssignAbilities()
 			AssingDefaultPyroStats(abilities);
 			break ;
 		case LION:
-			stats = {16, 20, 2, 120, 120, 90, 90, 80, 0, 8, 1};
-			abilities = {{LION_SMACK, 3, 20, 2, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, 50, 1, true, true, NULL},
-						{PHANTOM_KNIGHT, 5, 25, 8, 200, StatStructs::PHANTOM_KNIGHT, -1, 0, 0, true, false, NULL},
+			stats = {16, 20, 2, 100, 100, 160, 160, 80, 0, 8, 1};
+			abilities = {{LION_SMACK, 3, 12, 2, 95, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, 65, 1, true, true, NULL},
+						{PHANTOM_KNIGHT, 5, 20, 8, 200, StatStructs::PHANTOM_KNIGHT, -1, 0, 0, true, false, NULL},
 						{ROTATE, 2, 10, 2, 200, StatStructs::TIERS, -1, 0, 0, true, true, NULL}};
 			AssignDefaultLionStats(abilities);
 			break ;
@@ -250,9 +250,9 @@ void Character::AssignAbilities()
 			break ;
 		case ALCHEMIST:
 			stats = {21, 25, 6, 60, 60, 30, 30, 80, 0, 3, 1};
-			abilities = {{NAIL_BOMB, 4, 20, 9, 80, StatStructs::BOMB_STRUCT, (-1), 75, 2, false, true, NULL},
-						{ACID_BOMB, 4, 20, 10, 80, StatStructs::BOMB_STRUCT, (-1), 60, 3, false, true, NULL},
-						{SLOW_BOMB, 4, 20, 7, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), 0, 0, false, true, NULL}};
+			abilities = {{NAIL_BOMB, 4, 15, 9, 90, StatStructs::BOMB_STRUCT, (-1), 100, 2, true, true, NULL},
+						{ACID_BOMB, 3, 20, 10, 90, StatStructs::BOMB_STRUCT, (-1), 70, 3, false, true, NULL},
+						{SLOW_BOMB, 3, 13, 8, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), 0, 0, true, true, NULL}};
 			AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		case KNIGHT:
@@ -263,9 +263,9 @@ void Character::AssignAbilities()
 			AssingDefaultKnightAbilities(abilities);
 			break ;
 		case WITCH:
-			stats = {10, 14, 8, 45, 45, 25, 25, 80, 0, 2, 1};
-			abilities = {{ACID_RAIN, 3, 15, 10, 80, StatStructs::ACID_RAIN_STRUCT, (-1), 0, 0, false, true, NULL},
-						{TELEPORT, 4, 20, 10, 80, StatStructs::TELEPORT, (-1), 0, 0, false, true, NULL},
+			stats = {10, 14, 8, 45, 45, 25, 25, 90, 0, 2, 1};
+			abilities = {{ACID_RAIN, 3, 12, 10, 90, StatStructs::ACID_RAIN_STRUCT, (-1), 0, 0, false, true, NULL},
+						{TELEPORT, 4, 16, 10, 90, StatStructs::TELEPORT, (-1), 0, 0, false, true, NULL},
 						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, true, true, NULL}};
 			AssingDefaultWitchAbilities(abilities);
 			break ;

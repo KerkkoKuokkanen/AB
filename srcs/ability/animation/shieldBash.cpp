@@ -68,8 +68,17 @@ void ShieldBash::Update()
 	UpdateTrail(ret);
 	if (ret == 5)
 		CreateTrail();
+	if (ret == 8)
+		SetDelayer(2);
 	if (ret == 10)
+	{
+		SetDelayer(3);
 		createDamage = true;
+	}
+	if (ret == 11)
+		SetDelayer(2);
+	if (ret == 12)
+		SetDelayer(2);
 	if (ret == 28)
 	{
 		character->sprite->orderLayer -= orderDiff;

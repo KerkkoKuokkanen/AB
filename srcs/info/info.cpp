@@ -218,6 +218,16 @@ void Info::UpdateSlowEffects()
 			i = (healEffects.size() == 0) ? 0 : i - 1;
 		}
 	}
+	for (int i = 0; i < shieldBashEffects.size(); i++)
+	{
+		shieldBashEffects[i]->Update();
+		if (shieldBashEffects[i]->done)
+		{
+			delete shieldBashEffects[i];
+			shieldBashEffects.erase(shieldBashEffects.begin() + i);
+			i = (shieldBashEffects.size() == 0) ? 0 : i - 1;
+		}
+	}
 }
 
 void Info::AddBombEffect(void *effect, int abilityType)

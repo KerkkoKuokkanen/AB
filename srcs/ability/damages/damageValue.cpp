@@ -108,5 +108,6 @@ SDL_Point GetDamageValues(Character *target, Character *caster, t_Ability *abili
 		PlaySound(gameState.audio.criticalHit, Channels::VOLUME_36, 0);
 		return (GetFinalDamageSplitCritical(target, damage));
 	}
+	SetDelayer(3);
 	return (GetFinalDamageSplit(target, damage));
 }

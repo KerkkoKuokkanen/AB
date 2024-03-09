@@ -33,6 +33,7 @@ class Info
 		std::vector<AcidBombBlast*> acidBombs;
 		std::vector<SlowedEffect*> slowEffects;
 		std::vector<HealEffect*> healEffects;
+		std::vector<ShieldBashEffect*> shieldBashEffects;
 		void UpdateSnippets();
 		void FindHoveredCharacter();
 		bool KilledOrDamaged();
@@ -57,6 +58,7 @@ class Info
 		void AddHostEffect(HostEffect *add) {hostEffects.push_back(add);};
 		void AddHealEffect(HealEffect *add) {healEffects.push_back(add);};
 		void AddSlowEffect(SlowedEffect *add) {slowEffects.push_back(add);};
+		void AddShieldBashEffect(ShieldBashEffect *add) {shieldBashEffects.push_back(add);};
 		void AddBombEffect(void *effect, int abilityType);
 		void SetCritFilter();
 		void AddColorEffect(Sprite *sprite, int time, Color color, int delay) {colorEffects->AddEffect(sprite, time, color, delay);};

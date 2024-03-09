@@ -153,6 +153,7 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 
 void Damager::AddBleedDamage(Character *target, int amount)
 {
+	SetDelayer(2);
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::VOLUME_8, 0};
 	t_Sound add4 = {gameState.audio.bleed, Channels::VOLUME_23, 0};
 	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
@@ -160,16 +161,20 @@ void Damager::AddBleedDamage(Character *target, int amount)
 	Vector dir(1.0f, 0.0f);
 	if (target->ally)
 		dir.x = -1.0f;
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(184, 6, 6), 0);
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(184, 6, 6), 6);
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(184, 6, 6), 12);
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(184, 6, 6), 18);
+	if ((target->stats.health - amount) > 0)
+	{
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 0);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 6);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 12);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 18);
+	}
 	damageCreator.CreateDamage(target, Color(255, 0, 0), 0, amount, dir, sounds);
 	CreatePoisonSnippet(target, rand() % 100 + 1, Color(184, 6, 6));
 }
 
 void Damager::AddPoisonDamage(Character *target, int amount)
 {
+	SetDelayer(2);
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::VOLUME_8, 0};
 	t_Sound add4 = {gameState.audio.poison, Channels::VOLUME_23, 0};
 	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
@@ -177,10 +182,13 @@ void Damager::AddPoisonDamage(Character *target, int amount)
 	Vector dir(1.0f, 0.0f);
 	if (target->ally)
 		dir.x = -1.0f;
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 0);
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 6);
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 12);
-	gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 18);
+	if ((target->stats.health - amount) > 0)
+	{
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 0);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 6);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 12);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 18);
+	}
 	damageCreator.CreateDamage(target, Color(255, 0, 0), 0, amount, dir, sounds);
 	CreatePoisonSnippet(target, rand() % 100 + 1, Color(28, 138, 0));
 }
@@ -192,6 +200,7 @@ void Damager::AddOpportunityDamage(SDL_Point damager, Character *target)
 	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
 	std::vector<t_Sound> sounds = {add3, add4, add5};
 	SDL_Point damages = GetOpportunityDamageValues(target, damager);
+	SetDelayer(3);
 	if (target->cSing == LION)
 		damageCreator.CreateDamage(target, Color(255, 0, 0), damages.x, damages.y, GetDirection(damager, target), sounds, false);
 	else

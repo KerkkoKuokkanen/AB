@@ -178,6 +178,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "effects/nailBombBlast.h"
 # include "effects/hostEyesEffect.h"
 # include "effects/acidBombBlast.h"
+# include "effects/shieldBashEffect.h"
 # include "info/healthColoring.h"
 # include "info/supplyEffect.h"
 # include "info/control.h"
