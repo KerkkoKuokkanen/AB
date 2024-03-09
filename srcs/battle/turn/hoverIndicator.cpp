@@ -1,6 +1,6 @@
 
 #include "../../../hdr/global.h"
-#define COUNT_TIME 18
+#define COUNT_TIME 8
 
 static Character *FindHoveredCharacter()
 {

@@ -507,6 +507,8 @@ void TurnOrder::MouseScroll()
 
 void TurnOrder::RemoveCharacter(Character *character)
 {
+	if (character->cSing == PHANTOM_LION || character->cSing == TOOLS)
+		return ;
 	killActive = true;
 	for (int i = 0; i < characters.size(); i++)
 	{

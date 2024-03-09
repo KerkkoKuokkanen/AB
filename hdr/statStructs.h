@@ -57,6 +57,7 @@ typedef struct s_HealthTransfer
 {
 	int secondRange;
 	int amount;
+	int minNumber;
 	bool enemy;
 }				t_HealthTransfer;
 

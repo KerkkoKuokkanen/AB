@@ -174,11 +174,12 @@ static void AssingDefaultWitchAbilities(std::vector<t_Ability> &stats)
 	stats[1].stats = (void*)malloc(sizeof(t_Teleport));
 	t_Teleport *stat1 = (t_Teleport*)stats[1].stats;
 	stat1->maxSize = 5;
-	stat1->secondRange = 10;
+	stat1->secondRange = 13;
 	stats[2].stats = (void*)malloc(sizeof(t_HealthTransfer));
 	t_HealthTransfer *stat2 = (t_HealthTransfer*)stats[2].stats;
 	stat2->amount = 20;
 	stat2->secondRange = 10;
+	stat2->minNumber = 18;
 	stat2->enemy = false;
 }
 
@@ -252,7 +253,7 @@ void Character::AssignAbilities()
 			stats = {21, 25, 6, 60, 60, 30, 30, 80, 0, 3, 1};
 			abilities = {{NAIL_BOMB, 4, 15, 9, 90, StatStructs::BOMB_STRUCT, (-1), 100, 2, true, true, NULL},
 						{ACID_BOMB, 3, 20, 10, 90, StatStructs::BOMB_STRUCT, (-1), 70, 3, false, true, NULL},
-						{SLOW_BOMB, 3, 13, 8, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), 0, 0, true, true, NULL}};
+						{SLOW_BOMB, 3, 13, 11, 200, StatStructs::SLOW_BOMB_STRUCT, (-1), 0, 0, true, true, NULL}};
 			AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		case KNIGHT:

@@ -110,9 +110,13 @@ int Abilities::CreateWitchDamage()
 	Character *damaged = gameState.battle.ground->map[targPoints[0].y][targPoints[0].x].character;
 	Character *healed = gameState.battle.ground->map[targPoints[1].y][targPoints[1].x].character;
 	float amount = (float)stats->amount / 100.0f;
+	int minimum = stats->minNumber;
 	int precent = rounding((float)damaged->stats.maxHealth * amount);
+	precent = (precent < minimum) ? minimum : precent;
 	int missing = healed->stats.maxHealth - healed->stats.health;
 	int doThisDamage = (missing > precent) ? precent : missing;
+	if (doThisDamage > damaged->stats.health)
+		doThisDamage = damaged->stats.health - 1;
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::DAGGER_THROW1, 0};
 	t_Sound add4 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
 	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};

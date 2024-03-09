@@ -34,6 +34,11 @@ void ToolBox::UpdateToolBoxInHand()
 {
 	if (!inHand)
 		return ;
+	if (character->killed)
+	{
+		done = true;
+		return ;
+	}
 	SDL_Rect dest = character->sprite->dest;
 	float angle = character->sprite->getAngle();
 	SDL_Texture *text = character->sprite->getTexture();
@@ -157,14 +162,9 @@ void ToolBox::Update()
 	stand->dest = sprite->dest;
 	targPos = Character::position;
 	if (Character::stats.health <= 0 && delayerStart == false)
-		delayerStart = true;
-	if (character != NULL && character->killed)
-		done = true;
-	if (delayerStart)
 	{
-		deathTimer--;
-		if (deathTimer < 0)
-			done = true;
+		gameState.updateObjs.killer->AddCharacterToKill(this);
+		delayerStart = true;
 	}
 	if (done || delayerStart)
 	{

@@ -72,8 +72,26 @@ void Kill::AddCharacterToKill(Character *character)
 	kills.push_back(kill);
 }
 
+static bool PhantLionCheck(Character *character, SDL_Point pos)
+{
+	if (character->cSing == PHANTOM_LION)
+	{
+		PhantomKnight *used = (PhantomKnight*)gameState.battle.ground->map[pos.y][pos.x].additional.object;
+		used->done = true;
+		return (true);
+	}
+	if (character->cSing == TOOLS)
+	{
+		ToolBox *used = (ToolBox*)gameState.battle.ground->map[pos.y][pos.x].additional.object;
+		used->done = true;
+		return (true);
+	}
+	return (false);
+}
+
 void Kill::RemoveCharacter(Character *character)
 {
+	SDL_Point pos = character->position;
 	gameState.updateObjs.abilities->RemoveCharacterFromDamager(character);
 	gameState.battle.ground->RemoveCharacter(character);
 	Character *chosen = gameState.updateObjs.indicator->getChosen();
@@ -84,6 +102,8 @@ void Kill::RemoveCharacter(Character *character)
 	}
 	gameState.updateObjs.turnOrder->RemoveCharacter(character);
 	gameState.updateObjs.UI->RemoveCharacter(character);
+	if (PhantLionCheck(character, pos))
+		return ;
 	character->Destroy();
 	//delete character; may need to be used later
 }

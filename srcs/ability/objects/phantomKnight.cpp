@@ -19,6 +19,7 @@ static Color GetColor()
 
 PhantomKnight::PhantomKnight(Character *character, t_Ability *ability, SDL_Point pos) : Character(PHANTOM_LION, character->ally)
 {
+	killTimer = 0;
 	gameState.battle.ground->map[pos.y][pos.x].blocked = true;
 	gameState.battle.ground->map[pos.y][pos.x].additional.type = AdditionalObjects::PHANTOM_KNIGHT;
 	gameState.battle.ground->map[pos.y][pos.x].additional.object = this;
@@ -96,9 +97,12 @@ void PhantomKnight::Update()
 		return ;
 	UpdateSprites();
 	CheckTurns();
-	if (stats.health <= 0)
-		killTimer++;
-	if (character == NULL || turns <= 0 || hp <= 0 || character->killed || killTimer > KILL_TIMER)
+	if (stats.health <= 0 && killTimer == 0)
+	{
+		gameState.updateObjs.killer->AddCharacterToKill(this);
+		killTimer = 1;
+	}
+	if (character == NULL || turns <= 0 || hp <= 0)
 		done = true;
 }
 
