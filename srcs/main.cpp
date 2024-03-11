@@ -6,8 +6,8 @@ t_AiMoveMaps moveMaps;
 
 void TempInitBattle()
 {
-	Character thief(SMITH);
-	Character thief1(SMITH);
+	Character thief(RAIDER);
+	Character thief1(THIEF);
 	Character skele(SKELE, false);
 	Character skele2(SKELE, false);
 	Character skele3(SKELE, false);
