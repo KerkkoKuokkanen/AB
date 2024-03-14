@@ -76,6 +76,10 @@ Vector BattleGround::GetCharacterCoord(SDL_Point pos, Character *character)
 			place.x -= 350.0f;
 			place.y -= 4600.0f;
 			break ;
+		case BIG_THUG:
+			place.x -= 800.0f;
+			place.y -= 5200.0f;
+			break ;
 	}
 	return (place);
 }

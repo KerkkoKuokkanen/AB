@@ -100,7 +100,11 @@ t_AiCharacter *GetTheStartingTurnForAi(t_AiMapUnit **map)
 			if (map[i][j].character == NULL)
 				continue ;
 			if (map[i][j].character->character == used)
+			{
+				if (map[i][j].character->character->killed)
+					return (NULL);
 				return (map[i][j].character);
+			}
 		}
 	}
 	return (NULL);

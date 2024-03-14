@@ -519,10 +519,21 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.iconTexts.icons[THIEF] = get_texture(rend, "sprites/UI/icons/ThiefIcon.png");
 	gameState.textures.iconTexts.icons[TOOLS] = get_texture(rend, "sprites/UI/icons/toolIcon.png");
 	gameState.textures.iconTexts.icons[WITCH] = get_texture(rend, "sprites/UI/icons/WitchIcon.png");
+	gameState.textures.iconTexts.icons[BIG_THUG] = get_texture(rend, "sprites/UI/icons/bigThugIcon.png");
 	gameState.textures.rangedSymbol = get_texture(rend, "sprites/UI/RangedSymbol.png");
 	gameState.textures.smallEnergy = get_texture(rend, "sprites/UI/smallEnergy.png");
 	gameState.textures.hitSymbol = get_texture(rend, "sprites/UI/HitSymbol.png");
 	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/TurnIndicator.png");
+	use = get_texture_and_surface(rend, "sprites/characters/bigThug/bigthug.png");
+	gameState.textures.chars.bigThugIdle[0] = use.text;
+	gameState.surfaces.bigThugIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/bigThug/bigthug2.png");
+	gameState.textures.chars.bigThugIdle[1] = use.text;
+	gameState.surfaces.bigThugIdle2 = use.sur;
+	gameState.textures.stands.bigThugStand = get_texture(rend, "sprites/characters/bigThug/bigthugStand.png");
+	gameState.textures.chars.bigThugIndicator = get_texture(rend, "sprites/characters/bigThug/bigThugIndicator.png");
+	gameState.textures.attacks.bigThugAttack[0] = get_texture(rend, "sprites/characters/bigThug/bta.png");
+	gameState.textures.attacks.bigThugAttack[1] = get_texture(rend, "sprites/characters/bigThug/btaTrail.png");
 }
 
 void CraeteAudioThread()
@@ -556,7 +567,7 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	AudioCreateChannels(120);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	SDL_GetWindowSize(wr->win, &gameState.screen.width, &gameState.screen.height);
@@ -603,7 +614,7 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	SDL_SetWindowFullscreen(wr->win, 1);
+	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 	CraeteAudioThread();
 	AiThread();

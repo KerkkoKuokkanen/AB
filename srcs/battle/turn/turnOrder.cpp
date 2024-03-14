@@ -13,10 +13,12 @@ bool compareObjects(const t_Indicator &obj1, const t_Indicator &obj2)
 
 static SDL_Texture *getCharacterTexture(Character *character)
 {
-	if (character->cSing != MAGE && character->cSing != WITCH)
+	if (character->cSing != MAGE && character->cSing != WITCH && character->cSing != BIG_THUG)
 		return (character->sprite->getTexture());
 	if (character->cSing == MAGE)
 		return (gameState.textures.chars.mageIndicator);
+	if (character->cSing == BIG_THUG)
+		return (gameState.textures.chars.bigThugIndicator);
 	return (gameState.textures.chars.witchSource);
 }
 
@@ -84,6 +86,11 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->w = 310;
 			srect->h = 313;
 			break ;
+		case BIG_THUG:
+			srect->x = 0;
+			srect->y = 0;
+			srect->w = 299;
+			srect->h = 299;
 	}
 }
 
@@ -165,6 +172,14 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 			};
 			break ;
 		case WITCH:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case BIG_THUG:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),

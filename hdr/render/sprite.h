@@ -19,6 +19,7 @@ class Sprite
 		bool scaled = true;
 		bool removed = false;
 	public:
+		int flipSign = FLIP_NONE;
 		double angle = 0.0;
 		float z = 0.0f;
 		SDL_Rect dest = {0, 0, 0, 0};
@@ -34,6 +35,7 @@ class Sprite
 			Sprite::srect = srect;
 			Sprite::point = point;
 			Sprite::angle = angle;
+			Sprite::flipSign = flip;
 			if (flip == FLIP_HORIZONTAL)
 				Sprite::flip = SDL_FLIP_HORIZONTAL;
 			else if (flip == FLIP_VERTICAL)

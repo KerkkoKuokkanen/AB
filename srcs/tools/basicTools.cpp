@@ -291,6 +291,11 @@ SDL_Surface *getSurface(Character *character)
 				return (gameState.surfaces.witchIdle1);
 			else
 				return (gameState.surfaces.witchIdle2);
+		case BIG_THUG:
+			if (text == 0)
+				return (gameState.surfaces.bigThugIdle1);
+			else
+				return (gameState.surfaces.bigThugIdle2);
 	}
 	return (NULL);
 }

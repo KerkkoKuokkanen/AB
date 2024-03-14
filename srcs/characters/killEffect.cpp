@@ -13,8 +13,8 @@ KillEffect::KillEffect(SDL_Surface *sur, Sprite *character, Sprite *stand)
 	sRect = {0, 0, 0, 0};
 	sRect.w = sur->w;
 	sRect.h = sur->h;
-	KillEffect::character = new Sprite(character->getTexture(), dest, &sRect, NULL, 0, FLIP_NONE);
-	KillEffect::stand = new Sprite(stand->getTexture(), dest, NULL, NULL, 0, FLIP_NONE);
+	KillEffect::character = new Sprite(character->getTexture(), dest, &sRect, NULL, 0, character->flipSign);
+	KillEffect::stand = new Sprite(stand->getTexture(), dest, NULL, NULL, 0, character->flipSign);
 	KillEffect::character->z = z;
 	KillEffect::character->orderLayer = order;
 	KillEffect::stand->z = z - 0.1f;

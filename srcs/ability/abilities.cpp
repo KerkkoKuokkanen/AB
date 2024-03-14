@@ -188,6 +188,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case SKELE_LUNGE:
 			axeJumpSelector = new AxeJumpSelector(pos, ability->range, &groundColoring);
 			break ;
+		case BIG_THUG_STRIKE:
+			selector = new Selector(character->position, ability->range, 0, &groundColoring, true);
+			break ;
 	}
 }
 
@@ -338,6 +341,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case SKELE_LUNGE:
 			animations.push_back({new SkeleLunge(character, target, targPoints[0]), SKELE_LUNGE});
+			break ;
+		case BIG_THUG_STRIKE:
+			animations.push_back({new BigThugStrike(character, target), BIG_THUG_STRIKE});
 			break ;
 	}
 }
@@ -543,6 +549,9 @@ void Abilities::AnimationUpdater()
 				UpdateWitchAnimation(animations[i], i);
 				break ;
 			case SKELE:
+				UpdateEnemyAnimationOne(animations[i], i);
+				break ;
+			case BIG_THUG:
 				UpdateEnemyAnimationOne(animations[i], i);
 				break ;
 		}

@@ -96,6 +96,12 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 			AdditionalActions(pos, ability, newMap);
 			return ;
 		}
+		case BIG_THUG_STRIKE:
+		{
+			AddAbilityUseCosts(ability, newMap, character->position);
+			CreateDamageToPosition(pos, character, ability, newMap);
+			break ;
+		}
 	}
 	SetAbilityToAction(pos, ability, newMap, character->position);
 }

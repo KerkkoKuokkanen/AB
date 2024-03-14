@@ -269,6 +269,8 @@ typedef struct s_Surfaces
 	SDL_Surface *witchIdle2;
 	SDL_Surface *toolBox;
 	SDL_Surface *skeleLunge;
+	SDL_Surface *bigThugIdle1;
+	SDL_Surface *bigThugIdle2;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -285,6 +287,7 @@ typedef struct s_Stands
 	SDL_Texture *knightStand;
 	SDL_Texture *witchStand;
 	SDL_Texture *toolsStand;
+	SDL_Texture *bigThugStand;
 }				t_Stands;
 
 typedef struct s_CharacterTexts
@@ -308,6 +311,8 @@ typedef struct s_CharacterTexts
 	SDL_Texture *knightIdle[2];
 	SDL_Texture *witchIdle[2];
 	SDL_Texture *witchSource;
+	SDL_Texture *bigThugIdle[2];
+	SDL_Texture *bigThugIndicator;
 }				t_CharacterTexts;
 
 typedef struct s_AttackTextures
@@ -343,6 +348,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *heartBeat[2];
 	SDL_Texture *sekeleMelee;
 	SDL_Texture *skeleLunge;
+	SDL_Texture *bigThugAttack[2];
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites
@@ -364,7 +370,7 @@ typedef struct s_ButtonTextures
 
 typedef struct s_IconTextures
 {
-	SDL_Texture *icons[12];
+	SDL_Texture *icons[13];
 	SDL_Texture *iconX;
 	SDL_Texture *iconBars[3];
 }				t_IconTextures;

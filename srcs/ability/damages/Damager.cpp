@@ -153,6 +153,8 @@ void Damager::AddDamage(t_Ability *ability, Character *character, std::vector<SD
 
 void Damager::AddBleedDamage(Character *target, int amount)
 {
+	if (target->stats.health <= 0)
+		return ;
 	SetDelayer(2);
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::VOLUME_8, 0};
 	t_Sound add4 = {gameState.audio.bleed, Channels::VOLUME_23, 0};
@@ -174,6 +176,8 @@ void Damager::AddBleedDamage(Character *target, int amount)
 
 void Damager::AddPoisonDamage(Character *target, int amount)
 {
+	if (target->stats.health <= 0)
+		return ;
 	SetDelayer(2);
 	t_Sound add3 = {gameState.audio.daggerThrow[1], Channels::VOLUME_8, 0};
 	t_Sound add4 = {gameState.audio.poison, Channels::VOLUME_23, 0};

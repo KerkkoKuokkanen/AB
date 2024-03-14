@@ -195,6 +195,14 @@ static void AssignDefaultSkeleStats(std::vector<t_Ability> &stats)
 	stat0->damage = 100;
 }
 
+static void AssignDefaultBigThugStats(std::vector<t_Ability> &stats)
+{
+	stats[0].stats = (void*)malloc(sizeof(t_AttackStruct));
+	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
+	stat0->critChance = 1;
+	stat0->damage = 140;
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
@@ -269,6 +277,11 @@ void Character::AssignAbilities()
 						{TELEPORT, 4, 16, 10, 90, StatStructs::TELEPORT, (-1), 0, 0, false, true, NULL},
 						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, true, true, NULL}};
 			AssingDefaultWitchAbilities(abilities);
+			break ;
+		case BIG_THUG:
+			stats = {26, 48, 3, 210, 210, 40, 40, 130, 0, 6, 1};
+			abilities = {{BIG_THUG_STRIKE, 4, 23, 2, 70, StatStructs::ATTACK_STRUCT, (-1), 140, 1, true, true, NULL}};
+			AssignDefaultBigThugStats(abilities);
 			break ;
 		default:
 			return ;
@@ -410,6 +423,17 @@ void Character::CreateCharacterType(int skin)
 			stands.push_back(gameState.textures.stands.witchStand);
 			sprite = new Sprite(gameState.textures.chars.witchIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
 			stand = new Sprite(gameState.textures.stands.witchStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
+		case BIG_THUG:
+		{
+			SDL_Rect dest = {-3000, -450, 6800, 8160};
+			textures.push_back(gameState.textures.chars.bigThugIdle[0]);
+			textures.push_back(gameState.textures.chars.bigThugIdle[1]);
+			stands.push_back(gameState.textures.stands.bigThugStand);
+			stands.push_back(gameState.textures.stands.bigThugStand);
+			sprite = new Sprite(gameState.textures.chars.bigThugIdle[0], dest, NULL, NULL, 0, FLIP_HORIZONTAL);
+			stand = new Sprite(gameState.textures.stands.bigThugStand, dest, NULL, NULL, 0, FLIP_HORIZONTAL);
 			break ;
 		}
 	}
