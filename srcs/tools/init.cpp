@@ -520,6 +520,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.iconTexts.icons[TOOLS] = get_texture(rend, "sprites/UI/icons/toolIcon.png");
 	gameState.textures.iconTexts.icons[WITCH] = get_texture(rend, "sprites/UI/icons/WitchIcon.png");
 	gameState.textures.iconTexts.icons[BIG_THUG] = get_texture(rend, "sprites/UI/icons/bigThugIcon.png");
+	gameState.textures.iconTexts.icons[THUG] = get_texture(rend, "sprites/UI/icons/thugIcon.png");
 	gameState.textures.rangedSymbol = get_texture(rend, "sprites/UI/RangedSymbol.png");
 	gameState.textures.smallEnergy = get_texture(rend, "sprites/UI/smallEnergy.png");
 	gameState.textures.hitSymbol = get_texture(rend, "sprites/UI/HitSymbol.png");
@@ -534,6 +535,13 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.bigThugIndicator = get_texture(rend, "sprites/characters/bigThug/bigThugIndicator.png");
 	gameState.textures.attacks.bigThugAttack[0] = get_texture(rend, "sprites/characters/bigThug/bta.png");
 	gameState.textures.attacks.bigThugAttack[1] = get_texture(rend, "sprites/characters/bigThug/btaTrail.png");
+	use = get_texture_and_surface(rend, "sprites/characters/thug/thugStart.png");
+	gameState.textures.chars.thugIdle[0] = use.text;
+	gameState.surfaces.thugIdle1 = use.sur;
+	use = get_texture_and_surface(rend, "sprites/characters/thug/thugStart2.png");
+	gameState.textures.chars.thugIdle[1] = use.text;
+	gameState.surfaces.thugIdle2 = use.sur;
+	gameState.textures.stands.thugStand = get_texture(rend, "sprites/characters/thug/thugStartStand.png");
 }
 
 void CraeteAudioThread()

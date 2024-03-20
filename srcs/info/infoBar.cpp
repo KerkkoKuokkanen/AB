@@ -49,6 +49,9 @@ static std::string GetText(Character *character)
 		case BIG_THUG:
 			text += ": Big Thug";
 			break ;
+		case THUG:
+			text += ": Thug";
+			break ;
 	}
 	return (text);
 }

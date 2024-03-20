@@ -277,7 +277,8 @@ enum {
 	KNIGHT,
 	WITCH,
 	TOOLS,
-	BIG_THUG
+	BIG_THUG,
+	THUG
 };
 
 enum {

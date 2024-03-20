@@ -7,8 +7,8 @@ t_AiMoveMaps moveMaps;
 void TempInitBattle()
 {
 	Character thief(RAIDER);
-	Character thief1(THIEF);
-	Character skele(SKELE, false);
+	Character thief1(THUG);
+	Character skele(THUG);
 	static std::vector<Character> chars = {thief, thief1, skele};
 	SDL_Point point = {7, 11};
 	SDL_Point point2 = {4, 11};

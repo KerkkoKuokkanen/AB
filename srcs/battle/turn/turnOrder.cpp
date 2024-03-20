@@ -91,6 +91,12 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->y = 0;
 			srect->w = 299;
 			srect->h = 299;
+		case THUG:
+			srect->x = 335;
+			srect->y = 100;
+			srect->w = 310;
+			srect->h = 313;
+			break ;
 	}
 }
 
@@ -180,6 +186,14 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 			};
 			break ;
 		case BIG_THUG:
+			dest = {
+				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameState.screen.height / 50.0f)),
+				rounding(((float)gameState.screen.width / 26.0f)),
+				rounding(((float)gameState.screen.height / 17.0f))
+			};
+			break ;
+		case THUG:
 			dest = {
 				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
 				0 + rounding(((float)gameState.screen.height / 50.0f)),

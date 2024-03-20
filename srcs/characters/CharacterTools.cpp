@@ -436,5 +436,16 @@ void Character::CreateCharacterType(int skin)
 			stand = new Sprite(gameState.textures.stands.bigThugStand, dest, NULL, NULL, 0, FLIP_HORIZONTAL);
 			break ;
 		}
+		case THUG:
+		{
+			SDL_Rect dest = {-3000, -450, 6500, 7560};
+			textures.push_back(gameState.textures.chars.thugIdle[0]);
+			textures.push_back(gameState.textures.chars.thugIdle[1]);
+			stands.push_back(gameState.textures.stands.thugStand);
+			stands.push_back(gameState.textures.stands.thugStand);
+			sprite = new Sprite(gameState.textures.chars.thugIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.thugStand, dest, NULL, NULL, 0, FLIP_NONE);
+			break ;
+		}
 	}
 }
