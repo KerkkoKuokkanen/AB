@@ -182,6 +182,8 @@ void getAudio()
 	gameState.audio.criticalHit = Mix_LoadWAV("audio/effects/criticalHit.wav");
 	gameState.audio.skeleMelee = Mix_LoadWAV("audio/abilities/skele/skeleMelee.wav");
 	gameState.audio.skeleLunge = Mix_LoadWAV("audio/abilities/skele/skeleLunge.wav");
+	gameState.audio.thugStrike = Mix_LoadWAV("audio/abilities/thugs/thug.wav");
+	gameState.audio.bigThugStrike = Mix_LoadWAV("audio/abilities/thugs/bigThug.wav");
 }
 
 void getFonts()
@@ -575,7 +577,7 @@ void	init(t_wr *wr)
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	AudioCreateChannels(120);
-	SDL_CreateWindowAndRenderer(2560, 1600, 0, &wr->win, &wr->rend);
+	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	SDL_GetWindowSize(wr->win, &gameState.screen.width, &gameState.screen.height);
@@ -622,7 +624,7 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	SDL_SetWindowFullscreen(wr->win, 1);
+	//SDL_SetWindowFullscreen(wr->win, 1);
 	//SDL_ShowCursor(SDL_DISABLE);
 	CraeteAudioThread();
 	AiThread();

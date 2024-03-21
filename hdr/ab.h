@@ -81,7 +81,8 @@ enum {
 	HEALTH_TRANSFER,
 	SKELE_MELEE,
 	SKELE_LUNGE,
-	BIG_THUG_STRIKE
+	BIG_THUG_STRIKE,
+	THUG_STRIKE
 };
 
 namespace StatusSigns
@@ -214,6 +215,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "ability/animation/pickUpToolBox.h"
 # include "ability/animation/supplyAlly.h"
 # include "ability/animation/axeSlash.h"
+# include "ability/animation/thugStrike.h"
 # include "ability/animation/bigThugStrike.h"
 # include "ability/animation/nailBomb.h"
 # include "ability/animation/acidBombAnim.h"

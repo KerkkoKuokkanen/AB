@@ -191,6 +191,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case BIG_THUG_STRIKE:
 			selector = new Selector(character->position, ability->range, 0, &groundColoring, true);
 			break ;
+		case THUG_STRIKE:
+			selector = new Selector(character->position, ability->range, 0, &groundColoring, true);
+			break ;
 	}
 }
 
@@ -344,6 +347,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case BIG_THUG_STRIKE:
 			animations.push_back({new BigThugStrike(character, target), BIG_THUG_STRIKE});
+			break ;
+		case THUG_STRIKE:
+			animations.push_back({new ThugStrike(character, target), THUG_STRIKE});
 			break ;
 	}
 }
@@ -552,6 +558,9 @@ void Abilities::AnimationUpdater()
 				UpdateEnemyAnimationOne(animations[i], i);
 				break ;
 			case BIG_THUG:
+				UpdateEnemyAnimationOne(animations[i], i);
+				break ;
+			case THUG:
 				UpdateEnemyAnimationOne(animations[i], i);
 				break ;
 		}

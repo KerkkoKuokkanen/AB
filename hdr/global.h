@@ -502,6 +502,8 @@ typedef struct s_Audio
 	Mix_Chunk *criticalHit;
 	Mix_Chunk *skeleMelee;
 	Mix_Chunk *skeleLunge;
+	Mix_Chunk *thugStrike;
+	Mix_Chunk *bigThugStrike;
 }				t_Audio;
 
 typedef struct s_Fonts

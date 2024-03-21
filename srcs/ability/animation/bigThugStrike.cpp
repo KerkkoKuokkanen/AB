@@ -66,7 +66,7 @@ void BigThugStrike::Update()
 	UpdateTrail(ret);
 	if (ret == 5)
 	{
-		PlaySound(gameState.audio.flailStrike, Channels::VOLUME_35, 0);
+		PlaySound(gameState.audio.bigThugStrike, Channels::VOLUME_26, 0);
 		CreateTrail();
 	}
 	if (ret == 10)

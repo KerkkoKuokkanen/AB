@@ -203,6 +203,14 @@ static void AssignDefaultBigThugStats(std::vector<t_Ability> &stats)
 	stat0->damage = 140;
 }
 
+static void AssignDefaultThugStats(std::vector<t_Ability> &stats)
+{
+	stats[0].stats = (void*)malloc(sizeof(t_AttackStruct));
+	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
+	stat0->critChance = 4;
+	stat0->damage = 100;
+}
+
 void Character::AssignAbilities()
 {
 	switch (cSing)
@@ -282,6 +290,11 @@ void Character::AssignAbilities()
 			stats = {26, 48, 3, 210, 210, 40, 40, 130, 0, 6, 1};
 			abilities = {{BIG_THUG_STRIKE, 4, 23, 2, 70, StatStructs::ATTACK_STRUCT, (-1), 140, 1, true, true, NULL}};
 			AssignDefaultBigThugStats(abilities);
+			break ;
+		case THUG:
+			stats = {18, 27, 4, 55, 55, 40, 40, 100, 0, 2, 1};
+			abilities = {{THUG_STRIKE, 3, 16, 2, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 4, true, true, NULL}};
+			AssignDefaultThugStats(abilities);
 			break ;
 		default:
 			return ;

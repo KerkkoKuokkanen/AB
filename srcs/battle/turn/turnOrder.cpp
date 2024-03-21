@@ -91,6 +91,7 @@ void TurnOrder::CreateSRect(SDL_Rect *srect, int cSing)
 			srect->y = 0;
 			srect->w = 299;
 			srect->h = 299;
+			break ;
 		case THUG:
 			srect->x = 335;
 			srect->y = 100;

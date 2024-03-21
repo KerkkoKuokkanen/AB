@@ -278,6 +278,7 @@ void CharacterUI::getActive()
 	}
 	if (!outCome && turnActive)
 	{
+
 		DeactivateUI();
 		turnActive = false;
 	}
@@ -410,13 +411,13 @@ void CharacterUI::Update()
 
 void CharacterUI::SetCharacters(std::vector<Character> &characters)
 {
-	for (int i = 0; i < characters.size() - 1; i++)
+	for (int i = 0; i < characters.size(); i++)
 		CharacterUI::characters.push_back(&characters[i]);
 }
 
 void CharacterUI::RemoveCharacter(Character *character)
 {
-	for (int i = 0; i < characters.size() - 1; i++)
+	for (int i = 0; i < characters.size(); i++)
 	{
 		if (characters[i] == character)
 		{
