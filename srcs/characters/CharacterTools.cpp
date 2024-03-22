@@ -201,6 +201,13 @@ static void AssignDefaultBigThugStats(std::vector<t_Ability> &stats)
 	t_AttackStruct *stat0 = (t_AttackStruct*)stats[0].stats;
 	stat0->critChance = 1;
 	stat0->damage = 140;
+	stats[1].stats = (void*)malloc(sizeof(t_BuffDebuff));
+	t_BuffDebuff *stat1 = (t_BuffDebuff*)stats[1].stats;
+	stat1->amount = 50;
+	stat1->atEnd = true;
+	stat1->turns = 3;
+	stat1->type = (-1);
+	stat1->id = (-1);
 }
 
 static void AssignDefaultThugStats(std::vector<t_Ability> &stats)
@@ -288,7 +295,8 @@ void Character::AssignAbilities()
 			break ;
 		case BIG_THUG:
 			stats = {26, 48, 3, 210, 210, 40, 40, 130, 0, 6, 1};
-			abilities = {{BIG_THUG_STRIKE, 4, 23, 2, 70, StatStructs::ATTACK_STRUCT, (-1), 140, 1, true, true, NULL}};
+			abilities = {{BIG_THUG_STRIKE, 4, 23, 2, 70, StatStructs::ATTACK_STRUCT, (-1), 140, 1, true, true, NULL},
+						{BIG_THUG_INSPIRE, 4, 20, 12, 200, StatStructs::BUFF_STRUCT, (-1), 0, 0, true, false, NULL}};
 			AssignDefaultBigThugStats(abilities);
 			break ;
 		case THUG:

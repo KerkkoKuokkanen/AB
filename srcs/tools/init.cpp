@@ -544,6 +544,7 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.thugIdle[1] = use.text;
 	gameState.surfaces.thugIdle2 = use.sur;
 	gameState.textures.stands.thugStand = get_texture(rend, "sprites/characters/thug/thugStartStand.png");
+	gameState.textures.attacks.bigThugBuff = get_texture(rend, "sprites/characters/bigThug/bigthugInspire.png");
 }
 
 void CraeteAudioThread()

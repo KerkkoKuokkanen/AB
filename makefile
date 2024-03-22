@@ -51,7 +51,7 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/info/texts/createBubbles.cpp srcs/info/texts/buffDebuffFunc.cpp srcs/UI/texts/UiTextUpdater.cpp \
 		srcs/UI/texts/UiBubbleCreation.cpp srcs/info/texts/hitChance.cpp srcs/info/texts/hitChanceCreate.cpp \
 		srcs/info/menu/menu.cpp srcs/battle/turn/hoverIndicator.cpp srcs/effects/shieldBashEffect.cpp \
-		srcs/ability/animation/bigThugStrike.cpp srcs/ability/animation/thugStrike.cpp
+		srcs/ability/animation/bigThugStrike.cpp srcs/ability/animation/thugStrike.cpp srcs/ability/animation/bigThugInspire.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \

@@ -194,6 +194,9 @@ void Abilities::SetSelector(t_Ability *ability, Character *character)
 		case THUG_STRIKE:
 			selector = new Selector(character->position, ability->range, 0, &groundColoring, true);
 			break ;
+		case BIG_THUG_INSPIRE:
+			ActivateAbility(ability, character);
+			break ;
 	}
 }
 
@@ -350,6 +353,9 @@ void Abilities::ActivateAbility(t_Ability *ability, Character *character)
 			break ;
 		case THUG_STRIKE:
 			animations.push_back({new ThugStrike(character, target), THUG_STRIKE});
+			break ;
+		case BIG_THUG_INSPIRE:
+			animations.push_back({new BigThugInspire(character), BIG_THUG_INSPIRE});
 			break ;
 	}
 }

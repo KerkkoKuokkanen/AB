@@ -353,6 +353,7 @@ typedef struct s_AttackTextures
 	SDL_Texture *sekeleMelee;
 	SDL_Texture *skeleLunge;
 	SDL_Texture *bigThugAttack[2];
+	SDL_Texture *bigThugBuff;
 }				t_AttackTextures;
 
 typedef struct s_StatusSprites

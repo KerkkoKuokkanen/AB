@@ -83,5 +83,16 @@ void Abilities::UpdateEnemyAnimationOne(t_Animation &anim, int index)
 			}
 			break ;
 		}
+		case BIG_THUG_INSPIRE:
+		{
+			BigThugInspire *used = (BigThugInspire*)anim.animation;
+			used->Update();
+			if (used->done)
+			{
+				delete used;
+				animations.erase(animations.begin() + index);
+			}
+			break ;
+		}
 	}
 }
