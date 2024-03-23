@@ -459,7 +459,7 @@ void Character::CreateCharacterType(int skin)
 		}
 		case THUG:
 		{
-			SDL_Rect dest = {-3000, -450, 6500, 7560};
+			SDL_Rect dest = {0, 0, 6500, 7560};
 			textures.push_back(gameState.textures.chars.thugIdle[0]);
 			textures.push_back(gameState.textures.chars.thugIdle[1]);
 			stands.push_back(gameState.textures.stands.thugStand);

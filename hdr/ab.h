@@ -428,8 +428,13 @@ void PrintStat();
 bool CheckIfValidPosition(SDL_Point pos);
 int CheckIfSmoked(SDL_Point pos);
 
+void InitThugParts();
+
 bool CheckForSize(SDL_Point point1, SDL_Point point2);
 bool CheckForMaxHealth(SDL_Point point1, SDL_Point point2);
+
+int DistanceBetweenPoints(SDL_Point one, SDL_Point two);
+int DistanceBetweenPointsStatic(SDL_Point one, SDL_Point two);
 
 void		CreatePoisonSnippet(Character *target, int totalAmount, Color color);
 void		CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, bool opportunity = false);

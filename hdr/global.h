@@ -273,6 +273,8 @@ typedef struct s_Surfaces
 	SDL_Surface *bigThugIdle2;
 	SDL_Surface *thugIdle1;
 	SDL_Surface *thugIdle2;
+	SDL_Surface *thugSource;
+	SDL_Surface *thugSource2;
 }				t_Surfaces;
 
 typedef struct s_Stands

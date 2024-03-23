@@ -15,6 +15,26 @@ bool CheckIfValidPosition(SDL_Point pos)
 	return (true);
 }
 
+int DistanceBetweenPointsStatic(SDL_Point one, SDL_Point two)
+{
+	if (!CheckIfValidPosition(one))
+		return (-1);
+	if (!CheckIfValidPosition(two))
+		return (-1);
+	int dist = moveMaps.staticMoves[one.y][one.x].map[two.y][two.x];
+	return (dist);
+}
+
+int DistanceBetweenPoints(SDL_Point one, SDL_Point two)
+{
+	if (!CheckIfValidPosition(one))
+		return (-1);
+	if (!CheckIfValidPosition(two))
+		return (-1);
+	int dist = moveMaps.abilities[one.y][one.x].map[two.y][two.x];
+	return (dist);
+}
+
 int GetFromPointX(SDL_Point position, SDL_Point nextPoint)
 {
 	int yAdder = 0;

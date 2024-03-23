@@ -545,6 +545,8 @@ void getTextures(SDL_Renderer *rend)
 	gameState.surfaces.thugIdle2 = use.sur;
 	gameState.textures.stands.thugStand = get_texture(rend, "sprites/characters/thug/thugStartStand.png");
 	gameState.textures.attacks.bigThugBuff = get_texture(rend, "sprites/characters/bigThug/bigthugInspire.png");
+	gameState.surfaces.thugSource = IMG_Load("sprites/characters/thug/thugSourceEffect.png");
+	gameState.surfaces.thugSource2 = IMG_Load("sprites/characters/thug/thugSourceEffect2.png");
 }
 
 void CraeteAudioThread()
@@ -629,4 +631,5 @@ void	init(t_wr *wr)
 	//SDL_ShowCursor(SDL_DISABLE);
 	CraeteAudioThread();
 	AiThread();
+	InitThugParts();
 }

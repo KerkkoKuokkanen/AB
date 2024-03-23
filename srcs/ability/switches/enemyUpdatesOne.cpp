@@ -1,6 +1,26 @@
 
 #include "../../../hdr/global.h"
 
+static std::vector<Character*> GetInspireTargets(Character *character, t_Ability *ability)
+{
+	SDL_Point pos = character->position;
+	int range = ability->range;
+	std::vector<Character*> tagets = {};
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		Character *targ = gameState.battle.ground->characters[i].character;
+		if (character->ally != targ->ally)
+			continue ;
+		if (targ->cSing != THUG)
+			continue ;
+		SDL_Point tPos = targ->position;
+		int dist = DistanceBetweenPoints(pos, tPos);
+		if (dist <= range)
+			tagets.push_back(targ);
+	}
+	return (tagets);
+}
+
 void Abilities::UpdateEnemyAnimationOne(t_Animation &anim, int index)
 {
 	switch (anim.type)
