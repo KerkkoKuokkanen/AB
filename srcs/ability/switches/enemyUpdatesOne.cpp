@@ -107,6 +107,12 @@ void Abilities::UpdateEnemyAnimationOne(t_Animation &anim, int index)
 		{
 			BigThugInspire *used = (BigThugInspire*)anim.animation;
 			used->Update();
+			if (used->createBuff)
+			{
+				std::vector<Character*> buffTargs = GetInspireTargets(character, ability);
+				for (int i = 0; i < buffTargs.size(); i++)
+					CreateParticlesForThugIntensity0To100(buffTargs[i], 99);
+			}
 			if (used->done)
 			{
 				delete used;

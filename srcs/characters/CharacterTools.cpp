@@ -296,7 +296,7 @@ void Character::AssignAbilities()
 		case BIG_THUG:
 			stats = {26, 48, 3, 210, 210, 40, 40, 130, 0, 6, 1};
 			abilities = {{BIG_THUG_STRIKE, 4, 23, 2, 70, StatStructs::ATTACK_STRUCT, (-1), 140, 1, true, true, NULL},
-						{BIG_THUG_INSPIRE, 4, 20, 12, 200, StatStructs::BUFF_STRUCT, (-1), 0, 0, true, false, NULL}};
+						{BIG_THUG_INSPIRE, 0, 0, 12, 200, StatStructs::BUFF_STRUCT, (-1), 0, 0, true, false, NULL}};
 			AssignDefaultBigThugStats(abilities);
 			break ;
 		case THUG:

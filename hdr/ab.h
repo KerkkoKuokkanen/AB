@@ -393,6 +393,7 @@ Character		*HoveringOver();
 void			ManageTextureHovering();
 bool			MenuHoverCheck(SDL_Surface *sur, SDL_Rect dest, int xMouse, int yMouse);
 void			CreateParticlesForSmokeEffect(SDL_Point pos);
+void CreateParticlesForThugIntensity0To100(Character *character, int intensity);
 void			UpdateHoveredCharacter();
 SDL_Surface		*getSurface(Character *character);
 Vector			getDirection(Vector generalDir);
