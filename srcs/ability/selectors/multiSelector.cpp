@@ -1,6 +1,13 @@
 
 #include "../../../hdr/global.h"
 
+int Abilities::GetMarkedAmountForPosition(SDL_Point pos)
+{
+	if (multiSelector == NULL)
+		return (0);
+	return (multiSelector->markers->GetMarkersForPoint(pos));
+}
+
 MultiSelector::MultiSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, int selectAmount)
 {
 	MultiSelector::start = start;

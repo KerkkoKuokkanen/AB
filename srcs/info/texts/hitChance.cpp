@@ -1,7 +1,7 @@
 
 #include "../../../hdr/global.h"
-#define COUNT_TIME 5
-#define ALPHA_TIME 5
+#define COUNT_TIME 1
+#define ALPHA_TIME 10
 
 static bool InAcceptedAbilities(int ability)
 {
@@ -45,12 +45,14 @@ void HitChanceBubble::Update(Character *hovered)
 {
 	if (NothingToBeDone() || hovered == NULL || hovered->ally == true)
 	{
+		gameState.updateObjs.info->InfoBarDeactivate(false);
 		Deleting();
 		return ;
 	}
 	int current = gameState.updateObjs.abilities->ability->type;
 	if (currAbility != current || hovered != currHover)
 	{
+		gameState.updateObjs.info->InfoBarDeactivate(false);
 		Deleting();
 		counter = 0;
 		currAbility = current;
@@ -58,10 +60,15 @@ void HitChanceBubble::Update(Character *hovered)
 		return ;
 	}
 	counter = (counter > 30) ? counter : counter + 1;
-	if (counter == COUNT_TIME)
+	if (counter == COUNT_TIME || (bubble != NULL && gameState.keys.click == RELEASE_CLICK))
+	{
+		if (bubble != NULL)
+			delete bubble;
 		CreateBubble();
+	}
 	if (bubble != NULL)
 	{
+		gameState.updateObjs.info->InfoBarDeactivate(true);
 		bubble->Update();
 		int count = counter - COUNT_TIME;
 		float unit = 255.0f / ALPHA_TIME;

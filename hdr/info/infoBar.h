@@ -25,6 +25,7 @@ class InfoBar
 		Character *character = NULL;
 		InfoBar(Character *character);
 		~InfoBar() {Destroy();};
+		void UpdateWithTargValue(int healthVal, int armorVal);
 		void Update();
 		void Destroy();
 };

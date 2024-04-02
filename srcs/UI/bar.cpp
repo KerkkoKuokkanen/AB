@@ -11,11 +11,11 @@ Bar::Bar(SDL_Rect dest, bool numbers, bool staticSprite)
 	filler = new Sprite(gameState.textures.barFiller, dest, &sRect, NULL, 0, FLIP_NONE, staticSprite);
 	reduce = new Sprite(gameState.textures.barFiller, dest, &rSRect, NULL, 0, FLIP_NONE, staticSprite);
 	reduce->AlphaMod(140);
-	bar->z = 4;
+	bar->z = 5;
 	backGround->z = 1;
 	reduce->z = 2;
 	filler->z = 3;
-	bar->orderLayer = 4;
+	bar->orderLayer = 5;
 	backGround->orderLayer = 1;
 	reduce->orderLayer = 2;
 	filler->orderLayer = 3;
@@ -209,6 +209,7 @@ void Bar::ManageReduce()
 
 void Bar::Update(Character *target, bool health)
 {
+	reduce->AlphaMod(140);
 	if (Bar::target == target)
 		healthDown = true;
 	else
@@ -219,6 +220,95 @@ void Bar::Update(Character *target, bool health)
 	}
 	ModBars(target, health);
 	ManageReduce();
+}
+
+void Bar::SetBarTwo(int max, int curr)
+{
+	float unit = (float)bar->dest.w / (float)max;
+	float sUnit = BAR_SOURCE_WIDTH / (float)max;
+	rSRect.w = rounding(sUnit * (float)curr);
+	reduce->dest.w = rounding(unit * (float)curr);
+	if (rSRect.w < 8 && curr > 0)
+	{
+		rSRect.w = 8;
+		reduce->dest.w = 500;
+	}
+	if (rSRect.w < 0)
+	{
+		rSRect.w = 0;
+		reduce->dest.w = 0;
+	}
+}
+
+void Bar::SetBarThree(int max, int curr)
+{
+	float unit = (float)bar->dest.w / (float)max;
+	float sUnit = BAR_SOURCE_WIDTH / (float)max;
+	sRect.w = rounding(sUnit * (float)curr);
+	filler->dest.w = rounding(unit * (float)curr);
+	if (sRect.w < 8 && curr > 0)
+	{
+		sRect.w = 8;
+		filler->dest.w = 500;
+	}
+	if (sRect.w < 0)
+	{
+		sRect.w = 0;
+		filler->dest.w = 0;
+	}
+}
+
+void Bar::SetNumberTwo(int min, int max)
+{
+	if (stat != NULL)
+		delete stat;
+	if (maxStat != NULL)
+		delete maxStat;
+	stat = new Number((min < 0) ? 0 : min, 650, layer, 5, staticSprite, NumberType::WHITE);
+	stat->ColorMod(250, 250, 210);
+	int w = stat->getFullWidth();
+	Vector pos((float)(slash->dest.x - w + leftNumberOffset.x), (float)(slash->dest.y + leftNumberOffset.y));
+	stat->Position(pos);
+	maxStat = new Number((max < 0) ? 0 : max, 650, layer, 5, staticSprite, NumberType::WHITE);
+	maxStat->ColorMod(250, 250, 210);
+	w = maxStat->getFullWidth();
+	Vector place((float)(slash->dest.x + rightNumberOffset.x), (float)(slash->dest.y + rightNumberOffset.y));
+	maxStat->Position(place);
+}
+
+void Bar::ModBarsTwo(Character *target, bool health, int targetValue)
+{
+	if (target == NULL)
+		return ;
+	int curr, max, targ;
+	targ = targetValue;
+	if (health)
+	{
+		if (!colorSet)
+			filler->ColorMod(117, 6, 6);
+		curr = target->stats.health;
+		max = target->stats.maxHealth;
+	}
+	else
+	{
+		if (!colorSet)
+			filler->ColorMod(66, 63, 82);
+		curr = target->stats.armor;
+		max = target->stats.maxArmor;
+	}
+	SetBarTwo(max, curr);
+	SetBarThree(max, targ);
+	if (numbers)
+		SetNumberTwo(curr, max);
+}
+
+void Bar::UpdateWithDMGShow(Character *target, bool health, int targetValue)
+{
+	ModBarsTwo(target, health, targetValue);
+	float fadeMulti = cos(gameState.updateObjs.fadeIter * 2.0f) / 2.0f + 0.5f;
+	float unit = 80.0f * fadeMulti;
+	int amount = rounding(unit) + 60;
+	reduce->AlphaMod(amount);
 }
 
 void Bar::Deactivate()

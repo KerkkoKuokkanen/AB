@@ -174,6 +174,16 @@ void InfoBar::Update()
 		fatigue->Update(character);
 }
 
+void InfoBar::UpdateWithTargValue(int healthVal, int armorVal)
+{
+	health->UpdateWithDMGShow(character, true, healthVal);
+	armor->UpdateWithDMGShow(character, false, armorVal);
+	statuses->Update();
+	CheckMouseOver();
+	if (fatigue != NULL)
+		fatigue->Update(character);
+}
+
 void InfoBar::Destroy()
 {
 	for (int i = 0; i < 5; i++)

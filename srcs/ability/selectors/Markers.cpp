@@ -81,6 +81,20 @@ void Markers::SetColor(t_MarkerPlace *mark)
 		colorCounter = 0;
 }
 
+int Markers::GetMarkersForPoint(SDL_Point pos)
+{
+	int amount = 0;
+	for (int i = 0; i < marked.size(); i++)
+	{
+		if (marked[i].pos.x == pos.x && marked[i].pos.y == pos.y)
+		{
+			amount = marked[i].sprites.size();
+			break ;
+		}
+	}
+	return (amount);
+}
+
 void Markers::PlaceMarker(SDL_Point position)
 {
 	if (gameState.battle.ground->map[position.y][position.x].character == NULL)

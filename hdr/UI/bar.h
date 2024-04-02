@@ -19,9 +19,13 @@ class Bar
 		int currCurr = 0;
 		int layer = 0;
 		void SetBar(int max, int curr);
+		void SetBarTwo(int max, int curr);
+		void SetBarThree(int max, int curr);
 		void SetNumber();
+		void SetNumberTwo(int min, int max);
 		void SetSmallNumber();
 		void ModBars(Character *target, bool health);
+		void ModBarsTwo(Character *target, bool health, int targetValue);
 		void ManageReduce();
 		void GetScala();
 		int swDiff = 0;
@@ -43,6 +47,7 @@ class Bar
 		void SetColor(Uint8 r, Uint8 g, Uint8 b);
 		void Position(SDL_Point place);
 		void Update(Character *target, bool health);
+		void UpdateWithDMGShow(Character *target, bool health, int targetValue);
 		void Deactivate();
 		void ChangeTextureToNarrow();
 		void Activate();

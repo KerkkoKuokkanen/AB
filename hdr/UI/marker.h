@@ -25,6 +25,7 @@ class Markers
 	public:
 		void PlaceMarker(SDL_Point position);
 		~Markers() {Destroy();};
+		int GetMarkersForPoint(SDL_Point pos);
 		void Destroy();
 };
 

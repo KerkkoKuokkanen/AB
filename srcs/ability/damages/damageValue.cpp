@@ -31,7 +31,7 @@ static float BurnAddition(Character *target)
 	return (multi);
 }
 
-static int GetDamageReduction(Character *damaged, Character *damager, int damage)
+int GetDamageReduction(Character *damaged, Character *damager, int damage)
 {
 	float damageRet = (float)damage;
 	float burnMulti = BurnAddition(damaged);

@@ -9,7 +9,6 @@ class MultiSelector
 	private:
 		std::vector<SDL_Point> targets = {};
 		std::vector<SDL_Point> included = {};
-		Markers *markers = NULL;
 		Selector *selector = NULL;
 		GroundColoring *coloring;
 		SDL_Point start;
@@ -20,6 +19,7 @@ class MultiSelector
 		void CreateSelector();
 		int count = 0;
 	public:
+		Markers *markers = NULL;
 		bool done = false;
 		MultiSelector(SDL_Point start, int dist, int cleared, GroundColoring *coloring, bool staticSearch, int selectAmount);
 		~MultiSelector() {Destroy();};

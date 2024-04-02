@@ -112,7 +112,10 @@ void Info::UpdateBar()
 		bar = new InfoBar(hovered);
 	}
 	bar->statBars = false;
-	bar->Update();
+	if (infoBarBara)
+		bar->UpdateWithTargValue(barh, bara);
+	else
+		bar->Update();
 	overInfoBar = bar->over;
 }
 
@@ -284,7 +287,6 @@ void Info::UpdateStatusInfo()
 void Info::Update()
 {
 	FindHoveredCharacter();
-	UpdateBar();
 	UpdateSnippets();
 	UpdateSupplyEffects();
 	UpdateBuffEffects();
@@ -301,6 +303,7 @@ void Info::Update()
 	colorEffects->Update();
 	iconHandler->Update();
 	hitChanceBubble->Update(hovered);
+	UpdateBar();
 	overInfo = counter->insideBox;
 }
 

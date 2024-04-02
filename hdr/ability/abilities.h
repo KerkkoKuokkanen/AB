@@ -112,6 +112,7 @@ class Abilities
 		void CreatePoisonDamage(Character *target, int amount);
 		void CreateBleedDamage(Character *target, int amount);
 		void RemoveCharacterFromDamager(Character *character) {damager.RemoveDamageFromCreator(character);};
+		int GetMarkedAmountForPosition(SDL_Point pos);
 };
 
 #endif

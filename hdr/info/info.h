@@ -13,6 +13,8 @@ typedef struct s_CritFilter
 class Info
 {
 	private:
+		int barh = 0, bara = 0;
+		bool infoBarBara = false;
 		Character *hovered;
 		Counter *counter;
 		ControlSetter *controls;
@@ -62,6 +64,8 @@ class Info
 		void AddBombEffect(void *effect, int abilityType);
 		void SetCritFilter();
 		void AddColorEffect(Sprite *sprite, int time, Color color, int delay) {colorEffects->AddEffect(sprite, time, color, delay);};
+		void InfoBarTargetValues(int health, int armor) {barh = health; bara = armor; infoBarBara = true; if (bar != NULL) {delete bar; bar = NULL;}};
+		void InfoBarDeactivate(bool button) {infoBarBara = button;};
 		void Update();
 		void Destroy();
 };

@@ -2,6 +2,24 @@
 #include "../../hdr/ab.h"
 #include "../../hdr/global.h"
 
+SDL_Surface *getScaleSurface(SDL_Surface *surface, int width, int height)
+{
+	SDL_Surface *newSurface = SDL_CreateRGBSurface(0, width, height, surface->format->BitsPerPixel, surface->format->Rmask,
+													surface->format->Gmask, surface->format->Bmask, surface->format->Amask);
+	SDL_Rect rect = {0, 0, width, height};
+	SDL_BlitScaled(surface, NULL, newSurface, &rect);
+	return (newSurface);
+}
+
+SDL_Texture *getScaledTexture(SDL_Surface *sur, int width, int height)
+{
+	SDL_Surface *scaledSur = getScaleSurface(sur, width, height);
+	SDL_Texture *ret = SDL_CreateTextureFromSurface(gameState.wr.rend, scaledSur);
+	SDL_SetTextureScaleMode(ret, SDL_ScaleModeLinear);
+	SDL_FreeSurface(scaledSur);
+	return (ret);
+}
+
 SDL_Texture *get_text(const char *text ,int fontType)
 {
 	SDL_Surface *sur = NULL;

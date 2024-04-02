@@ -10,6 +10,38 @@ static int GetYMinus(int last)
 	return (ret);
 }
 
+static int BrowseMarkers(Character *target)
+{
+	int mutli = gameState.updateObjs.abilities->GetMarkedAmountForPosition(target->position);
+	return (mutli + 1);
+}
+
+static SDL_Point GetFinalDamageSplit(Character *target, int damage)
+{
+	SDL_Point ret = {0, 0};
+	int armor = target->stats.armor;
+	if (damage <= armor)
+	{
+		ret.x = damage;
+		return (ret);
+	}
+	int healthDMG = damage - armor;
+	ret.x = armor;
+	ret.y = healthDMG;
+	return (ret);
+}
+
+static SDL_Point GetDamageString(t_Ability *ability, Character *character, Character *target)
+{
+	int dmg = ability->damage * BrowseMarkers(target);
+	float dmgMulti = (float)dmg / 100.0f;
+	int min = rounding((float)character->stats.baseDamageLow * dmgMulti);
+	min = GetDamageReduction(target, character, min);
+	SDL_Point ret = GetFinalDamageSplit(target, min);
+	SDL_Point values = {target->stats.armor - ret.x, target->stats.health - ret.y};
+	return (values);
+}
+
 void HitChanceBubble::CreateBubble()
 {
 	bubble = new TextBubble({0, 0});
@@ -26,6 +58,11 @@ void HitChanceBubble::CreateBubble()
 	Snippet *add22 = new Snippet(add2.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
 	bubble->AddSpriteToBubble(add1, {500, 750});
 	bubble->AddSnippetToBubble(add22, {2700, 1150});
+	if (ability->damage != 0)
+	{
+		SDL_Point damages = GetDamageString(ability, active, currHover);
+		gameState.updateObjs.info->InfoBarTargetValues(damages.y, damages.x);
+	}
 	switch (ability->type)
 	{
 		case DAGGER_THROW:
