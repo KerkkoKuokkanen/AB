@@ -99,7 +99,8 @@ namespace StatusSigns
 		POISON,
 		BLEED,
 		SLOWED,
-		CONTROL
+		CONTROL,
+		FRENZY
 	};
 };
 
@@ -177,6 +178,8 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "effects/buffEffect.h"
 # include "effects/hostEffect.h"
 # include "effects/healEffect.h"
+# include "effects/frenzyColorer.h"
+# include "effects/thugInspire.h"
 # include "effects/slowedEffect.h"
 # include "effects/nailBombBlast.h"
 # include "effects/hostEyesEffect.h"

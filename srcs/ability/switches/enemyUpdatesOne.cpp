@@ -110,8 +110,12 @@ void Abilities::UpdateEnemyAnimationOne(t_Animation &anim, int index)
 			if (used->createBuff)
 			{
 				std::vector<Character*> buffTargs = GetInspireTargets(character, ability);
+				t_BuffDebuff *stats = (t_BuffDebuff*)ability->stats;
 				for (int i = 0; i < buffTargs.size(); i++)
-					CreateParticlesForThugIntensity0To100(buffTargs[i], 99);
+				{
+					buffTargs[i]->statuses.frenzy = stats->turns;
+					gameState.updateObjs.info->AddInspireEffect(new ThugInspire(buffTargs[i]));
+				}
 			}
 			if (used->done)
 			{

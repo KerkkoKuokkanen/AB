@@ -6,14 +6,18 @@ t_AiMoveMaps moveMaps;
 
 void TempInitBattle()
 {
-	Character thief(PYRO);
-	Character thief1(RAIDER);
-	Character skele(SKELE, false);
-	static std::vector<Character> chars = {thief, thief1, skele};
+	Character thief(BIG_THUG);
+	Character thief1(THIEF);
+	Character skele(BIG_THUG, false);
+	Character skele2(THUG);
+	Character skele3(THUG);
+	static std::vector<Character> chars = {thief, thief1, skele, skele2, skele3};
 	SDL_Point point = {5, 11};
+	SDL_Point point1 = {6, 11};
 	SDL_Point point2 = {4, 11};
 	SDL_Point point4 = {3, 12};
-	static std::vector<SDL_Point> pnt = {point2, point4, point};
+	SDL_Point point5 = {5, 13};
+	static std::vector<SDL_Point> pnt = {point2, point4, point, point1, point5};
 	gameState.battle.ground->StartBattle(chars, pnt);
 	gameState.updateObjs.UI->SetCharacters(chars);
 	new TurnOrder(chars);

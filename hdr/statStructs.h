@@ -157,6 +157,7 @@ typedef struct s_StatusEffects
 	int controlZone;
 	int stun;
 	int slowed;
+	int frenzy;
 }				t_StatusEffects;
 
 typedef struct s_AttackStruct

@@ -72,7 +72,6 @@
 	},
 	"explorerExclude.backup": {
 
-	
 	},
 	"files.exclude": {
 		"**/.git": true,
@@ -82,6 +81,8 @@
 		"**/.DS_Store": true,
 		"**/Thumbs.db": true,
 		"**/.o": true,
-		"**/*.o": true
+		"**/*.o": true,
+		"**/.d": true,
+		"**/*.d": true
 	}
 }

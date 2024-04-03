@@ -275,6 +275,7 @@ typedef struct s_Surfaces
 	SDL_Surface *thugIdle2;
 	SDL_Surface *thugSource;
 	SDL_Surface *thugSource2;
+	SDL_Surface *frenzySymbol;
 }				t_Surfaces;
 
 typedef struct s_Stands
@@ -447,6 +448,7 @@ typedef struct s_Textures
 	SDL_Texture *smallEnergy;
 	SDL_Texture *hitSymbol;
 	SDL_Texture *tunrIndicator;
+	SDL_Texture *frenzySymbol;
 }				t_Textures;
 
 typedef struct s_Audio

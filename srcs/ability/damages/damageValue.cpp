@@ -31,13 +31,22 @@ static float BurnAddition(Character *target)
 	return (multi);
 }
 
+static float FrenzyAddition(Character *character)
+{
+	if (character->statuses.frenzy == 0)
+		return (1.0f);
+	return (1.5f);
+}
+
 int GetDamageReduction(Character *damaged, Character *damager, int damage)
 {
 	float damageRet = (float)damage;
 	float burnMulti = BurnAddition(damaged);
 	float protectioMulti = GetProtectionMulti(damaged);
+	float frenzyMulti = FrenzyAddition(damager);
 	damageRet *= burnMulti;
 	damageRet *= protectioMulti;
+	damageRet *= frenzyMulti;
 	return (rounding(damageRet));
 }
 
@@ -100,7 +109,7 @@ SDL_Point GetDamageValues(Character *target, Character *caster, t_Ability *abili
 	float abilityMulti = (float)ability->damage / 100.0f;
 	damage = rounding((float)damage * abilityMulti);
 	damage = GetDamageReduction(target, caster, damage);
-	int crit = ability->critChance;
+	int crit = (caster->statuses.frenzy > 0) ? ability->critChance + 10 : ability->critChance;
 	if (rand() % 100 < crit)
 	{
 		SetDelayer(6);

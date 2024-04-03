@@ -52,9 +52,11 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/UI/texts/UiBubbleCreation.cpp srcs/info/texts/hitChance.cpp srcs/info/texts/hitChanceCreate.cpp \
 		srcs/info/menu/menu.cpp srcs/battle/turn/hoverIndicator.cpp srcs/effects/shieldBashEffect.cpp \
 		srcs/ability/animation/bigThugStrike.cpp srcs/ability/animation/thugStrike.cpp srcs/ability/animation/bigThugInspire.cpp \
-		srcs/info/thugEffect.cpp
+		srcs/info/thugEffect.cpp srcs/effects/thugInspire.cpp srcs/effects/frenzyColorer.cpp
 
 OBJ = $(SRCS:.cpp=.o)
+DEP = $(OBJ:.o=.d)
+
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \
 		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability \
 		-I ./hdr/abilities/selectors/ -I ./hdr/info/ -I ./hdr/ability/damages/ -I ./hdr/effects -I ./hdr/AI
@@ -75,14 +77,16 @@ FRAMEWORKS	=	-F./frameworks \
 
 all: $(NAME)
 
+-include $(DEP)
+
 $(NAME): $(OBJ)
 	@g++ $(FLAGS) -fsanitize=address $(CGFLAGS) $(FRAMEWORKS) $(OBJ) -o $(NAME)
 
 .cpp.o:
-		@g++ $(FLAGS) -fsanitize=address $(INCLUDES) $(HDR) -c $< -o $@
+	@g++ $(FLAGS) -fsanitize=address $(INCLUDES) $(HDR) -MMD -MP -MT $@ -c $< -o $@
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ) $(DEP)
 
 fclean: clean
 	@rm -rf $(NAME)

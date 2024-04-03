@@ -57,7 +57,7 @@ void BigThugInspire::Update()
 	if (done)
 		return ;
 	ManageAlpha();
-	if (counter == 26)
+	if (counter == 13)
 		createBuff = true;
 	if (counter > BUFF_TIME)
 		done = true;

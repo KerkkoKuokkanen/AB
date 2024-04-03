@@ -20,6 +20,7 @@ Character::Character(int skin, bool allied)
 	statuses.bleed = {};
 	statuses.controlZone = 0;
 	statuses.slowed = 0;
+	statuses.frenzy = 0;
 	width = 5800;
 	height = 7500;
 	if (!allied)

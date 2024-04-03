@@ -1,5 +1,6 @@
 
 #include "../../hdr/global.h"
+#include "../../hdr/effects/frenzyColorer.h"
 
 static Character *AnyOneClicked()
 {
@@ -22,6 +23,7 @@ Info::Info()
 	healthColoring = new HealthColoring;
 	statusInfo = new StatusInfo;
 	hitChanceBubble = new HitChanceBubble;
+	frenzyColorer = new FrenzyColorer;
 	statusInfo->SetXAndYAdd(600, 600);
 	hovered = NULL;
 }
@@ -284,6 +286,21 @@ void Info::UpdateStatusInfo()
 	statusInfo->Update(hoverIcon);
 }
 
+void Info::UpdateFrenzy()
+{
+	for (int i = 0; i < inspireEffecst.size(); i++)
+	{
+		inspireEffecst[i]->Update();
+		if (inspireEffecst[i]->done)
+		{
+			delete inspireEffecst[i];
+			inspireEffecst.erase(inspireEffecst.begin() + i);
+			i = (inspireEffecst.size() == 0) ? 0 : i - 1;
+		}
+	}
+	frenzyColorer->Update();
+}
+
 void Info::Update()
 {
 	FindHoveredCharacter();
@@ -295,6 +312,7 @@ void Info::Update()
 	UpdateSlowEffects();
 	UpdateCritFilter();
 	UpdateStatusInfo();
+	UpdateFrenzy();
 	counter->Update();
 	stunUpdates->Update();
 	controls->Update();

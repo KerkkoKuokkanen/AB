@@ -205,7 +205,7 @@ static void AssignDefaultBigThugStats(std::vector<t_Ability> &stats)
 	t_BuffDebuff *stat1 = (t_BuffDebuff*)stats[1].stats;
 	stat1->amount = 50;
 	stat1->atEnd = true;
-	stat1->turns = 3;
+	stat1->turns = 2;
 	stat1->type = (-1);
 	stat1->id = (-1);
 }
@@ -453,8 +453,8 @@ void Character::CreateCharacterType(int skin)
 			textures.push_back(gameState.textures.chars.bigThugIdle[1]);
 			stands.push_back(gameState.textures.stands.bigThugStand);
 			stands.push_back(gameState.textures.stands.bigThugStand);
-			sprite = new Sprite(gameState.textures.chars.bigThugIdle[0], dest, NULL, NULL, 0, FLIP_HORIZONTAL);
-			stand = new Sprite(gameState.textures.stands.bigThugStand, dest, NULL, NULL, 0, FLIP_HORIZONTAL);
+			sprite = new Sprite(gameState.textures.chars.bigThugIdle[0], dest, NULL, NULL, 0, FLIP_NONE);
+			stand = new Sprite(gameState.textures.stands.bigThugStand, dest, NULL, NULL, 0, FLIP_NONE);
 			break ;
 		}
 		case THUG:

@@ -527,16 +527,16 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.smallEnergy = get_texture(rend, "sprites/UI/smallEnergy.png");
 	gameState.textures.hitSymbol = get_texture(rend, "sprites/UI/HitSymbol.png");
 	gameState.textures.turnIndicator = get_texture(rend, "sprites/env/TurnIndicator.png");
-	use = get_texture_and_surface(rend, "sprites/characters/bigThug/bigthug.png");
+	use = get_texture_and_surface(rend, "sprites/characters/bigThug/bigthugFlip.png");
 	gameState.textures.chars.bigThugIdle[0] = use.text;
 	gameState.surfaces.bigThugIdle1 = use.sur;
-	use = get_texture_and_surface(rend, "sprites/characters/bigThug/bigthug2.png");
+	use = get_texture_and_surface(rend, "sprites/characters/bigThug/bigthug2Flip.png");
 	gameState.textures.chars.bigThugIdle[1] = use.text;
 	gameState.surfaces.bigThugIdle2 = use.sur;
-	gameState.textures.stands.bigThugStand = get_texture(rend, "sprites/characters/bigThug/bigthugStand.png");
+	gameState.textures.stands.bigThugStand = get_texture(rend, "sprites/characters/bigThug/bigthugStandFlip.png");
 	gameState.textures.chars.bigThugIndicator = get_texture(rend, "sprites/characters/bigThug/bigThugIndicator.png");
-	gameState.textures.attacks.bigThugAttack[0] = get_texture(rend, "sprites/characters/bigThug/bta.png");
-	gameState.textures.attacks.bigThugAttack[1] = get_texture(rend, "sprites/characters/bigThug/btaTrail.png");
+	gameState.textures.attacks.bigThugAttack[0] = get_texture(rend, "sprites/characters/bigThug/btaFlip.png");
+	gameState.textures.attacks.bigThugAttack[1] = get_texture(rend, "sprites/characters/bigThug/btaTrailFlip.png");
 	use = get_texture_and_surface(rend, "sprites/characters/thug/thugStart.png");
 	gameState.textures.chars.thugIdle[0] = use.text;
 	gameState.surfaces.thugIdle1 = use.sur;
@@ -544,9 +544,12 @@ void getTextures(SDL_Renderer *rend)
 	gameState.textures.chars.thugIdle[1] = use.text;
 	gameState.surfaces.thugIdle2 = use.sur;
 	gameState.textures.stands.thugStand = get_texture(rend, "sprites/characters/thug/thugStartStand.png");
-	gameState.textures.attacks.bigThugBuff = get_texture(rend, "sprites/characters/bigThug/bigthugInspire.png");
+	gameState.textures.attacks.bigThugBuff = get_texture(rend, "sprites/characters/bigThug/bigthugInspireFlip.png");
 	gameState.surfaces.thugSource = IMG_Load("sprites/characters/thug/thugSourceEffect.png");
 	gameState.surfaces.thugSource2 = IMG_Load("sprites/characters/thug/thugSourceEffect2.png");
+	use = get_texture_and_surface(rend, "sprites/effects/frenzySymbol.png");
+	gameState.textures.frenzySymbol = use.text;
+	gameState.surfaces.frenzySymbol = use.sur;
 }
 
 void CraeteAudioThread()

@@ -31,7 +31,7 @@ void BigThugStrike::CreateTrail()
 {
 	character->sprite->dest = {character->sprite->dest.x - 1500, character->sprite->dest.y + 200, 9700, 7060};
 	character->sprite->setTexture(gameState.textures.attacks.bigThugAttack[0]);
-	trail = new Sprite(gameState.textures.attacks.bigThugAttack[1], character->sprite->dest, NULL, NULL, 0, FLIP_HORIZONTAL);
+	trail = new Sprite(gameState.textures.attacks.bigThugAttack[1], character->sprite->dest, NULL, NULL, 0, FLIP_NONE);
 	trail->orderLayer = character->sprite->orderLayer;
 	trail->z = character->sprite->z - 0.05f;
 	gameState.render->AddSprite(trail, BATTLEGROUND_LAYER);

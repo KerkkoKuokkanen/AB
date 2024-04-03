@@ -27,6 +27,7 @@ class Info
 		IconBarHandler *iconHandler = NULL;
 		StatusInfo *statusInfo = NULL;
 		HitChanceBubble *hitChanceBubble = NULL;
+		FrenzyColorer *frenzyColorer = NULL;
 		std::vector<FlyingSnippet*> snippets;
 		std::vector<SupplyEffect*> supplyEffects;
 		std::vector<BuffEffect*> buffEffects;
@@ -36,6 +37,7 @@ class Info
 		std::vector<SlowedEffect*> slowEffects;
 		std::vector<HealEffect*> healEffects;
 		std::vector<ShieldBashEffect*> shieldBashEffects;
+		std::vector<ThugInspire*> inspireEffecst;
 		void UpdateSnippets();
 		void FindHoveredCharacter();
 		bool KilledOrDamaged();
@@ -47,6 +49,7 @@ class Info
 		void UpdateSlowEffects();
 		void UpdateCritFilter();
 		void UpdateStatusInfo();
+		void UpdateFrenzy();
 		int hoverIcon = -1;
 	public:
 		bool overInfo = false;
@@ -61,6 +64,8 @@ class Info
 		void AddHealEffect(HealEffect *add) {healEffects.push_back(add);};
 		void AddSlowEffect(SlowedEffect *add) {slowEffects.push_back(add);};
 		void AddShieldBashEffect(ShieldBashEffect *add) {shieldBashEffects.push_back(add);};
+		void AddInspireEffect(ThugInspire *add) {inspireEffecst.push_back(add);};
+		void AddToFrenzyColorer(Character *target) {frenzyColorer->AddCharacter(target);};
 		void AddBombEffect(void *effect, int abilityType);
 		void SetCritFilter();
 		void AddColorEffect(Sprite *sprite, int time, Color color, int delay) {colorEffects->AddEffect(sprite, time, color, delay);};

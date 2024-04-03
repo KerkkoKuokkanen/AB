@@ -18,6 +18,15 @@ static Character *AnyOneClicked(bool turnerAss)
 	return (NULL);
 }
 
+static std::string GetFrenzyTurnNumber(int amount, Character *click)
+{
+	if (click == NULL)
+		return ("");
+	std::string ret = std::to_string(amount);
+	ret += " Turns";
+	return (ret);
+}
+
 static std::string GetSlowTurnNumber(int slow, Character *click)
 {
 	if (click == NULL)
@@ -266,6 +275,26 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 			start = TTDeBuffProtection(click, bubble, start);
 			start -= 3000;
 			bubble->SetUpOutline(500, GetYMinus(start));
+			break ;
+		}
+		case StatusSigns::FRENZY:
+		{
+			Character *click = AnyOneClicked(fromTurnerAss);
+			std::string ret = GetFrenzyTurnNumber(click->statuses.frenzy, click);
+			Snippet *add1 = new Snippet("Frenzy:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
+			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			add1->SetColor(237, 14, 14);
+			Snippet *plus1 = new Snippet("+", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, 1500, 750, TEXT_BUBBLE_LAYER, true);
+			Snippet *plus2 = new Snippet("+", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, 1500, 750, TEXT_BUBBLE_LAYER, true);
+			Snippet *add2 = new Snippet("50% damage increase", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			Snippet *add3 = new Snippet("10% critical chance", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			bubble->AddSnippetToBubble(plus1, {500, 2350});
+			bubble->AddSnippetToBubble(plus2, {500, 3850});
+			bubble->AddSnippetToBubble(add1, {500, 250});
+			bubble->AddSnippetToBubble(add15, {5800, 650});
+			bubble->AddSnippetToBubble(add2, {1400, 2750});
+			bubble->AddSnippetToBubble(add3, {1400, 4250});
+			bubble->SetUpOutline(500, GetYMinus(4250));
 			break ;
 		}
 	}
