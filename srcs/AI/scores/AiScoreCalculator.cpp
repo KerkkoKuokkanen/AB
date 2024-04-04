@@ -1,13 +1,14 @@
 #include "../../../hdr/global.h"
-#define MOVE_DIVIDER 50.0f
+#define MOVE_DIVIDER 0.3f
+#define BIG_NUMBER 9999999
+#define FULL_BLOCK_MULTI 0.02f
+#define SCALED_MAX_WORTH 110.0f
+#define SCALED_WORTH_ENEMY_MULTI 0.2f
+#define UNIT_SCORE 100.0f
+#define CONTROLLED_SMOKE_SCORE 19.0f
+#define SMOKE_SCORE 3.0f
 
 static std::vector<t_AiCharacter*> charQ;
-
-typedef struct s_ValueBlock
-{
-	float healthVal;
-	float fatVal;
-}				t_ValueBlock;
 
 static int AiGetXToRight(SDL_Point pos)
 {
@@ -37,10 +38,25 @@ static bool IsCharacter(t_AiMapUnit &point)
 	return (true);
 }
 
+static float GetScaledScore(t_AiCharacter *character)
+{
+	int max = character->character->stats.maxArmor + character->character->stats.maxHealth;
+	if (max == 0)
+		return (0.0f);
+	float unit = SCALED_MAX_WORTH / (float)max;
+	float multi = (float)(character->armor + character->health);
+	float score = unit * multi;
+	if (character->character->ally == false)
+		score *= SCALED_WORTH_ENEMY_MULTI;
+	return (score);
+}
+
 static float GetHealthScore(t_AiMapUnit **map)
 {
 	float ah = 0.0f;
 	float eh = 0.0f;
+	float scaledAH = 0.0f;
+	float scaledEH = 0.0f;
 	int w = gameState.battle.ground->map[0].size();
 	int h = gameState.battle.ground->map.size();
 	for (int i = 0; i < h; i++)
@@ -54,16 +70,22 @@ static float GetHealthScore(t_AiMapUnit **map)
 			if (map[i][j].character->character->ally)
 			{
 				if (map[i][j].character->alive)
+				{
 					ah += (float)(map[i][j].character->health + map[i][j].character->armor);
+					scaledAH += GetScaledScore(map[i][j].character);
+				}
 			}
 			else
 			{
 				if (map[i][j].character->alive)
+				{
 					eh += (float)(map[i][j].character->health + map[i][j].character->armor);
+					scaledEH += GetScaledScore(map[i][j].character);
+				}
 			}
 		}
 	}
-	float finalValue = ah - eh;
+	float finalValue = ah - eh + scaledAH - scaledEH;
 	return (finalValue);
 }
 
@@ -76,14 +98,54 @@ static float UnitScores(t_AiMapUnit **map)
 		if (charQ[i]->alive == false)
 			continue ;
 		if (charQ[i]->character->ally)
-			ally += 100.0f;
+			ally += UNIT_SCORE;
 		else
-			enem += 100.0f;
+			enem += UNIT_SCORE;
 	}
 	return (ally - enem);
 }
 
-static float GetCharDistScore(t_AiCharacter *charac)
+static float GetTheDistForMeleePosition(SDL_Point targPos, SDL_Point charPos, t_AiMapUnit **map)
+{
+	int xLeft = AiGetXToLeft(targPos);
+	int xRight = AiGetXToRight(targPos);
+	SDL_Point positions[4] = {{xRight, targPos.y - 1}, {xRight, targPos.y + 1},
+								{xLeft, targPos.y - 1}, {xLeft, targPos.y + 1}};
+	SDL_Point distBlocks[4] = {{-1, -1}, {-1, -1}, {-1, -1}, {-1, -1}};
+	int shortest = BIG_NUMBER;
+	int shortestReal = BIG_NUMBER;
+	int blockCount = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		if (!AiValidPos(positions[i]))
+			continue ;
+		int dist = moveMaps.abilities[positions[i].y][positions[i].x].map[charPos.y][charPos.x];
+		distBlocks[i].x = dist;
+		if (dist < shortest)
+			shortest = dist;
+		if (map[positions[i].y][positions[i].x].blocked)
+			distBlocks[i].y = (-1);
+		else
+		{
+			distBlocks[i].y = 1;
+			if (dist < shortestReal)
+				shortestReal = dist;
+		}
+	}
+	if (shortestReal == shortest)
+		return ((float)shortest);
+	if (shortestReal == BIG_NUMBER)
+		return (moveMaps.abilities[targPos.y][targPos.x].map[charPos.y][charPos.x] * FULL_BLOCK_MULTI);
+	for (int i = 0; i < 4; i++)
+	{
+		if (distBlocks[i].x < shortestReal)
+			blockCount++;
+	}
+	float shortMulti = 1.0f - (((float)blockCount * 2.25f) / 10.0f);
+	return ((float)shortestReal * shortest);
+}
+
+static float GetCharDistScoreMelee(t_AiCharacter *charac, t_AiMapUnit **map)
 {
 	float score = 0.0f;
 	SDL_Point targ = charac->position;
@@ -91,13 +153,11 @@ static float GetCharDistScore(t_AiCharacter *charac)
 	{
 		if (charQ[i]->character->ally)
 		{
-			SDL_Point check = charQ[i]->position;
-			int dist = moveMaps.abilities[targ.y][targ.x].map[check.y][check.x];
-			if (dist < 5)
-				return (0.0f);
-			float test = (float)dist / MOVE_DIVIDER;
-			if (score < test)
-				score = test;
+			float dist = GetTheDistForMeleePosition(charQ[i]->position, targ, map);
+			if (dist <= 0.000001)
+				continue ;
+			float test = dist / MOVE_DIVIDER;
+			score += test;
 		}
 	}
 	return (score);
@@ -109,7 +169,7 @@ static float DistanceScore(t_AiMapUnit **map)
 	for (int i = 0; i < charQ.size(); i++)
 	{
 		if (charQ[i]->character->ally == false)
-			score += GetCharDistScore(charQ[i]);
+			score += GetCharDistScoreMelee(charQ[i], map);
 	}
 	return (score);
 }
@@ -127,9 +187,9 @@ static float CheckSmokeForAi(t_AiMapUnit **map, SDL_Point pos)
 			continue ;
 		if (map[posses[i].y][posses[i].x].character != NULL &&
 			map[posses[i].y][posses[i].x].character->character->ally)
-			return (19.0f);
+			return (CONTROLLED_SMOKE_SCORE);
 	}
-	return (3.0f);
+	return (SMOKE_SCORE);
 }
 
 static float SmokeSore(t_AiMapUnit **map)

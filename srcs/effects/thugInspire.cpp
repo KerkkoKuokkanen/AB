@@ -12,6 +12,8 @@ ThugInspire::ThugInspire(Character *target)
 
 void ThugInspire::ManageAlpha()
 {
+	if (counter > 23)
+		return ;
 	float unit = 255.0f / 15.0f;
 	if (counter <= 15)
 	{

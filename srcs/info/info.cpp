@@ -288,6 +288,7 @@ void Info::UpdateStatusInfo()
 
 void Info::UpdateFrenzy()
 {
+	frenzyColorer->Update();
 	for (int i = 0; i < inspireEffecst.size(); i++)
 	{
 		inspireEffecst[i]->Update();
@@ -298,7 +299,6 @@ void Info::UpdateFrenzy()
 			i = (inspireEffecst.size() == 0) ? 0 : i - 1;
 		}
 	}
-	frenzyColorer->Update();
 }
 
 void Info::Update()

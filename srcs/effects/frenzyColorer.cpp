@@ -26,7 +26,7 @@ static int HowManyParticles(int counter, int intensity)
 	if (counter % 15 != 0)
 		return (0);
 	float it = GetIntensity(intensity);
-	float amount = 12 * it;
+	float amount = (float)(rand() % 5 + 10) * it;
 	return (rounding(amount));
 }
 
@@ -62,6 +62,11 @@ void FrenzyColorer::Update()
 
 void FrenzyColorer::AddCharacter(Character *target)
 {
+	for (int i = 0; i < frenzys.size(); i++)
+	{
+		if (frenzys[i].target == target)
+			return ;
+	}
 	t_Frenzys add;
 	add.counter = rand() % 10000;
 	add.target = target;

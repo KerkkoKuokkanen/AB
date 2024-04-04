@@ -132,6 +132,8 @@ static void BuffsAtEnd(Character *character)
 	}
 	if (character->statuses.slowed > 0)
 		character->statuses.slowed -= 1;
+	if (character->statuses.frenzy > 0)
+		character->statuses.frenzy -= 1;
 }
 
 static void BuffsAtStart(Character *character)

@@ -113,8 +113,8 @@ void Abilities::UpdateEnemyAnimationOne(t_Animation &anim, int index)
 				t_BuffDebuff *stats = (t_BuffDebuff*)ability->stats;
 				for (int i = 0; i < buffTargs.size(); i++)
 				{
-					buffTargs[i]->statuses.frenzy = stats->turns;
 					gameState.updateObjs.info->AddInspireEffect(new ThugInspire(buffTargs[i]));
+					buffTargs[i]->statuses.frenzy = stats->turns;
 				}
 			}
 			if (used->done)
