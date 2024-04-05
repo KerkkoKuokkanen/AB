@@ -491,6 +491,7 @@ void			CreateTheMoveMaps();
 bool			CheckIfNextToToolBox(SDL_Point pos);
 t_AiCharacter	*GetTheStartingTurnForAi(t_AiMapUnit **map);
 t_AiMapUnit		**GetTheMap();
+float			CrazyLoopScore(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ);
 float			GetAiScore(t_AiMapUnit **map, bool ally);
 void			GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map);
 t_TargetingType	GetAbilityTargetingType(t_Ability *ability);

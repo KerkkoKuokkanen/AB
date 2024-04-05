@@ -52,7 +52,7 @@ void AiManagerUpdate()	//funtion only for the Ai thread
 	t_AiCharacter *turn = GetTheStartingTurnForAi(map);
 	float startSore = GetAiScore(map, turn->character->ally);
 	AiIterator *used = new AiIterator;
-	used->CalculateMoves(map, turn, startSore, 5, 3);
+	used->CalculateMoves(map, turn, startSore, 5, 4);
 	t_BestMove tester = used->GetBestMove();
 	DeactivateAI();
 	SetDataReady(tester);

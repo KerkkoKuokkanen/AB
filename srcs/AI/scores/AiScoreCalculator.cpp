@@ -1,5 +1,6 @@
 #include "../../../hdr/global.h"
-#define MOVE_DIVIDER 0.3f
+#define MOVE_DIVIDER 1.0f
+#define CONVENTIONAL_MOVE_DIVIDER 1.0f
 #define BIG_NUMBER 9999999
 #define FULL_BLOCK_MULTI 0.02f
 #define SCALED_MAX_WORTH 110.0f
@@ -119,7 +120,7 @@ static float GetTheDistForMeleePosition(SDL_Point targPos, SDL_Point charPos, t_
 	{
 		if (!AiValidPos(positions[i]))
 			continue ;
-		int dist = moveMaps.abilities[positions[i].y][positions[i].x].map[charPos.y][charPos.x];
+		int dist = moveMaps.abilities[charPos.y][charPos.x].map[positions[i].y][positions[i].x];
 		distBlocks[i].x = dist;
 		if (dist < shortest)
 			shortest = dist;
@@ -135,19 +136,23 @@ static float GetTheDistForMeleePosition(SDL_Point targPos, SDL_Point charPos, t_
 	if (shortestReal == shortest)
 		return ((float)shortest);
 	if (shortestReal == BIG_NUMBER)
-		return (moveMaps.abilities[targPos.y][targPos.x].map[charPos.y][charPos.x] * FULL_BLOCK_MULTI);
+		return (moveMaps.abilities[charPos.y][charPos.x].map[targPos.y][targPos.x] * FULL_BLOCK_MULTI);
 	for (int i = 0; i < 4; i++)
 	{
+		if (distBlocks[i].x == (-1) && blockCount == 0)
+			blockCount++;
 		if (distBlocks[i].x < shortestReal)
 			blockCount++;
 	}
 	float shortMulti = 1.0f - (((float)blockCount * 2.25f) / 10.0f);
-	return ((float)shortestReal * shortest);
+	return ((float)shortestReal * shortMulti);
 }
 
 static float GetCharDistScoreMelee(t_AiCharacter *charac, t_AiMapUnit **map)
 {
 	float score = 0.0f;
+	float minDist = BIG_NUMBER;
+	int index = 0;
 	SDL_Point targ = charac->position;
 	for (int i = 0; i < charQ.size(); i++)
 	{
@@ -157,9 +162,17 @@ static float GetCharDistScoreMelee(t_AiCharacter *charac, t_AiMapUnit **map)
 			if (dist <= 0.000001)
 				continue ;
 			float test = dist / MOVE_DIVIDER;
+			if (test < minDist)
+			{
+				index = i;
+				minDist = test;
+			}
 			score += test;
 		}
 	}
+	if (minDist > (BIG_NUMBER - 10.0f))
+		return (score);
+	score += (minDist * 2.0f);
 	return (score);
 }
 
@@ -211,5 +224,6 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 	float unitScore = UnitScores(map);
 	float distScore = DistanceScore(map);
 	float smokeScore = SmokeSore(map);
-	return (healthScore + unitScore + distScore + smokeScore);
+	float crazyLoopScore = CrazyLoopScore(map, charQ);
+	return (healthScore + unitScore + distScore + smokeScore + crazyLoopScore);
 }
