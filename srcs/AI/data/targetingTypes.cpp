@@ -22,13 +22,22 @@ static float BurnAddition(t_AiCharacter *target)
 	return (multi);
 }
 
-static int GetDamageReduction(t_AiCharacter *damaged, t_AiCharacter *damager, int damage)
+static float FrenzyAddition(t_AiCharacter *character)
+{
+	if (character->statuses.frenzy == 0)
+		return (1.0f);
+	return (1.5f);
+}
+
+static int AiGetDamageReduction(t_AiCharacter *damaged, t_AiCharacter *damager, int damage)
 {
 	float damageRet = (float)damage;
 	float burnMulti = BurnAddition(damaged);
 	float protectioMulti = GetProtectionMulti(damaged);
+	float frenzyMulti = FrenzyAddition(damager);
 	damageRet *= burnMulti;
 	damageRet *= protectioMulti;
+	damageRet *= frenzyMulti;
 	return (rounding(damageRet));
 }
 
@@ -37,14 +46,14 @@ int AiDamageNumber(t_AiCharacter *target, t_AiCharacter *caster, t_Ability *abil
 	int damage = rounding((float)(caster->character->stats.baseDamageLow + caster->character->stats.baseDamageHigh) / 2.0f);
 	float abilityMulti = (float)ability->damage / 100.0f;
 	damage = rounding((float)damage * abilityMulti);
-	damage = GetDamageReduction(target, caster, damage);
+	damage = AiGetDamageReduction(target, caster, damage);
 	return (damage);
 }
 
 int AiOppDamageNumber(t_AiCharacter *target, t_AiCharacter *caster)
 {
 	int damage = rounding((float)(caster->character->stats.baseDamageLow + caster->character->stats.baseDamageHigh) / 2.0f);
-	damage = GetDamageReduction(target, caster, damage);
+	damage = AiGetDamageReduction(target, caster, damage);
 	return (damage);
 }
 
