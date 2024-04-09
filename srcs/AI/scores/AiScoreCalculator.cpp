@@ -224,6 +224,6 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 	float unitScore = UnitScores(map);
 	float distScore = DistanceScore(map);
 	float smokeScore = SmokeSore(map);
-	float crazyLoopScore = CrazyLoopScore(map, charQ);
+	float crazyLoopScore = CrazyLoopScore(GetReplica(map), charQ);
 	return (healthScore + unitScore + distScore + smokeScore + crazyLoopScore);
 }

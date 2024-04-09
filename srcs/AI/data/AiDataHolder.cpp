@@ -11,6 +11,16 @@ void InitObjHolder()
 	objHolder.Init();
 }
 
+static void ResetCharacter(t_AiCharacter *character)
+{
+	character->statuses.bleed.clear();
+	character->statuses.buffs.clear();
+	character->statuses.burns.clear();
+	character->statuses.deBuffs.clear();
+	character->statuses.poison.clear();
+	character->statuses.toxicBlade.clear();
+}
+
 static void CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, t_AiCharacter *character)
 {
 	for (int i = 0; i < character->statuses.bleed.size(); i++)
@@ -30,6 +40,7 @@ static void CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, t_AiCharacter *c
 	aiChar->statuses.controlZone = character->statuses.controlZone;
 	aiChar->statuses.stun = character->statuses.stun;
 	aiChar->statuses.slowed = character->statuses.slowed;
+	aiChar->statuses.frenzy = character->statuses.frenzy;
 }
 
 static t_AiCharacter *SetTheCharacter(t_AiCharacter *character)
@@ -37,7 +48,6 @@ static t_AiCharacter *SetTheCharacter(t_AiCharacter *character)
 	if (character == NULL)
 		return (NULL);
 	t_AiCharacter *used = objHolder.GetCharacter();
-	used = new t_AiCharacter;
 	used->alive = character->alive;
 	used->armor = character->armor;
 	used->health = character->health;
@@ -49,10 +59,27 @@ static t_AiCharacter *SetTheCharacter(t_AiCharacter *character)
 	return (used);
 }
 
+t_AiCharacter *GetReplicaAiCharacter(t_AiCharacter *copied)
+{
+	t_AiCharacter *ret = SetTheCharacter(copied);
+	return (ret);
+}
+
 t_AiMapUnit **GetMapFromHolder()
 {
 	t_AiMapUnit **ret = objHolder.GetMap();
 	return (ret);
+}
+
+void AiObjHolder::ReturnCharacter(t_AiCharacter *character)
+{
+	ResetCharacter(character);
+	freeCharacters.push_back(character);
+}
+
+void ReturnAiCharacter(t_AiCharacter *aiCharacter)
+{
+	objHolder.ReturnCharacter(aiCharacter);
 }
 
 t_AiCharacter *GetAiCharacterFromHolder()
@@ -108,16 +135,6 @@ static t_AiMapUnit **GetTheMapForHolder()
 		bzero(map[i], sizeof(t_AiMapUnit) * w);
 	}
 	return (map);
-}
-
-static void ResetCharacter(t_AiCharacter *character)
-{
-	character->statuses.bleed.clear();
-	character->statuses.buffs.clear();
-	character->statuses.burns.clear();
-	character->statuses.deBuffs.clear();
-	character->statuses.poison.clear();
-	character->statuses.toxicBlade.clear();
 }
 
 void AiObjHolder::ReturnMap(t_AiMapUnit **map)

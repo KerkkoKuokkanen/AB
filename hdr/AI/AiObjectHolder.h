@@ -13,6 +13,7 @@ class AiObjHolder
 	public:
 		void Init();
 		void ReturnMap(t_AiMapUnit **map);
+		void ReturnCharacter(t_AiCharacter *character);
 		t_AiMapUnit **GetMap();
 		t_AiCharacter *GetCharacter();
 		AiIterator *GetIterator();

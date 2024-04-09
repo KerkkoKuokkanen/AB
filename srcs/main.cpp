@@ -18,7 +18,7 @@ void TempInitBattle()
 	SDL_Point point2 = {4, 11};
 	SDL_Point point4 = {3, 12};
 	SDL_Point point5 = {5, 13};
-	SDL_Point possi = {1, 0};
+	SDL_Point possi = {4, 12};
 	static std::vector<SDL_Point> pnt = {point4, possi, point, point1, point5};
 	gameState.battle.ground->StartBattle(chars, pnt);
 	gameState.updateObjs.UI->SetCharacters(chars);

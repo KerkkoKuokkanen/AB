@@ -48,6 +48,7 @@ void CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, Character *character)
 	aiChar->statuses.controlZone = character->statuses.controlZone;
 	aiChar->statuses.stun = character->statuses.stun;
 	aiChar->statuses.slowed = character->statuses.slowed;
+	aiChar->statuses.frenzy = character->statuses.frenzy;
 }
 
 static t_AiCharacter *SetTheCharacter(Character *character)

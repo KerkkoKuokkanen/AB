@@ -502,6 +502,9 @@ t_AiMapUnit		**GetMapFromHolder();
 t_AiCharacter	*GetAiCharacterFromHolder();
 void			ReturnAiIterator(AiIterator *iterator);
 float			GetAiPositionScore(std::vector<t_AiCharacter*> &CQ, t_AiMapUnit **map);
+void			OrderTheCharQ(std::vector<t_AiCharacter*> &charQ);
+void			ReturnAiCharacter(t_AiCharacter *aiCharacter);
+t_AiCharacter	*GetReplicaAiCharacter(t_AiCharacter *copied);
 
 //audio
 

@@ -52,7 +52,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/UI/texts/UiBubbleCreation.cpp srcs/info/texts/hitChance.cpp srcs/info/texts/hitChanceCreate.cpp \
 		srcs/info/menu/menu.cpp srcs/battle/turn/hoverIndicator.cpp srcs/effects/shieldBashEffect.cpp \
 		srcs/ability/animation/bigThugStrike.cpp srcs/ability/animation/thugStrike.cpp srcs/ability/animation/bigThugInspire.cpp \
-		srcs/info/thugEffect.cpp srcs/effects/thugInspire.cpp srcs/effects/frenzyColorer.cpp srcs/AI/scores/CrazyLoop.cpp
+		srcs/info/thugEffect.cpp srcs/effects/thugInspire.cpp srcs/effects/frenzyColorer.cpp srcs/AI/scores/CrazyLoop.cpp \
+		srcs/AI/scores/AiScoreTools.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 DEP = $(OBJ:.o=.d)

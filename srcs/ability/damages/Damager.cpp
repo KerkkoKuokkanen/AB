@@ -105,8 +105,7 @@ static void addStatus(Character *damager, Character *target, t_Ability *ability,
 			used += " bleed";
 			const char *ret = used.c_str();
 			CreateTextSnippet(damager, target, ret, 1000, Color(184, 6, 6));
-			for (int i = 0; i < stacks; i++)
-				target->statuses.bleed.push_back(3);
+			target->statuses.bleed.push_back({stacks, 3});
 		}
 	}
 }

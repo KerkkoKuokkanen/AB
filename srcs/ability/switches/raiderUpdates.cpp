@@ -34,8 +34,7 @@ static void CheckForApplyPoison(Character *character, Character *target, t_Abili
 	used += " poison";
 	const char *ret = used.c_str();
 	CreateTextSnippet(character, target, ret, 1000, Color(28, 138, 0));
-	for (int i = 0; i < stacks; i++)
-		target->statuses.poison.push_back(3);
+	target->statuses.poison.push_back({stacks, 3});
 }
 
 void Abilities::UpdateRaiderAnimation(t_Animation &anim, int index)

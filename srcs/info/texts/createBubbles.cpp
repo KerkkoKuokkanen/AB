@@ -63,6 +63,33 @@ static std::string GetToxicBladeTurnNumber(std::vector<t_ToxicStat> &stack, Char
 	return (used);
 }
 
+static std::string GetStatusTurnNumber(std::vector<SDL_Point> &stack, Character *click)
+{
+	if (click == NULL)
+		return ("");
+	int small = 1000;
+	int big = 0;
+	for (int i = 0; i < stack.size(); i++)
+	{
+		int num = stack[i].y;
+		if (num > big)
+			big = num;
+		if (num < small)
+			small = num;
+	}
+	if (small == big)
+	{
+		std::string used = std::to_string(small);
+		used += " Turns";
+		return (used);
+	}
+	std::string used = std::to_string(small);
+	used += "-";
+	used += std::to_string(big);
+	used += " Turns";
+	return (used);
+}
+
 static std::string GetBurnTurnNumber(std::vector<int> &stack, Character *click)
 {
 	if (click == NULL)
@@ -122,7 +149,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		case StatusSigns::POISON:
 		{
 			Character *click = AnyOneClicked(fromTurnerAss);
-			std::string ret = GetBurnTurnNumber(click->statuses.poison, click);
+			std::string ret = GetStatusTurnNumber(click->statuses.poison, click);
 			Snippet *add1 = new Snippet("Poison:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
 			add1->SetColor(9, 150, 5);
@@ -138,7 +165,7 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 		case StatusSigns::BLEED:
 		{
 			Character *click = AnyOneClicked(fromTurnerAss);
-			std::string ret = GetBurnTurnNumber(click->statuses.bleed, click);
+			std::string ret = GetStatusTurnNumber(click->statuses.bleed, click);
 			Snippet *add1 = new Snippet("Bleed:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
 			Snippet *add15 = new Snippet(ret.c_str(), FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
 			add1->SetColor(250, 0, 0);

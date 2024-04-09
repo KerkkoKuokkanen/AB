@@ -150,8 +150,8 @@ typedef struct s_StatusEffects
 	std::vector<t_BuffDebuff> buffs;
 	std::vector<t_BuffDebuff> deBuffs;
 	std::vector<t_ToxicStat> toxicBlade;
-	std::vector<int> poison;
-	std::vector<int> bleed;
+	std::vector<SDL_Point> poison;
+	std::vector<SDL_Point> bleed;
 	void *hosting;
 	bool hosted;
 	int controlZone;
