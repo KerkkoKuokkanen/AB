@@ -1,18 +1,6 @@
 
 #include "../../../hdr/global.h"
 
-static int AiGetXToRight(SDL_Point pos)
-{
-	int modder = (pos.y % 2 == 0) ? 0 : 1;
-	return (pos.x + modder);
-}
-
-static int AiGetXToLeft(SDL_Point pos)
-{
-	int modder = (pos.y % 2 == 0) ? -1 : 0;
-	return (pos.x + modder);
-}
-
 static bool AiValidChecker(SDL_Point pos)
 {
 	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())

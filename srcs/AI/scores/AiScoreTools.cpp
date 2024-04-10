@@ -59,3 +59,45 @@ void OrderTheCharQ(std::vector<t_AiCharacter*> &charQ)
 	charQ.clear();
 	charQ = newOrder;
 }
+
+static SDL_Point GetNextSmallest(SDL_Point pos, SDL_Point start)
+{
+	int distance = moveMaps.abilities[start.y][start.x].map[pos.y][pos.x];
+	if (distance <= 0)
+		return (pos);
+	int left = AiGetXToLeft(pos);
+	int right = AiGetXToRight(pos);
+	SDL_Point positions[4] = {{left, pos.y - 1}, {left, pos.y + 1}, {right, pos.y - 1}, {right, pos.y + 1}};
+	SDL_Point retPos = {-1, -1};
+	for (int i = 0; i < 4; i++)
+	{
+		if (!AiValidPos(positions[i]))
+			continue ;
+		int found = moveMaps.abilities[start.y][start.x].map[positions[i].y][positions[i].x];
+		if (found == TOOL_MAP_SIGN)
+			continue ;
+		if (found < distance)
+		{
+			distance = found;
+			retPos = {positions[i].x, positions[i].y};
+		}
+	}
+	if (retPos.x == (-1))
+		return (pos);
+	return (retPos);
+}
+
+int RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end)
+{
+	int distance = moveMaps.abilities[start.y][start.x].map[end.y][end.x];
+	int current = distance;
+	SDL_Point next = end;
+	while (current != 0)
+	{
+		next = GetNextSmallest(next, start);
+		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
+		if (map[next.y][next.x].blocked)
+			distance += 4;
+	}
+	return (distance);
+}

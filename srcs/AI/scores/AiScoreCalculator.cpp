@@ -11,19 +11,19 @@
 
 static std::vector<t_AiCharacter*> charQ;
 
-static int AiGetXToRight(SDL_Point pos)
+int AiGetXToRight(SDL_Point pos)
 {
 	int modder = (pos.y % 2 == 0) ? 0 : 1;
 	return (pos.x + modder);
 }
 
-static int AiGetXToLeft(SDL_Point pos)
+int AiGetXToLeft(SDL_Point pos)
 {
 	int modder = (pos.y % 2 == 0) ? -1 : 0;
 	return (pos.x + modder);
 }
 
-static bool AiValidPos(SDL_Point pos)
+bool AiValidPos(SDL_Point pos)
 {
 	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
 		return (false);

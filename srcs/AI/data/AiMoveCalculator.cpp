@@ -10,27 +10,6 @@ static bool AtGoal(SDL_Point pos, SDL_Point goal)
 	return (false);
 }
 
-static int AiGetXToRight(SDL_Point pos)
-{
-	int modder = (pos.y % 2 == 0) ? 0 : 1;
-	return (pos.x + modder);
-}
-
-static int AiGetXToLeft(SDL_Point pos)
-{
-	int modder = (pos.y % 2 == 0) ? -1 : 0;
-	return (pos.x + modder);
-}
-
-static bool AiValidPos(SDL_Point pos)
-{
-	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
-		return (false);
-	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
-		return (false);
-	return (true);
-}
-
 static bool AdditionalValidation(SDL_Point pos, t_AiMapUnit **map)
 {
 	if (map[pos.y][pos.x].adds.phantom.isIt == false)
