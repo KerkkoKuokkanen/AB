@@ -48,6 +48,13 @@ typedef struct s_ToxicBlade
 	int hitChance;
 }				t_ToxicBlade;
 
+typedef struct s_PointDist
+{
+	SDL_Point pos;
+	int distance;
+	int closest;
+}				t_PointDist;
+
 typedef struct s_Teleport
 {
 	int secondRange;

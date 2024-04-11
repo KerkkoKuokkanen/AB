@@ -82,8 +82,6 @@ static SDL_Point GetNextSmallest(SDL_Point pos, SDL_Point start)
 			retPos = {positions[i].x, positions[i].y};
 		}
 	}
-	if (retPos.x == (-1))
-		return (pos);
 	return (retPos);
 }
 
@@ -95,6 +93,8 @@ int RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end)
 	while (current != 0)
 	{
 		next = GetNextSmallest(next, start);
+		if (next.x == (-1))
+			return (-1);
 		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
 		if (map[next.y][next.x].blocked)
 			distance += 4;
