@@ -10,7 +10,6 @@
 // -> try abilities in the different positions
 // -> final score is health scores and position scores combined
 
-
 // Position score calcilation ideas:
 // Get preferred distances to enemies for characters?
 // Give points to positions in terms of how many abilities they can use in thath position
@@ -19,60 +18,22 @@
 // Give positions defensive score in terms of how long the distance is for the enemies and
 // what enemies can use abilities to that position
 
-static int GetCharactersDistToPosition(t_AiMapUnit **map, SDL_Point position, t_AiCharacter *character)
+static int CharacterDistanceToPosition(SDL_Point pos, t_AiCharacter *target, bool staticSearch)
 {
-	SDL_Point start = character->position;
-	int dist = RangeBetweenPositions(map, start, position);
+	SDL_Point targ = target->position;
+	if (staticSearch)
+	{
+		int dist = moveMaps.staticMoves[targ.y][targ.x].map[pos.y][pos.x];
+		return (dist);
+	}
+	int dist = moveMaps.abilities[targ.y][targ.x].map[pos.y][pos.x];
 	return (dist);
-}
-
-static bool PositionHasTargetsInRange(int range, SDL_Point position, std::vector<t_AiCharacter*> &charQ, int targetType, bool staticDist, bool ally)
-{
-	for (int i = 0; i < charQ.size(); i++)
-	{
-		if (targetType == 0 && charQ[i]->character->ally == ally)
-			continue ;
-		if (targetType == 1 && charQ[i]->character->ally != ally)
-			continue ;
-		SDL_Point check = charQ[i]->position;
-		int dist = 0;
-		if (!staticDist)
-			dist = moveMaps.abilities[position.y][position.x].map[check.y][check.x];
-		else
-			dist = moveMaps.staticMoves[position.y][position.x].map[check.y][check.x];
-		if (dist == 0)
-			continue ;
-		if (dist <= range)
-			return (true);
-	}
-	return (false);
-}
-
-std::vector<t_PointDist> FindPositionsWithDistance(t_AiMapUnit **map, t_AiCharacter *character, int distance, bool staticDist, int targetType, int saveCount, std::vector<t_AiCharacter*> &charQ)
-{
-	int w = gameState.battle.ground->map[0].size();
-	int h = gameState.battle.ground->map.size();
-	SDL_Point pos = character->position;
-	bool ally = character->character->ally;
-	std::vector<t_PointDist> ret = {};
-	for (int i = 0; i < h; i++)
-	{
-		for (int j = 0; j < w; j++)
-		{
-			if (!PositionHasTargetsInRange(distance, {j, i}, charQ, targetType, staticDist, ally))
-				continue ;
-			t_PointDist add = {{j, i}, 0, 0};
-			add.distance = GetCharactersDistToPosition(map, {j, i}, character);
-			ret.push_back(add);
-		}
-	}
-	return (ret);
 }
 
 float CrazyLoopScore(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
 {
 	OrderTheCharQ(charQ);
-	std::vector<t_PointDist> ret = FindPositionsWithDistance(map, charQ[0], 2, true, 0, 0, charQ);
+	ReturnMapPositionDistances({0, 0}, map, charQ[0], 2, true, 0, 0, charQ);
 	DestroyMap(map);
 	return (0.0f);
 }
