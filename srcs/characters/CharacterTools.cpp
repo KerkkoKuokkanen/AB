@@ -290,7 +290,7 @@ void Character::AssignAbilities()
 			stats = {10, 14, 8, 45, 45, 25, 25, 90, 0, 2, 1};
 			abilities = {{ACID_RAIN, 3, 12, 10, 90, StatStructs::ACID_RAIN_STRUCT, (-1), 0, 0, false, true, NULL},
 						{TELEPORT, 4, 16, 10, 90, StatStructs::TELEPORT, (-1), 0, 0, false, true, NULL},
-						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, true, true, NULL}};
+						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, false, true, NULL}};
 			AssingDefaultWitchAbilities(abilities);
 			break ;
 		case BIG_THUG:

@@ -1,66 +1,35 @@
 
 #include "../../../hdr/global.h"
 
-static Character *GetNextInTheList(Character *current)
+static bool compareObjects(const t_AiCharacter *obj1, const t_AiCharacter *obj2)
 {
-	int index = (-1);
-	for (int i = 0; i < gameState.updateObjs.turnOrder->indicators.size(); i++)
+	if (obj1->character->stats.speed == obj2->character->stats.speed)
 	{
-		Character *charac = gameState.updateObjs.turnOrder->indicators[i].character;
-		if (charac == current)
-		{
-			index = i;
-			break ;
-		}
+		if (obj1->character->ally)
+			return (true);
 	}
-	if (index == (-1))
-		return (current);
-	if (index == gameState.updateObjs.turnOrder->indicators.size() - 1)
-		return (gameState.updateObjs.turnOrder->indicators[0].character);
-	return (gameState.updateObjs.turnOrder->indicators[index + 1].character);
+	return (obj1->character->stats.speed > obj2->character->stats.speed);
 }
 
-static t_AiCharacter *FindInTheVector(std::vector<t_AiCharacter*> &charQ, Character *find)
+void OrderTheCharQ(std::vector<t_AiCharacter*> &charQ) //This function crashes
 {
-	for (int i = 0; i < charQ.size(); i++)
-	{
-		if (charQ[i]->character == find)
-			return (charQ[i]);
-	}
-	printf("error is here in the CrazyLoop with function FindInTheVector\n");
-	return (NULL);
-}
-
-void OrderTheCharQ(std::vector<t_AiCharacter*> &charQ)
-{
-	Character *turn = NULL;
-	int index = 0;
-	for (int i = 0; i < gameState.updateObjs.turnOrder->indicators.size(); i++)
-	{
-		Character *charac = gameState.updateObjs.turnOrder->indicators[i].character;
-		if (charac->turn)
-		{
-			index = i;
-			turn = charac;
-			break ;
-		}
-	}
-	if (turn == NULL)
-		return ;
-	std::vector<t_AiCharacter*> newOrder = {};
-	newOrder.push_back(FindInTheVector(charQ, turn));
+	int iter = 0;
+	int size = charQ.size();
+	std::sort(charQ.begin(), charQ.end(), compareObjects);
 	while (true)
 	{
-		Character *next = GetNextInTheList(newOrder[newOrder.size() - 1]->character);
-		if (next == turn)
+		t_AiCharacter *curr = charQ.front();
+		if (curr->character->turn)
 			break ;
-		newOrder.push_back(FindInTheVector(charQ, next));
+		charQ.erase(charQ.begin());
+		charQ.push_back(curr);
+		iter++;
+		if (iter == size)
+			break ;
 	}
-	charQ.clear();
-	charQ = newOrder;
 }
 
-static SDL_Point GetNextSmallest(SDL_Point pos, SDL_Point start)
+static SDL_Point GetNextSmallest(SDL_Point pos, SDL_Point start, t_AiMapUnit **map)
 {
 	int distance = moveMaps.abilities[start.y][start.x].map[pos.y][pos.x];
 	if (distance <= 0)
@@ -69,6 +38,7 @@ static SDL_Point GetNextSmallest(SDL_Point pos, SDL_Point start)
 	int right = AiGetXToRight(pos);
 	SDL_Point positions[4] = {{left, pos.y - 1}, {left, pos.y + 1}, {right, pos.y - 1}, {right, pos.y + 1}};
 	SDL_Point retPos = {-1, -1};
+	bool currentlyBlocked = true;
 	for (int i = 0; i < 4; i++)
 	{
 		if (!AiValidPos(positions[i]))
@@ -76,10 +46,20 @@ static SDL_Point GetNextSmallest(SDL_Point pos, SDL_Point start)
 		int found = moveMaps.abilities[start.y][start.x].map[positions[i].y][positions[i].x];
 		if (found == TOOL_MAP_SIGN)
 			continue ;
-		if (found < distance)
+		if (found <= distance)
 		{
-			distance = found;
-			retPos = {positions[i].x, positions[i].y};
+			if (found == distance && !map[positions[i].y][positions[i].x].blocked && currentlyBlocked)
+			{
+				currentlyBlocked = false;
+				distance = found;
+				retPos = {positions[i].x, positions[i].y};
+			}
+			else
+			{
+				currentlyBlocked = map[positions[i].y][positions[i].x].blocked;
+				distance = found;
+				retPos = {positions[i].x, positions[i].y};
+			}
 		}
 	}
 	return (retPos);
@@ -92,7 +72,7 @@ int RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end)
 	SDL_Point next = end;
 	while (current != 0)
 	{
-		next = GetNextSmallest(next, start);
+		next = GetNextSmallest(next, start, map);
 		if (next.x == (-1))
 			return (-1);
 		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
@@ -100,4 +80,49 @@ int RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end)
 			distance += 4;
 	}
 	return (distance);
+}
+
+static float AiGetOppChance(t_AiCharacter *character, t_AiMapUnit **map)
+{
+	int y = character->position.y;
+	int left = AiGetXToLeft(character->position);
+	int right = AiGetXToRight(character->position);
+	float chanceForHit = 1.0f;
+	SDL_Point positions[4] = {{left, y - 1}, {left, y + 1}, {right, y - 1}, {right, y + 1}};
+	bool ally = character->character->ally;
+	for (int i = 0; i < 4; i++)
+	{
+		if (!AiValidPos(positions[i]))
+			continue ;
+		if (map[positions[i].y][positions[i].x].adds.smoke.isIt)
+			continue ;
+		t_AiCharacter *used = map[positions[i].y][positions[i].x].character;
+		if (used == NULL || used->character->ally == ally)
+			continue ;
+		int chance = AiGetChance(used, character, NULL, map);
+		float chancer = (float)chance / 100.0f;
+		chanceForHit *= (1.0f - chancer);
+	}
+	chanceForHit = 1.0f - chanceForHit;
+	return (chanceForHit);
+}
+
+static bool NoDamageMelee(t_AiCharacter *character)
+{
+	for (int i = 0; i < character->character->abilities.size(); i++)
+	{
+		t_Ability *used = &character->character->abilities[i];
+		if (used->melee == false && used->damage > 0)
+			return (false);
+	}
+	return (true);
+}
+
+bool NoPointInMovingControlChecks(t_AiCharacter *character, t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
+{
+	if (NoDamageMelee(character))
+		return (false);
+	if (AiGetOppChance(character, map) > 0.51f)
+		return (true);
+	return (false);
 }

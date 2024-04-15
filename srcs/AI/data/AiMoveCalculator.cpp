@@ -103,7 +103,7 @@ int AiIterator::CheckMovePosition(SDL_Point pos)
 	float chanceForHit = 1.0f;
 	for (int i = 0; i < damagers.size(); i++)
 	{
-		int chance = GetChance(map[damagers[i].y][damagers[i].x].character->character, character->character, NULL);
+		int chance = AiGetChance(map[damagers[i].y][damagers[i].x].character, character, NULL, map);
 		totalChance += chance;
 		float chancer = (float)chance / 100.0f;
 		chanceForHit *= (1.0f - chancer);
@@ -114,7 +114,7 @@ int AiIterator::CheckMovePosition(SDL_Point pos)
 	float totalDamage = 0.0f;
 	for (int i = 0; i < damagers.size(); i++)
 	{
-		int chance = GetChance(map[damagers[i].y][damagers[i].x].character->character, character->character, NULL);
+		int chance = AiGetChance(map[damagers[i].y][damagers[i].x].character, character, NULL, map);
 		float chancer = (float)chance / 100.0f;
 		int damage = AiOppDamageNumber(character, map[damagers[i].y][damagers[i].x].character);
 		totalDamage += ((float)damage * chanceForHit);

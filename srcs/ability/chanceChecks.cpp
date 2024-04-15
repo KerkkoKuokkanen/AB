@@ -94,6 +94,8 @@ static int CheckOppChancers(Character *character, t_Ability *ability, int ret)
 int GetChance(Character *character, Character *target, t_Ability *ability)
 {
 	int ret = GetTheBaseChance(character, target, ability);
+	if (ret == 200)
+		return (100);
 	ret += RangedChance(character, target);
 	ret = ChanceModifiers(character, target, ret);
 	ret = CheckOppChancers(character, ability, ret);

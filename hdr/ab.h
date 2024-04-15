@@ -510,6 +510,8 @@ int						AiGetXToLeft(SDL_Point pos);
 bool					AiValidPos(SDL_Point pos);
 int						RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end);
 std::vector<SDL_Point>	GetCharacterEffectiveDistances(t_AiCharacter *character);
+int						AiGetChanceForCharOnly(t_AiCharacter *character, t_Ability *ability, t_AiMapUnit **map);
+bool					NoPointInMovingControlChecks(t_AiCharacter *character, t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ);
 t_PointDist				ReturnMapPositionDistances(SDL_Point check, t_AiMapUnit **map, t_AiCharacter *character, int distance, bool staticDist, int targetType, int saveCount, std::vector<t_AiCharacter*> &charQ);
 
 //audio

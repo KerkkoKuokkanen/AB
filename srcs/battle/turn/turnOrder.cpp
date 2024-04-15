@@ -1,7 +1,7 @@
 
 #include "../../../hdr/global.h"
 
-bool compareObjects(const t_Indicator &obj1, const t_Indicator &obj2)
+static bool compareObjects(const t_Indicator &obj1, const t_Indicator &obj2)
 {
 	if (obj1.character->stats.speed == obj2.character->stats.speed)
 	{
