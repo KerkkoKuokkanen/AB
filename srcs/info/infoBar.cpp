@@ -141,7 +141,7 @@ InfoBar::InfoBar(Character *character)
 	outline->ColorMod(40, 40, 40);
 	gameState.render->AddSprite(outline, TURN_ORDER_LAYER);
 	statuses = new Statuses(character, 1800, 1080, 570, true);
-	statuses->Postion(Vector(-12500.0f, -35200.0f));
+	statuses->Postion(Vector(-12600.0f, -35120.0f));
 }
 
 void InfoBar::CheckMouseOver()

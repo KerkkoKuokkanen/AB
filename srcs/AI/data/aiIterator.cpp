@@ -20,6 +20,7 @@ void AiIterator::SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_
 void AiIterator::SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map)
 {
 	map[pos.y][pos.x].character = NULL;
+	map[pos.y][pos.x].blocked = false;
 }
 
 t_AiCharacter *AiIterator::GetCharInMap()

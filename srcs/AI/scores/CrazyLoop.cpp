@@ -153,7 +153,11 @@ float GetPositionOffenceScore(SDL_Point pos, t_AiCharacter *character, t_AiMapUn
 		energys -= used;
 		std::get<1>(positions[biggest]) = BIG_MINUS;
 	}
-	int positionDistance = RangeBetweenPositions(map, character->position, pos);
+	int positionDistance = 0;
+	if (character->character->stats.size == 0)
+		positionDistance = RangeBetweenPositionsWithControls(map, character->position, pos, ally);
+	else
+		positionDistance = RangeBetweenPositions(map, character->position, pos);
 	int currentDistance = moveMaps.abilities[character->position.y][character->position.x].map[pos.y][pos.x];
 	int additionalEnergyUsed = positionDistance - currentDistance;
 	if (additionalEnergyUsed <= 0)
@@ -166,12 +170,9 @@ float GetPositionOffenceScore(SDL_Point pos, t_AiCharacter *character, t_AiMapUn
 
 float GetPositionScoreForCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
 {
-	for (int i = 0; i < charQ.size(); i++)
-	{
-		t_AiCharacter *character = charQ[i];
-		float offence = GetPositionOffenceScore(character->position, character, map, charQ);
-		printf("%d, pos: %d, %d, dmg: %f\n", character->character->cSing, character->position.x, character->position.y, offence);
-	}
+	float offence = GetPositionOffenceScore(pos, character, map, charQ);
+	float defence = 0.0f;
+	float additional = 0.0f;
 	return (0.0f);
 }
 

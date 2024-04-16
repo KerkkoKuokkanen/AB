@@ -174,6 +174,18 @@ bool Statuses::GetMouseOverStatuses()
 				}
 				break ;
 			}
+			case StatusSigns::BIG_CHARACTER:
+			{
+				const SDL_Rect tmp1 = statuses[i].images.sprite->dest;
+				const SDL_FRect hld1 = staitcTranslateSprite(tmp1);
+				const SDL_Rect dst1 = {(int)hld1.x, (int)hld1.y, (int)hld1.w, (int)hld1.h};
+				if (MenuHoverCheck(gameState.surfaces.bigCharacterSymbol, dst1, x, y))
+				{
+					hoverIcon = StatusSigns::BIG_CHARACTER;
+					return (true);
+				}
+				break ;
+			}
 		}
 	}
 	return (false);
@@ -480,6 +492,15 @@ void Statuses::CreateFrestStatus(int statusSign)
 			statuses.push_back({add, StatusSigns::FRENZY, 1});
 			break ;
 		}
+		case StatusSigns::BIG_CHARACTER:
+		{
+			add.sprite = new Sprite(gameState.textures.bigCharacterSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
+			add.sprite->orderLayer = 1;
+			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
+			add.snippet = NULL;
+			statuses.push_back({add, StatusSigns::BIG_CHARACTER, 1});
+			break ;
+		}
 	}
 	if (onlyOne)
 	{
@@ -550,6 +571,11 @@ void Statuses::CheckIfNeedToCreateStatuses()
 	{
 		if (!AlreadyExists(StatusSigns::FRENZY))
 			CreateFrestStatus(StatusSigns::FRENZY);
+	}
+	if (character->stats.size != 0)
+	{
+		if (!AlreadyExists(StatusSigns::BIG_CHARACTER))
+			CreateFrestStatus(StatusSigns::BIG_CHARACTER);
 	}
 }
 
@@ -640,6 +666,12 @@ void Statuses::CheckIfNewStatuses()
 			case StatusSigns::FRENZY:
 			{
 				if (character->statuses.frenzy == 0 && AlreadyExists(StatusSigns::FRENZY))
+					ChangeAmount(i, 0, 0);
+				break ;
+			}
+			case StatusSigns::BIG_CHARACTER:
+			{
+				if (character->stats.size == 0 && AlreadyExists(StatusSigns::BIG_CHARACTER))
 					ChangeAmount(i, 0, 0);
 				break ;
 			}

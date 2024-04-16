@@ -550,6 +550,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/effects/frenzySymbol.png");
 	gameState.textures.frenzySymbol = use.text;
 	gameState.surfaces.frenzySymbol = use.sur;
+	use = get_texture_and_surface(rend, "sprites/effects/bigChar.png");
+	gameState.surfaces.bigCharacterSymbol = use.sur;
+	gameState.textures.bigCharacterSymbol = use.text;
 }
 
 void CraeteAudioThread()

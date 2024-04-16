@@ -89,6 +89,7 @@ enum {
 namespace StatusSigns
 {
 	enum {
+		BIG_CHARACTER,
 		STUN,
 		BURN,
 		BUFF,
@@ -508,6 +509,7 @@ t_AiCharacter			*GetReplicaAiCharacter(t_AiCharacter *copied);
 int						AiGetXToRight(SDL_Point pos);
 int						AiGetXToLeft(SDL_Point pos);
 bool					AiValidPos(SDL_Point pos);
+int						RangeBetweenPositionsWithControls(t_AiMapUnit **map ,SDL_Point start, SDL_Point end, bool ally);
 int						RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end);
 std::vector<SDL_Point>	GetCharacterEffectiveDistances(t_AiCharacter *character);
 int						AiGetChanceForCharOnly(t_AiCharacter *character, t_Ability *ability, t_AiMapUnit **map);

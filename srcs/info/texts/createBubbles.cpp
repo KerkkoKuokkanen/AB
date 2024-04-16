@@ -324,5 +324,23 @@ void StatusInfo::CreateBubbles(int hoverIcon)
 			bubble->SetUpOutline(500, GetYMinus(4250));
 			break ;
 		}
+		case StatusSigns::BIG_CHARACTER:
+		{
+			Snippet *add1 = new Snippet("Big Character:", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TB, TBO, TEXT_BUBBLE_LAYER, true);
+			add1->SetColor(245, 199, 15);
+			Snippet *add2 = new Snippet("Smaller characters can not", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			Snippet *add3 = new Snippet("stop this characters movement.", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			Snippet *add4 = new Snippet("Abilities involving movement", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			Snippet *add5 = new Snippet("may have smaller success rate", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			Snippet *add6 = new Snippet("or not work at all.", FontTypes::GOOGLE_TEXT_SMALL, true, {0, 0}, TN, TNO, TEXT_BUBBLE_LAYER, true);
+			bubble->AddSnippetToBubble(add1, {500, 250});
+			bubble->AddSnippetToBubble(add2, {500, 2750});
+			bubble->AddSnippetToBubble(add3, {500, 4250});
+			bubble->AddSnippetToBubble(add4, {500, 6000});
+			bubble->AddSnippetToBubble(add5, {500, 7500});
+			bubble->AddSnippetToBubble(add6, {500, 9000});
+			bubble->SetUpOutline(500, GetYMinus(9000));
+			break ;
+		}
 	}
 }

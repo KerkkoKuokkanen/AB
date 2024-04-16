@@ -225,13 +225,13 @@ static int getMoveChance(t_Ability *ability)
 
 bool MoveChanceCheck(t_Ability *ability, Character *character, Character *target)
 {
-	int cSize = character->stats.size;
-	int tSize = character->stats.size;
-	int diff = cSize - tSize;
+	if (target->stats.size == 2)
+		return (false);
+	float diff = (target->stats.size == 1) ? 0.5f : 1.0f;
 	int defaultChance = getMoveChance(ability);
 	if (defaultChance >= 200)
 		return (true);
-	int chance = defaultChance + (diff * 6);
+	int chance = rounding((float)defaultChance * diff);
 	if (defaultChance > 95)
 		defaultChance = 95;
 	if (defaultChance < 5)

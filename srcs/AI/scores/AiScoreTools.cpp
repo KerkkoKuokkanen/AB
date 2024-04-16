@@ -65,6 +65,46 @@ static SDL_Point GetNextSmallest(SDL_Point pos, SDL_Point start, t_AiMapUnit **m
 	return (retPos);
 }
 
+static int AiIsControlledAmount(SDL_Point pos, bool ally, t_AiMapUnit **map)
+{
+	int left = AiGetXToLeft(pos);
+	int right = AiGetXToRight(pos);
+	SDL_Point positions[4] = {{left, pos.y + 1}, {left, pos.y - 1}, {right, pos.y + 1}, {right, pos.y - 1}};
+	int count = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		if (!AiValidPos(positions[i]))
+			continue ;
+		t_AiCharacter *used = map[positions[i].y][positions[i].x].character;
+		if (used == NULL)
+			continue ;
+		if (AiCheckSmoked(positions[i], map))
+			continue ;
+		if (used->character->ally != ally)
+			count++;
+	}
+	return (count);
+}
+
+int RangeBetweenPositionsWithControls(t_AiMapUnit **map ,SDL_Point start, SDL_Point end, bool ally)
+{
+	int distance = moveMaps.abilities[start.y][start.x].map[end.y][end.x];
+	int current = distance;
+	SDL_Point next = end;
+	while (current != 0)
+	{
+		next = GetNextSmallest(next, start, map);
+		if (next.x == (-1))
+			return (-1);
+		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
+		int controlAmount = AiIsControlledAmount(next, ally, map);
+		if (map[next.y][next.x].blocked)
+			distance += 4;
+		distance += 2 * controlAmount;
+	}
+	return (distance);
+}
+
 int RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end)
 {
 	int distance = moveMaps.abilities[start.y][start.x].map[end.y][end.x];
