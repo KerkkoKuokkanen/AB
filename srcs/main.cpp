@@ -7,8 +7,8 @@ t_AiMoveMaps moveMaps;
 void TempInitBattle()
 {
 	Character thief(BIG_THUG);
-	Character thief1(LION);
-	Character thief2(THIEF);
+	Character thief1(THIEF);
+	Character thief2(LION);
 	Character skele(BIG_THUG, false);
 	Character skele2(THUG, false);
 	Character skele3(THUG, false);
@@ -16,9 +16,9 @@ void TempInitBattle()
 	SDL_Point point = {5, 11};
 	SDL_Point point1 = {6, 11};
 	SDL_Point point2 = {4, 11};
-	SDL_Point point4 = {3, 12};
+	SDL_Point point4 = {1, 1};
 	SDL_Point point5 = {5, 13};
-	SDL_Point possi = {4, 12};
+	SDL_Point possi = {3, 12};
 	static std::vector<SDL_Point> pnt = {point4, possi, point, point1, point5};
 	gameState.battle.ground->StartBattle(chars, pnt);
 	gameState.updateObjs.UI->SetCharacters(chars);

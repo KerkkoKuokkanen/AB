@@ -60,7 +60,7 @@ bool AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap, t_AiCharacter *curr)
 					newMap[i][j].adds.phantom.parent = NULL;
 					newMap[i][j].adds.phantom.turns = 0;
 				}
-				delete newMap[i][j].character;
+				ReturnAiCharacter(newMap[i][j].character);
 				SetDefaultNoCharacter({j, i}, newMap);
 			}
 		}
@@ -70,10 +70,9 @@ bool AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap, t_AiCharacter *curr)
 
 float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int movered)
 {
+	bool removed = RemoveDeadCharacter(nmap, character);
 	float scr = GetAiScore(nmap, character->character->ally);
-	if (depth <= 0)
-		return (scr);
-	if (RemoveDeadCharacter(nmap, character))
+	if (depth <= 0 || removed)
 		return (scr);
 	AiIterator *next = GetAiIterator();
 	next->CalculateMoves(nmap, character, scr, depth - 1, movered);

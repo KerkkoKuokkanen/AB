@@ -11,6 +11,22 @@ static bool compareObjects(const t_AiCharacter *obj1, const t_AiCharacter *obj2)
 	return (obj1->character->stats.speed > obj2->character->stats.speed);
 }
 
+void RemoveTheDead(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
+{
+	for (int i = 0; i < charQ.size(); i++)
+	{
+		t_AiCharacter *charac = charQ[i];
+		if (charac->alive == false)
+		{
+			SDL_Point pos = charac->position;
+			map[pos.y][pos.x].character = NULL;
+			map[pos.y][pos.x].blocked = false;
+			charQ.erase(charQ.begin() + i);
+			i = (charQ.size() == 0) ? 0 : i - 1;
+		}
+	}
+}
+
 void OrderTheCharQ(std::vector<t_AiCharacter*> &charQ) //This function crashes
 {
 	int iter = 0;
@@ -97,6 +113,8 @@ int RangeBetweenPositionsWithControls(t_AiMapUnit **map ,SDL_Point start, SDL_Po
 		if (next.x == (-1))
 			return (-1);
 		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
+		if (current <= 0)
+			break ;
 		int controlAmount = AiIsControlledAmount(next, ally, map);
 		if (map[next.y][next.x].blocked)
 			distance += 4;
@@ -116,11 +134,61 @@ int RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end)
 		if (next.x == (-1))
 			return (-1);
 		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
+		if (current <= 0)
+			break ;
 		if (map[next.y][next.x].blocked)
 			distance += 4;
 	}
 	return (distance);
 }
+
+/* int RangeBetweenPositionsWithControlsWithTarget(t_AiMapUnit **map ,SDL_Point start, SDL_Point end, bool ally, int targetDist)
+{
+	int distance = moveMaps.abilities[start.y][start.x].map[end.y][end.x];
+	int current = distance;
+	SDL_Point next = end;
+	if (current <= targetDist)
+		return (distance);
+	while (current != 0)
+	{
+		next = GetNextSmallest(next, start, map);
+		if (next.x == (-1))
+			return (-1);
+		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
+		if (current <= 0)
+			break ;
+		int controlAmount = AiIsControlledAmount(next, ally, map);
+		if (map[next.y][next.x].blocked)
+			distance += 4;
+		distance += 2 * controlAmount;
+		if (current <= targetDist)
+			break ;
+	}
+	return (distance);
+}
+
+int RangeBetweenPositionsWithTarget(t_AiMapUnit **map ,SDL_Point start, SDL_Point end, int targetDist)
+{
+	int distance = moveMaps.abilities[start.y][start.x].map[end.y][end.x];
+	int current = distance;
+	SDL_Point next = end;
+	if (current <= targetDist)
+		return (distance);
+	while (current != 0)
+	{
+		next = GetNextSmallest(next, start, map);
+		if (next.x == (-1))
+			return (-1);
+		current = moveMaps.abilities[start.y][start.x].map[next.y][next.x];
+		if (current <= 0)
+			break ;
+		if (map[next.y][next.x].blocked)
+			distance += 4;
+		if (current <= targetDist)
+			break ;
+	}
+	return (distance);
+} */
 
 static float AiGetOppChance(t_AiCharacter *character, t_AiMapUnit **map)
 {
@@ -165,4 +233,54 @@ bool NoPointInMovingControlChecks(t_AiCharacter *character, t_AiMapUnit **map, s
 	if (AiGetOppChance(character, map) > 0.51f)
 		return (true);
 	return (false);
+}
+
+static SDL_Point GetNextPosition(t_AiMapUnit **map, SDL_Point current)
+{
+	int left = AiGetXToLeft(current);
+	int right = AiGetXToRight(current);
+	int y = current.y;
+	SDL_Point checks[4] = {{left, y + 1}, {left, y - 1}, {right, y + 1}, {right, y - 1}};
+	SDL_Point ret = {-1, -1};
+	int dist = map[current.y][current.x].movable;
+	if (dist <= 0)
+		return (ret);
+	for (int i = 0; i < 4; i++)
+	{
+		if (AiValidPos(checks[i]) == false)
+			continue ;
+		int temp = map[checks[i].y][checks[i].x].movable;
+		if (temp < dist)
+		{
+			dist = temp;
+			ret = checks[i];
+		}
+	}
+	return (ret);
+}
+
+int NewRangeToPosChecker(t_AiMapUnit **map, SDL_Point targetPos, SDL_Point starter, int targetDist)
+{
+	int checker = moveMaps.abilities[starter.y][starter.x].map[targetPos.y][targetPos.x];
+	if (checker <= targetDist)
+		return (0);
+	int current = map[targetPos.y][targetPos.x].movable;
+	SDL_Point next = targetPos;
+	SDL_Point save = next;
+	while (current != 0)
+	{
+		next = GetNextPosition(map, next);
+		printf("%d, %d\n", next.x, next.y);
+		if (next.x == (-1))
+			return (100);
+		current = map[next.y][next.x].movable;
+		checker = moveMaps.abilities[next.y][next.x].map[targetPos.y][targetPos.x];
+		if (checker > targetDist)
+			break ;
+		save = next;
+	}
+	if (save.x == targetPos.x && save.y == targetPos.y)
+		return (0);
+	int ret = map[save.y][save.x].movable;
+	return (ret);
 }

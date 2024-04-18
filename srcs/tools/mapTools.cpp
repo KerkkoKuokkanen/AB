@@ -297,15 +297,18 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, t_AiMapUnit **t
 {
 	if (moves >= cMoves)
 		return ;
+	int width = gameState.battle.ground->map[0].size();
+	int height = gameState.battle.ground->map.size();
 	int currHeight = gameState.battle.ground->map[pos.y][pos.x].height;
 	int modder = (pos.y % 2 == 0) ? (-1) : 1;
 	int sizeModder = gameState.battle.ground->map[0].size() - 1;
-	if (pos.y > 0 && gameState.battle.ground->map[pos.y - 1][pos.x].blocked == false)
+	if (pos.y > 0 && toolMap[pos.y - 1][pos.x].blocked == false)
 	{
 		int plus = 2;
-		if (gameState.battle.ground->map[pos.y - 1][pos.x].height > currHeight)
-			plus = (2 + (gameState.battle.ground->map[pos.y - 1][pos.x].height - currHeight));
-		else if (gameState.battle.ground->map[pos.y - 1][pos.x].height < currHeight)
+		int hhMap = gameState.battle.ground->map[pos.y - 1][pos.x].height;
+		if (hhMap > currHeight)
+			plus = (2 + (hhMap - currHeight));
+		else if (hhMap < currHeight)
 			plus = 1;
 		int temp = moves + plus;
 		if (temp <= cMoves)
@@ -318,12 +321,13 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, t_AiMapUnit **t
 			}
 		}
 	}
-	if (pos.y < (gameState.battle.ground->map.size() - 1) && gameState.battle.ground->map[pos.y + 1][pos.x].blocked == false)
+	if (pos.y < (height - 1) && toolMap[pos.y + 1][pos.x].blocked == false)
 	{
 		int plus = 2;
-		if (gameState.battle.ground->map[pos.y + 1][pos.x].height > currHeight)
-			plus = (2 + (gameState.battle.ground->map[pos.y + 1][pos.x].height - currHeight));
-		else if (gameState.battle.ground->map[pos.y + 1][pos.x].height < currHeight)
+		int hhMap = gameState.battle.ground->map[pos.y + 1][pos.x].height;
+		if (hhMap > currHeight)
+			plus = (2 + (hhMap - currHeight));
+		else if (hhMap < currHeight)
 			plus = 1;
 		int temp = moves + plus;
 		if (temp <= cMoves)
@@ -336,12 +340,13 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, t_AiMapUnit **t
 			}
 		}
 	}
-	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && gameState.battle.ground->map[pos.y - 1][pos.x + modder].blocked == false)
+	if (pos.y > 0 && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && toolMap[pos.y - 1][pos.x + modder].blocked == false)
 	{
 		int plus = 2;
-		if (gameState.battle.ground->map[pos.y - 1][pos.x + modder].height > currHeight)
-			plus = (2 + (gameState.battle.ground->map[pos.y - 1][pos.x + modder].height - currHeight));
-		else if (gameState.battle.ground->map[pos.y - 1][pos.x + modder].height < currHeight)
+		int hhMap = gameState.battle.ground->map[pos.y - 1][pos.x + modder].height;
+		if (hhMap > currHeight)
+			plus = (2 + (hhMap - currHeight));
+		else if (hhMap < currHeight)
 			plus = 1;
 		int temp = moves + plus;
 		if (temp <= cMoves)
@@ -354,12 +359,13 @@ void NormalIterMapMovables(SDL_Point pos, int moves, int cMoves, t_AiMapUnit **t
 			}
 		}
 	}
-	if (pos.y < (gameState.battle.ground->map.size() - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && gameState.battle.ground->map[pos.y + 1][pos.x + modder].blocked == false)
+	if (pos.y < (height - 1) && (pos.x + modder) >= 0 && (pos.x + modder) <= sizeModder && toolMap[pos.y + 1][pos.x + modder].blocked == false)
 	{
 		int plus = 2;
-		if (gameState.battle.ground->map[pos.y + 1][pos.x + modder].height > currHeight)
-			plus = (2 + (gameState.battle.ground->map[pos.y + 1][pos.x + modder].height - currHeight));
-		else if (gameState.battle.ground->map[pos.y + 1][pos.x + modder].height < currHeight)
+		int hhMap = gameState.battle.ground->map[pos.y + 1][pos.x + modder].height;
+		if (hhMap > currHeight)
+			plus = (2 + (hhMap - currHeight));
+		else if (hhMap < currHeight)
 			plus = 1;
 		int temp = moves + plus;
 		if (temp <= cMoves)

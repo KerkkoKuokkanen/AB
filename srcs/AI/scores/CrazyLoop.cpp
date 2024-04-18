@@ -69,7 +69,7 @@ static bool AiIsControlled(SDL_Point pos, bool ally, t_AiMapUnit **map)
 	return (false);
 }
 
-static float GetCharacterDamageForRange(t_AiCharacter *character, int range, t_AiMapUnit **map)
+static float GetCharacterDamageForPosition(t_AiCharacter *character, SDL_Point pos, t_AiMapUnit **map)
 {
 	float expected = BIG_MINUS;
 	for (int i = 0; i < character->character->abilities.size(); i++)
@@ -81,6 +81,8 @@ static float GetCharacterDamageForRange(t_AiCharacter *character, int range, t_A
 		if (!ability->melee && isControlled)
 			continue ;
 		int abilityRange = ability->range;
+		int range = NewRangeToPosChecker(map, pos, character->position, abilityRange);
+		//printf("character %d, target pos, %d %d, range %d, position %d, %d\n\n", character->character->cSing, pos.x, pos.y, range, character->position.x, character->position.y);
 		SDL_FPoint stats = GetBaseDamageAndFatiguePerEnergy(character, ability, map);
 		int remainingFatigue = character->character->stats.maxFatigue - character->fatigue;
 		int controlAdd = (isControlled) ? 2 : 0;
@@ -113,8 +115,7 @@ float GetPositionOffenceScore(SDL_Point pos, t_AiCharacter *character, t_AiMapUn
 		if (charQ[i]->character->ally == ally)
 			continue ;
 		SDL_Point targPos = charQ[i]->position;
-		int dist = moveMaps.abilities[pos.y][pos.x].map[targPos.y][targPos.x];
-		float damage = GetCharacterDamageForRange(character, dist, map);
+		float damage = GetCharacterDamageForPosition(character, targPos, map);
 		int smallestIndex = 0;
 		float smallestValue = std::get<1>(positions[0]);
 		for (int j = 1; j < 3; j++)
@@ -153,7 +154,9 @@ float GetPositionOffenceScore(SDL_Point pos, t_AiCharacter *character, t_AiMapUn
 		energys -= used;
 		std::get<1>(positions[biggest]) = BIG_MINUS;
 	}
-	int positionDistance = 0;
+	return (offenceScore);
+	//good stuff but not needed now
+	/* int positionDistance = 0;
 	if (character->character->stats.size == 0)
 		positionDistance = RangeBetweenPositionsWithControls(map, character->position, pos, ally);
 	else
@@ -165,22 +168,35 @@ float GetPositionOffenceScore(SDL_Point pos, t_AiCharacter *character, t_AiMapUn
 	float minusMulti = (float)additionalEnergyUsed / 10.0f;
 	float minus = fabs(minusMulti * offenceScore);
 	offenceScore -= minus;
-	return (offenceScore);
+	return (offenceScore); */
 }
 
-float GetPositionScoreForCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
+float GetPositionScoresForCharacters(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
 {
-	float offence = GetPositionOffenceScore(pos, character, map, charQ);
-	float defence = 0.0f;
-	float additional = 0.0f;
-	return (0.0f);
+	float allyScore = 0.0f;
+	float enemyScore = 0.0f;
+	//printf("\n\n\n");
+	for (int i = 0; i < charQ.size(); i++)
+	{
+		SDL_Point pos = charQ[i]->position;
+		findMovablesNormal(map, 80, pos);
+		float offence = GetPositionOffenceScore(pos, charQ[i], map, charQ);
+		float defence = 0.0f;
+		float additional = 0.0f;
+		//printf("score: %f,character: %d,position, %d, %d\n", offence, charQ[i]->character->cSing, pos.x, pos.y);
+		if (charQ[i]->character->ally)
+			allyScore += offence;
+		else
+			enemyScore += offence;
+	}
+	return (allyScore - enemyScore);
 }
 
 float CrazyLoopScore(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
 {
 	OrderTheCharQ(charQ);
-	GetPositionScoreForCharacter({1, 1}, charQ[0], map, charQ);
+	RemoveTheDead(map, charQ);
+	float ret = GetPositionScoresForCharacters(map, charQ);
 	//ReturnMapPositionDistances({0, 0}, map, charQ[0], 2, true, 0, 0, charQ);
-	DestroyMap(map);
-	return (0.0f);
+	return (ret);
 }

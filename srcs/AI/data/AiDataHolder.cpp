@@ -73,6 +73,7 @@ t_AiMapUnit **GetMapFromHolder()
 
 void AiObjHolder::ReturnCharacter(t_AiCharacter *character)
 {
+	character->alive = false;
 	ResetCharacter(character);
 	freeCharacters.push_back(character);
 }

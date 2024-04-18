@@ -221,8 +221,6 @@ void SetAiDataMapInitial(t_AiMapUnit **map)
 
 t_AiMapUnit **GetTheMap()
 {
-	int h = gameState.battle.ground->map.size();
-	int w = gameState.battle.ground->map[0].size();
 	t_AiMapUnit **map = GetMapFromHolder();
 	SetAiDataMapInitial(map);
 	return (map);

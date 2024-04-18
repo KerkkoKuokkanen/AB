@@ -40,12 +40,11 @@ static bool IsCharacter(t_AiMapUnit &point)
 	return (true);
 }
 
-static float GetHealthScore(t_AiMapUnit **map)
+static void SetUpCharQ(t_AiMapUnit **map)
 {
-	float ah = 0.0f;
-	float eh = 0.0f;
 	int w = gameState.battle.ground->map[0].size();
 	int h = gameState.battle.ground->map.size();
+	charQ.clear();
 	for (int i = 0; i < h; i++)
 	{
 		for (int j = 0; j < w; j++)
@@ -53,36 +52,11 @@ static float GetHealthScore(t_AiMapUnit **map)
 			bool value = IsCharacter(map[i][j]);
 			if (value == false)
 				continue ;
-			if (map[i][j].character->alive == false)
-			{
-				saves.push_back(map[i][j].character);
-				map[i][j].character = NULL;
-				map[i][j].blocked = false;
-				continue ;
-			}
 			charQ.push_back(map[i][j].character);
-			if (map[i][j].character->character->ally)
-				ah += (float)(map[i][j].character->health + map[i][j].character->armor);
-			else
-				eh += (float)(map[i][j].character->health + map[i][j].character->armor);
 		}
 	}
-	float finalValue = ah - eh;
-	return (finalValue);
-}
-
-static float UnitScores(t_AiMapUnit **map)
-{
-	float ally = 0.0f;
-	float enem = 0.0f;
-	for (int i = 0; i < charQ.size(); i++)
-	{
-		if (charQ[i]->character->ally)
-			ally += UNIT_SCORE;
-		else
-			enem += UNIT_SCORE;
-	}
-	return (ally - enem);
+	OrderTheCharQ(charQ);
+	RemoveTheDead(map, charQ);
 }
 
 static float GetTheDistForMeleePosition(SDL_Point targPos, SDL_Point charPos, t_AiMapUnit **map)
@@ -203,6 +177,8 @@ static SDL_Point GetScaleMaxes(std::vector<t_AiCharacter*> &charQ)
 	for (int i = 0; i < charQ.size(); i++)
 	{
 		t_AiCharacter *character = charQ[i];
+		if (character->alive == false)
+			continue ;
 		int amount = character->character->stats.maxArmor + character->character->stats.maxHealth;
 		if (character->character->ally)
 		{
@@ -219,7 +195,7 @@ static SDL_Point GetScaleMaxes(std::vector<t_AiCharacter*> &charQ)
 	return (ret);
 }
 
-static float ScaledHealthScore(std::vector<t_AiCharacter*> &charQ)
+static float GetHealthScores(std::vector<t_AiCharacter*> &charQ)
 {
 	SDL_Point ret = GetScaleMaxes(charQ);
 	float ally = (float)ret.x;
@@ -232,33 +208,25 @@ static float ScaledHealthScore(std::vector<t_AiCharacter*> &charQ)
 		float scale = 1.0f / (float)(targ->character->stats.maxArmor + targ->character->stats.maxHealth);
 		float amount = scale * (float)(targ->health + targ->armor);
 		if (targ->character->ally)
+		{
 			aScore += amount * ally;
+			aScore += (float)(targ->health + targ->armor);
+			aScore += UNIT_SCORE;
+		}
 		else
+		{
 			eScore += amount * enem;
+			eScore += (float)(targ->health + targ->armor);
+			eScore += UNIT_SCORE;
+		}
 	}
 	return (aScore - eScore);
 }
 
-static void ReturnSaves(t_AiMapUnit **map)
-{
-	for (int i = 0; i < saves.size(); i++)
-	{
-		SDL_Point pos = saves[i]->position;
-		map[pos.y][pos.x].character = saves[i];
-		map[pos.y][pos.x].blocked = true;
-	}
-}
-
 float GetAiScore(t_AiMapUnit **map, bool ally)
 {
-	charQ.clear();
-	saves.clear();
-	float healthScore = GetHealthScore(map);
-	float scaledHealthScore = ScaledHealthScore(charQ);
-	float unitScore = UnitScores(map);
-	float distScore = DistanceScore(map); //this will be removed
-	float smokeScore = SmokeSore(map); //this will be removed
-	float crazyLoopScore = CrazyLoopScore(GetReplica(map), charQ);
-	ReturnSaves(map);
-	return (healthScore + scaledHealthScore + unitScore + distScore + smokeScore + crazyLoopScore);
+	SetUpCharQ(map);
+	float healthScore = GetHealthScores(charQ);
+	float crazyLoopScore = CrazyLoopScore(map, charQ);
+	return (healthScore + crazyLoopScore);
 }
