@@ -227,6 +227,8 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 {
 	SetUpCharQ(map);
 	float healthScore = GetHealthScores(charQ);
-	float crazyLoopScore = CrazyLoopScore(map, charQ);
+	float crazyLoopScore = CrazyLoopScore(GetReplica(map), charQ);
+	static float best = 9999.0f;
+	static SDL_Point bestSave = {0, 0};
 	return (healthScore + crazyLoopScore);
 }

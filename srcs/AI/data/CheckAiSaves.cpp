@@ -1,6 +1,6 @@
 
 #include "../../../hdr/global.h"
-#define ROOM_FOR_MOVE 23
+#define ROOM_FOR_MOVE 40
 
 static bool SrotingCompareFuncEnemy(t_MoveIter one, t_MoveIter two)
 {

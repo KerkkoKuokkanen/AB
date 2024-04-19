@@ -78,7 +78,7 @@ float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, in
 	next->CalculateMoves(nmap, character, scr, depth - 1, movered);
 	float ret = next->GetBestScore();
 	ReturnAiIterator(next);
-	return (ret);
+	return ((ret > scr) ? ret : scr);
 }
 
 void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, float startScore, int depth, int moveMoves)

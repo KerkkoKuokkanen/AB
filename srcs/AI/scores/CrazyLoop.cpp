@@ -18,7 +18,8 @@
 // Give positions defensive score in terms of how long the distance is for the enemies and
 // what enemies can use abilities to that position
 
-#define BIG_MINUS -99999.0f
+#define DEFAULT_ENERGY_AMOUNT 10
+#define BIG_MINUS -99999.9
 
 static float AiGetDamageReduction(t_AiCharacter *damager, float damage)
 {
@@ -30,173 +31,130 @@ static float AiGetDamageReduction(t_AiCharacter *damager, float damage)
 
 static SDL_FPoint GetBaseDamageAndFatiguePerEnergy(t_AiCharacter *character, t_Ability *ability, t_AiMapUnit **map)
 {
-	SDL_FPoint ret = {0.0f, 0.0f};
+	t_Ability *used = ability;
+	int cost = (used->cost == 0) ? 1 : used->cost;
+	float fatigue = (float)ability->fatigue / (float)cost;
+	SDL_FPoint ret = {0.0f, fatigue};
 	if (ability->damage == 0)
 		return (ret);
 	int min = character->character->stats.baseDamageLow;
 	int max = character->character->stats.baseDamageHigh;
 	float mid = (float)(min + max) / 2.0f;
-	t_Ability *used = ability;
-	int cost = (used->cost == 0) ? 1 : used->cost;
 	float damage = (float)used->damage / 100.0f;
 	float expected = ((mid * damage) / (float)cost);
 	expected = AiGetDamageReduction(character, expected);
-	float fatigue = (float)ability->fatigue / (float)cost;
 	int chance = AiGetChanceForCharOnly(character, ability, map);
 	float chanceMulti = (float)chance / 100.0f;
 	expected *= chanceMulti;
-	ret = {expected, fatigue};
+	ret.x = expected;
 	return (ret);
 }
 
-static bool AiIsControlled(SDL_Point pos, bool ally, t_AiMapUnit **map)
+static SDL_Point GetNextPosition(t_AiMapUnit **map, SDL_Point current)
 {
-	int left = AiGetXToLeft(pos);
-	int right = AiGetXToRight(pos);
-	SDL_Point positions[4] = {{left, pos.y + 1}, {left, pos.y - 1}, {right, pos.y + 1}, {right, pos.y - 1}};
+	int left = AiGetXToLeft(current);
+	int right = AiGetXToRight(current);
+	int y = current.y;
+	SDL_Point checks[4] = {{left, y + 1}, {left, y - 1}, {right, y + 1}, {right, y - 1}};
+	SDL_Point ret = {-1, -1};
+	int dist = TOOL_MAP_SIGN;
+	if (dist <= 0)
+		return (ret);
 	for (int i = 0; i < 4; i++)
 	{
-		if (!AiValidPos(positions[i]))
+		if (AiValidPos(checks[i]) == false)
 			continue ;
-		t_AiCharacter *used = map[positions[i].y][positions[i].x].character;
-		if (used == NULL)
-			continue ;
-		if (AiCheckSmoked(positions[i], map))
-			continue ;
-		if (used->character->ally != ally)
-			return (true);
+		int temp = map[checks[i].y][checks[i].x].movable;
+		if (temp < dist)
+		{
+			dist = temp;
+			ret = checks[i];
+		}
 	}
-	return (false);
+	return (ret);
 }
 
-static float GetCharacterDamageForPosition(t_AiCharacter *character, SDL_Point pos, t_AiMapUnit **map)
+static int AiDistBetweenPositions(SDL_Point one, SDL_Point two)
 {
-	float expected = BIG_MINUS;
-	for (int i = 0; i < character->character->abilities.size(); i++)
-	{
-		t_Ability *ability = &character->character->abilities[i];
-		if (ability->damage == 0)
-			continue ;
-		bool isControlled = AiIsControlled(character->position, character->character->ally, map);
-		if (!ability->melee && isControlled)
-			continue ;
-		int abilityRange = ability->range;
-		int range = NewRangeToPosChecker(map, pos, character->position, abilityRange);
-		//printf("character %d, target pos, %d %d, range %d, position %d, %d\n\n", character->character->cSing, pos.x, pos.y, range, character->position.x, character->position.y);
-		SDL_FPoint stats = GetBaseDamageAndFatiguePerEnergy(character, ability, map);
-		int remainingFatigue = character->character->stats.maxFatigue - character->fatigue;
-		int controlAdd = (isControlled) ? 2 : 0;
-		int rangeCheck = (range - abilityRange <= 0) ? 0 : range - (abilityRange + isControlled);
-		int useMulti = 10 - rangeCheck;	//we can expect them to have 10 energy just fine
-		float amount = stats.x * (float)useMulti;
-		float fat = (useMulti < 0) ? 0.0f : stats.y * (float)useMulti;
-		float overFlow = (remainingFatigue - fat > 0.0f) ? 0.0f : (fat - remainingFatigue) / stats.y;
-		amount = amount - (stats.x * overFlow);
-		expected = (amount > expected) ? amount : expected;
-	}
-	return (expected);
+	return (moveMaps.abilities[one.y][one.x].map[two.y][two.x]);
 }
 
-static int GetBiggest(float one, float two, float three)
+static int TargetPositionDistanceToDistance(t_AiMapUnit **map, SDL_Point targetPos, SDL_Point startPos, int distance)
 {
-	if (one >= two && one >= three)
+	SDL_Point next = targetPos;
+	int distanceToStart = map[next.y][next.x].movable;
+	if (AiDistBetweenPositions(startPos, targetPos) <= distance)
 		return (0);
-	if (two >= one && two >= three)
-		return (1);
-	return (2);
+	while (distanceToStart != 0)
+	{
+		next = GetNextPosition(map, next);
+		if (next.x == (-1))
+			return (60);
+		int distanceToStart = map[next.y][next.x].movable;
+		int currDistance = AiDistBetweenPositions(next, targetPos);
+		if (currDistance >= distance)
+			break ;
+	}
+	return (map[next.y][next.x].movable);
 }
 
-float GetPositionOffenceScore(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
+static float DamageToTargetPosition(t_AiMapUnit **map, SDL_Point target, t_AiCharacter *character, t_Ability *ability)
 {
-	std::tuple<SDL_Point, float> positions[3] = {{{-1, -1}, BIG_MINUS}, {{-1, -1}, BIG_MINUS}, {{-1, -1}, BIG_MINUS}};
+	SDL_FPoint damageFatigue = GetBaseDamageAndFatiguePerEnergy(character, ability, map);
+	int distanceToDamage = TargetPositionDistanceToDistance(map, target, character->position, ability->range);
+	int damageEnergy = DEFAULT_ENERGY_AMOUNT - distanceToDamage;
+	float damageAmount = damageFatigue.x * (float)damageEnergy;
+	return (damageAmount);
+}
+
+static float GetOffenceScoreForCharacter(t_AiMapUnit **map, t_AiCharacter *character, std::vector<t_AiCharacter*> &charQ)
+{
+	float offenceScore = 0.0f;
+	float currentMax = BIG_MINUS;
 	bool ally = character->character->ally;
 	for (int i = 0; i < charQ.size(); i++)
 	{
 		if (charQ[i]->character->ally == ally)
 			continue ;
-		SDL_Point targPos = charQ[i]->position;
-		float damage = GetCharacterDamageForPosition(character, targPos, map);
-		int smallestIndex = 0;
-		float smallestValue = std::get<1>(positions[0]);
-		for (int j = 1; j < 3; j++)
+		t_AiCharacter *target = charQ[i];
+		for (int j = 0; j < character->character->abilities.size(); j++)
 		{
-			float value = std::get<1>(positions[j]);
-			if (value < smallestValue)
+			t_Ability *ability = &character->character->abilities[j];
+			if (ability->damage == 0)
+				continue ;
+			float damage = DamageToTargetPosition(map, target->position, character, ability);
+			if (damage > currentMax)
 			{
-				smallestIndex = j;
-				smallestValue = value;
+				offenceScore = damage;
+				currentMax = damage;
 			}
 		}
-		if (damage > std::get<1>(positions[smallestIndex]))
-		{
-			std::get<0>(positions[smallestIndex]) = targPos;
-			std::get<1>(positions[smallestIndex]) = damage;
-		}
-	}
-	float offenceScore = 0.0f;
-	int energys = 10;
-	for (int i = 0; i < 3; i++)
-	{
-		int biggest = GetBiggest(std::get<1>(positions[0]), std::get<1>(positions[1]), std::get<1>(positions[2]));
-		float damage = std::get<1>(positions[biggest]);
-		SDL_Point check = std::get<0>(positions[biggest]);
-		if (check.x == (-1))
-			break ;
-		int totalDoable = map[check.y][check.x].character->health + map[check.y][check.x].character->armor;
-		damage = damage / 10.0f;
-		if (totalDoable > (int)(damage * (float)energys))
-		{
-			offenceScore += (damage * (float)energys);
-			break ;
-		}
-		int used = rounding((float)totalDoable / damage);
-		offenceScore += totalDoable;
-		energys -= used;
-		std::get<1>(positions[biggest]) = BIG_MINUS;
 	}
 	return (offenceScore);
-	//good stuff but not needed now
-	/* int positionDistance = 0;
-	if (character->character->stats.size == 0)
-		positionDistance = RangeBetweenPositionsWithControls(map, character->position, pos, ally);
-	else
-		positionDistance = RangeBetweenPositions(map, character->position, pos);
-	int currentDistance = moveMaps.abilities[character->position.y][character->position.x].map[pos.y][pos.x];
-	int additionalEnergyUsed = positionDistance - currentDistance;
-	if (additionalEnergyUsed <= 0)
-		return (offenceScore);
-	float minusMulti = (float)additionalEnergyUsed / 10.0f;
-	float minus = fabs(minusMulti * offenceScore);
-	offenceScore -= minus;
-	return (offenceScore); */
 }
 
 float GetPositionScoresForCharacters(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
 {
-	float allyScore = 0.0f;
-	float enemyScore = 0.0f;
-	//printf("\n\n\n");
+	float allyOffence = 0.0f;
+	float enemyOffence = 0.0f;
 	for (int i = 0; i < charQ.size(); i++)
 	{
-		SDL_Point pos = charQ[i]->position;
-		findMovablesNormal(map, 80, pos);
-		float offence = GetPositionOffenceScore(pos, charQ[i], map, charQ);
-		float defence = 0.0f;
-		float additional = 0.0f;
-		//printf("score: %f,character: %d,position, %d, %d\n", offence, charQ[i]->character->cSing, pos.x, pos.y);
+		findMovablesNormal(map, 60, charQ[i]->position);
+		float score = GetOffenceScoreForCharacter(map, charQ[i], charQ);
 		if (charQ[i]->character->ally)
-			allyScore += offence;
+			allyOffence += score;
 		else
-			enemyScore += offence;
+			enemyOffence += score;
 	}
-	return (allyScore - enemyScore);
+	float finalValue = allyOffence - enemyOffence;
+	finalValue *= 0.1f;
+	return (finalValue);
 }
 
+//there is something even more broken here
 float CrazyLoopScore(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
 {
-	OrderTheCharQ(charQ);
-	RemoveTheDead(map, charQ);
 	float ret = GetPositionScoresForCharacters(map, charQ);
-	//ReturnMapPositionDistances({0, 0}, map, charQ[0], 2, true, 0, 0, charQ);
+	DestroyMap(map);
 	return (ret);
 }
