@@ -429,7 +429,9 @@ void Statuses::CreateFrestStatus(int statusSign)
 			add.sprite = new Sprite(gameState.textures.poisonSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 			add.sprite->orderLayer = 1;
 			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
-			int num = (int)character->statuses.poison.size();
+			int num = 0;
+			for (int i = 0; i < character->statuses.poison.size(); i++)
+				num += character->statuses.poison[i].x;
 			if (num > 0)
 			{
 				num = (num > 999) ? 999 : num;
@@ -449,7 +451,9 @@ void Statuses::CreateFrestStatus(int statusSign)
 			add.sprite = new Sprite(gameState.textures.bleedSymbol, dest, NULL, NULL, 0, FLIP_NONE, staticSprite);
 			add.sprite->orderLayer = 1;
 			gameState.render->AddSprite(add.sprite, TURN_ORDER_LAYER);
-			int num = (int)character->statuses.bleed.size();
+			int num = 0;
+			for (int i = 0; i < character->statuses.bleed.size(); i++)
+				num += character->statuses.bleed[i].x;
 			if (num > 0)
 			{
 				num = (num > 999) ? 999 : num;
@@ -635,7 +639,9 @@ void Statuses::CheckIfNewStatuses()
 			}
 			case StatusSigns::POISON:
 			{
-				int amount = (int)character->statuses.poison.size();
+				int amount = 0;
+				for (int j = 0; j < character->statuses.poison.size(); j++)
+					amount += character->statuses.poison[i].x;
 				amount = (amount > 999) ? 999 : amount;
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)
@@ -644,7 +650,9 @@ void Statuses::CheckIfNewStatuses()
 			}
 			case StatusSigns::BLEED:
 			{
-				int amount = (int)character->statuses.bleed.size();
+				int amount = 0;
+				for (int j = 0; j < character->statuses.bleed.size(); j++)
+					amount += character->statuses.bleed[i].x;
 				amount = (amount > 999) ? 999 : amount;
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)

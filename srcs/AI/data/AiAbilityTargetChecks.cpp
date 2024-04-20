@@ -75,6 +75,10 @@ static bool AllyChecker(t_AiMapUnit **map, SDL_Point pos, t_AiCharacter *charac,
 bool AiCheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, t_AiCharacter *character, SDL_Point pos, SDL_Point start)
 {
 	t_TargetingType ret = GetAbilityTargetingType(ability);
+	if (CheckForNotMelee(map, ability, character->position, character->character->ally))
+		return (false);
+	if (ret.targetType == SelectorTypesForAi::ALWAYS_USABLE)
+		return (true);
 	int range = ret.range;
 	int dist = 10000;
 	if (!ret.staticSearch)
@@ -84,8 +88,6 @@ bool AiCheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, t_AiCharacter *chara
 	if (dist > range)
 		return (false);
 	if (map[pos.y][pos.x].obj.obj == true)
-		return (false);
-	if (CheckForNotMelee(map, ability, character->position, character->character->ally))
 		return (false);
 	if (map[pos.y][pos.x].character != NULL && ret.characters == false)
 		return (false);

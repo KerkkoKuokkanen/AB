@@ -212,12 +212,14 @@ static float GetHealthScores(std::vector<t_AiCharacter*> &charQ)
 			aScore += amount * ally;
 			aScore += (float)(targ->health + targ->armor);
 			aScore += UNIT_SCORE;
+			aScore += (float)targ->moves / 10.0f;
 		}
 		else
 		{
 			eScore += amount * enem;
 			eScore += (float)(targ->health + targ->armor);
 			eScore += UNIT_SCORE;
+			eScore += (float)targ->moves / 10.0f;
 		}
 	}
 	return (aScore - eScore);
@@ -228,7 +230,5 @@ float GetAiScore(t_AiMapUnit **map, bool ally)
 	SetUpCharQ(map);
 	float healthScore = GetHealthScores(charQ);
 	float crazyLoopScore = CrazyLoopScore(GetReplica(map), charQ);
-	static float best = 9999.0f;
-	static SDL_Point bestSave = {0, 0};
 	return (healthScore + crazyLoopScore);
 }

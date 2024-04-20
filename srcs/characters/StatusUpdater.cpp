@@ -41,7 +41,7 @@ static void ApplyBleed(Character *character)
 	int num = 0;
 	for (int i = 0; i < character->statuses.bleed.size(); i++)
 		num += character->statuses.bleed[i].x;
-	gameState.updateObjs.abilities->CreatePoisonDamage(character, num);
+	gameState.updateObjs.abilities->CreateBleedDamage(character, num);
 }
 
 static void ManageStatuses(Character *character)

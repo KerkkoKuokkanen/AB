@@ -16,7 +16,7 @@ void TempInitBattle()
 	SDL_Point point = {5, 11};
 	SDL_Point point1 = {6, 11};
 	SDL_Point point2 = {4, 11};
-	SDL_Point point4 = {1, 1};
+	SDL_Point point4 = {2, 12};
 	SDL_Point point5 = {5, 13};
 	SDL_Point possi = {3, 12};
 	static std::vector<SDL_Point> pnt = {point4, possi, point, point1, point5};

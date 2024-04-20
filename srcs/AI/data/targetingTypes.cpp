@@ -74,6 +74,9 @@ t_TargetingType GetAbilityTargetingType(t_Ability *ability)
 		case THUG_STRIKE:
 			ret = {ability->range, SelectorTypesForAi::SELECTOR, true, false, ability->melee};
 			break ;
+		case BIG_THUG_INSPIRE:
+			ret = {ability->range, SelectorTypesForAi::ALWAYS_USABLE, true, false, ability->melee};
+			break ;
 	}
 	return (ret);
 }

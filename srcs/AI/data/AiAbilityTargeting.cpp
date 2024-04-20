@@ -78,6 +78,26 @@ static void AddAbilityUseCosts(t_Ability *ability, t_AiMapUnit **map, SDL_Point 
 	character->moves -= ability->cost;
 }
 
+static void AddBigThugInspireFrenzy(t_AiMapUnit **map, SDL_Point characterPos, t_Ability *ability)
+{
+	int range = ability->range;
+	t_BuffDebuff *used = (t_BuffDebuff*)ability->stats;
+	int turns = used->turns;
+	int w = gameState.battle.ground->map[0].size();
+	int h = gameState.battle.ground->map.size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			if (map[i][j].character == NULL)
+				continue ;
+			if (map[i][j].character->character->cSing != THUG)
+				continue ;
+			map[i][j].character->statuses.frenzy = turns;
+		}
+	}
+}
+
 void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap)
 {
 	int sign = ability->type;
@@ -106,6 +126,12 @@ void AiIterator::UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **
 		{
 			AddAbilityUseCosts(ability, newMap, character->position);
 			CreateDamageToPosition(pos, character, ability, newMap);
+			break ;
+		}
+		case BIG_THUG_INSPIRE:
+		{
+			AddAbilityUseCosts(ability, newMap, character->position);
+			AddBigThugInspireFrenzy(newMap, character->position, ability);
 			break ;
 		}
 	}

@@ -29,6 +29,9 @@ void EffectUpdater::SetEffect(Character *character, SDL_Point pos, t_Ability *ab
 	t_AbilityEffect *check = CheckForEffectAlready(ability->type, pos);
 	if (check != NULL)
 	{
+		t_LastingEffect *use = (t_LastingEffect*)ability->stats;
+		SmokeEffect *exist = (SmokeEffect*)check->effect;
+		exist->SetTime(use->turns);
 		CreateParticlesForSmokeEffect(pos);
 		return ;
 	}

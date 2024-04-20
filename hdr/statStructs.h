@@ -219,7 +219,8 @@ namespace SelectorTypesForAi
 	enum
 	{
 		SELECTOR,
-		TILE_SELECTOR
+		TILE_SELECTOR,
+		ALWAYS_USABLE
 	};
 };
 

@@ -170,7 +170,7 @@ void Damager::AddBleedDamage(Character *target, int amount)
 		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 18);
 	}
 	damageCreator.CreateDamage(target, Color(255, 0, 0), 0, amount, dir, sounds);
-	CreatePoisonSnippet(target, rand() % 100 + 1, Color(184, 6, 6));
+	CreatePoisonSnippet(target, amount, Color(184, 6, 6));
 }
 
 void Damager::AddPoisonDamage(Character *target, int amount)
@@ -193,7 +193,7 @@ void Damager::AddPoisonDamage(Character *target, int amount)
 		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 18);
 	}
 	damageCreator.CreateDamage(target, Color(255, 0, 0), 0, amount, dir, sounds);
-	CreatePoisonSnippet(target, rand() % 100 + 1, Color(28, 138, 0));
+	CreatePoisonSnippet(target, amount, Color(28, 138, 0));
 }
 
 void Damager::AddOpportunityDamage(SDL_Point damager, Character *target)
