@@ -225,7 +225,7 @@ static float GetHealthScores(std::vector<t_AiCharacter*> &charQ)
 	return (aScore - eScore);
 }
 
-float GetAiScore(t_AiMapUnit **map, bool ally)
+float GetAiScore(t_AiMapUnit **map, t_AiCharacter *current)
 {
 	SetUpCharQ(map);
 	float healthScore = GetHealthScores(charQ);

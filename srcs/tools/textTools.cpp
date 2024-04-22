@@ -36,16 +36,30 @@ static Vector GetTextDirection(bool left)
 
 static Vector GetDirection(bool left)
 {
+	int value = orderLayer / 2;
+	int unit = value % 3;
+	int angle = 0;
+	switch (unit)
+	{
+		case 0:
+			angle = 52;
+			break ;
+		case 1:
+			angle = 62;
+			break ;
+		case 2:
+			angle = 72;
+			break ;
+	}
 	if (left)
 	{
 		Vector dir(0.0f, -1.0f);
-		int angle = -56;
+		angle *= -1;
 		float rads = (float)angle * (PI / 180.0f);
 		vectorRotate(dir, rads);
 		return (dir.Normalized());
 	}
 	Vector dir(0.0f, -1.0f);
-	int angle = 56;
 	float rads = (float)angle * (PI / 180.0f);
 	vectorRotate(dir, rads);
 	return (dir.Normalized());
@@ -82,13 +96,45 @@ int GetAmount(int size)
 	return (rounding(amount));
 }
 
+static SDL_Point GetSnippetStart(bool dirTest, Character *target)
+{
+	int value = orderLayer / 2;
+	int unit = value % 3;
+	switch (unit)
+	{
+		case 0:
+		{
+			SDL_Point pos = target->topMid;
+			SDL_Point start = {0, pos.y + DAMAGE_MINUS};
+			start.x = (dirTest) ? -(rand() % 500 - 1000) : (rand() % 500 + 3500);
+			SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
+			return (use);
+		}
+		case 1:
+		{
+			SDL_Point pos = target->topMid;
+			SDL_Point start = {0, pos.y + 650};
+			start.x = (dirTest) ? -(rand() % 500 - 1000) : (rand() % 500 + 3500);
+			SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
+			return (use);
+		}
+		case 2:
+		{
+			SDL_Point pos = target->topMid;
+			SDL_Point start = {0, pos.y + 1600};
+			start.x = (dirTest) ? -(rand() % 500 - 1000) : (rand() % 500 + 3500);
+			SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
+			return (use);
+		}
+	}
+	SDL_Point ret = {0, 0};
+	return (ret);
+}
+
 void CreatePoisonSnippet(Character *target, int totalAmount, Color color)
 {
-	SDL_Point pos = target->topMid;
 	bool dirTest = target->ally;
-	SDL_Point start = {0, pos.y + DAMAGE_MINUS};
-	start.x = (dirTest) ? -(rand() % 500 - 1000) : (rand() % 500 + 3000);
-	SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
+	SDL_Point use = GetSnippetStart(dirTest, target);
 	Vector dir = GetDirection(dirTest);
 	int size = GetSize(target, totalAmount);
 	std::string num = std::to_string(totalAmount);
@@ -127,15 +173,12 @@ static bool LeftOrRightForOpp(SDL_Point damager, Character *target) //true for l
 
 void CreateDamageSnippet(SDL_Point damager, Character *target, int totalDamage, bool opportunity)
 {
-	SDL_Point pos = target->topMid;
 	bool dirTest;
 	if (!opportunity)
 		dirTest = LeftOrRight(damager, target->position);
 	else
 		dirTest = LeftOrRightForOpp(damager, target);
-	SDL_Point start = {0, pos.y + DAMAGE_MINUS};
-	start.x = (dirTest) ? -(rand() % 500 - 1000) : (rand() % 500 + 3000);
-	SDL_Point use = {target->sprite->dest.x + start.x, target->sprite->dest.y + start.y};
+	SDL_Point use = GetSnippetStart(dirTest, target);
 	Vector dir = GetDirection(dirTest);
 	int size = GetSize(target, totalDamage);
 	std::string num = std::to_string(totalDamage);

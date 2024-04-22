@@ -50,7 +50,7 @@ void AiManagerUpdate()	//funtion only for the Ai thread
 		return ;
 	t_AiMapUnit **map = GetTheMap();
 	t_AiCharacter *turn = GetTheStartingTurnForAi(map);
-	float startSore = GetAiScore(map, turn->character->ally);
+	float startSore = GetAiScore(map, turn);
 	AiIterator *used = new AiIterator;
 	used->CalculateMoves(map, turn, startSore, 3, 3);
 	t_BestMove tester = used->GetBestMove();
@@ -58,6 +58,15 @@ void AiManagerUpdate()	//funtion only for the Ai thread
 	SetDataReady(tester);
 	delete used;
 	DestroyMap(map);
+}
+
+void AiManagerUpdate()
+{
+	if (aiInMotion == false)
+		return ;
+	t_AiCharacter **charQ = GetCharQForAi();
+	t_AiMapItem **items = GetItemsForAi(charQ);
+	
 }
 
 static bool GiveTurnToAi()

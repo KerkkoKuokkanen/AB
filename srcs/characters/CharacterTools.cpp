@@ -280,10 +280,10 @@ void Character::AssignAbilities()
 			AssignDefaultAlchemistAbilities(abilities);
 			break ;
 		case KNIGHT:
-			stats = {20, 27, 3, 80, 80, 80, 80, 90, 0, 0, 1};
+			stats = {20, 27, 4, 80, 80, 80, 80, 95, 0, 0, 1};
 			abilities = {{FLAIL_STRIKE, 3, 15, 4, 80, StatStructs::ATTACK_WITH_STATUS, StatusSigns::BLEED, 100, 3, true, true, NULL},
-						{SHILED_BASH, 3, 25, 2, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), 33, 2, true, true, NULL},
-						{CONTROL_ZONE, 3, 25, 0, 200, StatStructs::CONTROL_ZONE_STRUCT, (-1), 0, 0, true, false, NULL}};
+						{SHILED_BASH, 3, 18, 2, 80, StatStructs::SHIELD_BASH_STRUCT, (-1), 33, 2, true, true, NULL},
+						{CONTROL_ZONE, 3, 20, 0, 200, StatStructs::CONTROL_ZONE_STRUCT, (-1), 0, 0, true, false, NULL}};
 			AssingDefaultKnightAbilities(abilities);
 			break ;
 		case WITCH:

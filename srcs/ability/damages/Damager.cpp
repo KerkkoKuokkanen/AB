@@ -164,10 +164,10 @@ void Damager::AddBleedDamage(Character *target, int amount)
 		dir.x = -1.0f;
 	if ((target->stats.health - amount) > 0)
 	{
-		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 0);
-		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 6);
-		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 12);
-		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(28, 138, 0), 18);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(181, 0, 0), 0);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(181, 0, 0), 6);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(181, 0, 0), 12);
+		gameState.updateObjs.info->AddColorEffect(target->sprite, 3, Color(181, 0, 0), 18);
 	}
 	damageCreator.CreateDamage(target, Color(255, 0, 0), 0, amount, dir, sounds);
 	CreatePoisonSnippet(target, amount, Color(184, 6, 6));

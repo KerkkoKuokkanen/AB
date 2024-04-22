@@ -146,7 +146,7 @@ float GetPositionScoresForCharacters(t_AiMapUnit **map, std::vector<t_AiCharacte
 		else
 			enemyOffence += score;
 	}
-	allyOffence *= 0.75f;	// modifying these changes alot
+	allyOffence *= 0.5f;	// modifying these changes alot
 	float finalValue = allyOffence - enemyOffence;
 	return (finalValue);
 }

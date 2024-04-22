@@ -71,7 +71,7 @@ bool AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap, t_AiCharacter *curr)
 float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int movered)
 {
 	bool removed = RemoveDeadCharacter(nmap, character);
-	float scr = GetAiScore(nmap, character->character->ally);
+	float scr = GetAiScore(nmap, character);
 	if (depth <= 0 || removed)
 		return (scr);
 	AiIterator *next = GetAiIterator();

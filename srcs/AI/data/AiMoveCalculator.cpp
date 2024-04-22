@@ -163,7 +163,7 @@ void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 {
 	if (!secondLap)
 	{
-		float score = GetAiScore(newMap, true);
+		float score = GetAiScore(newMap, newMap[pos.y][pos.x].character);
 		moveSaves.push_back({iterationLoop, -1, score, {0, 0}});
 		return ;
 	}

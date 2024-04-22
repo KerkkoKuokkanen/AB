@@ -219,6 +219,126 @@ void SetAiDataMapInitial(t_AiMapUnit **map)
 	}
 }
 
+t_AiCharacter **GetCharQForAi()
+{
+	int size = gameState.battle.ground->characters.size();
+	t_AiCharacter **characters = (t_AiCharacter**)malloc(sizeof(t_AiCharacter*) * (size + 1));
+	int i = 0;
+	while (i < gameState.battle.ground->characters.size())
+	{
+		characters[i] = SetTheCharacter(gameState.battle.ground->characters[i].character);
+		i++;
+	}
+	characters[i] = NULL;
+	return (characters);
+}
+
+static int GetSmokeSize()
+{
+	int count = 0;
+	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
+	{
+		if (gameState.updateObjs.abilities->effectUpdater.effects[i].ability->type == SMOKE_BOMB)
+			count++;
+	}
+	return (count);
+}
+
+static int GetAdditionalsSize()
+{
+	int w = gameState.battle.ground->map[0].size();
+	int h = gameState.battle.ground->map.size();
+	int count = 0;
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			t_GMU *used = &gameState.battle.ground->map[i][j];
+			if (used->additional.type == AdditionalObjects::PHANTOM_KNIGHT || used->additional.type == AdditionalObjects::TOOLBOX)
+				count++;
+		}
+	}
+	return (count);
+}
+
+t_AiMapItem *GetItemFromHolder()
+{
+	t_AiMapItem *ret = (t_AiMapItem*)malloc(sizeof(t_AiMapItem));
+	bzero(ret, sizeof(t_AiMapItem));
+	return (ret);
+}
+
+static t_AiCharacter *GetFromCharQ(Character *character, t_AiCharacter **charQ)
+{
+	for (int i = 0; charQ[i] != NULL; i++)
+	{
+		if (charQ[i]->character == character)
+			return (charQ[i]);
+	}
+	return (NULL);
+}
+
+static int SetSmokesToItems(t_AiMapItem **items, t_AiCharacter **charQ)
+{
+	int index = 0;
+	for (int i = 0; i < gameState.updateObjs.abilities->effectUpdater.effects.size(); i++)
+	{
+		t_AbilityEffect *effect = &gameState.updateObjs.abilities->effectUpdater.effects[i];
+		if (effect->ability->type != SMOKE_BOMB)
+			continue ;
+		SmokeEffect *used = (SmokeEffect*)effect->effect;
+		int ret = used->getTime();
+		Character *thh = used->getCharacter();
+		t_AiMapItem *adder = GetItemFromHolder();
+		adder->type = SMOKE_BOMB;
+		adder->turns = ret;
+		adder->parent = GetFromCharQ(thh, charQ);
+		adder->position = effect->pos;
+		adder->item = NULL;
+		items[index] = adder;
+		index++;
+	}
+	return (index);
+}
+
+t_AiMapItem **GetItemsForAi(t_AiCharacter **charQ)
+{
+	int size = GetAdditionalsSize() + GetSmokeSize();
+	t_AiMapItem **items = (t_AiMapItem**)malloc(sizeof(t_AiMapItem*) * (size + 1));
+	int index = SetSmokesToItems(items, charQ);
+	int w = gameState.battle.ground->map[0].size();
+	int h = gameState.battle.ground->map.size();
+	for (int i = 0; i < h; i++)
+	{
+		for (int j = 0; j < w; j++)
+		{
+			t_GMU *used = &gameState.battle.ground->map[i][j];
+			if (used->additional.type == AdditionalObjects::PHANTOM_KNIGHT)
+			{
+				PhantomKnight *phant = (PhantomKnight*)used->additional.object;
+				t_AiMapItem *adder = GetItemFromHolder();
+				adder->parent = GetFromCharQ(phant->character, charQ);
+				adder->turns = phant->GetTurns();
+				adder->position = {j, i};
+				adder->type = PHANTOM_KNIGHT;
+				adder->item = NULL;
+				items[index] = adder;
+				index++;
+			}
+			else if (used->additional.type == AdditionalObjects::TOOLBOX)
+			{
+				ToolBox *tool = (ToolBox*)used->additional.object;
+				t_AiMapItem *adder = GetItemFromHolder();
+				adder->parent = NULL;
+				adder->turns = NULL;
+				adder->position = {j, i};
+				adder->item = tool;
+				adder->type = TOOLS;
+			}
+		}
+	}
+}
+
 t_AiMapUnit **GetTheMap()
 {
 	t_AiMapUnit **map = GetMapFromHolder();

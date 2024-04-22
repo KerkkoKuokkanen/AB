@@ -270,6 +270,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 # include "UI/battleUI.h"
 # include "AI/AiData.h"
 # include "AI/AiIterator.h"
+# include "AI/AiIterator2.h"
 # include "AI/AiObjectHolder.h"
 
 enum {
@@ -493,7 +494,7 @@ bool					CheckIfNextToToolBox(SDL_Point pos);
 t_AiCharacter			*GetTheStartingTurnForAi(t_AiMapUnit **map);
 t_AiMapUnit				**GetTheMap();
 float					CrazyLoopScore(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ);
-float					GetAiScore(t_AiMapUnit **map, bool ally);
+float					GetAiScore(t_AiMapUnit **map, t_AiCharacter *current);
 void					GetAiMapMoves(t_AiCharacter *aiChar, t_AiMapUnit **map);
 t_TargetingType			GetAbilityTargetingType(t_Ability *ability);
 t_AiMapUnit				**GetReplica(t_AiMapUnit **map);
@@ -509,6 +510,9 @@ t_AiCharacter			*GetReplicaAiCharacter(t_AiCharacter *copied);
 int						AiGetXToRight(SDL_Point pos);
 int						AiGetXToLeft(SDL_Point pos);
 bool					AiValidPos(SDL_Point pos);
+t_AiCharacter			*GetReplicaAiCharacter(t_AiCharacter *copied);
+t_AiCharacter			**GetCharQForAi();
+t_AiMapItem				**GetItemsForAi(t_AiCharacter **charQ);
 void					RemoveTheDead(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ);
 int						RangeBetweenPositionsWithControls(t_AiMapUnit **map ,SDL_Point start, SDL_Point end, bool ally);
 int						RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end);

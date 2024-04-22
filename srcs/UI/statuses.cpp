@@ -641,7 +641,7 @@ void Statuses::CheckIfNewStatuses()
 			{
 				int amount = 0;
 				for (int j = 0; j < character->statuses.poison.size(); j++)
-					amount += character->statuses.poison[i].x;
+					amount += character->statuses.poison[j].x;
 				amount = (amount > 999) ? 999 : amount;
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)
@@ -652,7 +652,7 @@ void Statuses::CheckIfNewStatuses()
 			{
 				int amount = 0;
 				for (int j = 0; j < character->statuses.bleed.size(); j++)
-					amount += character->statuses.bleed[i].x;
+					amount += character->statuses.bleed[j].x;
 				amount = (amount > 999) ? 999 : amount;
 				int num = (statuses[i].images.snippet == NULL) ? 0 : statuses[i].amount;
 				if (amount != num)
