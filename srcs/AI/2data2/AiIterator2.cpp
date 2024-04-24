@@ -36,7 +36,7 @@ static bool Ai2ValidPos(SDL_Point pos)
 static uint16_t **CreateMoveMap()
 {
 	uint16_t **map;
-	map = (uint16_t**)malloc(sizeof(uint16_t) * gameHeight);
+	map = (uint16_t**)malloc(sizeof(uint16_t*) * gameHeight);
 	for (uint8_t i = 0; i < gameHeight; i++)
 	{
 		map[i] = (uint16_t*)malloc(sizeof(uint16_t) * gameWidth);
@@ -88,6 +88,7 @@ static void GetAiMapMovables(uint16_t **moveMap, t_AiCharacter *character)
 		for (uint8_t j = 0; j < gameWidth; j++)
 			moveMap[i][j] = TOOL_MAP_SIGN;
 	}
+	moveMap[character->position.y][character->position.x] = 0;
 	Ai2IterMoveMap(moveMap, 0, moves, character->position);
 }
 

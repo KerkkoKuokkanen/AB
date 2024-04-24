@@ -26,8 +26,11 @@ t_BestMove CollectData()
 static void SetDataReady(t_BestMove returned)
 {
 	std::unique_lock<std::mutex> lock(aiMotionMutex);
-	move.ability = returned.ability;
-	move.same = returned.same;
+//	move.ability = returned.ability;
+	//move.same = returned.same;
+	move.same = true;
+	dataReady = true;
+	return ;
 	move.score = returned.score;
 	move.pos = returned.pos;
 	move.character = returned.character;
@@ -44,7 +47,7 @@ static void DeactivateAI()
 	aiInMotion = false;
 }
 
-void AiManagerUpdate()	//funtion only for the Ai thread
+/* void AiManagerUpdate()	//funtion only for the Ai thread
 {
 	if (aiInMotion == false)
 		return ;
@@ -58,15 +61,23 @@ void AiManagerUpdate()	//funtion only for the Ai thread
 	SetDataReady(tester);
 	delete used;
 	DestroyMap(map);
-}
+} */
 
 void AiManagerUpdate()
 {
 	if (aiInMotion == false)
 		return ;
+	InitAiIteration();
 	t_AiCharacter **charQ = GetCharQForAi();
 	t_AiMapItem **items = GetItemsForAi(charQ);
-	
+	t_AiCharacter *turn = GetTheStartingTurnForAi2(charQ);
+	AiIterator2 *used = new AiIterator2;
+	used->CalculateMoves(turn, charQ, items);
+	ReturnCharQToHolder(charQ);
+	ReturnItemsToHolder(items);
+	DeactivateAI();
+	SetDataReady(move);
+	delete used;
 }
 
 static bool GiveTurnToAi()

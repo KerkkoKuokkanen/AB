@@ -219,6 +219,18 @@ void SetAiDataMapInitial(t_AiMapUnit **map)
 	}
 }
 
+void ReturnCharQToHolder(t_AiCharacter **charQ)
+{
+	int i = 0;
+	while (charQ[i] != NULL)
+	{
+		ReturnAiCharacter(charQ[i]);
+		i++;
+	}
+	free(charQ[i]);
+	free(charQ);
+}
+
 t_AiCharacter **GetCharQForAi()
 {
 	int size = gameState.battle.ground->characters.size();
@@ -330,13 +342,51 @@ t_AiMapItem **GetItemsForAi(t_AiCharacter **charQ)
 				ToolBox *tool = (ToolBox*)used->additional.object;
 				t_AiMapItem *adder = GetItemFromHolder();
 				adder->parent = NULL;
-				adder->turns = NULL;
+				adder->turns = 0;
 				adder->position = {j, i};
 				adder->item = tool;
 				adder->type = TOOLS;
+				index++;
 			}
 		}
 	}
+	items[index] = NULL;
+	return (items);
+}
+
+void ReturnItemsToHolder(t_AiMapItem **items)
+{
+	int i = 0;
+	while (items[i] != NULL)
+	{
+		free(items[i]);
+		i++;
+	}
+	free(items[i]);
+	free(items);
+}
+
+t_AiCharacter *GetTheStartingTurnForAi2(t_AiCharacter **charQ)
+{
+	Character *used = NULL;
+	for (int i = 0; i < gameState.battle.ground->characters.size(); i++)
+	{
+		if (gameState.battle.ground->characters[i].character->turn)
+		{
+			used = gameState.battle.ground->characters[i].character;
+			break ;
+		}
+	}
+	for (int i = 0; charQ[i] != NULL; i++)
+	{
+		if (charQ[i]->character == used)
+		{
+			if (charQ[i]->character->killed)
+				return (NULL);
+			return (charQ[i]);
+		}
+	}
+	return (NULL);
 }
 
 t_AiMapUnit **GetTheMap()

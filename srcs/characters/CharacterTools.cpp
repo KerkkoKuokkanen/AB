@@ -236,7 +236,7 @@ void Character::AssignAbilities()
 			AssignDefaultSkeleStats(abilities);
 			break ;
 		case PYRO:
-			stats = {29, 34, 5, 55, 55, 35, 35, 90, 0, 0, 1};
+			stats = {29, 34, 6, 55, 55, 35, 35, 90, 0, 0, 1};
 			abilities = {{FLAME_PORT, 3, 10, 14, 200, StatStructs::FLAME_PORT, -1, 0, 0, true, false, NULL},
 						{FLAME_SLASH, 3, 15, 2, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, 100, 4, true, true, NULL},
 						{FLAME_BLAST, 4, 20, 5, 80, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::BURN, 60, 2, true, true, NULL},
@@ -244,7 +244,7 @@ void Character::AssignAbilities()
 			AssingDefaultPyroStats(abilities);
 			break ;
 		case LION:
-			stats = {16, 20, 2, 100, 100, 160, 160, 80, 0, 1, 1};
+			stats = {16, 20, 1, 100, 100, 160, 160, 80, 0, 1, 1};
 			abilities = {{LION_SMACK, 3, 12, 2, 95, StatStructs::ATTACK_AND_DEBUFF, StatusSigns::STUN, 65, 1, true, true, NULL},
 						{PHANTOM_KNIGHT, 5, 20, 8, 200, StatStructs::PHANTOM_KNIGHT, -1, 0, 0, true, false, NULL},
 						{ROTATE, 2, 10, 2, 200, StatStructs::TIERS, -1, 0, 0, true, true, NULL}};
@@ -265,7 +265,7 @@ void Character::AssignAbilities()
 			AssignDefaultMageAbilities(abilities);
 			break ;
 		case RAIDER:
-			stats = {30, 36, 4, 110, 110, 50, 50, 100, 0, 0, 1};
+			stats = {30, 36, 5, 110, 110, 50, 50, 100, 0, 0, 1};
 			abilities = {{AXE_SLASH, 3, 15, 2, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 4, true, true, NULL},
 						{AXE_JUMP, 3, 15, 10, 80, StatStructs::ATTACK_STRUCT, (-1), 100, 4, true, true, NULL},
 						{TOXIC_BLADE, 2, 10, 0, 200, StatStructs::TOXIC_BLADE, (-1), 0, 0, true, false, NULL},
@@ -287,7 +287,7 @@ void Character::AssignAbilities()
 			AssingDefaultKnightAbilities(abilities);
 			break ;
 		case WITCH:
-			stats = {10, 14, 8, 45, 45, 25, 25, 90, 0, 0, 1};
+			stats = {10, 14, 7, 45, 45, 25, 25, 90, 0, 0, 1};
 			abilities = {{ACID_RAIN, 3, 12, 10, 90, StatStructs::ACID_RAIN_STRUCT, (-1), 0, 0, false, true, NULL},
 						{TELEPORT, 4, 16, 10, 90, StatStructs::TELEPORT, (-1), 0, 0, false, true, NULL},
 						{HEALTH_TRANSFER, 2, 10, 10, 80, StatStructs::HEALTH_TRANSFER, (-1), 0, 0, false, true, NULL}};
