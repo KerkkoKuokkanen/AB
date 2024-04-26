@@ -231,16 +231,37 @@ void ReturnCharQToHolder(t_AiCharacter **charQ)
 	free(charQ);
 }
 
+static void ShiftCharQToLeft(int size, t_AiCharacter **charQ)
+{
+	t_AiCharacter *first = charQ[0];
+	for (int i = 0; i < (size - 1); i++)
+		charQ[i] = charQ[i + 1];
+	charQ[size - 1] = first;
+}
+
+static void OrderCharQ(int size, t_AiCharacter **charQ)
+{
+	if (size == 0)
+		return ;
+	while (true)
+	{
+		if (charQ[0]->character->turn)
+			break ;
+		ShiftCharQToLeft(size, charQ);
+	}
+}
+
 t_AiCharacter **GetCharQForAi()
 {
 	int size = gameState.battle.ground->characters.size();
 	t_AiCharacter **characters = (t_AiCharacter**)malloc(sizeof(t_AiCharacter*) * (size + 1));
 	int i = 0;
-	while (i < gameState.battle.ground->characters.size())
+	while (i < gameState.updateObjs.turnOrder->indicators.size())
 	{
-		characters[i] = SetTheCharacter(gameState.battle.ground->characters[i].character);
+		characters[i] = SetTheCharacter(gameState.updateObjs.turnOrder->indicators[i].character);
 		i++;
 	}
+	OrderCharQ(i, characters);
 	characters[i] = NULL;
 	return (characters);
 }

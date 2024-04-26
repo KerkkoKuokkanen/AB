@@ -78,6 +78,7 @@ void AiManagerUpdate()
 	DeactivateAI();
 	SetDataReady(move);
 	delete used;
+	EndCrazyLoopIteration();
 }
 
 static bool GiveTurnToAi()

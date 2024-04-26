@@ -22,7 +22,7 @@ static bool Ai2ValidPos(SDL_Point pos)
 	return (true);
 }
 
-static SDL_Point Ai2GetNextSmalles(uint16_t **map, SDL_Point pos)
+SDL_Point Ai2GetNextSmalles(uint16_t **map, SDL_Point pos)
 {
 	int left = Ai2GetXToLeft(pos);
 	int right = Ai2GetXToRight(pos);
@@ -114,6 +114,26 @@ static int GetExtraEnergyNeeded(float hitChance)
 	return (0);
 }
 
+static float GetMoveScore(SDL_Point pos, int fatCost, int dmgCost, int eeCost, t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items)
+{
+	SDL_Point curPos = current->position;
+	int currArmor = current->armor;
+	int currHealth = current->health;
+	int currFat = current->fatigue;
+	int currMoves = current->moves;
+	CreateDamageToAiCharacter(current, dmgCost);
+	current->position = pos;
+	current->moves -= eeCost;
+	current->fatigue += fatCost;
+	float score = GetAiS2core(current, charQ, items);
+	current->armor = currArmor;
+	current->health = currHealth;
+	current->fatigue = currFat;
+	current->moves = currMoves;
+	current->position = curPos;
+	return (score);
+}
+
 void AiIterator2::MoveToPosition(uint8_t x, uint8_t y)
 {
 	if (movables[y][x] == TOOL_MAP_SIGN)
@@ -141,4 +161,6 @@ void AiIterator2::MoveToPosition(uint8_t x, uint8_t y)
 			return ;
 		start = next;
 	}
+	int energyCost = extraEnergyUsed + movables[y][x];
+	float score = GetMoveScore({x, y}, fatiqueCost, damageRecieved, energyCost, current, charQ, mapItems);
 }

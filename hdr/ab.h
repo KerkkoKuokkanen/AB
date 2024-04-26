@@ -16,6 +16,7 @@
 # define LAYER_ORDER_SORT 4
 
 # define TOOL_MAP_SIGN 9933
+# define TOOL_MAP_BLOCKER 9934
 # define TURN_SIGN -999898
 
 //mouse states
@@ -482,6 +483,9 @@ AiIterator				*GetAiIterator();
 void					AiCheckForHosting(t_AiCharacter *character, t_AiMapUnit **map);
 void					CheckDeadCharacter(t_AiCharacter *character, t_AiMapUnit **map);
 bool					SomeOneMoving();
+float					GetAiS2core(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items);
+void					InitCrazyLoopForIteration();
+void					EndCrazyLoopIteration();
 void					CreateDamageToAiCharacter(t_AiCharacter *character, int damage);
 int						AiOppDamageNumber(t_AiCharacter *target, t_AiCharacter *caster);
 int						AiDamageNumber(t_AiCharacter *target, t_AiCharacter *caster, t_Ability *ability);
@@ -511,18 +515,23 @@ int						AiGetXToRight(SDL_Point pos);
 int						AiGetXToLeft(SDL_Point pos);
 bool					AiValidPos(SDL_Point pos);
 void					InitAiIteration();
+uint16_t				**CreateMoveMapForAi2();
+void					GetAi2MapMovables(uint16_t **moveMap, SDL_Point pos, int moves, t_AiCharacter **charQ, t_AiMapItem **items);
+float					CrazyLoop2Score(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items);
+void					DestroyMoveMap2(uint16_t **map);
 void					ReturnCharQToHolder(t_AiCharacter **charQ);
 int						Ai2GetChance(t_AiCharacter *character, t_AiCharacter *target, t_Ability *ability, t_AiMapItem **items);
 void					ReturnItemsToHolder(t_AiMapItem **items);
 t_AiCharacter			*GetReplicaAiCharacter(t_AiCharacter *copied);
 t_AiCharacter			**GetCharQForAi();
 t_AiMapItem				**GetItemsForAi(t_AiCharacter **charQ);
+SDL_Point				Ai2GetNextSmalles(uint16_t **map, SDL_Point pos);
 t_AiCharacter			*GetTheStartingTurnForAi2(t_AiCharacter **charQ);
 void					RemoveTheDead(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ);
 int						RangeBetweenPositionsWithControls(t_AiMapUnit **map ,SDL_Point start, SDL_Point end, bool ally);
 int						RangeBetweenPositions(t_AiMapUnit **map ,SDL_Point start, SDL_Point end);
 std::vector<SDL_Point>	GetCharacterEffectiveDistances(t_AiCharacter *character);
-int						AiGetChanceForCharOnly(t_AiCharacter *character, t_Ability *ability, t_AiMapUnit **map);
+int						AiGetChanceForCharOnly(t_AiCharacter *character, t_Ability *ability, t_AiCharacter **charQ, t_AiMapItem **items);
 bool					NoPointInMovingControlChecks(t_AiCharacter *character, t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ);
 t_PointDist				ReturnMapPositionDistances(SDL_Point check, t_AiMapUnit **map, t_AiCharacter *character, int distance, bool staticDist, int targetType, int saveCount, std::vector<t_AiCharacter*> &charQ);
 

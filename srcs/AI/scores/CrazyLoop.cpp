@@ -43,7 +43,8 @@ static SDL_FPoint GetBaseDamageAndFatiguePerEnergy(t_AiCharacter *character, t_A
 	float damage = (float)used->damage / 100.0f;
 	float expected = ((mid * damage) / (float)cost);
 	expected = AiGetDamageReduction(character, expected);
-	int chance = AiGetChanceForCharOnly(character, ability, map);
+	//int chance = AiGetChanceForCharOnly(character, ability, map);
+	int chance = 80;
 	float chanceMulti = (float)chance / 100.0f;
 	expected *= chanceMulti;
 	ret.x = expected;
@@ -133,7 +134,7 @@ static float GetOffenceScoreForCharacter(t_AiMapUnit **map, t_AiCharacter *chara
 	return (offenceScore);
 }
 
-float GetPositionScoresForCharacters(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
+static float GetPositionScoresForCharacters(t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ)
 {
 	float allyOffence = 0.0f;
 	float enemyOffence = 0.0f;
