@@ -2,17 +2,45 @@
 #include "../../../hdr/global.h"
 #define DEFAULT_ENERGY_AMOUNT 10
 #define BIG_MINUS -99999.9
+#define SEARCH_NUMBER 50
 
 uint16_t **moveMap = NULL;
+uint8_t gameWidthhh = 0;
+uint8_t gameHeighttt = 0;
 
 void InitCrazyLoopForIteration()
 {
 	moveMap = CreateMoveMapForAi2();
+	int w = gameState.battle.ground->map[0].size();
+	int h = gameState.battle.ground->map.size();
+	gameWidthhh = (uint8_t)w;
+	gameHeighttt = (uint8_t)h;
 }
 
 void EndCrazyLoopIteration()
 {
 	DestroyMoveMap2(moveMap);
+}
+
+static int Ai2GetXToRight(SDL_Point pos)
+{
+	int modder = (pos.y % 2 == 0) ? 0 : 1;
+	return (pos.x + modder);
+}
+
+static int Ai2GetXToLeft(SDL_Point pos)
+{
+	int modder = (pos.y % 2 == 0) ? -1 : 0;
+	return (pos.x + modder);
+}
+
+static bool Ai2ValidPos(SDL_Point pos)
+{
+	if (pos.x < 0 || pos.x >= gameState.battle.ground->map[0].size())
+		return (false);
+	if (pos.y < 0 || pos.y >= gameState.battle.ground->map.size())
+		return (false);
+	return (true);
 }
 
 static float AiGetDamageReduction(t_AiCharacter *damager, float damage)
@@ -57,13 +85,14 @@ static int TargetPositionDistanceToDistance(uint16_t **map, SDL_Point targetPos,
 		return (0);
 	while (distanceToStart != 0)
 	{
-		next = Ai2GetNextSmalles(map, next);
-		if (next.x == (-1))
-			return (60);
+		SDL_Point nextNext = Ai2GetNextSmalles(map, next);
+		if (next.x == nextNext.x && next.y == nextNext.y)
+			return (SEARCH_NUMBER);
 		int distanceToStart = map[next.y][next.x];
 		int currDistance = AiDistBetweenPositions(next, targetPos);
 		if (currDistance >= distance)
 			break ;
+		next = nextNext;
 	}
 	return (map[next.y][next.x]);
 }
@@ -103,13 +132,78 @@ static float GetOffenceScoreForCharacter(t_AiCharacter *character, t_AiCharacter
 	return (offenceScore);
 }
 
+static void Ai2IterMoveMap(uint16_t **moveMap, int moves, int targetMoves, SDL_Point pos)
+{
+	int left = Ai2GetXToLeft(pos);
+	int right = Ai2GetXToRight(pos);
+	int currentHeight = gameState.battle.ground->map[pos.y][pos.x].height;
+	SDL_Point positions[4] = {{left, pos.y + 1}, {left, pos.y - 1}, {right, pos.y + 1}, {right, pos.y - 1}};
+	for (uint8_t i = 0; i < 4; i++)
+	{
+		if (Ai2ValidPos(positions[i]) == false)
+			continue ;
+		if (moveMap[positions[i].y][positions[i].x] == TOOL_MAP_BLOCKER)
+			continue ;
+		int plus = 2;
+		int height = gameState.battle.ground->map[positions[i].y][positions[i].x].height;
+		if (height > currentHeight)
+			plus = (2 + (height - currentHeight));
+		else if (height < currentHeight)
+			plus = 1;
+		int temp = moves + plus;
+		if (temp <= targetMoves)
+		{
+			if (moveMap[positions[i].y][positions[i].x] > temp)
+			{
+				moveMap[positions[i].y][positions[i].x] = temp;
+				Ai2IterMoveMap(moveMap, temp, targetMoves, positions[i]);
+			}
+		}
+	}
+}
+
+static bool CheckIfPositionBlocked(SDL_Point pos, t_AiCharacter **charQ, t_AiMapItem **items)
+{
+	t_GMU *used = &gameState.battle.ground->map[pos.y][pos.x];
+	if (used->obj != NULL && used->blocked)
+		return (true);
+	for (int i = 0; charQ[i] != NULL; i++)
+	{
+		if (charQ[i]->position.x == pos.x && charQ[i]->position.y == pos.y)
+			return (true);
+	}
+	for (int i = 0; items[i] != NULL; i++)
+	{
+		if (items[i]->type == SMOKE_BOMB)
+			continue ;
+		if (items[i]->position.x == pos.x && items[i]->position.y == pos.y)
+			return (true);
+	}
+	return (false);
+}
+
+static void GetAi22MapMovables(uint16_t **moveMap, SDL_Point pos, int moves, t_AiCharacter **charQ, t_AiMapItem **items)
+{
+	for (uint8_t i = 0; i < gameHeighttt; i++)
+	{
+		for (uint8_t j = 0; j < gameWidthhh; j++)
+		{
+			moveMap[i][j] = TOOL_MAP_SIGN;
+			if (CheckIfPositionBlocked({j, i}, charQ, items))
+				moveMap[i][j] = TOOL_MAP_BLOCKER;
+		}
+	}
+	moveMap[pos.y][pos.x] = 0;
+	Ai2IterMoveMap(moveMap, moves, moves, pos);
+}
+
 static float GetPositionScoresForCharacters(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items)
 {
 	float allyOffence = 0.0f;
 	float enemyOffence = 0.0f;
 	for (int i = 0; charQ[i] != NULL ; i++)
 	{
-		GetAi2MapMovables(moveMap, charQ[i]->position, 50, charQ, items);
+		GetAi22MapMovables(moveMap, charQ[i]->position, SEARCH_NUMBER, charQ, items);
 		float score = GetOffenceScoreForCharacter(charQ[i], charQ, items, moveMap);
 		if (charQ[i]->character->ally)
 			allyOffence += score;

@@ -115,7 +115,7 @@ void GetAi2MapMovables(uint16_t **moveMap, SDL_Point pos, int moves, t_AiCharact
 		}
 	}
 	moveMap[pos.y][pos.x] = 0;
-	Ai2IterMoveMap(moveMap, 0, moves, pos);
+	Ai2IterMoveMap(moveMap, moves, moves, pos);
 }
 
 void AiIterator2::IterateMap()
@@ -137,10 +137,6 @@ void AiIterator2::CalculateMoves(t_AiCharacter *current, t_AiCharacter **charQ, 
 	AiIterator2::mapItems = mapItems;
 	movables = CreateMoveMapForAi2();
 	GetAi2MapMovables(movables, current->position, moves, charQ, mapItems);
-	for (int i = 0; i < 1000; i++)
-	{
-		IterateMap();
-		moves = i;
-	}
+	IterateMap();
 	DestroyMoveMap2(movables);
 }
