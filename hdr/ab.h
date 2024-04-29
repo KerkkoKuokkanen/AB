@@ -524,6 +524,7 @@ int						Ai2GetChance(t_AiCharacter *character, t_AiCharacter *target, t_Ability
 void					ReturnItemsToHolder(t_AiMapItem **items);
 t_AiCharacter			*GetReplicaAiCharacter(t_AiCharacter *copied);
 t_AiCharacter			**GetCharQForAi();
+void					AddToTheAiMoves(t_Ai2MoveSaver &saver, t_MoverSmover add, bool ally);
 t_AiMapItem				**GetItemsForAi(t_AiCharacter **charQ);
 SDL_Point				Ai2GetNextSmalles(uint16_t **map, SDL_Point pos);
 t_AiCharacter			*GetTheStartingTurnForAi2(t_AiCharacter **charQ);
@@ -544,5 +545,8 @@ void	PlaySound(Mix_Chunk *clip, int channel, int loops);
 void	AudioCreateVolume(int Chan, int volume);
 void	AudioCreateChannels(int amount);
 void	AudioClear();
+
+void DeltaTimeStart();
+void DeltaTimeGet();
 
 #endif

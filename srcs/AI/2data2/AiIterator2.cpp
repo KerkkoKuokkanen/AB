@@ -83,24 +83,20 @@ static void Ai2IterMoveMap(uint16_t **moveMap, int moves, int targetMoves, SDL_P
 	}
 }
 
-static bool CheckIfPositionBlocked(SDL_Point pos, t_AiCharacter **charQ, t_AiMapItem **items)
+static void SetBlockedPositins(uint16_t **moveMap, t_AiCharacter **charQ, t_AiMapItem **items)
 {
-	t_GMU *used = &gameState.battle.ground->map[pos.y][pos.x];
-	if (used->obj != NULL && used->blocked)
-		return (true);
 	for (int i = 0; charQ[i] != NULL; i++)
 	{
-		if (charQ[i]->position.x == pos.x && charQ[i]->position.y == pos.y)
-			return (true);
+		SDL_Point pos = charQ[i]->position;
+		moveMap[pos.y][pos.x] = TOOL_MAP_BLOCKER;
 	}
 	for (int i = 0; items[i] != NULL; i++)
 	{
 		if (items[i]->type == SMOKE_BOMB)
 			continue ;
-		if (items[i]->position.x == pos.x && items[i]->position.y == pos.y)
-			return (true);
+		SDL_Point pos = items[i]->position;
+		moveMap[pos.y][pos.x] = TOOL_MAP_BLOCKER;
 	}
-	return (false);
 }
 
 void GetAi2MapMovables(uint16_t **moveMap, SDL_Point pos, int moves, t_AiCharacter **charQ, t_AiMapItem **items)
@@ -110,12 +106,13 @@ void GetAi2MapMovables(uint16_t **moveMap, SDL_Point pos, int moves, t_AiCharact
 		for (uint8_t j = 0; j < gameWidth; j++)
 		{
 			moveMap[i][j] = TOOL_MAP_SIGN;
-			if (CheckIfPositionBlocked({j, i}, charQ, items))
+			if (gameState.battle.ground->map[i][j].obj != NULL)
 				moveMap[i][j] = TOOL_MAP_BLOCKER;
 		}
 	}
+	SetBlockedPositins(moveMap, charQ, items);
 	moveMap[pos.y][pos.x] = 0;
-	Ai2IterMoveMap(moveMap, moves, moves, pos);
+	Ai2IterMoveMap(moveMap, 0, moves, pos);
 }
 
 void AiIterator2::IterateMap()
@@ -129,14 +126,70 @@ void AiIterator2::IterateMap()
 	}
 }
 
+static int GetSizeForShit(t_AiCharacter **charQ)
+{
+	int index = 0;
+	while (charQ[index] != NULL)
+		index++;
+	return (index);
+}
+
+void AddToTheAiMoves(t_Ai2MoveSaver &saver, t_MoverSmover add, bool ally)
+{
+	float min = saver.smalles;
+	int index = saver.smallesIndex;
+	if (!ally && add.score >= min)
+		return ;
+	else if (ally && add.score <= min)
+		return ;
+	saver.moves[index] = add;
+	float newSmallest = (!ally) ? -9999999.0f : 9999999.0f;
+	int newIndex = 0;
+	for (int i = 0; i < SCORE_SAVE_SIZE; i++)
+	{
+		float score = saver.moves[i].score;
+		if (!ally && score > newSmallest)
+		{
+			newSmallest = score;
+			newIndex = i;
+		}
+		else if (ally && score < newSmallest)
+		{
+			newSmallest = score;
+			newIndex = i;
+		}
+	}
+	saver.smalles = newSmallest;
+	saver.smallesIndex = newIndex;
+}
+
+void AiIterator2::CreateSavedMoves()
+{
+	int sizer = current->character->abilities.size() + 1;
+	savedMoves = (t_Ai2MoveSaver*)malloc(sizeof(t_Ai2MoveSaver) * sizer);
+	float smallest = (!ally) ? 100000.0f : -100000.0f;
+	for (int i = 0; i < sizer; i++)
+	{
+		savedMoves[i].smallesIndex = 0;
+		savedMoves[i].smalles = smallest;
+		for (int j = 0; j < SCORE_SAVE_SIZE; j++)
+			savedMoves[i].moves[j] = {{0, 0}, 0, 0.0f};
+	}
+	size = sizer;
+}
+
 void AiIterator2::CalculateMoves(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **mapItems)
 {
+	ally = current->character->ally;
 	int moves = (current->statuses.slowed != 0) ? current->moves / 2 : current->moves;
 	AiIterator2::current = current;
 	AiIterator2::charQ = charQ;
 	AiIterator2::mapItems = mapItems;
 	movables = CreateMoveMapForAi2();
+	DeltaTimeGet();
+	CreateSavedMoves(); //84.416900
 	GetAi2MapMovables(movables, current->position, moves, charQ, mapItems);
 	IterateMap();
 	DestroyMoveMap2(movables);
+	free(savedMoves);
 }

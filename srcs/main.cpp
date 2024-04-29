@@ -10,10 +10,8 @@ void TempInitBattle()
 	Character thief1(RAIDER);
 	Character thief2(KNIGHT);
 	Character skele(BIG_THUG, false);
-	Character skele2(THUG, false);
-	Character skele3(THUG, false);
 	Character skele4(THUG, false);
-	static std::vector<Character> chars = {thief1, thief, thief2, skele, skele2, skele3, skele4};
+	static std::vector<Character> chars = {thief1, thief, thief2, skele, skele4};
 	SDL_Point point = {5, 11};
 	SDL_Point point1 = {6, 11};
 	SDL_Point point2 = {3, 11};
@@ -21,7 +19,7 @@ void TempInitBattle()
 	SDL_Point point5 = {5, 13};
 	SDL_Point possi = {3, 12};
 	SDL_Point tester = {5, 12};
-	static std::vector<SDL_Point> pnt = {point2, point4, possi, point, point1, point5, tester};
+	static std::vector<SDL_Point> pnt = {point2, point4, possi, point, tester};
 	gameState.battle.ground->StartBattle(chars, pnt);
 	gameState.updateObjs.UI->SetCharacters(chars);
 	new TurnOrder(chars);

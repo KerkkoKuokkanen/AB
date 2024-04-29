@@ -328,6 +328,7 @@ static int SetSmokesToItems(t_AiMapItem **items, t_AiCharacter **charQ)
 		adder->parent = GetFromCharQ(thh, charQ);
 		adder->position = effect->pos;
 		adder->item = NULL;
+		adder->own = NULL;
 		items[index] = adder;
 		index++;
 	}
@@ -355,6 +356,7 @@ t_AiMapItem **GetItemsForAi(t_AiCharacter **charQ)
 				adder->position = {j, i};
 				adder->type = PHANTOM_KNIGHT;
 				adder->item = NULL;
+				adder->own = SetTheCharacter(phant->GetThis());
 				items[index] = adder;
 				index++;
 			}
@@ -367,6 +369,7 @@ t_AiMapItem **GetItemsForAi(t_AiCharacter **charQ)
 				adder->position = {j, i};
 				adder->item = tool;
 				adder->type = TOOLS;
+				adder->own = SetTheCharacter(tool->GetThis());
 				index++;
 			}
 		}

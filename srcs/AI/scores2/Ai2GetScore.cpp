@@ -59,7 +59,7 @@ static float GetHealthScores(t_AiCharacter **charQ)
 
 float GetAiS2core(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items)
 {
-	float healthScore = GetHealthScores(charQ);
-	float crazyLoopScore = CrazyLoop2Score(current, charQ, items);
+	float healthScore = GetHealthScores(charQ); //0.000200
+	float crazyLoopScore = CrazyLoop2Score(current, charQ, items); //183.236400
 	return (healthScore + crazyLoopScore);
 }

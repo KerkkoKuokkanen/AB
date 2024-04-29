@@ -40,6 +40,7 @@ class Character
 		Sprite *sprite = NULL;
 		Sprite *stand = NULL;
 		Character(int skin, bool allied = true);
+		Character *GetThis() {return (this);};
 		void FindPosition();
 		void Destroy();
 		void AddToRender();

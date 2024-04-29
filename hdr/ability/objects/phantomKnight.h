@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class PhantomKnight : Character
+class PhantomKnight : public Character
 {
 	private:
 		Sprite *knight;

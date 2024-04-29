@@ -85,11 +85,11 @@ static int TargetPositionDistanceToDistance(uint16_t **map, SDL_Point targetPos,
 		return (0);
 	while (distanceToStart != 0)
 	{
-		SDL_Point nextNext = Ai2GetNextSmalles(map, next);
+		SDL_Point nextNext = Ai2GetNextSmalles(map, next); //1.744900
 		if (next.x == nextNext.x && next.y == nextNext.y)
 			return (SEARCH_NUMBER);
 		int distanceToStart = map[next.y][next.x];
-		int currDistance = AiDistBetweenPositions(next, targetPos);
+		int currDistance = AiDistBetweenPositions(next, targetPos); //0.000200
 		if (currDistance >= distance)
 			break ;
 		next = nextNext;
@@ -99,8 +99,8 @@ static int TargetPositionDistanceToDistance(uint16_t **map, SDL_Point targetPos,
 
 static float DamageToTargetPosition(SDL_Point target, t_AiCharacter *character, t_Ability *ability, t_AiCharacter **charQ, t_AiMapItem **items, uint16_t **map)
 {
-	SDL_FPoint damageFatigue = GetBaseDamageAndFatiguePerEnergy(character, ability, charQ, items);
-	int distanceToDamage = TargetPositionDistanceToDistance(map, target, character->position, ability->range);
+	SDL_FPoint damageFatigue = GetBaseDamageAndFatiguePerEnergy(character, ability, charQ, items); //0.527400
+	int distanceToDamage = TargetPositionDistanceToDistance(map, target, character->position, ability->range); //4.334700
 	int damageEnergy = DEFAULT_ENERGY_AMOUNT - distanceToDamage;
 	float damageAmount = damageFatigue.x * (float)damageEnergy;
 	return (damageAmount);
@@ -162,24 +162,20 @@ static void Ai2IterMoveMap(uint16_t **moveMap, int moves, int targetMoves, SDL_P
 	}
 }
 
-static bool CheckIfPositionBlocked(SDL_Point pos, t_AiCharacter **charQ, t_AiMapItem **items)
+static void SetBlockedPositins(uint16_t **moveMap, t_AiCharacter **charQ, t_AiMapItem **items)
 {
-	t_GMU *used = &gameState.battle.ground->map[pos.y][pos.x];
-	if (used->obj != NULL && used->blocked)
-		return (true);
 	for (int i = 0; charQ[i] != NULL; i++)
 	{
-		if (charQ[i]->position.x == pos.x && charQ[i]->position.y == pos.y)
-			return (true);
+		SDL_Point pos = charQ[i]->position;
+		moveMap[pos.y][pos.x] = TOOL_MAP_BLOCKER;
 	}
 	for (int i = 0; items[i] != NULL; i++)
 	{
 		if (items[i]->type == SMOKE_BOMB)
 			continue ;
-		if (items[i]->position.x == pos.x && items[i]->position.y == pos.y)
-			return (true);
+		SDL_Point pos = items[i]->position;
+		moveMap[pos.y][pos.x] = TOOL_MAP_BLOCKER;
 	}
-	return (false);
 }
 
 static void GetAi22MapMovables(uint16_t **moveMap, SDL_Point pos, int moves, t_AiCharacter **charQ, t_AiMapItem **items)
@@ -189,22 +185,23 @@ static void GetAi22MapMovables(uint16_t **moveMap, SDL_Point pos, int moves, t_A
 		for (uint8_t j = 0; j < gameWidthhh; j++)
 		{
 			moveMap[i][j] = TOOL_MAP_SIGN;
-			if (CheckIfPositionBlocked({j, i}, charQ, items))
+			if (gameState.battle.ground->map[i][j].obj != NULL)
 				moveMap[i][j] = TOOL_MAP_BLOCKER;
 		}
 	}
+	SetBlockedPositins(moveMap, charQ, items);
 	moveMap[pos.y][pos.x] = 0;
 	Ai2IterMoveMap(moveMap, moves, moves, pos);
 }
 
-static float GetPositionScoresForCharacters(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items)
+float GetPositionScoresForCharacters(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items)
 {
 	float allyOffence = 0.0f;
 	float enemyOffence = 0.0f;
 	for (int i = 0; charQ[i] != NULL ; i++)
 	{
-		GetAi22MapMovables(moveMap, charQ[i]->position, SEARCH_NUMBER, charQ, items);
-		float score = GetOffenceScoreForCharacter(charQ[i], charQ, items, moveMap);
+		GetAi22MapMovables(moveMap, charQ[i]->position, SEARCH_NUMBER, charQ, items); //18.722200
+		float score = GetOffenceScoreForCharacter(charQ[i], charQ, items, moveMap); //20.247100
 		if (charQ[i]->character->ally)
 			allyOffence += score;
 		else
@@ -217,6 +214,6 @@ static float GetPositionScoresForCharacters(t_AiCharacter *current, t_AiCharacte
 
 float CrazyLoop2Score(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items)
 {
-	float ret = GetPositionScoresForCharacters(current, charQ, items);
+	float ret = GetPositionScoresForCharacters(current, charQ, items); ////183.236400
 	return (ret);
 }

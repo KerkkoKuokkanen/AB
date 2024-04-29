@@ -429,3 +429,22 @@ int	figure_the_delay(clock_t start, clock_t end)
 	else
 		return (ret);
 }
+
+clock_t deltaStart;
+clock_t deltaEnd;
+
+void DeltaTimeStart()
+{
+	deltaStart = clock();
+}
+
+void DeltaTimeGet()
+{
+	deltaEnd = clock();
+	double	time;
+	int		ret;
+	time = 0.0;
+	time += (double)(deltaEnd - deltaStart) / CLOCKS_PER_SEC;
+	time *= 100.0;
+	printf("%f\n", time);
+}
