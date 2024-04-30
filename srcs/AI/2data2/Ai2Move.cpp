@@ -1,6 +1,5 @@
 
 #include "../../../hdr/global.h"
-#define TEST_STANDARD 1000000
 
 static int Ai2GetXToRight(SDL_Point pos)
 {
@@ -190,7 +189,7 @@ void AiIterator2::MoveToPosition(uint8_t x, uint8_t y)
 	}
 	int energyCost = extraEnergyUsed + movables[y][x];
 	float score = GetMoveScore({x, y}, fatiqueCost, damageRecieved, energyCost, current, charQ, mapItems); //192.222500
-	AddToTheAiMoves(savedMoves[size - 1], {{x, y}, 0, score}, ally); //0.313400 firstTime 149.766500
+	AddToTheAiMoves(savedMoves[size - 1], {{x, y}, 0, score}, ally); //1.001700 - 0.213400
 }
 
 /* DeltaTimeStart();

@@ -122,6 +122,7 @@ void AiIterator2::IterateMap()
 		for (uint8_t j = 0; j < gameWidth; j++)
 		{
 			MoveToPosition(j, i);
+			AbilityToPosition(j, i);
 		}
 	}
 }
@@ -173,7 +174,7 @@ void AiIterator2::CreateSavedMoves()
 		savedMoves[i].smallesIndex = 0;
 		savedMoves[i].smalles = smallest;
 		for (int j = 0; j < SCORE_SAVE_SIZE; j++)
-			savedMoves[i].moves[j] = {{0, 0}, 0, 0.0f};
+			savedMoves[i].moves[j] = {{0, 0}, 0, smallest};
 	}
 	size = sizer;
 }
@@ -185,11 +186,10 @@ void AiIterator2::CalculateMoves(t_AiCharacter *current, t_AiCharacter **charQ, 
 	AiIterator2::current = current;
 	AiIterator2::charQ = charQ;
 	AiIterator2::mapItems = mapItems;
-	movables = CreateMoveMapForAi2();
-	DeltaTimeGet();
+	movables = CreateMoveMapForAi2(); //185.312600
 	CreateSavedMoves(); //84.416900
 	GetAi2MapMovables(movables, current->position, moves, charQ, mapItems);
 	IterateMap();
-	DestroyMoveMap2(movables);
+	DestroyMoveMap2(movables); //115.798400
 	free(savedMoves);
 }

@@ -43,6 +43,7 @@ class AiIterator2
 		t_Ai2MoveSaver *savedMoves;
 		void CreateSavedMoves();
 		void MoveToPosition(uint8_t x, uint8_t y);
+		void AbilityToPosition(uint8_t x, uint8_t y);
 		void IterateMap();
 	public:
 		void CalculateMoves(t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **mapItems);
