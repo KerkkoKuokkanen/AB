@@ -55,7 +55,7 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/info/thugEffect.cpp srcs/effects/thugInspire.cpp srcs/effects/frenzyColorer.cpp srcs/AI/scores/CrazyLoop.cpp \
 		srcs/AI/scores/AiScoreTools.cpp srcs/AI/scores/AiScoreCharacterChecks.cpp srcs/AI/scores/AiPositionDistances.cpp \
 		srcs/AI/2data2/AiIterator2.cpp srcs/AI/2data2/Ai2Move.cpp srcs/AI/2data2/Ai2Chances.cpp srcs/AI/scores2/Ai2GetScore.cpp \
-		srcs/AI/scores2/crazyLoop2.cpp srcs/AI/2data2/Ai2Ability.cpp
+		srcs/AI/scores2/crazyLoop2.cpp srcs/AI/2data2/Ai2Ability.cpp srcs/AI/2data2/Ai2StateGetters.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 DEP = $(OBJ:.o=.d)

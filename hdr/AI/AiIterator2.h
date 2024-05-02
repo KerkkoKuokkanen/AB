@@ -30,6 +30,13 @@ typedef struct s_Ai2MoveSaver
 	int smallesIndex;
 }				t_Ai2MoveSaver;
 
+typedef struct s_Ai2State
+{
+	t_AiCharacter *current;
+	t_AiCharacter **charQ;
+	t_AiMapItem **items;
+}				t_Ai2State;
+
 class AiIterator2
 {
 	private:

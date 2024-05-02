@@ -524,6 +524,11 @@ int						Ai2GetChance(t_AiCharacter *character, t_AiCharacter *target, t_Ability
 void					ReturnItemsToHolder(t_AiMapItem **items);
 t_AiCharacter			*GetReplicaAiCharacter(t_AiCharacter *copied);
 t_AiCharacter			**GetCharQForAi();
+t_AiMapItem				**GetAiMapItemArray(int size);
+t_AiCharacter			**GetAiCharacterArray(int size);
+void					ReturnAiCharacterArray(t_AiCharacter **charQ);
+void					ReturnAiMapItemsArray(t_AiMapItem **items);
+void					ReturnItemToHolder(t_AiMapItem *item);
 void					AddToTheAiMoves(t_Ai2MoveSaver &saver, t_MoverSmover add, bool ally);
 t_AiMapItem				**GetItemsForAi(t_AiCharacter **charQ);
 SDL_Point				Ai2GetNextSmalles(uint16_t **map, SDL_Point pos);
@@ -535,6 +540,7 @@ std::vector<SDL_Point>	GetCharacterEffectiveDistances(t_AiCharacter *character);
 int						AiGetChanceForCharOnly(t_AiCharacter *character, t_Ability *ability, t_AiCharacter **charQ, t_AiMapItem **items);
 bool					NoPointInMovingControlChecks(t_AiCharacter *character, t_AiMapUnit **map, std::vector<t_AiCharacter*> &charQ);
 t_PointDist				ReturnMapPositionDistances(SDL_Point check, t_AiMapUnit **map, t_AiCharacter *character, int distance, bool staticDist, int targetType, int saveCount, std::vector<t_AiCharacter*> &charQ);
+static t_Ai2State		*GetDefaultMeleeState(t_Ability *ability, t_Ai2State *current, t_Ai2State *setted, SDL_Point pos, int abilityUseIndex);
 
 //audio
 

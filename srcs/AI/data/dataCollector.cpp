@@ -383,11 +383,42 @@ void ReturnItemsToHolder(t_AiMapItem **items)
 	int i = 0;
 	while (items[i] != NULL)
 	{
+		if (items[i]->own != NULL)
+			ReturnAiCharacter(items[i]->own);
 		free(items[i]);
 		i++;
 	}
 	free(items[i]);
 	free(items);
+}
+
+void ReturnItemToHolder(t_AiMapItem *item)
+{
+	if (item->own != NULL)
+		ReturnAiCharacter(item->own);
+	free(item);
+}
+
+void ReturnAiMapItemsArray(t_AiMapItem **items)
+{
+	free(items);
+}
+
+void ReturnAiCharacterArray(t_AiCharacter **charQ)
+{
+	free(charQ);
+}
+
+t_AiMapItem **GetAiMapItemArray(int size)
+{
+	t_AiMapItem **ret = (t_AiMapItem**)malloc(sizeof(t_AiMapItem*) * size);
+	return (ret);
+}
+
+t_AiCharacter **GetAiCharacterArray(int size)
+{
+	t_AiCharacter **ret = (t_AiCharacter**)malloc(sizeof(t_AiCharacter*) * size);
+	return (ret);
 }
 
 t_AiCharacter *GetTheStartingTurnForAi2(t_AiCharacter **charQ)

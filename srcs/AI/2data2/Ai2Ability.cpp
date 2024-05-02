@@ -2,18 +2,40 @@
 #include "../../../hdr/global.h"
 #define NOT_ACCEPTED(value) ((value) < 0.0f)
 
-typedef struct s_Ai2State
-{
-	t_AiCharacter *current;
-	t_AiCharacter **charQ;
-	t_AiMapItem **items;
-}				t_Ai2State;
-
 int abilityUseIndex = 0;
+t_Ai2State stateSave = {NULL, NULL, NULL};
 
-static t_Ai2State GetAi2AbilityScore(t_Ability *ability, t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items, SDL_Point pos)
+static t_Ai2State *GetAi2AbilityScore(t_Ability *ability, t_AiCharacter *current, t_AiCharacter **charQ, t_AiMapItem **items, SDL_Point pos)
 {
-	
+	t_Ai2State used = {current, charQ, items};
+	int type = ability->type;
+	switch (type)
+	{
+		case SKELE_MELEE:
+			return (GetDefaultMeleeState(ability, &used, &stateSave, pos, abilityUseIndex));
+	}
+	return (NULL);
+}
+
+void ClearStateSave(t_AiCharacter **charQ, t_AiMapItem **items)
+{
+	stateSave.current = NULL;
+	for (int i = 0; charQ[i] != NULL; i++)
+	{
+		if (charQ[i] == stateSave.charQ[i])
+			continue ;
+		ReturnAiCharacter(stateSave.charQ[i]);
+	}
+	ReturnAiCharacterArray(stateSave.charQ);
+	stateSave.charQ = NULL;
+	for (int i = 0; items[i] != NULL; i++)
+	{
+		if (items[i] == stateSave.items[i])
+			continue ;
+		ReturnItemToHolder(stateSave.items[i]);
+	}
+	ReturnAiMapItemsArray(stateSave.items);
+	stateSave.items = NULL;
 }
 
 void AiIterator2::AbilityToPosition(uint8_t x, uint8_t y)
@@ -25,11 +47,11 @@ void AiIterator2::AbilityToPosition(uint8_t x, uint8_t y)
 		abilityUseIndex = 0;
 		while (true)
 		{
-			//SDL_FPoint ret = GetAi2AbilityScore(used, current, charQ, mapItems, pos);
+			/* SDL_FPoint ret = GetAi2AbilityScore(used, current, charQ, mapItems, pos);
 			if (NOT_ACCEPTED(ret.y))
 				break ;
 			AddToTheAiMoves(savedMoves[i], {pos, abilityUseIndex, ret.x}, ally);
-			abilityUseIndex += 1;
+			abilityUseIndex += 1; */
 		}
 	}
 }
