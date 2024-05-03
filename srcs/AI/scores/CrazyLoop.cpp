@@ -90,7 +90,7 @@ static int TargetPositionDistanceToDistance(t_AiMapUnit **map, SDL_Point targetP
 	{
 		next = GetNextPosition(map, next);
 		if (next.x == (-1))
-			return (60);
+			return (50);
 		int distanceToStart = map[next.y][next.x].movable;
 		int currDistance = AiDistBetweenPositions(next, targetPos);
 		if (currDistance >= distance)
@@ -140,7 +140,7 @@ static float GetPositionScoresForCharacters(t_AiMapUnit **map, std::vector<t_AiC
 	float enemyOffence = 0.0f;
 	for (int i = 0; i < charQ.size(); i++)
 	{
-		findMovablesNormal(map, 60, charQ[i]->position);
+		findMovablesNormal(map, 50, charQ[i]->position);
 		float score = GetOffenceScoreForCharacter(map, charQ[i], charQ);
 		if (charQ[i]->character->ally)
 			allyOffence += score;
