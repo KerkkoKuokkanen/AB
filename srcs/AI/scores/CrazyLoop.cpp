@@ -102,7 +102,11 @@ static int TargetPositionDistanceToDistance(t_AiMapUnit **map, SDL_Point targetP
 static float DamageToTargetPosition(t_AiMapUnit **map, SDL_Point target, t_AiCharacter *character, t_Ability *ability)
 {
 	SDL_FPoint damageFatigue = GetBaseDamageAndFatiguePerEnergy(character, ability, map);
-	int distanceToDamage = TargetPositionDistanceToDistance(map, target, character->position, ability->range);
+	int distanceToDamage = 0;
+	if (character->character->cSing == SKELE)
+		distanceToDamage = moveMaps.abilities[character->position.y][character->position.x].map[target.y][target.x];
+	else
+		distanceToDamage = TargetPositionDistanceToDistance(map, target, character->position, ability->range);
 	int damageEnergy = DEFAULT_ENERGY_AMOUNT - distanceToDamage;
 	float damageAmount = damageFatigue.x * (float)damageEnergy;
 	return (damageAmount);
@@ -140,7 +144,8 @@ static float GetPositionScoresForCharacters(t_AiMapUnit **map, std::vector<t_AiC
 	float enemyOffence = 0.0f;
 	for (int i = 0; i < charQ.size(); i++)
 	{
-		findMovablesNormal(map, 50, charQ[i]->position);
+		if (charQ[i]->character->cSing != SKELE)
+			findMovablesNormal(map, 50, charQ[i]->position);
 		float score = GetOffenceScoreForCharacter(map, charQ[i], charQ);
 		if (charQ[i]->character->ally)
 			allyOffence += score;

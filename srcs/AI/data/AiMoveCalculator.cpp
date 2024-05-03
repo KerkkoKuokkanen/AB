@@ -164,12 +164,13 @@ void AiIterator::SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap)
 	if (!secondLap)
 	{
 		float score = GetAiScore(newMap, newMap[pos.y][pos.x].character);
-		moveSaves.push_back({iterationLoop, -1, score, {0, 0}});
+		moveSaves.push_back({iterationLoop, -1, score, {0, 0}, currentIterPosition});
 		return ;
 	}
-	if (!InSaves(iterationLoop, (-1), {0, 0}))
+	t_TruthAndScore ret = InSaves((-1), {0, 0});
+	if (ret.isIt == false)
 		return ;
-	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, moveMoves - 1);
+	float score = SendToNextOne(newMap, newMap[pos.y][pos.x].character, moveMoves - 1, ret.score);
 	if (score < action.score)
 	{
 		action.ability = NULL;

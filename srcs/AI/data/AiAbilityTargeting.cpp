@@ -1,6 +1,21 @@
 
 #include "../../../hdr/global.h"
 
+void AiIterator::CheckForAbilitySecondTime(SDL_Point pos, int sign)
+{
+	t_Ability *ability = NULL;
+	for (int i = 0; i < character->character->abilities.size(); i++)
+	{
+		t_Ability *check = &character->character->abilities[i];
+		if (check->type == sign)
+		{
+			ability = check;
+			break ;
+		}
+	}
+	HandleAbilityAction(pos, ability);
+}
+
 void AiIterator::CheckForAbility(SDL_Point pos)
 {
 	for (int i = 0; i < character->character->abilities.size(); i++)
@@ -143,12 +158,13 @@ void AiIterator::SetAbilityToAction(SDL_Point pos, t_Ability *ability, t_AiMapUn
 	if (!secondLap)
 	{
 		float score = GetAiScore(newMap, newMap[add.y][add.x].character);
-		moveSaves.push_back({iterationLoop, ability->type, score, add});
+		moveSaves.push_back({iterationLoop, ability->type, score, add, currentIterPosition});
 		return ;
 	}
-	if (!InSaves(iterationLoop, ability->type, add))
+	t_TruthAndScore ret = InSaves(ability->type, add);
+	if (ret.isIt == false)
 		return ;
-	float score = SendToNextOne(newMap, newMap[add.y][add.x].character, moveMoves);
+	float score = SendToNextOne(newMap, newMap[add.y][add.x].character, moveMoves, ret.score);
 	if (score < action.score)
 	{
 		action.ability = ability;

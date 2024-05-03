@@ -68,10 +68,10 @@ bool AiIterator::RemoveDeadCharacter(t_AiMapUnit **newMap, t_AiCharacter *curr)
 	return (ret);
 }
 
-float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int movered)
+float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, int movered, float score)
 {
 	bool removed = RemoveDeadCharacter(nmap, character);
-	float scr = GetAiScore(nmap, character);
+	float scr = score;
 	if (depth <= 0 || removed)
 		return (scr);
 	AiIterator *next = GetAiIterator();
@@ -79,6 +79,18 @@ float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, in
 	float ret = next->GetBestScore();
 	ReturnAiIterator(next);
 	return (ret);
+}
+
+void AiIterator::IterateMoveSaves()
+{
+	for (int i = 0; i < moveSaves.size(); i++)
+	{
+		currentIterationSave = moveSaves[i];
+		if (moveSaves[i].abilitySign == (-1))
+			CheckForMove(moveSaves[i].callingPos);
+		else
+			CheckForAbilitySecondTime(moveSaves[i].callingPos, moveSaves[i].abilitySign);
+	}
 }
 
 void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, float startScore, int depth, int moveMoves)
@@ -100,7 +112,7 @@ void AiIterator::CalculateMoves(t_AiMapUnit**map, t_AiCharacter *character, floa
 	GetPossibleMoves();
 	IterateTheMap();
 	ParseMoveSaves();
-	IterateTheMap();
+	IterateMoveSaves();
 }
 
 void AiIterator::IterateTheMap()
@@ -116,6 +128,7 @@ void AiIterator::IterateTheMap()
 	{
 		for (int j = 0; j < w; j++)
 		{
+			currentIterPosition = {j, i};
 			CheckForAbility({j, i});
 			CheckForMove({j, i});
 			iterationLoop++;
@@ -123,15 +136,17 @@ void AiIterator::IterateTheMap()
 	}
 }
 
-bool AiIterator::InSaves(int iterNum, int type, SDL_Point add)
+t_TruthAndScore AiIterator::InSaves(int type, SDL_Point add)
 {
-	for (int i = 0; i < moveSaves.size(); i++)
+	t_TruthAndScore ret = {false, 0.0f};
+	if (currentIterationSave.secondaryPos.x == add.x && currentIterationSave.secondaryPos.y == add.y &&
+		currentIterationSave.abilitySign == type)
 	{
-		if (moveSaves[i].iteration == iterNum && moveSaves[i].abilitySign == type &&
-			moveSaves[i].secondaryPos.x == add.x && moveSaves[i].secondaryPos.y == add.y)
-			return (true);
+		ret.isIt = true;
+		ret.score = currentIterationSave.score;
+		return (ret);
 	}
-	return (false);
+	return (ret);
 }
 
 void AiIterator::Destroy()

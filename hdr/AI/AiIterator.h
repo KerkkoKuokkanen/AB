@@ -27,7 +27,14 @@ typedef struct s_MoveIter
 	int abilitySign;
 	float score;
 	SDL_Point secondaryPos;
+	SDL_Point callingPos;
 }				t_MoveIter;
+
+typedef struct s_TruthAndScore
+{
+	bool isIt;
+	float score;
+}				t_TruthAndScore;
 
 class AiIterator
 {
@@ -40,6 +47,8 @@ class AiIterator
 		int moveMoves = 0;
 		int iterationLoop = 0;
 		bool secondLap = false;
+		SDL_Point currentIterPosition = {0, 0};
+		t_MoveIter currentIterationSave = {};
 		t_BestMove action = {0.0f, true, {0, 0}, {}, NULL, NULL};
 		void GetPossibleMoves();
 		void IterateTheMap();
@@ -47,18 +56,20 @@ class AiIterator
 		void SetMoveToAction(SDL_Point pos, t_AiMapUnit **newMap);
 		void UseTheAbility(SDL_Point pos, t_Ability *ability, t_AiMapUnit **newMap);
 		void HandleAbilityAction(SDL_Point pos, t_Ability *ability);
+		void CheckForAbilitySecondTime(SDL_Point pos, int sign);
 		void CheckForAbility(SDL_Point pos);
 		void CheckForMove(SDL_Point pos);
 		int CheckMovePosition(SDL_Point pos);
 		void HandleMoveAfterMath(SDL_Point target, int damage, int fatigue);
 		void SetDefaultNoCharacter(SDL_Point pos, t_AiMapUnit **map);
 		void SetDefaultCharacter(SDL_Point pos, t_AiCharacter *character, t_AiMapUnit **map);
-		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter *character, int movered);
+		float SendToNextOne(t_AiMapUnit **map, t_AiCharacter *character, int movered, float score);
 		bool RemoveDeadCharacter(t_AiMapUnit **newMap, t_AiCharacter *curr);
 		void ParseMoveSaves();
-		bool InSaves(int iterNum, int type, SDL_Point add);
+		t_TruthAndScore InSaves(int type, SDL_Point add);
 		void AdditionalActions(SDL_Point pos, t_Ability *ability, t_AiMapUnit **map);
 		t_AiCharacter *GetCharInMap();
+		void IterateMoveSaves();
 	public:
 		void CalculateMoves(t_AiMapUnit **map, t_AiCharacter *character, float startScore, int depth, int moveMoves);
 		t_BestMove GetBestMove() {return(action);};

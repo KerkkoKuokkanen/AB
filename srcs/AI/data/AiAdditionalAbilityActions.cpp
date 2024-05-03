@@ -23,7 +23,7 @@ void AiIterator::AdditionalActions(SDL_Point pos, t_Ability *ability, t_AiMapUni
 			SetDefaultCharacter(checks[i], newer[character->position.y][character->position.x].character, newer);
 			SetDefaultNoCharacter(character->position, newer);
 			newer[character->position.y][character->position.x].blocked = false;
-			SetAbilityToAction(pos, ability, newer, checks[i]);
+			SetAbilityToAction(pos, ability, newer, checks[i]); //slow
 			DestroyMap(newer);
 		}
 	}
