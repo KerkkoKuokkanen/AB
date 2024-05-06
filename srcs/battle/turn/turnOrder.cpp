@@ -695,6 +695,7 @@ void TurnOrder::Destroy()
 {
 	delete banner;
 	delete backGround;
+	delete hoverIndicator;
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		delete indicators[i].indicator;

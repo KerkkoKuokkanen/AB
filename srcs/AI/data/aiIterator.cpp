@@ -121,7 +121,6 @@ void AiIterator::IterateTheMap()
 		return ;
 	if (character->alive == false)
 		return ;
-	iterationLoop = 0;
 	int h = gameState.battle.ground->map.size();
 	int w = gameState.battle.ground->map[0].size();
 	for (int i = 0; i < h; i++)
@@ -131,7 +130,6 @@ void AiIterator::IterateTheMap()
 			currentIterPosition = {j, i};
 			CheckForAbility({j, i});
 			CheckForMove({j, i});
-			iterationLoop++;
 		}
 	}
 }

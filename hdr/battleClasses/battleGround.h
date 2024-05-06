@@ -79,6 +79,7 @@ class BattleGround {
 		std::vector<t_Troop> characters;	//remember to clear
 		std::vector<std::vector<t_GMU>> map;	//remember to clear
 		BattleGround(unsigned int layer, SDL_Renderer *rend);
+		~BattleGround() {Destroy();};
 		bool HoverOverCheck(SDL_Point ogPos);
 		SDL_Rect getTileDest(SDL_Point pos);
 		void CreateBattleGround(std::vector<std::vector<t_GMU>> &map);
@@ -93,6 +94,7 @@ class BattleGround {
 		Vector GetCharacterCoord(SDL_Point pos, Character *character);
 		void PlaceCharacter(SDL_Point &position, Character *character);
 		void Update();
+		void Destroy();
 		bool markingPath = false;
 };
 

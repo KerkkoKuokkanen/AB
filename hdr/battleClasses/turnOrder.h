@@ -54,6 +54,7 @@ class TurnOrder
 		bool stuffWithOutMove = true;
 		bool insideBox = false;
 		TurnOrder(std::vector<Character> &characters);
+		~TurnOrder() {Destroy();};
 		void ResetClicks();
 		bool NoOneMoving();
 		void Update();

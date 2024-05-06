@@ -94,6 +94,7 @@ class Abilities
 		void IncudeToolPoints(TileSelector *used);
 		SDL_Point FindToolBox(TileSelector *selec);
 	public:
+		~Abilities() {Destroy();};
 		t_Ability *ability = NULL;
 		EffectUpdater effectUpdater;
 		bool inMotion = false;
@@ -113,6 +114,7 @@ class Abilities
 		void CreateBleedDamage(Character *target, int amount);
 		void RemoveCharacterFromDamager(Character *character) {damager.RemoveDamageFromCreator(character);};
 		int GetMarkedAmountForPosition(SDL_Point pos);
+		void Destroy();
 };
 
 #endif

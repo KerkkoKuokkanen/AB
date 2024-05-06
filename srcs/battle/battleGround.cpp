@@ -320,3 +320,16 @@ void BattleGround::Update()
 	IterBlocks();
 	MoveCharacter();
 }
+
+void BattleGround::Destroy()
+{
+	for (int i = 0; i < moveIndicators.size(); i++)
+		delete moveIndicators[i];
+	for (int i = 0; i < moveLines.size(); i++)
+		delete moveLines[i];
+	for (int i = 0; i < sprites.size(); i++)
+	{
+		for (int j = 0; j < sprites[i].size(); j++)
+			sprites[i][j].RemoveFromRenderer();
+	}
+}

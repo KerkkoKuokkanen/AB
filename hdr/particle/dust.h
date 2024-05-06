@@ -21,6 +21,7 @@ class Dust
 	public:
 		Dust(SDL_Point position, Vector direction);
 		void Update();
+		void ClearDusts();
 };
 
 #endif

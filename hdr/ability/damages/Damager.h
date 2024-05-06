@@ -17,8 +17,6 @@ class Damager
 {
 	private:
 		std::vector<Character*> targets;
-		std::vector<t_Bars> bars;
-		std::vector<AddStatus*> statuses = {};
 	public:
 		DamageCreator damageCreator;
 		Vector GetDirection(SDL_Point character, Character *target);

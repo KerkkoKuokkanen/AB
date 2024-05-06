@@ -23,7 +23,6 @@ typedef struct s_SomeRetShit
 
 typedef struct s_MoveIter
 {
-	int iteration;
 	int abilitySign;
 	float score;
 	SDL_Point secondaryPos;
@@ -45,7 +44,6 @@ class AiIterator
 		float startScore = 0.0f;
 		int depth = 0;
 		int moveMoves = 0;
-		int iterationLoop = 0;
 		bool secondLap = false;
 		SDL_Point currentIterPosition = {0, 0};
 		t_MoveIter currentIterationSave = {};

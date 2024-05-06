@@ -55,3 +55,8 @@ void Dust::Update()
 	if (lifeTime <= 0)
 		Destroy();
 }
+
+void Dust::ClearDusts()
+{
+	Destroy();
+}

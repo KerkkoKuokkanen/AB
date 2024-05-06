@@ -229,3 +229,11 @@ void ObjUpdate()
 	}
 	UpdateHoveredCharacter();
 }
+
+void EndBattleClearing()
+{
+	for (int i = 0; i < gameState.updateObjs.dusts.size(); i++)
+		gameState.updateObjs.dusts[i]->ClearDusts();
+	delete gameState.updateObjs.turnOrder;
+	delete gameState.battle.ground;
+}

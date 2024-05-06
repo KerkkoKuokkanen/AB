@@ -698,3 +698,8 @@ void Abilities::Clear()
 	inMotion = false;
 	marking = false;
 }
+
+void Abilities::Destroy()
+{
+	Clear();
+}
