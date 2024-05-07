@@ -2,7 +2,18 @@
 #ifndef SPRITE_H
 # define SPRITE_H
 
-#include "../ab.h"
+# include "../../SDL2/SDL.h"
+# include "../tools/vector.h"
+
+# define LAYER_NO_SORT 0
+# define LAYER_YSORT 1
+# define LAYER_REVERSE_YSORT 2
+# define LAYER_DEPTH_SORT 3
+# define LAYER_ORDER_SORT 4
+
+# define FLIP_NONE 0
+# define FLIP_HORIZONTAL 1
+# define FLIP_VERTICAL 2
 
 class Sprite
 {

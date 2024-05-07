@@ -1,5 +1,6 @@
 
 #include "../hdr/global.h"
+#include "../hdr/ow/owHeader.h"
 
 t_GameState gameState;
 t_AiMoveMaps moveMaps;
@@ -53,7 +54,7 @@ void StartBattle()
 	gameState.updateObjs.info->InitInfo();
 }
 
-int MainLoop()
+void MainLoop()
 {
 	clock_t start, end;
 	StartBattle();
@@ -69,12 +70,18 @@ int MainLoop()
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));
 	}
-	return (0);
+}
+
+void Battle()
+{
+	InitBattle();
+	MainLoop();
 }
 
 int main()
 {
 	init(&gameState.wr);
-	MainLoop();
+	OverWorldLoop();
+	//Battle();
 	return (0);
 }

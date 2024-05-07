@@ -1,7 +1,12 @@
 
 #include "../../hdr/ab.h"
 #include "../../hdr/global.h"
+#include "../../hdr/render/camera.h"
+#include "../../hdr/ow/owHeader.h"
 #include <thread>
+
+t_Camera gameCamera;
+t_owState owState;
 
 void initKeys()
 {
@@ -19,8 +24,6 @@ void initKeys()
 	gameState.keys.click = 0;
 	gameState.keys.rightClick = 0;
 	gameState.keys.middleMouse = 0;
-	gameState.camera.clickTimePosX = 0;
-	gameState.camera.clickTimePosY = 0;
 	gameState.keys.smX = 0;
 	gameState.keys.smY = 0;
 	gameState.keys.staticMouseX = 0;
@@ -33,30 +36,32 @@ void initKeys()
 	gameState.updateObjs.hover.overTurnOrder = false;
 	gameState.updateObjs.hover.overCharacter = false;
 	gameState.updateObjs.chosen = NULL;
-	gameState.screenShake.shakeCounter = 0;
-	gameState.screenShake.xShake = 0;
-	gameState.screenShake.yShake = 0;
-	gameState.screenShake.shakeVolume = 0;
 	gameState.modes.filterMode = 0;
 	gameState.updateObjs.characterAnimIter = 0;
 	gameState.updateObjs.characterAnimIndex = 0;
 	gameState.modes.disableBars = false;
-	gameState.screenShake.delayer = 0;
+	gameState.delayer = 0;
 }
 
 void initScreen(int width, int height)
 {
-	gameState.screen.aspectRatio = (float)gameState.screen.width / (float)gameState.screen.height;
-	gameState.screen.midPointX = gameState.screen.width / 2;
-	gameState.screen.midPointY = gameState.screen.height / 2;
-	gameState.camera.x = 0;
-	gameState.camera.y = 0;
-	gameState.camera.zoom = 0.0f;
-	gameState.screen.unit = 1.0f / 100000.0f;
-	gameState.screen.xPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
-	gameState.screen.yPixelUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
-	gameState.screen.xStaticUnit = (1.0f / gameState.screen.unit) / gameState.screen.width;
-	gameState.screen.yStaticUnit = (1.0f / gameState.screen.unit) / gameState.screen.height;
+	gameCamera.screenShake.shakeCounter = 0;
+	gameCamera.screenShake.xShake = 0;
+	gameCamera.screenShake.yShake = 0;
+	gameCamera.screenShake.shakeVolume = 0;
+	gameCamera.screen.aspectRatio = (float)gameCamera.screen.width / (float)gameCamera.screen.height;
+	gameCamera.screen.midPointX = gameCamera.screen.width / 2;
+	gameCamera.screen.midPointY = gameCamera.screen.height / 2;
+	gameCamera.x = 0;
+	gameCamera.y = 0;
+	gameCamera.clickTimePosX = 0;
+	gameCamera.clickTimePosY = 0;
+	gameCamera.zoom = 0.0f;
+	gameCamera.screen.unit = 1.0f / 100000.0f;
+	gameCamera.screen.xPixelUnit = (1.0f / gameCamera.screen.unit) / gameCamera.screen.width;
+	gameCamera.screen.yPixelUnit = (1.0f / gameCamera.screen.unit) / gameCamera.screen.height;
+	gameCamera.screen.xStaticUnit = (1.0f / gameCamera.screen.unit) / gameCamera.screen.width;
+	gameCamera.screen.yStaticUnit = (1.0f / gameCamera.screen.unit) / gameCamera.screen.height;
 }
 
 void getAudio()
@@ -589,27 +594,39 @@ void	init(t_wr *wr)
 	SDL_CreateWindowAndRenderer(1280, 720, 0, &wr->win, &wr->rend);
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
-	SDL_GetWindowSize(wr->win, &gameState.screen.width, &gameState.screen.height);
-	initScreen(gameState.screen.width, gameState.screen.height);
+	SDL_GetWindowSize(wr->win, &gameCamera.screen.width, &gameCamera.screen.height);
+	initScreen(gameCamera.screen.width, gameCamera.screen.height);
 	initKeys();
+	getTextures(wr->rend);
+	getFonts();
+	getAudio();
+	//SDL_SetWindowFullscreen(wr->win, 1);
+	//SDL_ShowCursor(SDL_DISABLE);
+	CraeteAudioThread();
+	InitThugParts();
 	static Renderer render(wr->rend);
-	render.CreateLayer(LAYER_NO_SORT); //backGround layer
-	render.CreateLayer(LAYER_DEPTH_SORT); //battleground layer
-	render.CreateLayer(LAYER_ORDER_SORT); //line layer
-	render.CreateLayer(LAYER_NO_SORT); //dust layer
-	render.CreateLayer(LAYER_NO_SORT); //tele layer
-	render.CreateLayer(LAYER_NO_SORT); //flame port layer
-	render.CreateLayer(LAYER_NO_SORT); //particle layer
-	render.CreateLayer(LAYER_NO_SORT); //object layer
-	render.CreateLayer(LAYER_ORDER_SORT); //filter layer
-	render.CreateLayer(LAYER_DEPTH_SORT); //info layer
-	render.CreateLayer(LAYER_ORDER_SORT); //turn order layer
-	render.CreateLayer(LAYER_ORDER_SORT); //flying texts;
-	render.CreateLayer(LAYER_ORDER_SORT); //counter layer
-	render.CreateLayer(LAYER_ORDER_SORT); //text bubble layer
-	render.CreateLayer(LAYER_ORDER_SORT); //menu layer
 	gameState.render = &render;
-	static BattleGround battle(BATTLEGROUND_LAYER, wr->rend);
+	owState.renderer = &render;
+}
+
+void InitBattle()
+{
+	gameState.render->CreateLayer(LAYER_NO_SORT); //backGround layer
+	gameState.render->CreateLayer(LAYER_DEPTH_SORT); //battleground layer
+	gameState.render->CreateLayer(LAYER_ORDER_SORT); //line layer
+	gameState.render->CreateLayer(LAYER_NO_SORT); //dust layer
+	gameState.render->CreateLayer(LAYER_NO_SORT); //tele layer
+	gameState.render->CreateLayer(LAYER_NO_SORT); //flame port layer
+	gameState.render->CreateLayer(LAYER_NO_SORT); //particle layer
+	gameState.render->CreateLayer(LAYER_NO_SORT); //object layer
+	gameState.render->CreateLayer(LAYER_ORDER_SORT); //filter layer
+	gameState.render->CreateLayer(LAYER_DEPTH_SORT); //info layer
+	gameState.render->CreateLayer(LAYER_ORDER_SORT); //turn order layer
+	gameState.render->CreateLayer(LAYER_ORDER_SORT); //flying texts;
+	gameState.render->CreateLayer(LAYER_ORDER_SORT); //counter layer
+	gameState.render->CreateLayer(LAYER_ORDER_SORT); //text bubble layer
+	gameState.render->CreateLayer(LAYER_ORDER_SORT); //menu layer
+	static BattleGround battle(BATTLEGROUND_LAYER, gameState.wr.rend);
 	gameState.battle.ground = &battle;
 	gameState.battle.xDist = 6000;
 	gameState.battle.yDist = 6000;
@@ -618,9 +635,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.turnOrder = NULL;
 	gameState.updateObjs.fadeIter = 0.0f;
 	gameState.updateObjs.characterAnimIter = 0;
-	getTextures(wr->rend);
-	getFonts();
-	getAudio();
 	static TurnIndicator ind;
 	gameState.updateObjs.indicator = &ind;
 	static Kill killer;
@@ -633,9 +647,6 @@ void	init(t_wr *wr)
 	gameState.updateObjs.abilities = &abilities;
 	static Info info;
 	gameState.updateObjs.info = &info;
-	//SDL_SetWindowFullscreen(wr->win, 1);
-	//SDL_ShowCursor(SDL_DISABLE);
-	CraeteAudioThread();
 	AiThread();
 	InitThugParts();
 }

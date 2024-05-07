@@ -2,7 +2,8 @@
 #ifndef RENDERER_H
 # define RENDERER_H
 
-# include "../ab.h"
+# include <vector>
+# include "sprite.h"
 
 typedef struct s_Sort
 {

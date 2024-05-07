@@ -54,13 +54,14 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/ability/animation/bigThugStrike.cpp srcs/ability/animation/thugStrike.cpp srcs/ability/animation/bigThugInspire.cpp \
 		srcs/info/thugEffect.cpp srcs/effects/thugInspire.cpp srcs/effects/frenzyColorer.cpp srcs/AI/scores/CrazyLoop.cpp \
 		srcs/AI/scores/AiScoreTools.cpp srcs/AI/scores/AiScoreCharacterChecks.cpp srcs/AI/scores/AiPositionDistances.cpp \
+		srcs/ow/owMain.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 DEP = $(OBJ:.o=.d)
 
 HDR =	-I ./hdr -I ./hdr/battleClasses -I ./hdr/particle -I ./hdr/render -I ./hdr/tools -I ./hdr/UI \
-		-I ./hdr/abilities -I ./hdr/abilities/objects -I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability \
-		-I ./hdr/abilities/selectors/ -I ./hdr/info/ -I ./hdr/ability/damages/ -I ./hdr/effects -I ./hdr/AI
+		-I ./hdr/ability/animation -I ./hdr/objects -I ./hdr/ability \
+		-I ./hdr/info/ -I ./hdr/ability/damages/ -I ./hdr/effects -I ./hdr/AI -I ./hdr/ow -I ./hdr/ow/tiles
 
 FLAGS = -std=c++11 -O2 -g
 CGFLAGS = 

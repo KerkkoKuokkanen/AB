@@ -1,5 +1,6 @@
 
 #include "../../hdr/global.h"
+#include "../../hdr/render/camera.h"
 #define STUN_TIME 30
 
 bool StunUpdates::StunExists(Character *character)
@@ -53,7 +54,7 @@ void StunUpdates::UpdateFade(int index)
 
 void StunUpdates::IterStuns()
 {
-	bool disable = (gameState.screen.unit < 0.000015f) ? true : false;
+	bool disable = (gameCamera.screen.unit < 0.000015f) ? true : false;
 	for (int i = 0; i < questionMark.size(); i++)
 	{
 		UpdateFade(i);

@@ -6,6 +6,7 @@
 # include "render/renderer.h"
 # include "battleClasses/battleGround.h"
 # include "battleClasses/character.h"
+# include "tools/keys.h"
 
 # define ALPHA_BLEND 80
 # define PI 3.14159
@@ -550,20 +551,9 @@ typedef struct s_Updates
 	Character *chosen;
 }				t_Updates;
 
-typedef struct	s_ScreenShake
-{
-	int xShake;
-	int yShake;
-	int shakeCounter;
-	int shakeVolume;
-	int delayer;
-}				t_ScreenShake;
-
 typedef struct	s_GameState
 {
 	t_wr wr;
-	t_Screen screen;
-	t_Camera camera;
 	t_Modes modes;
 	t_Keys keys;
 	Renderer *render;
@@ -573,7 +563,7 @@ typedef struct	s_GameState
 	t_Surfaces surfaces;
 	t_Updates updateObjs;
 	t_Audio audio;
-	t_ScreenShake screenShake;
+	int delayer;
 }				t_GameState;
 
 extern t_GameState gameState;

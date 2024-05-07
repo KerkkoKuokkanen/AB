@@ -1,5 +1,6 @@
 
 #include "../../../hdr/global.h"
+#include "../../../hdr/render/camera.h"
 
 static bool compareObjects(const t_Indicator &obj1, const t_Indicator &obj2)
 {
@@ -108,98 +109,98 @@ SDL_Rect TurnOrder::CreateDest(int cSing)
 	{
 		case THIEF:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case SKELE:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 33.0f))),
-				0 + rounding(((float)gameState.screen.height / 60.0f)),
-				rounding(((float)gameState.screen.width / 22.0f)),
-				rounding(((float)gameState.screen.height / 16.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 33.0f))),
+				0 + rounding(((float)gameCamera.screen.height / 60.0f)),
+				rounding(((float)gameCamera.screen.width / 22.0f)),
+				rounding(((float)gameCamera.screen.height / 16.0f))
 			};
 			break ;
 		case PYRO:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 33.0f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 33.0f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case LION:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.82f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.82f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case SMITH:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.8f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.8f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case MAGE:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.8f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.8f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case RAIDER:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case ALCHEMIST:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case KNIGHT:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case WITCH:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case BIG_THUG:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 		case THUG:
 			dest = {
-				rounding(((float)gameState.screen.width - ((float)gameState.screen.width / 50.0f * 32.9f))),
-				0 + rounding(((float)gameState.screen.height / 50.0f)),
-				rounding(((float)gameState.screen.width / 26.0f)),
-				rounding(((float)gameState.screen.height / 17.0f))
+				rounding(((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 50.0f * 32.9f))),
+				0 + rounding(((float)gameCamera.screen.height / 50.0f)),
+				rounding(((float)gameCamera.screen.width / 26.0f)),
+				rounding(((float)gameCamera.screen.height / 17.0f))
 			};
 			break ;
 	}
@@ -235,7 +236,7 @@ void TurnOrder::ActivateTurnChange(bool force)
 	turnChange = true;
 	ResetClicks();
 	gameState.updateObjs.indicator->Deactivate();
-	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	int posDiff = rounding(((float)gameCamera.screen.width / 23.2f));
 	int index = findTheFirstActive();
 	int hold = index;
 	int k = 0;
@@ -272,9 +273,9 @@ void TurnOrder::CreateIndicators()
 
 TurnOrder::TurnOrder(std::vector<Character> &characters)
 {
-	int www = rounding(gameState.screen.width / 50.0f);
-	int hhh = rounding(gameState.screen.height / 44.0f);
-	int yyy = rounding(gameState.screen.height / 300.0f);
+	int www = rounding(gameCamera.screen.width / 50.0f);
+	int hhh = rounding(gameCamera.screen.height / 44.0f);
+	int yyy = rounding(gameCamera.screen.height / 300.0f);
 	hoverIndicator = new Sprite(gameState.textures.turnIndicator, {0, yyy, www, hhh}, NULL, NULL, 0, FLIP_NONE, true);
 	hoverIndicator->setTranslation(false);
 	hoverIndicator->orderLayer = 5;
@@ -283,10 +284,10 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 	for (int i = 0; i < characters.size(); i++)
 		TurnOrder::characters.push_back(&characters[i]);
 	SDL_Rect dest = {
-		rounding((float)gameState.screen.width - ((float)gameState.screen.width / 10.0f * 7.3f)),
-		0 - rounding(((float)gameState.screen.height / 25.0f)),
-		rounding((float)gameState.screen.width / 10.0f * 4.41f),
-		rounding((float)gameState.screen.height / 6.0f)
+		rounding((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 10.0f * 7.3f)),
+		0 - rounding(((float)gameCamera.screen.height / 25.0f)),
+		rounding((float)gameCamera.screen.width / 10.0f * 4.41f),
+		rounding((float)gameCamera.screen.height / 6.0f)
 	};
 	banner = new Sprite(gameState.textures.turnOrder[0], dest, NULL, NULL, 0, FLIP_NONE, true);
 	banner->setTranslation(false);
@@ -297,13 +298,13 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 	gameState.render->AddSprite(backGround, TURN_ORDER_LAYER);
 	gameState.render->AddSprite(banner, TURN_ORDER_LAYER);
 	gameState.updateObjs.turnOrder = this;
-	leftEdge = rounding((float)gameState.screen.width - ((float)gameState.screen.width / 10.0f * 7.5f));
-	rightEdge = leftEdge + rounding((float)gameState.screen.width / 10.0f * 4.44f);
+	leftEdge = rounding((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 10.0f * 7.5f));
+	rightEdge = leftEdge + rounding((float)gameCamera.screen.width / 10.0f * 4.44f);
 	clickBoxArea = {
-		dest.x + rounding((float)gameState.screen.width / 13.9f),
-		dest.y + rounding((float)gameState.screen.height / 16.0f),
-		dest.w - rounding((float)gameState.screen.width / 10.0f),
-		dest.h - rounding((float)gameState.screen.height / 9.5f)
+		dest.x + rounding((float)gameCamera.screen.width / 13.9f),
+		dest.y + rounding((float)gameCamera.screen.height / 16.0f),
+		dest.w - rounding((float)gameCamera.screen.width / 10.0f),
+		dest.h - rounding((float)gameCamera.screen.height / 9.5f)
 	};
 	CreateIndicators();
 	std::sort(indicators.begin(), indicators.end(), compareObjects);
@@ -315,12 +316,12 @@ void TurnOrder::StartTurn()
 	PlaySound(gameState.audio.turnStart, Channels::TURN_START, 0);
 	turnCount += 1;
 	turnStartActive = true;
-	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	int posDiff = rounding(((float)gameCamera.screen.width / 23.2f));
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		indicators[i].indicator->dest = CreateDest(indicators[i].character->cSing);
 		Vector place(
-			(float)(indicators[i].indicator->dest.x + (posDiff * i)) + (float)gameState.screen.width / 2.5f,
+			(float)(indicators[i].indicator->dest.x + (posDiff * i)) + (float)gameCamera.screen.width / 2.5f,
 			(float)(indicators[i].indicator->dest.y)
 		);
 		CreateSRect(indicators[i].srect, indicators[i].character->cSing);
@@ -340,7 +341,7 @@ void TurnOrder::SideManage(t_Indicator &indicator)
 
 bool TurnOrder::LeftEdgeManage(t_Indicator &indicator)
 {
-	int point = rounding((float)gameState.screen.width / 3.45f);
+	int point = rounding((float)gameCamera.screen.width / 3.45f);
 	if (indicator.indicator->dest.x <= point)
 	{
 		indicator.indicator->AlphaMod(0);
@@ -373,8 +374,8 @@ bool TurnOrder::RightEdgeManage(t_Indicator &indicator)
 
 void TurnOrder::UpdateStartTurn()
 {
-	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
-	float unit = 600.0f / ((float)gameState.screen.width / 2.0f);
+	int posDiff = rounding(((float)gameCamera.screen.width / 23.2f));
+	float unit = 600.0f / ((float)gameCamera.screen.width / 2.0f);
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		int target = CreateDest(indicators[i].character->cSing).x + (posDiff * i);
@@ -387,7 +388,7 @@ void TurnOrder::UpdateStartTurn()
 			return ;
 		}
 		float len = indicators[i].x - (float)target;
-		indicators[i].x -= (float)gameState.screen.width / (500.0f - (unit * len));
+		indicators[i].x -= (float)gameCamera.screen.width / (500.0f - (unit * len));
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
 		SideManage(indicators[i]);
 	}
@@ -401,7 +402,7 @@ void TurnOrder::ChangeTurn()
 		return ;
 	}
 	int i = findTheFirstActive(), k = 0;
-	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	int posDiff = rounding(((float)gameCamera.screen.width / 23.2f));
 	bool atEnd = false;
 	while (i < indicators.size())
 	{
@@ -415,7 +416,7 @@ void TurnOrder::ChangeTurn()
 			target = TARGET_SIGN;
 			break ;
 		}
-		indicators[i].x -= (float)gameState.screen.width / 500.0f;
+		indicators[i].x -= (float)gameCamera.screen.width / 500.0f;
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)dest.y));
 		SideManage(indicators[i]);
 		i++; k++;
@@ -451,7 +452,7 @@ void TurnOrder::CheckClickBox()
 		insideBox = MenuHoverCheck(gameState.surfaces.turnOrder[1], backGround->dest, gameState.keys.staticMouseX, gameState.keys.staticMouseY);
 	if (!insideBox || stuffHappening)
 		return ;
-	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	int posDiff = rounding(((float)gameCamera.screen.width / 23.2f));
 	SDL_Rect box = {
 		0,
 		clickBoxArea.y,
@@ -509,7 +510,7 @@ void TurnOrder::MouseScroll()
 	if (index == (-1))
 		return ;
 	int dir = (gameState.keys.wheel < 0) ? gameState.keys.wheel / gameState.keys.wheel * (-1) : gameState.keys.wheel / gameState.keys.wheel;
-	int unit = rounding((float)gameState.screen.width / 250.0f);
+	int unit = rounding((float)gameCamera.screen.width / 250.0f);
 	dir = dir * unit;
 	int pos = CreateDest(indicators[index].character->cSing).x;
 	if (dir > 0)
@@ -559,7 +560,7 @@ void TurnOrder::RemoveCharacter(Character *character)
 				if (target == TARGET_SIGN)
 					target = indicators[i].indicator->dest.x;
 			}
-			int point = rounding((float)gameState.screen.width / 3.2f);
+			int point = rounding((float)gameCamera.screen.width / 3.2f);
 			if (indicators[i].indicator->dest.x <= point)
 			{
 				killActive = false;
@@ -584,7 +585,7 @@ void TurnOrder::KillMoveUpdate()
 {
 	int iter = 0;
 	int targ = 0;
-	int posDiff = rounding(((float)gameState.screen.width / 23.2f));
+	int posDiff = rounding(((float)gameCamera.screen.width / 23.2f));
 	while (iter < indicators.size())
 	{
 		if (indicators[iter].killMove > 0)
@@ -612,7 +613,7 @@ void TurnOrder::KillMoveUpdate()
 			atEnd = true;
 			break ;
 		}
-		indicators[i].x -= (float)gameState.screen.width / 600.0f;
+		indicators[i].x -= (float)gameCamera.screen.width / 600.0f;
 		indicators[i].indicator->Position(Vector(indicators[i].x, (float)indicators[i].indicator->dest.y));
 		SideManage(indicators[i]);
 	}

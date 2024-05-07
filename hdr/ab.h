@@ -5,16 +5,6 @@
 # define FRAME 17
 # define ASPECT_MULTI 1.777f
 
-# define FLIP_NONE 0
-# define FLIP_HORIZONTAL 1
-# define FLIP_VERTICAL 2
-
-# define LAYER_NO_SORT 0
-# define LAYER_YSORT 1
-# define LAYER_REVERSE_YSORT 2
-# define LAYER_DEPTH_SORT 3
-# define LAYER_ORDER_SORT 4
-
 # define TOOL_MAP_SIGN 9933
 # define TOOL_MAP_BLOCKER 9934
 # define TURN_SIGN -999898
@@ -149,6 +139,7 @@ SDL_FRect	translateSprite(SDL_Rect dest);
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest);
 SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest);
 
+# include "tools/keys.h"
 # include "render/sprite.h"
 # include <vector>
 # include "statStructs.h"
@@ -326,57 +317,21 @@ typedef struct	s_wr
 	SDL_Renderer *rend;
 }				t_wr;
 
-typedef struct s_Screen
-{
-	int width, height;
-	float unit;
-	float aspectRatio;
-	int midPointX, midPointY;
-	float xPixelUnit, yPixelUnit;
-	float xStaticUnit, yStaticUnit;
-}				t_Screen;
-
 typedef struct s_Modes
 {
 	int filterMode;
 	bool disableBars;
 }				t_Modes;
 
-typedef struct s_Camera
-{
-	int x, y;
-	float zoom;
-	int clickTimePosX, clickTimePosY;
-}				t_Camera;
-
-typedef struct s_Keys
-{
-	int w, a, s, d;
-	int left, right, up, down;
-	int click;
-	int rightClick;
-	int middleMouse;
-	int wheel;
-	int mouseX;
-	int mouseY;
-	int staticMouseX;
-	int staticMouseY;
-	int smX;
-	int smY;
-	int space;
-	int shift;
-	int control;
-	int tab;
-}				t_Keys;
-
 int				figure_the_delay(clock_t start, clock_t end);
 void			init(t_wr *wr);
+void			InitBattle();
 SDL_Texture		*get_text(const char *text ,int fontType);
 SDL_Texture		*get_texture(SDL_Renderer *rend, const char *filePath);
 t_TextAndSur	get_texture_and_surface(SDL_Renderer *rend, const char *filePath);
 SDL_Texture		*get_texture_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode);
 t_TextAndSur	get_texture_and_surface_with_scale_mode(SDL_Renderer *rend, const char *filePath, SDL_ScaleMode scaleMode);
-void			eventPoller();
+void			eventPoller(t_Keys &keys, int &x, int &y);
 void			init(t_wr *wr);
 int				rounding(float value);
 void			CreateGroundTest();

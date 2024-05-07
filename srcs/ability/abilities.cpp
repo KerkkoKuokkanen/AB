@@ -702,4 +702,6 @@ void Abilities::Clear()
 void Abilities::Destroy()
 {
 	Clear();
+	oAttack.Destroy();
+	aoAttack.Destroy();
 }

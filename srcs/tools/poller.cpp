@@ -1,8 +1,8 @@
 
-#include "../../hdr/ab.h"
-#include "../../hdr/global.h"
+#include "../SDL2/SDL.h"
+#include "../../hdr/tools/keys.h"
 
-void eventPoller()
+void eventPoller(t_Keys &keys, int &x, int &y)
 {
 	SDL_Event evnt;
 	while (SDL_PollEvent(&evnt))
@@ -13,64 +13,64 @@ void eventPoller()
 				exit(0);
 			case SDL_MOUSEBUTTONDOWN:
 				if (evnt.button.button == SDL_BUTTON_LEFT)
-					gameState.keys.click = 1;
+					keys.click = 1;
 				else if (evnt.button.button == SDL_BUTTON_RIGHT)
-					gameState.keys.rightClick = 1;
+					keys.rightClick = 1;
 				else if (evnt.button.button == SDL_BUTTON_MIDDLE)
 				{
-					SDL_GetMouseState(&gameState.camera.clickTimePosX, &gameState.camera.clickTimePosY);
-					gameState.keys.middleMouse = 1;
+					SDL_GetMouseState(&x, &y);
+					keys.middleMouse = 1;
 				}
 				break ;
 			case SDL_MOUSEBUTTONUP:
 				if (evnt.button.button == SDL_BUTTON_LEFT)
-					gameState.keys.click = 0;
+					keys.click = 0;
 				else if (evnt.button.button == SDL_BUTTON_RIGHT)
-					gameState.keys.rightClick = 0;
+					keys.rightClick = 0;
 				else if (evnt.button.button == SDL_BUTTON_MIDDLE)
-					gameState.keys.middleMouse = 0;
+					keys.middleMouse = 0;
 				break ;
 			case SDL_MOUSEWHEEL:
-				gameState.keys.wheel = evnt.wheel.y;
+				keys.wheel = evnt.wheel.y;
 				break ;
 			case SDL_KEYDOWN:
 				switch (evnt.key.keysym.scancode)
 				{
 					case SDL_SCANCODE_A:
-						gameState.keys.a = 1;
+						keys.a = 1;
 						break ;
 					case SDL_SCANCODE_D:
-						gameState.keys.d = 1;
+						keys.d = 1;
 						break ;
 					case SDL_SCANCODE_W:
-						gameState.keys.w = 1;
+						keys.w = 1;
 						break ;
 					case SDL_SCANCODE_S:
-						gameState.keys.s = 1;
+						keys.s = 1;
 						break ;
 					case SDL_SCANCODE_SPACE:
-						gameState.keys.space = 1;
+						keys.space = 1;
 						break ;
 					case SDL_SCANCODE_LSHIFT:
-						gameState.keys.shift = 1;
+						keys.shift = 1;
 						break ;
 					case SDL_SCANCODE_LEFT:
-						gameState.keys.left = 1;
+						keys.left = 1;
 						break ;
 					case SDL_SCANCODE_RIGHT:
-						gameState.keys.right = 1;
+						keys.right = 1;
 						break ;
 					case SDL_SCANCODE_UP:
-						gameState.keys.up = 1;
+						keys.up = 1;
 						break ;
 					case SDL_SCANCODE_DOWN:
-						gameState.keys.down = 1;
+						keys.down = 1;
 						break ;
 					case SDL_SCANCODE_LCTRL:
-						gameState.keys.control = 1;
+						keys.control = 1;
 						break ;
 					case SDL_SCANCODE_TAB:
-						gameState.keys.tab = 1;
+						keys.tab = 1;
 						break ;
 					default:
 						break ;
@@ -80,40 +80,40 @@ void eventPoller()
 				switch (evnt.key.keysym.scancode)
 				{
 					case SDL_SCANCODE_A:
-						gameState.keys.a = 0;
+						keys.a = 0;
 						break ;
 					case SDL_SCANCODE_D:
-						gameState.keys.d = 0;
+						keys.d = 0;
 						break ;
 					case SDL_SCANCODE_W:
-						gameState.keys.w = 0;
+						keys.w = 0;
 						break ;
 					case SDL_SCANCODE_S:
-						gameState.keys.s = 0;
+						keys.s = 0;
 						break ;
 					case SDL_SCANCODE_SPACE:
-						gameState.keys.space = 0;
+						keys.space = 0;
 						break ;
 					case SDL_SCANCODE_LSHIFT:
-						gameState.keys.shift = 0;
+						keys.shift = 0;
 						break ;
 					case SDL_SCANCODE_LEFT:
-						gameState.keys.left = 0;
+						keys.left = 0;
 						break ;
 					case SDL_SCANCODE_RIGHT:
-						gameState.keys.right = 0;
+						keys.right = 0;
 						break ;
 					case SDL_SCANCODE_UP:
-						gameState.keys.up = 0;
+						keys.up = 0;
 						break ;
 					case SDL_SCANCODE_DOWN:
-						gameState.keys.down = 0;
+						keys.down = 0;
 						break ;
 					case SDL_SCANCODE_LCTRL:
-						gameState.keys.control = 0;
+						keys.control = 0;
 						break ;
 					case SDL_SCANCODE_TAB:
-						gameState.keys.tab = 0;
+						keys.tab = 0;
 						break ;
 					default:
 						break ;

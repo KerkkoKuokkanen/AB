@@ -1,5 +1,6 @@
 
 #include "../../../hdr/global.h"
+#include "../../../hdr/render/camera.h"
 
 #define BLACK_TIME 7
 #define RED_TIME 9
@@ -92,7 +93,7 @@ void DamageCreator::MoveManage(Character *character, int time, Vector direction,
 float DamageCreator::GetSpeed(Vector dir, Vector genDir)
 {
 	float angle = vectorAngle(dir, genDir);
-	float speedUnit = (float)gameState.screen.width / 400.0f;
+	float speedUnit = (float)gameCamera.screen.width / 400.0f;
 	float speed = (rand() % ((int)speedUnit * 60)) + speedUnit * 10.0f;
 	if (angle > 0.78)
 		return (speed);

@@ -1,6 +1,7 @@
 
 #include "../../hdr/ab.h"
 #include "../../hdr/global.h"
+#include "../../hdr/render/camera.h"
 
 SDL_Surface *getScaleSurface(SDL_Surface *surface, int width, int height)
 {
@@ -164,11 +165,11 @@ Vector GetCharacterTopMid(Character *character)
 
 SDL_FRect	staitcTranslateSprite(SDL_Rect dest)
 {
-	float xUnit = gameState.screen.xStaticUnit;
-	float yUnit = gameState.screen.yStaticUnit;
+	float xUnit = gameCamera.screen.xStaticUnit;
+	float yUnit = gameCamera.screen.yStaticUnit;
 	SDL_FRect ret = {
-		(float)dest.x / xUnit + (float)gameState.screen.midPointX,
-		(float)dest.y / yUnit + (float)gameState.screen.midPointY,
+		(float)dest.x / xUnit + (float)gameCamera.screen.midPointX,
+		(float)dest.y / yUnit + (float)gameCamera.screen.midPointY,
 		(float)dest.w / xUnit,
 		(float)dest.h / yUnit * ASPECT_MULTI
 	};
@@ -178,21 +179,21 @@ SDL_FRect	staitcTranslateSprite(SDL_Rect dest)
 SDL_FRect	translateSprite(SDL_Rect dest)
 {
 	SDL_FRect ret = {
-		(float)(dest.x - gameState.camera.x + gameState.screenShake.xShake) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
-		(float)(dest.y - gameState.camera.y + gameState.screenShake.yShake) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
-		(float)dest.w / gameState.screen.xPixelUnit,
-		(float)dest.h / gameState.screen.yPixelUnit * gameState.screen.aspectRatio
+		(float)(dest.x - gameCamera.x + gameCamera.screenShake.xShake) / gameCamera.screen.xPixelUnit + gameCamera.screen.midPointX,
+		(float)(dest.y - gameCamera.y + gameCamera.screenShake.yShake) / gameCamera.screen.yPixelUnit * gameCamera.screen.aspectRatio + gameCamera.screen.midPointY,
+		(float)dest.w / gameCamera.screen.xPixelUnit,
+		(float)dest.h / gameCamera.screen.yPixelUnit * gameCamera.screen.aspectRatio
 	};
 	return (ret);
 }
 
 SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest)
 {
-	float xUnit = gameState.screen.xStaticUnit;
-	float yUnit = gameState.screen.yStaticUnit;
+	float xUnit = gameCamera.screen.xStaticUnit;
+	float yUnit = gameCamera.screen.yStaticUnit;
 	SDL_FRect ret = {
-		(float)(dest.x - gameState.camera.x + gameState.screenShake.xShake) / gameState.screen.xPixelUnit + gameState.screen.midPointX,
-		(float)(dest.y - gameState.camera.y + gameState.screenShake.yShake) / gameState.screen.yPixelUnit * gameState.screen.aspectRatio + gameState.screen.midPointY,
+		(float)(dest.x - gameCamera.x + gameCamera.screenShake.xShake) / gameCamera.screen.xPixelUnit + gameCamera.screen.midPointX,
+		(float)(dest.y - gameCamera.y + gameCamera.screenShake.yShake) / gameCamera.screen.yPixelUnit * gameCamera.screen.aspectRatio + gameCamera.screen.midPointY,
 		(float)dest.w / xUnit,
 		(float)dest.h / yUnit * ASPECT_MULTI
 	};
@@ -202,7 +203,7 @@ SDL_FRect	translateSpriteWithoutScale(SDL_Rect dest)
 bool modPointCheck(SDL_Point &point, SDL_Rect &hitBox)
 {
 	SDL_Rect hb = hitBox;
-	hb.h = rounding((float)hb.h * gameState.screen.aspectRatio);
+	hb.h = rounding((float)hb.h * gameCamera.screen.aspectRatio);
 	if (point.x >= hb.x && point.x <= (hb.x + hb.w) &&
 		point.y >= hb.y && point.y <= (hb.y + hb.h)) {
 		return (true);

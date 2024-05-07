@@ -1,14 +1,15 @@
 
 #include "../../hdr/global.h"
+#include "../../hdr/render/camera.h"
 
 void SetScreenShake(int volume, int time)
 {
-	gameState.screenShake.xShake = 0;
-	gameState.screenShake.yShake = 0;
-	gameState.screenShake.shakeCounter = time;
-	gameState.screenShake.xShake = (rand() % 2 == 0) ? volume : -volume;
-	gameState.screenShake.yShake = (rand() % 2 == 0) ? volume : -volume;
-	gameState.screenShake.shakeVolume = volume;
+	gameCamera.screenShake.xShake = 0;
+	gameCamera.screenShake.yShake = 0;
+	gameCamera.screenShake.shakeCounter = time;
+	gameCamera.screenShake.xShake = (rand() % 2 == 0) ? volume : -volume;
+	gameCamera.screenShake.yShake = (rand() % 2 == 0) ? volume : -volume;
+	gameCamera.screenShake.shakeVolume = volume;
 }
 
 void ShakeTheScreen()
@@ -20,38 +21,38 @@ void ShakeTheScreen()
 		return ;
 	if (everyThird > 300)
 		everyThird = 0;
-	if (gameState.screenShake.shakeCounter <= 0)
+	if (gameCamera.screenShake.shakeCounter <= 0)
 	{
-		gameState.screenShake.xShake = 0;
-		gameState.screenShake.yShake = 0;
+		gameCamera.screenShake.xShake = 0;
+		gameCamera.screenShake.yShake = 0;
 		return ;
 	}
-	gameState.screenShake.shakeCounter--;
-	if (gameState.screenShake.xShake != 0)
+	gameCamera.screenShake.shakeCounter--;
+	if (gameCamera.screenShake.xShake != 0)
 	{
-		gameState.screenShake.xShake = 0;
-		gameState.screenShake.yShake = 0;
+		gameCamera.screenShake.xShake = 0;
+		gameCamera.screenShake.yShake = 0;
 		return ;
 	}
 	if (cornerCycle == 0)
 	{
-		gameState.screenShake.xShake = -gameState.screenShake.shakeVolume;
-		gameState.screenShake.yShake = -gameState.screenShake.shakeVolume;
+		gameCamera.screenShake.xShake = -gameCamera.screenShake.shakeVolume;
+		gameCamera.screenShake.yShake = -gameCamera.screenShake.shakeVolume;
 	}
 	else if (cornerCycle == 1)
 	{
-		gameState.screenShake.xShake = gameState.screenShake.shakeVolume;
-		gameState.screenShake.yShake = -gameState.screenShake.shakeVolume;
+		gameCamera.screenShake.xShake = gameCamera.screenShake.shakeVolume;
+		gameCamera.screenShake.yShake = -gameCamera.screenShake.shakeVolume;
 	}
 	else if (cornerCycle == 2)
 	{
-		gameState.screenShake.xShake = -gameState.screenShake.shakeVolume;
-		gameState.screenShake.yShake = gameState.screenShake.shakeVolume;
+		gameCamera.screenShake.xShake = -gameCamera.screenShake.shakeVolume;
+		gameCamera.screenShake.yShake = gameCamera.screenShake.shakeVolume;
 	}
 	else
 	{
-		gameState.screenShake.xShake = gameState.screenShake.shakeVolume;
-		gameState.screenShake.yShake = gameState.screenShake.shakeVolume;
+		gameCamera.screenShake.xShake = gameCamera.screenShake.shakeVolume;
+		gameCamera.screenShake.yShake = gameCamera.screenShake.shakeVolume;
 	}
 	cornerCycle++;
 	if (cornerCycle == 4)

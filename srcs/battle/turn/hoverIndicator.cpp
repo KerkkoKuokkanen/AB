@@ -1,5 +1,6 @@
 
 #include "../../../hdr/global.h"
+#include "../../../hdr/render/camera.h"
 #define COUNT_TIME 8
 
 static Character *FindHoveredCharacter()
@@ -39,9 +40,9 @@ int TurnOrder::InActiveList(Character *hover)
 	{
 		if (indicators[i].active == false)
 			continue ;
-		if (indicators[i].indicator->dest.x < rounding((float)gameState.screen.width / 3.26f))
+		if (indicators[i].indicator->dest.x < rounding((float)gameCamera.screen.width / 3.26f))
 			continue ;
-		if (indicators[i].indicator->dest.x > rounding((float)gameState.screen.width / 1.5f))
+		if (indicators[i].indicator->dest.x > rounding((float)gameCamera.screen.width / 1.5f))
 			continue ;
 		if (indicators[i].character == hover)
 			return (i);
@@ -51,9 +52,9 @@ int TurnOrder::InActiveList(Character *hover)
 
 int GetIndicatorY()
 {
-	float start = gameState.screen.height / 300.0f;
+	float start = gameCamera.screen.height / 300.0f;
 	float fadeMulti = cos(gameState.updateObjs.fadeIter * 2.0f) / 2.0f + 0.5f;
-	float add = (gameState.screen.height / 300.0f) * fadeMulti;
+	float add = (gameCamera.screen.height / 300.0f) * fadeMulti;
 	int arr = rounding(start + add);
 	return (arr);
 }
@@ -87,7 +88,7 @@ void TurnOrder::UpdateHoverIndicator()
 	float sMid = (float)sDest.w / 2.0f;
 	int place = rounding(mid - sMid);
 	if (indicators[index].character->cSing == SKELE)
-		place -= rounding((float)gameState.screen.width / 120.0f);
+		place -= rounding((float)gameCamera.screen.width / 120.0f);
 	hoverIndicator->dest.x = place;
 	hoverIndicator->dest.y = GetIndicatorY();
 }
