@@ -3,33 +3,15 @@
 #include "../../hdr/global.h"
 #include "../../hdr/render/camera.h"
 #include "../../hdr/ow/owHeader.h"
+#include "../../hdr/ow/owKeys.h"
 #include <thread>
 
 t_Camera gameCamera;
 t_owState owState;
+t_Keys owKeys;
 
-void initKeys()
+void InitHovers()
 {
-	gameState.keys.w = 0;
-	gameState.keys.a = 0;
-	gameState.keys.s = 0;
-	gameState.keys.d = 0;
-	gameState.keys.tab = 0;
-	gameState.keys.left = 0;
-	gameState.keys.right = 0;
-	gameState.keys.up = 0;
-	gameState.keys.down = 0;
-	gameState.keys.shift = 0;
-	gameState.keys.space = 0;
-	gameState.keys.click = 0;
-	gameState.keys.rightClick = 0;
-	gameState.keys.middleMouse = 0;
-	gameState.keys.smX = 0;
-	gameState.keys.smY = 0;
-	gameState.keys.staticMouseX = 0;
-	gameState.keys.staticMouseY = 0;
-	gameState.keys.mouseX = 0;
-	gameState.keys.mouseY = 0;
 	gameState.updateObjs.hover.overAnything = false;
 	gameState.updateObjs.hover.overCharacterUI = false;
 	gameState.updateObjs.hover.overMenu = false;
@@ -41,6 +23,30 @@ void initKeys()
 	gameState.updateObjs.characterAnimIndex = 0;
 	gameState.modes.disableBars = false;
 	gameState.delayer = 0;
+}
+
+void initKeys(t_Keys &keys)
+{
+	keys.w = 0;
+	keys.a = 0;
+	keys.s = 0;
+	keys.d = 0;
+	keys.tab = 0;
+	keys.left = 0;
+	keys.right = 0;
+	keys.up = 0;
+	keys.down = 0;
+	keys.shift = 0;
+	keys.space = 0;
+	keys.click = 0;
+	keys.rightClick = 0;
+	keys.middleMouse = 0;
+	keys.smX = 0;
+	keys.smY = 0;
+	keys.staticMouseX = 0;
+	keys.staticMouseY = 0;
+	keys.mouseX = 0;
+	keys.mouseY = 0;
 }
 
 void initScreen(int width, int height)
@@ -558,6 +564,8 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/effects/bigChar.png");
 	gameState.surfaces.bigCharacterSymbol = use.sur;
 	gameState.textures.bigCharacterSymbol = use.text;
+	owState.textures.tileTexts.tileOutline = get_texture(rend, "sprites/ground/tileOutline.png");
+	owState.textures.tileTexts.grassTile = get_texture(rend, "sprites/ground/grassTile.png");
 }
 
 void CraeteAudioThread()
@@ -596,7 +604,8 @@ void	init(t_wr *wr)
 	SDL_SetRenderDrawBlendMode(wr->rend, SDL_BLENDMODE_BLEND);
 	SDL_GetWindowSize(wr->win, &gameCamera.screen.width, &gameCamera.screen.height);
 	initScreen(gameCamera.screen.width, gameCamera.screen.height);
-	initKeys();
+	initKeys(gameState.keys);
+	initKeys(owKeys);
 	getTextures(wr->rend);
 	getFonts();
 	getAudio();
@@ -611,6 +620,7 @@ void	init(t_wr *wr)
 
 void InitBattle()
 {
+	InitHovers();
 	gameState.render->CreateLayer(LAYER_NO_SORT); //backGround layer
 	gameState.render->CreateLayer(LAYER_DEPTH_SORT); //battleground layer
 	gameState.render->CreateLayer(LAYER_ORDER_SORT); //line layer
