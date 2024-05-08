@@ -3,6 +3,16 @@
 #include "../../hdr/ow/owKeys.h"
 #include "../../hdr/ow/tiles/tileDataHolder.h"
 
+void MovePosition(TileDataHolder *holder)
+{
+	if (owKeys.click == RELEASE_CLICK)
+	{
+		int x = rand() % 20;
+		int y = rand() % 20;
+		holder->SetPosition({x, y});
+	}
+}
+
 void OverWorldLoop()
 {
 	clock_t start, end;
@@ -13,6 +23,8 @@ void OverWorldLoop()
 	{
 		start = clock();
 		eventPoller(owKeys, fakeX, fakeY);
+		OwManageMouseClick(owKeys);
+		MovePosition(dataHolder);
 		dataHolder->Update();
 		owState.renderer->RenderAll();
 		end = clock();

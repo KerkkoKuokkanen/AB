@@ -1,7 +1,6 @@
 
 #include "../../../hdr/ow/tiles/mapTile.h"
 #include "../../../hdr/ow/owHeader.h"
-#define DIMENTIONS 3000
 
 MapTile::MapTile(SDL_Texture *texture, SDL_Rect sRect, SDL_Point pos)
 {
@@ -16,10 +15,16 @@ MapTile::MapTile(SDL_Texture *texture, SDL_Rect sRect, SDL_Point pos)
 	owState.renderer->AddSprite(outline, TILE_LAYER);
 }
 
+SDL_Point MapTile::GetDestPoint()
+{
+	SDL_Rect dest = sprite->dest;
+	SDL_Point ret = {dest.x + dest.w / 2, dest.y + dest.h / 2};
+	return (ret);
+}
+
 void MapTile::Update()
 {
-	if (sprite == NULL)
-		printf("here\n");
+
 }
 
 void MapTile::Destroy()

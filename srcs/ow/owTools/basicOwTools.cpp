@@ -1,5 +1,6 @@
 
 #include "../../../hdr/ow/owHeader.h"
+#include "../../../hdr/ow/owKeys.h"
 
 int	ow_figure_the_delay(clock_t start, clock_t end)
 {
@@ -24,6 +25,32 @@ void OwPrintStat()
 	static int i = 0;
 	printf("%d\n", i);
 	i++;
+}
+
+void OwManageMouseClick(t_Keys &keys)
+{
+	static int clickState = 0;
+	if (clickState == 0 && keys.click == INITIAL_CLICK)
+	{
+		clickState = 1;
+		return ;
+	}
+	if (clickState == 1 && keys.click == INITIAL_CLICK)
+	{
+		keys.click = HOLD_CLICK;
+		return ;
+	}
+	if (clickState == 1 && keys.click == NO_CLICK)
+	{
+		clickState = 2;
+		keys.click = RELEASE_CLICK;
+		return ;
+	}
+	if (clickState == 2)
+	{
+		keys.click = NO_CLICK;
+		clickState = 0;
+	}
 }
 
 SDL_Texture *GetCorrespondingTileText(int type)

@@ -2,6 +2,8 @@
 #ifndef MAP_TILE_H
 # define MAP_TILE_H
 
+#define DIMENTIONS 3200
+
 # include "../../render/sprite.h"
 
 class MapTile
@@ -13,6 +15,7 @@ class MapTile
 	public:
 		MapTile(SDL_Texture *text, SDL_Rect sRect, SDL_Point pos);
 		~MapTile() {Destroy();};
+		SDL_Point GetDestPoint();
 		void Update();
 		void Destroy();
 };

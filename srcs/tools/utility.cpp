@@ -26,28 +26,28 @@ void FilterMode()
 		gameState.modes.filterMode = 0;
 }
 
-void ManageMouseClick()
+void ManageMouseClick(t_Keys &keys)
 {
 	static int clickState = 0;
-	if (clickState == 0 && gameState.keys.click == INITIAL_CLICK)
+	if (clickState == 0 && keys.click == INITIAL_CLICK)
 	{
 		clickState = 1;
 		return ;
 	}
-	if (clickState == 1 && gameState.keys.click == INITIAL_CLICK)
+	if (clickState == 1 && keys.click == INITIAL_CLICK)
 	{
-		gameState.keys.click = HOLD_CLICK;
+		keys.click = HOLD_CLICK;
 		return ;
 	}
-	if (clickState == 1 && gameState.keys.click == NO_CLICK)
+	if (clickState == 1 && keys.click == NO_CLICK)
 	{
 		clickState = 2;
-		gameState.keys.click = RELEASE_CLICK;
+		keys.click = RELEASE_CLICK;
 		return ;
 	}
 	if (clickState == 2)
 	{
-		gameState.keys.click = NO_CLICK;
+		keys.click = NO_CLICK;
 		clickState = 0;
 	}
 }
@@ -169,7 +169,7 @@ void Utility()
 {
 	eventPoller(gameState.keys, gameCamera.clickTimePosX, gameCamera.clickTimePosY);
 	FilterMode();
-	ManageMouseClick();
+	ManageMouseClick(gameState.keys);
 	CameraMove();
 	CameraWithArrows();
 	KeyCheck();

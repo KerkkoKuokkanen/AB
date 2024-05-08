@@ -41,7 +41,7 @@ void	OverWorldLoop();
 void	InitOwLoop();
 int		ow_figure_the_delay(clock_t start, clock_t end);
 void	OwPrintStat();
-
+void	OwManageMouseClick(t_Keys &keys);
 SDL_Texture	*GetCorrespondingTileText(int type);
 
 #endif

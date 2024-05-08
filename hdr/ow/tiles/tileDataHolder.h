@@ -21,6 +21,7 @@ class TileDataHolder
 		bool ValidPosition(SDL_Point pos);
 		void BringTiles();
 		void UpdateTiles();
+		void SetCamera();
 	public:
 		TileDataHolder(const char *address);
 		~TileDataHolder() {Destroy();};

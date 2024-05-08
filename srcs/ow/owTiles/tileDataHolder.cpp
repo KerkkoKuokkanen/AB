@@ -1,6 +1,7 @@
 
 #include "../../../hdr/ow/tiles/tileDataHolder.h"
 #include "../../../hdr/ow/owHeader.h"
+#define START_POS -30000
 
 static void GetOwTileData(std::vector<std::vector<t_TileData>> &data, std::vector<std::vector<MapTile*>> &tiles)
 {
@@ -48,10 +49,10 @@ bool TileDataHolder::ValidPosition(SDL_Point pos)
 
 void TileDataHolder::BringTiles()
 {
-	SDL_Point posCurr = {-20000, -20000};
+	SDL_Point posCurr = {START_POS, START_POS};
 	for (int i = 0; i < mapData.size(); i++)
 	{
-		posCurr.x = -20000;
+		posCurr.x = START_POS;
 		for (int j = 0; j < mapData[0].size(); j++)
 		{
 			if (mapTiles[i][j] == NULL)
@@ -59,10 +60,10 @@ void TileDataHolder::BringTiles()
 				t_TileData &ref = mapData[i][j];
 				SDL_Texture *ret = GetCorrespondingTileText(ref.textureType);
 				mapTiles[i][j] = new MapTile(ret, ref.sRect, posCurr);
-				posCurr.x += 3000;
+				posCurr.x += DIMENTIONS;
 			}
 		}
-		posCurr.y += 3000;
+		posCurr.y += DIMENTIONS;
 	}
 }
 
@@ -79,10 +80,20 @@ void TileDataHolder::UpdateTiles()
 	}
 }
 
+void TileDataHolder::SetCamera()
+{
+	if (mapTiles[position.y][position.x] == NULL)
+		return ;
+	SDL_Point place = mapTiles[position.y][position.x]->GetDestPoint();
+	gameCamera.x = place.x;
+	gameCamera.y = place.y;
+}
+
 void TileDataHolder::Update()
 {
 	BringTiles();
 	UpdateTiles();
+	SetCamera();
 }
 
 void TileDataHolder::Destroy()
