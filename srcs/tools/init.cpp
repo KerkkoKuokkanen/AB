@@ -564,8 +564,9 @@ void getTextures(SDL_Renderer *rend)
 	use = get_texture_and_surface(rend, "sprites/effects/bigChar.png");
 	gameState.surfaces.bigCharacterSymbol = use.sur;
 	gameState.textures.bigCharacterSymbol = use.text;
-	owState.textures.tileTexts.tileOutline = get_texture(rend, "sprites/ground/tileOutline.png");
-	owState.textures.tileTexts.grassTile = get_texture(rend, "sprites/ground/grassTile.png");
+	owState.textures.tileTexts.tileOutline = get_texture(rend, "sprites/ow/ground/tileOutline.png");
+	owState.textures.tileTexts.grassTile = get_texture(rend, "sprites/ow/ground/grassTile.png");
+	owState.textures.mule = get_texture(rend, "sprites/ow/chars/mule64.png");
 }
 
 void CraeteAudioThread()

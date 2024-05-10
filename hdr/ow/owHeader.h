@@ -26,6 +26,7 @@ typedef struct s_owTileTexts
 typedef struct s_owTextures
 {
 	t_owTileTexts tileTexts;
+	SDL_Texture *mule;
 }				t_owTextures;
 
 typedef struct s_owState

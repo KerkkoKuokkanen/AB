@@ -235,7 +235,7 @@ void AddDeBuffToCharacter(Character *target, t_BuffDebuff add)
 		if (target->statuses.deBuffs[i].id == add.id)
 		{
 			target->statuses.deBuffs.erase(target->statuses.deBuffs.begin() + i);
-			i = (target->statuses.deBuffs.size() == 0) ? 0 : 1 - 1;
+			i = (target->statuses.deBuffs.size() == 0) ? 0 : i - 1;
 		}
 	}
 	target->statuses.deBuffs.push_back(add);

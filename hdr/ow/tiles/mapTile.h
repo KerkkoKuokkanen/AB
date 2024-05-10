@@ -12,10 +12,14 @@ class MapTile
 		Sprite *sprite = NULL;
 		Sprite *outline = NULL;
 		SDL_Rect sourceRect;
+		bool active = true;
 	public:
 		MapTile(SDL_Texture *text, SDL_Rect sRect, SDL_Point pos);
 		~MapTile() {Destroy();};
-		SDL_Point GetDestPoint();
+		void Deactivate();
+		void Activate();
+		void IsCurrentPos();
+		bool GetStatus() {return (active);};
 		void Update();
 		void Destroy();
 };

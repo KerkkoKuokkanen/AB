@@ -15,16 +15,34 @@ MapTile::MapTile(SDL_Texture *texture, SDL_Rect sRect, SDL_Point pos)
 	owState.renderer->AddSprite(outline, TILE_LAYER);
 }
 
-SDL_Point MapTile::GetDestPoint()
+void MapTile::Activate()
 {
-	SDL_Rect dest = sprite->dest;
-	SDL_Point ret = {dest.x + dest.w / 2, dest.y + dest.h / 2};
-	return (ret);
+	active = true;
+	if (sprite != NULL)
+		sprite->Activate();
+	if (outline != NULL)
+		outline->Activate();
+}
+
+void MapTile::Deactivate()
+{
+	active = false;
+	if (sprite != NULL)
+		sprite->Deactivate();
+	if (outline != NULL)
+		outline->Deactivate();
+}
+
+void MapTile::IsCurrentPos()
+{
+	outline->AlphaMod(140);
+	outline->ColorMod(190, 190, 190);
 }
 
 void MapTile::Update()
 {
-
+	outline->AlphaMod(60);
+	outline->ColorMod(1, 1, 1);
 }
 
 void MapTile::Destroy()
