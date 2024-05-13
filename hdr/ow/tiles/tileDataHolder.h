@@ -4,6 +4,8 @@
 
 # include "mapTile.h"
 # include <vector>
+# include "../tools/mapObj.h"
+# include "owPlayer.h"
 
 typedef struct s_TileData
 {
@@ -17,7 +19,7 @@ class TileDataHolder
 		int range = 12;
 		int activeRange = 25;
 		SDL_Point position = {0, 0};
-		Sprite *mule = NULL;
+		MapObj *player = NULL;
 		std::vector<std::vector<t_TileData>> mapData;
 		std::vector<std::vector<MapTile*>> mapTiles;
 		std::vector<SDL_Point> broughtTiles;
@@ -27,7 +29,7 @@ class TileDataHolder
 	public:
 		TileDataHolder(const char *address);
 		~TileDataHolder() {Destroy();};
-		void SetPosition(SDL_Point pos);
+		void SetPosition(SDL_Point pos) {position = pos;};
 		SDL_Point GetPosition() {return (position);};
 		void SetRange(int range) {TileDataHolder::range = range;};
 		void Update();

@@ -5,6 +5,7 @@
 #define DIMENTIONS 3200
 
 # include "../../render/sprite.h"
+# include "../tools/mapObj.h"
 
 class MapTile
 {

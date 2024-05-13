@@ -32,9 +32,7 @@ static int RangeBetween(SDL_Point one, SDL_Point two)
 
 TileDataHolder::TileDataHolder(const char *address)
 {
-	mule = new Sprite(owState.textures.mule, {0, 0, DIMENTIONS, DIMENTIONS}, NULL, NULL, 0, FLIP_NONE);
-	mule->orderLayer = 2;
-	owState.renderer->AddSprite(mule, TILE_LAYER);
+	player = new Player();
 	if (address == NULL)
 	{
 		GetOwTileData(mapData, mapTiles);
@@ -110,11 +108,11 @@ void TileDataHolder::UpdateTiles()
 			mapTiles[pos.y][pos.x]->Activate();
 	}
 	//mapTiles[position.y][position.x]->IsCurrentPos();
-	mule->dest.x = DIMENTIONS * position.x;
-	mule->dest.y = DIMENTIONS * position.y;
+	/* mule->dest.x = DIMENTIONS * position.x;
+	mule->dest.y = DIMENTIONS * position.y; */
 }
 
-void TileDataHolder::SetPosition(SDL_Point pos)
+/* void TileDataHolder::SetPosition(SDL_Point pos)
 {
 	if (!ValidPosition(pos))
 		return ;
@@ -129,7 +127,7 @@ void TileDataHolder::SetPosition(SDL_Point pos)
 	TileDataHolder::position = pos;
 	SDL_Point startPosition = {position.x * DIMENTIONS + DIMENTIONS / 2, position.y * DIMENTIONS + DIMENTIONS / 2};
 	gameCamera.camMover.SetCameraMove({gameCamera.x, gameCamera.y}, startPosition, 12);
-}
+} */
 
 void TileDataHolder::Update()
 {
@@ -139,6 +137,8 @@ void TileDataHolder::Update()
 
 void TileDataHolder::Destroy()
 {
+	if (player != NULL)
+		delete player;
 	for (int i = 0; i < mapTiles.size(); i++)
 	{
 		for (int j = 0; j < mapTiles[0].size(); j++)
