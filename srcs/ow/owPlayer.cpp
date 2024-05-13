@@ -2,7 +2,6 @@
 #include "../../hdr/ow/owPlayer.h"
 #include "../../hdr/ow/owHeader.h"
 #include "../../hdr/ow/owKeys.h"
-
 long findLargest(long a, long b, long c, long d)
 {
 	long largest = std::numeric_limits<long>::min();;
@@ -41,24 +40,68 @@ static int GetMoveDirection() // 0 = no key 1 = left, 2 = right, 3 = up, 4 = dow
 
 Player::Player()
 {
-	sprite = new Sprite(owState.textures.mule, {0, 0, 3200, 3200}, NULL, NULL, 0, FLIP_NONE);
+	SDL_Point pos = GetBGPosition();
+	current = {pos.x, pos.y};
+	last = current;
+	sprite = new Sprite(owState.textures.mule, {DIMENTIONS * pos.x, DIMENTIONS * pos.y, DIMENTIONS, DIMENTIONS}, NULL, NULL, 0, FLIP_NONE);
 	sprite->orderLayer = 2;
 	owState.renderer->AddSprite(sprite, TILE_LAYER);
-	current = {10, 10};
-	last = {0, 0};
+	SDL_Point startPosition = {pos.x * DIMENTIONS + DIMENTIONS / 2, pos.y * DIMENTIONS + DIMENTIONS / 2};
+	gameCamera.x = startPosition.x;
+	gameCamera.y = startPosition.y;
 }
 
 void Player::MovePlayer()
 {
 	int direction = GetMoveDirection();
 	if (direction == 0)
+	{
+		moveDelayer = 0;
 		return ;
-
+	}
+	if (moveDelayer > 0)
+		return ;
+	bool gotIt = false;
+	if (direction == 1)
+	{
+		sprite->setFlip(FLIP_NONE);
+		gotIt = SetBGPosition(current.x - 1, current.y, delayTime + 4);
+	}
+	else if (direction == 2)
+	{
+		sprite->setFlip(FLIP_HORIZONTAL);
+		gotIt = SetBGPosition(current.x + 1, current.y, delayTime + 4);
+	}
+	else if (direction == 3)
+		gotIt = SetBGPosition(current.x, current.y - 1, delayTime + 4);
+	else if (direction == 4)
+		gotIt = SetBGPosition(current.x, current.y + 1, delayTime + 4);
+	SDL_Point pos = GetBGPosition();
+	current = {pos.x, pos.y};
+	SDL_Point endPos = {DIMENTIONS * pos.x, DIMENTIONS * pos.y};
+	if (gotIt)
+	{
+		moveDelayer = delayTime;
+		if (mover != NULL)
+			delete mover;
+		mover = new OwSpriteMover(sprite, {sprite->dest.x, sprite->dest.y}, endPos, moveDelayer);
+	}
 }
 
 void Player::Update()
 {
 	MovePlayer();
+	if (mover != NULL)
+	{
+		mover->Update();
+		if (mover->done)
+		{
+			delete mover;
+			mover = NULL;
+		}
+	}
+	if (moveDelayer > 0)
+		moveDelayer--;
 }
 
 void Player::Destroy()

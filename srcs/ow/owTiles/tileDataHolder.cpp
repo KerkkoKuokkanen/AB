@@ -32,7 +32,7 @@ static int RangeBetween(SDL_Point one, SDL_Point two)
 
 TileDataHolder::TileDataHolder(const char *address)
 {
-	player = new Player();
+	SetTheHolder(this);
 	if (address == NULL)
 	{
 		GetOwTileData(mapData, mapTiles);
@@ -41,8 +41,8 @@ TileDataHolder::TileDataHolder(const char *address)
 		position = {10, 10};
 		gameCamera.x = position.x * DIMENTIONS + DIMENTIONS / 2;
 		gameCamera.y = position.y * DIMENTIONS + DIMENTIONS / 2;
-		return ;
 	}
+	player = new Player();
 }
 
 bool TileDataHolder::ValidPosition(SDL_Point pos)
@@ -107,30 +107,22 @@ void TileDataHolder::UpdateTiles()
 		else
 			mapTiles[pos.y][pos.x]->Activate();
 	}
-	//mapTiles[position.y][position.x]->IsCurrentPos();
-	/* mule->dest.x = DIMENTIONS * position.x;
-	mule->dest.y = DIMENTIONS * position.y; */
 }
 
-/* void TileDataHolder::SetPosition(SDL_Point pos)
+bool TileDataHolder::SetPosition(SDL_Point pos, int time)
 {
 	if (!ValidPosition(pos))
-		return ;
-	bool turnPossible = (pos.x == position.x) ? false : true;
-	if (turnPossible)
-	{
-		if (pos.x > position.x)
-			mule->setFlip(FLIP_HORIZONTAL);
-		else
-			mule->setFlip(FLIP_NONE);
-	}
+		return (false);
 	TileDataHolder::position = pos;
 	SDL_Point startPosition = {position.x * DIMENTIONS + DIMENTIONS / 2, position.y * DIMENTIONS + DIMENTIONS / 2};
-	gameCamera.camMover.SetCameraMove({gameCamera.x, gameCamera.y}, startPosition, 12);
-} */
+	gameCamera.camMover.SetCameraMove({gameCamera.x, gameCamera.y}, startPosition, time);
+	return (true);
+}
 
 void TileDataHolder::Update()
 {
+	if (player != NULL)
+		player->Update();
 	BringTiles();
 	UpdateTiles();
 }

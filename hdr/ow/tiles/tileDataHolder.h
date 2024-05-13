@@ -29,7 +29,7 @@ class TileDataHolder
 	public:
 		TileDataHolder(const char *address);
 		~TileDataHolder() {Destroy();};
-		void SetPosition(SDL_Point pos) {position = pos;};
+		bool SetPosition(SDL_Point pos, int time);
 		SDL_Point GetPosition() {return (position);};
 		void SetRange(int range) {TileDataHolder::range = range;};
 		void Update();

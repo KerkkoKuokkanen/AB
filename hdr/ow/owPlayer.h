@@ -4,13 +4,15 @@
 
 # include "tools/mapObj.h"
 # include "../render/sprite.h"
+# include "tools/owSpriteMover.h"
 
 class Player : public MapObj
 {
 	private:
 		Sprite *sprite = NULL;
+		OwSpriteMover *mover = NULL;
 		int moveDelayer = 0;
-		int delayTime = 12;
+		int delayTime = 8;
 		void MovePlayer();
 	public:
 		Player();
