@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class Dagger
+class Dagger : AbBase
 {
 	private:
 		Character *character;
@@ -20,7 +20,7 @@ class Dagger
 		float speed = 1800.0f;
 		void CreateParticles();
 	public:
-		Sprite *sprite;
+		Sprite *sprite = NULL;
 		bool remove = false;
 		bool createDamage = false;
 		Dagger(Character *start, Character *end, bool goingToHit);

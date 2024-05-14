@@ -1,6 +1,7 @@
 
 #include "../../../hdr/ow/tiles/tileDataHolder.h"
 #include "../../../hdr/ow/owHeader.h"
+#include "../../../hdr/ow/owKeys.h"
 
 static void GetOwTileData(std::vector<std::vector<t_TileData>> &data, std::vector<std::vector<MapTile*>> &tiles)
 {
@@ -125,19 +126,18 @@ void TileDataHolder::Update()
 		player->Update();
 	BringTiles();
 	UpdateTiles();
+	mapTiles[position.y][position.x]->IsCurrentPos();
 }
 
 void TileDataHolder::Destroy()
 {
 	if (player != NULL)
 		delete player;
-	for (int i = 0; i < mapTiles.size(); i++)
+	for (int i = 0; i < broughtTiles.size(); i++)
 	{
-		for (int j = 0; j < mapTiles[0].size(); j++)
-		{
-			if (mapTiles[i][j] == NULL)
-				continue ;
-			delete mapTiles[i][j];
-		}
+		SDL_Point pos = broughtTiles[i];
+		delete mapTiles[pos.y][pos.x];
+		mapTiles[pos.y][pos.x] = NULL;
 	}
+	broughtTiles.clear();
 }

@@ -11,7 +11,7 @@ typedef struct s_IncinerateStruct
 	Sprite *aura;
 }				t_IncinerateStruct;
 
-class Incinerate
+class Incinerate : AbBase
 {
 	private:
 		Character *character = NULL;

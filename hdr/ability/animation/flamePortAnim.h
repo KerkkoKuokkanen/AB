@@ -19,7 +19,7 @@ typedef struct s_FlamePortPart
 	Sprite *sprite;
 }				t_FlamePortPart;
 
-class FlamePort
+class FlamePort : AbBase
 {
 	private:
 		Character *character;
@@ -44,7 +44,9 @@ class FlamePort
 		bool done = false;
 		bool createSelfDamage = false;
 		FlamePort(Character *character, SDL_Point target);
+		~FlamePort() {Destroy();};
 		void Update();
+		void Destroy();
 };
 
 #endif

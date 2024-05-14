@@ -211,7 +211,8 @@ std::vector<t_HitReturn> &FlameBlast::GetTargets()
 void FlameBlast::Destroy()
 {
 	character->setAnimationActive(false);
-	delete aura;
+	if (aura != NULL)
+		delete aura;
 	if (mover != NULL)
 		delete mover;
 	for (int i = 0; i < fireBalls.size(); i++)

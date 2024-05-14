@@ -62,7 +62,9 @@ void ToolThrowAnim::Update()
 void ToolThrowAnim::Destroy()
 {
 	character->setAnimationActive(false);
-	delete trail;
-	delete mover;
+	if (trail != NULL)
+		delete trail;
+	if (mover != NULL)
+		delete mover;
 	box->sprite->Activate();
 }

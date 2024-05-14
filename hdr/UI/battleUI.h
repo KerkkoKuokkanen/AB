@@ -23,10 +23,10 @@ class CharacterUI
 		Character *activeCharacter = NULL;
 		t_Buttons buttons[BUTTON_RESERVE];
 		Energy *energys[ENERGYS];
-		Bar *health;
-		Bar *armor;
-		FatigueBar *fatigue;
-		Statuses *statuses;
+		Bar *health = NULL;
+		Bar *armor = NULL;
+		FatigueBar *fatigue = NULL;
+		Statuses *statuses = NULL;
 		StatusInfo *stausInfo = NULL;
 		UiTextUpdater *abilityText = NULL;
 		Sprite *text = NULL;

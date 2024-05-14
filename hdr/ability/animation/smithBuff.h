@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class SmithBuff
+class SmithBuff : AbBase
 {
 	private:
 		Character *character;

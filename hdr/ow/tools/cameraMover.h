@@ -13,6 +13,7 @@ class CameraMover
 	public:
 		void SetCameraMove(SDL_Point start, SDL_Point end, int amount);
 		void Update();
+		void ClearCameraMove();
 };
 
 #endif

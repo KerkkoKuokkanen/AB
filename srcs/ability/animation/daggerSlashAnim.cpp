@@ -79,5 +79,6 @@ void DaggerSlashAnim::Destroy()
 	character->setAnimationActive(false);
 	if (daggerTrail != NULL)
 		delete daggerTrail;
-	delete mover;
+	if (mover != NULL)
+		delete mover;
 }

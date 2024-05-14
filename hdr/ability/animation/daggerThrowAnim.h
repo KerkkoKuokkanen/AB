@@ -6,7 +6,7 @@
 
 # define DAGGER_THROW_ANIMATION_TIME 14
 
-class DaggerThrowAnim
+class DaggerThrowAnim : public AbBase
 {
 	private:
 		SDL_FPoint direction;

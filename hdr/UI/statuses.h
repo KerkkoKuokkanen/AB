@@ -28,7 +28,7 @@ class Statuses
 	private:
 		Character *character = NULL;
 		SDL_FPoint position = {0.0f, 0.0f};
-		std::vector<t_StatSpriteStruct> statuses;
+		std::vector<t_StatSpriteStruct> statuses = {};
 		bool vertical;
 		bool staticSprite;
 		int size;

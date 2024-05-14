@@ -212,3 +212,9 @@ void FlamePort::Update()
 		CreateSecondPhase();
 	counter++;
 }
+
+void FlamePort::Destroy()
+{
+	for (int i = 0; i < particles.size(); i++)
+		delete particles[i].sprite;
+}

@@ -13,7 +13,7 @@ typedef struct s_FireBall
 	bool missing;
 }				t_FireBall;
 
-class FlameBlast
+class FlameBlast : AbBase
 {
 	private:
 		std::vector<SDL_Point> targets;

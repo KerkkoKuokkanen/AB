@@ -29,6 +29,7 @@ void SupplyAlly::Update()
 
 void SupplyAlly::Destroy()
 {
-	delete mover;
+	if (mover != NULL)
+		delete mover;
 	character->setAnimationActive(false);
 }

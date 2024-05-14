@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class GoForTheHead
+class GoForTheHead : AbBase
 {
 	private:
 		Character *character;

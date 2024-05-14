@@ -3,6 +3,13 @@
 #include "../../hdr/ow/owKeys.h"
 #include "../../hdr/ow/tiles/tileDataHolder.h"
 
+static void ClearOW(TileDataHolder *holder)
+{
+	delete holder;
+	gameCamera.camMover.ClearCameraMove();
+	owState.renderer->RemoveAll();
+}
+
 void OverWorldLoop()
 {
 	clock_t start, end;
@@ -20,5 +27,5 @@ void OverWorldLoop()
 		end = clock();
 		SDL_Delay(ow_figure_the_delay(start, end));
 	}
-	delete dataHolder;
+	ClearOW(dataHolder);
 }

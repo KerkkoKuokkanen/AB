@@ -4,11 +4,13 @@
 #include "../../hdr/render/camera.h"
 #include "../../hdr/ow/owHeader.h"
 #include "../../hdr/ow/owKeys.h"
+#include "../../hdr/ow/owAudio.h"
 #include <thread>
 
 t_Camera gameCamera;
 t_owState owState;
 t_Keys owKeys;
+t_OwAudio owAudio;
 
 void InitHovers()
 {
@@ -195,6 +197,9 @@ void getAudio()
 	gameState.audio.skeleLunge = Mix_LoadWAV("audio/abilities/skele/skeleLunge.wav");
 	gameState.audio.thugStrike = Mix_LoadWAV("audio/abilities/thugs/thug.wav");
 	gameState.audio.bigThugStrike = Mix_LoadWAV("audio/abilities/thugs/bigThug.wav");
+	owAudio.owSteps[0] = Mix_LoadWAV("audio/footsteps/oeStep1.wav");
+	owAudio.owSteps[1] = Mix_LoadWAV("audio/footsteps/oeStep2.wav");
+	owAudio.owSteps[2] = Mix_LoadWAV("audio/footsteps/oeStep3.wav");
 }
 
 void getFonts()
@@ -637,8 +642,7 @@ void InitBattle()
 	gameState.render->CreateLayer(LAYER_ORDER_SORT); //counter layer
 	gameState.render->CreateLayer(LAYER_ORDER_SORT); //text bubble layer
 	gameState.render->CreateLayer(LAYER_ORDER_SORT); //menu layer
-	static BattleGround battle(BATTLEGROUND_LAYER, gameState.wr.rend);
-	gameState.battle.ground = &battle;
+	gameState.battle.ground = new BattleGround(BATTLEGROUND_LAYER, gameState.wr.rend);
 	gameState.battle.xDist = 6000;
 	gameState.battle.yDist = 6000;
 	gameState.battle.defaultYAdd = 1850;
@@ -646,18 +650,12 @@ void InitBattle()
 	gameState.updateObjs.turnOrder = NULL;
 	gameState.updateObjs.fadeIter = 0.0f;
 	gameState.updateObjs.characterAnimIter = 0;
-	static TurnIndicator ind;
-	gameState.updateObjs.indicator = &ind;
-	static Kill killer;
-	gameState.updateObjs.killer = &killer;
-	static ParticleManager parts;
-	gameState.updateObjs.partManager = &parts;
-	static CharacterUI bars;
-	gameState.updateObjs.UI = &bars;
-	static Abilities abilities;
-	gameState.updateObjs.abilities = &abilities;
-	static Info info;
-	gameState.updateObjs.info = &info;
+	gameState.updateObjs.indicator = new TurnIndicator;
+	gameState.updateObjs.killer = new Kill;
+	gameState.updateObjs.partManager = new ParticleManager;
+	gameState.updateObjs.UI = new CharacterUI;
+	gameState.updateObjs.abilities = new Abilities;
+	gameState.updateObjs.info = new Info;
 	AiThread();
 	InitThugParts();
 }

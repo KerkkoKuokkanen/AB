@@ -4,13 +4,13 @@
 
 # include "../../ab.h"
 
-class FlameSlash
+class FlameSlash : AbBase
 {
 	private:
 		Character *character;
 		SDL_Point target;
-		Sprite *trail;
-		CharacterMover *mover;
+		Sprite *trail = NULL;
+		CharacterMover *mover = NULL;
 		int counter = 0;
 		Vector GetDirection();
 		void UpdateTrail();

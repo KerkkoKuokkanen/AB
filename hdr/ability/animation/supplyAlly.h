@@ -4,10 +4,10 @@
 
 # include "../../ab.h"
 
-class SupplyAlly
+class SupplyAlly : AbBase
 {
 	private:
-		CharacterMover *mover;
+		CharacterMover *mover = NULL;
 		Character *character = NULL;
 	public:
 		Character *target = NULL;

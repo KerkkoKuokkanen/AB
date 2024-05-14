@@ -2,6 +2,8 @@
 #include "../../hdr/ow/owPlayer.h"
 #include "../../hdr/ow/owHeader.h"
 #include "../../hdr/ow/owKeys.h"
+#include "../../hdr/ow/owAudio.h"
+
 long findLargest(long a, long b, long c, long d)
 {
 	long largest = std::numeric_limits<long>::min();;
@@ -55,36 +57,35 @@ void Player::MovePlayer()
 {
 	int direction = GetMoveDirection();
 	if (direction == 0)
-	{
-		moveDelayer = 0;
 		return ;
-	}
 	if (moveDelayer > 0)
 		return ;
 	bool gotIt = false;
 	if (direction == 1)
 	{
 		sprite->setFlip(FLIP_NONE);
-		gotIt = SetBGPosition(current.x - 1, current.y, delayTime + 4);
+		gotIt = SetBGPosition(current.x - 1, current.y, delayTime + 12);
 	}
 	else if (direction == 2)
 	{
 		sprite->setFlip(FLIP_HORIZONTAL);
-		gotIt = SetBGPosition(current.x + 1, current.y, delayTime + 4);
+		gotIt = SetBGPosition(current.x + 1, current.y, delayTime + 12);
 	}
 	else if (direction == 3)
-		gotIt = SetBGPosition(current.x, current.y - 1, delayTime + 4);
+		gotIt = SetBGPosition(current.x, current.y - 1, delayTime + 12);
 	else if (direction == 4)
-		gotIt = SetBGPosition(current.x, current.y + 1, delayTime + 4);
+		gotIt = SetBGPosition(current.x, current.y + 1, delayTime + 12);
 	SDL_Point pos = GetBGPosition();
 	current = {pos.x, pos.y};
 	SDL_Point endPos = {DIMENTIONS * pos.x, DIMENTIONS * pos.y};
 	if (gotIt)
 	{
+		PlaySound(owAudio.owSteps[0], OwChannels::VOLUME_16, 0);
+		PlaySound(owAudio.owSteps[1], OwChannels::VOLUME_12, 0);
 		moveDelayer = delayTime;
 		if (mover != NULL)
 			delete mover;
-		mover = new OwSpriteMover(sprite, {sprite->dest.x, sprite->dest.y}, endPos, moveDelayer);
+		mover = new OwSpriteMover(sprite, {sprite->dest.x, sprite->dest.y}, endPos, moveDelayer + 2);
 	}
 }
 

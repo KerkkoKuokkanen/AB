@@ -704,4 +704,6 @@ void Abilities::Destroy()
 	Clear();
 	oAttack.Destroy();
 	aoAttack.Destroy();
+	for (int i = 0; i < misses.size(); i++)
+		delete misses[i];
 }

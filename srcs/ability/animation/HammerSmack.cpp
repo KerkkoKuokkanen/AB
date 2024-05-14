@@ -60,7 +60,9 @@ void HammerSmack::Update()
 
 void HammerSmack::Destroy()
 {
-	delete mover;
-	delete trail;
+	if (mover != NULL)
+		delete mover;
+	if (trail != NULL)
+		delete trail;
 	character->setAnimationActive(false);
 }

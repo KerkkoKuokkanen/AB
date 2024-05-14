@@ -157,5 +157,6 @@ void FireBall::Update()
 
 void FireBall::Destroy()
 {
-	delete sprite;
+	if (sprite != NULL)
+		delete sprite;
 }

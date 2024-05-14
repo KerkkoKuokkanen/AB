@@ -9,7 +9,7 @@ class FireBall
 	private:
 		SDL_Point goal;
 		SDL_FPoint direction;
-		Sprite *sprite;
+		Sprite *sprite = NULL;
 		Character *character;
 		int counter = 0;
 		void GetGoal(SDL_Point target, bool missing);

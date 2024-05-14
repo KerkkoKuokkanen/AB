@@ -81,7 +81,7 @@ void Battle()
 int main()
 {
 	init(&gameState.wr);
-	OverWorldLoop();
-	//Battle();
+	//OverWorldLoop();
+	Battle();
 	return (0);
 }

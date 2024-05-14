@@ -59,6 +59,20 @@ class Renderer
 		{
 			spriteLayers[layer].clear();
 		}
+		void RemoveRenderLayer(int layer)
+		{
+			int size = spriteLayers.size();
+			if (layer < 0 || layer >= size)
+				return ;
+			spriteLayers[layer].clear();
+			spriteLayers.erase(spriteLayers.begin() + layer);
+		}
+		void RemoveAll()
+		{
+			for (int i = 0; i < spriteLayers.size(); i++)
+				spriteLayers[i].clear();
+			spriteLayers.clear();
+		}
 		void RenderClear() {
 			SDL_RenderClear(rend);
 		};

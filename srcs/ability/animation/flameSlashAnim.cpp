@@ -77,5 +77,6 @@ void FlameSlash::Destroy()
 	character->setAnimationActive(false);
 	if (trail != NULL)
 		delete trail;
-	delete mover;
+	if (mover != NULL)
+		delete mover;
 }

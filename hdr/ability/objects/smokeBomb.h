@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class SmokeBomb
+class SmokeBomb : AbBase
 {
 	private:
 		float rotation = 0.0f;
@@ -22,7 +22,9 @@ class SmokeBomb
 		bool destroy = false;
 		bool setEffect = false;
 		SmokeBomb(SDL_Point start, SDL_Point target);
+		~SmokeBomb() {Destroy();};
 		void Update();
+		void Destroy();
 };
 
 #endif

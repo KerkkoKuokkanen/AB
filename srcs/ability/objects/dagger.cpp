@@ -87,5 +87,6 @@ void Dagger::Update()
 
 void Dagger::Destroy()
 {
-	delete sprite;
+	if (sprite != NULL)
+		delete sprite;
 }

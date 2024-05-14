@@ -37,3 +37,9 @@ void CameraMover::Update()
 	gameCamera.y = current.y;
 	iterator++;
 }
+
+void CameraMover::ClearCameraMove()
+{
+	travelPoints.clear();
+	iterator = 0;
+}

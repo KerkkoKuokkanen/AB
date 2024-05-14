@@ -4,13 +4,13 @@
 
 # include "../../ab.h"
 
-class DaggerSlashAnim
+class DaggerSlashAnim : AbBase
 {
 	private:
 		SDL_Point target;
 		Character *character;
-		CharacterMover *mover;
-		Sprite *daggerTrail;
+		CharacterMover *mover = NULL;
+		Sprite *daggerTrail = NULL;
 		Vector GetDirection();
 		void CreateTrail();
 		void UpdateTrail();

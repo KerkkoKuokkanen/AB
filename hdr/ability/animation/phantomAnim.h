@@ -10,7 +10,7 @@ typedef struct s_SpriteAndSRect
 	SDL_Rect *srect;
 }				t_SpriteAndSRect;
 
-class PhantomAnim
+class PhantomAnim : AbBase
 {
 	private:
 		std::vector<t_SpriteAndSRect> sprites;

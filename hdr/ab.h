@@ -96,6 +96,12 @@ namespace StatusSigns
 	};
 };
 
+class AbBase
+{
+	public:
+		virtual ~AbBase() {}
+};
+
 # include "../SDL2/SDL.h"
 # include "tools/vector.h"
 # include "tools/color.h"

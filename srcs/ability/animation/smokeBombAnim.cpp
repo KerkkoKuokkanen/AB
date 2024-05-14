@@ -58,7 +58,10 @@ void SmokeBombAnim::Update()
 			alpha = 0;
 		trail->AlphaMod((Uint8)alpha);
 		if (alpha == 0)
+		{
 			delete trail;
+			trail = NULL;
+		}
 	}
 	if (counter == 13)
 		RemoveAnimText();
@@ -75,5 +78,8 @@ void SmokeBombAnim::AnimationDone()
 
 void SmokeBombAnim::Destroy()
 {
-	delete mover;
+	if (mover != NULL)
+		delete mover;
+	if (trail != NULL)
+		delete trail;
 }

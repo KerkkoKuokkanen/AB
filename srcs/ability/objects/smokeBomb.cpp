@@ -80,3 +80,9 @@ void SmokeBomb::Update()
 	rotation += rotationAdd;
 	counter++;
 }
+
+void SmokeBomb::Destroy()
+{
+	if (granade != NULL)
+		delete granade;
+}

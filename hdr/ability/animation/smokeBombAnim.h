@@ -4,12 +4,12 @@
 
 # include "../../ab.h"
 
-class SmokeBombAnim
+class SmokeBombAnim : AbBase
 {
 	private:
 		Character *character;
-		CharacterMover *mover;
-		Sprite *trail;
+		CharacterMover *mover = NULL;
+		Sprite *trail = NULL;
 		SDL_Point pos;
 		void AnimationDone();
 		int counter = 0;
