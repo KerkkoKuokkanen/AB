@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class Dagger : AbBase
+class Dagger : public AbBase
 {
 	private:
 		Character *character;

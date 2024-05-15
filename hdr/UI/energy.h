@@ -9,9 +9,10 @@ class Energy
 	private:
 		SDL_Surface *sur;
 	public:
-		Sprite *stand;
-		Sprite *energy;
+		Sprite *stand = NULL;
+		Sprite *energy = NULL;
 		Energy();
+		~Energy() {Destroy();};
 		void Position(Vector place);
 		void Used(bool particles = false);
 		void TakeBack();

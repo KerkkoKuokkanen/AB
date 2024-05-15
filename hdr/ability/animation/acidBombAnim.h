@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class AcidBombAnim
+class AcidBombAnim : public AbBase
 {
 	private:
 		ThrowArch *arch = NULL;

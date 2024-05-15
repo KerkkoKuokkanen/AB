@@ -87,6 +87,8 @@ void Energy::Deactivate()
 
 void Energy::Destroy()
 {
-	delete stand;
-	delete energy;
+	if (stand != NULL)
+		delete stand;
+	if (energy != NULL)
+		delete energy;
 }

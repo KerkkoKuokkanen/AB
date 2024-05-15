@@ -50,3 +50,9 @@ void UiTextUpdater::Update(int ability)
 	}
 	UpdateBubble();
 }
+
+void UiTextUpdater::Destroy()
+{
+	if (bubble != NULL)
+		delete bubble;
+}

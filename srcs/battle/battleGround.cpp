@@ -225,7 +225,7 @@ void BattleGround::PlaceCharacter(SDL_Point &position, Character *character)
 	map[position.y][position.x].character->setCoord(position);
 }
 
-void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<SDL_Point> &mapPos)
+void BattleGround::StartBattle(std::vector<Character*> &characters, std::vector<SDL_Point> &mapPos)
 {
 	CreateMap();
 	if (characters.size() != mapPos.size())
@@ -236,7 +236,7 @@ void BattleGround::StartBattle(std::vector<Character> &characters, std::vector<S
 	for (int i = 0; i < characters.size(); i++)
 	{
 		t_Troop add;
-		add.character = &characters[i];
+		add.character = characters[i];
 		add.clicked = false;
 		BattleGround::characters.push_back(add);
 		BattleGround::characters[i].character->AddToRender();

@@ -70,6 +70,7 @@ void EffectUpdater::UpdateEffect(t_AbilityEffect &effect, int index)
 					PlaySound(gameState.audio.poof, Channels::POOF, 0);
 					done = true;
 				}
+				use->DeathEffect();
 				delete use;
 				effects.erase(effects.begin() + index);
 			}

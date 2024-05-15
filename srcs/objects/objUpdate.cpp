@@ -62,3 +62,11 @@ ToolBox *OBJ_Update::GetToolBox(Character *character)
 	}
 	return (NULL);
 }
+
+void OBJ_Update::Destroy()
+{
+	for (int i = 0; i < objects.size(); i++)
+		delete objects[i];
+	for (int i = 0; i < toolBoxes.size(); i++)
+		delete toolBoxes[i];
+}

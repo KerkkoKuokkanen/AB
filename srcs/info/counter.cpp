@@ -113,8 +113,12 @@ void Counter::Update()
 
 void Counter::Destroy()
 {
-	delete allies;
-	delete enemies;
-	delete turn;
-	delete sprite;
+	if (allies != NULL)
+		delete allies;
+	if (enemies != NULL)
+		delete enemies;
+	if (turn != NULL)
+		delete turn;
+	if (sprite != NULL)
+		delete sprite;
 }

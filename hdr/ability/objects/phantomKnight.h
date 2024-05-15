@@ -27,6 +27,7 @@ class PhantomKnight : public Character
 		Sprite *GetSprite() {return (knight);};
 		int GetTurns() {return (turns);};
 		void Update();
+		void DeathEffect();
 		void Destroy();
 };
 

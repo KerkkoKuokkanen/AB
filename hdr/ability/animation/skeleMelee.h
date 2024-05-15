@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class SkeleMeleeAnim
+class SkeleMeleeAnim : public AbBase
 {
 	private:
 		Character *character = NULL;

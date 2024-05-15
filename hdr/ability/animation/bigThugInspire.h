@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class BigThugInspire
+class BigThugInspire : public AbBase
 {
 	private:
 		Character *character = NULL;

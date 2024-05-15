@@ -64,5 +64,6 @@ void FlyingSnippet::Update()
 
 void FlyingSnippet::Destroy()
 {
-	delete snippet;
+	if (snippet != NULL)
+		delete snippet;
 }

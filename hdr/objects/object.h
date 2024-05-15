@@ -31,10 +31,12 @@ class Object
 		int GetTheHeightRight();
 	public:
 		int size;
-		Sprite *spriteLeft;
-		Sprite *spriteRight;
+		Sprite *spriteLeft = NULL;
+		Sprite *spriteRight = NULL;
 		Object(int type, SDL_Point position, bool fadeOnMouseOver = true);
+		~Object() {Destroy();};
 		void Update();
+		void Destroy();
 };
 
 #endif

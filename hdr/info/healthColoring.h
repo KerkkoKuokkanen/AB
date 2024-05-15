@@ -11,7 +11,7 @@ class HealthColoring
 	public:
 		~HealthColoring() {Destroy();};
 		void Update();
-		void Destroy();
+		void Destroy() {};
 };
 
 #endif

@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class ControlZone
+class ControlZone : public AbBase
 {
 	private:
 		Character *character;

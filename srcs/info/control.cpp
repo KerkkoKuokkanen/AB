@@ -30,5 +30,6 @@ void Control::Update()
 
 void Control::Destroy()
 {
-	delete sprite;
+	if (sprite != NULL)
+		delete sprite;
 }

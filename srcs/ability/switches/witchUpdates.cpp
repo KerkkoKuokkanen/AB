@@ -120,7 +120,8 @@ int Abilities::CreateWitchDamage()
 	t_Sound add4 = {gameState.audio.daggerThrow[0], Channels::DAGGER_THROW0, 0};
 	t_Sound add5 = {gameState.audio.hitEffect, Channels::VOLUME_30, 0};
 	std::vector<t_Sound> sounds = {add3, add4, add5};
-	damager.damageCreator.CreateDamage(damaged, Color(255, 0, 0), 0, doThisDamage, damager.GetDirection(character->position, damaged), sounds);
+	damager.damageCreator.CreateDamage(damaged, Color(255, 0, 0), 0, doThisDamage,
+										damager.GetDirection(character->position, damaged), sounds);
 	CreateDamageSnippet(character->position, damaged, rand() % 100 + 1);
 	return (doThisDamage);
 }

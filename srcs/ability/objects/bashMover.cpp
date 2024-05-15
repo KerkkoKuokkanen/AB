@@ -34,18 +34,22 @@ void BashMover::Update()
 	}
 }
 
-void BashMover::Destroy()
+void BashMover::PlaceBashMover()
 {
-	if (arch != NULL)
-		delete (arch);
-	if (standArch != NULL)
-		delete (standArch);
 	gameState.battle.ground->PlaceCharacter(targetPoint, target);
-	target->setAnimationActive(false);
 	gameState.battle.ground->map[targetPoint.y][targetPoint.x].additional.object = gameState.battle.ground->map[tStart.y][tStart.x].additional.object;
 	gameState.battle.ground->map[targetPoint.y][targetPoint.x].additional.type = gameState.battle.ground->map[tStart.y][tStart.x].additional.type;
 	gameState.battle.ground->map[tStart.y][tStart.x].blocked = false;
 	gameState.battle.ground->map[tStart.y][tStart.x].character = NULL;
 	gameState.battle.ground->map[tStart.y][tStart.x].additional.object = NULL;
 	gameState.battle.ground->map[tStart.y][tStart.x].additional.type = (-1);
+}
+
+void BashMover::Destroy()
+{
+	if (arch != NULL)
+		delete (arch);
+	if (standArch != NULL)
+		delete (standArch);
+	target->setAnimationActive(false);
 }

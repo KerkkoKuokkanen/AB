@@ -704,6 +704,18 @@ void Abilities::Destroy()
 	Clear();
 	oAttack.Destroy();
 	aoAttack.Destroy();
+	damager.Destroy();
+	effectUpdater.Clear();
 	for (int i = 0; i < misses.size(); i++)
 		delete misses[i];
+	for (int i = 0; i < animations.size(); i++)
+	{
+		AbBase *used = (AbBase*)animations[i].animation;
+		delete used;
+	}
+	for (int i = 0; i < objects.size(); i++)
+	{
+		AbBase *used = (AbBase*)objects[i].object;
+		delete used;
+	}
 }

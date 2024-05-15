@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class NailBomb
+class NailBomb : public AbBase
 {
 	private:
 		ThrowArch *arch = NULL;

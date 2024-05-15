@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class SmokeBomb : AbBase
+class SmokeBomb : public AbBase
 {
 	private:
 		float rotation = 0.0f;

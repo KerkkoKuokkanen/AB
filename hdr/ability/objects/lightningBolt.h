@@ -4,11 +4,11 @@
 
 # include "../../ab.h"
 
-class LightningBolt
+class LightningBolt : public AbBase
 {
 	private:
 		SDL_Point target;
-		Sprite *sprite;
+		Sprite *sprite = NULL;
 		int counter = 0;
 		void UpdateAlpha();
 		void MoveLightning();

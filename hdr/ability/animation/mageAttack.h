@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class MageAttack
+class MageAttack : public AbBase
 {
 	private:
 		Character *character;

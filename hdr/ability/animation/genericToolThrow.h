@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class GenericToolThrow
+class GenericToolThrow : public AbBase
 {
 	private:
 		CharacterMover *mover = NULL;

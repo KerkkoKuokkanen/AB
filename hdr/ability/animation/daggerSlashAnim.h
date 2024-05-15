@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class DaggerSlashAnim : AbBase
+class DaggerSlashAnim : public AbBase
 {
 	private:
 		SDL_Point target;

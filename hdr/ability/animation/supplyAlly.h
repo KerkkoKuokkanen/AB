@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class SupplyAlly : AbBase
+class SupplyAlly : public AbBase
 {
 	private:
 		CharacterMover *mover = NULL;

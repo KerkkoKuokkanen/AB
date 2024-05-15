@@ -8,7 +8,7 @@ class Control
 {
 	private:
 		SDL_Point pos;
-		Sprite *sprite;
+		Sprite *sprite = NULL;
 	public:
 		Control(SDL_Point pos, bool ally);
 		~Control() {Destroy();};

@@ -26,6 +26,7 @@ class Damager
 		void AddBleedDamage(Character *target, int amount);
 		void RemoveDamageFromCreator(Character *character) {damageCreator.RemoveCharacter(character);};
 		void Update();
+		void Destroy();
 };
 
 #endif

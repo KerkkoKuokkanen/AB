@@ -91,6 +91,8 @@ void KillEffect::Update()
 
 void KillEffect::Destroy()
 {
-	delete character;
-	delete stand;
+	if (character != NULL)
+		delete character;
+	if (stand != NULL)
+		delete stand;
 }

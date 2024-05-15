@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class SlowBomb
+class SlowBomb : public AbBase
 {
 	private:
 		ThrowArch *arch = NULL;

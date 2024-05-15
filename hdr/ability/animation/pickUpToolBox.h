@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class PickUpTools : AbBase
+class PickUpTools : public AbBase
 {
 	private:
 		Character *character;

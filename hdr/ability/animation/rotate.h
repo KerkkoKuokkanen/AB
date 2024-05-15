@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class Rotate : AbBase
+class Rotate : public AbBase
 {
 	private:
 		Character *character;

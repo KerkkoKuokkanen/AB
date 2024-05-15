@@ -182,3 +182,11 @@ SDL_Rect Object::getRect(int type, SDL_Point position)
 	}
 	return (ret);
 }
+
+void Object::Destroy()
+{
+	if (spriteRight != NULL)
+		delete spriteRight;
+	if (spriteLeft != NULL)
+		delete spriteLeft;
+}

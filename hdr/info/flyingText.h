@@ -7,7 +7,7 @@
 class FlyingSnippet
 {
 	public:
-		Snippet *snippet;
+		Snippet *snippet = NULL;
 		int time = 0;
 		int third = 0;
 		float yAdd = 0.0f;

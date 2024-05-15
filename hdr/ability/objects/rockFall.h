@@ -4,10 +4,10 @@
 
 # include "../../ab.h"
 
-class RockFall
+class RockFall : public AbBase
 {
 	private:
-		Sprite *sprite;
+		Sprite *sprite = NULL;
 		int counter = 0;
 		void UpdateAlpha();
 		void MoveRocks();

@@ -99,6 +99,7 @@ void ToxinBuff::Update()
 		addStatus = true;
 		for (int i = 0; i < parts.size(); i++)
 			gameState.updateObjs.partManager->AddModParticle(parts[i]);
+		parts.clear();
 	}
 	counter++;
 	if (counter > TOXIN_BUFF_TIME)
@@ -108,4 +109,9 @@ void ToxinBuff::Update()
 void ToxinBuff::Destroy()
 {
 	character->setAnimationActive(false);
+	for (int i = 0; i < parts.size(); i++)
+	{
+		delete parts[i].part->sprite;
+		delete parts[i].part;
+	}
 }

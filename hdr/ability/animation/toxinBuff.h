@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class ToxinBuff
+class ToxinBuff : public AbBase
 {
 	private:
 		Character *character;

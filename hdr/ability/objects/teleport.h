@@ -21,7 +21,7 @@ typedef struct s_TeleParticle
 	std::vector<t_PartSavePostion> saves;
 }				t_TeleParticle;
 
-class TelePort
+class TelePort : public AbBase
 {
 	private:
 		std::vector<t_TeleParticle> particles = {};

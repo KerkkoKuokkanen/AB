@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class RaiderBlock
+class RaiderBlock : public AbBase
 {
 	private:
 		Character *character;

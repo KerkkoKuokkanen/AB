@@ -344,13 +344,30 @@ void Info::AddSnippet(FlyingSnippet *snippet)
 
 void Info::Destroy()
 {
-	delete counter;
-	delete movementEnergy;
-	delete controls;
-	delete colorEffects;
-	delete iconHandler;
+	if (counter != NULL)
+		delete counter;
+	if (controls != NULL)
+		delete controls;
+	if (critFilter.sprite != NULL)
+		delete critFilter.sprite;
 	if (stunUpdates != NULL)
 		delete stunUpdates;
+	if (movementEnergy != NULL)
+		delete movementEnergy;
+	if (bar != NULL)
+		delete bar;
+	if (colorEffects != NULL)
+		delete colorEffects;
+	if (healthColoring != NULL)
+		delete healthColoring;
+	if (iconHandler != NULL)
+		delete iconHandler;
+	if (statusInfo != NULL)
+		delete statusInfo;
+	if (hitChanceBubble != NULL)
+		delete hitChanceBubble;
+	if (frenzyColorer != NULL)
+		delete frenzyColorer;
 	for (int i = 0; i < snippets.size(); i++)
 		delete snippets[i];
 	snippets.clear();
@@ -358,6 +375,16 @@ void Info::Destroy()
 		delete supplyEffects[i];
 	for (int i = 0; i < nailBombs.size(); i++)
 		delete nailBombs[i];
+	for (int i = 0; i < acidBombs.size(); i++)
+		delete acidBombs[i];
+	for (int i = 0; i < slowEffects.size(); i++)
+		delete slowEffects[i];
+	for (int i = 0; i < healEffects.size(); i++)
+		delete healEffects[i];
+	for (int i = 0; i < shieldBashEffects.size(); i++)
+		delete shieldBashEffects[i];
+	for (int i = 0; i < inspireEffecst.size(); i++)
+		delete inspireEffecst[i];
 	for (int i = 0; i < hostEffects.size(); i++)
 		delete hostEffects[i];
 	for (int i = 0; i < buffEffects.size(); i++)

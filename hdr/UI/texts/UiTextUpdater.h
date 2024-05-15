@@ -13,7 +13,9 @@ class UiTextUpdater
 		void UpdateBubble();
 		void CreateBubble();
 	public:
+		~UiTextUpdater() {Destroy();};
 		void Update(int ability);
+		void Destroy();
 };
 
 #endif

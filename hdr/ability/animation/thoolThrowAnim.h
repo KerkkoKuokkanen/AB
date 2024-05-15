@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class ToolThrowAnim : AbBase
+class ToolThrowAnim : public AbBase
 {
 	private:
 		Character *character = NULL;

@@ -90,13 +90,10 @@ void ShieldBashEffect::Update()
 
 void ShieldBashEffect::Destroy()
 {
-	if (count < COUNT_TIME)
+	for (int i = 0; i < particles.size(); i++)
 	{
-		for (int i = 0; i < particles.size(); i++)
-		{
-			delete particles[i].part->sprite;
-			delete particles[i].part;
-		}
+		delete particles[i].part->sprite;
+		delete particles[i].part;
 	}
 	particles.clear();
 }

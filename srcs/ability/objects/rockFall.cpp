@@ -118,5 +118,6 @@ void RockFall::Update()
 
 void RockFall::Destroy()
 {
-	delete sprite;
+	if (sprite != NULL)
+		delete sprite;
 }

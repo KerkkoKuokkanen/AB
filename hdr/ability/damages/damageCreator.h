@@ -28,7 +28,6 @@ class DamageCreator
 {
 	private:
 		std::vector<t_Damage> damages;
-		std::vector<Particle*> particles;
 		void ColorManage(Character *character, int time);
 		void MoveManage(Character *character, int time, Vector direction, SDL_Rect dest);
 		void CreateParticles(Character *character, Vector partDir, Color start);
@@ -40,6 +39,7 @@ class DamageCreator
 		void CreateDamage(Character *character, Color startColor, int armorDamage, int healthDamage, Vector partDir, std::vector<t_Sound> &sounds, bool move = true);
 		void Update();
 		void RemoveCharacter(Character *character);
+		void Destroy();
 };
 
 #endif

@@ -271,7 +271,7 @@ void TurnOrder::CreateIndicators()
 	}
 }
 
-TurnOrder::TurnOrder(std::vector<Character> &characters)
+TurnOrder::TurnOrder(std::vector<Character*> &characters)
 {
 	int www = rounding(gameCamera.screen.width / 50.0f);
 	int hhh = rounding(gameCamera.screen.height / 44.0f);
@@ -282,7 +282,7 @@ TurnOrder::TurnOrder(std::vector<Character> &characters)
 	gameState.render->AddSprite(hoverIndicator, TURN_ORDER_LAYER);
 	hoverIndicator->Deactivate();
 	for (int i = 0; i < characters.size(); i++)
-		TurnOrder::characters.push_back(&characters[i]);
+		TurnOrder::characters.push_back(characters[i]);
 	SDL_Rect dest = {
 		rounding((float)gameCamera.screen.width - ((float)gameCamera.screen.width / 10.0f * 7.3f)),
 		0 - rounding(((float)gameCamera.screen.height / 25.0f)),
@@ -694,9 +694,12 @@ void TurnOrder::Update()
 
 void TurnOrder::Destroy()
 {
-	delete banner;
-	delete backGround;
-	delete hoverIndicator;
+	if (banner != NULL)
+		delete banner;
+	if (backGround != NULL)
+		delete backGround;
+	if (hoverIndicator != NULL)
+		delete hoverIndicator;
 	for (int i = 0; i < indicators.size(); i++)
 	{
 		delete indicators[i].indicator;

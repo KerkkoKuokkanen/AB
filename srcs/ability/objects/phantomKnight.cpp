@@ -126,7 +126,7 @@ void PhantomKnight::CreateParticles()
 	}
 }
 
-void PhantomKnight::Destroy()
+void PhantomKnight::DeathEffect()
 {
 	CreateParticles();
 	SDL_Point pos = Character::position;
@@ -134,6 +134,10 @@ void PhantomKnight::Destroy()
 	gameState.battle.ground->map[pos.y][pos.x].character = NULL;
 	gameState.battle.ground->map[pos.y][pos.x].additional.type = (-1);
 	gameState.battle.ground->map[pos.y][pos.x].additional.object = NULL;
+}
+
+void PhantomKnight::Destroy()
+{
 	if (knight != NULL)
 		delete knight;
 	if (stand != NULL)

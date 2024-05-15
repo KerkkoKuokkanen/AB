@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class FlameSlash : AbBase
+class FlameSlash : public AbBase
 {
 	private:
 		Character *character;

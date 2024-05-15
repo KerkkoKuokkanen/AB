@@ -10,7 +10,7 @@ typedef struct s_TrailSprite
 	int counter;
 }				t_TrailSprite;
 
-class SkeleLunge
+class SkeleLunge : public AbBase
 {
 	private:
 		std::vector<t_TrailSprite> spriteTrail;

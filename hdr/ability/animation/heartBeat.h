@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class HeartBeat
+class HeartBeat : public AbBase
 {
 	private:
 		Character *character = NULL;

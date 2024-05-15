@@ -31,5 +31,6 @@ void Supply::Update()
 void Supply::Destroy()
 {
 	character->setAnimationActive(false);
-	delete mover;
+	if (mover != NULL)
+		delete mover;
 }

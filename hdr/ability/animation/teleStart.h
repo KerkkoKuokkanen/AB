@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class TeleStart
+class TeleStart : public AbBase
 {
 	private:
 		Character *character = NULL;

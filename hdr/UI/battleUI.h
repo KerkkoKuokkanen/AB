@@ -47,6 +47,7 @@ class CharacterUI
 		t_Ability *GetCharacterAbility(int type);
 		int textInfoSign = 0;
 	public:
+		~CharacterUI() {Destroy();};
 		bool overCharacterUI = false;
 		bool active = false;
 		bool NoOneKilled();
@@ -54,7 +55,7 @@ class CharacterUI
 		void ShowEnergy(int cost, bool moving = false);
 		void ShowNoEnergy();
 		CharacterUI();
-		void SetCharacters(std::vector<Character> &characters);
+		void SetCharacters(std::vector<Character*> &characters);
 		void Update();
 		void Destroy();
 		void RemoveCharacter(Character *character);

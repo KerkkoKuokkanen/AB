@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class HammerSmack : AbBase
+class HammerSmack : public AbBase
 {
 	private:
 		CharacterMover *mover = NULL;

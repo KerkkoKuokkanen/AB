@@ -15,9 +15,9 @@ class Info
 	private:
 		int barh = 0, bara = 0;
 		bool infoBarBara = false;
-		Character *hovered;
-		Counter *counter;
-		ControlSetter *controls;
+		Character *hovered = NULL;
+		Counter *counter = NULL;
+		ControlSetter *controls = NULL;
 		t_CritFilter critFilter = {0, NULL};
 		StunUpdates *stunUpdates = NULL;
 		MovementEnergy *movementEnergy = NULL;

@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class SmokeBombAnim : AbBase
+class SmokeBombAnim : public AbBase
 {
 	private:
 		Character *character;

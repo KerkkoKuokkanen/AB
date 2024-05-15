@@ -13,7 +13,7 @@ typedef struct s_RainDrop
 	float speed;
 }				t_RainDrop;
 
-class AcidRain
+class AcidRain : public AbBase
 {
 	private:
 		WitchAnimation *animation = NULL;

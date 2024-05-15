@@ -11,7 +11,7 @@ class BuffEffect
 		SDL_Surface *sur;
 		std::vector<t_Particle> parts = {};
 		int counter = 0;
-		bool buff;
+		bool buff = false;
 		void UpdateBuff();
 		void UpdateDebuff();
 		int partCounter = 0;

@@ -182,3 +182,18 @@ void ParticleManager::AddModParticle(t_Particle &modPart)
 	modPart.part->Activate();
 	modParts.push_back(modPart);
 }
+
+void ParticleManager::Destroy()
+{
+	for (int i = 0; i < particles.size(); i++)
+	{
+		delete particles[i]->sprite;
+		delete particles[i];
+	}
+	for (int i = 0; i < modParts.size(); i++)
+	{
+		delete modParts[i].part->sprite;
+		delete modParts[i].part;
+	}
+
+}

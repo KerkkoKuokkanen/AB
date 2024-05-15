@@ -20,9 +20,9 @@ class TurnOrder
 {
 	private:
 		std::vector<Character*> characters;
-		Sprite *banner;
-		Sprite *backGround;
-		Sprite *hoverIndicator;
+		Sprite *banner = NULL;
+		Sprite *backGround = NULL;
+		Sprite *hoverIndicator = NULL;
 		void CreateIndicators();
 		void CreateSRect(SDL_Rect *srect, int cSing);
 		SDL_Rect CreateDest(int cSing);
@@ -53,7 +53,7 @@ class TurnOrder
 		bool stuffHappening = true;
 		bool stuffWithOutMove = true;
 		bool insideBox = false;
-		TurnOrder(std::vector<Character> &characters);
+		TurnOrder(std::vector<Character*> &characters);
 		~TurnOrder() {Destroy();};
 		void ResetClicks();
 		bool NoOneMoving();

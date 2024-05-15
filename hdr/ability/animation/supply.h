@@ -4,12 +4,12 @@
 
 # include "../../ab.h"
 
-class Supply
+class Supply : public AbBase
 {
 	private:
 		Character *character;
 		ToolBox *box;
-		CharacterMover *mover;
+		CharacterMover *mover = NULL;
 		void GetToolBox(SDL_Point target);
 	public:
 		bool done = false;

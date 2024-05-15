@@ -19,7 +19,7 @@ typedef struct s_FlamePortPart
 	Sprite *sprite;
 }				t_FlamePortPart;
 
-class FlamePort : AbBase
+class FlamePort : public AbBase
 {
 	private:
 		Character *character;

@@ -218,3 +218,18 @@ void AiObjHolder::Init()
 		freeIterators.push_back(iter);
 	}
 }
+
+static void EraseMap(t_AiMapUnit **map)
+{
+	int h = gameState.battle.ground->map.size();
+	int w = gameState.battle.ground->map[0].size();
+	for (int i = 0; i < h; i++)
+		free(map[i]);
+	free(map);
+}
+
+void AiObjHolder::Clear()
+{
+	for (int i = 0; i < freeMaps.size(); i++)
+		EraseMap(freeMaps[i]);
+	

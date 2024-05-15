@@ -107,3 +107,9 @@ void Kill::RemoveCharacter(Character *character)
 	character->Destroy();
 	//delete character; may need to be used later
 }
+
+void Kill::Destroy()
+{
+	for (int i = 0; i < killEffects.size(); i++)
+		delete killEffects[i];
+}

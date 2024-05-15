@@ -21,8 +21,10 @@ class Kill
 		void KillColorFade(t_kill *killed);
 	public:
 		Kill();
+		~Kill() {Destroy();};
 		void AddCharacterToKill(Character *character);
 		void Update();
+		void Destroy();
 		bool killing = false;
 };
 

@@ -10,7 +10,7 @@ typedef struct s_SpeedSprite
 	int counter;
 }				t_SpeedSprite;
 
-class AxeJumpAnim
+class AxeJumpAnim : public AbBase
 {
 	private:
 		std::vector<t_SpeedSprite> speedSprites;

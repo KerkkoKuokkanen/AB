@@ -83,6 +83,7 @@ void ControlZone::ManageParticles()
 	{
 		for (int i = 0; i < parts.size(); i++)
 			gameState.updateObjs.partManager->AddModParticle(parts[i]);
+		parts.clear();
 		return ;
 	}
 	if (counter < 8 || counter > 11)
@@ -110,6 +111,11 @@ void ControlZone::Update()
 
 void ControlZone::Destroy()
 {
+	for (int i = 0; i < parts.size(); i++)
+	{
+		delete parts[i].part->sprite;
+		delete parts[i].part;
+	}
 	parts.clear();
 	character->sprite->ClearColorMod();
 	character->setAnimationActive(false);

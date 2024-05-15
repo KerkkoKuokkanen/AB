@@ -186,6 +186,7 @@ void Abilities::UpdateKnightObjects(t_Object &object, int index)
 					target->statuses.stun = 1;
 				}
 				CreateDamage();
+				used->PlaceBashMover();
 				delete used;
 				objects.erase(objects.begin() + index);
 			}

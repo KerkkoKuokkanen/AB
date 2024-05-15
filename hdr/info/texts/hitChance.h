@@ -14,7 +14,9 @@ class HitChanceBubble
 		void Deleting();
 		void CreateBubble();
 	public:
+		~HitChanceBubble() {Destroy();};
 		void Update(Character *hovered);
+		void Destroy();
 };
 
 #endif

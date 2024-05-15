@@ -87,6 +87,8 @@ void HostEffect::Update()
 
 void HostEffect::Destroy()
 {
+	if (character == NULL)
+		return ;
 	character->setAnimationActive(false);
 	character->sprite->ClearColorMod();
 }

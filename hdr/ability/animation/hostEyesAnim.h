@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class HostEyesAnim
+class HostEyesAnim : public AbBase
 {
 	private:
 		Character *character;

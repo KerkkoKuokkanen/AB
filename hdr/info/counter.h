@@ -7,10 +7,10 @@
 class Counter
 {
 	private:
-		Sprite *sprite;
-		Number *turn;
-		Number *allies;
-		Number *enemies;
+		Sprite *sprite = NULL;
+		Number *turn = NULL;
+		Number *allies = NULL;
+		Number *enemies = NULL;
 		int currentTurn = 0;
 		int allied = 0;
 		int enemy = 0;

@@ -96,6 +96,7 @@ void SupplyEffect::ManageParticles()
 	{
 		for (int i = 0; i < parts.size(); i++)
 			gameState.updateObjs.partManager->AddModParticle(parts[i]);
+		parts.clear();
 		return ;
 	}
 	if (counter < 8 || counter > 11)
@@ -123,7 +124,14 @@ void SupplyEffect::Update()
 
 void SupplyEffect::Destroy()
 {
+	for (int i = 0; i < parts.size(); i++)
+	{
+		delete parts[i].part->sprite;
+		delete parts[i].part;
+	}
+	parts.clear();
+	if (target == NULL)
+		return ;
 	target->setAnimationActive(false);
 	target->sprite->ClearColorMod();
-	parts.clear();
 }

@@ -13,7 +13,7 @@ typedef struct s_HealthParticle
 	int time;
 }				t_HealthParticle;
 
-class HealthTransfer
+class HealthTransfer : public AbBase
 {
 	private:
 		std::vector<t_HealthParticle> particles = {};

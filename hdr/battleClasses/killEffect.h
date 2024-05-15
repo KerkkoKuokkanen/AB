@@ -7,8 +7,8 @@
 class KillEffect
 {
 	private:
-		Sprite *character;
-		Sprite *stand;
+		Sprite *character = NULL;
+		Sprite *stand = NULL;
 		SDL_Rect sRect;
 		SDL_Surface *sur;
 		int counter = 0;

@@ -215,3 +215,8 @@ void Damager::Update()
 {
 	damageCreator.Update();
 }
+
+void Damager::Destroy()
+{
+	damageCreator.Destroy();
+}

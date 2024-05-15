@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class AxeSlash
+class AxeSlash : public AbBase
 {
 	private:
 		Character *character;

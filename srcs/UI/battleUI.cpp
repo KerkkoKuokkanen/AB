@@ -409,10 +409,10 @@ void CharacterUI::Update()
 		fatigue->ShowFatigue(gameState.updateObjs.abilities->ability->fatigue);
 }
 
-void CharacterUI::SetCharacters(std::vector<Character> &characters)
+void CharacterUI::SetCharacters(std::vector<Character*> &characters)
 {
 	for (int i = 0; i < characters.size(); i++)
-		CharacterUI::characters.push_back(&characters[i]);
+		CharacterUI::characters.push_back(characters[i]);
 }
 
 void CharacterUI::RemoveCharacter(Character *character)
@@ -436,12 +436,26 @@ void CharacterUI::RemoveCharacter(Character *character)
 void CharacterUI::Destroy()
 {
 	characters.clear();
-	delete health;
-	delete armor;
+	for (int i = 0; i < BUTTON_RESERVE; i++)
+		delete buttons[i].button;
+	for (int i = 0; i < ENERGYS; i++)
+		delete energys[i];
+	if (health != NULL)
+		delete health;
+	if (armor != NULL)
+		delete armor;
 	if (text == NULL)
 		delete text;
 	if (texts != NULL)
 		SDL_DestroyTexture(texts);
+	if (fatigue != NULL)
+		delete fatigue;
+	if (statuses != NULL)
+		delete statuses;
+	if (stausInfo != NULL)
+		delete stausInfo;
+	if (abilityText != NULL)
+		delete abilityText;
 }
 
 void CharacterUI::CheckIfMouseOver()

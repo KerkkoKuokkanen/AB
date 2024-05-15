@@ -12,6 +12,7 @@ class AiObjHolder
 		std::vector<AiIterator*> freeIterators;
 	public:
 		void Init();
+		void Clear();
 		void ReturnMap(t_AiMapUnit **map);
 		void ReturnCharacter(t_AiCharacter *character);
 		t_AiMapUnit **GetMap();

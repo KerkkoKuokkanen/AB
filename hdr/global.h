@@ -564,6 +564,7 @@ typedef struct	s_GameState
 	t_Updates updateObjs;
 	t_Audio audio;
 	int delayer;
+	Sprite *backGround;
 }				t_GameState;
 
 extern t_GameState gameState;

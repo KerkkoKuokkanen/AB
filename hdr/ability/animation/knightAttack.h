@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class KnightAttack
+class KnightAttack : public AbBase
 {
 	private:
 		Character *character;

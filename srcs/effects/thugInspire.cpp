@@ -46,6 +46,8 @@ void ThugInspire::Update()
 
 void ThugInspire::Destroy()
 {
+	if (target == NULL)
+		return ;
 	target->setAnimationActive(false);
 	target->sprite->ClearColorMod();
 }

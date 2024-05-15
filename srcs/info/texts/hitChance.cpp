@@ -81,3 +81,9 @@ void HitChanceBubble::Update(Character *hovered)
 		bubble->SetAlphaMod(alpha);
 	}
 }
+
+void HitChanceBubble::Destroy()
+{
+	if (bubble != NULL)
+		delete bubble;
+}

@@ -190,3 +190,8 @@ void DamageCreator::RemoveCharacter(Character *character)
 		}
 	}
 }
+
+void DamageCreator::Destroy()
+{
+	
+}

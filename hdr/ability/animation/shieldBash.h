@@ -4,13 +4,13 @@
 
 # include "../../ab.h"
 
-class ShieldBash
+class ShieldBash : public AbBase
 {
 	private:
 		Character *character;
 		Character *target;
-		SpriteMover *mover;
-		Sprite *trail;
+		SpriteMover *mover = NULL;
+		Sprite *trail = NULL;
 		SDL_Point dims;
 		int orderDiff = 0;
 		int counter = 0;

@@ -87,6 +87,8 @@ void SlowedEffect::Update()
 
 void SlowedEffect::Destroy()
 {
+	if (character == NULL)
+		return ;
 	character->setAnimationActive(false);
 	character->sprite->ClearColorMod();
 }

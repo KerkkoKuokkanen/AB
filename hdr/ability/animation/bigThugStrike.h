@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class BigThugStrike
+class BigThugStrike : public AbBase
 {
 	private:
 		Character *character = NULL;

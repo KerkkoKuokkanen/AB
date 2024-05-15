@@ -87,5 +87,6 @@ void LightningBolt::Update()
 
 void LightningBolt::Destroy()
 {
-	delete sprite;
+	if (sprite != NULL)
+		delete sprite;
 }

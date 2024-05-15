@@ -60,6 +60,7 @@ void BuffEffect::ManageParticles()
 	{
 		for (int i = 0; i < parts.size(); i++)
 			gameState.updateObjs.partManager->AddModParticle(parts[i]);
+		parts.clear();
 		return ;
 	}
 	if (counter < 8 || counter > 11)
@@ -148,6 +149,13 @@ void BuffEffect::Update()
 
 void BuffEffect::Destroy()
 {
-	target->sprite->ClearColorMod();
+	for (int i = 0; i < parts.size(); i++)
+	{
+		delete parts[i].part->sprite;
+		delete parts[i].part;
+	}
 	parts.clear();
+	if (target == NULL)
+		return ;
+	target->sprite->ClearColorMod();
 }

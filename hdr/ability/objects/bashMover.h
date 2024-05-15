@@ -4,7 +4,7 @@
 
 # include "../../ab.h"
 
-class BashMover
+class BashMover : public AbBase
 {
 	private:
 		Character *attacker;
@@ -19,6 +19,7 @@ class BashMover
 		BashMover(Character *attacker, Character *target, SDL_Point targetLandingPos);
 		~BashMover() {Destroy();};
 		void Update();
+		void PlaceBashMover();
 		void Destroy();
 };
 
