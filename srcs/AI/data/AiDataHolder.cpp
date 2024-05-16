@@ -73,6 +73,7 @@ t_AiMapUnit **GetMapFromHolder()
 
 void AiObjHolder::ReturnCharacter(t_AiCharacter *character)
 {
+	charsInUse.erase(character);
 	character->alive = false;
 	ResetCharacter(character);
 	freeCharacters.push_back(character);
@@ -163,10 +164,12 @@ t_AiCharacter *AiObjHolder::GetCharacter()
 	{
 		t_AiCharacter *ret = freeCharacters.back();
 		freeCharacters.pop_back();
+		charsInUse.insert(ret, ret);
 		return (ret);
 	}
 	t_AiCharacter *ret = new t_AiCharacter;
 	bzero(ret, sizeof(t_AiCharacter));
+	charsInUse.insert(ret, ret);
 	return (ret);
 }
 
@@ -176,9 +179,11 @@ t_AiMapUnit **AiObjHolder::GetMap()
 	{
 		t_AiMapUnit **ret = freeMaps.back();
 		freeMaps.pop_back();
+		mapsInUse.insert(ret, ret);
 		return (ret);
 	}
 	t_AiMapUnit **ret = GetTheMap();
+	mapsInUse.insert(ret, ret);
 	return (ret);
 }
 
@@ -232,4 +237,4 @@ void AiObjHolder::Clear()
 {
 	for (int i = 0; i < freeMaps.size(); i++)
 		EraseMap(freeMaps[i]);
-	
+}

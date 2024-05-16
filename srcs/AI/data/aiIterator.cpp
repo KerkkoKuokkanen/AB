@@ -74,10 +74,11 @@ float AiIterator::SendToNextOne(t_AiMapUnit **nmap, t_AiCharacter *character, in
 	float scr = score;
 	if (depth <= 0 || removed)
 		return (scr);
-	AiIterator *next = GetAiIterator();
+	next = GetAiIterator();
 	next->CalculateMoves(nmap, character, scr, depth - 1, movered);
 	float ret = next->GetBestScore();
 	ReturnAiIterator(next);
+	next = NULL;
 	return (ret);
 }
 

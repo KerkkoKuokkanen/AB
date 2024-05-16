@@ -38,6 +38,7 @@ typedef struct s_TruthAndScore
 class AiIterator
 {
 	private:
+		AiIterator *next = NULL;
 		std::vector<t_MoveIter> moveSaves = {};
 		t_AiMapUnit **map = NULL;
 		t_AiCharacter *character = NULL;
