@@ -3,7 +3,7 @@
 # define AI_OBJECT_HOLDER_H
 
 # include "../ab.h"
-# include <unordered_map>
+# include <unordered_set>
 
 class AiObjHolder
 {
@@ -11,9 +11,9 @@ class AiObjHolder
 		std::vector<t_AiMapUnit**> freeMaps;
 		std::vector<t_AiCharacter*> freeCharacters;
 		std::vector<AiIterator*> freeIterators;
-		std::unordered_map<t_AiMapUnit**, t_AiMapUnit**> mapsInUse = {};
-		std::unordered_map<t_AiCharacter*, t_AiCharacter*> charsInUse = {};
-		std::unordered_map<AiIterator*, AiIterator*> iteratorsInUse = {};
+		std::unordered_set<t_AiMapUnit**> mapsInUse = {};
+		std::unordered_set<t_AiCharacter*> charsInUse = {};
+		std::unordered_set<AiIterator*> iteratorsInUse = {};
 	public:
 		void Init();
 		void Clear();

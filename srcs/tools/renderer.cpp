@@ -59,6 +59,13 @@ void Renderer::RenderAll()
 	SDL_RenderPresent(rend);
 }
 
+void Renderer::RemoveAll()
+{
+	for (int i = 0; i < spriteLayers.size(); i++)
+		spriteLayers[i].clear();
+	spriteLayers.clear();
+}
+
 void Renderer::Render()
 {
 	for (int i = 0; i < spriteLayers.size(); i++)

@@ -435,6 +435,10 @@ bool CheckForTurnChange();
 
 //AI stuff
 
+void StartAiThread();
+void StopAiThread();
+
+void					ClearObjHolder();
 bool					AiCheckIfCanHit(t_AiMapUnit **map, t_Ability *ability, t_AiCharacter *character, SDL_Point pos, SDL_Point start);
 void					CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, Character *character);
 t_SomeRetShit			GetNextCharacter(t_AiCharacter *curr, t_AiCharacter *next, t_AiMapUnit **map);
@@ -453,6 +457,7 @@ int						AiGetChance(t_AiCharacter *character, t_AiCharacter *target, t_Ability 
 void					AiManaging();
 void					AiManagerUpdate();
 void					CreateTheMoveMaps();
+void					DeleteMoveMaps();
 bool					CheckIfNextToToolBox(SDL_Point pos);
 t_AiCharacter			*GetTheStartingTurnForAi(t_AiMapUnit **map);
 t_AiMapUnit				**GetTheMap();
@@ -497,5 +502,7 @@ void	AudioClear();
 
 void DeltaTimeStart();
 void DeltaTimeGet();
+
+void DeleteBattle();
 
 #endif

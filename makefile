@@ -55,7 +55,8 @@ SRCS =	srcs/main.cpp srcs/UI/bar.cpp srcs/UI/battleUI.cpp srcs/UI/button.cpp src
 		srcs/info/thugEffect.cpp srcs/effects/thugInspire.cpp srcs/effects/frenzyColorer.cpp srcs/AI/scores/CrazyLoop.cpp \
 		srcs/AI/scores/AiScoreTools.cpp srcs/AI/scores/AiScoreCharacterChecks.cpp srcs/AI/scores/AiPositionDistances.cpp \
 		srcs/ow/owMain.cpp srcs/ow/owTools/basicOwTools.cpp srcs/ow/owTiles/tileDataHolder.cpp srcs/ow/owTiles/mapTile.cpp \
-		srcs/ow/owTools/cameraMover.cpp srcs/ow/owPlayer.cpp srcs/ow/owTools/owSpriteMover.cpp
+		srcs/ow/owTools/cameraMover.cpp srcs/ow/owPlayer.cpp srcs/ow/owTools/owSpriteMover.cpp srcs/tools/AiThread.cpp \
+		srcs/tools/deleteBattle.cpp
 
 OBJ = $(SRCS:.cpp=.o)
 DEP = $(OBJ:.o=.d)

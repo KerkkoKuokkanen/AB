@@ -68,7 +68,8 @@
 		"thread": "cpp",
 		"deque": "cpp",
 		"queue": "cpp",
-		"__memory": "cpp"
+		"__memory": "cpp",
+		"unordered_set": "cpp"
 	},
 	"explorerExclude.backup": {
 

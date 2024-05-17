@@ -51,12 +51,12 @@ void AiManagerUpdate()	//funtion only for the Ai thread
 	t_AiMapUnit **map = GetTheMap();
 	t_AiCharacter *turn = GetTheStartingTurnForAi(map);
 	float startSore = GetAiScore(map, turn);
-	AiIterator *used = new AiIterator;
+	AiIterator *used = GetAiIterator();
 	used->CalculateMoves(map, turn, startSore, 3, 3);
 	t_BestMove tester = used->GetBestMove();
 	DeactivateAI();
 	SetDataReady(tester);
-	delete used;
+	ReturnAiIterator(used);
 	DestroyMap(map);
 }
 

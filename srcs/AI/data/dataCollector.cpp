@@ -29,6 +29,29 @@ void CreateTheMoveMaps()
 	}
 }
 
+void DeleteMoveMaps()
+{
+	int height = gameState.battle.ground->map.size();
+	int width = gameState.battle.ground->map[0].size();
+	for (int i = 0; i < height; i++)
+	{
+		for (int j = 0; j < width; j++)
+		{
+			for (int k = 0; k < height; k++)
+			{
+				free(moveMaps.abilities[i][j].map[k]);
+				free(moveMaps.staticMoves[i][j].map[k]);
+			}
+			free(moveMaps.abilities[i][j].map);
+			free(moveMaps.staticMoves[i][j].map);
+		}
+		free(moveMaps.abilities[i]);
+		free(moveMaps.staticMoves[i]);
+	}
+	free(moveMaps.abilities);
+	free(moveMaps.staticMoves);
+}
+
 void CopyStatusesFromTheCharacter(t_AiCharacter *aiChar, Character *character)
 {
 	for (int i = 0; i < character->statuses.bleed.size(); i++)

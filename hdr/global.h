@@ -565,6 +565,7 @@ typedef struct	s_GameState
 	t_Audio audio;
 	int delayer;
 	Sprite *backGround;
+	Sprite *filter;
 }				t_GameState;
 
 extern t_GameState gameState;

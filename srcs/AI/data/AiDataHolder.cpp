@@ -11,6 +11,11 @@ void InitObjHolder()
 	objHolder.Init();
 }
 
+void ClearObjHolder()
+{
+	objHolder.Clear();
+}
+
 static void ResetCharacter(t_AiCharacter *character)
 {
 	character->statuses.bleed.clear();
@@ -150,11 +155,13 @@ void AiObjHolder::ReturnMap(t_AiMapUnit **map)
 			if (map[i][j].character != NULL)
 			{
 				ResetCharacter(map[i][j].character);
+				charsInUse.erase(map[i][j].character);
 				freeCharacters.push_back(map[i][j].character);
 				map[i][j].character = NULL;
 			}
 		}
 	}
+	mapsInUse.erase(map);
 	freeMaps.push_back(map);
 }
 
@@ -164,12 +171,12 @@ t_AiCharacter *AiObjHolder::GetCharacter()
 	{
 		t_AiCharacter *ret = freeCharacters.back();
 		freeCharacters.pop_back();
-		charsInUse.insert(ret, ret);
+		charsInUse.insert(ret);
 		return (ret);
 	}
 	t_AiCharacter *ret = new t_AiCharacter;
 	bzero(ret, sizeof(t_AiCharacter));
-	charsInUse.insert(ret, ret);
+	charsInUse.insert(ret);
 	return (ret);
 }
 
@@ -178,17 +185,18 @@ t_AiMapUnit **AiObjHolder::GetMap()
 	if (freeMaps.size() > 0)
 	{
 		t_AiMapUnit **ret = freeMaps.back();
+		mapsInUse.insert(ret);
 		freeMaps.pop_back();
-		mapsInUse.insert(ret, ret);
 		return (ret);
 	}
 	t_AiMapUnit **ret = GetTheMap();
-	mapsInUse.insert(ret, ret);
+	mapsInUse.insert(ret);
 	return (ret);
 }
 
 void AiObjHolder::ReturnAiIterator(AiIterator *itertor)
 {
+	iteratorsInUse.erase(itertor);
 	freeIterators.push_back(itertor);
 }
 
@@ -198,9 +206,11 @@ AiIterator *AiObjHolder::GetIterator()
 	{
 		AiIterator *ret = freeIterators.back();
 		freeIterators.pop_back();
+		iteratorsInUse.insert(ret);
 		return (ret);
 	}
 	AiIterator *ret = new AiIterator;
+	iteratorsInUse.insert(ret);
 	return (ret);
 }
 
@@ -237,4 +247,20 @@ void AiObjHolder::Clear()
 {
 	for (int i = 0; i < freeMaps.size(); i++)
 		EraseMap(freeMaps[i]);
+	for (int i = 0; i < freeIterators.size(); i++)
+		delete freeIterators[i];
+	for (int i = 0; i < freeCharacters.size(); i++)
+		delete freeCharacters[i];
+	for (t_AiMapUnit **element : mapsInUse)
+		EraseMap(element);
+	for (t_AiCharacter *element : charsInUse)
+		delete element;
+	for (AiIterator *element : iteratorsInUse)
+		delete element;
+	freeMaps.clear();
+	freeIterators.clear();
+	freeCharacters.clear();
+	mapsInUse.clear();
+	charsInUse.clear();
+	iteratorsInUse.clear();
 }

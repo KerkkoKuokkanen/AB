@@ -26,6 +26,8 @@ void OverWorldLoop()
 		owState.renderer->RenderAll();
 		end = clock();
 		SDL_Delay(ow_figure_the_delay(start, end));
+		if (owKeys.click == RELEASE_CLICK)
+			break ;
 	}
 	ClearOW(dataHolder);
 }

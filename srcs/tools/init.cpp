@@ -586,18 +586,6 @@ void CraeteAudioThread()
 	});
 }
 
-void AiThread()
-{
-	static std::thread aiThread([]()
-	{
-		while (true)
-		{
-			AiManagerUpdate();
-			std::this_thread::sleep_for(std::chrono::milliseconds(2));
-		}
-	});
-}
-
 void	init(t_wr *wr)
 {
 	srand((unsigned int)clock() + time(0));
@@ -626,6 +614,8 @@ void	init(t_wr *wr)
 
 void InitBattle()
 {
+	gameCamera.x = 0;
+	gameCamera.y = 0;
 	InitHovers();
 	gameState.render->CreateLayer(LAYER_NO_SORT); //backGround layer
 	gameState.render->CreateLayer(LAYER_DEPTH_SORT); //battleground layer
@@ -656,6 +646,5 @@ void InitBattle()
 	gameState.updateObjs.UI = new CharacterUI;
 	gameState.updateObjs.abilities = new Abilities;
 	gameState.updateObjs.info = new Info;
-	AiThread();
-	InitThugParts();
+	StartAiThread();
 }

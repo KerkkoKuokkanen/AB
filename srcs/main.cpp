@@ -12,7 +12,7 @@ void TempInitBattle()
 	Character *skele = new Character(THUG, false);
 	Character *skele4 = new Character(THUG, false);
 	Character *skele5 = new Character(THUG, false);
-	static std::vector<Character*> chars = {thief1, thief, skele, skele4, skele5};
+	std::vector<Character*> chars = {thief1, thief, skele, skele4, skele5};
 	SDL_Point point = {5, 11};
 	SDL_Point point1 = {6, 11};
 	SDL_Point point11 = {7, 11};
@@ -52,6 +52,7 @@ void StartBattle()
 	InitObjHolder();
 	gameState.updateObjs.info->InitInfo();
 	gameState.backGround = backGround;
+	gameState.filter = filter;
 }
 
 void MainLoop()
@@ -69,13 +70,20 @@ void MainLoop()
 		gameState.render->RenderAll();
 		end = clock();
 		SDL_Delay(figure_the_delay(start, end));
+		if (gameState.keys.click == RELEASE_CLICK)
+			break ;
 	}
+	DeleteBattle();
 }
 
 void Battle()
 {
-	InitBattle();
-	MainLoop();
+	while (true)
+	{
+		InitBattle();
+		MainLoop();
+		OverWorldLoop();
+	}
 }
 
 int main()

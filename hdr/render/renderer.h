@@ -52,7 +52,7 @@ class Renderer
 				spriteLayers[layerNumber].erase(it);
 				return (true);
 			}
-			printf("render.h :could not find the sprite\n");
+			//printf("render.h :could not find the sprite %d\n", layerNumber);
 			return (false);
 		}
 		void ClearLayer(int layer)
@@ -67,12 +67,7 @@ class Renderer
 			spriteLayers[layer].clear();
 			spriteLayers.erase(spriteLayers.begin() + layer);
 		}
-		void RemoveAll()
-		{
-			for (int i = 0; i < spriteLayers.size(); i++)
-				spriteLayers[i].clear();
-			spriteLayers.clear();
-		}
+		void RemoveAll();
 		void RenderClear() {
 			SDL_RenderClear(rend);
 		};

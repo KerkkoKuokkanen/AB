@@ -239,7 +239,7 @@ void BattleGround::StartBattle(std::vector<Character*> &characters, std::vector<
 		add.character = characters[i];
 		add.clicked = false;
 		BattleGround::characters.push_back(add);
-		BattleGround::characters[i].character->AddToRender();
+		characters[i]->AddToRender();
 		PlaceCharacter(mapPos[i], BattleGround::characters[i].character);
 	}
 }
@@ -331,5 +331,10 @@ void BattleGround::Destroy()
 	{
 		for (int j = 0; j < sprites[i].size(); j++)
 			sprites[i][j].RemoveFromRenderer();
+	}
+	for (int i = 0; i < characters.size(); i++)
+	{
+		characters[i].character->Destroy();
+		delete characters[i].character;
 	}
 }

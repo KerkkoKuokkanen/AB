@@ -20,6 +20,10 @@ class Dust
 		void Destroy();
 	public:
 		Dust(SDL_Point position, Vector direction);
+		void SimpleClear() {
+			for (int i = 0; i < dusts.size(); i++)
+				delete dusts[i].dust;
+		};
 		void Update();
 		void ClearDusts();
 };
