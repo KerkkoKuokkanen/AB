@@ -2,8 +2,6 @@
 #ifndef CAMERA_H
 # define CAMERA_H
 
-# include "../ow/tools/cameraMover.h"
-
 typedef struct s_Screen
 {
 	int width, height;
@@ -29,7 +27,6 @@ typedef struct s_Camera
 	int clickTimePosX, clickTimePosY;
 	t_ScreenShake screenShake;
 	t_Screen screen;
-	CameraMover camMover;
 }				t_Camera;
 
 extern t_Camera gameCamera;

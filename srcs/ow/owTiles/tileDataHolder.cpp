@@ -33,7 +33,6 @@ static int RangeBetween(SDL_Point one, SDL_Point two)
 
 TileDataHolder::TileDataHolder(const char *address)
 {
-	SetTheHolder(this);
 	if (address == NULL)
 	{
 		GetOwTileData(mapData, mapTiles);
@@ -43,7 +42,7 @@ TileDataHolder::TileDataHolder(const char *address)
 		gameCamera.x = position.x * DIMENTIONS + DIMENTIONS / 2;
 		gameCamera.y = position.y * DIMENTIONS + DIMENTIONS / 2;
 	}
-	player = new Player();
+	player = new Player(position);
 }
 
 bool TileDataHolder::ValidPosition(SDL_Point pos)
@@ -115,8 +114,8 @@ bool TileDataHolder::SetPosition(SDL_Point pos, int time)
 	if (!ValidPosition(pos))
 		return (false);
 	TileDataHolder::position = pos;
-	SDL_Point startPosition = {position.x * DIMENTIONS + DIMENTIONS / 2, position.y * DIMENTIONS + DIMENTIONS / 2};
-	gameCamera.camMover.SetCameraMove({gameCamera.x, gameCamera.y}, startPosition, time);
+	//SDL_Point startPosition = {position.x * DIMENTIONS + DIMENTIONS / 2, position.y * DIMENTIONS + DIMENTIONS / 2};
+	//gameCamera.camMover.SetCameraMove({gameCamera.x, gameCamera.y}, startPosition, time);
 	return (true);
 }
 

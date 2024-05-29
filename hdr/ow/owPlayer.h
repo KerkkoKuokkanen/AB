@@ -12,10 +12,10 @@ class Player : public MapObj
 		Sprite *sprite = NULL;
 		OwSpriteMover *mover = NULL;
 		int moveDelayer = 0;
-		int delayTime = 8;
+		int delayTime = 12;
 		void MovePlayer();
 	public:
-		Player();
+		Player(SDL_Point pos);
 		~Player() {Destroy();};
 		void Update();
 		void Destroy();

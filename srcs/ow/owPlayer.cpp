@@ -40,9 +40,8 @@ static int GetMoveDirection() // 0 = no key 1 = left, 2 = right, 3 = up, 4 = dow
 	return (4);
 }
 
-Player::Player()
+Player::Player(SDL_Point pos)
 {
-	SDL_Point pos = GetBGPosition();
 	current = {pos.x, pos.y};
 	last = current;
 	sprite = new Sprite(owState.textures.mule, {DIMENTIONS * pos.x, DIMENTIONS * pos.y, DIMENTIONS, DIMENTIONS}, NULL, NULL, 0, FLIP_NONE);
@@ -86,6 +85,8 @@ void Player::MovePlayer()
 		if (mover != NULL)
 			delete mover;
 		mover = new OwSpriteMover(sprite, {sprite->dest.x, sprite->dest.y}, endPos, moveDelayer + 2);
+		OwCameraHandler *handler = GetReferenceToCamHandler();
+		handler->SetBaseMove({sprite->dest.x + 1600, sprite->dest.y + 1600}, {endPos.x + 1600, endPos.y + 1600}, moveDelayer);
 	}
 }
 

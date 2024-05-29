@@ -3,13 +3,6 @@
 #include "../../../hdr/ow/owKeys.h"
 #include "../../../hdr/ow/tiles/tileDataHolder.h"
 
-TileDataHolder *holder = NULL;
-
-void SetTheHolder(TileDataHolder *hold)
-{
-	holder = hold;
-}
-
 int	ow_figure_the_delay(clock_t start, clock_t end)
 {
 	double	time;
@@ -25,7 +18,11 @@ int	ow_figure_the_delay(clock_t start, clock_t end)
 
 void InitOwLoop()
 {
+	gameCamera.screen.unit = 1.0f / 100000.0f;
+	gameCamera.screen.xPixelUnit = (1.0f / gameCamera.screen.unit) / gameCamera.screen.width;
+	gameCamera.screen.yPixelUnit = (1.0f / gameCamera.screen.unit) / gameCamera.screen.height;
 	owState.renderer->CreateLayer(LAYER_ORDER_SORT); //Tile Layer
+	InitOwUpdates();
 }
 
 void OwPrintStat()
@@ -33,23 +30,6 @@ void OwPrintStat()
 	static int i = 0;
 	printf("%d\n", i);
 	i++;
-}
-
-bool SetBGPosition(int x, int y, int time)
-{
-	if (holder == NULL)
-		return (false);
-	bool ret = holder->SetPosition({x, y}, time);
-	return (ret);
-}
-
-SDL_Point GetBGPosition()
-{
-	SDL_Point pos = {0, 0};
-	if (holder == NULL)
-		return (pos);
-	pos = holder->GetPosition();
-	return (pos);
 }
 
 void OwManageMouseClick(t_Keys &keys)

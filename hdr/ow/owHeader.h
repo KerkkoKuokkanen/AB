@@ -7,6 +7,7 @@
 # include "../tools/keys.h"
 # include "../render/camera.h"
 # include "tiles/tileDataHolder.h"
+# include "../tools/owCameraHandler.h"
 
 # define TILE_LAYER 0
 
@@ -48,5 +49,10 @@ SDL_Texture	*GetCorrespondingTileText(int type);
 bool SetBGPosition(int x, int y, int time);
 void SetTheHolder(TileDataHolder *hold);
 SDL_Point GetBGPosition();
+void OwUpdates();
+void InitOwUpdates();
+void ClearOwUpdates();
+OwCameraHandler *GetReferenceToCamHandler();
+TileDataHolder *GetReferenceToTileDataHolder();
 
 #endif
